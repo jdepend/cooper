@@ -1,0 +1,45 @@
+package jdepend.ui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+
+import jdepend.framework.exception.JDependException;
+import jdepend.ui.command.GroupPanel;
+import jdepend.ui.culture.CulturePanel;
+
+public class LeftPanel extends JPanel {
+
+	private JSplitPane splitPane;
+
+	private GroupPanel groupPanel;
+
+	private CulturePanel culturePanel;
+
+	public LeftPanel(JDependCooper parent) throws JDependException {
+
+		this.setLayout(new BorderLayout());
+
+		groupPanel = new GroupPanel(parent);
+
+		culturePanel = new CulturePanel(parent);
+
+		splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, groupPanel, culturePanel);
+
+		add(splitPane);
+	}
+
+	public void setDividerLocation(int location) {
+		this.splitPane.setDividerLocation(location);
+	}
+
+	public GroupPanel getGroupPanel() {
+		return groupPanel;
+	}
+
+	public CulturePanel getCulturePanel() {
+		return culturePanel;
+	}
+
+}

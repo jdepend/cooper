@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="cooper-webserver"
+  id="myeclipse.1323260479656"
+  context-root="/cooper-webserver"
+  j2ee-spec="6.0"
+  archive="cooper-webserver.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+
