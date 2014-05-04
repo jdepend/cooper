@@ -1,0 +1,137 @@
+options {
+  LOOKAHEAD = 1;
+  CHOICE_AMBIGUITY_CHECK = 2;
+  OTHER_AMBIGUITY_CHECK = 1;
+  STATIC = false;
+  DEBUG_PARSER = false;
+  DEBUG_LOOKAHEAD = false;
+  DEBUG_TOKEN_MANAGER = false;
+  ERROR_REPORTING = true;
+  JAVA_UNICODE_ESCAPE = false;
+  UNICODE_INPUT = false;
+  IGNORE_CASE = false;
+  USER_TOKEN_MANAGER = false;
+  USER_CHAR_STREAM = false;
+  BUILD_PARSER = true;
+  BUILD_TOKEN_MANAGER = true;
+  SANITY_CHECK = true;
+  FORCE_LA_CHECK = false;
+}
+
+PARSER_BEGIN(AugmentedGMLParser)
+package org.wilmascope.gmlparser;
+import java.io.*;
+import java.util.Hashtable;
+import java.util.Vector;
+
+public class AugmentedGMLParser {
+}
+
+PARSER_END(AugmentedGMLParser)
+
+// Lexical definitions
+TOKEN_MGR_DECLS: { static int nestingLevel = 0; }
+   
+<DEFAULT> SKIP :
+{
+  " " | "\t" | "\n" | "\r" | "\\"
+|"Line" : IN_IGNORABLE
+|"LabelGraphics" : IN_IGNORABLE
+|"Graphics" : IN_IGNORABLE
+|"graphics" : IN_IGNORABLE
+|"node_style" : IN_IGNORABLE
+|"edge_style" : IN_IGNORABLE
+|"style" : IN_IGNORABLE
+|"edgeAnchor" : IN_IGNORABLE
+}
+
+<IN_IGNORABLE> SKIP:
+{
+  "[" { nestingLevel++; }
+| "]" { if (--nestingLevel == 0 ) SwitchTo(DEFAULT); }
+}
+
+<IN_IGNORABLE> MORE:
+{
+  <~[]>
+}
+
+TOKEN:
+{
+  < GRAPH: "graph" >
+| < VERSION: "version" >
+| < DIRECTED: "directed" >
+| < NAME: "name" >
+| < NODE: "node" >
+| < EDGE: "edge" >
+| < ID: "id" >
+| < LABEL: "label" >
+| < SOURCE: "source" >
+| < TARGET: "target" >
+| < SERIES: "series" >
+| < ITEM: "item" >
+| < VALUE: "value" >
+| < NUM: ( ["0"-"9"] )+ >
+| < DEC: "." <NUM> | <NUM> ( "." <NUM> )?  >
+| < CTLSTRING: "\""(~["\""])*"\""> {matchedToken.image = matchedToken.image.substring(1, lengthOfMatch - 1); } 
+} 
+
+// end lexical definitions, parser start
+void graph(AugmentedGraphClient g) : {}
+{
+  <GRAPH> "[" stmtList(g) "]"
+  <EOF> 
+}
+
+void stmtList(AugmentedGraphClient g) : {String s;}
+{
+  {
+    System.out.println("Parsing the GML graph...");
+  }
+  ( <SERIES> "[" series(g) "]" )?
+  ( stmt(g) )*
+}
+
+void series(AugmentedGraphClient g) : {
+  Token t;
+  Vector keys = new Vector();
+} {
+  ( t=<CTLSTRING> { keys.add(t.image); } )*
+  { g.setSeriesKeys(keys); }
+}
+
+void stmt(AugmentedGraphClient g) : {
+  NodeClient n;
+  Token t1, t2, t3, t4;
+  Hashtable series;
+} {
+  <VERSION> <NUM>
+| <DIRECTED> <NUM>
+| <NODE> "[" { t1=t2=t3=t4=null; series=null; }
+    ( <ID> t1=<NUM> 
+      (<LABEL> t2=<CTLSTRING> )?
+      (<SERIES> "[" { series=new Hashtable(); }
+        ( <ITEM> t3=<CTLSTRING> <VALUE> t4=<NUM> { series.put(t3.image,t4.image); } )*
+        "]"
+      )?
+    ) { String label=null;
+        if(t2!=null) label=t2.image;
+        if(series==null) {
+          g.addNode(t1.image, label);
+        } else {
+          g.addNode(t1.image, label, series);
+        }
+      }
+  "]"
+| <EDGE> "[" { t1=t2=t3=null; }
+    <SOURCE> t1=<NUM> <TARGET> t2=<NUM> ( <LABEL> t3=<CTLSTRING> )?
+    { if(t3==null) {
+        g.addEdge(t1.image, t2.image);
+      } else {
+        g.addEdge(t1.image,t2.image,t3.image); 
+      } 
+    }
+  "]"
+  
+}
+
