@@ -1,0 +1,19 @@
+/*C3*/SET SCHEMA PUBLIC
+\u000adrop table analysissummry
+CREATE TABLE analysissummry(id varchar(36) PRIMARY KEY, client varchar(20), username varchar(32), groupname varchar(32),  \u000acommandname varchar(64), LC integer, CN integer, CC integer, AC integer, Ca integer, Ce integer, A float, I float, D float, \u000aCoupling float, Cohesion float,Balance float, OO float, UC int, createdate timestamp default now())
+drop table analysisdata
+CREATE TABLE analysisdata(id varchar(36) PRIMARY KEY, result blob)
+drop table analyzer
+CREATE TABLE analyzer(classname varchar(256) PRIMARY KEY, name varchar(256),  tip varchar(256), bigtip varchar(1024), type \u000avarchar(32), defaultdata blob, def blob, username varchar(256), createdate timestamp, uploaddate timestamp default now())
+drop table useraction
+CREATE TABLE useraction(id varchar(36) PRIMARY KEY, username varchar(32),  operation varchar(64), ip varchar(32), createdate \u000atimestamp, gartherdate timestamp default now())
+drop table scorelist
+CREATE TABLE scorelist(id varchar(36) PRIMARY KEY, ip varchar(32), username varchar(32), groupname varchar(32),  commandname \u000avarchar(64), LC integer,Score Float, D float, Balance float, Relation float, createdate timestamp, uploaddate timestamp \u000adefault now())
+drop table user
+CREATE TABLE user(name varchar(36) PRIMARY KEY, password varchar(32), dept varchar(32), integral int, valid char(1))
+INSERT INTO USER VALUES('admin',NULL,NULL,NULL,'Y')
+COMMIT
+INSERT INTO USER VALUES('AnonymousUser',NULL,NULL,0,'Y')
+COMMIT
+INSERT INTO USER VALUES('test','test',NULL,1000,'Y')
+COMMIT

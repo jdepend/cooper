@@ -1,0 +1,72 @@
+
+<!-- saved from url=(0040)http://www.uml.org.cn/mxdx/200912233.asp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<title>包的设计原则</title>
+</head>
+  
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="95%" border="0" align="center" cellpadding="3" cellspacing="1">
+                    <tbody><tr> 
+                      <td valign="top" bgcolor="#FFFFFF" class="content">
+                        <h3>稳定依赖原则</h3>
+                        <p>The dependencies between packages in a design should 
+                          be in the direction of the stability of the packages. 
+                          A package should only depend upon packages that are 
+                          more stable that it is.</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;一个设计中的包之间的依赖应该朝着稳定的方向进行。一个包只应该依赖那些比自己更稳定的包。 </p>
+                        <p><strong>前言</strong></p>
+                        <p>本文介绍The Stable Dependencies Principle (SDP)：稳定依赖原则，或称安定依赖原则。</p>
+                        <p><strong>概要</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;The dependencies between packages in a design should 
+                          be in the direction of the stability of the packages. 
+                          A package should only depend upon packages that are 
+                          more stable that it is.</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;一个设计中的包之间的依赖应该朝着稳定的方向进行。一个包只应该依赖那些比自己更稳定的包。</p>
+                        <p>换成另一个说法是：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Depend in the direction of stability.</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;朝着稳定的方向进行依赖。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>包的依赖</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;如果一个包A 中的类引用了包B中的类，我们称包A依赖包B。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;“依赖”在具体的程序语言中表现为，如果A依赖B，C/C++语言则在A包的文件/类中通过#include语句包含B包中的文件/类；Java语言则A包的类中通过import语句引入B包中的类。</p>
+                        <p><img src="./包的设计原则_files/ShowImagejjh.gif"></p>
+                        <p>图1（包A依赖包B）</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;虚线表示一种依赖关系，箭头表示依赖的方向，箭头所在的一侧就是被依赖的包。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>包的稳定依赖原则</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;包应该依赖比自己更稳定的包。因为如果依赖一个不稳定的包，那么当这个不稳定的包发生变化时，本身稳定的包也不得不发生变化，变得不稳定了。</p>
+                        <p>所谓稳定，在现实生活中是指一个物体具有稳固不变的属性使它很难发生变化。应用到软件概念上，我们认为一个软件是稳定的，是因为这个软件很难发生改变，或更确切地说，是不需要发生改变。一个设计良好，能应对各种变化不需要修改的软件当然是稳定的了，但事实上，往往一个软件常常需要对应某个事先没有预测到的用户需求而不得不发生改变，当这种改变发生时，能把修改控制在最小的范围之内，并能稳定的工作（包括软件本身以及依赖它的其它软件实体等），我们也会认为该软件是相对稳定的。</p>
+                        <p>怎么样让一个软件足够稳定呢？一个确切的方法是，让大量其它软件的包依赖它。一个包被很多其他包依赖是非常稳定的，这是因为被依赖的包为了协调其他包必须做很多的工作来对应各种变化（责任的负担者）。</p>
+                        <p><img src="./包的设计原则_files/ShowImagekk.gif"></p>
+                        <p>图1：稳定的包X</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;我们认为X是稳定的，因为：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- X被很多其他包依赖。相当于责任担当着。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- X没有依赖别的包，它是独立的。</p>
+                        <p>相反，下面列出了一个非常不稳定的包Y，如图：</p>
+                        <p><img src="./包的设计原则_files/ShowImagello.gif"></p>
+                        <p>图2：不稳定的包Y</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;我们认为Y是不稳定的，因为：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- Y没有被其他的包所依赖。不是责任的担当着。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- Y依赖很多别的包。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>包的稳定性的判断原则</strong></p>
+                        <p>可以通过下面的方法来判断一个包的稳定系数：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Ca：Afferent Coupling。向心耦合。依赖该包（包含的类）的外部包（类）的数目（i.e. 
+                          incoming dependencies）。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Ce： Efferent Coupling。离心耦合。被该包依赖的外部包的数目（i.e. outgoing 
+                          dependencies）。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;I： Instability。不稳定性。I=Ce/(Ce+Ca)。它的值处于[0，1]之间。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;如图1，X的Ce=0，所以不稳定性I=0，它是稳定的。相反，如图2，Y的Ce=3，Ca=0，所以它的不稳定性I=1，它是不稳定的。</p>
+                        <p>SDP要求一个包的不稳定性I要大于它所依赖的包的不稳定性。“Depend upon packages 
+                          whose I metric is lower than yours.”</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;换句话说，沿着依赖的方向，包的不稳定性应该逐渐降低，稳定性应该逐渐升高。</p>
+                        <p><img src="./包的设计原则_files/ShowImageghf.gif"></p>
+                        <p><strong>小结</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;稳定依赖原则（SDP）为我们解决包之间的关系耦合问题。在设计包结构时，包应该只依赖比自己更稳定的包。</p>
+                        <p><strong>参考资料</strong></p>
+                        <p><a href="http://www.objectmentor.com/resources/articles/granularity.pdf" target="blank" class="content_a">Granularity</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf" target="blank" class="content_a"> 
+                          Principles and Patterns</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。</p>
+                        </td></tr>
+                    </tbody></table>
+</body></html>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<exe4j version="4.4.1" transformSequenceNumber="1">
+  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib" />
+  <application name="Server" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper/build/server/ui">
+    <languages>
+      <principalLanguage id="en" customLocalizationFile="" />
+    </languages>
+  </application>
+  <executable name="Server" type="2" iconSet="false" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" amd64="false">
+    <messageSet />
+    <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
+  </executable>
+  <splashScreen show="false" autoOff="true" alwaysOnTop="true" width="0" height="0" bitmapFile="" java6SplashScreen="false">
+    <text>
+      <statusLine x="20" y="20" text="" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+      <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+    </text>
+  </splashScreen>
+  <java mainClass="jdepend.server.ui.JDependServer" vmParameters="-Xms256M -Xmx1024M" arguments="-startService true" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true" minVersion="1.4" maxVersion="1.6" allowBetaVM="false" jdkOnly="false">
+    <searchSequence>
+      <registry />
+      <envVar name="JAVA_HOME" />
+      <envVar name="JDK_HOME" />
+    </searchSequence>
+    <classPath>
+      <archive location="../../../cooper-manager/target/cooper-manager-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-service-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/bcel-5.2.jar" failOnError="false" />
+      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
+    </classPath>
+    <nativeLibraryDirectories />
+  </java>
+  <includedFiles />
+  <unextractableFiles />
+</exe4j>
+

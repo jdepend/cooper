@@ -1,0 +1,55 @@
+
+<!-- saved from url=(0040)http://www.uml.org.cn/mxdx/200912233.asp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<title>包的设计原则</title>
+</head>
+  
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="95%" border="0" align="center" cellpadding="3" cellspacing="1">
+                    <tbody><tr> 
+                      <td valign="top" bgcolor="#FFFFFF" class="content"><h3>重用发布等价原则</h3>
+                        <p><strong>前言</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;本文介绍The Release Reuse Equivalency Principle (REP)：重用发布等价原则。</p>
+                        <p><strong>概要</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;The granule of reuse is the granule of release.</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;重用粒度等价于发布粒度。</p>
+                        <p><strong>重用的概念</strong></p>
+                        <p>重用主要是从用户的观点来看的。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;对用户来说，使用某个发布单位（组件，类，类群等），如果作者因为某种原因对其作了修改而发布了一个新的版本，用户会期望在升级为新版本之后，不会影响到原系统的正常运作。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;也就是说，对于一个可重用（能供其它用户或系统使用）的元素（组件，类，类群等），作者应该承诺新版本能够兼容旧版本。否则，用户将拒绝使用该元素。</p>
+                        <p>Robert C. Martin氏给出的对重用的定义：</p>
+                        <p>I prefer to define reuse as follows. I reuse code if, 
+                          and only if, I never need to look at the source code 
+                          (other than the public portions of header files). I 
+                          need only link with static libraries or include dynamic 
+                          libraries. Whenever these libraries are fixed or enhanced, 
+                          I receive a new version which I can then integrate into 
+                          my system when opportunity allows.</p>
+                        <p>代码可以看作为可重用的代码，当且仅当：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- 它的使用者（下称用户）无需看它的源代码</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- 用户只需联结静态库或包含动态库</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- 当库发生改变（错误纠正，功能增强）时，用户只需要得到一个新的版本便能集成到原有的系统</p>
+                        <p>怎么做到重用呢？</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;一个组件要做到能够重用，它必须有一个得到良好设计的结构，它所包含所有元素必须也是可以重用的。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;因为如果一个为重用而设计的发布单位里，包含了不可重用的元素，当不可重用的元素发生改变时，用户也不得不改变原有系统以适应新的版本。这显然违反了重用的定义规则。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;也就是说，一个为重用目的而设计的发布单位里，不能包含不可重用的元素；如果包含了不可重用的元素，它将变得不可重用。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>发布单位</strong></p>
+                        <p>当用户使用的重用组件被作者修改后，用户希望得到通知，然后决定是否升级或升级的时机。为了能使升级后的系统也能正常运作，用户也希望作者有一个规范的发布，包括版本号，类库的说明等等。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;一旦用户决定升级新版本，不管这些修改是否影响到用户，用户也不得不包含新版本所包含的所有类库。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;REP规定重用粒度不能小于发布粒度，所有重用元素也必须被一起发布。</p>
+                        <p>发布粒度可以为包（组件），或类等实体，但一个应用往往包含了很多类，所以，具有更大的尺度的包（组件）更加适合作为发布粒度。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;重用发布等价原则为我们指明了包的设计方针：</p>
+                        <p>一个包中的元素（类）要么都可重用，要么都不可重用。</p>
+                        <p><strong>小结</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;重用发布等价原则（REP）从用户观点的角度上为我们规范了包设计的原则：在设计包时，包中应该包含的元素要么都可以重用，要么都不可以重用。</p>
+                        <p><strong>参考资料</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.objectmentor.com/resources/articles/granularity.pdf" target="blank" class="content_a"> 
+                          Granularity</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf" target="blank" class="content_a"> 
+                          Principles and Patterns</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。</p>
+                      </td></tr>
+                    </tbody></table>
+</body></html>
