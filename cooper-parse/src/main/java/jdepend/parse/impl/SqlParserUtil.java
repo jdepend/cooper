@@ -1,0 +1,290 @@
+package jdepend.parse.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import jdepend.model.TableInfo;
+
+public class SqlParserUtil {
+
+	private static final String TABLE_VALUE = "([^()]+)";
+
+	public static boolean isSQL(String arg) {
+		if (arg == null) {
+			return false;
+		} else {
+			arg = arg.toLowerCase();
+			return arg.indexOf("select ") != -1 || arg.indexOf("insert ") != -1 || arg.indexOf("update ") != -1
+					|| arg.indexOf("delete ") != -1;
+
+		}
+	}
+
+	public static List<TableInfo> parserSql(String sql) {
+		List<TableInfo> tables = new ArrayList<TableInfo>();
+
+		String[] tableInfo = null;
+		try {
+			List TableInfos = parserSelectSql(sql);
+			if (TableInfos.size() != 0) {
+				for (int i = 0; i < TableInfos.size(); i++) {
+					tableInfo = (String[]) TableInfos.get(i);
+					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+						tables.add(new TableInfo(tableInfo[0], TableInfo.Read));
+					}
+				}
+				return tables;
+			}
+
+			TableInfos = parserInsertSql(sql);
+			if (TableInfos.size() != 0) {
+				for (int i = 0; i < TableInfos.size(); i++) {
+					tableInfo = (String[]) TableInfos.get(i);
+					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+						tables.add(new TableInfo(tableInfo[0], TableInfo.Create));
+					}
+				}
+				return tables;
+			}
+
+			TableInfos = parserUpdateSql(sql);
+			if (TableInfos.size() != 0) {
+				for (int i = 0; i < TableInfos.size(); i++) {
+					tableInfo = (String[]) TableInfos.get(i);
+					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+						tables.add(new TableInfo(tableInfo[0], TableInfo.Update));
+					}
+				}
+				return tables;
+			}
+
+			TableInfos = parserDeleteSql(sql);
+			if (TableInfos.size() != 0) {
+				for (int i = 0; i < TableInfos.size(); i++) {
+					tableInfo = (String[]) TableInfos.get(i);
+					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+						tables.add(new TableInfo(tableInfo[0], TableInfo.Delete));
+					}
+				}
+				return tables;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tables;
+	}
+
+	private static List parserSelectSql(String sql) {
+		List result = new ArrayList();
+//		String metaRxp = "(?i)select ([^&]+) (?i)from " + TABLE_VALUE;
+		String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
+		Pattern pattern = null;
+		Matcher matcher = null;
+		pattern = Pattern.compile(metaRxp);
+		matcher = pattern.matcher(sql);
+		while (matcher.find()) {
+			String result1 = matcher.group();
+			result1 = parserTable(result1, metaRxp);
+			// 处理是否有where的情况
+			String regx = TABLE_VALUE + " (?i)where ([^;]+)";
+			Pattern pattern1 = Pattern.compile(regx);
+			Matcher matcher1 = pattern1.matcher(result1);
+			if (matcher1.find()) {
+				String result2 = matcher1.group();
+				String tableName = parserTable(result2, regx);
+				result.addAll(getTableResult(tableName));
+			} else {
+				// 这里有两种情况。一种是标准的另一种是join的
+				String regx2 = TABLE_VALUE + " (?i)join " + "([^;]+)";
+				Pattern pattern2 = Pattern.compile(regx2);
+				Matcher matcher2 = pattern2.matcher(result1);
+				if (matcher2.find()) {
+					String result3 = matcher2.group();
+					String table1 = parserTable(result3, regx2);
+					String table2 = result3.substring(result3.toLowerCase().indexOf("join") + "join".length(), result3
+							.toLowerCase().indexOf("on"));
+					result.addAll(getTableResult(table1));
+					result.addAll(getTableResult(table2));
+				} else {
+					result.addAll(getTableResult(result1));
+				}
+			}
+		}
+		return result;
+	}
+
+	private static List parserInsertSql(String sql) {
+		List result = new ArrayList();
+		String metaRxp = "(?i)insert([\\s]+)into([\\s]+)" + TABLE_VALUE + "(([\\s]+)values|\\(+)";
+		Pattern pattern = null;
+		Matcher matcher = null;
+		pattern = Pattern.compile(metaRxp);
+		matcher = pattern.matcher(sql);
+		while (matcher.find()) {
+			String result1 = matcher.group();
+			result1 = parserTable(result1, metaRxp);
+			result.addAll(getTableResult(result1));
+		}
+		return result;
+	}
+
+	private static List parserDeleteSql(String sql) {
+		List result = new ArrayList();
+		String metaRxp = "(?i)delete([\\s]+)from([\\s]+)" + TABLE_VALUE;
+		Pattern pattern = null;
+		Matcher matcher = null;
+		pattern = Pattern.compile(metaRxp);
+		matcher = pattern.matcher(sql);
+		while (matcher.find()) {
+			String result1 = matcher.group();
+			result1 = parserTable(result1, metaRxp);
+			result.addAll(getTableResult(result1));
+		}
+		return result;
+	}
+
+	private static List parserUpdateSql(String sql) {
+		List result = new ArrayList();
+		String metaRxp = "(?i)update([\\s]+)" + TABLE_VALUE + "([\\s]+)set";
+		Pattern pattern = null;
+		Matcher matcher = null;
+		pattern = Pattern.compile(metaRxp);
+		matcher = pattern.matcher(sql);
+		while (matcher.find()) {
+			String result1 = matcher.group();
+			result1 = parserTable(result1, metaRxp);
+			result.addAll(getTableResult(result1));
+		}
+		return result;
+	}
+
+	/**
+	 * 将解析出来的table的表名和别名分别存储
+	 * 
+	 * @param table
+	 * @return
+	 */
+	private static List getTableResult(String table) {
+		List result = new ArrayList();
+		String[] tempTable = table.split(",");
+		for (int i = 0; i < tempTable.length; i++) {
+			table = tempTable[i].trim();
+			String tableResult[] = new String[2];
+			String regx = "([a-zA-Z0-9_]+)([\\s]+)([a-zA-Z0-9_]+)";
+			Pattern pattern1 = Pattern.compile(regx);
+			Matcher matcher1 = pattern1.matcher(table);
+			if (matcher1.find()) {
+				String[] temp = table.split("([\\s]+)");
+				if (temp.length >= 2) {
+					tableResult[0] = temp[0];
+					tableResult[1] = temp[1];
+				}
+			} else {
+				tableResult[0] = table;
+			}
+			result.add(tableResult);
+		}
+		return result;
+	}
+
+	/**
+	 * 通过传入符合规则的sql语句去得到当前sql的table
+	 * 
+	 * @param sql
+	 * @param metaRxp
+	 * @return
+	 */
+	private static String parserTable(String sql, String metaRxp) {
+		if (null == metaRxp || metaRxp.length() < 2) {
+			return "";
+		}
+		int i = metaRxp.indexOf(TABLE_VALUE);
+		if (i != -1) {
+			String str1 = metaRxp.substring(0, i);
+			String str2 = metaRxp.substring(i + TABLE_VALUE.length());
+			String regex = str1 + TABLE_VALUE + str2;
+			Pattern pattern = null;
+			Matcher matcher = null;
+			pattern = Pattern.compile(regex);
+			matcher = pattern.matcher(sql);
+			while (matcher.find()) {
+				String functionMethod = matcher.group();
+				if (functionMethod != null) {
+					functionMethod = functionMethod.replaceAll(str1, "");
+					functionMethod = functionMethod.replaceAll(str2, "");
+					return functionMethod;
+				}
+			}
+		}
+		return null;
+	}
+
+//	public static void main(String[] args) {
+//		String sql = "select * from  tableA aa , tableD dd where * from (select * from tableB  where * from (select * from tableC))";
+//		SqlParserUtil engine = new SqlParserUtil();
+//		List tempList = engine.parserSelectSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "select tip, m, dd from analyzer";
+//		tempList = engine.parserSelectSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "select classname, name, tip, bigtip, type, username, createdate from analyzer";
+//		tempList = engine.parserSelectSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "insert  into analysisdata  values(?, ?)";
+//		tempList = engine.parserInsertSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "insert into analyzer(classname, name, tip, bigtip, type, defaultdata, def, username, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, now())";
+//		tempList = engine.parserInsertSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "delete  from analysisdata where id = ?";
+//		tempList = engine.parserDeleteSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//
+//		sql = "select m.* from share_share as m left join share_heat as mh on m.id=mh.id where m.deleted_flag = 0 order by mh.heat desc,m.last_modified_time desc limit :record_count offset :start_index";
+//		engine = new SqlParserUtil();
+//		tempList = engine.parserSelectSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+//	}
+}
