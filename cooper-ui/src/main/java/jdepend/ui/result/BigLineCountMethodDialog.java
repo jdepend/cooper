@@ -21,7 +21,7 @@ public final class BigLineCountMethodDialog extends CooperDialog {
 			tableData.setData("代码行数", bigLineCountMethod.getSelfLineCount());
 			tableData.setData("所属组件", bigLineCountMethod.getJavaClass().getComponent().getName());
 		}
-		tableData.setSortName("代码行数");
+		tableData.setSortColName("代码行数");
 
 		this.add(new JScrollPane(new CooperTable(tableData)));
 	}

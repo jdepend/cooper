@@ -112,11 +112,16 @@ public class CooperTable extends JTable {
 		int sortColumnIndex = -1;
 		for (String columnName : data.getColumnNames()) {
 			model.addColumn(columnName);
-			if (data.getSortName() != null
-					&& data.getSortName().equals(columnName)) {
+			if (data.getSortColName() != null
+					&& data.getSortColName().equals(columnName)) {
 				sortColumnIndex = columnIndex;
 			}
 			columnIndex++;
+		}
+
+		if (data.getMinColName() != null) {
+			this.getColumn(data.getMinColName()).setMaxWidth(0);
+			this.getColumn(data.getMinColName()).setMinWidth(0);
 		}
 
 		this.refresh(data);

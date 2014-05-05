@@ -21,7 +21,7 @@ public final class BigArgumentMethodDialog extends CooperDialog {
 			tableData.setData("参数个数", bigArgumentMethod.getArgumentCount());
 			tableData.setData("所属组件", bigArgumentMethod.getJavaClass().getComponent().getName());
 		}
-		tableData.setSortName("参数个数");
+		tableData.setSortColName("参数个数");
 
 		this.add(new JScrollPane(new CooperTable(tableData)));
 	}

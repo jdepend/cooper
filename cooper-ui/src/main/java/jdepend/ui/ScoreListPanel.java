@@ -96,9 +96,11 @@ public class ScoreListPanel extends JPanel {
 					BundleUtil.getString(BundleUtil.TableHead_CreateTime),
 					scoreInfo.getCreateDate());
 		}
-		tableData.setSortName(BundleUtil
+		tableData.setSortColName(BundleUtil
 				.getString(BundleUtil.Metrics_TotalScore));
 		tableData.setSortOperation(TableData.DESC);
+
+		tableData.setMinColName("ID");
 
 		return tableData;
 

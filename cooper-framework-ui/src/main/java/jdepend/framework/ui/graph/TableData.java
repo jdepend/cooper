@@ -13,12 +13,14 @@ public class TableData implements Serializable {
 
 	private List<TableCallBack> callBacks = new ArrayList<TableCallBack>();
 
-	private String sortName;
+	private String sortColName;
 
 	private int sortOperation = DESC;
 
 	public static int DESC = -1;
 	public static int ASC = 1;
+
+	private String minColName;
 
 	public void setData(String column, Object value) {
 		ArrayList<Object> columnData = datas.get(column);
@@ -37,7 +39,9 @@ public class TableData implements Serializable {
 		if (this.getColumnNames().size() == 0) {
 			return 0;
 		} else {
-			return this.getColumnValues((String) (new ArrayList<String>(this.getColumnNames())).get(0)).size();
+			return this.getColumnValues(
+					(String) (new ArrayList<String>(this.getColumnNames()))
+							.get(0)).size();
 		}
 	}
 
@@ -63,12 +67,12 @@ public class TableData implements Serializable {
 		}
 	}
 
-	public String getSortName() {
-		return sortName;
+	public String getSortColName() {
+		return sortColName;
 	}
 
-	public void setSortName(String sortName) {
-		this.sortName = sortName;
+	public void setSortColName(String sortName) {
+		this.sortColName = sortName;
 	}
 
 	public int getSortOperation() {
@@ -78,4 +82,13 @@ public class TableData implements Serializable {
 	public void setSortOperation(int sortOperation) {
 		this.sortOperation = sortOperation;
 	}
+
+	public String getMinColName() {
+		return minColName;
+	}
+
+	public void setMinColName(String minColName) {
+		this.minColName = minColName;
+	}
+
 }
