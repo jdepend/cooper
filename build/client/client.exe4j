@@ -25,7 +25,7 @@
     </searchSequence>
     <classPath>
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-ext-prefuse-0.0.1-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
@@ -37,7 +37,6 @@
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/jakarta-regexp-1.4.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/JMeld-2.1_all.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/lucene-core-1.9.1.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-ui/target/cooper-ui-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
