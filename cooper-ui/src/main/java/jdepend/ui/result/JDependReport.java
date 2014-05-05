@@ -40,7 +40,6 @@ import jdepend.report.ReportCreator;
 import jdepend.report.history.ReportHistory;
 import jdepend.report.ui.XMLJDependUtil;
 import jdepend.report.util.ReportConstant;
-import jdepend.report.way.dddui.DDDJDepend;
 import jdepend.report.way.mapui.GraphPrinter;
 import jdepend.report.way.textui.JDependPrinter;
 import jdepend.ui.JDependCooper;
@@ -156,10 +155,6 @@ public class JDependReport extends ReportCreator {
 			groupComponents = new LinkedHashMap<String, JComponent>();
 			groupComponents.put("Graph2D",
 					this.createGraph(result.getRelations()));
-			if (print3DRelation) {
-				groupComponents.put("Graph3D",
-						this.createRelation3D(result.getRelations()));
-			}
 			groupComponents.put("Table", new RelationPanel());
 			if (printRelationText) {
 				groupComponents.put("Text",
@@ -318,23 +313,6 @@ public class JDependReport extends ReportCreator {
 				protected void init(AnalysisResult result) {
 					this.add(GraphPrinter.getIntance().print(
 							result.getRelations(), result.getJavaPackageTree()));
-				}
-			};
-		} else {
-			TextViewer result = new TextViewer();
-			result.setText("关系数量为[" + relations.size() + "]，不予生成！");
-			return result;
-		}
-	}
-
-	private JComponent createRelation3D(final Collection<Relation> relations) {
-		int maxRelations = UIPropertyConfigurator.getInstance()
-				.getMaxRelations();
-		if (maxRelations == -1 || relations.size() < maxRelations) {
-			return new SubResultTabPanel() {
-				@Override
-				protected void init(AnalysisResult result) {
-					this.add(new DDDJDepend(relations));
 				}
 			};
 		} else {

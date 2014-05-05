@@ -28,12 +28,10 @@
     	<scope>compile</scope>
     </dependency>
     <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-ext-prefuse</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
+		<groupId>org.prefuse</groupId>
+		<artifactId>prefuse</artifactId>
+		<version>beta-20071021</version>
+	</dependency>
     <dependency>
     	<groupId>velocity</groupId>
     	<artifactId>velocity</artifactId>
@@ -54,13 +52,6 @@
 		<version>2.1</version>
 		<scope>system</scope>
 		<systemPath>${basedir}/lib/JMeld-2.1_all.jar</systemPath>
-	</dependency>
-	<dependency>
-		<groupId>cooper</groupId>
-		<artifactId>cooper-ext-wilmascope</artifactId>
-		<version>0.0.1-RELEASE</version>
-		<type>jar</type>
-		<scope>compile</scope>
 	</dependency>
 	<dependency>
 		<groupId>cooper</groupId>

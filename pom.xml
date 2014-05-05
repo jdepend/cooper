@@ -34,7 +34,7 @@
 		<module>cooper-report</module>
 		<module>cooper-webserver</module>
 		
-		<module>cooper-ext-prefuse</module>
+		
 	    <module>cooper-statistics</module>
 	    <module>cooper-framework-ui</module>
 	    <module>cooper-service-interface</module>

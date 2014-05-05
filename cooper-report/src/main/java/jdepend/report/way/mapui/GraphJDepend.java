@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -227,6 +228,7 @@ public class GraphJDepend extends Display {
 		});
 
 		PrefixSearchTupleSet search = new PrefixSearchTupleSet() {
+			@Override
 			public void index(Tuple t, String field) {
 				String s;
 				if (field == null || t == null || (s = t.getString(field)) == null)
@@ -234,7 +236,17 @@ public class GraphJDepend extends Display {
 				StringTokenizer st = new StringTokenizer(s, "\\.");
 				while (st.hasMoreTokens()) {
 					String tok = st.nextToken();
-					addString(tok + s.substring(s.indexOf(tok) + tok.length()), t);
+					try {
+						Method m = Class.forName(
+								"prefuse.data.search.PrefixSearchTupleSet")
+								.getDeclaredMethod("addString", String.class,
+										Tuple.class);
+						m.setAccessible(true); 
+						m.invoke(this, tok + s.substring(s.indexOf(tok) + tok.length()), t);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
+					
 				}
 			}
 		};
