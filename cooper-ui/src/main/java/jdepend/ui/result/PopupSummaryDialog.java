@@ -28,8 +28,6 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 
-import com.sun.awt.AWTUtilities;
-
 public class PopupSummaryDialog extends JDialog implements ActionListener {
 
 	private JDependCooper frame;
@@ -47,8 +45,6 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 		setSize(850, 80);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 		setUndecorated(true);
-		// 设置透明度
-		AWTUtilities.setWindowOpacity(this, 0.8f);
 
 		getContentPane().setLayout(new BorderLayout());
 
