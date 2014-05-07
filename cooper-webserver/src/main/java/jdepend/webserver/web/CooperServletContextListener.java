@@ -1,4 +1,4 @@
-package jdepend.webserver;
+package jdepend.webserver.web;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

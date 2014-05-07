@@ -4,7 +4,7 @@
   <head>
     <title>分析结果</title>
 	<meta http-equiv="description" content="分析结果">
-	<script type="text/javascript" src="js/sorttable.js"></script>
+	<script type="text/javascript" src="styles/js/sorttable.js"></script>
 	<style type="text/css">
 	body{
 	    font-size:14px;

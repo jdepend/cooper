@@ -1,4 +1,4 @@
-package jdepend.webserver;
+package jdepend.webserver.web;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

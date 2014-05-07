@@ -1,1 +1,0 @@
-jarsigner -verbose -keystore ..\src\main\webapp\beansoft -storepass beansoft -keypass beansoft ..\src\main\webapp\applet.jar ..\src\main\webapp\beansoft
