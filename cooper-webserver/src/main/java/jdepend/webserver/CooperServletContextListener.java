@@ -18,6 +18,9 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		String path = arg0.getServletContext().getRealPath("//");
 		JDependContext.setRunningPath(path);
+		
+		String workspacePath = path + "//WEB-INF";
+		JDependContext.setWorkspacePath(workspacePath);
 
 		String classPath = path + "//WEB-INF//classes";
 		SearchUtil search = new SearchUtil();
