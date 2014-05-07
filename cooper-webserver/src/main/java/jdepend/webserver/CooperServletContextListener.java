@@ -4,6 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import jdepend.framework.context.JDependContext;
+import jdepend.model.util.ClassSearchUtil;
+import jdepend.parse.util.SearchUtil;
 
 public class CooperServletContextListener implements ServletContextListener {
 
@@ -13,11 +15,14 @@ public class CooperServletContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		// JDependContext.setRunningPath(arg0.getServletContext()
-		// .getRealPath("//"));
-		JDependContext
-				.setRunningPath("C:\\Documents and Settings\\wangdg\\Workspaces\\MyEclipse 8.5\\.metadata\\.me_tcat\\webapps\\cooper\\WEB-INF");
 
+		String path = arg0.getServletContext().getRealPath("//");
+		JDependContext.setRunningPath(path);
+
+		String classPath = path + "//WEB-INF//classes";
+		SearchUtil search = new SearchUtil();
+		search.addPath(classPath);
+		ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
 }
