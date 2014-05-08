@@ -10,6 +10,7 @@ import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
+import jdepend.service.AnalyseDataDTO;
 import jdepend.service.local.AnalyseListener;
 
 /**
@@ -26,7 +27,7 @@ public interface JDependServiceProxy {
 	 * @return 分析单元集合
 	 * @throws JDependException
 	 */
-	public abstract AnalysisResult analyze() throws JDependException;
+	AnalysisResult analyze() throws JDependException;
 
 	/**
 	 * 设置组件
@@ -35,14 +36,14 @@ public interface JDependServiceProxy {
 	 * 
 	 * @param component
 	 */
-	public abstract void setComponent(Component component);
+	void setComponent(Component component);
 
 	/**
 	 * 设置log writer
 	 * 
 	 * @param printWriter
 	 */
-	public abstract void setLogWriter(PrintWriter printWriter);
+	void setLogWriter(PrintWriter printWriter);
 
 	/**
 	 * 设置分析目标路径
@@ -50,35 +51,43 @@ public interface JDependServiceProxy {
 	 * @param name
 	 * @throws JDependException
 	 */
-	public abstract void addDirectory(String name) throws JDependException;
+	void addDirectory(String name) throws JDependException;
+	
+	/**
+	 * 设置分析数据
+	 * 
+	 * @param data
+	 * @throws JDependException 
+	 */
+	void setAnalyzeData(AnalyseDataDTO data) throws JDependException;
 
 	/**
 	 * 计算类总数
 	 * 
 	 * @return
 	 */
-	public abstract int countClasses();
+	int countClasses();
 
 	/**
 	 * 增加解析接口
 	 * 
 	 * @param listener
 	 */
-	public abstract void addParseListener(ParseListener listener);
+	void addParseListener(ParseListener listener);
 
 	/**
 	 * 增加构建接口
 	 * 
 	 * @param listener
 	 */
-	public abstract void addBuildListener(BuildListener listener);
+	void addBuildListener(BuildListener listener);
 
 	/**
 	 * 增加分析接口
 	 * 
 	 * @param listener
 	 */
-	public abstract void addAnalyseListener(AnalyseListener listener);
+	void addAnalyseListener(AnalyseListener listener);
 
 	/**
 	 * 注册新的指标
@@ -86,19 +95,19 @@ public interface JDependServiceProxy {
 	 * @param key
 	 * @param metrics
 	 */
-	public abstract void registMetrics(String key, Metrics metrics);
+	void registMetrics(String key, Metrics metrics);
 
 	/**
 	 * 注册新的关系类型
 	 * 
 	 * @param type
 	 */
-	public abstract void registRelationType(JavaClassRelationType type);
+	void registRelationType(JavaClassRelationType type);
 
 	/**
 	 * 设置filteredPackages
 	 * 
 	 * @param filteredPackages
 	 */
-	public abstract void addFilteredPackages(List<String> filteredPackages);
+	void addFilteredPackages(List<String> filteredPackages);
 }

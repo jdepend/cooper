@@ -13,26 +13,6 @@ public final class ParseUtil {
 		return s.replace('/', '.');
 	}
 
-	/**
-	 * 从文件路径中识别类名
-	 * 
-	 * @param fileName
-	 * @return
-	 */
-	public static String parseClassName(String fileName) {
-		return fileName.replace('\\', '.').substring(0, fileName.length() - 6);
-	}
-
-	/**
-	 * 从压缩包中识别类名
-	 * 
-	 * @param jarEntry
-	 * @return
-	 */
-	public static String parseClassName2(String jarEntry) {
-		return jarEntry.replace('/', '.').substring(0, jarEntry.length() - 6);
-	}
-
 	public static String getType(String s) {
 		if (s.startsWith("[")) {
 			if (s.startsWith("[[[D")) {

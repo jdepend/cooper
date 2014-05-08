@@ -4,9 +4,6 @@
 	<excludes>
 		<pattern>*.ajax*</pattern>
 		<pattern>*/ajax/*</pattern>
-		<pattern>*/controller/*</pattern>
-		<pattern>/js/*</pattern>
-		<pattern>*/themes/*</pattern>
 	</excludes>
 			
     <decorator name="master" page="master.jsp">

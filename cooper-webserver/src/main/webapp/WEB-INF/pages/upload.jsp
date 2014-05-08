@@ -1,27 +1,27 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-    	<form name="upform" method="POST" action="upload" enctype="multipart/form-data">
-    	<div style="border: 1px solid black; color: black; background-color: rgb(230,230,230)">
-    	分析的jar路径：<input type=file name=fileforload size=50/><u style="color: gray; font-size: 14">（只能上传一个jar文件）</u><br>
-    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    	组件信息：<input type="text" name="componentInfo" size=50 style="background-color: rgb(240,240,240)"/><u style="color: gray; font-size: 14">(组件名以“;”分开，组件名为所属包的公共前缀)</u>
-    	<div align="center"><input type="button" onclick="analyse()" value=提交 name=提交/></div>
-    	</div>
-    	<br/>
-    	<div style="border: 1px solid blue; color: blue; background-color: rgb(230,230,255)">
-    	<li>一个程序员对代码结构的理解、运用和规划是“不断成长的”</li>
-		<li>它是可以总结、交流的</li>
-		<li>希望Cooper可以在这方面有所贡献</li>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<form>
+				<fieldset>
+					<legend>第一步</legend>
+					<label>分析的jar路径</label>
+					<div style="padding-left: 30px; ">
+						<div class="row">
+							<div class="span2">
+								<input type="text" />
+							</div>
+							<div class="span2">
+								<button class="btn" type="button">选择</button>
+							</div>
+						</div>
+					</div>
+					<span class="help-block">（只能上传一个jar文件）.</span>
+					<button type="submit" class="btn">下一步</button>
+				</fieldset>
+			</form>
 		</div>
-		<br/>
-    	<div style="color: gray">更多内容请关注<a href="http://developer.neusoft.com/modules/newbb/viewforum.php?forum=121">该地址</a>
-    	&nbsp;&nbsp;&nbsp;&nbsp;当前版本：1.2.0_02 <a href="version.html">ReleaseNote</a>&nbsp;&nbsp;&nbsp;&nbsp;有任何疑问请联系作者<a href="mailto:wangdg@neusoft.com">TSD-王德刚</a></div>
-　		</form>
-<script type="text/javascript">
-	function analyse(){
-		document.forms[0].action = "${ctx}/upload?command=analyse";
-		document.forms[0].submit();
-	}
-</script>
-</html>
+	</div>
+</div>
 
 

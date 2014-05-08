@@ -12,6 +12,7 @@ import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
+import jdepend.service.AnalyseDataDTO;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 
@@ -88,5 +89,11 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 	public void addFilteredPackages(List<String> filteredPackages) {
 		service.addFilteredPackages(filteredPackages);
 
+	}
+
+	@Override
+	public void setAnalyzeData(AnalyseDataDTO data) throws JDependException {
+		this.service.addAnalyzeData(data);
+		
 	}
 }

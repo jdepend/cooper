@@ -1,38 +1,37 @@
 package jdepend.framework.util;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 
 import jdepend.framework.exception.JDependException;
 
 /**
- * The <code>TargetFileManager</code> class is responsible for extracting Java class
- * files (<code>.class</code> files) from a collection of registered
+ * The <code>TargetFileManager</code> class is responsible for extracting Java
+ * class files (<code>.class</code> files) from a collection of registered
  * directories.
  * 
  * @author <b>Abner</b>
  * 
  */
 
-public class TargetFileManager {
+public class TargetFileManager extends FileReader {
 
 	public static final String FilePathSplit = ";";
 
 	private List<File> directories;
-
-	private boolean acceptInnerClasses;
 
 	private List<File> targetFiles;
 
@@ -42,18 +41,6 @@ public class TargetFileManager {
 
 	public TargetFileManager() {
 		directories = new ArrayList<File>();
-		acceptInnerClasses = true;
-	}
-
-	/**
-	 * Determines whether inner classes should be collected.
-	 * 
-	 * @param b
-	 *            <code>true</code> to collect inner classes; <code>false</code>
-	 *            otherwise.
-	 */
-	public void acceptInnerClasses(boolean b) {
-		acceptInnerClasses = b;
 	}
 
 	public boolean addDirectory(String name) throws IOException {
@@ -75,8 +62,6 @@ public class TargetFileManager {
 	public List<File> getDirectories() {
 		return directories;
 	}
-
-	
 
 	public List<File> extractClassFiles() {
 		if (targetFiles == null) {
@@ -117,7 +102,8 @@ public class TargetFileManager {
 		return targetFileGroupInfo;
 	}
 
-	public void setTargetFileGroupInfo(Map<String, Collection<String>> targetFileGroupInfo) {
+	public void setTargetFileGroupInfo(
+			Map<String, Collection<String>> targetFileGroupInfo) {
 		this.targetFileGroupInfo = targetFileGroupInfo;
 	}
 
@@ -149,34 +135,23 @@ public class TargetFileManager {
 					}
 				}
 			} else if (FileUtil.acceptCompressFile(file)) {
-				JarFile jarFile = new JarFile(file);
-				String jarName = jarFile.getName().substring(jarFile.getName().lastIndexOf('\\') + 1);
-				targetFileGroupInfo.put(jarName, new ArrayList<String>());
-				Enumeration entries = jarFile.entries();
-				while (entries.hasMoreElements()) {
-					ZipEntry e = (ZipEntry) entries.nextElement();
-					if (this.acceptClassFileName(e.getName()) || this.acceptXMLFileName(e.getName())) {
-						InputStream is = null;
-						try {
-							is = jarFile.getInputStream(e);
-							fileData = StreamUtil.getData(is);
-							if (this.acceptClassFileName(e.getName())) {
-								classFileDatas.add(fileData);
-								targetFileGroupInfo.get(jarName).add(ParseUtil.parseClassName2(e.getName()));
-							} else {
-								xmlFileDatas.add(fileData);
-							}
-						} catch (JDependException ex) {
-							ex.printStackTrace();
-							throw new IOException(ex);
-						} finally {
-							is.close();
-						}
-					}
-				}
-				jarFile.close();
+
+				InputStream in = new FileInputStream(file);
+				JarFileReader reader = new JarFileReader(
+						this.isAcceptInnerClasses());
+				Map<FileType, List<byte[]>> jarFileDatases = reader
+						.readDatas(in);
+				in.close();
+
+				String jarName = file.getName().substring(
+						file.getName().lastIndexOf('\\') + 1);
+				targetFileGroupInfo.put(jarName, reader.getEntryNames());
+
+				classFileDatas.addAll(jarFileDatases.get(FileType.classType));
+				xmlFileDatas.addAll(jarFileDatases.get(FileType.xmlType));
 			} else {
-				throw new IOException("File is not a valid " + ".class, .jar, .war, .dll, or .zip file: "
+				throw new IOException("File is not a valid "
+						+ ".class, .jar, .war, .dll, or .zip file: "
 						+ file.getPath());
 			}
 		}
@@ -194,9 +169,7 @@ public class TargetFileManager {
 			for (File file : files) {
 				if (FileUtil.acceptCompressFile(file)) {
 					try {
-						JarFile jarFile = new JarFile(file);
-						countClasses += this.countClasses(jarFile);
-						jarFile.close();
+						countClasses += this.countClasses(file);
 					} catch (IOException ioe) {
 						System.err.println("\n" + ioe.getMessage());
 					}
@@ -209,23 +182,31 @@ public class TargetFileManager {
 		return this.countClasses;
 	}
 
-	private int countClasses(JarFile jarFile) {
+	private int countClasses(File file) throws IOException {
 		int count = 0;
-		String jarName = jarFile.getName().substring(jarFile.getName().lastIndexOf('\\') + 1);
-		targetFileGroupInfo.put(jarName, new ArrayList<String>());
-		Enumeration entries = jarFile.entries();
-		while (entries.hasMoreElements()) {
-			ZipEntry e = (ZipEntry) entries.nextElement();
-			if (acceptClassFileName(e.getName())) {
+		JarInputStream jarInput = new JarInputStream(new FileInputStream(file));
+		List<String> entryNames = new ArrayList<String>();
+
+		ZipEntry entry = jarInput.getNextJarEntry();
+		while (entry != null) {
+			if (acceptClassFileName(entry.getName())) {
 				count++;
-				targetFileGroupInfo.get(jarName).add(ParseUtil.parseClassName2(e.getName()));
+				entryNames.add(parseClassName2(entry.getName()));
 			}
+			entry = jarInput.getNextJarEntry();
 		}
+		jarInput.close();
+
+		String jarName = file.getName().substring(
+				file.getName().lastIndexOf('\\') + 1);
+		targetFileGroupInfo.put(jarName, entryNames);
+
 		return count;
 	}
-	
+
 	private boolean acceptFile(File file) {
-		return acceptXMLFile(file) || acceptClassFile(file) || FileUtil.acceptCompressFile(file);
+		return acceptXMLFile(file) || acceptClassFile(file)
+				|| FileUtil.acceptCompressFile(file);
 	}
 
 	private boolean acceptClassFile(File file) {
@@ -240,30 +221,6 @@ public class TargetFileManager {
 			return false;
 		}
 		return acceptXMLFileName(file.getName());
-	}
-
-	private boolean acceptXMLFileName(String name) {
-
-		if (!name.toLowerCase().endsWith(".xml")) {
-			return false;
-		}
-
-		return true;
-	}
-
-	private boolean acceptClassFileName(String name) {
-
-		if (!acceptInnerClasses) {
-			if (name.toLowerCase().indexOf("$") > 0) {
-				return false;
-			}
-		}
-
-		if (!name.toLowerCase().endsWith(".class")) {
-			return false;
-		}
-
-		return true;
 	}
 
 	class FileGatherUtil {
@@ -356,10 +313,12 @@ public class TargetFileManager {
 				for (File dir : this.directories) {
 					if (file.getPath().startsWith(dir.getPath())) {
 						if (!targetFileGroupInfo.containsKey(dir.getPath())) {
-							targetFileGroupInfo.put(dir.getPath(), new Vector<String>());
+							targetFileGroupInfo.put(dir.getPath(),
+									new Vector<String>());
 						}
 						targetFileGroupInfo.get(dir.getPath()).add(
-								ParseUtil.parseClassName(file.getPath().substring(dir.getPath().length() + 1)));
+								parseClassName(file.getPath().substring(
+										dir.getPath().length() + 1)));
 						break;
 					}
 				}
@@ -370,5 +329,4 @@ public class TargetFileManager {
 	class Count {
 		Integer count = 0;
 	}
-
 }

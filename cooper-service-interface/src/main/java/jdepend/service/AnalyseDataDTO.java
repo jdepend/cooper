@@ -66,6 +66,10 @@ public class AnalyseDataDTO implements Serializable {
 		return targetFiles;
 	}
 
+	public void setTargetFiles(Map<String, Collection<String>> targetFiles) {
+		this.targetFiles = targetFiles;
+	}
+
 	public String getPath() {
 		if (this.directories == null || this.directories.size() == 0) {
 			return null;
@@ -84,6 +88,14 @@ public class AnalyseDataDTO implements Serializable {
 
 	public List<byte[]> getConfigs() {
 		return configs;
+	}
+
+	public void setClasses(List<byte[]> classes) {
+		this.classes = classes;
+	}
+
+	public void setConfigs(List<byte[]> configs) {
+		this.configs = configs;
 	}
 
 	public Component getComponent() {
@@ -114,14 +126,17 @@ public class AnalyseDataDTO implements Serializable {
 		return javaClassRelationTypes;
 	}
 
-	public void setJavaClassRelationTypes(Map<String, JavaClassRelationType> javaClassRelationTypes) {
+	public void setJavaClassRelationTypes(
+			Map<String, JavaClassRelationType> javaClassRelationTypes) {
 		this.javaClassRelationTypes = javaClassRelationTypes;
 	}
 
 	@Override
 	public String toString() {
-		return "AnalyseData [classes=" + classes + ", component=" + component + ", configs=" + configs
-				+ ", directories=" + directories + ", filteredPackages=" + filteredPackages
-				+ ", javaClassRelationTypes=" + javaClassRelationTypes + ", metricses=" + metricses + "]";
+		return "AnalyseData [classes=" + classes + ", component=" + component
+				+ ", configs=" + configs + ", directories=" + directories
+				+ ", filteredPackages=" + filteredPackages
+				+ ", javaClassRelationTypes=" + javaClassRelationTypes
+				+ ", metricses=" + metricses + "]";
 	}
 }
