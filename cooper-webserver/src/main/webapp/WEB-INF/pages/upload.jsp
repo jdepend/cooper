@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <div class="container-fluid">
@@ -7,7 +6,7 @@
 		<div class="span12">
 			<form method="POST" enctype="multipart/form-data">
 				<fieldset>
-					<legend>第一步</legend>
+					<legend>第一步：选择分析的jar</legend>
 					<label>分析的jar路径</label>
 						<input type="file" name="fileUpload"/>
 					</div>

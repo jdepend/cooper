@@ -1,0 +1,474 @@
+/*common*/
+*{margin:0; padding:0;}
+html{ border:0;}
+ul{list-style:none;}
+body{font-size:12px; font-family: "宋体";}
+.pa_ui_show{display:block;}
+.pa_ui_hidden{display:none !important;}
+.pa_ui_hidden_accessible{position: absolute; left: -99999999px; }
+.pa_ui_disabled{ opacity: .75; filter:Alpha(Opacity=35); background-image: none; }
+
+/*log*/
+#pa_ui_log{position:absolute;top:0;right:0;width:300px;}
+.pa_ui_log_content{width:100%;height:320px}
+.pa_ui_log_content textarea{width:295px;height:310px}
+.pa_ui_log_button{height:24px;text-align:right;}
+.pa_ui_log_button button{margin:2px;border:#000 solid 1px;}
+
+/*cover*/
+.pa_ui_cover_box{position:absolute;}
+.pa_ui_cover{background-color:#fff;width:100%;height:100%}
+.pa_ui_cover_content{color:#000;}
+
+/*resize*/
+.ui-resizable { position: relative;}
+.ui-resizable-handle { position: absolute;font-size:0.1px;z-index: 999; display: block;}
+.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0px; }
+.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0px; }
+.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0px; height: 100%; }
+.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0px; height: 100%; }
+.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}
+
+/*loading*/
+.pa_ui_loading{z-index:9999;width:500px;height:500px;background:url(images/loading.gif) no-repeat center center;}
+.pa_ui_loading_overlay{z-index:9998;background-color:red;}
+
+/*accordion*/
+.expand .tabpanel {display:none}
+
+/*input*/
+.pa_ui_input_watermark{color:#bfbfbf}
+
+/*datepicker*/
+.pa_ui_datepicker { width:200px; height:230px; background:url(images/calendar1.gif) no-repeat;}
+.pa_ui_datepicker_multi_2{ width:392px; height:230px; background:url(images/calendar2.gif) no-repeat;}
+#pa_ui_datepicker_div{z-index: 2000;}
+/**scroll**/
+.pa_ui_datepicker .pa_ui_datepicker_prev_year{ position:absolute; top:18px; left:6px; width:12px; height:12px; }
+.pa_ui_datepicker .pa_ui_datepicker_next_year{ position:absolute; top:18px; right:6px; width:12px; height:12px; }
+.pa_ui_datepicker .pa_ui_datepicker_prev_month, .pa_ui_datepicker .pa_ui_datepicker_next_month { position:absolute; top:18px; right:0; width:12px; height:12px; }
+.pa_ui_datepicker .pa_ui_datepicker_prev_year {background:url(images/calendar_bg.gif) no-repeat 0 -120px;cursor:pointer;}
+.pa_ui_datepicker .pa_ui_datepicker_next_year {background:url(images/calendar_bg.gif) no-repeat 0 -90px;cursor:pointer;}
+.pa_ui_datepicker .pa_ui_datepicker_prev_month {left:22px;background:url(images/calendar_bg.gif) no-repeat 0 -60px;cursor:pointer;}
+.pa_ui_datepicker .pa_ui_datepicker_next_month {right:18px;background:url(images/calendar_bg.gif) no-repeat 0 -30px;cursor:pointer;}
+.pa_ui_datepicker .pa_ui_datepicker_prev_year_hover { left:1px;}
+.pa_ui_datepicker .pa_ui_datepicker_next_year_hover { right:1px;}
+.pa_ui_datepicker .pa_ui_datepicker_prev_month_hover { left:1px;}
+.pa_ui_datepicker .pa_ui_datepicker_next_month_hover { right:1px;}
+.pa_ui_datepicker .pa_ui_datepicker_prev span, .pa_ui_datepicker .pa_ui_datepicker_next span{ display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+
+.pa_ui_datepicker .pa_ui_datepicker_title { margin:14px 34px 0 34px;}
+.pa_ui_datepicker .pa_ui_datepicker_calendar{ border:0; margin:8px 0 0 14px;* margin:8px 0 0 14px;_ margin:0 0 0 14px;}
+.pa_ui_datepicker .pa_ui_datepicker_calendar th { text-align: center; font-weight: bold; font-size:12px; color:#DB4905;}
+.pa_ui_datepicker .pa_ui_datepicker_calendar td { font-size:12px; font-family:Arial; text-align: center; background:url(images/calendar_bg.gif) no-repeat 0 -230px; width:21px; height:20px; padding:1px 0 0 0;}
+.pa_ui_datepicker td span, .pa_ui_datepicker td a { padding:0; text-align: center;}
+.pa_ui_datepicker .pa_ui_datepicker_buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.pa_ui_datepicker .pa_ui_datepicker_buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.pa_ui_datepicker .pa_ui_datepicker_buttonpane button.pa_ui_datepicker_current { float:left; }
+
+/* multi month */
+.pa_ui_datepicker_multi_2{width:500px;}
+.pa_ui_datepicker .pa_ui_datepicker_multi { }
+.pa_ui_datepicker_multi .pa_ui_datepicker_group { float:left; width:196px; position:relative;}
+.pa_ui_datepicker_multi .pa_ui_datepicker_group_last .pa_ui_datepicker_header { border-left-width:0; }
+.pa_ui_datepicker_group_first .pa_ui_datepicker_title{ height:24px;* height:18px; _ height:27px;margin:14px 24px 0 24px;}
+.pa_ui_datepicker_group_last .pa_ui_datepicker_title{ height:24px;* height:18px;_ height:27px; padding:0 0 0 20px;}
+.pa_ui_datepicker_group_last .pa_ui_datepicker_title span{ margin:0 0 0 10px; line-height:24px;}
+.pa_ui_datepicker_multi .pa_ui_datepicker_group_middle .pa_ui_datepicker_header { border-left-width:0; }
+.pa_ui_datepicker_multi .pa_ui_datepicker_buttonpane { clear:left; }
+.pa_ui_datepicker_row_break { clear:both; width:100%; }
+
+/* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
+.pa_ui_datepicker_cover{display: none; /*sorry for IE5*/display/**/: block; /*sorry for IE5*/position: absolute; /*must have*/z-index: -1; /*must have*/filter: mask(); /*must have*/top: -4px; /*must have*/left: -4px; /*must have*/width: 200px; /*must have*/height: 200px; /*must have*/}
+.pa_ui_datepicker_cover div{background:url(images/calendar.png) no-repeat; width:200px; height:195px;} 
+
+.pa_ui_datepicker_year,.pa_ui_datepicker_month{float:left;}
+.pa_ui_datepicker_year_input,.pa_ui_datepicker_month_input{width:40px; float:left;text-align:center;}
+.pa_ui_datepicker_year_handler{background:url(images/calendar_bg.gif) no-repeat 6px -275px;width:15px;height:16px;display:block;cursor:pointer; float:left; margin:2px 6px 0 0;}
+/*select year*/
+.pa_ui_datepicker_year_selector{position:absolute;background-color:#FCF9EE; width:240px; border:2px #F68900 solid;}
+.pa_ui_datepicker_year_selector ul{list-style:none; width:200px;padding-top:10px; margin:0 auto;}
+.pa_ui_datepicker_year_selector ul li{list-style:none;text-align:center;width:46px;height:20px;float:left;font-size:14px;}
+.pa_ui_datepicker_year_selector ul li a{list-style:none; color:#333; text-decoration:none; font-size:14px;display:block;}
+.pa_ui_datepicker_year_selector ul li a:hover{background-color:#d53d03; color:#fff;}
+/*select month*/
+.pa_ui_datepicker_month_selector{position:absolute;background-color:#FCF9EE; width:120px; border:2px #F68900 solid;}
+.pa_ui_datepicker_month_selector ul{list-style:none; width:100px;padding-top:10px; margin:0 auto;}
+.pa_ui_datepicker_month_selector ul li{list-style:none;text-align:center;width:46px;float:left;padding:2px;font-size:12px;}
+.pa_ui_datepicker_month_selector ul li a{list-style:none; color:#333; text-decoration:none; font-size:12px;display:block}
+.pa_ui_datepicker_month_selector ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_datepicker_today{}
+.pa_ui_datepicker_current_day{cursor:pointer;background:url(images/calendar_bg.gif) no-repeat 0 -251px !important;width:21px; height:20px;}
+.pa_ui_datepicker_other_month{background:url(images/calendar_bg.gif) no-repeat 0 -180px !important;width:21px; height:20px; color:#666;}
+.pa_ui_datepicker_unselectable{background:url(images/calendar_bg.gif) no-repeat 0 -180px !important;width:21px; height:20px; color:#999;}
+.pa_ui_datepicker_hover{cursor:pointer;background:url(images/calendar_bg.gif) no-repeat 0 -251px !important;width:21px; height:20px;}
+/*current year/month*/
+.pa_ui_datepicker_yearmonth_curr{background-color:#d53d03;}
+.pa_ui_datepicker_month_handler{background:url(images/calendar_bg.gif) no-repeat 6px -275px;width:15px;height:16px;display:block;cursor:pointer;float:left; margin:2px 0 0 0;}
+/*前-后-关闭按钮*/
+.pa_ui_datepicker_yearmonth_button{text-align:center;height:30px;width:100px;margin:0 auto;}
+.pa_ui_datepicker_yearmonth_onebutton{width:42px;margin:0 auto; text-align:center;}
+.pa_ui_datepicker_yearmonth_button .pa_ui_datepicker_yearmonth_close{height:30px;width:42px;display:block;float:left;cursor:pointer; margin:0 15px; font-weight:bold; line-height:23px;}
+.pa_ui_datepicker_yearmonth_onebutton .pa_ui_datepicker_yearmonth_close{height:30px;width:42px;display:block;float:left;cursor:pointer; margin:0 auto; font-weight:bold; line-height:23px;}
+.pa_ui_datepicker_yearmonth_button .pa_ui_datepicker_yearmonth_close:hover{ text-decoration:none;}
+.pa_ui_datepicker_yearmonth_button .pa_ui_datepicker_yearmonth_prev{background:url(images/calendar_bg.gif) no-repeat 0 -54px;height:30px;width:6px;display:block;float:left;cursor:pointer; margin:0 0 0 4px;}
+.pa_ui_datepicker_yearmonth_button .pa_ui_datepicker_yearmonth_next{background:url(images/calendar_bg.gif) no-repeat 0 -24px;height:30px;width:6px;display:block;float:left;cursor:pointer;}
+
+.pa_ui_birthday_yearmonth_button{text-align:center;height:30px;width:100px;margin:0 auto;}
+.pa_ui_birthday_yearmonth_onebutton{width:42px;margin:0 auto; text-align:center;}
+.pa_ui_birthday_yearmonth_button .pa_ui_birthday_yearmonth_close{height:30px;width:42px;display:block;float:left;cursor:pointer; margin:0 15px; font-weight:bold; line-height:23px;}
+.pa_ui_birthday_yearmonth_onebutton .pa_ui_birthday_yearmonth_close{height:30px;width:42px;display:block;float:left;cursor:pointer; margin:0 auto; font-weight:bold; line-height:23px;}
+.pa_ui_birthday_yearmonth_button .pa_ui_birthday_yearmonth_close:hover{ text-decoration:none;}
+.pa_ui_birthday_yearmonth_button .pa_ui_birthday_yearmonth_prev{background:url(images/calendar_bg.gif) no-repeat 0 -54px;height:30px;width:6px;display:block;float:left;cursor:pointer; margin:0 0 0 4px;}
+.pa_ui_birthday_yearmonth_button .pa_ui_birthday_yearmonth_next{background:url(images/calendar_bg.gif) no-repeat 0 -24px;height:30px;width:6px;display:block;float:left;cursor:pointer;}
+.pa_ui_birthday_selectable{cursor:pointer;}
+/*触发图片按钮*/
+.pa_ui_datepicker_icon_trigger{background:url(images/calendar.gif) no-repeat; width:20px; height:20px; cursor:pointer; border:0; vertical-align:1px; *vertical-align:2px; margin:0 0 0 5px;}
+/*日期默认*/
+.hasDatepicker{padding:0 2px;border:1px solid #ccc; height:20px; line-height:20px; color:#666;}
+
+/*生日图片按钮*/
+.pa_ui_birthday_trigger{background:url(images/calendar_bg.gif) no-repeat 6px -275px; width:16px; height:16px; cursor:pointer; border:0; margin:0;}
+#pa_ui_birthday_container{position:absolute;}
+/*生日年*/
+.pa_ui_birthday_year{position:absolute;background-color:#FCF9EE; width:240px; border:2px #F68900 solid;}
+.pa_ui_birthday_year ul{list-style:none; width:200px;padding-top:10px; margin:0 auto;}
+.pa_ui_birthday_year ul li{list-style:none;text-align:center;width:46px;float:left;padding:2px;}
+.pa_ui_birthday_year ul li a{list-style:none; color:#333; font-family:Arial; text-decoration:none; font-size:12px; padding:3px 5px;}
+.pa_ui_birthday_year ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_birthday_year_curr{background-color:#d53d03;color:#fff;}
+/*生日月*/
+.pa_ui_birthday_month{position:absolute;background-color:#FCF9EE; width:120px; border:2px #F68900 solid;}
+.pa_ui_birthday_month ul{list-style:none; width:110px;padding-top:10px; margin:0 auto;}
+.pa_ui_birthday_month ul li{list-style:none;text-align:center;width:46px;float:left;font-size:12px;padding:3px;}
+.pa_ui_birthday_month ul li a{list-style:none; color:#333; text-decoration:none; font-size:12px;display:block;}
+.pa_ui_birthday_month ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_birthday_month_curr{background-color:#d53d03;color:#fff;}
+/*生日天*/
+.pa_ui_birthday_day {width:200px;background-color:#FCF9EE; border:2px #F68900 solid;}
+.pa_ui_birthday_day .calendar{ border:0; margin:8px 0 0 14px;* margin:8px 0 0 14px;_ margin:0 0 0 14px;}
+.pa_ui_birthday_day .calendar th { text-align: center; font-weight: bold; font-size:12px; color:#DB4905;}
+.pa_ui_birthday_day .calendar td { font-size:12px; font-family:Arial; text-align: center; background:url(images/calendar_bg.gif) no-repeat 0 -230px; width:21px; height:20px; padding:1px 0 0 0;}
+.pa_ui_birthday_day	.curr{background:url(images/calendar_bg.gif) no-repeat 0 -251px !important;}
+.pa_ui_birthday_day .othermonth,.unselectable{background:url(images/calendar_bg.gif) no-repeat 0 -180px !important;width:21px; height:20px; color:#999;}
+.pa_ui_birthday_day .hover{cursor:pointer;background:url(images/calendar_bg.gif) no-repeat 0 -251px !important;width:21px; height:20px;}
+.pa_ui_birthday_onerror{background:#fff2e9 url(images/validator.gif) no-repeat 4px -596px; color:#666; border:1px solid #FF6600; padding-left:25px;line-height:20px;}
+/*error*/
+.pa_ui_birthday_error{background-color:#FCF9EE; width:100px; border:2px #F68900 solid;}
+.pa_ui_birthday_montherror{text-align:center;padding:5px 0;color:red;}
+.pa_ui_birthday_dayerror{text-align:center;padding:5px 0;color:red;}
+/*popupyear*/
+.pa_ui_popupyear_maker{width:50px;}
+.pa_ui_popupyear_current{background-color:#d53d03;color:#fff;}
+.pa_ui_popupyear_container{position:absolute;background-color:#FCF9EE; width:240px; border:2px #F68900 solid;}
+.pa_ui_popupyear_container ul{list-style:none; width:200px;padding-top:10px; margin:0 auto;}
+.pa_ui_popupyear_container ul li{list-style:none;text-align:center;width:46px;float:left;padding:2px;}
+.pa_ui_popupyear_container ul li a{list-style:none; color:#333; font-family:Arial; text-decoration:none; font-size:12px; padding:3px 5px;}
+.pa_ui_popupyear_container ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_popupyear_trigger{background:url(images/calendar_bg.gif) no-repeat 6px -275px; width:16px; height:16px; cursor:pointer; border:0; margin:0;}
+/*popupmonth*/
+.pa_ui_popupmonth_maker{width:50px;}
+.pa_ui_popupmonth_current{background-color:#d53d03;color:#fff;}
+.pa_ui_popupmonth_container{position:absolute;background-color:#FCF9EE; width:156px; border:2px #F68900 solid;}
+.pa_ui_popupmonth_container ul{list-style:none; width:auto;padding:10px 18px; margin:0 auto;}
+.pa_ui_popupmonth_container ul li{list-style:none;text-align:center;width:26px;float:left;padding:2px;}
+.pa_ui_popupmonth_container ul li a{list-style:none; color:#333; font-family:Arial; text-decoration:none; font-size:12px; padding:3px 5px 1px 5px;}
+.pa_ui_popupmonth_container ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_popupmonth_trigger{background:url(images/calendar_bg.gif) no-repeat 6px -275px; width:16px; height:16px; cursor:pointer; border:0; margin:0;}
+/*popupday*/
+.pa_ui_popupday_maker{width:50px;}
+.pa_ui_popupday_current{background-color:#d53d03;color:#fff;}
+.pa_ui_popupday_container{position:absolute;background-color:#FCF9EE; width:230px; border:2px #F68900 solid;}
+.pa_ui_popupday_container ul{list-style:none; width:200px;padding:10px 0px;; margin:0 auto;}
+.pa_ui_popupday_container ul li{list-style:none;text-align:center;width:23px;float:left;padding:2px;}
+.pa_ui_popupday_container ul li a{list-style:none; color:#333; font-family:Arial; text-decoration:none; font-size:12px; padding:3px 5px;}
+.pa_ui_popupday_container ul li a:hover{background-color:#d53d03; color:#fff;}
+.pa_ui_popupday_trigger{background:url(images/calendar_bg.gif) no-repeat 6px -275px; width:16px; height:16px; cursor:pointer; border:0; margin:0;}
+
+/*保险期限*/
+.messgae_begin,.messgae_end{ padding:0 5px;}
+.days{ color:#ff3300; padding:0 2px; font-size:14px; font-weight:bold;}
+
+/*dialog*/
+.pa_ui_dialog{ width:600px;}
+.pa_ui_dialog_titlebar{ background:url(images/dialog.gif) repeat-x 0 0; height:40px; position:relative;} 
+.pa_ui_dialog_title{ background:url(images/dialog.gif) repeat-x 0 -150px; height:40px; width:280px; float:left; line-height:40px;}
+.pa_ui_dialog_min .pa_ui_dialog_title{ background:url(images/dialog.gif) repeat-x 0 -150px; height:40px; width:160px; float:left; line-height:40px;}
+.pa_ui_dialog_titlebar_button{ height:40px; float:right;}
+.pa_ui_dialog_title_left{ background:url(images/dialog.gif) no-repeat 0 -100px; width:8px; height:40px; padding:0 0 0 10px;}
+.pa_ui_dialog_title_right{ background:url(images/dialog.gif) no-repeat right -50px; width:180px; height:40px; padding:0 100px 0 0;}
+.pa_ui_dialog_min .pa_ui_dialog_title_right{ background:url(images/dialog.gif) no-repeat right -50px; width:60px; height:40px; padding:0 100px 0 0;}
+.pa_ui_dialog_titlebar_close,.pa_ui_dialog_titlebar_min,.pa_ui_dialog_titlebar_max{ float:left; height:18px; display:block; width:30px; margin:0 1px;}
+.pa_ui_dialog_titlebar_close{ background:url(images/dialog.gif) no-repeat 0 -570px;}
+.pa_ui_dialog_titlebar_min{ background:url(images/dialog.gif) no-repeat 0 -510px;}
+.pa_ui_dialog_titlebar_max{ background:url(images/dialog.gif) no-repeat 0 -540px;}
+.pa_ui_dialog_titlebar_close:hover{ background:url(images/dialog.gif) no-repeat 0 -660px;}
+.pa_ui_dialog_titlebar_min:hover{ background:url(images/dialog.gif) no-repeat 0 -620px;}
+.pa_ui_dialog_titlebar_max:hover{ background:url(images/dialog.gif) no-repeat 0 -640px;}
+.pa_ui_dialog_min .pa_ui_dialog_titlebar_min:hover{ background:url(images/dialog.gif) no-repeat 0 -680px;}
+.pa_ui_dialog_content{ background:url(images/dialog_bg.gif) #FFE5D7 repeat-x; padding:5px;}
+.pa_ui_dialog_contenttext{ background-color: #fff;padding:5px;}
+.pa_ui_dialog_content p{ background:#fff; padding:8px;}
+.pa_ui_dialog_min{width:300px;}
+.pa_ui_dialog_min .pa_ui_dialog_titlebar_min{ background:url(images/dialog.gif) no-repeat 0 -600px;}
+.pa_ui_dialog_max{width:100%;height:100%}
+.pa_ui_dialog_max .pa_ui_dialog_titlebar_max{ background:url(images/dialog.gif) no-repeat 0 -600px;}
+.pa_ui_dialog_overlay{position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: alpha(opacity=40); background-color: #333; opacity: .4}
+
+/*image*/
+.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; background:url(images/image_resize.jpg) no-repeat center center};
+.pa_ui_image_ghost{border:1px solid red}
+/*keyboard*/
+.pa_ui_keyboard_number {height:129px; width:104px; background:url(images/keyboard_number.gif) no-repeat #fff; overflow:hidden;}
+.pa_ui_keyboard_number .pa_ui_keyboard_caption{padding:9px 5px 2px 5px;}
+.pa_ui_keyboard_number .pa_ui_keyboard_caption ul{padding:0; margin:0; list-style:none;zoom:1;}
+.pa_ui_keyboard_number .pa_ui_keyboard_caps{display:none;}
+.pa_ui_keyboard_number .pa_ui_keyboard_caption .pa_ui_keyboard_close{float:left;background:url(images/keyboard_number.gif) no-repeat 0px -130px; height:18px; width:96px; margin:0 2px 2px 0; border:0px; cursor:pointer;}
+.pa_ui_keyboard_number .pa_ui_keyboard_content{padding:1px 0 0 5px;}
+.pa_ui_keyboard_number .pa_ui_keyboard_content ul{padding:0; margin:0; list-style:none;}
+.pa_ui_keyboard_number .pa_ui_keyboard_content .pa_ui_keyboard_key{float:left; background:url(images/keyboard_number.gif) no-repeat 0px -205px; height:22px; line-height:22px; width:22px; font-size:12px; text-align:center; cursor:pointer;margin:0 2px 2px 0;font-size:14px;}
+.pa_ui_keyboard_number .pa_ui_keyboard_content li.pa_ui_keyboard_ok{float:left; background:url(images/keyboard_number.gif) no-repeat 0px -271px; width:96px; height:22px; margin:0px 2px 0px 0;}
+.pa_ui_keyboard_number .pa_ui_keyboard_content li.pa_ui_keyboard_cancle{float:left; background:url(images/keyboard_number.gif) no-repeat 0px -180px; height:22px; width:47px; margin:0 2px 2px 0;}
+.pa_ui_keyboard_number .pa_ui_keyboard_mouseover{float:left; background:url(images/keyboard_number.gif) no-repeat 0px -240px; height:22px; width:22px;line-height:22px; font-size:12px; text-align:center; cursor:pointer; margin:0 2px 2px 0;font-size:14px;}
+
+.pa_ui_keyboard_body {height:129px; width:254px; background:url(images/keyboard_normal.gif) no-repeat #fff; overflow:hidden;}
+.pa_ui_keyboard_body .pa_ui_keyboard_caption{padding:9px 5px 2px 5px;}
+.pa_ui_keyboard_body .pa_ui_keyboard_caption ul{padding:0; margin:0; list-style:none;zoom:1;}
+.pa_ui_keyboard_body .pa_ui_keyboard_caption .pa_ui_keyboard_close{float:left;background:url(images/keyboard_normal.gif) no-repeat 0px -130px; height:18px; width:76px; margin:0 2px 2px 0; border:0px; cursor:pointer;}
+.pa_ui_keyboard_body .pa_ui_keyboard_caption .pa_ui_keyboard_caps{float:left; background:url(images/keyboard_normal.gif) no-repeat 0px -155px; width:76px; height:18px; margin:0 2px 2px 80px;}
+.pa_ui_keyboard_body .pa_ui_keyboard_content{padding:1px 0 0 5px;}
+.pa_ui_keyboard_body .pa_ui_keyboard_content ul{padding:0; margin:0; list-style:none;}
+.pa_ui_keyboard_body .pa_ui_keyboard_content .pa_ui_keyboard_key{float:left; background:url(images/keyboard_normal.gif) no-repeat 0px -205px; height:22px; line-height:22px; width:22px; font-size:12px; text-align:center; cursor:pointer;margin:0 2px 2px 0;font-size:14px;}
+.pa_ui_keyboard_body .pa_ui_keyboard_content li.pa_ui_keyboard_ok{float:left; background:url(images/keyboard_normal.gif) no-repeat 0px -271px; width:70px; height:22px; margin:0px 2px 0px 0;}
+.pa_ui_keyboard_body .pa_ui_keyboard_content li.pa_ui_keyboard_cancle{float:left; background:url(images/keyboard_normal.gif) no-repeat 0px -180px; height:22px; width:22px; margin:0 2px 2px 0;}
+.pa_ui_keyboard_body .pa_ui_keyboard_mouseover{float:left; background:url(images/keyboard_normal.gif) no-repeat 0px -240px; height:22px; width:22px;line-height:22px; font-size:12px; text-align:center; cursor:pointer; margin:0 2px 2px 0;font-size:14px;}
+
+.pa_ui_keyboard_advance {height:154px; width:376px; background:url(images/keyboard_advance.gif) no-repeat #fff; overflow:hidden;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_caption{padding:9px 5px 2px 5px;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_caption ul{padding:0; margin:0; list-style:none;zoom:1;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_caption li.pa_ui_keyboard_close{float:left;background:url(images/keyboard_advance.gif) no-repeat 0px -154px; height:18px; width:76px; border:0px; cursor:pointer;}
+.pa_ui_keyboard_caption ul{zoom:1;}
+.pa_ui_keyboard_caption ul:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_caption li.pa_ui_keyboard_caps{float:right; background:url(images/keyboard_advance.gif) no-repeat 0px -174px; width:76px; height:18px; margin:0 8px 2px 0px; *display:inline;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content{padding:1px 0 0 5px;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content ul{padding:0; margin:0; list-style:none;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content .pa_ui_keyboard_key{float:left; background:url(images/keyboard_advance.gif) no-repeat 0px -216px; height:22px; line-height:22px; width:22px; font-size:12px; text-align:center; cursor:pointer; margin:0 2px 2px 0;font-size:14px;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content li.pa_ui_keyboard_caps{float:left; background:url(images/keyboard_advance.gif) no-repeat 0px -172px; width:94px; height:22px; margin:0 2px 2px 0;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content li.pa_ui_keyboard_ok{float:left; background:url(images/keyboard_advance.gif) no-repeat 0px -263px; width:94px; height:22px; margin:0px 2px 0px 0;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_content li.pa_ui_keyboard_cancle{float:left; background:url(images/keyboard_advance.gif) no-repeat 0px -194px; width:46px; height:22px; margin:0 2px 2px 0;}
+.pa_ui_keyboard_advance .pa_ui_keyboard_mouseover{float:left; background:url(images/keyboard_advance.gif) no-repeat 0px -240px; height:22px; line-height:22px; width:22px; font-size:12px; text-align:center; cursor:pointer; margin:0 2px 2px 0;font-size:14px;}
+.pa_ui_keyboard_click{background:url(images/keyboard.gif) no-repeat; width:20px; height:20px; cursor:pointer; border:0; vertical-align:3px; *vertical-align:1px; margin:0 0 0 5px;}
+
+/*-- pagebar --*/
+.pagination {text-align:right;height:30px;}
+.pagination a, .pagination span{padding:3px 6px 2px 6px; *padding-bottom:3px; line-height:100%; border:1px solid #bfbfbf; text-decoration:none; margin-left:2px; color:#3f568b; display:block; float:left;}
+.pagination a:hover{text-decoration:none;}
+.pagination a.prev{background:url(images/pagebar.gif) no-repeat 0 0;padding-left:18px;}
+.pagination a.prev:hover{background-position:0 -50px;}
+.pagination a.next{background:url(images/pagebar.gif) no-repeat right 0; *padding:4px 6px 2px 6px; padding-right:18px;}
+.pagination a.next:hover{background-position:right -50px;}
+.pagination span.thispage{color:#ff643a; border:1px solid #fff;}
+.pagination span.space{color:#3f568b; border:1px solid #fff;}
+.pagination label{padding:0px 6px; display:block; float:left; position:relative; top:2px; *top:-2px;}
+.pagination input{border:1px solid #bfbfbf; height:18px; width:30px; position:relative; top:-2px; *top:1px; *left:4px; margin:0 4px;}
+.pagination a.a_define{background:url(images/pagebar.gif) no-repeat 0 -100px; width:46px; height:30px; border:none; position:relative; top:-2px; float:left; color:#fff058; font-weight:bold; display:block; _line-height:120%;}
+.pagination a.a_define:hover{background-position:0 -150px;}
+.pagination a.a_define .up{position:absolute; top:7px; left:10px; color:#8a3609; z-index:11;cursor:pointer; cursor:hand;}
+.pagination a.a_define .down{position:absolute; top:8px; left:11px; color:#fff058; z-index:10;cursor:pointer; cursor:hand;}
+
+/*roller*/
+.pa_ui_roller_title{position:relative;width:100%;height:20px;background-color:#ff6600;cursor:pointer;}
+.pa_ui_roller_collapse .pa_ui_roller_handle{margin:4px;float:right;width:12px;height:12px;background:url(images/roll.png) no-repeat 0px -45px;height:13px;width:15px;}
+.pa_ui_roller_expand .pa_ui_roller_handle{margin:4px;float:right;width:12px;height:12px;background:url(images/roll.png) no-repeat 0px 0px;height:13px;width:15px;}
+
+/*select*/
+.pa_ui_checkbox_item{border:0;background:url(images/radio.png) no-repeat 0px 0px;height:26px;width:60px;}
+.pa_ui_checkbox_hover{border:0;background:url(images/radio.png) no-repeat 0px -80px;height:26px;width:60px;}
+.pa_ui_checkbox_select{border:0;background:url(images/radio.png) no-repeat 0px -160px;height:26px;width:60px;}
+
+.pa_ui_radio_button{margin-left:5px;margin-right:5px}
+.pa_ui_radio_item{border:0;background:url(images/radio.png) no-repeat 0px 0px;height:26px;width:60px;}
+.pa_ui_radio_hover{border:0;background:url(images/radio.png) no-repeat 0px -80px;height:26px;width:60px;}
+.pa_ui_radio_select{border:0;background:url(images/radio.png) no-repeat 0px -160px;height:26px;width:60px;}
+
+.pa_ui_dropselect_popup{position:absolute;background:#fff}
+.pa_ui_dropselect_input{width:36px; height:20px; line-height:20px; border:1px solid #ddbe8d; border-right:none;}
+.pa_ui_dropselect_disabled_input{width:36px; height:20px; line-height:20px; border:1px solid #CCCCCC; border-right:none;}
+.pa_ui_dropselect_button{width:20px; height:22px; vertical-align: bottom; *vertical-align:0px; border:none; background:url(images/dropselect.gif) no-repeat;}
+.pa_ui_dropselect_disabled_button{width:20px; height:22px; vertical-align: bottom; *vertical-align:0px; border:none; background:url(images/dropdisableselect.gif) no-repeat;}
+.pa_ui_dropselect_popup{background-color:#fff;width:100px;}
+.pa_ui_dropselect_box {border:1px solid #ddbe8d;padding:2px;width:110px;}
+.level {background:#EBD27C !important;}
+.level a{margin-left:-11px ;background:#EBD27C !important;}
+li.pa_ui_dropselect_item{padding:2px;line-height:24px;height:24px;padding-left:15px;}
+li.pa_ui_dropselect_item_select{padding:2px;line-height:24px;height:24px;background-color:#f5e9be;padding-left:15px;}
+a.pa_ui_dropselect_item_link {text-decoration:none;width:100%}
+.pa_ui_dropselect_box .ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block;background:url(images/slides.jpg) no-repeat bottom;}
+.pa_ui_dropselect_box .ui-resizable-s{bottom:0;height:13px;width:100%;display:inline-block;}
+
+.pa_ui_dropbox_popup{background-color:#fff;}
+.pa_ui_dropbox_box{border:1px solid #ddbe8d;}
+.pa_ui_dropbox_input{width:36px; height:20px; line-height:20px; border:1px solid #ddbe8d; border-right:none;}
+.pa_ui_dropbox_button{width:20px; height:22px; vertical-align: bottom; *vertical-align:0px; border:none; background:url(images/dropselect.gif) no-repeat;}
+.pa_ui_dropbox_del{cursor:pointer;width:30px; height:20px;border:1px solid #ddbe8d; border-left:none;line-height:20px;}
+.pa_ui_dropbox_chcolor{background:#f5e9be;}
+.pa_ui_dropbox_box ul li{float:left; width:100px; text-align:center;}
+li.pa_ui_dropbox_item{padding:2px;line-height:24px;height:24px;background-color:#fff;}
+li.pa_ui_dropbox_item_select{padding:2px;line-height:24px;height:24px;background-color:#f5e9be;}
+a.pa_ui_dropbox_item_link {text-decoration:none;width:100%}
+
+.pa_ui_dropinput_input{width:36px; height:20px; line-height:20px; border:1px solid #ddbe8d; border-right:none;}
+.pa_ui_dropinput_button{width:20px; height:22px; vertical-align: bottom; *vertical-align:0px; border:none; background:url(images/dropselect.gif) no-repeat;}
+.pa_ui_dropinput_popup{background-color:#fff;width:100px;}
+.pa_ui_dropinput_popup table tr{background-color:#fff;width:100px;}
+.pa_ui_dropinput_checkedlist{border:#ddbe8d solid 1px;border-top:none;width:219px;background-color:#fff; }
+.pa_ui_dropinput_checkedlist p{margin-left:5px;height:20px;color:red;}
+.pa_ui_dropinput_checkpop{position:absolute;background:#fff;display:none;border:#ddbe8d solid 1px;width:219px;}
+.pa_ui_dropinput_checkpop li.pa_ui_dropselect_item{padding:2px;line-height:24px;height:24px;padding-left:5px;}
+.pa_ui_dropinput_checkeinput{border:#ddbe8d solid 0px;border-bottom:none;width:200px;height:19px;line-height:19px;background-color:#fff;position: absolute; display: block; top: 168px;_ top: 169px; left: 15px;}
+
+.pa_ui_dropinput_autocompletepop{position:absolute;background:#fff;border:#ddbe8d solid 1px;width:220px;}
+.pa_ui_dropinput_autocompleteinput{width:200px; height:20px; line-height:20px; border:1px solid #ddbe8d;}
+.pa_ui_dropinput_autocompleteitem {height:20px;line-height:20px;}
+.pa_ui_dropinput_autocompletepop ul li a{text-decoration:none;width:100%;}
+.pa_ui_dropinput_autocompletepop ul li a:hover{text-decoration:none;width:100%;color:#666;}
+.pa_ui_dropinput_autocompleteitemhover {background-color:#ddbe8d; color:red;cursor:hand;}
+
+/*slider*/
+.pa_ui_silder_x{height:10px; width:700px; text-align:center; border:1px solid #CCC;}
+.pa_ui_silder_x .pa_ui_block{height:16px; width:16px; border:1px solid #CCC; clear:both; background-color:#FFF; position:relative; z-index:5; top:-3px;}
+.pa_ui_silder_x .pa_ui_show{height:10px; width:700px; text-align:center; position:relative; z-index:5; bottom:-5px; font-size:14px; border:0px}
+.pa_ui_silder_x .pa_ui_show .y_s1{float:left; }
+.pa_ui_silder_x .pa_ui_show .y_s2{float:right;}
+.pa_ui_silder_x .pa_ui_show .y_s3{}
+.pa_ui_silder_y{width:10px; height:300px; border:1px solid #CCC; position:relative;}
+.pa_ui_silder_y .pa_ui_block{height:16px; width:16px; border:1px solid #CCC; clear:both; background-color:#FFF; position:absolute; z-index:5; right:-3px;}
+.pa_ui_silder_y .pa_ui_show{width:10px; height:300px; position:relative; border:0px}
+.pa_ui_silder_y .pa_ui_show .y_s1,.pa_ui_silder_y .pa_ui_show .y_s2,.pa_ui_silder_y .pa_ui_show .y_s3{position:absolute;top:0px;right:-22px;width:12px;height:12px;}
+.pa_ui_silder_y .pa_ui_show .y_s2{bottom:0px;top:auto;}
+.pa_ui_silder_y .pa_ui_show .y_s3{top:50%;margin-top:-7px}
+
+.pa_ui_silder_disable{ background-color: #CCC}
+/*table*/
+.pa_ui_hover{background-color:#fcf2ed;}
+.pa_ui_selected{background-color:#fcf2ed;}
+
+.pa_ui_sort_asc{background:url(images/table.png) no-repeat 85% 15px;height:4px;}
+.pa_ui_sort_desc{background:url(images/table.png) no-repeat 85% -55px;height:4px;}
+
+.pa_ui_cell_wrapper .ui-resizable-handle {height:30px; position: absolute;font-size: 0.1px;z-index: 99999; display: block;background:url(images/table_slides.jpg) no-repeat bottom;}
+.pa_ui_cell_wrapper .ui-resizable-e { cursor: e-resize; width: 2px; right: 0px; top: 0px; height: 100%; }
+
+.pa_ui_cell_wrapper{position:relative;}
+.pa_ui_cell_link{position:absolute; top:10px; right:1px;width:5px;height:12px;display:block;background:url(images/table.png) no-repeat -5px -150px;padding-left:12px;}
+.pa_ui_cell_menu{border:solid 1px #ff6600;width:80px;background-color:#f0f0f0}
+.pa_ui_cell_menu ul{}
+.pa_ui_cell_menu ul li{padding:1px}
+
+.expanded .pa_ui_table_icon{background:url(images/tree.gif) no-repeat 0px -4px;width:9px;cursor:pointer;padding-top:0px;margin:0px;padding-left:13px;zoom:1}
+.collapsed .pa_ui_table_icon{background:url(images/tree.gif) no-repeat 0px -24px;width:9px;cursor:pointer;padding-top:0px;margin:0px;padding-left:13px;zoom:1}
+.pa_ui_table_editor{background-color:#f2f2f2;border:#808080 1px solid;padding:5px}
+.pa_ui_table_editor .pa_ui_table_editor_button{padding-left:30px;}
+.pa_ui_table_editor .pa_ui_save_button{background-color:#fea36f;border:#304369 1px solid;margin:3px 6px;width:40px;height:24px}
+.pa_ui_table_editor .pa_ui_cancel_button{border:#304369 1px solid;margin:3px 6px;width:40px;height:24px}
+
+.pa_ui_row_editing{background-color:#ccc;}
+
+/*ui控件使用*/
+.pa_ui_tabs_panel {display: block; }
+.pa_ui_tabs_hide { display: none !important; }
+.pa_ui_tabs_scrollleft{z-index:100;display:block;width:18px;height:30px;position:absolute;top:0;left:0;background:url(images/tabs_scroll.gif) no-repeat 0px 0px;cursor:pointer;}
+.pa_ui_tabs_scrollright{z-index:100;display:block;width:18px;height:30px;position:absolute;top:0;left:97%;background:url(images/tabs_scroll.gif) no-repeat 0px -28px;cursor:pointer;}
+.pa_ui_tabs_disabledleft{z-index:100;display:block;width:18px;height:30px;position:absolute;top:0;left:0;background:url(images/tabs_scroll.gif) no-repeat 0px -58px;cursor:pointer;}
+.pa_ui_tabs_disabledright{z-index:100;display:block;width:18px;height:30px;position:absolute;top:0;right:0;background:url(images/tabs_scroll.gif) no-repeat 0px -88px;cursor:pointer;}
+.pa_ui_tabs ul{ margin:0 10px 10px 0;  background:url(images/tabs.gif) repeat-x; height:24px; line-height:24px;}
+.pa_ui_tabs ul li{ float:left; position:relative; height:24px;}
+.pa_ui_tabs ul li .median_line{ background:url(images/tabs.gif) no-repeat 0 -120px; position:absolute; width:1px; height:24px;  top:6px; left:100%;}
+.pa_ui_tabs ul li .on{ margin:4px 8px 0 8px; padding:0 4px 0 4px; height:26px; line-height:18px; *line-height:20px; float:left; display:inline;}
+.pa_ui_tabs ul li a{ color:#5F1E00; text-decoration:none; position:relative; z-index:10;}
+.pa_ui_tabs ul li a:hover{ color:#5F1E00; text-decoration:underline;}
+.pa_ui_tabs ul li span{ position:absolute; top:5px; left:12px; color:#F3F5F2;}
+.pa_ui_tabs ul li.focus .on{ background:url(images/tabs.gif) 0 -30px repeat-x; font-weight:bold; text-decoration:none;}
+.pa_ui_tabs ul li.focus .ll{ background:url(images/tabs.gif) 0 -60px no-repeat; width:4px; height:26px; position:absolute; top:4px; left:4px;}
+.pa_ui_tabs ul li.focus .rr{background:url(images/tabs.gif)  0 -90px no-repeat; width:4px; height:26px; position:absolute; top:4px; right:4px;}
+.pa_ui_tabs ul li.focus .jt{ background:url(images/tabs.gif)  0 -150px no-repeat; width:11px; height:9px; position:absolute; left:40%; bottom:-6px !important; *bottom:-3px;}
+.pa_ui_tabs_wrapper{position:relative;overflow:hidden;width:760px;}
+.pa_ui_tabs_wrapper li a{display:block}
+.pa_ui_tabs_scroll{position:relative;overflow:hidden;width:472px;}
+.pa_ui_tabs_scroll ul{margin:0 18px 10px 18px;width:5000px;position:relative;}
+.pa_ui_tabs_scroll ul li.i{float:left;display:inline;width:72px;}
+
+/*table */
+.pa_ui_hover{background:#efefef url(images/table_row_over.gif) repeat-x 0 top !important;}
+.pa_ui_selected{background:#fcf7f4 url(images/table_row_selected.gif) repeat-x 0 bottom !important;}
+
+/*shadow*/
+.pa_ui_shadow_cover{background-color:#eee;}
+.pa_ui_shadow_hover{border:solid 1px #ff6600;background-color:#fff;}
+
+/*tree*/
+.treeview ul {padding-left: 16px;}
+.expand .title {background: url(images/tree.gif) no-repeat 0px 1px; padding-left:20px;cursor:pointer;padding-top:0px;margin:0px;}
+.collapse .title {background: url(images/tree.gif) no-repeat 0px -19px; padding-left:20px;cursor:pointer;padding-top:0px;margin:0px;}
+.treeview .last_level {background: url(images/tree.gif) no-repeat 0 -39px; padding-left:4px;cursor:default;padding-top:0px;margin:0px;}
+.expand .collapse .title{background: url(images/tree.gif) no-repeat 0px -19px; padding-left:20px;}
+.collapse .expand .title{background: url(images/tree.gif) no-repeat 0px -19px; padding-left:20px;}
+/* fix for IE6 */
+* html .title {display: block;float:none;}
+.treeview li {line-height:22px;}
+
+/*validator*/
+.pa_ui_validator_onshow{background:url(images/validator.gif) no-repeat 4px 4px; color:#666; border:1px solid #3196c4; padding-left:25px;line-height:20px;}
+.pa_ui_validator_onfocus{background:#e2f3ff url(images/validator.gif) no-repeat 4px -196px; color:#666; border:1px solid #3196c4; padding-left:25px;line-height:20px;}
+.pa_ui_validator_onempty{background:#e2f3ff url(images/validator.gif) no-repeat 4px 4px; color:#666; border:1px solid #3196c4; padding-left:25px;line-height:20px;}
+.pa_ui_validator_oncorrect{background:#fff url(images/validator.gif) no-repeat 4px -396px; font-size:12px; border: 1px solid #3196c4; padding-left:25px;line-height:20px;}
+.pa_ui_validator_onerror{background:#fff2e9 url(images/validator.gif) no-repeat 4px -596px; color:#666; border:1px solid #FF6600; padding-left:25px;line-height:20px;}
+.pa_ui_validator_onload{background:url(images/validator_Load.gif) no-repeat 3px 3px; color:#666; border:1px solid #3196c4; padding-left:25px;line-height:20px;}
+
+/*password level*/
+
+.pa_ui_password_tipbox {float:left;border:0px solid #4cac2f; width:100%; height:20px; margin:0px 0px 0px 0px;padding-top:0px;}
+.pa_ui_password_tipbox .bar{float:left;border:1px solid #FFF; width:125px; height:10px; margin-top:7px; }
+.pa_ui_password_tipbox .bar .level0{float:left;width:100%; height:100%; background-color: #CCC;margin:0px;}
+.pa_ui_password_tipbox .bar .level1{float:left;width:50%; height:100%; background-color:#83d259;margin:0px;}
+.pa_ui_password_tipbox .bar .level2{float:left;width:100%; height:100%; background-color:#3dad00;margin:0px;}
+.pa_ui_password_tipbox .message0{float:left;margin-left:3px;width:48px; height:22px;font-weight:bold;color:#ed2700;}
+.pa_ui_password_tipbox .message1{float:left;margin-left:3px;width:28px; height:22px;font-weight:bold;color:#83d259;}
+.pa_ui_password_tipbox .message2{float:left;margin-left:3px;width:28px; height:22px;font-weight:bold;color:#3dad00;}
+
+
+/*stars*/
+.pa_ui_stars_star,.pa_ui_stars_cancel {float: left;display: block;overflow: hidden;text-indent: -999em;cursor: pointer;}
+.pa_ui_stars_star a,.pa_ui_stars_cancel a {width: 16px;height: 15px;display: block;background: url(images/stars.gif) no-repeat 0 0;}
+.pa_ui_stars_star a {background-position: 0 -32px;}
+.pa_ui_stars_staron a {background-position: 0 -48px;}
+.pa_ui_stars_starhover a {background-position: 0 -64px;}
+.pa_ui_stars_cancelhover a {background-position: 0 -16px;}
+.pa_ui_stars_stardisabled,.pa_ui_stars_stardisabled a,.pa_ui_stars_canceldisabled a {cursor: default !important;}
+
+/*gotop*/
+.pa_ui_gotop{border:2px solid #999;background:#ccc;width:20px;height:60px;position:fixed;bottom:10%;right:30px;text-align:center;padding-top:3px;}
+* html,* html body /* fix IE6 bug */{background-attachment:fixed;}
+
+.pa_ui_vilidcode_txt{cursor:pointer;}
+.c{zoom:1;}
+.c:after {content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.m{height:160px;}
+
+/*exinput*/
+.pa_ui_input_splitter{position:absolute; background-color:red; z-index:-1}
+.pa_ui_input_splitter_box{height:20px; z-index:-1}
+.pa_ui_input_splitter_box span{font-size:12px; font-family:Arial,"宋体";display:inline-block}
+.pa_ui_input_splitter_first{height:20px;color:#fff;padding-right:5px}
+.pa_ui_input_splitter_odd{height:20px;background-color:#ccc;color:#ccc;margin-left:4px;}
+.pa_ui_input_splitter_even{height:20px;color:#fff;padding:0 4px}
+ 
+/*keyboard en*/
+.pa_ui_keyboard_cancle_en{background: url("images/keyboard_normal_en.gif") no-repeat scroll 0 -180px transparent;float: left;height: 22px;margin: 0 2px 2px 0;width: 22px;cursor: pointer;}
+.pa_ui_keyboard_ok_en{ background: url("images/keyboard_normal_en.gif") no-repeat scroll 0 -271px transparent;float: left;height: 22px;margin: 0 2px 0 0;width: 70px;cursor: pointer;}
+.pa_ui_keyboard_close_en{background: url("images/keyboard_normal_en.gif") no-repeat scroll 0 -130px transparent;border: 0 none;cursor: pointer;float: left;height: 18px;margin: 0 2px 2px 0;cursor: pointer;width: 76px;}
+.pa_ui_keyboard_caps_en{background: url("images/keyboard_normal_en.gif") no-repeat scroll 0 -155px transparent;float: left;height: 18px;margin: 0 2px 2px 80px;cursor: pointer;width: 76px;}

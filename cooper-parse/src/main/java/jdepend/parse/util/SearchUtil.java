@@ -10,6 +10,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseListener;
+import jdepend.parse.impl.AnalyseData;
 
 public final class SearchUtil {
 
@@ -25,10 +26,6 @@ public final class SearchUtil {
 
 	}
 
-	public void addFilters(List<String> filters) {
-		this.jdepend.addFilteredPackages(filters);
-	}
-
 	public SearchUtil(List<String> paths) {
 
 		for (String path : paths) {
@@ -38,7 +35,14 @@ public final class SearchUtil {
 				e.printStackTrace();
 			}
 		}
+	}
 
+	public SearchUtil(AnalyseData data) {
+		this.jdepend.setAnalyseData(data);
+	}
+
+	public void addFilters(List<String> filters) {
+		this.jdepend.addFilteredPackages(filters);
 	}
 
 	public int getClassCount() {
@@ -86,6 +90,10 @@ public final class SearchUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void addAnalyseData(AnalyseData data) {
+		this.jdepend.setAnalyseData(data);
 	}
 
 	public void setBuildClassRelation(boolean isBuildClassRelation) {

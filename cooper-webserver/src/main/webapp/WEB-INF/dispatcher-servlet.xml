@@ -38,7 +38,7 @@
 	-->
 	
 	<!-- 定义无Controller的path<->view直接映射，例如：view-name="redirect:/index" -->
-	<mvc:view-controller path="/" view-name="redirect:/home/index" />
+	<mvc:view-controller path="/" view-name="redirect:/upload" />
 	
 	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL-->
 	<mvc:default-servlet-handler />
@@ -81,7 +81,7 @@
      <!-- 全局异常配置 end -->    
 
 	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/views/" />
+		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
