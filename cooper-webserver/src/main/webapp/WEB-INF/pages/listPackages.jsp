@@ -70,16 +70,5 @@
 	src="${ctx}/styles/js/pa_ui.js"></script>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery.highlighter.js"></script>
-<script type="text/javascript">
-	$(function() {
-		var opt = {
-			dir : '/id/static/js/SyntaxHighlighter/',
-			collapseAll : false, //折叠
-			showControls : true, //复制CODE
-			showGutter : true//行号
-		};
 
-		$.SyntaxHighlighter(opt);
-	});
-</script>
 
