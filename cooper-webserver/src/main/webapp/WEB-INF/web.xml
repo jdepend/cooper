@@ -6,18 +6,7 @@
 
 	<display-name>cooper</display-name>
 
-   <servlet>
-      <servlet-name>AnalyseServlet</servlet-name>
-      <servlet-class>jdepend.webserver.web.AnalyseServlet</servlet-class>
-      <load-on-startup>0</load-on-startup>
-   </servlet>
-   
-   <servlet-mapping>
-      <servlet-name>AnalyseServlet</servlet-name>
-      <url-pattern>/upload</url-pattern>
-   </servlet-mapping>	
-   
-	<context-param>
+    <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
             classpath:META-INF/spring/application-context.xml

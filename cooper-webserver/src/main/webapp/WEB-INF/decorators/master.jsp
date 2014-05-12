@@ -1,7 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"/><!DOCTYPE html>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Cooper</title>

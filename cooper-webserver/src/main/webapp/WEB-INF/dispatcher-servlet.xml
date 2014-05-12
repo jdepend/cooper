@@ -10,7 +10,7 @@
 	<!-- 
 	这里仅扫描标注为@Controller,@ControllerAdvice注解的SpringMVC控制类
 	 -->
-	<context:component-scan base-package="com.neusoft.saca.snap,com.neusoft.saca.snapmgr" use-default-filters="false">
+	<context:component-scan base-package="jdepend.webserver.web" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
