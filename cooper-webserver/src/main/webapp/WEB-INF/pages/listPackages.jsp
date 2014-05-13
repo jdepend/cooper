@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css"> 
+<link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
+<link rel="stylesheet" href="${ctx}/styles/css/contextmenu.css">
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -21,11 +22,11 @@
 							<th>类数量</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="target">
 						<c:forEach items="${listPackages}" var="item">
 							<tr>
 								<td><input type="checkbox" /></td>
-								<td>${item.name}</td>
+								<td class="itemName">${item.name}</td>
 								<td>${item.classCount}</td>
 							</tr>
 						</c:forEach>
@@ -70,5 +71,32 @@
 	src="${ctx}/styles/js/pa_ui.js"></script>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery.highlighter.js"></script>
+<script language="javascript" type="text/javascript"
+	src="${ctx}/styles/js/jquery.contextmenu.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+		var option = {
+			width : 150,
+			items : [ {
+				text : "增加组件",
+				icon : "${ctx}/styles/css/images/application_form_add.png",
+				alias : "",
+				action : menuAction
+			} ],
+			onContextMenu : BeforeContextMenu
+		};
+		function menuAction() {
+			var str = $('#target .pa_ui_selected .itemName');
+			var obj = str.map(function() {
+				return $(this).text();
+			});
+			alert(obj);
 
+		}
+		function BeforeContextMenu() {
+			return $('#target .pa_ui_selected .itemName').size();
+		}
+		$("#target").contextmenu(option);
+	});
+</script>
 
