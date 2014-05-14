@@ -3,6 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
 <link rel="stylesheet" href="${ctx}/styles/css/contextmenu.css">
+<link rel="stylesheet" href="${ctx}/styles/css/Validform-Style.css">
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -22,7 +23,7 @@
 							<th>类数量</th>
 						</tr>
 					</thead>
-					<tbody id="target">
+					<tbody id="listPackages">
 						<c:forEach items="${listPackages}" var="item">
 							<tr>
 								<td><input type="checkbox" /></td>
@@ -35,45 +36,42 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<ol>
-						<li>新闻资讯</li>
-						<li>体育竞技</li>
-						<li>娱乐八卦</li>
-						<li>前沿科技</li>
-						<li>环球财经</li>
-						<li>天气预报</li>
-						<li>房产家居</li>
-						<li>网络游戏</li>
-					</ol>
+					<ol id="componentList" style="border-width: 1; border-color:blue; height: 100px;"/>
 				</div>
 				<div class="span6">
-					<ol>
-						<li>新闻资讯</li>
-						<li>体育竞技</li>
-						<li>娱乐八卦</li>
-						<li>前沿科技</li>
-						<li>环球财经</li>
-						<li>天气预报</li>
-						<li>房产家居</li>
-						<li>网络游戏</li>
-					</ol>
+					<ol id="componentPackageList" style="border-width: 1; border-color:blue; height: 100px;"/>
 				</div>
 			</div>
 			<button type="submit" class="btn">提交</button>
 		</div>
 	</div>
 </div>
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery-1.3.2.js"></script>
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery-ui-1.7.1.js"></script>
+<div id="componentNameModal" class="modal hide fade" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">×</button>
+		<h5 id="myModalLabel">录入组件名</h5>
+	</div>
+
+	<form class="componentNameForm" action="#">
+		<div class="modal-body">
+			<label><span style="width:10px;color:#b20202;">*</span>组件名</label> <input
+				 id="componentName" type="text" class="inputxt" datatype="*" nullmsg="请录入组件名！" />
+		</div>
+		<div class="modal-footer">
+			<input id="createComponent" type="submit" class="btn btn-primary" value="确定" />
+		</div>
+	</form>
+
+</div>
+
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>
 <script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery.highlighter.js"></script>
-<script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery.contextmenu.js"></script>
 <script type="text/javascript">
+	var componentModel = {};
 	$().ready(function() {
 		var option = {
 			width : 150,
@@ -86,17 +84,54 @@
 			onContextMenu : BeforeContextMenu
 		};
 		function menuAction() {
-			var str = $('#target .pa_ui_selected .itemName');
-			var obj = str.map(function() {
-				return $(this).text();
-			});
-			alert(obj);
-
+			//清空窗口数据
+			$("#componentName").val("");
+			//显示窗口
+			$("#componentNameModal").modal("toggle");
 		}
 		function BeforeContextMenu() {
-			return $('#target .pa_ui_selected .itemName').size();
+			return $('#listPackages .pa_ui_selected .itemName').size();
 		}
-		$("#target").contextmenu(option);
+		$("#listPackages").contextmenu(option);
+
+		$(".componentNameForm").Validform({
+			tiptype:3,
+			label:".label",
+			showAllError:true,
+			datatype:{//传入自定义datatype类型，可以是正则，也可以是函数（函数内会传入一个参数）;
+				"*":function(gets,obj,curform,regxp){
+					    debugger;
+					    if(gets == ""){
+					    	return "组件名不能为空！";
+					    }
+					    if(componentModel.hasOwnProperty(gets)){
+							return "组件名已经存在！";
+						}
+						return true;
+				}
+			},
+			callback:function(data){
+				//添加组件名
+				var componentName = $("#componentName").val(); 
+				$("#componentList").append("<li>" + componentName + "</li>");
+				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
+				//添加包列表
+				$("#componentPackageList").empty();
+				var packageNames = [];
+				selectedPackages.map(function() {
+					var packageName = $(this).text();
+					$("#componentPackageList").append("<li>" + packageName + "</li>");
+					packageNames.push(packageName);
+				});
+				//保存组件信息
+				componentModel[componentName] = packageNames;
+				//删除选择的包集合
+				$('#listPackages .pa_ui_selected').remove();
+				//关闭窗口
+				$("#componentNameModal").modal("toggle");
+				return false;
+			}
+		});
 	});
 </script>
 
