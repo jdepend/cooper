@@ -13,6 +13,9 @@
 
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery-ui-1.7.1.js"></script>
+	
+<script language="javascript" type="text/javascript"
+	src="${ctx}/styles/js/jquery.json-2.4.js"></script>
 
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery.highlighter.js"></script>

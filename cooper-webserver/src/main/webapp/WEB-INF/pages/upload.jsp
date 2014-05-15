@@ -19,7 +19,7 @@
 </div>
 <script type="text/javascript">
 	function analyse(){
-		document.forms[0].action = "${ctx}/upload";
+		document.forms[0].action = "${ctx}/analyse/upload";
 		document.forms[0].submit();
 	}
 </script>
