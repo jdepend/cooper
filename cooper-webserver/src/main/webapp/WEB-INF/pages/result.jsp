@@ -6,7 +6,7 @@
 canvas {
 	
 }
-</style
+</style>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -23,25 +23,30 @@ canvas {
 						${result.summary.componentCount}个组件共产生了${result.summary.relationCount}个关系，有问题的关系占总关系的比例为${result.problemRelationScale}
 					</h6>
 				</div>
-			
 
-</div>
-<div class="row-fluid">
-	<div class="span6">
-		<h4>抽象程度合理性得分：${result.d}</h4>
-		<canvas id="d" height="400" width="400"></canvas>
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					<h4>抽象程度合理性得分：${result.d}</h4>
+					<canvas id="d" height="400" width="400"></canvas>
+				</div>
+				<div class="span6">
+					<h4>内聚性得分：${result.balance}</h4>
+					<canvas id="balance" height="400" width="400"></canvas>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					<h4>封装性得分：${result.encapsulation}</h4>
+					<canvas id="encapsulation" height="400" width="400"></canvas>
+				</div>
+				<div class="span6">
+					<h4>关系合理性得分：${result.relationRationality}</h4>
+					<canvas id="relationRationality" height="400" width="400"></canvas>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="span6">
-		<h4>内聚性得分：${result.balance}</h4>
-		<canvas id="balance" height="400" width="400"></canvas>
-	</div>
-</div>
-<div class="row-fluid">
-	<div class="span6"></div>
-	<div class="span6"></div>
-</div>
-</div>
-</div>
 </div>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/Chart.js"></script>
@@ -60,7 +65,23 @@ canvas {
 		value : 25 - ${result.balance},
 		color : "#E0E4CC"
 	}];
+	var encapsulationPieData = [ {
+		value : ${result.encapsulation},
+		color : "#69D2E7"
+	}, {
+		value : 25 - ${result.encapsulation},
+		color : "#E0E4CC"
+	}];
+	var relationRationalityPieData = [ {
+		value : ${result.relationRationality},
+		color : "#69D2E7"
+	}, {
+		value : 25 - ${result.relationRationality},
+		color : "#E0E4CC"
+	}];
 
 	new Chart(document.getElementById("d").getContext("2d")).Pie(dPieData);
 	new Chart(document.getElementById("balance").getContext("2d")).Pie(balancePieData);
+	new Chart(document.getElementById("encapsulation").getContext("2d")).Pie(encapsulationPieData);
+	new Chart(document.getElementById("relationRationality").getContext("2d")).Pie(relationRationalityPieData);
 </script>
