@@ -19,7 +19,9 @@ import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
+import jdepend.parse.impl.ParseData;
 import jdepend.service.AnalyseDataDTO;
+import jdepend.service.local.AnalyseData;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 
@@ -63,14 +65,12 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	 * @return
 	 * @throws JDependException
 	 */
-	private synchronized JDependRemoteService getRemoteService()
-			throws JDependException {
+	private synchronized JDependRemoteService getRemoteService() throws JDependException {
 		try {
 			// 获得SessionId
 			Long sessionId;
 			if (!RemoteSessionProxy.getInstance().isValid()) {
-				sessionId = RemoteSessionProxy.getInstance()
-						.loginAnonymousUser();
+				sessionId = RemoteSessionProxy.getInstance().loginAnonymousUser();
 			} else {
 				sessionId = RemoteSessionProxy.getInstance().getSessionId();
 			}
@@ -80,8 +80,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 			}
 			// 获得远程服务
 			if (this.remoteService == null) {
-				remoteService = (JDependRemoteService) Naming
-						.lookup(getRemoteServiceURL());
+				remoteService = (JDependRemoteService) Naming.lookup(getRemoteServiceURL());
 			}
 			return this.remoteService;
 		} catch (ConnectException e) {
@@ -135,16 +134,12 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 				try {
 					do {
 						Thread.sleep(WATCH_TIME);
-						schedule = getRemoteService().getAnalyzeSchedule(
-								request);
+						schedule = getRemoteService().getAnalyzeSchedule(request);
 						listener.onParsedJavaClass(null, schedule);
 						count++;
-					} while (schedule < data.getClasses().size()
-							&& count < TIMEOUT);
-					LogUtil.getInstance(JDependServiceRemoteProxy.class)
-							.systemLog(
-									"监控远程服务执行进度线程结束，结束参数为 schedule:" + schedule
-											+ " count:" + count);
+					} while (schedule < data.getClasses().size() && count < TIMEOUT);
+					LogUtil.getInstance(JDependServiceRemoteProxy.class).systemLog(
+							"监控远程服务执行进度线程结束，结束参数为 schedule:" + schedule + " count:" + count);
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				} catch (JDependException e) {
@@ -201,7 +196,9 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	}
 
 	@Override
-	public void setAnalyzeData(AnalyseDataDTO data) throws JDependException {
-		this.data = data;
+	public void setAnalyseData(AnalyseData data) {
+		this.data.setClasses(data.getClasses());
+		this.data.setConfigs(data.getConfigs());
+		this.data.setTargetFiles(data.getTargetFiles());
 	}
 }

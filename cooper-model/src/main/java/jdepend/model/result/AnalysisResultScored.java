@@ -22,7 +22,7 @@ public abstract class AnalysisResultScored implements Scored {
 	 * @return
 	 */
 	@Override
-	public float calD() {
+	public float getD() {
 		if (this.d == null) {
 			this.d = MetricsFormat.toFormattedScore((1 - getSummary().getDistance()) * D);
 		}
@@ -35,7 +35,7 @@ public abstract class AnalysisResultScored implements Scored {
 	 * @return
 	 */
 	@Override
-	public float calBalance() {
+	public float getBalance() {
 		if (this.balance == null) {
 			balance = MetricsFormat.toFormattedScore(getSummary().getBalance() * Balance);
 		}
@@ -48,7 +48,7 @@ public abstract class AnalysisResultScored implements Scored {
 	 * @return
 	 */
 	@Override
-	public float calEncapsulation() {
+	public float getEncapsulation() {
 		if (this.encapsulation == null) {
 			this.encapsulation = MetricsFormat.toFormattedMetrics(getSummary().getEncapsulation() * Encapsulation);
 		}
@@ -61,7 +61,7 @@ public abstract class AnalysisResultScored implements Scored {
 	 * @return
 	 */
 	@Override
-	public float calRelationRationality() {
+	public float getRelationRationality() {
 		// 关系合理性得分=没有问题的关系比例权值
 		if (this.relationRationality == null) {
 			if (!this.hasRelation()) {
@@ -75,8 +75,8 @@ public abstract class AnalysisResultScored implements Scored {
 	}
 
 	@Override
-	public float calScore() {
-		return MetricsFormat.toFormattedScore(calD() + calBalance() + calRelationRationality() + calEncapsulation());
+	public float getScore() {
+		return MetricsFormat.toFormattedScore(getD() + getBalance() + getRelationRationality() + getEncapsulation());
 	}
 
 	public void clearScore() {

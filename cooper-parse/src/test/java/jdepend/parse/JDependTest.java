@@ -18,7 +18,7 @@ import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.LayerComponentJudge;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.parse.impl.AnalyseData;
+import jdepend.parse.impl.ParseData;
 import junit.framework.TestCase;
 
 public class JDependTest extends TestCase {
@@ -55,7 +55,7 @@ public class JDependTest extends TestCase {
 
 		Parse jdepend = new Parse();
 
-		AnalyseData data = new AnalyseData();
+		ParseData data = new ParseData();
 		Map<FileType, List<byte[]>> fileData = fileManager.getFileData();
 		data.setClasses(fileData.get(FileType.classType));
 		data.setConfigs(fileData.get(FileType.xmlType));

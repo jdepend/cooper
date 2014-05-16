@@ -62,23 +62,23 @@ public class MementoPanel extends JPanel {
 			row = new Object[7];
 			row[0] = memento.getCreateDate();
 			row[1] = getAction(memento.getActions());
-			row[2] = MetricsFormat.toFormattedMetrics(memento.getResult().calD());
-			row[3] = MetricsFormat.toFormattedMetrics(memento.getResult().calBalance());
-			row[4] = MetricsFormat.toFormattedMetrics(memento.getResult().calEncapsulation());
-			row[5] = MetricsFormat.toFormattedMetrics(memento.getResult().calRelationRationality());
-			row[6] = MetricsFormat.toFormattedMetrics(memento.getResult().calScore());
+			row[2] = MetricsFormat.toFormattedMetrics(memento.getResult().getD());
+			row[3] = MetricsFormat.toFormattedMetrics(memento.getResult().getBalance());
+			row[4] = MetricsFormat.toFormattedMetrics(memento.getResult().getEncapsulation());
+			row[5] = MetricsFormat.toFormattedMetrics(memento.getResult().getRelationRationality());
+			row[6] = MetricsFormat.toFormattedMetrics(memento.getResult().getScore());
 			mementoModel.addRow(row);
 		}
 
 		if (AdjustHistory.getInstance().getMementos().size() > 0) {
 			row = new Object[7];
 			row[1] = getAction(AdjustHistory.getInstance().getActions());
-			row[2] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().calD());
-			row[3] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().calBalance());
-			row[4] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().calEncapsulation());
+			row[2] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getD());
+			row[3] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getBalance());
+			row[4] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getEncapsulation());
 			row[5] = MetricsFormat
-					.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().calRelationRationality());
-			row[6] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().calScore());
+					.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getRelationRationality());
+			row[6] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore());
 			mementoModel.addRow(row);
 		}
 

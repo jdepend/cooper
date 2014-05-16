@@ -10,7 +10,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseListener;
-import jdepend.parse.impl.AnalyseData;
+import jdepend.parse.impl.ParseData;
 
 public final class SearchUtil {
 
@@ -37,7 +37,7 @@ public final class SearchUtil {
 		}
 	}
 
-	public SearchUtil(AnalyseData data) {
+	public SearchUtil(ParseData data) {
 		this.jdepend.setAnalyseData(data);
 	}
 
@@ -92,7 +92,7 @@ public final class SearchUtil {
 		}
 	}
 
-	public void addAnalyseData(AnalyseData data) {
+	public void addAnalyseData(ParseData data) {
 		this.jdepend.setAnalyseData(data);
 	}
 

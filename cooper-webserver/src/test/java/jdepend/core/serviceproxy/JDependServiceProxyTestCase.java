@@ -14,8 +14,10 @@ import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ClassSearchUtil;
+import jdepend.parse.impl.ParseData;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.AnalyseDataDTO;
+import jdepend.service.local.AnalyseData;
 import junit.framework.TestCase;
 
 public class JDependServiceProxyTestCase extends TestCase {
@@ -36,7 +38,7 @@ public class JDependServiceProxyTestCase extends TestCase {
 		JDependServiceProxy proxy = new JDependServiceProxyFactory()
 				.getJDependServiceProxy("无", "以包为单位输出分析报告");
 
-		AnalyseDataDTO data = new AnalyseDataDTO();
+		AnalyseData data = new AnalyseData();
 
 		File jarFile = new File("C:\\dom4j-1.6.1.jar");
 
@@ -57,7 +59,9 @@ public class JDependServiceProxyTestCase extends TestCase {
 
 		data.setTargetFiles(targetFiles);
 
-		proxy.setAnalyzeData(data);
+		proxy.setAnalyseData(data);
+		
+		
 
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();

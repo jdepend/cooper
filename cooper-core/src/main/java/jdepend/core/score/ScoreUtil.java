@@ -16,12 +16,12 @@ public final class ScoreUtil {
 		score.group = CommandAdapterMgr.getCurrentGroup();
 		score.command = CommandAdapterMgr.getCurrentCommand();
 		score.lc = result.getSummary().getLineCount();
-		score.score = result.calScore();
-		score.d = result.calD();
-		score.balance = result.calBalance();
-		score.relation = result.calRelationRationality();
+		score.score = result.getScore();
+		score.d = result.getD();
+		score.balance = result.getBalance();
+		score.relation = result.getRelationRationality();
 		score.oo = result.getSummary().getObjectOriented();
-		score.encapsulation = result.calEncapsulation();
+		score.encapsulation = result.getEncapsulation();
 
 		if (ScoreAndResult.equals(mode)) {
 			ScoreRepository.save(score, result);

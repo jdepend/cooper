@@ -13,34 +13,34 @@ public interface Scored {
 	 * 
 	 * @return
 	 */
-	public float calScore();
+	public float getScore();
 	
 	/**
 	 * 抽象程度合理性得分
 	 * 
 	 * @return
 	 */
-	public float calD();
+	public float getD();
 	
 	/**
 	 * 内聚性得分
 	 * 
 	 * @return
 	 */
-	public float calBalance();
+	public float getBalance();
 	
 	/**
 	 * 封装性得分
 	 * 
 	 * @return
 	 */
-	public float calEncapsulation();
+	public float getEncapsulation();
 	
 	/**
 	 * 关系合理性得分
 	 * 
 	 * @return
 	 */
-	public float calRelationRationality();
+	public float getRelationRationality();
 
 }

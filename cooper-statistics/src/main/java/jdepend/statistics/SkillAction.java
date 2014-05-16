@@ -30,7 +30,7 @@ public class SkillAction extends ScoreListAction {
 				capacity = CapacityMgr.getInstance().getCapacity(result);
 				tableData.setData("组名", capacity.getGroup());
 				tableData.setData("命令名", capacity.getCommand());
-				tableData.setData("总分", capacity.getScore().calScore());
+				tableData.setData("总分", capacity.getScore().getScore());
 				tableData.setData("能力", capacity.getLevel());
 				tableData.setData("复杂度", capacity.getComplexity().getValue());
 				tableData.setData("设计模式使用", capacity.getSkill().getPatterns());

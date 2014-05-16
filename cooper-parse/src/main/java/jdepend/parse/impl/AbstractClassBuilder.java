@@ -52,7 +52,7 @@ public abstract class AbstractClassBuilder {
 		this.isBuildClassRelation = isBuildClassRelation;
 	}
 
-	public abstract Collection<JavaClass> build(AnalyseData data);
+	public abstract Collection<JavaClass> build(ParseData data);
 
 	public abstract PackageFilter getFilter();
 

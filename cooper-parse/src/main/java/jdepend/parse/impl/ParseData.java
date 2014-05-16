@@ -2,7 +2,7 @@ package jdepend.parse.impl;
 
 import java.util.List;
 
-public class AnalyseData {
+public class ParseData {
 
 	private List<byte[]> classes;
 

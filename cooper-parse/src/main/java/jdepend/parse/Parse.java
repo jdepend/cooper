@@ -17,7 +17,7 @@ import jdepend.model.JavaPackage;
 import jdepend.model.Metrics;
 import jdepend.model.MetricsMgr;
 import jdepend.parse.impl.AbstractClassBuilder;
-import jdepend.parse.impl.AnalyseData;
+import jdepend.parse.impl.ParseData;
 import jdepend.parse.impl.CSharpClassBuilder;
 import jdepend.parse.impl.JavaClassBuilder;
 import jdepend.parse.impl.ParseConfigurator;
@@ -38,7 +38,7 @@ public class Parse {
 
 	private ParseConfigurator conf;
 
-	private AnalyseData data;
+	private ParseData data;
 
 	public Parse() {
 		init(new ParseConfigurator());
@@ -112,7 +112,7 @@ public class Parse {
 	 * 
 	 * @param data
 	 */
-	public void setAnalyseData(AnalyseData data) {
+	public void setAnalyseData(ParseData data) {
 		this.data = data;
 	}
 
@@ -206,9 +206,9 @@ public class Parse {
 		return this.builder;
 	}
 
-	private AnalyseData getAnalyseData() throws IOException {
+	private ParseData getAnalyseData() throws IOException {
 		if (this.data == null) {
-			data = new AnalyseData();
+			data = new ParseData();
 			Map<FileType, List<byte[]>> fileData = this.fileManager.getFileData();
 			data.setClasses(fileData.get(FileType.classType));
 			data.setConfigs(fileData.get(FileType.xmlType));

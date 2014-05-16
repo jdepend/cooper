@@ -104,10 +104,10 @@ public final class ExecuteHistoryChartPanel extends JPanel {
 			row = new Object[6];
 
 			row[0] = summary.getId();
-			row[1] = MetricsFormat.toFormattedMetrics(this.results.get(summary).calD());
-			row[2] = MetricsFormat.toFormattedMetrics(this.results.get(summary).calBalance());
-			row[3] = MetricsFormat.toFormattedMetrics(this.results.get(summary).calRelationRationality());
-			row[4] = MetricsFormat.toFormattedMetrics(this.results.get(summary).calScore());
+			row[1] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getD());
+			row[2] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getBalance());
+			row[3] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getRelationRationality());
+			row[4] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getScore());
 			row[5] = summary.getCreateDate();
 
 			scoreListModel.addRow(row);
@@ -130,10 +130,10 @@ public final class ExecuteHistoryChartPanel extends JPanel {
 		for (ExecuteResultSummry summary : this.results.keySet()) {
 
 			result = this.results.get(summary);
-			scoreSeries.add(new Minute(summary.getCreateDate()), result.calScore());
-			dSeries.add(new Minute(summary.getCreateDate()), result.calD());
-			balanceSeries.add(new Minute(summary.getCreateDate()), result.calBalance());
-			relationSeries.add(new Minute(summary.getCreateDate()), result.calRelationRationality());
+			scoreSeries.add(new Minute(summary.getCreateDate()), result.getScore());
+			dSeries.add(new Minute(summary.getCreateDate()), result.getD());
+			balanceSeries.add(new Minute(summary.getCreateDate()), result.getBalance());
+			relationSeries.add(new Minute(summary.getCreateDate()), result.getRelationRationality());
 		}
 
 		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();

@@ -23,13 +23,14 @@ import jdepend.model.result.AnalysisRunningContextMgr;
 import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseListener;
-import jdepend.parse.impl.AnalyseData;
+import jdepend.parse.impl.ParseData;
 import jdepend.parse.impl.ParseConfigurator;
 import jdepend.service.AnalyseDataDTO;
 import jdepend.service.avertcheat.framework.AvertCheat;
 import jdepend.service.avertcheat.framework.AvertCheatMgr;
 import jdepend.service.context.AnalyseContext;
 import jdepend.service.context.AnalyseContextMgr;
+import jdepend.service.local.AnalyseData;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 
@@ -178,7 +179,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		String path = data.getPath();
 		boolean ok = false;
 		if (classes != null && classes.size() > 0) {
-			AnalyseData analyseData = new AnalyseData();
+			ParseData analyseData = new ParseData();
 			analyseData.setClasses(classes);
 			analyseData.setConfigs(configs);
 			this.parse.setAnalyseData(analyseData);
@@ -209,6 +210,12 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		if (data.getComponent() != null) {
 			this.setComponent(data.getComponent());
 		}
+	}
+	
+	@Override
+	public void setAnalyzeData(AnalyseData data){
+		this.parse.setAnalyseData(data.toParseData());
+		this.parse.setTargetFileGroupInfo(data.getTargetFiles());
 	}
 
 	public void registMetrics(String key, Metrics metrics)

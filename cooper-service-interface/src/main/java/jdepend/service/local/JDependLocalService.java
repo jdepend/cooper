@@ -27,21 +27,21 @@ public interface JDependLocalService {
 	 * @return
 	 * @throws JDependException
 	 */
-	public abstract AnalysisResult analyze() throws JDependException;
+	public AnalysisResult analyze() throws JDependException;
 
 	/**
 	 * 设置组件模型
 	 * 
 	 * @param component
 	 */
-	public abstract void setComponent(Component component);
+	public void setComponent(Component component);
 
 	/**
 	 * 设置解析日志输出器
 	 * 
 	 * @param printWriter
 	 */
-	public abstract void setParseLogWriter(PrintWriter printWriter);
+	public void setParseLogWriter(PrintWriter printWriter);
 
 	/**
 	 * 增加分析数据路径
@@ -49,7 +49,7 @@ public interface JDependLocalService {
 	 * @param name
 	 * @throws IOException
 	 */
-	public abstract void addDirectory(String name) throws IOException;
+	public void addDirectory(String name) throws IOException;
 
 	/**
 	 * 增加分析数据
@@ -57,32 +57,43 @@ public interface JDependLocalService {
 	 * @param name
 	 * @throws IOException
 	 */
-	public abstract void addAnalyzeData(AnalyseDataDTO data) throws JDependException;
+	public void addAnalyzeData(AnalyseDataDTO data) throws JDependException;
 	
+	/**
+	 * 增加分析数据
+	 * 
+	 * @param data
+	 */
+	public void setAnalyzeData(AnalyseData data);
+
 	/**
 	 * 计算分析目标的类个数
+	 * 
 	 * @return
 	 */
-	public abstract int countClasses();
-	
+	public int countClasses();
+
 	/**
 	 * 增加解析监听器
+	 * 
 	 * @param listener
 	 */
-	public abstract void addParseListener(ParseListener listener);
+	public void addParseListener(ParseListener listener);
 
 	/**
 	 * 增加构建监听器
+	 * 
 	 * @param listener
 	 */
-	public abstract void addBuildListener(BuildListener listener);
+	public void addBuildListener(BuildListener listener);
 
 	/**
 	 * 增加分析监听器
+	 * 
 	 * @param listener
 	 */
-	public abstract void addAnalyseListener(AnalyseListener listener);
-	
+	public void addAnalyseListener(AnalyseListener listener);
+
 	/**
 	 * 注册指标
 	 * 
@@ -90,21 +101,23 @@ public interface JDependLocalService {
 	 * @param metrics
 	 * @throws JDependException
 	 */
-	public abstract void registMetrics(String key, Metrics metrics) throws JDependException;
-	
+	public void registMetrics(String key, Metrics metrics) throws JDependException;
+
 	/**
 	 * 注册类关系
+	 * 
 	 * @param type
 	 * @throws JDependException
 	 */
-	public abstract void registRelationType(JavaClassRelationType type) throws JDependException;
+	public void registRelationType(JavaClassRelationType type) throws JDependException;
 
 	/**
 	 * 增加过滤掉的包
 	 * 
 	 * @param filteredPackages
 	 */
-	public abstract void addFilteredPackages(List<String> filteredPackages);
+	public void addFilteredPackages(List<String> filteredPackages);
+
 	/**
 	 * 设置是否本地运行
 	 * 

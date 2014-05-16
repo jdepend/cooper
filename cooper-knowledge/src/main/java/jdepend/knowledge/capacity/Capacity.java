@@ -69,13 +69,13 @@ public class Capacity {
 	}
 
 	protected String calLevel() {
-		if (score.calScore() >= 80 && complexity.getValue() > 20 && skill.getLevel().equals(Skill.High)) {
+		if (score.getScore() >= 80 && complexity.getValue() > 20 && skill.getLevel().equals(Skill.High)) {
 			return HighCapacity;
-		} else if (score.calScore() < 50) {
+		} else if (score.getScore() < 50) {
 			return LowCapacity;
-		} else if (score.calScore() < 60 && complexity.getValue() < 80) {
+		} else if (score.getScore() < 60 && complexity.getValue() < 80) {
 			return LowCapacity;
-		} else if (score.calScore() < 70 && score.calScore() >= 60 && complexity.getValue() < 20
+		} else if (score.getScore() < 70 && score.getScore() >= 60 && complexity.getValue() < 20
 				&& skill.getLevel().equals(Skill.Low)) {
 			return LowCapacity;
 		} else {

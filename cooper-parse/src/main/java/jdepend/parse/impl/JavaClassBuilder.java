@@ -43,7 +43,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	 * 
 	 * @return Collection of <code>JavaClass</code> instances.
 	 */
-	public Collection<JavaClass> build(AnalyseData data) {
+	public Collection<JavaClass> build(ParseData data) {
 		if (this.javaClassesForName == null || this.getConf().getEveryClassBuild()) {
 			javaClassesForName = new HashMap<String, JavaClass>();
 			// 解析Config

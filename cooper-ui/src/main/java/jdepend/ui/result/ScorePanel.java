@@ -133,7 +133,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 		dPanel.setBorder(new TitledBorder(BundleUtil
 				.getString(BundleUtil.Metrics_D)));
 		dPanel.setBackground(new java.awt.Color(255, 255, 255));
-		dPanel.add(this.createItem(AnalysisResult.DName, result.calD()));
+		dPanel.add(this.createItem(AnalysisResult.DName, result.getD()));
 
 		subitemPanel.add(dPanel);
 
@@ -142,7 +142,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 				.getString(BundleUtil.Metrics_Balance)));
 		balancePanel.setBackground(new java.awt.Color(255, 255, 255));
 		balancePanel.add(this.createItem(AnalysisResult.BalanceName,
-				result.calBalance()));
+				result.getBalance()));
 
 		subitemPanel.add(balancePanel);
 
@@ -151,7 +151,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 				.getString(BundleUtil.Metrics_Encapsulation)));
 		encapsulationPanel.setBackground(new java.awt.Color(255, 255, 255));
 		encapsulationPanel.add(this.createItem(
-				AnalysisResult.EncapsulationName, result.calEncapsulation()));
+				AnalysisResult.EncapsulationName, result.getEncapsulation()));
 
 		subitemPanel.add(encapsulationPanel);
 
@@ -162,7 +162,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 				.setBackground(new java.awt.Color(255, 255, 255));
 		relationRationalityPanel.add(this.createItem(
 				AnalysisResult.RelationRationalityName,
-				result.calRelationRationality()));
+				result.getRelationRationality()));
 
 		subitemPanel.add(relationRationalityPanel);
 
@@ -263,7 +263,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 		JPanel scorePanel = new JPanel(new BorderLayout());
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 		scorePanel.add(BorderLayout.NORTH,
-				this.createItem(AnalysisResult.ScoreName, result.calScore()));
+				this.createItem(AnalysisResult.ScoreName, result.getScore()));
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -378,10 +378,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
 		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.calD() / AnalysisResult.D);
+				this.result.getD() / AnalysisResult.D);
 		datas.put(BundleUtil
 				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.calD() / AnalysisResult.D);
+				- this.result.getD() / AnalysisResult.D);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -390,10 +390,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
 		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.calBalance() / AnalysisResult.Balance);
+				this.result.getBalance() / AnalysisResult.Balance);
 		datas.put(BundleUtil
 				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.calBalance() / AnalysisResult.Balance);
+				- this.result.getBalance() / AnalysisResult.Balance);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -402,10 +402,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
 		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.calEncapsulation() / AnalysisResult.Encapsulation);
+				this.result.getEncapsulation() / AnalysisResult.Encapsulation);
 		datas.put(BundleUtil
 				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.calEncapsulation() / AnalysisResult.Encapsulation);
+				- this.result.getEncapsulation() / AnalysisResult.Encapsulation);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -415,11 +415,11 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
 		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.calRelationRationality()
+				this.result.getRelationRationality()
 						/ AnalysisResult.RelationRationality);
 		datas.put(BundleUtil
 				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.calRelationRationality()
+				- this.result.getRelationRationality()
 				/ AnalysisResult.RelationRationality);
 		item.setDatas(datas);
 		graph.addItem(item);

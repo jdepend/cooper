@@ -24,7 +24,7 @@ public class CSharpClassBuilder extends AbstractClassBuilder {
 	}
 
 	@Override
-	public List<JavaClass> build(AnalyseData data) {
+	public List<JavaClass> build(ParseData data) {
 		if (this.classes == null || this.getConf().getEveryClassBuild()) {
 			classes = new ArrayList<JavaClass>();
 

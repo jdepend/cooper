@@ -64,7 +64,7 @@
 	</form>
 </div>
 <form id="submitForm" action = '${ctx}/analyse/execute' method="POST">
-	<input id="componentModel" type="hidden"/>
+	<input id="componentModel" name="componentModel" type="hidden"/>
 </form>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>

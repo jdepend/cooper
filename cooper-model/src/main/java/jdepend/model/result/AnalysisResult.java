@@ -495,15 +495,15 @@ public final class AnalysisResult extends AnalysisResultScored implements Serial
 		StringBuilder scoreInfo = new StringBuilder();
 
 		scoreInfo.append("最终得分：");
-		scoreInfo.append(this.calScore());
+		scoreInfo.append(this.getScore());
 		scoreInfo.append("(抽象程度合理性得分：");
-		scoreInfo.append(this.calD());
+		scoreInfo.append(this.getD());
 		scoreInfo.append("【满分：" + AnalysisResultScored.D + "】 内聚性得分：");
-		scoreInfo.append(this.calBalance());
+		scoreInfo.append(this.getBalance());
 		scoreInfo.append("【满分：" + AnalysisResultScored.Balance + "】 内聚性得分：】封装性得分：");
-		scoreInfo.append(this.calEncapsulation());
+		scoreInfo.append(this.getEncapsulation());
 		scoreInfo.append("【满分：" + AnalysisResultScored.Encapsulation + "】 关系合理性得分：");
-		scoreInfo.append(this.calRelationRationality());
+		scoreInfo.append(this.getRelationRationality());
 		scoreInfo.append("【满分：" + AnalysisResultScored.RelationRationality + "】)\n");
 
 		return scoreInfo;
@@ -521,7 +521,7 @@ public final class AnalysisResult extends AnalysisResultScored implements Serial
 		result = prime * result
 				+ ((this.getRunningContext().getGroup() == null) ? 0 : this.getRunningContext().getGroup().hashCode());
 		result = prime * result + new Integer(this.getSummary().getLineCount()).hashCode();
-		result = prime * result + new Float(this.calScore()).hashCode();
+		result = prime * result + new Float(this.getScore()).hashCode();
 		return result;
 	}
 
@@ -540,11 +540,11 @@ public final class AnalysisResult extends AnalysisResultScored implements Serial
 		itemDiffs.add(new ItemDiff("关系个数", this.getRelations().size(), result.getRelations().size()));
 		itemDiffs
 				.add(new ItemDiff("关系个数与组件个数的比值", this.calRelationComponentScale(), result.calRelationComponentScale()));
-		itemDiffs.add(new ItemDiff("总分", this.calScore(), result.calScore()));
-		itemDiffs.add(new ItemDiff("抽象程度合理性得分", this.calD(), result.calD()));
-		itemDiffs.add(new ItemDiff("内聚性得分", this.calBalance(), result.calBalance()));
-		itemDiffs.add(new ItemDiff("封装性得分", this.calEncapsulation(), result.calEncapsulation()));
-		itemDiffs.add(new ItemDiff("关系合理性得分", this.calRelationRationality(), result.calRelationRationality()));
+		itemDiffs.add(new ItemDiff("总分", this.getScore(), result.getScore()));
+		itemDiffs.add(new ItemDiff("抽象程度合理性得分", this.getD(), result.getD()));
+		itemDiffs.add(new ItemDiff("内聚性得分", this.getBalance(), result.getBalance()));
+		itemDiffs.add(new ItemDiff("封装性得分", this.getEncapsulation(), result.getEncapsulation()));
+		itemDiffs.add(new ItemDiff("关系合理性得分", this.getRelationRationality(), result.getRelationRationality()));
 		itemDiffs.add(new ItemDiff("耦合值", this.getSummary().getCoupling(), result.getSummary().getCoupling()));
 		itemDiffs.add(new ItemDiff("内聚值", this.getSummary().getCohesion(), result.getSummary().getCohesion()));
 		String itemDiffDesc;

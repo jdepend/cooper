@@ -33,11 +33,11 @@ public class RelationComponentScaleAction extends ScoreListAction {
 				tableData.setData("组件个数", result.getComponents().size());
 				tableData.setData("关系个数", result.getRelations().size());
 				tableData.setData("关系组件比例", result.calRelationComponentScale());
-				tableData.setData("关系合理性得分", result.calRelationRationality());
-				tableData.setData("封装性得分", result.calEncapsulation());
-				tableData.setData("总分", result.calScore());
-				tableData.setData("关系数量*关系合理性得分", result.getRelations().size() * result.calRelationRationality());
-				tableData.setData("关系组件比例*总分", result.calRelationComponentScale() * result.calScore());
+				tableData.setData("关系合理性得分", result.getRelationRationality());
+				tableData.setData("封装性得分", result.getEncapsulation());
+				tableData.setData("总分", result.getScore());
+				tableData.setData("关系数量*关系合理性得分", result.getRelations().size() * result.getRelationRationality());
+				tableData.setData("关系组件比例*总分", result.calRelationComponentScale() * result.getScore());
 				
 				this.progress();
 				LogUtil.getInstance(RelationComponentScaleAction.class).systemLog(
