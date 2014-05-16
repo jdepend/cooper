@@ -10,6 +10,7 @@
 			<fieldset>
 				<legend>第二步：设置组件模型</legend>
 			</fieldset>
+			<button id="createComponent" class="btn">选择包创建组件</button>
 			<div
 				style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
 				<table class="table table-bordered" pa_ui_name="table,exinput"
@@ -152,6 +153,17 @@
 			}
 			$('#componentModel').val($.toJSON(componentModel));
 			$('#submitForm').submit();
+		});
+		
+		$('#createComponent').click(function(){
+			if($('#listPackages .pa_ui_selected .itemName').size()){
+				//清空窗口数据
+				$('#componentName').val('');
+				//显示窗口
+				$('#componentNameModal').modal('toggle');
+			}else{
+				$.Showmsg('请选择包！');
+			}
 		});
 	});
 </script>
