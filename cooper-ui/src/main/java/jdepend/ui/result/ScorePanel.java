@@ -558,7 +558,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 				e.printStackTrace();
 			}
 		} else if (itemName.equals(AnalysisResult.RelationRationalityName)) {
-			Float rs = result.calAttentionRelationScale();
+			Float rs = result.getAttentionRelationScale();
 			adviseLabel = new JLabel();
 			if (MathUtil.isZero(rs)) {
 				adviseLabel

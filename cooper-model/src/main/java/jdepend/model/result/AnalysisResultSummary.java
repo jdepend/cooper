@@ -53,6 +53,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private int componentCount;
 
+	private int relationCount;
+
 	@Override
 	public float abstractness() {
 		return this.abstractness;
@@ -268,6 +270,14 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.componentCount = componentCount;
 	}
 
+	public int getRelationCount() {
+		return relationCount;
+	}
+
+	public void setRelationCount(int relationCount) {
+		this.relationCount = relationCount;
+	}
+
 	public static AnalysisResultSummary calSummary(AnalysisResult result) {
 
 		String[] metrics = new String[] { MetricsMgr.LC, MetricsMgr.CN, MetricsMgr.CC, MetricsMgr.AC, MetricsMgr.Ca,
@@ -369,6 +379,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		resultSummry.setObjectOriented(MetricsFormat.toFormattedMetrics((Float) summry[13]));
 		resultSummry.setComponentCount(objs.size());
 		resultSummry.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[14]));
+		
+		resultSummry.setRelationCount(result.getRelations().size());
 
 		return resultSummry;
 	}
@@ -396,9 +408,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 				+ " [sum(内部的JavaClass * Relation强度)，值越大越好]\n");
 		info.append("   内聚性指数" + MetricsFormat.toFormattedMetrics(this.getBalance())
 				+ " [内聚值/(内聚值+分组耦合最大顺序差值），值越大越好]\n");
-		info
-				.append("   面向对象指数" + MetricsFormat.toFormattedMetrics(this.getObjectOriented())
-						+ " [私有属性 / 公开方法，值越大越好]\n");
+		info.append("   面向对象指数" + MetricsFormat.toFormattedMetrics(this.getObjectOriented()) + " [私有属性 / 公开方法，值越大越好]\n");
 		info.append("   封装性" + MetricsFormat.toFormattedMetrics(this.getEncapsulation()) + " [私有类比例，值越大越好]\n");
 
 		return info.toString();

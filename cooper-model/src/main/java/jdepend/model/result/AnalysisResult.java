@@ -35,7 +35,7 @@ import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.model.util.RelationCreator;
 
-public final class AnalysisResult extends AnalysisResultScored implements Serializable {
+public class AnalysisResult extends AnalysisResultScored implements Serializable {
 
 	private static final long serialVersionUID = -8130705071313304937L;
 
@@ -214,7 +214,7 @@ public final class AnalysisResult extends AnalysisResultScored implements Serial
 	 * 
 	 * @return
 	 */
-	public float calAttentionRelationScale() {
+	public float getAttentionRelationScale() {
 
 		float scale = 0F;
 

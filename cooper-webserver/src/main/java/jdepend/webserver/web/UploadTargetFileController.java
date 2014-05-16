@@ -1,8 +1,6 @@
 package jdepend.webserver.web;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,10 +22,7 @@ import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.impl.ParseData;
 import jdepend.parse.util.SearchUtil;
-import jdepend.service.AnalyseDataDTO;
 import jdepend.service.local.AnalyseData;
-
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +32,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -134,17 +128,20 @@ public class UploadTargetFileController {
 		targetFiles.put(fileName, reader.getEntryNames());
 
 		data.setTargetFiles(targetFiles);
-		
+
 		proxy.setAnalyseData(data);
-		
+
 		proxy.setComponent(component);
 
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
 		result.getRunningContext().setPath(fileName);
 
-		model.addAttribute("result", result);
-		request.getSession().setAttribute(WebConstants.SESSION_RESULT, result);
+		WebAnalysisResult webResult = new WebAnalysisResult(result);
+		model.addAttribute("result", webResult);
+		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
+
+		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
 
 		return "result";
 	}

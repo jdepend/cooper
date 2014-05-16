@@ -28,13 +28,13 @@ public final class SummaryDomainAnalysis extends AbstractDomainAnalysis {
 		}
 		Float relationRationality = result.getRelationRationality();
 		if (relationRationality < 10F) {
-			content.append("，存在问题的关系较多（比例为" + MetricsFormat.toFormattedPercent(result.calAttentionRelationScale())
+			content.append("，存在问题的关系较多（比例为" + MetricsFormat.toFormattedPercent(result.getAttentionRelationScale())
 					+ "）");
 		} else if (relationRationality == 40F) {
 			content.append("，组件间关系合理，恰当");
 		} else if (relationRationality > 30F) {
 			content.append("，组件间关系设计得较好（存在问题的关系比例为"
-					+ MetricsFormat.toFormattedPercent(result.calAttentionRelationScale()) + "）");
+					+ MetricsFormat.toFormattedPercent(result.getAttentionRelationScale()) + "）");
 		}
 		Float balance = result.getBalance();
 		if (balance < 10F) {

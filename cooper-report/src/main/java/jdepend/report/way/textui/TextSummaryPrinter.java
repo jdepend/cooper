@@ -83,7 +83,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 			e.printStackTrace();
 		}
 		// 关系合理性
-		Float rs = result.calAttentionRelationScale();
+		Float rs = result.getAttentionRelationScale();
 		if (MathUtil.isZero(rs)) {
 			adviseInfo.append("未发现组件间存在异常的关系");
 		} else {
