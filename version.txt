@@ -8,6 +8,8 @@ c）删除了源码引用的两个图形工程
 
 d）向webserver工程引入bootstrap和spring
 
+e）改进Relation的getAttentionLevel算法
+
 1.2.2_07 2014-04-16
 
 a）将service对knowledge组件的依赖上移到core组件中，通过实现AnalyseListener接口来实现分析结果的保存[ResultSaver]
