@@ -52,6 +52,11 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	public static final float SDPDifference = 0.1F;
+	
+	public static final String Intensity = "Intensity";
+	public static final String AttentionType = "AttentionType";
+	public static final String AttentionLevel = "AttentionLevel";
+	public static final String Balance = "Balance";
 
 	public void setCurrent(Element current) {
 		this.current = current;
@@ -119,14 +124,14 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	 * @param relations
 	 * @return
 	 */
-	public Float getAttentionLevel(Collection<Relation> relations) {
+	public Float getAttentionLevel() {
 		if (!this.isAttention) {
 			return new Float(DefaultAttentionType);
 		}
 		if (this.attentionLevel == null) {
 			int attentiontype = getAttentionType();
 			if (attentiontype == MutualDependAttentionType) {// 彼此依赖
-				for (Relation relation : relations) {
+				for (Relation relation : this.depend.getComponent().getRelations()) {
 					if (relation.getCurrent().equals(this.depend) && relation.getDepend().equals(this.current)) {
 						if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
 							this.attentionLevel = new Float(attentiontype);

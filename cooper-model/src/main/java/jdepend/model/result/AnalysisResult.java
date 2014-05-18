@@ -78,22 +78,24 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public AnalysisResult(List<Component> components) {
 		super();
 		this.components = components;
+		for(Component component : this.components){
+			component.setResult(this);
+		}
 		this.calRelations();
 		this.calAreaComponents();
 	}
 
 	public AnalysisResult(List<Component> components, AnalysisRunningContext runningContext) {
-		super();
-		this.components = components;
+		this(components);
 		this.runningContext = runningContext;
-
-		this.calRelations();
-		this.calAreaComponents();
 	}
 	
 	public AnalysisResult(AnalysisResult result){
 		
 		this.components = result.components;
+		for(Component component : this.components){
+			component.setResult(this);
+		}
 		this.areaComponents = result.areaComponents;
 		this.isExecuteResult = result.isExecuteResult;
 		this.runningContext = result.runningContext;
@@ -484,6 +486,10 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		JavaClassUtil.supplyJavaClassRelationItem(getClasses());
 		// 填充Method中的InvokeItem中的Method
 		JavaClassUtil.supplyJavaClassDetail(getClasses());
+		//填充Result
+		for(Component component : this.components){
+			component.setResult(this);
+		}
 		// 计算关系
 		this.calRelations();
 		// 重新计算组件区域

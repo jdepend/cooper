@@ -40,12 +40,12 @@ public class ProblemIdentify {
 		Relation otherRelation;
 		for (Relation relation : relations) {
 			if (relation.isAttention()) {
-				attentionLevel = relation.getAttentionLevel(relations);
+				attentionLevel = relation.getAttentionLevel();
 				if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
 					// 搜索彼此依赖的“对方”关系
 					otherRelation = result.getTheRelation(relation.getDepend().getName(), relation.getCurrent()
 							.getName());
-					if (attentionLevel > otherRelation.getAttentionLevel(relations)) {
+					if (attentionLevel > otherRelation.getAttentionLevel()) {
 						relationProblem = new RelationProblem(relation);
 						relationProblem.setType(Problem.MutualDependRelationProblem);
 						relationProblem.setOrder(RelationProblemOrder + attentionLevel);

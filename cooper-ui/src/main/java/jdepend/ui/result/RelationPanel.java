@@ -47,7 +47,7 @@ public final class RelationPanel extends SubResultTabPanel {
 
 	@Override
 	protected void init(final AnalysisResult result) {
-		
+
 		this.relations = result.getRelations();
 
 		for (jdepend.model.Component unit : result.getComponents()) {
@@ -96,8 +96,7 @@ public final class RelationPanel extends SubResultTabPanel {
 				}
 				if (e.getButton() == 3) {
 					final JPopupMenu popupMenu = new JPopupMenu();
-					JMenuItem saveAsItem = new JMenuItem(BundleUtil
-							.getString(BundleUtil.Command_SaveAs));
+					JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 					saveAsItem.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							JTableUtil.exportTableToExcel(table);
@@ -112,25 +111,20 @@ public final class RelationPanel extends SubResultTabPanel {
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
-					String current = (String) table.getValueAt(
-							table.rowAtPoint(e.getPoint()), 0);
-					String depend = (String) table.getValueAt(
-							table.rowAtPoint(e.getPoint()), 1);
+					String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
+					String depend = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 1);
 
-					String currentCol = (String) table.getColumnModel()
-							.getColumn(table.columnAtPoint(e.getPoint()))
+					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
 
 					if (currentCol.equals(ReportConstant.Intensity)) {
-						RelationDetailDialog d = new RelationDetailDialog(
-								current, depend);
+						RelationDetailDialog d = new RelationDetailDialog(current, depend);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.CurrentElement)
 							|| currentCol.equals(ReportConstant.DependElement)) {
 
-						String element = (String) table.getValueAt(
-								table.rowAtPoint(e.getPoint()),
+						String element = (String) table.getValueAt(table.rowAtPoint(e.getPoint()),
 								table.columnAtPoint(e.getPoint()));
 
 						CohesionDialog d = new CohesionDialog(element);
@@ -146,12 +140,10 @@ public final class RelationPanel extends SubResultTabPanel {
 		colNames.add(ReportConstant.DependElement);
 		colNames.add(ReportConstant.Intensity);
 
-		table.addMouseMotionListener(new TableMouseMotionAdapter(table,
-				colNames));
+		table.addMouseMotionListener(new TableMouseMotionAdapter(table, colNames));
 
 		for (int i = 0; i < table.getColumnCount(); i++) {
-			table.getColumn(table.getColumnName(i)).setCellRenderer(
-					new RelationTableRenderer());
+			table.getColumn(table.getColumnName(i)).setCellRenderer(new RelationTableRenderer());
 		}
 	}
 
@@ -163,15 +155,11 @@ public final class RelationPanel extends SubResultTabPanel {
 			arg[0] = relation.getCurrent().getName();
 			arg[1] = relation.getDepend().getName();
 			arg[2] = MetricsFormat.toFormattedMetrics(relation.getIntensity());
-			arg[3] = MetricsFormat.toFormattedMetrics(relation.getCurrent()
-					.getIntensity());
-			arg[4] = MetricsFormat.toFormattedMetrics(relation.getDepend()
-					.getIntensity());
+			arg[3] = MetricsFormat.toFormattedMetrics(relation.getCurrent().getIntensity());
+			arg[4] = MetricsFormat.toFormattedMetrics(relation.getDepend().getIntensity());
 			arg[5] = MetricsFormat.toFormattedMetrics(relation.getBalance());
-			arg[6] = Relation.AttentionTypeList
-					.get(relation.getAttentionType());
-			arg[7] = MetricsFormat.toFormattedMetrics(relation
-					.getAttentionLevel(relations));
+			arg[6] = Relation.AttentionTypeList.get(relation.getAttentionType());
+			arg[7] = MetricsFormat.toFormattedMetrics(relation.getAttentionLevel());
 			model.addRow(arg);
 		}
 
@@ -189,9 +177,8 @@ public final class RelationPanel extends SubResultTabPanel {
 			this.setLayout(new BorderLayout());
 		}
 
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+				boolean hasFocus, int row, int column) {
 
 			this.removeAll();
 

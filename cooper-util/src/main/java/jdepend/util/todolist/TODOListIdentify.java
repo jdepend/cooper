@@ -48,7 +48,7 @@ public class TODOListIdentify {
 			try {
 				if (relation.isAttention()) {
 					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
-						attentionLevel = relation.getAttentionLevel(relations);
+						attentionLevel = relation.getAttentionLevel();
 						// 寻找循环依赖中“细”的那条依赖关系
 						if (attentionLevel - Relation.MutualDependAttentionType > 0.8) {
 							item = new MoveRelationForMutualDependTODOItem(relation);
@@ -66,11 +66,11 @@ public class TODOListIdentify {
 					} else if (relation.getAttentionType() == Relation.ComponentLayerAttentionType) {
 						item = new MoveRelationForChangeDirTODOItem(relation);
 						if (item.isMove()) {
-							item.setOrder(MoveJavaClassTODOItemOrder + relation.getAttentionLevel(relations));
+							item.setOrder(MoveJavaClassTODOItemOrder + relation.getAttentionLevel());
 							this.list.add(item);
 						}
 					} else if (relation.getAttentionType() == Relation.SDPAttentionType) {
-						attentionLevel = relation.getAttentionLevel(relations);
+						attentionLevel = relation.getAttentionLevel();
 						if (attentionLevel - Relation.SDPAttentionType > 0.4) {
 							item = new MoveRelationForChangeDirTODOItem(relation);
 							if (item.isMove()) {
@@ -127,7 +127,7 @@ public class TODOListIdentify {
 		for (Relation relation : relations) {
 			if (relation.isAttention()) {
 				if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
-					attentionLevel = relation.getAttentionLevel(relations) - Relation.MutualDependAttentionType;
+					attentionLevel = relation.getAttentionLevel() - Relation.MutualDependAttentionType;
 					// 循环依赖的双方依赖线不是一“粗”一“细”
 					if (attentionLevel < 0.8 && attentionLevel >= 0.2) {
 						item = new ComponentUniteTODOItem(relation);

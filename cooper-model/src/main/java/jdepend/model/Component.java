@@ -14,6 +14,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassUtil;
@@ -41,6 +42,8 @@ public abstract class Component extends AbstractJDependUnit {
 	private int layer;
 
 	private List<JavaClass> javaClasses = new ArrayList<JavaClass>();
+
+	private transient AnalysisResult result;
 
 	private transient AreaComponent areaComponent;// 所属组件区域，由识别设计动机模块计算得到
 
@@ -534,6 +537,14 @@ public abstract class Component extends AbstractJDependUnit {
 
 	public void setSteadyType(String steadyType) {
 		this.steadyType = steadyType;
+	}
+
+	public AnalysisResult getResult() {
+		return result;
+	}
+
+	public void setResult(AnalysisResult result) {
+		this.result = result;
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
