@@ -90,6 +90,25 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.calRelations();
 		this.calAreaComponents();
 	}
+	
+	public AnalysisResult(AnalysisResult result){
+		
+		this.components = result.components;
+		this.areaComponents = result.areaComponents;
+		this.isExecuteResult = result.isExecuteResult;
+		this.runningContext = result.runningContext;
+		
+		this.relations = result.relations;
+		this.summary = result.summary;
+		this.data = result.data;
+		this.tableRelationScale = result.tableRelationScale;
+		this.componentForNames = result.componentForNames;
+		this.javaClassForNames = result.javaClassForNames;
+		this.methods = result.methods;
+		this.javaClasses = result.javaClasses;
+		this.javaPackages = result.javaPackages;
+		this.javaPackageTree = result.javaPackageTree;
+	}
 
 	public List<Component> getComponents() {
 		return components;

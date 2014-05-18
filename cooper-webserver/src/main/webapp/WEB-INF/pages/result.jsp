@@ -1,12 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<meta name="viewport" content="initial-scale = 1, user-scalable = no">
-<style>
-canvas {
-	
-}
-</style>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -23,11 +17,11 @@ canvas {
 						${result.summary.componentCount}个组件共产生了${result.summary.relationCount}个关系，有问题的关系占总关系的比例为${result.problemRelationScale}
 					</h6>
 				</div>
-
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
 					<h4>抽象程度合理性得分：${result.d}</h4>
+					<h6>${result.DAdvise}</h6>
 					<canvas id="d" height="400" width="400"></canvas>
 				</div>
 				<div class="span6">
@@ -44,6 +38,11 @@ canvas {
 					<h4>关系合理性得分：${result.relationRationality}</h4>
 					<canvas id="relationRationality" height="400" width="400"></canvas>
 				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				
 			</div>
 		</div>
 	</div>

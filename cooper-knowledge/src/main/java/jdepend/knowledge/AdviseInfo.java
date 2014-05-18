@@ -56,7 +56,7 @@ public class AdviseInfo implements Serializable {
 		}
 	}
 
-	private String calInfo() {
+	protected String calInfo() {
 		StringBuilder info = new StringBuilder();
 		info.append(desc);
 		info.append(this.getComponentNameInfo());

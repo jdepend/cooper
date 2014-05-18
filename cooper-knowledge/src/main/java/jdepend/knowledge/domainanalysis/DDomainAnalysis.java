@@ -40,7 +40,7 @@ public final class DDomainAnalysis extends AbstractDomainAnalysis {
 			} else {
 				advise = BundleUtil.getString(BundleUtil.Advise_D_Big);
 			}
-			AdviseInfo info = new AdviseInfo();
+			AdviseInfo info = new DAdviseInfo();
 			info.setDesc(advise);
 			info.addComponentName(unit.getName());
 			return info;

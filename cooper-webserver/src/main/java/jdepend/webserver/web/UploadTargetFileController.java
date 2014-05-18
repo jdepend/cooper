@@ -146,6 +146,12 @@ public class UploadTargetFileController {
 		return "result";
 	}
 
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String view(Model model, HttpServletRequest request) throws JDependException {
+		model.addAttribute("result", request.getSession().getAttribute(WebConstants.SESSION_RESULT));
+		return "result";
+	}
+
 	private ParseData createAnalyseData(InputStream in) {
 
 		ParseData data = new ParseData();
