@@ -211,6 +211,7 @@ public class BundleUtil {
 	public static final String Advise_D_Big = "Advise_D_Big";
 	public static final String Advise_Cohesion_Small = "Advise_Cohesion_Small";
 	public static final String Advise_Encapsulation_Small = "Advise_Encapsulation_Small";
+	public static final String Advise_Relation_AttentionLevel_Big = "Advise_Relation_AttentionLevel_Big";
 	public static final String Advise_LessScoreItem = "Advise_LessScoreItem";
 
 	public static final String TableHead_DependInterface = "TableHead_DependInterface";

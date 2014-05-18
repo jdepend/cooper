@@ -23,20 +23,20 @@ public class WebAnalysisResult extends AnalysisResult {
 	public String getDAdvise() {
 		return this.getAdvise(StructureCategory.DDomainAnalysis);
 	}
-	
+
 	public String getBalanceAdvise() {
 		return this.getAdvise(StructureCategory.CohesionDomainAnalysis);
 	}
-	
+
 	public String getEncapsulationAdvise() {
 		return this.getAdvise(StructureCategory.EncapsulationDomainAnalysis);
 	}
-	
+
 	public String getRelationRationalityAdvise() {
-		return this.getAdvise(StructureCategory.CohesionDomainAnalysis);
+		return this.getAdvise(StructureCategory.RelationRationalityDomainAnalysis);
 	}
-	
-	private String getAdvise(StructureCategory category){
+
+	private String getAdvise(StructureCategory category) {
 		Structure structure = new Structure();
 		structure.setCategory(category);
 		structure.setData(this);

@@ -26,16 +26,19 @@
 				</div>
 				<div class="span6">
 					<h4>内聚性得分：${result.balance}</h4>
+					<h6>${result.balanceAdvise}</h6>
 					<canvas id="balance" height="400" width="400"></canvas>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
 					<h4>封装性得分：${result.encapsulation}</h4>
+					<h6>${result.encapsulationAdvise}</h6>
 					<canvas id="encapsulation" height="400" width="400"></canvas>
 				</div>
 				<div class="span6">
 					<h4>关系合理性得分：${result.relationRationality}</h4>
+					<h6>${result.relationRationalityAdvise}</h6>
 					<canvas id="relationRationality" height="400" width="400"></canvas>
 				</div>
 			</div>
