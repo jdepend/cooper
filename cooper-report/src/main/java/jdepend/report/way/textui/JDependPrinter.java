@@ -134,7 +134,7 @@ public final class JDependPrinter extends Printer {
 		Float caCoupling = 0F;
 		Float coupling = 0F;
 
-		coupling = unit.coupling();
+		coupling = unit.getCoupling();
 		ceCoupling = unit.ceCoupling();
 		caCoupling = unit.caCoupling();
 
@@ -168,7 +168,7 @@ public final class JDependPrinter extends Printer {
 		Float coupling = 0.0F;
 
 		for (JavaClass javaClass : javaClasses) {
-			coupling = javaClass.coupling();
+			coupling = javaClass.getCoupling();
 			if (couplingFilter.isInnerClass() && coupling.equals(0.0F) || couplingFilter.isExpertClass()
 					&& !coupling.equals(0.0F)) {
 				getWriter().println(
@@ -213,7 +213,7 @@ public final class JDependPrinter extends Printer {
 		Float caCoupling = 0F;
 		Float coupling = 0F;
 
-		coupling = unit.coupling();
+		coupling = unit.getCoupling();
 		ceCoupling = unit.ceCoupling();
 		caCoupling = unit.caCoupling();
 
@@ -277,7 +277,7 @@ public final class JDependPrinter extends Printer {
 	public float printCohesion(JDependUnit unit) {
 
 		Float cohesion = 0F;
-		cohesion = unit.cohesion();
+		cohesion = unit.getCohesion();
 
 		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\" title=\"" + unit.getTitle() + "\">");
 
@@ -304,7 +304,7 @@ public final class JDependPrinter extends Printer {
 		for (JavaClass javaClass : javaClasses) {
 			getWriter().println(
 					tab(3) + "<JavaClass name=\"" + javaClass.getName() + "\" Cohesion=\""
-							+ MetricsFormat.toFormattedMetrics(javaClass.cohesion()) + "\">");
+							+ MetricsFormat.toFormattedMetrics(javaClass.getCohesion()) + "\">");
 			// 打印细节
 			if (filter.isClassDetail())
 				this.printJavaClassCohesionInfoDetail(javaClass);

@@ -35,7 +35,7 @@ public final class DDomainAnalysis extends AbstractDomainAnalysis {
 		}
 		if (unit != null) {
 			String advise = null;
-			if (unit.stability() < 0.5) {
+			if (unit.getStability() < 0.5) {
 				advise = BundleUtil.getString(BundleUtil.Advise_D_Small);
 			} else {
 				advise = BundleUtil.getString(BundleUtil.Advise_D_Big);

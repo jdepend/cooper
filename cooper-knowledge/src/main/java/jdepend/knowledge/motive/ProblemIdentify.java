@@ -90,12 +90,12 @@ public class ProblemIdentify {
 	private void identifyHCouplingLCohesionProblem(AnalysisResult result) {
 		ComponentProblem componentProblem;
 		for (Component component : CohesionUtil.sort(result)) {
-			if (component.balance() < 0.5) {
+			if (component.getBalance() < 0.5) {
 				componentProblem = new ComponentProblem(component);
 				componentProblem.setName(component.getName() + " 组件内聚性为[ "
-						+ MetricsFormat.toFormattedMetrics(component.balance()) + "]");
+						+ MetricsFormat.toFormattedMetrics(component.getBalance()) + "]");
 				componentProblem.setType(Problem.HCouplingLCohesionProblem);
-				componentProblem.setOrder(HCouplingLCohesionProblemOrder + (1F - component.balance()));
+				componentProblem.setOrder(HCouplingLCohesionProblemOrder + (1F - component.getBalance()));
 				this.problems.add(componentProblem);
 			}
 

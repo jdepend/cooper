@@ -142,8 +142,8 @@ public final class Relation implements Comparable<Relation>, Serializable {
 					}
 				}
 			} else if (attentiontype == SDPAttentionType) {// 稳定性差的组件依赖稳定性高的组件
-				Float attention = this.getDepend().getComponent().stability()
-						- this.getCurrent().getComponent().stability();
+				Float attention = this.getDepend().getComponent().getStability()
+						- this.getCurrent().getComponent().getStability();
 				if (attention > 0) {
 					this.attentionLevel = attentiontype + attention;// 按自动计算的稳定性计算attentionLevel
 				} else if (this.current.getComponent().getSteadyType() != null
@@ -200,7 +200,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 				&& this.current.getComponent().getAreaComponent().instability() < this.depend.getComponent()
 						.getAreaComponent().instability()) {// 检测组件层依赖（按着AreaComponent）
 			return ComponentLayerAttentionType;
-		} else if (this.current.getComponent().stability() + SDPDifference < this.depend.getComponent().stability()) {// 检测稳定依赖（按着自动计算的稳定性）
+		} else if (this.current.getComponent().getStability() + SDPDifference < this.depend.getComponent().getStability()) {// 检测稳定依赖（按着自动计算的稳定性）
 			return SDPAttentionType;
 		} else if (this.current.getComponent().getSteadyType() != null
 				&& this.depend.getComponent().getSteadyType() != null

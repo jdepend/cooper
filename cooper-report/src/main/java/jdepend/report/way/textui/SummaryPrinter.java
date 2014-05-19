@@ -160,7 +160,7 @@ public abstract class SummaryPrinter extends Printer {
 
 	public void printCycle(JDependUnit unit) {
 
-		if (!unit.containsCycle()) {
+		if (!unit.getContainsCycle()) {
 			return;
 		}
 

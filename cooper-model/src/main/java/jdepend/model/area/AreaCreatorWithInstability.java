@@ -16,9 +16,9 @@ public class AreaCreatorWithInstability extends AbstractAreaCreator {
 
 		String name;
 		for (Component component : result.getComponents()) {
-			if (component.stability() == 0) {
+			if (component.getStability() == 0) {
 				name = "底层组件";
-			} else if (component.stability() == 1) {
+			} else if (component.getStability() == 1) {
 				name = "高层组件";
 			} else {
 				name = "中层组件";

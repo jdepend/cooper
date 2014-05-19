@@ -90,11 +90,11 @@ public class InstabilityDialog extends CooperDialog {
 		StringBuilder instabilityText = new StringBuilder();
 
 		instabilityText.append("Ce:");
-		instabilityText.append(unit.efferentCoupling());
+		instabilityText.append(unit.getEfferentCoupling());
 		instabilityText.append("\n");
 
 		instabilityText.append("Ca:");
-		instabilityText.append(unit.afferentCoupling());
+		instabilityText.append(unit.getAfferentCoupling());
 		instabilityText.append("\n");
 
 		instabilityText.append("Ce/(Ca+Ce):");
@@ -131,7 +131,7 @@ public class InstabilityDialog extends CooperDialog {
 		instabilityText.append("\n");
 
 		instabilityText.append("instabilityWithIntensity:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(unit.stability()));
+		instabilityText.append(MetricsFormat.toFormattedMetrics(unit.getStability()));
 		instabilityText.append("\n");
 
 		return instabilityText;

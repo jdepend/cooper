@@ -63,8 +63,8 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 
 		public BalanceJavaClassWrapper(JavaClass javaClass) {
 			this.javaClass = javaClass;
-			this.balance = this.javaClass.balance();
-			this.cohesion = this.javaClass.cohesion();
+			this.balance = this.javaClass.getBalance();
+			this.cohesion = this.javaClass.getCohesion();
 			this.gcmd = this.javaClass.getGroupCouplingInfo().getMaxDifference();
 		}
 

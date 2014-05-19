@@ -48,84 +48,84 @@ public interface Measurable extends Named {
 	 * 
 	 * @return
 	 */
-	public float abstractness();
+	public float getAbstractness();
 
 	/**
 	 * 易变性(0~1)
 	 * 
 	 * @return
 	 */
-	public float volatility();
+	public float getVolatility();
 
 	/**
 	 * 传入数量
 	 * 
 	 * @return
 	 */
-	public int afferentCoupling();
+	public int getAfferentCoupling();
 
 	/**
 	 * 传出数量
 	 * 
 	 * @return
 	 */
-	public int efferentCoupling();
+	public int getEfferentCoupling();
 
 	/**
 	 * 耦合值
 	 * 
 	 * @return
 	 */
-	public float coupling();
+	public float getCoupling();
 
 	/**
 	 * 内聚值
 	 * 
 	 * @return
 	 */
-	public float cohesion();
+	public float getCohesion();
 
 	/**
 	 * 稳定性（0~1）
 	 * 
 	 * @return
 	 */
-	public float stability();
+	public float getStability();
 
 	/**
 	 * 抽象程度合理性（0~1）
 	 * 
 	 * @return
 	 */
-	public float distance();
+	public float getDistance();
 
 	/**
 	 * 内聚性指数（0~1）
 	 * 
 	 * @return
 	 */
-	public float balance();
+	public float getBalance();
 
 	/**
 	 * 封装性（0~1）
 	 * 
 	 * @return
 	 */
-	public float encapsulation();
+	public float getEncapsulation();
 
 	/**
 	 * 面向对象指数（0~）
 	 * 
 	 * @return
 	 */
-	public float objectOriented();
+	public float getObjectOriented();
 
 	/**
 	 * 是否存在循环依赖
 	 * 
 	 * @return
 	 */
-	public boolean containsCycle();
+	public boolean getContainsCycle();
 
 	/**
 	 * 扩展指标

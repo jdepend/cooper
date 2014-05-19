@@ -395,7 +395,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		}
 	}
 
-	public float abstractness() {
+	public float getAbstractness() {
 		return this.getAbstractClassCount();
 	}
 
@@ -534,7 +534,7 @@ public final class JavaClass extends AbstractJDependUnit {
 	 * @return
 	 */
 	@Override
-	public float cohesion() {
+	public float getCohesion() {
 		if (this.cohesion == null) {
 			float intensity = 0;
 			for (JavaClassRelationItem relationItem : this.getCeItems()) {
@@ -554,9 +554,9 @@ public final class JavaClass extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float balance() {
+	public float getBalance() {
 		if (this.balance == null) {
-			float numerator = this.cohesion();
+			float numerator = this.getCohesion();
 			float denominatorPart = this.getGroupCouplingInfo().getMaxDifference();
 			if (numerator == 0F) {
 				if (denominatorPart == 0F) {
@@ -585,7 +585,7 @@ public final class JavaClass extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float objectOriented() {
+	public float getObjectOriented() {
 		if (this.objectOriented == null) {
 			int attributeCount = this.countAttributes();
 			int methodCount = this.countMethods();

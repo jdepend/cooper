@@ -29,7 +29,7 @@ public final class Element implements Serializable, Comparable<Element> {
 	 * @return
 	 */
 	public float getIntensity() {
-		return component.cohesion();
+		return component.getCohesion();
 	}
 
 	/**
@@ -38,7 +38,7 @@ public final class Element implements Serializable, Comparable<Element> {
 	 * @return
 	 */
 	public float getInstability() {
-		return component.stability();
+		return component.getStability();
 	}
 
 	/**
@@ -47,7 +47,7 @@ public final class Element implements Serializable, Comparable<Element> {
 	 * @return
 	 */
 	public float getBalance() {
-		return component.balance();
+		return component.getBalance();
 	}
 
 	public String getName() {
@@ -137,18 +137,18 @@ public final class Element implements Serializable, Comparable<Element> {
 	@Override
 	public int compareTo(Element o) {
 		// 按Ca值从小到大排序
-		int rtn = (new Integer(this.component.afferentCoupling()).compareTo(o.component.afferentCoupling()));
+		int rtn = (new Integer(this.component.getAfferentCoupling()).compareTo(o.component.getAfferentCoupling()));
 
 		if (rtn != 0) {
 			return rtn;
 		} else {
 			// 按Ce值从大到小
-			rtn = (new Integer(o.component.efferentCoupling()).compareTo(this.component.efferentCoupling()));
+			rtn = (new Integer(o.component.getEfferentCoupling()).compareTo(this.component.getEfferentCoupling()));
 			if (rtn != 0) {
 				return rtn;
 			} else {
 				// 按抽象程度从小到大
-				return (new Float(this.component.abstractness()).compareTo(o.component.abstractness()));
+				return (new Float(this.component.getAbstractness()).compareTo(o.component.getAbstractness()));
 			}
 		}
 	}

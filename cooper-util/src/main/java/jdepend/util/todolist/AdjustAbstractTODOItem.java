@@ -28,7 +28,7 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 	@Override
 	public StringBuilder execute() throws JDependException {
 		StringBuilder info = new StringBuilder();
-		if (unit.stability() < 0.5) {
+		if (unit.getStability() < 0.5) {
 			Collection<JavaClass> abstractnessClasses = new ArrayList<JavaClass>();
 			// 抽象程度不够
 			List<JavaClass> javaClasses = new ArrayList<JavaClass>(unit.getClasses());

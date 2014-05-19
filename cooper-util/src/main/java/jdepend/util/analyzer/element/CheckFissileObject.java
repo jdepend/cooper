@@ -37,9 +37,9 @@ public class CheckFissileObject extends AbstractAnalyzer {
 
 		int count = 0;
 		for (int i = 0; i < units.size() && count < this.number; i++) {
-			if (units.get(i).afferentCoupling() > 0) {
-				this.print((count + 1) + "、" + units.get(i).getName() + "(Ce:" + units.get(i).efferentCoupling()
-						+ ") Ca（" + units.get(i).afferentCoupling() + "）:\n");
+			if (units.get(i).getAfferentCoupling() > 0) {
+				this.print((count + 1) + "、" + units.get(i).getName() + "(Ce:" + units.get(i).getEfferentCoupling()
+						+ ") Ca（" + units.get(i).getAfferentCoupling() + "）:\n");
 				for (JDependUnit caUnit : units.get(i).getAfferents()) {
 					this.printTab();
 					this.print(caUnit.getName() + "\n");

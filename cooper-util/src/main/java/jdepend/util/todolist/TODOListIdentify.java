@@ -176,8 +176,8 @@ public class TODOListIdentify {
 		TODOItem item = null;
 		Relation relation;
 		for (JDependUnit unit : units) {
-			Ca = unit.afferentCoupling();
-			Ce = unit.efferentCoupling();
+			Ca = unit.getAfferentCoupling();
+			Ce = unit.getEfferentCoupling();
 			if (Ce > 0 && Ce < 2 && Ca > Ce) {
 				for (JDependUnit ceUnit : unit.getEfferents()) {
 					relation = result.getTheRelation(unit.getName(), ceUnit.getName());
@@ -204,12 +204,12 @@ public class TODOListIdentify {
 	private void identifySplitCompoentWithBalance() {
 		SplitCompoentTODOItem item = null;
 		for (JDependUnit unit : result.getComponents()) {
-			if (unit.balance() < 0.2F) {
+			if (unit.getBalance() < 0.2F) {
 				item = new SplitCompoentTODOItem(unit);
 				if (item.isSplit()) {
 					item.setContent("组件[" + unit.getName() + "]内聚性差，需要拆分");
 					item.setAccording("组件内的Class应该关系更紧密，而与其他组件中的Class关系疏远");
-					item.setOrder(SplitComponentTODOItemOrder - unit.balance());
+					item.setOrder(SplitComponentTODOItemOrder - unit.getBalance());
 
 					this.list.add(item);
 				}
@@ -228,14 +228,14 @@ public class TODOListIdentify {
 		int Ce;
 		SplitCompoentTODOItem item = null;
 		for (JDependUnit unit : units) {
-			Ca = unit.afferentCoupling();
-			Ce = unit.efferentCoupling();
+			Ca = unit.getAfferentCoupling();
+			Ce = unit.getEfferentCoupling();
 			if (Ca > 0 && Ca < 2 && Ca < Ce) {
 				item = new SplitCompoentTODOItem(unit);
 				if (item.isSplit()) {
 					item.setContent("组件[" + unit.getName() + "]作为易分对象又被其他组件依赖，需要拆分");
 					item.setAccording("作为易分对象又被其他组件依赖，需要拆分");
-					item.setOrder(SplitComponentTODOItemOrder - unit.balance());
+					item.setOrder(SplitComponentTODOItemOrder - unit.getBalance());
 
 					this.list.add(item);
 					break;
@@ -247,16 +247,16 @@ public class TODOListIdentify {
 	private void identifyAdjustAbstract() {
 		TODOItem item = null;
 		for (JDependUnit unit : result.getComponents()) {
-			if (unit.distance() > 0.8F) {
+			if (unit.getDistance() > 0.8F) {
 				item = new AdjustAbstractTODOItem(unit);
-				if (unit.stability() < 0.5) {
+				if (unit.getStability() < 0.5) {
 					item.setContent("组件[" + unit.getName() + "]的抽象程度不够");
 				} else {
 					item.setContent("组件[" + unit.getName() + "]的抽象程度过大");
 				}
 
 				item.setAccording("稳定抽象等价原则");
-				item.setOrder(AdjustAbstractTODOItemOrder + unit.distance());
+				item.setOrder(AdjustAbstractTODOItemOrder + unit.getDistance());
 
 				this.list.add(item);
 			}

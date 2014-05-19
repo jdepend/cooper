@@ -59,34 +59,34 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return Instability (0-1).
 	 */
-	public float stability() {
+	public float getStability() {
 		return new CalculateMetricsTool(this).stability();
 	}
 
 	/**
 	 * @return The package's abstractness (0-1).
 	 */
-	public float abstractness() {
+	public float getAbstractness() {
 		return new CalculateMetricsTool(this).abstractness();
 	}
 
-	public int afferentCoupling() {
+	public int getAfferentCoupling() {
 		return this.getAfferents().size();
 	}
 
-	public int efferentCoupling() {
+	public int getEfferentCoupling() {
 		return this.getEfferents().size();
 	}
 
 	/**
 	 * @return The package's distance from the main sequence (D).
 	 */
-	public float distance() {
+	public float getDistance() {
 		return new CalculateMetricsTool(this).distance();
 	}
 
 	@Override
-	public float volatility() {
+	public float getVolatility() {
 		return new CalculateMetricsTool(this).volatility();
 	}
 
@@ -101,7 +101,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		}
 	}
 
-	public boolean containsCycle() {
+	public boolean getContainsCycle() {
 		return this.collectCycle().size() > 0;
 	}
 
@@ -137,14 +137,14 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return this.caCoupling(jdependUnit) + this.ceCoupling(jdependUnit);
 	}
 
-	public float coupling() {
+	public float getCoupling() {
 		if (coupling == null) {
 			coupling = caCoupling() + this.ceCoupling();
 		}
 		return coupling;
 	}
 
-	public float cohesion() {
+	public float getCohesion() {
 		if (cohesion == null) {
 			float intensity = 0;
 			for (JavaClass javaClass : this.getClasses()) {
@@ -160,7 +160,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return cohesion;
 	}
 
-	public float encapsulation() {
+	public float getEncapsulation() {
 		if (this.encapsulation == null) {
 			this.encapsulation = new CalculateMetricsTool(this).encapsulation();
 		}

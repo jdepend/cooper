@@ -32,7 +32,7 @@ public final class SplitCompoentTODOItem extends TODOItem {
 		// 收集“寄养”JavaClass，并计算其“亲父母”
 		moveInfos = new HashMap<String, Collection<JavaClass>>();
 		for (JavaClass javaClass : unit.getClasses()) {
-			if (MathUtil.isZero(javaClass.balance())) {
+			if (MathUtil.isZero(javaClass.getBalance())) {
 				GroupCouplingItem info = javaClass.getGroupCouplingInfo().getGroupCouplingItems().get(0);
 				if (moveInfos.get(info.name) == null) {
 					moveInfos.put(info.name, new ArrayList<JavaClass>());

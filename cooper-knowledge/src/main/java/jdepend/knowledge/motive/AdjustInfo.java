@@ -101,7 +101,7 @@ public class AdjustInfo implements Serializable {
 		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.I, false));
 		Map<String, Float> list = new LinkedHashMap<String, Float>();
 		for (JDependUnit unit : units) {
-			list.put(unit.getName(), unit.stability());
+			list.put(unit.getName(), unit.getStability());
 		}
 		return list;
 	}

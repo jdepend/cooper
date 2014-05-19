@@ -415,13 +415,13 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float objectOriented() {
+	public float getObjectOriented() {
 		if (this.getClassCount() == 0) {
 			return 0.0F;
 		}
 		Float oo = 0.0F;
 		for (JavaClass javaClass : this.javaClasses) {
-			oo += javaClass.objectOriented();
+			oo += javaClass.getObjectOriented();
 		}
 		return oo / this.getClassCount();
 	}
@@ -445,14 +445,14 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float balance() {
+	public float getBalance() {
 		if (this.javaClasses.size() > 0) {
 			if (this.javaClasses.size() == 1) {
 				return 1F;
 			} else {
 				float balance = 0F;
 				for (JavaClass javaClass : this.javaClasses) {
-					balance += javaClass.balance();
+					balance += javaClass.getBalance();
 				}
 				return balance / this.javaClasses.size();
 			}
@@ -567,14 +567,14 @@ public abstract class Component extends AbstractJDependUnit {
 
 		return "名称:" + this.getName() + "标题:" + this.getTitle() + " 是否内部:" + this.isInner() + " 类总数:"
 				+ this.getClassCount() + " 具体类:" + this.getConcreteClassCount() + " 抽象类:"
-				+ this.getAbstractClassCount() + " 总行数:" + this.getLineCount() + " 传入:" + this.afferentCoupling()
-				+ " 传出:" + this.efferentCoupling() + " 抽象程度:" + MetricsFormat.toFormattedMetrics(this.abstractness())
-				+ " 稳定性:" + MetricsFormat.toFormattedMetrics(this.stability()) + " 合理性:"
-				+ MetricsFormat.toFormattedMetrics(this.distance()) + " 耦合值:"
-				+ MetricsFormat.toFormattedMetrics(this.coupling()) + " 内聚值:"
-				+ MetricsFormat.toFormattedMetrics(this.cohesion()) + " 内聚性:"
-				+ MetricsFormat.toFormattedMetrics(this.balance()) + " 面向对象:"
-				+ MetricsFormat.toFormattedMetrics(this.objectOriented());
+				+ this.getAbstractClassCount() + " 总行数:" + this.getLineCount() + " 传入:" + this.getAfferentCoupling()
+				+ " 传出:" + this.getEfferentCoupling() + " 抽象程度:" + MetricsFormat.toFormattedMetrics(this.getAbstractness())
+				+ " 稳定性:" + MetricsFormat.toFormattedMetrics(this.getStability()) + " 合理性:"
+				+ MetricsFormat.toFormattedMetrics(this.getDistance()) + " 耦合值:"
+				+ MetricsFormat.toFormattedMetrics(this.getCoupling()) + " 内聚值:"
+				+ MetricsFormat.toFormattedMetrics(this.getCohesion()) + " 内聚性:"
+				+ MetricsFormat.toFormattedMetrics(this.getBalance()) + " 面向对象:"
+				+ MetricsFormat.toFormattedMetrics(this.getObjectOriented());
 	}
 
 	public static String getDefaultComponentName(List<String> javaPackages, boolean isFullComponentName) {

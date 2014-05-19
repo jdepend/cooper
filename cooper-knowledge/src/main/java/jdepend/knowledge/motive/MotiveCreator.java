@@ -84,7 +84,7 @@ public class MotiveCreator {
 		desc = new StringBuilder();
 		List<Component> components = JDependUnitMgr.getInstance().getComponents();
 		for (Component component : components) {
-			if (component.stability() == 0) {
+			if (component.getStability() == 0) {
 				desc.append(component.getName());
 				desc.append(",");
 			}

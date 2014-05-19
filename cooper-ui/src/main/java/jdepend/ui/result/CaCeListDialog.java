@@ -78,16 +78,16 @@ public final class CaCeListDialog extends CooperDialog {
 			row[1] = unit.getLineCount();
 			row[2] = unit.getClassCount();
 			row[3] = unit.getAbstractClassCount();
-			row[4] = unit.afferentCoupling();
-			row[5] = unit.efferentCoupling();
-			row[6] = MetricsFormat.toFormattedMetrics(unit.abstractness());
-			row[7] = MetricsFormat.toFormattedMetrics(unit.stability());
-			row[8] = MetricsFormat.toFormattedMetrics(unit.distance());
-			row[9] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.coupling()));
-			row[10] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.cohesion()));
-			row[11] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.objectOriented()));
+			row[4] = unit.getAfferentCoupling();
+			row[5] = unit.getEfferentCoupling();
+			row[6] = MetricsFormat.toFormattedMetrics(unit.getAbstractness());
+			row[7] = MetricsFormat.toFormattedMetrics(unit.getStability());
+			row[8] = MetricsFormat.toFormattedMetrics(unit.getDistance());
+			row[9] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCoupling()));
+			row[10] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+			row[11] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
 
-			if (unit.containsCycle()) {
+			if (unit.getContainsCycle()) {
 				row[12] = MetricsMgr.Cyclic;
 			} else {
 				row[12] = MetricsMgr.NoCyclic;

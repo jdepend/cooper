@@ -35,16 +35,16 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 			this.printTableRowElement(unit.getClassCount());
 			this.printTableRowElement(unit.getAbstractClassCount());
 			this.printTableRowElement(unit.getConcreteClassCount());
-			this.printTableRowElement(unit.afferentCoupling());
-			this.printTableRowElement(unit.efferentCoupling());
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.abstractness()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.stability()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.distance()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.coupling()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.cohesion()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.balance()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.objectOriented()));
-			if (unit.containsCycle()) {
+			this.printTableRowElement(unit.getAfferentCoupling());
+			this.printTableRowElement(unit.getEfferentCoupling());
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getAbstractness()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getStability()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getDistance()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getCoupling()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getBalance()));
+			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
+			if (unit.getContainsCycle()) {
 				this.printTableRowElement(MetricsMgr.Cyclic);
 			} else {
 				this.printTableRowElement(MetricsMgr.NoCyclic);

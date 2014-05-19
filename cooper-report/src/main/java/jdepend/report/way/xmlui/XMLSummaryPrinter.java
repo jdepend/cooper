@@ -52,16 +52,16 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 		getWriter().println(tab(4) + "<TotalClasses>" + jPackage.getClassCount() + "</TotalClasses>");
 		getWriter().println(tab(4) + "<ConcreteClasses>" + jPackage.getConcreteClassCount() + "</ConcreteClasses>");
 		getWriter().println(tab(4) + "<AbstractClasses>" + jPackage.getAbstractClassCount() + "</AbstractClasses>");
-		getWriter().println(tab(4) + "<Ca>" + jPackage.afferentCoupling() + "</Ca>");
-		getWriter().println(tab(4) + "<Ce>" + jPackage.efferentCoupling() + "</Ce>");
-		getWriter().println(tab(4) + "<A>" + MetricsFormat.toFormattedMetrics(jPackage.abstractness()) + "</A>");
-		getWriter().println(tab(4) + "<I>" + MetricsFormat.toFormattedMetrics(jPackage.stability()) + "</I>");
+		getWriter().println(tab(4) + "<Ca>" + jPackage.getAfferentCoupling() + "</Ca>");
+		getWriter().println(tab(4) + "<Ce>" + jPackage.getEfferentCoupling() + "</Ce>");
+		getWriter().println(tab(4) + "<A>" + MetricsFormat.toFormattedMetrics(jPackage.getAbstractness()) + "</A>");
+		getWriter().println(tab(4) + "<I>" + MetricsFormat.toFormattedMetrics(jPackage.getStability()) + "</I>");
 		getWriter().println(
-				tab(4) + "<Coupling>" + MetricsFormat.toFormattedMetrics(jPackage.coupling()) + "</Coupling>");
+				tab(4) + "<Coupling>" + MetricsFormat.toFormattedMetrics(jPackage.getCoupling()) + "</Coupling>");
 		getWriter().println(
-				tab(4) + "<Cohesion>" + MetricsFormat.toFormattedMetrics(jPackage.cohesion()) + "</Cohesion>");
-		getWriter().println(tab(4) + "<Balance>" + MetricsFormat.toFormattedMetrics(jPackage.balance()) + "</Balance>");
-		getWriter().println(tab(4) + "<OO>" + MetricsFormat.toFormattedMetrics(jPackage.objectOriented()) + "</OO>");
+				tab(4) + "<Cohesion>" + MetricsFormat.toFormattedMetrics(jPackage.getCohesion()) + "</Cohesion>");
+		getWriter().println(tab(4) + "<Balance>" + MetricsFormat.toFormattedMetrics(jPackage.getBalance()) + "</Balance>");
+		getWriter().println(tab(4) + "<OO>" + MetricsFormat.toFormattedMetrics(jPackage.getObjectOriented()) + "</OO>");
 		getWriter().println(tab(3) + "</Stats>");
 	}
 

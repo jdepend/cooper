@@ -30,8 +30,8 @@ public final class JavaClassComponent extends Component {
 	}
 
 	@Override
-	public float objectOriented() {
-		return this.getClasses().iterator().next().objectOriented();
+	public float getObjectOriented() {
+		return this.getClasses().iterator().next().getObjectOriented();
 	}
 
 	@Override

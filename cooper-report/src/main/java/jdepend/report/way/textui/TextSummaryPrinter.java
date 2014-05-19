@@ -132,16 +132,16 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().println(tab() + "AbstractClasses: " + unit.getAbstractClassCount());
 		getWriter().println(tab() + "TotalLineCount: " + unit.getLineCount());
 		getWriter().println("");
-		getWriter().println(tab() + "Ca: " + unit.afferentCoupling());
-		getWriter().println(tab() + "Ce: " + unit.efferentCoupling());
+		getWriter().println(tab() + "Ca: " + unit.getAfferentCoupling());
+		getWriter().println(tab() + "Ce: " + unit.getEfferentCoupling());
 		getWriter().println("");
-		getWriter().println(tab() + "A: " + MetricsFormat.toFormattedMetrics(unit.abstractness()));
-		getWriter().println(tab() + "I: " + MetricsFormat.toFormattedMetrics(unit.stability()));
-		getWriter().println(tab() + "D: " + MetricsFormat.toFormattedMetrics(unit.distance()));
-		getWriter().println(tab() + "Coupling: " + MetricsFormat.toFormattedMetrics(unit.coupling()));
-		getWriter().println(tab() + "Cohesion: " + MetricsFormat.toFormattedMetrics(unit.cohesion()));
-		getWriter().println(tab() + "Balance: " + MetricsFormat.toFormattedMetrics(unit.balance()));
-		getWriter().println(tab() + "OO: " + MetricsFormat.toFormattedMetrics(unit.objectOriented()));
+		getWriter().println(tab() + "A: " + MetricsFormat.toFormattedMetrics(unit.getAbstractness()));
+		getWriter().println(tab() + "I: " + MetricsFormat.toFormattedMetrics(unit.getStability()));
+		getWriter().println(tab() + "D: " + MetricsFormat.toFormattedMetrics(unit.getDistance()));
+		getWriter().println(tab() + "Coupling: " + MetricsFormat.toFormattedMetrics(unit.getCoupling()));
+		getWriter().println(tab() + "Cohesion: " + MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+		getWriter().println(tab() + "Balance: " + MetricsFormat.toFormattedMetrics(unit.getBalance()));
+		getWriter().println(tab() + "OO: " + MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
 	}
 
 	@Override
@@ -256,16 +256,16 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 			row[2] = unit.getClassCount();
 			row[3] = unit.getAbstractClassCount();
 			row[4] = unit.getConcreteClassCount();
-			row[5] = unit.afferentCoupling();
-			row[6] = unit.efferentCoupling();
-			row[7] = unit.abstractness();
-			row[8] = unit.stability();
-			row[9] = unit.distance();
-			row[10] = unit.coupling();
-			row[11] = unit.cohesion();
-			row[12] = unit.balance();
-			row[13] = unit.objectOriented();
-			if (unit.containsCycle()) {
+			row[5] = unit.getAfferentCoupling();
+			row[6] = unit.getEfferentCoupling();
+			row[7] = unit.getAbstractness();
+			row[8] = unit.getStability();
+			row[9] = unit.getDistance();
+			row[10] = unit.getCoupling();
+			row[11] = unit.getCohesion();
+			row[12] = unit.getBalance();
+			row[13] = unit.getObjectOriented();
+			if (unit.getContainsCycle()) {
 				row[14] = MetricsMgr.Cyclic;
 			} else {
 				row[14] = MetricsMgr.NoCyclic;

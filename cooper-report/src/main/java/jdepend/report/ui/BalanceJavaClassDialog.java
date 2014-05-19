@@ -34,11 +34,11 @@ public final class BalanceJavaClassDialog extends CooperDialog {
 		StringBuilder info = new StringBuilder();
 
 		info.append("内聚性指数（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.balance()));
+		info.append(MetricsFormat.toFormattedMetrics(unit.getBalance()));
 		info.append("）=内聚值（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.cohesion()));
+		info.append(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
 		info.append("）/内聚值（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.cohesion()));
+		info.append(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
 		info.append("）+分组耦合最大顺序差值（");
 		info.append(MetricsFormat.toFormattedMetrics(unit.getGroupCouplingInfo().getMaxDifference()));
 		info.append("）；\n");

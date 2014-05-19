@@ -38,9 +38,9 @@ public class CheckButterflyObject extends AbstractAnalyzer {
 
 		int count = 0;
 		for (int i = 0; i < units.size() && count < this.number; i++) {
-			if (units.get(i).efferentCoupling() > 0) {
-				this.print((count + 1) + "、" + units.get(i).getName() + "(Ca:" + units.get(i).afferentCoupling()
-						+ ") Ce（" + units.get(i).efferentCoupling() + "）:\n");
+			if (units.get(i).getEfferentCoupling() > 0) {
+				this.print((count + 1) + "、" + units.get(i).getName() + "(Ca:" + units.get(i).getAfferentCoupling()
+						+ ") Ce（" + units.get(i).getEfferentCoupling() + "）:\n");
 				for (JDependUnit ceUnit : units.get(i).getEfferents()) {
 					this.printTab();
 					this.print(ceUnit.getName() + "\n");

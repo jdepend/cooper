@@ -24,33 +24,33 @@ public abstract class ObjectMeasured implements Measurable {
 		} else if (metrics.equals(MetricsMgr.CC)) {
 			return this.getConcreteClassCount();
 		} else if (metrics.equals(MetricsMgr.Ca)) {
-			return this.afferentCoupling();
+			return this.getAfferentCoupling();
 		} else if (metrics.equals(MetricsMgr.Ce)) {
-			return this.efferentCoupling();
+			return this.getEfferentCoupling();
 		} else if (metrics.equals(MetricsMgr.A)) {
-			return MetricsFormat.toFormattedMetrics(this.abstractness());
+			return MetricsFormat.toFormattedMetrics(this.getAbstractness());
 		} else if (metrics.equals(MetricsMgr.I)) {
-			return MetricsFormat.toFormattedMetrics(this.stability());
+			return MetricsFormat.toFormattedMetrics(this.getStability());
 		} else if (metrics.equals(MetricsMgr.D)) {
-			return MetricsFormat.toFormattedMetrics(this.distance());
+			return MetricsFormat.toFormattedMetrics(this.getDistance());
 		} else if (metrics.equals(MetricsMgr.V)) {
-			return MetricsFormat.toFormattedMetrics(this.volatility());
+			return MetricsFormat.toFormattedMetrics(this.getVolatility());
 		} else if (metrics.equals(MetricsMgr.Cycle)) {
-			if (this.containsCycle()) {
+			if (this.getContainsCycle()) {
 				return MetricsMgr.Cyclic;
 			} else {
 				return MetricsMgr.NoCyclic;
 			}
 		} else if (metrics.equals(MetricsMgr.Cohesion)) {
-			return MetricsFormat.toFormattedMetrics(this.cohesion());
+			return MetricsFormat.toFormattedMetrics(this.getCohesion());
 		} else if (metrics.equals(MetricsMgr.Coupling)) {
-			return MetricsFormat.toFormattedMetrics(this.coupling());
+			return MetricsFormat.toFormattedMetrics(this.getCoupling());
 		} else if (metrics.equals(MetricsMgr.Balance)) {
-			return MetricsFormat.toFormattedMetrics(this.balance());
+			return MetricsFormat.toFormattedMetrics(this.getBalance());
 		} else if (metrics.equals(MetricsMgr.Encapsulation)) {
-			return MetricsFormat.toFormattedMetrics(this.encapsulation());
+			return MetricsFormat.toFormattedMetrics(this.getEncapsulation());
 		} else if (metrics.equals(MetricsMgr.OO)) {
-			return MetricsFormat.toFormattedMetrics(this.objectOriented());
+			return MetricsFormat.toFormattedMetrics(this.getObjectOriented());
 		} else if (this.extendMetrics(metrics) != null) {
 			return MetricsFormat.toFormattedMetrics(this.extendMetrics(metrics).getMetrics());
 		} else {

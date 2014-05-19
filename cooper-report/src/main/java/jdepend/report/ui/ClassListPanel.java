@@ -84,16 +84,16 @@ public class ClassListPanel extends JPanel {
 			row[1] = javaClass.getLineCount();
 			row[2] = javaClass.getConcreteClassCount();
 			row[3] = javaClass.getAbstractClassCount();
-			row[4] = javaClass.afferentCoupling() + "|" + javaClass.getCaList().size();
-			row[5] = javaClass.efferentCoupling() + "|" + javaClass.getCeList().size();
-			row[6] = MetricsFormat.toFormattedMetrics(javaClass.abstractness());
-			row[7] = MetricsFormat.toFormattedMetrics(javaClass.stability());
-			row[8] = MetricsFormat.toFormattedMetrics(javaClass.distance());
-			row[9] = MetricsFormat.toFormattedMetrics(javaClass.coupling());
-			row[10] = MetricsFormat.toFormattedMetrics(javaClass.cohesion());
-			row[11] = MetricsFormat.toFormattedMetrics(javaClass.balance());
-			row[12] = MetricsFormat.toFormattedMetrics(javaClass.objectOriented());
-			if (javaClass.containsCycle()) {
+			row[4] = javaClass.getAfferentCoupling() + "|" + javaClass.getCaList().size();
+			row[5] = javaClass.getEfferentCoupling() + "|" + javaClass.getCeList().size();
+			row[6] = MetricsFormat.toFormattedMetrics(javaClass.getAbstractness());
+			row[7] = MetricsFormat.toFormattedMetrics(javaClass.getStability());
+			row[8] = MetricsFormat.toFormattedMetrics(javaClass.getDistance());
+			row[9] = MetricsFormat.toFormattedMetrics(javaClass.getCoupling());
+			row[10] = MetricsFormat.toFormattedMetrics(javaClass.getCohesion());
+			row[11] = MetricsFormat.toFormattedMetrics(javaClass.getBalance());
+			row[12] = MetricsFormat.toFormattedMetrics(javaClass.getObjectOriented());
+			if (javaClass.getContainsCycle()) {
 				row[13] = MetricsMgr.Cyclic;
 			}
 			if (javaClass.haveState()) {
@@ -304,16 +304,16 @@ public class ClassListPanel extends JPanel {
 					row[3] = item.getDepend().getLineCount();
 					row[4] = item.getDepend().getConcreteClassCount();
 					row[5] = item.getDepend().getAbstractClassCount();
-					row[6] = item.getDepend().afferentCoupling() + "|" + item.getDepend().getCaList().size();
-					row[7] = item.getDepend().efferentCoupling() + "|" + item.getDepend().getCeList().size();
-					row[8] = MetricsFormat.toFormattedMetrics(item.getDepend().abstractness());
-					row[9] = MetricsFormat.toFormattedMetrics(item.getDepend().stability());
-					row[10] = MetricsFormat.toFormattedMetrics(item.getDepend().distance());
-					row[11] = MetricsFormat.toFormattedMetrics(item.getDepend().coupling());
-					row[12] = MetricsFormat.toFormattedMetrics(item.getDepend().cohesion());
-					row[13] = MetricsFormat.toFormattedMetrics(item.getDepend().balance());
-					row[14] = MetricsFormat.toFormattedMetrics(item.getDepend().objectOriented());
-					if (item.getDepend().containsCycle()) {
+					row[6] = item.getDepend().getAfferentCoupling() + "|" + item.getDepend().getCaList().size();
+					row[7] = item.getDepend().getEfferentCoupling() + "|" + item.getDepend().getCeList().size();
+					row[8] = MetricsFormat.toFormattedMetrics(item.getDepend().getAbstractness());
+					row[9] = MetricsFormat.toFormattedMetrics(item.getDepend().getStability());
+					row[10] = MetricsFormat.toFormattedMetrics(item.getDepend().getDistance());
+					row[11] = MetricsFormat.toFormattedMetrics(item.getDepend().getCoupling());
+					row[12] = MetricsFormat.toFormattedMetrics(item.getDepend().getCohesion());
+					row[13] = MetricsFormat.toFormattedMetrics(item.getDepend().getBalance());
+					row[14] = MetricsFormat.toFormattedMetrics(item.getDepend().getObjectOriented());
+					if (item.getDepend().getContainsCycle()) {
 						row[15] = MetricsMgr.Cyclic;
 					}
 					if (item.getDepend().haveState()) {

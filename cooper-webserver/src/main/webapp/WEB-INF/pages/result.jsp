@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -45,7 +46,39 @@
 		</div>
 		<div class="row-fluid">
 			<div class="span12">
-				
+				<h3>组件信息：</h3>
+				<div
+					style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
+					<table class="table table-bordered" pa_ui_name="table,exinput"
+						pa_ui_hover="true" pa_ui_selectable="true"
+						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
+						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>组件名称</th>
+								<th>代码行数</th>
+								<th>类数量</th>
+								<th>传入</th>
+								<th>传出</th>
+								<th>抽象程度合理性</th>
+							</tr>
+						</thead>
+						<tbody id="listComponents">
+							<c:forEach items="${result.components}" var="item">
+								<tr>
+									<td><input type="checkbox" /></td>
+									<td class="itemName">${item.name}</td>
+									<td class="itemName">${item.lineCount}</td>
+									<td>${item.classCount}</td>
+									<td>${item.afferentCoupling}</td>
+									<td>${item.efferentCoupling}</td>
+									<td>${item.distance}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

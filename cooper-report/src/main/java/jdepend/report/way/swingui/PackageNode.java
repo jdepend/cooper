@@ -149,15 +149,15 @@ public abstract class PackageNode {
 		label.append("CN: " + getPackage().getClassCount() + "  ");
 		label.append("CC: " + getPackage().getConcreteClassCount() + "  ");
 		label.append("AC: " + getPackage().getAbstractClassCount() + "  ");
-		label.append("Ca: " + getPackage().afferentCoupling() + "  ");
-		label.append("Ce: " + getPackage().efferentCoupling() + "  ");
-		label.append("A: " + format(getPackage().abstractness()) + "  ");
-		label.append("I: " + format(getPackage().stability()) + "  ");
-		label.append("D: " + format(getPackage().distance()) + "  ");
-		label.append("Coupling: " + format(jPackage.coupling()) + "  ");
-		label.append("Cohesion: " + format(jPackage.cohesion()) + "  ");
-		label.append("OO: " + format(jPackage.objectOriented()) + "  ");
-		if (getPackage().containsCycle()) {
+		label.append("Ca: " + getPackage().getAfferentCoupling() + "  ");
+		label.append("Ce: " + getPackage().getEfferentCoupling() + "  ");
+		label.append("A: " + format(getPackage().getAbstractness()) + "  ");
+		label.append("I: " + format(getPackage().getStability()) + "  ");
+		label.append("D: " + format(getPackage().getDistance()) + "  ");
+		label.append("Coupling: " + format(jPackage.getCoupling()) + "  ");
+		label.append("Cohesion: " + format(jPackage.getCohesion()) + "  ");
+		label.append("OO: " + format(jPackage.getObjectOriented()) + "  ");
+		if (getPackage().getContainsCycle()) {
 			label.append(" Cyclic");
 		}
 

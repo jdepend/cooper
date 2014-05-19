@@ -27,8 +27,8 @@ public final class CalculateMetricsTool {
 	 * @return Stability (0-1).
 	 */
 	public float stabilityWithCount() {
-		int ce = unit.efferentCoupling();
-		int ca = unit.afferentCoupling();
+		int ce = unit.getEfferentCoupling();
+		int ca = unit.getAfferentCoupling();
 		int totalCoupling = ce + ca;
 		if (totalCoupling > 0) {
 			return (float) ce / (float) totalCoupling;
@@ -41,8 +41,8 @@ public final class CalculateMetricsTool {
 	 * @return Instability (0-1).
 	 */
 	public float stabilityWithIntensity() {
-		if (!MathUtil.isZero(unit.coupling())) {
-			return unit.ceCoupling() / unit.coupling();
+		if (!MathUtil.isZero(unit.getCoupling())) {
+			return unit.ceCoupling() / unit.getCoupling();
 		} else {
 			return 0.5F;
 		}

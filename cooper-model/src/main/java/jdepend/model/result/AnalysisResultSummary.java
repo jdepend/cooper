@@ -56,47 +56,47 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	private int relationCount;
 
 	@Override
-	public float abstractness() {
+	public float getAbstractness() {
 		return this.abstractness;
 	}
 
 	@Override
-	public int afferentCoupling() {
+	public int getAfferentCoupling() {
 		return this.afferentCoupling;
 	}
 
 	@Override
-	public int efferentCoupling() {
+	public int getEfferentCoupling() {
 		return this.efferentCoupling;
 	}
 
 	@Override
-	public float balance() {
+	public float getBalance() {
 		return this.balance;
 	}
 
 	@Override
-	public float cohesion() {
+	public float getCohesion() {
 		return this.cohesion;
 	}
 
 	@Override
-	public boolean containsCycle() {
+	public boolean getContainsCycle() {
 		return false;
 	}
 
 	@Override
-	public float coupling() {
+	public float getCoupling() {
 		return this.coupling;
 	}
 
 	@Override
-	public float distance() {
+	public float getDistance() {
 		return this.distance;
 	}
 
 	@Override
-	public float encapsulation() {
+	public float getEncapsulation() {
 		return this.encapsulation;
 	}
 
@@ -131,17 +131,17 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float stability() {
+	public float getStability() {
 		return this.instability;
 	}
 
 	@Override
-	public float objectOriented() {
+	public float getObjectOriented() {
 		return this.objectOriented;
 	}
 
 	@Override
-	public float volatility() {
+	public float getVolatility() {
 		return this.volatility;
 	}
 
@@ -150,64 +150,32 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		return Name;
 	}
 
-	public float getAbstractness() {
-		return abstractness;
-	}
-
 	public void setAbstractness(float abstractness) {
 		this.abstractness = abstractness;
-	}
-
-	public int getAfferentCoupling() {
-		return afferentCoupling;
 	}
 
 	public void setAfferentCoupling(int afferentCoupling) {
 		this.afferentCoupling = afferentCoupling;
 	}
 
-	public int getEfferentCoupling() {
-		return efferentCoupling;
-	}
-
 	public void setEfferentCoupling(int efferentCoupling) {
 		this.efferentCoupling = efferentCoupling;
-	}
-
-	public float getBalance() {
-		return balance;
 	}
 
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
-	public float getCohesion() {
-		return cohesion;
-	}
-
 	public void setCohesion(float cohesion) {
 		this.cohesion = cohesion;
-	}
-
-	public float getCoupling() {
-		return coupling;
 	}
 
 	public void setCoupling(float coupling) {
 		this.coupling = coupling;
 	}
 
-	public float getDistance() {
-		return distance;
-	}
-
 	public void setDistance(float distance) {
 		this.distance = distance;
-	}
-
-	public float getEncapsulation() {
-		return encapsulation;
 	}
 
 	public void setEncapsulation(float encapsulation) {
@@ -222,16 +190,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.instability = instability;
 	}
 
-	public float getObjectOriented() {
-		return objectOriented;
-	}
-
 	public void setObjectOriented(float objectOriented) {
 		this.objectOriented = objectOriented;
-	}
-
-	public float getVolatility() {
-		return volatility;
 	}
 
 	public void setVolatility(float volatility) {
