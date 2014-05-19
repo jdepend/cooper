@@ -32,14 +32,8 @@
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container-fluid">
-							<a data-target=".navbar-responsive-collapse"
-								data-toggle="collapse" class="btn btn-navbar"><span
-								class="icon-bar"></span><span class="icon-bar"></span><span
-								class="icon-bar"></span></a> <a href="#" class="brand">Cooper</a>
+						    <a href="#" class="brand">Cooper</a><a href="#" class="brand">致力于提高代码结构的质量</a>
 							<div class="nav-collapse collapse navbar-responsive-collapse">
-								<ul class="nav">
-									<li class="active"><a href="#">主页</a></li>
-								</ul>
 								<ul class="nav pull-right">
 									<li class="dropdown"><a data-toggle="dropdown"
 										class="dropdown-toggle" href="#">下拉菜单<strong class="caret"></strong></a>

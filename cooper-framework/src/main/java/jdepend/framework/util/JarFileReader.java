@@ -85,7 +85,10 @@ public class JarFileReader extends FileReader {
 	}
 
 	public static void main(String[] args) {
-		File jarFile = new File("d:\\交通_沈阳地铁.jar");
+		
+		System.setProperty("sun.zip.encoding", "default");
+		
+		File jarFile = new File("c:\\交通_沈阳地铁.jar");
 		try {
 			InputStream in = new FileInputStream(jarFile);
 			Map<FileType, List<byte[]>> fileDatases = new JarFileReader(false).readDatas(in);

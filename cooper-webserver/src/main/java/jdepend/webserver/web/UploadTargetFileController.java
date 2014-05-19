@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,12 @@ import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
 import jdepend.model.Relation;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.parse.impl.ParseData;
@@ -74,7 +75,9 @@ public class UploadTargetFileController {
 							innerJavaPackages.add(javaPackage);
 						}
 					}
-					model.addAttribute("listPackages", innerJavaPackages);
+					List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(innerJavaPackages);
+					Collections.sort(sortedInnerJavaPackages);
+					model.addAttribute("listPackages", sortedInnerJavaPackages);
 					in.close();
 
 					request.getSession().setAttribute(WebConstants.SESSION_FILE_NAME, fileName);
