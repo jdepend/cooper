@@ -16,13 +16,19 @@ import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
+import jdepend.model.Relation;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.TableViewInfo;
+import jdepend.model.util.TableViewUtil;
 import jdepend.parse.impl.ParseData;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
+import jdepend.util.todolist.TODOItem;
+import jdepend.util.todolist.TODOListIdentify;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -140,15 +146,29 @@ public class UploadTargetFileController {
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
+		
+		TODOListIdentify identify = new TODOListIdentify();
+		List<TODOItem> todoList = identify.identify(result);
+		model.addAttribute("todoList", todoList);
+		//temp
+		request.getSession().setAttribute("todoList", todoList);
+		
+		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
+		model.addAttribute("tableList", tableInfos);
+		//temp
+		request.getSession().setAttribute("tableList", tableInfos);
 
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
-
+		
 		return "result";
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(Model model, HttpServletRequest request) throws JDependException {
 		model.addAttribute("result", request.getSession().getAttribute(WebConstants.SESSION_RESULT));
+		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
+		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
+		
 		return "result";
 	}
 

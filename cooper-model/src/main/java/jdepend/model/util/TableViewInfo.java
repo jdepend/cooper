@@ -2,18 +2,58 @@ package jdepend.model.util;
 
 public class TableViewInfo implements Comparable<TableViewInfo> {
 
-	public String name;
-	public Integer count;
-	public String type;
-	public String javaClass;
-	public String Component;
+	private String name;
+	private Integer count;
+	private String type;
+	private String javaClass;
+	private String component;
 
-	public TableViewInfo(String name, String type, String javaClass, String Component) {
+	public TableViewInfo(String name, String type, String javaClass, String component) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.javaClass = javaClass;
-		this.Component = Component;
+		this.component = component;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getJavaClass() {
+		return javaClass;
+	}
+
+	public void setJavaClass(String javaClass) {
+		this.javaClass = javaClass;
+	}
+
+	public String getComponent() {
+		return component;
+	}
+
+	public void setComponent(String component) {
+		this.component = component;
 	}
 
 	@Override
@@ -31,7 +71,7 @@ public class TableViewInfo implements Comparable<TableViewInfo> {
 				if (rtn != 0) {
 					return rtn;
 				} else {
-					rtn = this.Component.compareTo(o.Component);
+					rtn = this.component.compareTo(o.component);
 					if (rtn != 0) {
 						return rtn;
 					} else {

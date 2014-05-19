@@ -97,21 +97,20 @@ public class Skill {
 			bigClassScales.put(0, bigClassScales.get(0) * 1F / classCount);
 		}
 
-		bigArgumentMethodScale = bigArgumentMethodCount * 1F / methodCount;
-		bigLineCountMethodScale = bigLineCountMethodCount * 1F / methodCount;
+		if (methodCount != 0) {
+			bigArgumentMethodScale = bigArgumentMethodCount * 1F / methodCount;
+			bigLineCountMethodScale = bigLineCountMethodCount * 1F / methodCount;
+		}
 		// 计算类关系比例
-		JavaClassRelationUtil javaClassRelationUtil = new JavaClassRelationUtil(
-				result);
+		JavaClassRelationUtil javaClassRelationUtil = new JavaClassRelationUtil(result);
 		classRelations = javaClassRelationUtil.getTypes();
 
 	}
 
 	public String getLevel() {
-		if (this.patterns > 8 && this.classSize < 200
-				&& getBigClassScale() < 0.05) {
+		if (this.patterns > 8 && this.classSize < 200 && getBigClassScale() < 0.05) {
 			return High;
-		} else if (this.patterns <= 5 && this.classSize >= 300
-				&& getBigClassScale() > 0.1) {
+		} else if (this.patterns <= 5 && this.classSize >= 300 && getBigClassScale() > 0.1) {
 			return Low;
 		} else if (this.getTableRelationScale() >= 0.1) {
 			return Low;
@@ -163,28 +162,28 @@ public class Skill {
 	}
 
 	public float getFieldRelationScale() {
-		return classRelations.get(JavaClassRelationTypeMgr.Field) == null ? 0F
-				: (Float) classRelations.get(JavaClassRelationTypeMgr.Field);
+		return classRelations.get(JavaClassRelationTypeMgr.Field) == null ? 0F : (Float) classRelations
+				.get(JavaClassRelationTypeMgr.Field);
 	}
 
 	public float getInheritRelationScale() {
-		return classRelations.get(JavaClassRelationTypeMgr.Inherit) == null ? 0F
-				: (Float) classRelations.get(JavaClassRelationTypeMgr.Inherit);
+		return classRelations.get(JavaClassRelationTypeMgr.Inherit) == null ? 0F : (Float) classRelations
+				.get(JavaClassRelationTypeMgr.Inherit);
 	}
 
 	public float getParamRelationScale() {
-		return classRelations.get(JavaClassRelationTypeMgr.Param) == null ? 0F
-				: (Float) classRelations.get(JavaClassRelationTypeMgr.Param);
+		return classRelations.get(JavaClassRelationTypeMgr.Param) == null ? 0F : (Float) classRelations
+				.get(JavaClassRelationTypeMgr.Param);
 	}
 
 	public float getTableRelationScale() {
-		return classRelations.get(JavaClassRelationTypeMgr.Table) == null ? 0F
-				: (Float) classRelations.get(JavaClassRelationTypeMgr.Table);
+		return classRelations.get(JavaClassRelationTypeMgr.Table) == null ? 0F : (Float) classRelations
+				.get(JavaClassRelationTypeMgr.Table);
 	}
 
 	public float getVariableRelationScale() {
-		return classRelations.get(JavaClassRelationTypeMgr.Variable) == null ? 0F
-				: (Float) classRelations.get(JavaClassRelationTypeMgr.Variable);
+		return classRelations.get(JavaClassRelationTypeMgr.Variable) == null ? 0F : (Float) classRelations
+				.get(JavaClassRelationTypeMgr.Variable);
 	}
 
 	public Map<String, Collection<PatternInfo>> getPatternList() {
@@ -209,39 +208,31 @@ public class Skill {
 		info.append("\n");
 
 		info.append("超过500行类的比例:");
-		info.append(MetricsFormat.toFormattedPercent(this.bigClassScales
-				.get(500)));
+		info.append(MetricsFormat.toFormattedPercent(this.bigClassScales.get(500)));
 		info.append("\n");
 
 		info.append("超过6个参数的方法的比例:");
-		info.append(MetricsFormat
-				.toFormattedPercent(this.bigArgumentMethodScale));
+		info.append(MetricsFormat.toFormattedPercent(this.bigArgumentMethodScale));
 		info.append("\n");
 
 		info.append("超过200行的方法的比例:");
-		info.append(MetricsFormat
-				.toFormattedPercent(this.bigLineCountMethodScale));
+		info.append(MetricsFormat.toFormattedPercent(this.bigLineCountMethodScale));
 		info.append("\n");
 
 		info.append("包含关系比例:");
-		info.append(MetricsFormat.toFormattedPercent(this
-				.getFieldRelationScale()));
+		info.append(MetricsFormat.toFormattedPercent(this.getFieldRelationScale()));
 		info.append("\n");
 		info.append("继承关系比例:");
-		info.append(MetricsFormat.toFormattedPercent(this
-				.getInheritRelationScale()));
+		info.append(MetricsFormat.toFormattedPercent(this.getInheritRelationScale()));
 		info.append("\n");
 		info.append("参数关系比例:");
-		info.append(MetricsFormat.toFormattedPercent(this
-				.getParamRelationScale()));
+		info.append(MetricsFormat.toFormattedPercent(this.getParamRelationScale()));
 		info.append("\n");
 		info.append("变量关系比例:");
-		info.append(MetricsFormat.toFormattedPercent(this
-				.getVariableRelationScale()));
+		info.append(MetricsFormat.toFormattedPercent(this.getVariableRelationScale()));
 		info.append("\n");
 		info.append("表关系比例:");
-		info.append(MetricsFormat.toFormattedPercent(this
-				.getTableRelationScale()));
+		info.append(MetricsFormat.toFormattedPercent(this.getTableRelationScale()));
 		info.append("\n");
 
 		return info.toString();

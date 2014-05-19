@@ -29,17 +29,16 @@ public class TableViewUtil {
 		for (TableViewInfo info : tableInfos) {
 			count = 0;
 			for (TableViewInfo info1 : tableInfos) {
-				if (info.name.equals(info1.name)) {
+				if (info.getName().equals(info1.getName())) {
 					count++;
 				}
 			}
-			info.count = count;
+			info.setCount(count);
 		}
 		Collections.sort(tableInfos);
 
 		return tableInfos;
 
 	}
-
 
 }

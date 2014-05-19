@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class JarFileReader extends FileReader {
 
@@ -20,19 +20,17 @@ public class JarFileReader extends FileReader {
 		super(acceptInnerClasses);
 	}
 
-	public Map<FileType, List<byte[]>> readDatas(InputStream in)
-			throws IOException {
+	public Map<FileType, List<byte[]>> readDatas(InputStream in) throws IOException {
 
-		JarInputStream jarInput = new JarInputStream(in);
+		ZipInputStream zipInput = new ZipInputStream(in);
 		Map<FileType, List<byte[]>> fileDatases = new HashMap<FileType, List<byte[]>>();
 		List<byte[]> classFileDatas = new ArrayList<byte[]>();
 		List<byte[]> xmlFileDatas = new ArrayList<byte[]>();
 
-		ZipEntry entry = jarInput.getNextJarEntry();
+		ZipEntry entry = zipInput.getNextEntry();
 		while (entry != null) {
-			if (this.acceptClassFileName(entry.getName())
-					|| this.acceptXMLFileName(entry.getName())) {
-				byte[] data = getData(jarInput);
+			if (this.acceptClassFileName(entry.getName()) || this.acceptXMLFileName(entry.getName())) {
+				byte[] data = getData(zipInput);
 				if (this.acceptClassFileName(entry.getName())) {
 					classFileDatas.add(data);
 					entryNames.add(parseClassName2(entry.getName()));
@@ -40,10 +38,10 @@ public class JarFileReader extends FileReader {
 					xmlFileDatas.add(data);
 				}
 			}
-			entry = jarInput.getNextJarEntry();
+			entry = zipInput.getNextEntry();
 		}
 
-		jarInput.close();
+		zipInput.close();
 
 		fileDatases.put(FileType.classType, classFileDatas);
 		fileDatases.put(FileType.xmlType, xmlFileDatas);
@@ -51,17 +49,34 @@ public class JarFileReader extends FileReader {
 		return fileDatases;
 	}
 
+	public int countClasses(InputStream in) throws IOException {
+		int count = 0;
+		ZipInputStream zipInput = new ZipInputStream(in);
+		List<String> entryNames = new ArrayList<String>();
+
+		ZipEntry entry = zipInput.getNextEntry();
+		while (entry != null) {
+			if (acceptClassFileName(entry.getName())) {
+				count++;
+				entryNames.add(parseClassName2(entry.getName()));
+			}
+			entry = zipInput.getNextEntry();
+			
+		}
+		zipInput.close();
+
+		return count;
+	}
+
 	public List<String> getEntryNames() {
 		return entryNames;
 	}
 
-	public byte[] getData(InputStream in) throws IOException {
+	private byte[] getData(InputStream in) throws IOException {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		int read = 0;
 		int chunk = 0;
 		byte[] data = new byte[256];
 		while (-1 != (chunk = in.read(data))) {
-			read += data.length;
 			outputStream.write(data, 0, chunk);
 		}
 
@@ -70,11 +85,10 @@ public class JarFileReader extends FileReader {
 	}
 
 	public static void main(String[] args) {
-		File jarFile = new File("C:\\dom4j-1.6.1.jar");
+		File jarFile = new File("d:\\交通_沈阳地铁.jar");
 		try {
 			InputStream in = new FileInputStream(jarFile);
-			Map<FileType, List<byte[]>> fileDatases = new JarFileReader(false)
-					.readDatas(in);
+			Map<FileType, List<byte[]>> fileDatases = new JarFileReader(false).readDatas(in);
 			in.close();
 
 			System.out.println(fileDatases.get(FileType.classType).size());

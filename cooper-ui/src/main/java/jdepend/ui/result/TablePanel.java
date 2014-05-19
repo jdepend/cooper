@@ -21,13 +21,13 @@ public final class TablePanel extends SubResultTabPanel {
 		if (tableInfos.size() > 0) {
 			TableData data = new TableData();
 			for (TableViewInfo info : tableInfos) {
-				data.setData(BundleUtil.getString(BundleUtil.TableHead_TableName), info.name);
-				data.setData(BundleUtil.getString(BundleUtil.TableHead_AppearCount), info.count);
-				data.setData(BundleUtil.getString(BundleUtil.TableHead_Operation), info.type);
-				data.setData(BundleUtil.getString(BundleUtil.TableHead_ComponentName), info.Component);
-				data.setData(BundleUtil.getString(BundleUtil.TableHead_ClassName), info.javaClass);
+				data.setData(BundleUtil.getString(BundleUtil.TableHead_TableName), info.getName());
+				data.setData(BundleUtil.getString(BundleUtil.TableHead_AppearCount), info.getCount());
+				data.setData(BundleUtil.getString(BundleUtil.TableHead_Operation), info.getType());
+				data.setData(BundleUtil.getString(BundleUtil.TableHead_ComponentName), info.getComponent());
+				data.setData(BundleUtil.getString(BundleUtil.TableHead_ClassName), info.getJavaClass());
 			}
 			this.add(BorderLayout.CENTER, new JScrollPane(new CooperTable(data)));
-		} 
+		}
 	}
 }

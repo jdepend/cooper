@@ -1982,8 +1982,25 @@
 																		: ""))
 														.click(function(event) {
 															return false
-														})
+														});
+												//wangdg begin
+												if(!($(row)
+														.hasClass(
+																self.options.cssSelected))){
+													$(row)
+													.children(
+															"td:eq("
+																	+ selectColumn
+																	+ ")")
+													.find(
+															this.options.selectTriggerElement)
+													.removeAttr(
+															"checked");
+													
+												}
+												//wangdg end
 											}
+											
 											this._trigger("select");
 											this._showDetail(row)
 										},

@@ -22,11 +22,11 @@ public final class TableView extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
 		for (TableViewInfo info : TableViewUtil.view(result)) {
-			this.printTable("表名", info.name);
-			this.printTable("出现次数", info.count);
-			this.printTable("操作", info.type);
-			this.printTable("所属组件", info.Component);
-			this.printTable("类名", info.javaClass);
+			this.printTable("表名", info.getName());
+			this.printTable("出现次数", info.getCount());
+			this.printTable("操作", info.getType());
+			this.printTable("所属组件", info.getComponent());
+			this.printTable("类名", info.getJavaClass());
 		}
 
 	}
