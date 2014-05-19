@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<exe4j version="4.4.1" transformSequenceNumber="1">
+<?xml version="1.0" encoding="UTF-8"?>
+<exe4j version="4.5.2" transformSequenceNumber="1">
   <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib" />
   <application name="Client" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper/build/client">
     <languages>
@@ -16,7 +16,7 @@
       <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
     </text>
   </splashScreen>
-  <java mainClass="jdepend.ui.JDependCooper" vmParameters="-Xms256m -Xmx1024m" arguments="-RunMode 1 -startUploadScore true" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.4" maxVersion="1.6" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="jdepend.ui.JDependCooper" vmParameters="-Xms256m -Xmx1500m -Dsun.zip.encoding=default" arguments="-RunMode 1 -startUploadScore true" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.4" maxVersion="1.6" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
@@ -24,8 +24,8 @@
       <directory location="D:/Program Files/java/jre6" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.2_08-SNAPSHOT.jar" failOnError="false" />
