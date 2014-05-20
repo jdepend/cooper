@@ -18,11 +18,9 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
 import jdepend.model.JavaPackage;
-import jdepend.model.Relation;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.parse.impl.ParseData;
@@ -30,6 +28,7 @@ import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
+import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -149,20 +148,25 @@ public class UploadTargetFileController {
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
-		
+
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
-		//temp
+		// temp
 		request.getSession().setAttribute("todoList", todoList);
-		
+
 		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
 		model.addAttribute("tableList", tableInfos);
-		//temp
+		// temp
 		request.getSession().setAttribute("tableList", tableInfos);
 
+		RelationGraphData relationGraphData = WebRelationGraphUtil.getGraphData(result.getRelations());
+		model.addAttribute("relation_graph_data", relationGraphData);
+		// temp
+		request.getSession().setAttribute("relation_graph_data", relationGraphData);
+
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
-		
+
 		return "result";
 	}
 
@@ -171,6 +175,7 @@ public class UploadTargetFileController {
 		model.addAttribute("result", request.getSession().getAttribute(WebConstants.SESSION_RESULT));
 		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
 		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
+		model.addAttribute("relation_graph_data", request.getSession().getAttribute("relation_graph_data"));
 		
 		return "result";
 	}
