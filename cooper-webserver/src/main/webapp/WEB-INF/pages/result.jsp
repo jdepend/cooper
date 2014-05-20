@@ -25,24 +25,24 @@
 				<div class="span6">
 					<h4>抽象程度合理性得分：${result.d}</h4>
 					<h6>${result.DAdvise}</h6>
-					<canvas id="d" height="400" width="400"></canvas>
+					<div id="d" class="d" style="height:400px"></div>
 				</div>
 				<div class="span6">
 					<h4>内聚性得分：${result.balance}</h4>
 					<h6>${result.balanceAdvise}</h6>
-					<canvas id="balance" height="400" width="400"></canvas>
+					<div id="balance" class="balance" style="height:400px"></div>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
 					<h4>封装性得分：${result.encapsulation}</h4>
 					<h6>${result.encapsulationAdvise}</h6>
-					<canvas id="encapsulation" height="400" width="400"></canvas>
+					<div id="encapsulation" class="encapsulation" style="height:400px"></div>
 				</div>
 				<div class="span6">
 					<h4>关系合理性得分：${result.relationRationality}</h4>
 					<h6>${result.relationRationalityAdvise}</h6>
-					<canvas id="relationRationality" height="400" width="400"></canvas>
+					<div id="relationRationality" class="relationRationality" style="height:400px"></div>
 				</div>
 			</div>
 		</div>
@@ -229,44 +229,234 @@
 				</div>
 			</div>
 		</c:if>
+		<c:if test="${!empty result.relations}">
+			<div class="row-fluid">
+				<div class="span12">
+					<h3>组件关系图：</h3>
+					<div id="main" class="main" style="height:600px"></div>
+				</div>
+			</div>
+		</c:if>
 	</div>
 </div>
 <script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/Chart.js"></script>
-<script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>
-<script>
-	var dPieData = [ {
-		value : ${result.d},
-		color : "#69D2E7"
-	}, {
-		value : 25 - ${result.d},
-		color : "#E0E4CC"
-	}];
-	var balancePieData = [ {
-		value : ${result.balance},
-		color : "#69D2E7"
-	}, {
-		value : 25 - ${result.balance},
-		color : "#E0E4CC"
-	}];
-	var encapsulationPieData = [ {
-		value : ${result.encapsulation},
-		color : "#69D2E7"
-	}, {
-		value : 25 - ${result.encapsulation},
-		color : "#E0E4CC"
-	}];
-	var relationRationalityPieData = [ {
-		value : ${result.relationRationality},
-		color : "#69D2E7"
-	}, {
-		value : 25 - ${result.relationRationality},
-		color : "#E0E4CC"
-	}];
-
-	new Chart(document.getElementById("d").getContext("2d")).Pie(dPieData);
-	new Chart(document.getElementById("balance").getContext("2d")).Pie(balancePieData);
-	new Chart(document.getElementById("encapsulation").getContext("2d")).Pie(encapsulationPieData);
-	new Chart(document.getElementById("relationRationality").getContext("2d")).Pie(relationRationalityPieData);
+<script language="javascript" type="text/javascript"
+	src="${ctx}/styles/js/esl.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths:{ 
+            'echarts' : '${ctx}/styles/js/echarts',
+            'echarts/chart/map' : '${ctx}/styles/js/echarts-map'
+        }
+    });
+    
+    // 使用
+    require(
+        [
+            'echarts',
+            'echarts/chart/map'
+        ],
+        function(ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main')); 
+            
+            option = {
+            	    title : {
+            	        x:'right',
+            	        y:'bottom'
+            	    },
+            	    tooltip : {
+            	        trigger: 'item',
+            	        formatter: '{a} : {b}'
+            	    },
+            	    legend: {
+            	        x: 'left',
+            	    },
+            	    series : [
+            	        {
+            	            type:'force',
+            	            name : "组件关系",
+            	            categories : [
+            	                {
+            	                    name: '组件',
+            	                    itemStyle: {
+            	                        normal: {
+            	                            color : '#87cdfa'
+            	                        }
+            	                    }
+            	                }
+            	            ],
+            	            itemStyle: {
+            	                normal: {
+            	                    label: {
+            	                        show: true,
+            	                        textStyle: {
+            	                            color: '#800080'
+            	                        }
+            	                    },
+            	                    nodeStyle : {
+            	                        brushType : 'both',
+            	                        strokeColor : 'rgba(255,215,0,0.4)',
+            	                        lineWidth : 1
+            	                    }
+            	                },
+            	                emphasis: {
+            	                    label: {
+            	                        show: false
+            	                        // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
+            	                    },
+            	                    nodeStyle : {
+            	                        //r: 30
+            	                    },
+            	                    linkStyle : {}
+            	                }
+            	            },
+            	            minRadius : 15,
+            	            maxRadius : 25,
+            	            density : 0.05,
+            	            attractiveness: 1.2,
+            	            linkSymbol: 'arrow',
+            	            nodes:[
+            	                {category:0, name: '乔布斯', value : 10},
+            	                {category:0, name: '丽萨-乔布斯',value : 2},
+            	                {category:0, name: '保罗-乔布斯',value : 3},
+            	                {category:0, name: '克拉拉-乔布斯',value : 3},
+            	                {category:0, name: '劳伦-鲍威尔',value : 7},
+            	                {category:0, name: '史蒂夫-沃兹尼艾克',value : 5},
+            	                {category:0, name: '奥巴马',value : 8},
+            	                {category:0, name: '比尔-盖茨',value : 9},
+            	                {category:0, name: '乔纳森-艾夫',value : 4},
+            	                {category:0, name: '蒂姆-库克',value : 4},
+            	                {category:0, name: '龙-韦恩',value : 1},
+            	            ],
+            	            links : [
+            	                {source : 1, target : 0, weight : 1},
+            	                {source : 2, target : 0, weight : 2},
+            	                {source : 3, target : 0, weight : 1},
+            	                {source : 4, target : 0, weight : 2},
+            	                {source : 5, target : 0, weight : 3},
+            	                {source : 6, target : 0, weight : 6},
+            	                {source : 7, target : 0, weight : 6},
+            	                {source : 8, target : 0, weight : 1},
+            	                {source : 9, target : 0, weight : 1},
+            	                {source : 10, target : 0, weight : 1},
+            	                {source : 3, target : 2, weight : 1},
+            	                {source : 6, target : 2, weight : 1},
+            	                {source : 6, target : 3, weight : 1},
+            	                {source : 6, target : 4, weight : 1},
+            	                {source : 6, target : 5, weight : 1},
+            	                {source : 7, target : 6, weight : 6},
+            	                {source : 7, target : 3, weight : 1},
+            	                {source : 9, target : 6, weight : 1}
+            	            ]
+            	        }
+            	    ]
+            	};
+            	var ecConfig = require('echarts/config');
+            	function focus(param) {
+            	    var data = param.data;
+            	    var links = option.series[0].links;
+            	    var nodes = option.series[0].nodes;
+            	    if (
+            	        data.source !== undefined
+            	        && data.target !== undefined
+            	    ) { //点击的是边
+            	        var sourceNode = nodes[data.source];
+            	        var targetNode = nodes[data.target];
+            	        console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
+            	    } else { // 点击的是点
+            	        console.log("选中了" + data.name + '(' + data.value + ')');
+            	    }
+            	    console.log(param);
+            	}
+            	myChart.on(ecConfig.EVENT.CLICK, focus);
+            	myChart.setOption(option, true);
+            	
+            	myChart = ec.init(document.getElementById('d')); 
+            	option = {
+            		    tooltip : {
+            		        trigger: 'item',
+            		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+            		    },
+            		    series : [
+            		        {
+            		            type:'pie',
+            		            data:[
+            		                {value:${result.d}, name:'得分'},
+            		                {value:25 - ${result.d}, name:'未得分'},
+            		            ]
+            		        }
+            		    ],
+            		    color : [
+							'#69D2E7', '#E0E4CC'
+            		    ]
+            		};
+            	myChart.setOption(option, true);
+            	
+            	myChart = ec.init(document.getElementById('balance')); 
+            	option = {
+            		    tooltip : {
+            		        trigger: 'item',
+            		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+            		    },
+            		    series : [
+            		        {
+            		            type:'pie',
+            		            data:[
+            		                {value:${result.balance}, name:'得分'},
+            		                {value:25 - ${result.balance}, name:'未得分'},
+            		            ]
+            		        }
+            		    ],
+            		    color : [
+							'#69D2E7', '#E0E4CC'
+            		    ]
+            		};
+            	myChart.setOption(option, true);
+            	
+            	myChart = ec.init(document.getElementById('encapsulation')); 
+            	option = {
+            		    tooltip : {
+            		        trigger: 'item',
+            		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+            		    },
+            		    series : [
+            		        {
+            		            type:'pie',
+            		            data:[
+            		                {value:${result.encapsulation}, name:'得分'},
+            		                {value:25 - ${result.encapsulation}, name:'未得分'},
+            		            ]
+            		        }
+            		    ],
+            		    color : [
+							'#69D2E7', '#E0E4CC'
+            		    ]
+            		};
+            	myChart.setOption(option, true);
+            	
+            	myChart = ec.init(document.getElementById('relationRationality')); 
+            	option = {
+            		    tooltip : {
+            		        trigger: 'item',
+            		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+            		    },
+            		    series : [
+            		        {
+            		            type:'pie',
+            		            data:[
+            		                {value:${result.relationRationality}, name:'得分'},
+            		                {value:25 - ${result.relationRationality}, name:'未得分'},
+            		            ]
+            		        }
+            		    ],
+            		    color : [
+							'#69D2E7', '#E0E4CC'
+            		    ]
+            		};
+            	myChart.setOption(option, true);
+        }
+    );
 </script>
