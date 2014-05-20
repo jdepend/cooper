@@ -440,6 +440,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	 *            -startUploadScore（true：启动自动上传分数服务；false：不启动）
 	 */
 	public static void main(String[] args) {
+		
+		System.setProperty("sun.zip.encoding", "default");
 
 		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog();
 		welcomeDialog.setVisible(true);
