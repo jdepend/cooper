@@ -88,7 +88,7 @@
 		<property name="defaultEncoding" value="UTF-8"></property>
 		<!-- 指定所上传文件的总大小不能超过maxUploadSize（单位是字节）。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
 		<property name="maxUploadSize">
-			<value>10485760</value><!-- 上传文件大小限制为10M，10*1024*1024 -->
+			<value>52428800</value><!-- 上传文件大小限制为50M，50*1024*1024 -->
 		</property>
 		<property name="maxInMemorySize">
 			<value>4096</value>

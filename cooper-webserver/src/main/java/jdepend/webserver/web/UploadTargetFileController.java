@@ -1,16 +1,23 @@
 package jdepend.webserver.web;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import jdepend.core.serviceproxy.JDependServiceProxy;
 import jdepend.core.serviceproxy.JDependServiceProxyFactory;
@@ -28,6 +35,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
+import jdepend.parse.impl.Constant;
 import jdepend.parse.impl.ParseData;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
@@ -45,6 +53,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping(value = "analyse")
@@ -58,53 +67,45 @@ public class UploadTargetFileController {
 		return "upload";
 	}
 
-	/**
-	 * 上传jar文件
-	 * 
-	 * @param fileUpload
-	 *            文件名称
-	 * @throws JDependException
-	 */
-
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@RequestParam("fileUpload") MultipartFile fileUpload, Model model, HttpServletRequest request)
-			throws JDependException {
-		if (!fileUpload.isEmpty()) {
+	public String upload2(MultipartHttpServletRequest multipartRequest, Model model, HttpServletRequest request)
+			throws Exception {
+		// 获取多个fileData
+		Map<String, byte[]> fileDatas = new LinkedHashMap<String, byte[]>();
+		for (Iterator<String> it = multipartRequest.getFileNames(); it.hasNext();) {
+			String key = (String) it.next();
+			MultipartFile file = multipartRequest.getFile(key);
 			try {
-				String fileName = fileUpload.getOriginalFilename();
+				String fileName = file.getOriginalFilename();
 				if (fileName.endsWith(".jar")) {
-					byte[] fileData = fileUpload.getBytes();
-
-					InputStream in = new ByteArrayInputStream(fileData);
-					SearchUtil searchUtil = new SearchUtil(this.createAnalyseData(in));
-					Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
-					for (JavaPackage javaPackage : searchUtil.getPackages()) {
-						if (javaPackage.isInner()) {
-							innerJavaPackages.add(javaPackage);
-						}
-					}
-					List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(innerJavaPackages);
-					Collections.sort(sortedInnerJavaPackages);
-					model.addAttribute("listPackages", sortedInnerJavaPackages);
-					in.close();
-
-					request.getSession().setAttribute(WebConstants.SESSION_FILE_NAME, fileName);
-					request.getSession().setAttribute(WebConstants.SESSION_FILE_DATA, fileData);
-
-					logger.info("进入listPackages页面");
-
-					return "listPackages";
+					byte[] fileData = file.getBytes();
+					fileDatas.put(fileName, fileData);
 				} else {
 					throw new JDependException("上传的文件格式必须是jar");
 				}
-
 			} catch (IOException e) {
 				e.printStackTrace();
 				throw new JDependException(e.getMessage());
 			}
-		} else {
-			throw new JDependException("上传的文件不能为空");
 		}
+		AnalyseData analyseData = this.createAnalyseData(fileDatas);
+		SearchUtil searchUtil = new SearchUtil(analyseData.toParseData());
+		Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
+		for (JavaPackage javaPackage : searchUtil.getPackages()) {
+			if (javaPackage.isInner()) {
+				innerJavaPackages.add(javaPackage);
+			}
+		}
+		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(innerJavaPackages);
+		Collections.sort(sortedInnerJavaPackages);
+		model.addAttribute("listPackages", sortedInnerJavaPackages);
+
+		request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
+
+		logger.info("进入listPackages页面");
+
+		return "listPackages";
+
 	}
 
 	@RequestMapping(value = "/execute", method = RequestMethod.POST)
@@ -127,26 +128,7 @@ public class UploadTargetFileController {
 
 		JDependServiceProxy proxy = new JDependServiceProxyFactory().getJDependServiceProxy("无", "以自定义组件为单位输出分析报告");
 
-		AnalyseData data = new AnalyseData();
-
-		JarFileReader reader = new JarFileReader(true);
-		Map<FileType, List<byte[]>> fileDatases = null;
-		try {
-			byte[] fileData = (byte[]) request.getSession().getAttribute(WebConstants.SESSION_FILE_DATA);
-			InputStream in = new ByteArrayInputStream(fileData);
-			fileDatases = reader.readDatas(in);
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		data.setClasses(fileDatases.get(FileType.classType));
-		data.setConfigs(fileDatases.get(FileType.xmlType));
-
-		String fileName = (String) request.getSession().getAttribute(WebConstants.SESSION_FILE_NAME);
-		Map<String, Collection<String>> targetFiles = new HashMap<String, Collection<String>>();
-		targetFiles.put(fileName, reader.getEntryNames());
-
-		data.setTargetFiles(targetFiles);
+		AnalyseData data = (AnalyseData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
 
 		proxy.setAnalyseData(data);
 
@@ -154,7 +136,7 @@ public class UploadTargetFileController {
 
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
-		result.getRunningContext().setPath(fileName);
+		result.getRunningContext().setPath(data.getPath());
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
@@ -221,22 +203,34 @@ public class UploadTargetFileController {
 		return "result";
 	}
 
-	private ParseData createAnalyseData(InputStream in) {
+	private AnalyseData createAnalyseData(Map<String, byte[]> fileDatas) {
+		AnalyseData data = new AnalyseData();
 
-		ParseData data = new ParseData();
+		List<byte[]> classes = new ArrayList<byte[]>();
+		List<byte[]> configs = new ArrayList<byte[]>();
+		Map<String, Collection<String>> targetFiles = new LinkedHashMap<String, Collection<String>>();
 
-		JarFileReader reader = new JarFileReader(true);
-		Map<FileType, List<byte[]>> fileDatases = null;
-		try {
-			fileDatases = reader.readDatas(in);
-		} catch (IOException e) {
-			e.printStackTrace();
+		for (String fileName : fileDatas.keySet()) {
+			byte[] fileData = fileDatas.get(fileName);
+			JarFileReader reader = new JarFileReader(true);
+			Map<FileType, List<byte[]>> fileDatases = null;
+			try {
+				InputStream in = new ByteArrayInputStream(fileData);
+				fileDatases = reader.readDatas(in);
+				targetFiles.put(fileName, reader.getEntryNames());
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			classes.addAll(fileDatases.get(FileType.classType));
+			configs.addAll(fileDatases.get(FileType.xmlType));
 		}
-		data.setClasses(fileDatases.get(FileType.classType));
-		data.setConfigs(fileDatases.get(FileType.xmlType));
+
+		data.setClasses(classes);
+		data.setConfigs(configs);
+		data.setTargetFiles(targetFiles);
 
 		return data;
-
 	}
 
 }

@@ -34,6 +34,18 @@ public class AnalyseData {
 		return targetFiles;
 	}
 
+	public String getPath() {
+		StringBuilder path = new StringBuilder();
+		for (String fileName : targetFiles.keySet()) {
+			path.append(fileName);
+			path.append(";");
+		}
+		if (path.length() > 0) {
+			path.delete(path.length() - 1, path.length());
+		}
+		return path.toString();
+	}
+
 	public void setTargetFiles(Map<String, Collection<String>> targetFiles) {
 		this.targetFiles = targetFiles;
 	}
