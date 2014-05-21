@@ -21,7 +21,7 @@
 	</bean>
 
 	<!-- 这里不扫描标注为@Controller注解的SpringMVC控制类，仅扫描标注为@Service、@Repository的类 -->
-	<context:component-scan base-package="com.neusoft.saca.snap,com.neusoft.saca.snapmgr"
+	<context:component-scan base-package="jdepend.webserver.service"
 		use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />

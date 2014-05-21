@@ -30,6 +30,7 @@ import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value = "analyse")
 public class UploadTargetFileController {
+	
+	private Logger logger = Logger.getLogger(UploadTargetFileController.class);
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String upload() throws JDependException {
+		logger.info("进入上传jar页面");
 		return "upload";
 	}
 
@@ -81,6 +85,8 @@ public class UploadTargetFileController {
 
 					request.getSession().setAttribute(WebConstants.SESSION_FILE_NAME, fileName);
 					request.getSession().setAttribute(WebConstants.SESSION_FILE_DATA, fileData);
+					
+					logger.info("进入listPackages页面");
 
 					return "listPackages";
 				} else {
@@ -166,6 +172,8 @@ public class UploadTargetFileController {
 		request.getSession().setAttribute("relation_graph_data", relationGraphData);
 
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
+		
+		logger.info("进入result页面");
 
 		return "result";
 	}
