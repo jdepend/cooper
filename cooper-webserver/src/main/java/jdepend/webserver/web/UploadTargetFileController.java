@@ -1,23 +1,17 @@
 package jdepend.webserver.web;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import jdepend.core.serviceproxy.JDependServiceProxy;
 import jdepend.core.serviceproxy.JDependServiceProxyFactory;
@@ -35,8 +29,6 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
-import jdepend.parse.impl.Constant;
-import jdepend.parse.impl.ParseData;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
 import jdepend.util.todolist.TODOItem;
@@ -51,7 +43,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
