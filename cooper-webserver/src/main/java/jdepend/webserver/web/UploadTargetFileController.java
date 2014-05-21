@@ -43,6 +43,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -59,13 +60,11 @@ public class UploadTargetFileController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload2(MultipartHttpServletRequest multipartRequest, Model model, HttpServletRequest request)
+	public String upload2(@RequestParam("files") List<MultipartFile> files, Model model, HttpServletRequest request)
 			throws Exception {
 		// 获取多个fileData
 		Map<String, byte[]> fileDatas = new LinkedHashMap<String, byte[]>();
-		for (Iterator<String> it = multipartRequest.getFileNames(); it.hasNext();) {
-			String key = (String) it.next();
-			MultipartFile file = multipartRequest.getFile(key);
+		for (MultipartFile file : files) {
 			try {
 				String fileName = file.getOriginalFilename();
 				if (fileName.endsWith(".jar")) {
