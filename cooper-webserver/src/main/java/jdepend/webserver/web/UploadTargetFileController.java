@@ -17,10 +17,15 @@ import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
+import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
+import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.JavaPackage;
+import jdepend.model.Measurable;
+import jdepend.model.Relation;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.parse.impl.ParseData;
@@ -44,7 +49,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value = "analyse")
 public class UploadTargetFileController {
-	
+
 	private Logger logger = Logger.getLogger(UploadTargetFileController.class);
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
@@ -85,7 +90,7 @@ public class UploadTargetFileController {
 
 					request.getSession().setAttribute(WebConstants.SESSION_FILE_NAME, fileName);
 					request.getSession().setAttribute(WebConstants.SESSION_FILE_DATA, fileData);
-					
+
 					logger.info("进入listPackages页面");
 
 					return "listPackages";
@@ -155,6 +160,18 @@ public class UploadTargetFileController {
 		model.addAttribute("result", webResult);
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
 
+		List<Measurable> summarys = new ArrayList<Measurable>(result.getComponents());
+		summarys.add(result.getSummary());
+		model.addAttribute("summarys", summarys);
+		// temp
+		request.getSession().setAttribute("summarys", summarys);
+
+		List<Relation> relations = new ArrayList<Relation>(result.getRelations());
+		Collections.sort(relations, new RelationByMetricsComparator(Relation.AttentionLevel, false));
+		model.addAttribute("relations", relations);
+		// temp
+		request.getSession().setAttribute("relations", relations);
+
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
@@ -171,8 +188,21 @@ public class UploadTargetFileController {
 		// temp
 		request.getSession().setAttribute("relation_graph_data", relationGraphData);
 
+		ArchitectPatternResult apResult = null;
+		try {
+			apResult = ArchitectPatternMgr.getInstance().identify(result);
+		} catch (JDependException e) {
+			e.printStackTrace();
+		}
+		if (apResult != null) {
+			String apResultInfo = apResult.getResult();
+			model.addAttribute("structure_tip", apResultInfo);
+			// temp
+			request.getSession().setAttribute("structure_tip", apResultInfo);
+		}
+
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
-		
+
 		logger.info("进入result页面");
 
 		return "result";
@@ -184,7 +214,10 @@ public class UploadTargetFileController {
 		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
 		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
 		model.addAttribute("relation_graph_data", request.getSession().getAttribute("relation_graph_data"));
-		
+		model.addAttribute("summarys", request.getSession().getAttribute("summarys"));
+		model.addAttribute("relations", request.getSession().getAttribute("relations"));
+		model.addAttribute("structure_tip", request.getSession().getAttribute("structure_tip"));
+
 		return "result";
 	}
 

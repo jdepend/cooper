@@ -32,17 +32,15 @@
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container-fluid">
-						    <a href="#" class="brand">Cooper</a><a href="#" class="brand">致力于提高代码结构的质量</a>
+						    <a href="#" class="brand">Cooper</a><a href="#" class="brand" style="font-size:16px;">致力于提高代码结构的质量</a>
 							<div class="nav-collapse collapse navbar-responsive-collapse">
 								<ul class="nav pull-right">
 									<li class="dropdown"><a data-toggle="dropdown"
-										class="dropdown-toggle" href="#">下拉菜单<strong class="caret"></strong></a>
+										class="dropdown-toggle" href="#">菜单<strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">下拉导航1</a></li>
-											<li><a href="#">下拉导航2</a></li>
-											<li><a href="#">其他</a></li>
-											<li class="divider"></li>
-											<li><a href="#">链接3</a></li>
+											<li><a href="#">下载单机版</a></li>
+											<li><a href="https://github.com/jdepend/cooper">访问源码</a></li>
+											<li><a href="https://github.com/jdepend/cooper">了解作者</a></li>
 										</ul></li>
 								</ul>
 							</div>

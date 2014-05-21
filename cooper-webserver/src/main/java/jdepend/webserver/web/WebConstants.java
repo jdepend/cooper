@@ -14,5 +14,5 @@ public interface WebConstants {
 	/**
 	 * 分析结果
 	 */
-	public final static String SESSION_RESULT = "SESSION_RESULT"; 
+	public final static String SESSION_RESULT = "SESSION_RESULT";
 }

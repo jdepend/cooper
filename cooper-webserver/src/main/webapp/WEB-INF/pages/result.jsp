@@ -42,7 +42,8 @@
 				<div class="span6">
 					<h4>关系合理性得分：${result.relationRationality}</h4>
 					<h6>${result.relationRationalityAdvise}</h6>
-					<div id="relationRationality" class="relationRationality" style="height:400px"></div>
+					<div id="relationRationality" class="relationRationality"
+						style="height:400px"></div>
 				</div>
 			</div>
 		</div>
@@ -77,7 +78,7 @@
 								</tr>
 							</thead>
 							<tbody id="listComponents">
-								<c:forEach items="${result.components}" var="item">
+								<c:forEach items="${summarys}" var="item">
 									<tr>
 										<td><input type="checkbox" /></td>
 										<td class="itemName">${item.name}</td>
@@ -111,7 +112,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${!empty result.relations}">
+		<c:if test="${!empty relations}">
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>关系信息：</h3>
@@ -135,7 +136,7 @@
 								</tr>
 							</thead>
 							<tbody id="listRelations">
-								<c:forEach items="${result.relations}" var="item">
+								<c:forEach items="${relations}" var="item">
 									<tr>
 										<td><input type="checkbox" /></td>
 										<td>${item.current.name}</td>
@@ -233,7 +234,15 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>组件关系图：</h3>
-					<div id="main" class="main" style="height:600px"></div>
+					<div id="relationGraph" class="relationGraph" style="height:500px"></div>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${!empty structure_tip}">
+			<div class="row-fluid">
+				<div class="span12">
+					<h3>结构提示：</h3>
+					<textarea rows="15" style="width:100%">${structure_tip}</textarea>
 				</div>
 			</div>
 		</c:if>
@@ -260,7 +269,7 @@
         ],
         function(ec) {
             // 基于准备好的dom，初始化echarts图表
-            var myChart = ec.init(document.getElementById('main')); 
+            var myChart = ec.init(document.getElementById('relationGraph')); 
             
             option = {
             	    title : {
