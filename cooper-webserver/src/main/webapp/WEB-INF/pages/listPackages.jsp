@@ -11,7 +11,8 @@
 				<legend>第二步：设置组件模型</legend>
 			</fieldset>
 			<button id="createComponent" class="btn">选择包创建组件</button>
-			<div
+			<button id="joinComponent" class="btn">选择包加入已有组件</button>
+			<div id = "listPackageScroll"
 				style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
 				<table class="table table-bordered" pa_ui_name="table,exinput"
 					pa_ui_hover="true" pa_ui_selectable="true"
@@ -47,20 +48,37 @@
 		</div>
 	</div>
 </div>
-<div id="componentNameModal" class="modal hide fade" role="dialog"
+<div id="componentNameModal_Create" class="modal hide fade" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true">×</button>
 		<h5 id="myModalLabel">录入组件名</h5>
 	</div>
-	<form class="componentNameForm" action="#">
+	<form id="componentNameForm_Create" action="#">
 		<div class="modal-body">
 			<label><span style="width:10px; color:#b20202;">*</span>组件名</label> <input
-				 id="componentName" type="text" class="inputxt" datatype="*" nullmsg="请录入组件名！" />
+				 id="componentName_Create" type="text" class="inputxt" datatype="create" nullmsg="请录入组件名！" />
 		</div>
 		<div class="modal-footer">
-			<input id="createComponent" type="submit" class="btn btn-primary" value="确定" />
+			<input id="createComponent_Submit" type="submit" class="btn btn-primary" value="确定" />
+		</div>
+	</form>
+</div>
+<div id="componentNameModal_Join" class="modal hide fade" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">×</button>
+		<h5 id="myModalLabel">录入组件名</h5>
+	</div>
+	<form id="componentNameForm_Join" action="#">
+		<div class="modal-body">
+			<label><span style="width:10px; color:#b20202;">*</span>组件名</label> <input
+				 id="componentName_Join" type="text" class="inputxt" datatype="join" nullmsg="请录入组件名！" />
+		</div>
+		<div class="modal-footer">
+			<input id="joinComponent_Submit" type="submit" class="btn btn-primary" value="确定" />
 		</div>
 	</form>
 </div>
@@ -87,21 +105,21 @@
 		};
 		function menuAction() {
 			//清空窗口数据
-			$('#componentName').val('');
+			$('#componentName_Create').val('');
 			//显示窗口
-			$('#componentNameModal').modal('toggle');
+			$('#componentNameModal_Create').modal('toggle');
 		}
 		function BeforeContextMenu() {
 			return $('#listPackages .pa_ui_selected .itemName').size();
 		}
 		$('#listPackages').contextmenu(option);
 
-		$('.componentNameForm').Validform({
+		$('#componentNameForm_Create').Validform({
 			tiptype:3,
 			label:'.label',
 			showAllError:true,
 			datatype:{
-				'*':function(gets,obj,curform,regxp){
+				'create':function(gets,obj,curform,regxp){
 					    if(gets == ''){
 					    	return '组件名不能为空！';
 					    }
@@ -113,7 +131,7 @@
 			},
 			callback:function(data){
 				//添加组件名
-				var componentName = $('#componentName').val(); 
+				var componentName = $('#componentName_Create').val(); 
 				$('#componentList').append('<li>' + componentName + '</li>');
 				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
 				//添加包列表
@@ -128,8 +146,43 @@
 				componentModel[componentName] = packageNames;
 				//删除选择的包集合
 				$('#listPackages .pa_ui_selected').remove();
+				$('#listPackageScroll').scrollTop(0);
 				//关闭窗口
-				$('#componentNameModal').modal('toggle');
+				$('#componentNameModal_Create').modal('toggle');
+				return false;
+			}
+		});
+		
+		$('#componentNameForm_Join').Validform({
+			tiptype:3,
+			label:'.label',
+			showAllError:true,
+			datatype:{
+				'join':function(gets,obj,curform,regxp){
+					    if(gets == ''){
+					    	return '组件名不能为空！';
+					    }
+					    if(!componentModel.hasOwnProperty(gets)){
+							return '组件名不存在！';
+						}
+						return true;
+				}
+			},
+			callback:function(data){
+				//向已有组件增加包
+				var componentName = $('#componentName_Join').val(); 
+				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
+				//添加包列表
+				var packageNames = componentModel[componentName];;
+				selectedPackages.map(function() {
+					var packageName = $(this).text();
+					packageNames.push(packageName);
+				});
+				//删除选择的包集合
+				$('#listPackages .pa_ui_selected').remove();
+				$('#listPackageScroll').scrollTop(0);
+				//关闭窗口
+				$('#componentNameModal_Join').modal('toggle');
 				return false;
 			}
 		});
@@ -158,9 +211,20 @@
 		$('#createComponent').click(function(){
 			if($('#listPackages .pa_ui_selected .itemName').size()){
 				//清空窗口数据
-				$('#componentName').val('');
+				$('#componentName_Create').val('');
 				//显示窗口
-				$('#componentNameModal').modal('toggle');
+				$('#componentNameModal_Create').modal('toggle');
+			}else{
+				$.Showmsg('请选择包！');
+			}
+		});
+		
+		$('#joinComponent').click(function(){
+			if($('#listPackages .pa_ui_selected .itemName').size()){
+				//清空窗口数据
+				$('#componentName_Join').val('');
+				//显示窗口
+				$('#componentNameModal_Join').modal('toggle');
 			}else{
 				$.Showmsg('请选择包！');
 			}

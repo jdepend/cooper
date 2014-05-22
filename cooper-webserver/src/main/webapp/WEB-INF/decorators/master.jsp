@@ -24,6 +24,12 @@
 	src="${ctx}/styles/js/Validform_v5.3.2.js"></script>
 
 <script type="text/javascript" src="${ctx}/styles/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+function record(){
+	$.ajax({url:"${ctx}/record/download"});
+}
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -38,16 +44,14 @@
 									<li class="dropdown"><a data-toggle="dropdown"
 										class="dropdown-toggle" href="#">菜单<strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
-											<li><a href="#">下载单机版</a></li>
+											<li><a href="${ctx}/standalone/Cooper.zip" onclick="record()">下载单机版</a></li>
 											<li><a href="https://github.com/jdepend/cooper">访问源码</a></li>
 											<li><a href="https://github.com/jdepend/cooper">了解作者</a></li>
 										</ul></li>
 								</ul>
 							</div>
-
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>

@@ -49,18 +49,18 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping(value = "analyse")
-public class UploadTargetFileController {
+public class AnalyseController {
 
-	private Logger logger = Logger.getLogger(UploadTargetFileController.class);
+	private Logger logger = Logger.getLogger(AnalyseController.class);
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public String upload() throws JDependException {
-		logger.info("进入上传jar页面");
+	public String upload(HttpServletRequest request) throws JDependException {
+		logger.info(request.getRemoteAddr() + "进入上传jar页面");
 		return "upload";
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload2(@RequestParam("files") List<MultipartFile> files, Model model, HttpServletRequest request)
+	public String upload(@RequestParam("files") List<MultipartFile> files, Model model, HttpServletRequest request)
 			throws Exception {
 		// 获取多个fileData
 		Map<String, byte[]> fileDatas = new LinkedHashMap<String, byte[]>();
@@ -92,7 +92,7 @@ public class UploadTargetFileController {
 
 		request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
 
-		logger.info("进入listPackages页面");
+		logger.info(request.getRemoteAddr() + "进入listPackages页面");
 
 		return "listPackages";
 
@@ -175,7 +175,7 @@ public class UploadTargetFileController {
 
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
 
-		logger.info("进入result页面");
+		logger.info(request.getRemoteAddr() + "进入result页面");
 
 		return "result";
 	}
