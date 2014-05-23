@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
-<link rel="stylesheet" href="${ctx}/styles/css/contextmenu.css">
 <link rel="stylesheet" href="${ctx}/styles/css/Validform-Style.css">
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -13,7 +12,7 @@
 			<button id="createComponent" class="btn">选择包创建组件</button>
 			<button id="joinComponent" class="btn">选择包加入已有组件</button>
 			<div id = "listPackageScroll"
-				style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
+				style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd;margin-top:10px;">
 				<table class="table table-bordered" pa_ui_name="table,exinput"
 					pa_ui_hover="true" pa_ui_selectable="true"
 					pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
@@ -36,7 +35,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="row-fluid">
+			<div class="row-fluid" style="margin-top:10px;margin-bottom:10px;">
 				<div class="span6" style="overflow-x: auto; overflow-y: auto; height: 100px; width:49%; border: 1px solid #dddddd; ">
 					<ul id="componentList" class="componentModelView" style="height: 100px;"/>
 				</div>
@@ -87,33 +86,10 @@
 </form>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery.contextmenu.js"></script>
 <script type="text/javascript">
 	//定义组件模型
 	var componentModel = {};
 	$().ready(function() {
-		var option = {
-			width : 150,
-			items : [ {
-				text : '增加组件',
-				icon : '${ctx}/styles/css/images/application_form_add.png',
-				alias : '',
-				action : menuAction
-			} ],
-			onContextMenu : BeforeContextMenu
-		};
-		function menuAction() {
-			//清空窗口数据
-			$('#componentName_Create').val('');
-			//显示窗口
-			$('#componentNameModal_Create').modal('toggle');
-		}
-		function BeforeContextMenu() {
-			return $('#listPackages .pa_ui_selected .itemName').size();
-		}
-		$('#listPackages').contextmenu(option);
-
 		$('#componentNameForm_Create').Validform({
 			tiptype:3,
 			label:'.label',

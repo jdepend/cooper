@@ -51,64 +51,61 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>组件信息：</h3>
-					<div
-						style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
-						<table class="table table-bordered" pa_ui_name="table,exinput"
-							pa_ui_hover="true" pa_ui_selectable="true"
-							pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
-							pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
-							<thead>
+					<table class="table table-bordered" pa_ui_name="table,exinput"
+						pa_ui_hover="true" pa_ui_selectable="true"
+						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
+						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>组件名称</th>
+								<th>代码行数</th>
+								<th>类数量</th>
+								<th>具体类数量</th>
+								<th>抽象类数量</th>
+								<th>传入</th>
+								<th>传出</th>
+								<th>抽象程度</th>
+								<th>易变性</th>
+								<th>稳定性</th>
+								<th>抽象程度合理性</th>
+								<th>耦合值</th>
+								<th>内聚值</th>
+								<th>内聚性</th>
+								<th>封装性</th>
+							</tr>
+						</thead>
+						<tbody id="listComponents">
+							<c:forEach items="${summarys}" var="item">
 								<tr>
-									<th>选择</th>
-									<th>组件名称</th>
-									<th>代码行数</th>
-									<th>类数量</th>
-									<th>具体类数量</th>
-									<th>抽象类数量</th>
-									<th>传入</th>
-									<th>传出</th>
-									<th>抽象程度</th>
-									<th>易变性</th>
-									<th>稳定性</th>
-									<th>抽象程度合理性</th>
-									<th>耦合值</th>
-									<th>内聚值</th>
-									<th>内聚性</th>
-									<th>封装性</th>
+									<td><input type="checkbox" /></td>
+									<td class="itemName">${item.name}</td>
+									<td>${item.lineCount}</td>
+									<td>${item.classCount}</td>
+									<td>${item.abstractClassCount}</td>
+									<td>${item.concreteClassCount}</td>
+									<td>${item.afferentCoupling}</td>
+									<td>${item.efferentCoupling}</td>
+									<td><fmt:formatNumber value="${item.abstractness}"
+											pattern="#.###" /></td>
+									<td><fmt:formatNumber value="${item.volatility}"
+											pattern="#.###" /></td>
+									<td><fmt:formatNumber value="${item.stability}"
+											pattern="#.###" /></td>
+									<td><fmt:formatNumber value="${item.distance}"
+											pattern="#.###" /></td>
+									<td><fmt:formatNumber value="${item.coupling}"
+											pattern="###,###.##" /></td>
+									<td><fmt:formatNumber value="${item.cohesion}"
+											pattern="###,###.##" /></td>
+									<td><fmt:formatNumber value="${item.balance}"
+											pattern="#.###" /></td>
+									<td><fmt:formatNumber value="${item.encapsulation}"
+											pattern="#.###" /></td>
 								</tr>
-							</thead>
-							<tbody id="listComponents">
-								<c:forEach items="${summarys}" var="item">
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td class="itemName">${item.name}</td>
-										<td>${item.lineCount}</td>
-										<td>${item.classCount}</td>
-										<td>${item.abstractClassCount}</td>
-										<td>${item.concreteClassCount}</td>
-										<td>${item.afferentCoupling}</td>
-										<td>${item.efferentCoupling}</td>
-										<td><fmt:formatNumber value="${item.abstractness}"
-												pattern="#.###" /></td>
-										<td><fmt:formatNumber value="${item.volatility}"
-												pattern="#.###" /></td>
-										<td><fmt:formatNumber value="${item.stability}"
-												pattern="#.###" /></td>
-										<td><fmt:formatNumber value="${item.distance}"
-												pattern="#.###" /></td>
-										<td><fmt:formatNumber value="${item.coupling}"
-												pattern="###,###.##" /></td>
-										<td><fmt:formatNumber value="${item.cohesion}"
-												pattern="###,###.##" /></td>
-										<td><fmt:formatNumber value="${item.balance}"
-												pattern="#.###" /></td>
-										<td><fmt:formatNumber value="${item.encapsulation}"
-												pattern="#.###" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</c:if>
@@ -116,49 +113,46 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>关系信息：</h3>
-					<div
-						style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
-						<table class="table table-bordered" pa_ui_name="table,exinput"
-							pa_ui_hover="true" pa_ui_selectable="true"
-							pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
-							pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
-							<thead>
+					<table class="table table-bordered" pa_ui_name="table,exinput"
+						pa_ui_hover="true" pa_ui_selectable="true"
+						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
+						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>当前组件</th>
+								<th>依赖组件</th>
+								<th>关系强度</th>
+								<th>当前组件内聚性</th>
+								<th>依赖组件内聚性</th>
+								<th>关系平衡值</th>
+								<th>关注类型</th>
+								<th>关注级别</th>
+							</tr>
+						</thead>
+						<tbody id="listRelations">
+							<c:forEach items="${relations}" var="item">
 								<tr>
-									<th>选择</th>
-									<th>当前组件</th>
-									<th>依赖组件</th>
-									<th>关系强度</th>
-									<th>当前组件内聚性</th>
-									<th>依赖组件内聚性</th>
-									<th>关系平衡值</th>
-									<th>关注类型</th>
-									<th>关注级别</th>
+									<td><input type="checkbox" /></td>
+									<td>${item.current.name}</td>
+									<td>${item.depend.name}</td>
+									<td><fmt:formatNumber value="${item.intensity}"
+											pattern="###,###.##" /></td>
+									<td><fmt:formatNumber
+											value="${item.current.component.cohesion}"
+											pattern="###,###.##" /></td>
+									<td><fmt:formatNumber
+											value="${item.depend.component.cohesion}"
+											pattern="###,###.##" /></td>
+									<td><fmt:formatNumber value="${item.balance}"
+											pattern="###,###.##" /></td>
+									<td>${item.attentionTypeName}</td>
+									<td><fmt:formatNumber value="${item.attentionLevel}"
+											pattern="##.###" /></td>
 								</tr>
-							</thead>
-							<tbody id="listRelations">
-								<c:forEach items="${relations}" var="item">
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>${item.current.name}</td>
-										<td>${item.depend.name}</td>
-										<td><fmt:formatNumber value="${item.intensity}"
-												pattern="###,###.##" /></td>
-										<td><fmt:formatNumber
-												value="${item.current.component.cohesion}"
-												pattern="###,###.##" /></td>
-										<td><fmt:formatNumber
-												value="${item.depend.component.cohesion}"
-												pattern="###,###.##" /></td>
-										<td><fmt:formatNumber value="${item.balance}"
-												pattern="###,###.##" /></td>
-										<td>${item.attentionTypeName}</td>
-										<td><fmt:formatNumber value="${item.attentionLevel}"
-												pattern="##.###" /></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</c:if>
@@ -166,30 +160,27 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>待做事项：</h3>
-					<div
-						style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
-						<table class="table table-bordered" pa_ui_name="table,exinput"
-							pa_ui_hover="true" pa_ui_selectable="true"
-							pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
-							pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
-							<thead>
+					<table class="table table-bordered" pa_ui_name="table,exinput"
+						pa_ui_hover="true" pa_ui_selectable="true"
+						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
+						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>描述</th>
+								<th>依据</th>
+							</tr>
+						</thead>
+						<tbody id="listTodos">
+							<c:forEach items="${todoList}" var="item">
 								<tr>
-									<th>选择</th>
-									<th>描述</th>
-									<th>依据</th>
+									<td><input type="checkbox" /></td>
+									<td>${item.content}</td>
+									<td>${item.according}</td>
 								</tr>
-							</thead>
-							<tbody id="listTodos">
-								<c:forEach items="${todoList}" var="item">
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>${item.content}</td>
-										<td>${item.according}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</c:if>
@@ -197,36 +188,33 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>数据库表操作：</h3>
-					<div
-						style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd; ">
-						<table class="table table-bordered" pa_ui_name="table,exinput"
-							pa_ui_hover="true" pa_ui_selectable="true"
-							pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
-							pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
-							<thead>
+					<table class="table table-bordered" pa_ui_name="table,exinput"
+						pa_ui_hover="true" pa_ui_selectable="true"
+						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
+						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>表名</th>
+								<th>出现次数</th>
+								<th>操作</th>
+								<th>组件名</th>
+								<th>类名</th>
+							</tr>
+						</thead>
+						<tbody id="listTables">
+							<c:forEach items="${tableList}" var="item">
 								<tr>
-									<th>选择</th>
-									<th>表名</th>
-									<th>出现次数</th>
-									<th>操作</th>
-									<th>组件名</th>
-									<th>类名</th>
+									<td><input type="checkbox" /></td>
+									<td>${item.name}</td>
+									<td>${item.count}</td>
+									<td>${item.type}</td>
+									<td>${item.component}</td>
+									<td>${item.javaClass}</td>
 								</tr>
-							</thead>
-							<tbody id="listTables">
-								<c:forEach items="${tableList}" var="item">
-									<tr>
-										<td><input type="checkbox" /></td>
-										<td>${item.name}</td>
-										<td>${item.count}</td>
-										<td>${item.type}</td>
-										<td>${item.component}</td>
-										<td>${item.javaClass}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</c:if>
@@ -242,7 +230,7 @@
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>结构提示：</h3>
-					<textarea rows="15" style="width:100%">${structure_tip}</textarea>
+					<textarea style="width:100%;height:auto; overflow: hidden;">${structure_tip}</textarea>
 				</div>
 			</div>
 		</c:if>
