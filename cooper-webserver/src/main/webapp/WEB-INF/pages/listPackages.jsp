@@ -108,7 +108,7 @@
 			callback:function(data){
 				//添加组件名
 				var componentName = $('#componentName_Create').val(); 
-				$('#componentList').append('<li>' + componentName + '</li>');
+				$('#componentList').append('<li>' + componentName + '</li><i class="icon-remove"></i>');
 				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
 				//添加包列表
 				$('#componentPackageList').empty();
