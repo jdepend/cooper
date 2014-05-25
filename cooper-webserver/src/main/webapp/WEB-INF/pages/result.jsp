@@ -47,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<c:if test="${!empty result.components}">
+		<c:if test="${!empty result.summarys}">
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>组件信息：</h3>
@@ -76,7 +76,7 @@
 							</tr>
 						</thead>
 						<tbody id="listComponents">
-							<c:forEach items="${summarys}" var="item">
+							<c:forEach items="${result.summarys}" var="item">
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td class="itemName">${item.name}</td>
@@ -109,7 +109,7 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${!empty relations}">
+		<c:if test="${!empty result.relations}">
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>关系信息：</h3>
@@ -131,7 +131,7 @@
 							</tr>
 						</thead>
 						<tbody id="listRelations">
-							<c:forEach items="${relations}" var="item">
+							<c:forEach items="${result.relations}" var="item">
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td>${item.current.name}</td>
@@ -226,11 +226,11 @@
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${!empty structure_tip}">
+		<c:if test="${!empty result.architectPatternResult}">
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>结构提示：</h3>
-					<textarea style="width:100%;height:auto; overflow: hidden;">${structure_tip}</textarea>
+					<textarea style="width:100%;height:auto; overflow: hidden;">${result.architectPatternResult.result}</textarea>
 				</div>
 			</div>
 		</c:if>

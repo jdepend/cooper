@@ -132,18 +132,6 @@ public class AnalyseController {
 		model.addAttribute("result", webResult);
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
 
-		List<Measurable> summarys = new ArrayList<Measurable>(result.getComponents());
-		summarys.add(result.getSummary());
-		model.addAttribute("summarys", summarys);
-		// temp
-		request.getSession().setAttribute("summarys", summarys);
-
-		List<Relation> relations = new ArrayList<Relation>(result.getRelations());
-		Collections.sort(relations, new RelationByMetricsComparator(Relation.AttentionLevel, false));
-		model.addAttribute("relations", relations);
-		// temp
-		request.getSession().setAttribute("relations", relations);
-
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
@@ -160,19 +148,6 @@ public class AnalyseController {
 		// temp
 		request.getSession().setAttribute("relation_graph_data", relationGraphData);
 
-		ArchitectPatternResult apResult = null;
-		try {
-			apResult = ArchitectPatternMgr.getInstance().identify(result);
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-		if (apResult != null) {
-			String apResultInfo = apResult.getResult();
-			model.addAttribute("structure_tip", apResultInfo);
-			// temp
-			request.getSession().setAttribute("structure_tip", apResultInfo);
-		}
-
 		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
 
 		logger.info(request.getRemoteAddr() + "进入result页面");
@@ -186,10 +161,7 @@ public class AnalyseController {
 		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
 		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
 		model.addAttribute("relation_graph_data", request.getSession().getAttribute("relation_graph_data"));
-		model.addAttribute("summarys", request.getSession().getAttribute("summarys"));
-		model.addAttribute("relations", request.getSession().getAttribute("relations"));
-		model.addAttribute("structure_tip", request.getSession().getAttribute("structure_tip"));
-
+	
 		return "result";
 	}
 
