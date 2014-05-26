@@ -108,7 +108,7 @@
 			callback:function(data){
 				//添加组件名
 				var componentName = $('#componentName_Create').val(); 
-				$('#componentList').append('<li><i class="icon-remove" onclick="deleteComponent()"></i>' + componentName + '</li>');
+				$('#componentList').append('<li>' + componentName + '<i class="icon-remove" onclick="deleteComponent()" style="margin-left:10px"></i></li>');
 				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
 				//添加包列表
 				$('#componentPackageList').empty();
@@ -123,7 +123,7 @@
 				//删除选择的包集合
 				$('#listPackages .pa_ui_selected').hide();
 				$('#listPackages .pa_ui_selected').removeClass('pa_ui_selected');
-				$('#listPackages .itemCheck:checked').removeAttr('checked')
+				$('#listPackages .itemCheck:checked').removeAttr('checked');
 				$('#listPackageScroll').scrollTop(0);
 				//关闭窗口
 				$('#componentNameModal_Create').modal('toggle');
@@ -159,7 +159,7 @@
 				//删除选择的包集合
 				$('#listPackages .pa_ui_selected').hide();
 				$('#listPackages .pa_ui_selected').removeClass('pa_ui_selected');
-				$('#listPackages .itemCheck:checked').removeAttr('checked')
+				$('#listPackages .itemCheck:checked').removeAttr('checked');
 				$('#listPackageScroll').scrollTop(0);
 				//关闭窗口
 				$('#componentNameModal_Join').modal('toggle');
