@@ -108,7 +108,7 @@
 			callback:function(data){
 				//添加组件名
 				var componentName = $('#componentName_Create').val(); 
-				$('#componentList').append('<li>' + componentName + '</li><i class="icon-remove"></i>');
+				$('#componentList').append('<li><i class="icon-remove" onclick="deleteComponent()"></i>' + componentName + '</li>');
 				var selectedPackages = $('#listPackages .pa_ui_selected .itemName');
 				//添加包列表
 				$('#componentPackageList').empty();
@@ -205,6 +205,11 @@
 				$.Showmsg('请选择包！');
 			}
 		});
+		
+		function deleteComponent(){
+			alert("xx");
+			$(this).parent.remove();
+		}
 	});
 </script>
 
