@@ -27,7 +27,7 @@
 					<tbody id="listPackages">
 						<c:forEach items="${listPackages}" var="item">
 							<tr>
-								<td><input type="checkbox" /></td>
+								<td><input class="itemCheck" type="checkbox"/></td>
 								<td class="itemName">${item.name}</td>
 								<td>${item.classCount}</td>
 							</tr>
@@ -121,7 +121,9 @@
 				//保存组件信息
 				componentModel[componentName] = packageNames;
 				//删除选择的包集合
-				$('#listPackages .pa_ui_selected').remove();
+				$('#listPackages .pa_ui_selected').hide();
+				$('#listPackages .pa_ui_selected').removeClass('pa_ui_selected');
+				$('#listPackages .itemCheck:checked').removeAttr('checked')
 				$('#listPackageScroll').scrollTop(0);
 				//关闭窗口
 				$('#componentNameModal_Create').modal('toggle');
@@ -155,7 +157,9 @@
 					packageNames.push(packageName);
 				});
 				//删除选择的包集合
-				$('#listPackages .pa_ui_selected').remove();
+				$('#listPackages .pa_ui_selected').hide();
+				$('#listPackages .pa_ui_selected').removeClass('pa_ui_selected');
+				$('#listPackages .itemCheck:checked').removeAttr('checked')
 				$('#listPackageScroll').scrollTop(0);
 				//关闭窗口
 				$('#componentNameModal_Join').modal('toggle');
@@ -205,11 +209,28 @@
 				$.Showmsg('请选择包！');
 			}
 		});
-		
-		function deleteComponent(){
-			alert("xx");
-			$(this).parent.remove();
-		}
 	});
+	
+	function deleteComponent(){
+		//得到要删除的组件信息
+		var componentName = $('#componentList li.pa_ui_hover').text();
+		var packageNames = componentModel[componentName];
+		//恢复隐藏的packages
+		var packageList = $('#listPackages .itemName');
+		packageList.map(function() {
+			var packageName = $(this).text();
+			for(var i in packageNames){
+				if(packageName == packageNames[i]){
+					$(this).parent().show();
+					break;
+				}
+			}
+		});
+		//删除组件信息
+		delete componentModel[componentName];
+		//删除组件的显示信息
+		$('#componentList li.pa_ui_hover').remove();
+		$('#componentPackageList').empty();
+	}
 </script>
 
