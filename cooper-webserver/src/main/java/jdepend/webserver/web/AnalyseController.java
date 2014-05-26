@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,26 +17,23 @@ import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
-import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
-import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.JavaPackage;
-import jdepend.model.Measurable;
-import jdepend.model.Relation;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.RelationByMetricsComparator;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
+import jdepend.webserver.service.AnalyseService;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,13 +41,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping(value = "analyse")
 public class AnalyseController {
 
 	private Logger logger = Logger.getLogger(AnalyseController.class);
+
+	@Autowired
+	private AnalyseService analyseService;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String upload(HttpServletRequest request) throws JDependException {
@@ -78,15 +76,9 @@ public class AnalyseController {
 				throw new JDependException(e.getMessage());
 			}
 		}
-		AnalyseData analyseData = this.createAnalyseData(fileDatas);
-		SearchUtil searchUtil = new SearchUtil(analyseData.toParseData());
-		Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
-		for (JavaPackage javaPackage : searchUtil.getPackages()) {
-			if (javaPackage.isInner()) {
-				innerJavaPackages.add(javaPackage);
-			}
-		}
-		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(innerJavaPackages);
+
+		AnalyseData analyseData = analyseService.createAnalyseData(fileDatas);
+		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(analyseService.listPackages(analyseData));
 		Collections.sort(sortedInnerJavaPackages);
 		model.addAttribute("listPackages", sortedInnerJavaPackages);
 
@@ -113,20 +105,9 @@ public class AnalyseController {
 			componentModelConf.addComponentConf((String) componentName, 0, packageNames);
 		}
 
-		CustomComponent component = new CustomComponent();
-		component.setComponentInfo(componentModelConf);
-
-		JDependServiceProxy proxy = new JDependServiceProxyFactory().getJDependServiceProxy("无", "以自定义组件为单位输出分析报告");
-
 		AnalyseData data = (AnalyseData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
 
-		proxy.setAnalyseData(data);
-
-		proxy.setComponent(component);
-
-		// 调用分析服务
-		AnalysisResult result = proxy.analyze();
-		result.getRunningContext().setPath(data.getPath());
+		AnalysisResult result = this.analyseService.analyze(data, componentModelConf);
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
@@ -161,38 +142,7 @@ public class AnalyseController {
 		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
 		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
 		model.addAttribute("relation_graph_data", request.getSession().getAttribute("relation_graph_data"));
-	
+
 		return "result";
 	}
-
-	private AnalyseData createAnalyseData(Map<String, byte[]> fileDatas) {
-		AnalyseData data = new AnalyseData();
-
-		List<byte[]> classes = new ArrayList<byte[]>();
-		List<byte[]> configs = new ArrayList<byte[]>();
-		Map<String, Collection<String>> targetFiles = new LinkedHashMap<String, Collection<String>>();
-
-		for (String fileName : fileDatas.keySet()) {
-			byte[] fileData = fileDatas.get(fileName);
-			JarFileReader reader = new JarFileReader(true);
-			Map<FileType, List<byte[]>> fileDatases = null;
-			try {
-				InputStream in = new ByteArrayInputStream(fileData);
-				fileDatases = reader.readDatas(in);
-				targetFiles.put(fileName, reader.getEntryNames());
-				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			classes.addAll(fileDatases.get(FileType.classType));
-			configs.addAll(fileDatases.get(FileType.xmlType));
-		}
-
-		data.setClasses(classes);
-		data.setConfigs(configs);
-		data.setTargetFiles(targetFiles);
-
-		return data;
-	}
-
 }
