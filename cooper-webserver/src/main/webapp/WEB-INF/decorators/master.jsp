@@ -46,7 +46,7 @@ function record(){
 										<ul class="dropdown-menu">
 											<li><a href="${ctx}/standalone/Cooper.zip" onclick="record()">下载单机版</a></li>
 											<li><a href="https://github.com/jdepend/cooper">访问源码</a></li>
-											<li><a href="https://github.com/jdepend/cooper">了解作者</a></li>
+											<li><a href="http://ohwyaa.neusoft.com/blog/list">了解作者</a></li>
 										</ul></li>
 								</ul>
 							</div>
