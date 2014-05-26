@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="4.5.2" transformSequenceNumber="1">
-  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib" />
-  <application name="Client" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper/build/client">
+  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper3/cooper-webserver/target/cooper-webserver-1.2.2_08-SNAPSHOT/WEB-INF/lib" />
+  <application name="Client" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper3/build/client">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="Client" type="2" iconSet="false" iconFile="E:/my_workspace/project/Cooper/projects/cooper/build/standalone/cooper.ico" executableDir="." redirectStderr="true" stderrFile="output.log" stderrMode="append" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" amd64="false">
+  <executable name="Client" type="2" iconSet="false" iconFile="E:/my_workspace/project/Cooper/projects/cooper3/build/standalone/cooper.ico" executableDir="." redirectStderr="true" stderrFile="output.log" stderrMode="append" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="true" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" amd64="false">
     <messageSet />
     <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
   </executable>

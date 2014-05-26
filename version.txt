@@ -1,4 +1,4 @@
-﻿1.2.2_08
+﻿1.2.2_08 2014-5-26
 
 a）取消1.2.2_07 a）的设计，删除ResultSaver[设计缺欠]，将其功能移入到ExecuteHistoryPanel中
 
@@ -9,6 +9,8 @@ c）删除了源码引用的两个图形工程
 d）向webserver工程引入bootstrap和spring
 
 e）改进Relation的getAttentionLevel算法
+
+f）完成Cooper IE版的初始版本开发（WebAnalysisResult、AnalyseController、AnalyseService）
 
 1.2.2_07 2014-04-16
 

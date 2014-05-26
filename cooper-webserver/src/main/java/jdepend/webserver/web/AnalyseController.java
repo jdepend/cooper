@@ -1,10 +1,7 @@
 package jdepend.webserver.web;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,18 +9,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import jdepend.core.serviceproxy.JDependServiceProxy;
-import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.JarFileReader;
 import jdepend.model.JavaPackage;
-import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
-import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.AnalyseData;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
