@@ -4,8 +4,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import jdepend.framework.context.JDependContext;
+import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.util.SearchUtil;
+import jdepend.service.persistent.ServerConnectionProvider;
 
 public class CooperServletContextListener implements ServletContextListener {
 
@@ -18,9 +20,12 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		String path = arg0.getServletContext().getRealPath("//");
 		JDependContext.setRunningPath(path);
-		
+
 		String workspacePath = path + "//WEB-INF";
 		JDependContext.setWorkspacePath(workspacePath);
+
+		// 设置ConnectionProvider
+		ConnectionFactory.setProvider(new ServerConnectionProvider());
 
 		String classPath = path + "//WEB-INF//classes";
 		SearchUtil search = new SearchUtil();
