@@ -11,9 +11,11 @@ import java.util.Map;
 
 import jdepend.core.serviceproxy.JDependServiceProxy;
 import jdepend.core.serviceproxy.JDependServiceProxyFactory;
+import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
+import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -53,6 +55,11 @@ public class AnalyseService {
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
 		result.getRunningContext().setPath(data.getPath());
+		
+		//保存分析结果
+		if (new PropertyConfigurator().isSaveResult()) {
+			AnalysisResultRepository.save(result);
+		}
 
 		return result;
 	}
