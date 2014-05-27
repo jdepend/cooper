@@ -44,7 +44,7 @@ public class AnalyseController {
 
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String upload(HttpServletRequest request) throws JDependException {
-		logger.info(request.getRemoteAddr() + "进入上传jar页面");
+		logger.info(request.getRemoteAddr() + " enter into upload jar page");
 		return "upload";
 	}
 
@@ -80,7 +80,7 @@ public class AnalyseController {
 
 		request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
 
-		logger.info(request.getRemoteAddr() + "进入listPackages页面");
+		logger.info(request.getRemoteAddr() + " enter into upload listPackages page");
 
 		return "listPackages";
 
@@ -134,7 +134,7 @@ public class AnalyseController {
 
 		request.getSession().removeAttribute(WebConstants.SESSION_FILE);
 
-		logger.info(request.getRemoteAddr() + "进入result页面");
+		logger.info(request.getRemoteAddr() + " enter into upload result page");
 
 		return "result";
 	}

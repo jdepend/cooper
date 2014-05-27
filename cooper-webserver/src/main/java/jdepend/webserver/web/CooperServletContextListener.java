@@ -5,7 +5,10 @@ import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
+import jdepend.framework.log.BusiLogUtil;
+import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.util.SearchUtil;
@@ -34,6 +37,11 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ServerConnectionProvider());
+		// 设置日志是否打印
+		PropertyConfigurator conf = new PropertyConfigurator();
+		BusiLogUtil.BUSINESSLOG = conf.isPrintBusiLog();
+		LogUtil.SYSTEMLOG = conf.isPrintSystemLog();
+		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
 //		String classPath = path + File.separator + "WEB-INF" + File.separator + "classes";
 //		SearchUtil search = new SearchUtil();
