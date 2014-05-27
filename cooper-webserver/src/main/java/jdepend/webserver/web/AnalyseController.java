@@ -95,8 +95,15 @@ public class AnalyseController {
 			}
 			componentModelConf.addComponentConf((String) componentName, 0, packageNames);
 		}
+		
+		if(componentModelConf.getComponentConfs().size() == 0){
+			throw new JDependException("没有配置组件模型信息。");
+		}
 
 		AnalyseData data = (AnalyseData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
+		if(data == null){
+			throw new JDependException("Session 中不存在 AnalyseData");
+		}
 
 		AnalysisResult result = this.analyseService.analyze(data, componentModelConf);
 

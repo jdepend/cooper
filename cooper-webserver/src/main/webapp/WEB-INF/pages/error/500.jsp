@@ -19,7 +19,10 @@
 		Logger logger = LoggerFactory.getLogger("500.jsp");
 		
 		StringWriter stringWriter = new StringWriter();
-		ex.printStackTrace(new PrintWriter(stringWriter));
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+		ex.printStackTrace(printWriter);
+		printWriter.flush();
+		stringWriter.flush();
 		errorMsg = stringWriter.toString();
 		
 		logger.error(errorMsg);

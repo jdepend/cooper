@@ -11,7 +11,11 @@ import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.persistent.ServerConnectionProvider;
 
+import org.apache.log4j.Logger;
+
 public class CooperServletContextListener implements ServletContextListener {
+	
+	private Logger logger = Logger.getLogger(CooperServletContextListener.class);
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -25,6 +29,8 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		String workspacePath = path + File.separator + "WEB-INF";
 		JDependContext.setWorkspacePath(workspacePath);
+
+		logger.info("WorkspacePath:" + workspacePath);
 
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ServerConnectionProvider());

@@ -1,3 +1,7 @@
+dev:
+
+-Xms1024M -Xmx5000M -Dsun.zip.encoding=default
+
 catalina.bat:
 
 set JAVA_OPTS=%JAVA_OPTS% -Dsun.zip.encoding=default
