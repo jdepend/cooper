@@ -114,25 +114,25 @@ public class AnalyseController {
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
-		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
+//		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
 
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
 		// temp
-		request.getSession().setAttribute("todoList", todoList);
+//		request.getSession().setAttribute("todoList", todoList);
 
 		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
 		model.addAttribute("tableList", tableInfos);
 		// temp
-		request.getSession().setAttribute("tableList", tableInfos);
+//		request.getSession().setAttribute("tableList", tableInfos);
 
 		RelationGraphData relationGraphData = WebRelationGraphUtil.getGraphData(result.getRelations());
 		model.addAttribute("relation_graph_data", relationGraphData);
 		// temp
-		request.getSession().setAttribute("relation_graph_data", relationGraphData);
+//		request.getSession().setAttribute("relation_graph_data", relationGraphData);
 
-		// request.getSession().removeAttribute(WebConstants.SESSION_FILE_DATA);
+		request.getSession().removeAttribute(WebConstants.SESSION_FILE);
 
 		logger.info(request.getRemoteAddr() + "进入result页面");
 
