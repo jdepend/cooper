@@ -37,16 +37,19 @@ public class ClassSearchUtil {
 	public void initSubClassNames(String superName) {
 		synchronized (classNames) {
 			ArrayList<String> currentClassNames = new ArrayList<String>();
+			if (this.javaClasses != null) {
+				JavaClass superClass = this.javaClasses.get(superName);
+				for (JavaClass subClass : superClass.getSubClasses()) {
+					currentClassNames.add(subClass.getName());
+				}
 
-			JavaClass superClass = this.javaClasses.get(superName);
-			for (JavaClass subClass : superClass.getSubClasses()) {
-				currentClassNames.add(subClass.getName());
+				Collections.sort(currentClassNames);
+				classNames.put(superName, currentClassNames);
+				LogUtil.getInstance(ClassSearchUtil.class).systemLog(
+						"init finish " + currentClassNames.size() + " " + superName + ".");
+			} else {
+				classNames.put(superName, currentClassNames);
 			}
-
-			Collections.sort(currentClassNames);
-			classNames.put(superName, currentClassNames);
-			LogUtil.getInstance(ClassSearchUtil.class).systemLog(
-					"init finish " + currentClassNames.size() + " " + superName + ".");
 		}
 	}
 

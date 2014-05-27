@@ -35,10 +35,10 @@ public class CooperServletContextListener implements ServletContextListener {
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ServerConnectionProvider());
 
-		String classPath = path + File.separator + "WEB-INF" + File.separator + "classes";
-		SearchUtil search = new SearchUtil();
-		search.addPath(classPath);
-		ClassSearchUtil.getInstance().setClassList(search.getClasses());
+//		String classPath = path + File.separator + "WEB-INF" + File.separator + "classes";
+//		SearchUtil search = new SearchUtil();
+//		search.addPath(classPath);
+//		ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
 }
