@@ -1,5 +1,7 @@
 package jdepend.webserver.web;
 
+import java.io.File;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -21,13 +23,13 @@ public class CooperServletContextListener implements ServletContextListener {
 		String path = arg0.getServletContext().getRealPath("//");
 		JDependContext.setRunningPath(path);
 
-		String workspacePath = path + "//WEB-INF";
+		String workspacePath = path + File.separator + "WEB-INF";
 		JDependContext.setWorkspacePath(workspacePath);
 
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ServerConnectionProvider());
 
-		String classPath = path + "//WEB-INF//classes";
+		String classPath = path + File.separator + "WEB-INF" + File.separator + "classes";
 		SearchUtil search = new SearchUtil();
 		search.addPath(classPath);
 		ClassSearchUtil.getInstance().setClassList(search.getClasses());

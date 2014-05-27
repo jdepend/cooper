@@ -1,5 +1,6 @@
 package jdepend.core.persistent;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,8 +12,8 @@ public final class ClientConnectionProvider implements ConnectionProvider {
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:hsqldb:file:" + JDependContext.getWorkspacePath()
-				+ "/clientdb/clientdb", "sa", "");
+		String dbPath = File.separator + "clientdb" + File.separator + "clientdb";
+		return DriverManager.getConnection("jdbc:hsqldb:file:" + JDependContext.getWorkspacePath() + dbPath, "sa", "");
 	}
 
 }

@@ -1,0 +1,5 @@
+catalina.bat:
+
+set JAVA_OPTS=%JAVA_OPTS% -Dsun.zip.encoding=default
+set JAVA_OPTS=%JAVA_OPTS% -Xms512m -Xmx1500m
+set CLASSPATH=%CLASSPATH%;%CATALINA_HOME%\lib\hsqldb-2.2.6.jar
