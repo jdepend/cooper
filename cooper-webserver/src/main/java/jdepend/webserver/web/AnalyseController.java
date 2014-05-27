@@ -68,7 +68,12 @@ public class AnalyseController {
 			}
 		}
 
-		AnalyseData analyseData = analyseService.createAnalyseData(fileDatas);
+		AnalyseData analyseData = null;
+		try {
+			analyseData = analyseService.createAnalyseData(fileDatas);
+		} catch (IllegalArgumentException e) {
+			throw new JDependException("上传的jar文件中存在中文文件名", e);
+		}
 		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(analyseService.listPackages(analyseData));
 		Collections.sort(sortedInnerJavaPackages);
 		model.addAttribute("listPackages", sortedInnerJavaPackages);
@@ -95,13 +100,13 @@ public class AnalyseController {
 			}
 			componentModelConf.addComponentConf((String) componentName, 0, packageNames);
 		}
-		
-		if(componentModelConf.getComponentConfs().size() == 0){
+
+		if (componentModelConf.getComponentConfs().size() == 0) {
 			throw new JDependException("没有配置组件模型信息。");
 		}
 
 		AnalyseData data = (AnalyseData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
-		if(data == null){
+		if (data == null) {
 			throw new JDependException("Session 中不存在 AnalyseData");
 		}
 

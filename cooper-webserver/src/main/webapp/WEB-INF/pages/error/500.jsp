@@ -21,6 +21,10 @@
 		StringWriter stringWriter = new StringWriter();
 		PrintWriter printWriter = new PrintWriter(stringWriter);
 		ex.printStackTrace(printWriter);
+		while (ex.getCause() != null) {
+			ex = ex.getCause();
+			ex.printStackTrace(printWriter);
+		}
 		printWriter.flush();
 		stringWriter.flush();
 		errorMsg = stringWriter.toString();
@@ -36,7 +40,7 @@
 				<div class="span12">
 					<h3>系统发生内部错误.</h3>
 					<a href="<c:url value='/'/>" target="_top">返回首页</a><br>
-					<%=errorMsg%>
+					<textarea style="width:100%;height:auto;" rows="20"><%=errorMsg%></textarea>
 				</div>
 			</div>
 		</div>
