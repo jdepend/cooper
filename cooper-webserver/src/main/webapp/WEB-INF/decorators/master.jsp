@@ -7,9 +7,9 @@
 <html>
 <head>
 <title>Cooper</title>
-<link rel="stylesheet" href="${ctx}/styles/css/bootstrap.css">
+<link rel="stylesheet" href="${ctx}/styles/css/bootstrap.min.css">
 
-<script type="text/javascript" src="${ctx}/styles/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="${ctx}/styles/js/jquery-1.7.2.min.js"></script>
 
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/jquery-ui-1.7.1.js"></script>
@@ -23,7 +23,7 @@
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/Validform_v5.3.2.js"></script>
 
-<script type="text/javascript" src="${ctx}/styles/js/bootstrap.js"></script>
+<script type="text/javascript" src="${ctx}/styles/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 function record(){
