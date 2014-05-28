@@ -46,8 +46,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitConstantString(ConstantString obj) {
-		this.parser.debug("visitConstantString: obj.getBytes(this.cp) = " + obj.getBytes(this.cp));
-		List<TableInfo> tables = this.ParseTable(obj.getBytes(cp));
+		String name = obj.getBytes(this.cp);
+		this.parser.debug("visitConstantString: obj.getBytes(this.cp) = " + name);
+		List<TableInfo> tables = this.ParseTable(name);
 		if (tables != null) {
 			for (TableInfo table : tables) {
 				this.jClass.getDetail().addTable(table);
@@ -58,8 +59,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitConstantClass(ConstantClass obj) {
-		this.parser.debug("visitConstantClass: obj.getBytes(this.cp) = " + obj.getBytes(this.cp));
-		String name = ParseUtil.slashesToDots(obj.getBytes(this.cp));
+		String name1 = obj.getBytes(this.cp);
+		this.parser.debug("visitConstantClass: obj.getBytes(this.cp) = " + name1);
+		String name = ParseUtil.slashesToDots(name1);
 		name = ParseUtil.getType(name);
 		if (name != null && name.length() > 0 && !jClass.getDetail().getSupers().contains(name)) {
 			jClass.getDetail().addVariableType(name);
@@ -163,8 +165,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitLocalVariable(LocalVariable obj) {
-		this.parser.debug("visitLocalVariable: obj.getSignature() = " + obj.getSignature());
-		Collection<String> types = ParseUtil.signatureToTypes(obj.getSignature());
+		String name1 = obj.getSignature();
+		this.parser.debug("visitLocalVariable: obj.getSignature() = " + name1);
+		Collection<String> types = ParseUtil.signatureToTypes(name1);
 		for (String name : types) {
 			this.jClass.getDetail().addVariableType(name);
 			this.parser.debug("visitLocalVariable: variable type = " + name);
@@ -188,8 +191,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitConstantUtf8(ConstantUtf8 obj) {
-		this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + obj.getBytes());
-		if (obj.getBytes().equals("Ljavax/persistence/Table;")) {
+		String name = obj.getBytes();
+		this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + name);
+		if (name.equals("Ljavax/persistence/Table;")) {
 			Constant[] constants = cp.getConstantPool();
 			// 计算索引
 			int index;
@@ -210,8 +214,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				this.jClass.getDetail().addTable(new TableInfo(tableName, TableInfo.Define));
 			}
 
-		} else if (SqlParserUtil.isSQL(obj.getBytes())) {// 处理Annotation
-			List<TableInfo> tables = SqlParserUtil.parserSql(obj.getBytes());
+		} else if (SqlParserUtil.isSQL(name)) {// 处理Annotation
+			List<TableInfo> tables = SqlParserUtil.parserSql(name);
 			if (tables != null) {
 				for (TableInfo table : tables) {
 					this.jClass.getDetail().addTable(table);
