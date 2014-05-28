@@ -6,7 +6,7 @@
 		<div class="span12">
 			<form method="POST" enctype="multipart/form-data">
 				<fieldset>
-					<legend>第一步：选择分析的jar</legend>
+					<legend>第一步：选择分析的jar（共两步）</legend>
 					<label>分析的jars：</label>
 						<input type="file" name="files" multiple="true"/>
 					</div>

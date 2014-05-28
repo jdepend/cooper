@@ -7,7 +7,7 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<fieldset>
-				<legend>第二步：设置组件模型</legend>
+				<legend>第二步：设置组件模型（共两步）</legend>
 			</fieldset>
 			<button id="createComponent" class="btn">选择包创建组件</button>
 			<button id="joinComponent" class="btn">选择包加入已有组件</button>
