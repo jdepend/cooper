@@ -101,7 +101,7 @@ public class ParseConfigurator implements Serializable {
 
 		return null;
 	}
-
+	
 	public Collection<String> getCreateRelationTypes() {
 
 		Collection<String> relationTypes = new HashSet<String>();

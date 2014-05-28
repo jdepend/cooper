@@ -2,9 +2,8 @@ package jdepend.parse.impl;
 
 import java.lang.reflect.Constructor;
 
-
 public class ClassFileParserFactory {
-	
+
 	public ClassFileParserFactory() {
 	}
 
@@ -12,17 +11,15 @@ public class ClassFileParserFactory {
 		AbstractParser parser = null;
 		String parserName = conf.getClassFileParser();
 		if (parserName == null) {
-			parserName = BCELClassFileParser.class.getName();
+			return new BCELClassFileParser(conf);
 		}
 		try {
 			Constructor c = this.getClass().getClassLoader().loadClass(parserName)
 					.getConstructor(new Class[] { PackageFilter.class });
-			parser = (AbstractParser) c.newInstance(new Object[] { new PackageFilter(conf.getFilteredPackages(), conf
-					.getNotFilteredPackages()) });
+			parser = (AbstractParser) c.newInstance(new Object[] { conf });
 		} catch (Exception e) {
 			e.printStackTrace();
-			parser = new BCELClassFileParser(new PackageFilter(conf.getFilteredPackages(),
-					conf.getNotFilteredPackages()));
+			parser = new BCELClassFileParser(conf);
 		}
 
 		return parser;

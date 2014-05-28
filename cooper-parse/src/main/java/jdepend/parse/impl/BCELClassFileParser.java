@@ -24,9 +24,8 @@ public class BCELClassFileParser extends AbstractParser {
 
 	private Constant[] constantPool;
 
-	public BCELClassFileParser(PackageFilter filter) {
-		super(filter);
-//		Attribute.addAttributeReader(name, r)
+	public BCELClassFileParser(ParseConfigurator conf) {
+		super(conf);
 	}
 
 	@Override

@@ -33,9 +33,11 @@ public abstract class AbstractParser {
 
 	private ArrayList<ParseListener> parseListeners;
 	private PackageFilter filter;
-	public static boolean DEBUG = (new ParseConfigurator()).getParseDebug();
+	public static boolean DEBUG = false;
 
 	private PrintWriter writer = new PrintWriter(System.err);
+
+	private ParseConfigurator conf;
 
 	/**
 	 * 设置日志输出的对象
@@ -50,13 +52,11 @@ public abstract class AbstractParser {
 		return writer;
 	}
 
-	public AbstractParser() {
+	public AbstractParser(ParseConfigurator conf) {
+		this.conf = conf;
+		this.filter = new PackageFilter(conf.getFilteredPackages(), conf.getNotFilteredPackages());
 		parseListeners = new ArrayList<ParseListener>();
-	}
-
-	public AbstractParser(PackageFilter filter) {
-		this.filter = filter;
-		parseListeners = new ArrayList<ParseListener>();
+		DEBUG = conf.getParseDebug();
 	}
 
 	public void addParseListener(ParseListener listener) {
@@ -100,6 +100,14 @@ public abstract class AbstractParser {
 
 	public void setFilter(PackageFilter filter) {
 		this.filter = filter;
+	}
+
+	public ParseConfigurator getConf() {
+		return conf;
+	}
+
+	public void setConf(ParseConfigurator conf) {
+		this.conf = conf;
 	}
 
 	protected void debug(String message) {

@@ -32,11 +32,11 @@ public class Method extends AccessFlags {
 
 	private int selfLineCount;
 
+	private int argumentCount;
+	
 	private boolean isIncludeTransactionalAnnotation;
 
 	private transient Collection<String> argTypes;
-
-	private int argumentCount;
 
 	private transient Collection<String> returnTypes;
 

@@ -129,8 +129,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		this.parser.debug("Parser: abstract = " + jClass.isAbstract());
 		this.parser.debug("Parser: package name = " + jClass.getPackageName());
 
-		jClass.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(), obj
-				.getConstantPool()));
+		jClass.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(),
+				obj.getConstantPool()));
 
 		// 处理父类
 		if (!obj.getSuperclassName().equals("java.lang.Object")) {
@@ -160,7 +160,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			this.jClass.setLineCount(obj.getLineNumber());
 		}
 	}
-	
+
 	@Override
 	public void visitLocalVariable(LocalVariable obj) {
 		this.parser.debug("visitLocalVariable: obj.getSignature() = " + obj.getSignature());
@@ -179,8 +179,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
 			this.internalSearchForMethod(method, obj, parser.getFilter());
 			method.setSelfLineCount(this.calLineCount(obj));
-			method.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(), obj
-					.getConstantPool()));
+			method.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(),
+					obj.getConstantPool()));
 			this.jClass.getDetail().addMethod(method);
 			this.parser.debug("visitMethod: method type = " + obj);
 		}
