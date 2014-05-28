@@ -26,9 +26,11 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+	 -->
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
@@ -78,6 +80,7 @@
 	<session-config>
 		<session-timeout>15</session-timeout>
 	</session-config>
+	
 	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/views/error/500.jsp</location>
