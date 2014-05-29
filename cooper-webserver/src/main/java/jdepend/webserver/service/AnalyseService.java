@@ -41,12 +41,13 @@ public class AnalyseService {
 		return innerJavaPackages;
 	}
 
-	public AnalysisResult analyze(AnalyseData data, ComponentModelConf componentModelConf) throws JDependException {
+	public AnalysisResult analyze(String group, String command, AnalyseData data, ComponentModelConf componentModelConf)
+			throws JDependException {
 
 		CustomComponent component = new CustomComponent();
 		component.setComponentInfo(componentModelConf);
 
-		JDependServiceProxy proxy = new JDependServiceProxyFactory().getJDependServiceProxy("无", "以自定义组件为单位输出分析报告");
+		JDependServiceProxy proxy = new JDependServiceProxyFactory().getJDependServiceProxy(group, command);
 
 		proxy.setAnalyseData(data);
 
@@ -55,8 +56,8 @@ public class AnalyseService {
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
 		result.getRunningContext().setPath(data.getPath());
-		
-		//保存分析结果
+
+		// 保存分析结果
 		if (new PropertyConfigurator().isSaveResult()) {
 			AnalysisResultRepository.save(result);
 		}

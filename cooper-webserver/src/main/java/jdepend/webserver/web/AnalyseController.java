@@ -110,27 +110,30 @@ public class AnalyseController {
 			throw new JDependException("Session 中不存在 AnalyseData");
 		}
 
-		AnalysisResult result = this.analyseService.analyze(data, componentModelConf);
+		AnalysisResult result = this.analyseService.analyze(WebConstants.DEFLAUT_GROUP, WebConstants.DEFLAUT_COMMAND,
+				data, componentModelConf);
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
-//		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
+		// request.getSession().setAttribute(WebConstants.SESSION_RESULT,
+		// webResult);
 
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
 		// temp
-//		request.getSession().setAttribute("todoList", todoList);
+		// request.getSession().setAttribute("todoList", todoList);
 
 		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
 		model.addAttribute("tableList", tableInfos);
 		// temp
-//		request.getSession().setAttribute("tableList", tableInfos);
+		// request.getSession().setAttribute("tableList", tableInfos);
 
 		RelationGraphData relationGraphData = WebRelationGraphUtil.getGraphData(result.getRelations());
 		model.addAttribute("relation_graph_data", relationGraphData);
 		// temp
-//		request.getSession().setAttribute("relation_graph_data", relationGraphData);
+		// request.getSession().setAttribute("relation_graph_data",
+		// relationGraphData);
 
 		request.getSession().removeAttribute(WebConstants.SESSION_FILE);
 

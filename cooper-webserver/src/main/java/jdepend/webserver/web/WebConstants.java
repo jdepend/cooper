@@ -10,4 +10,13 @@ public interface WebConstants {
 	 * 分析结果
 	 */
 	public final static String SESSION_RESULT = "SESSION_RESULT";
+	/**
+	 * 分析的组名称
+	 */
+	public final static String DEFLAUT_GROUP = "无";
+	/**
+	 * 分析的命令名称
+	 */
+	public final static String DEFLAUT_COMMAND = "以自定义组件为单位输出分析报告";
+	
 }
