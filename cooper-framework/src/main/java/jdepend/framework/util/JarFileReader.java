@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+
+import jdepend.framework.util.zip.ZipEntry;
+import jdepend.framework.util.zip.ZipInputStream;
 
 public class JarFileReader extends FileReader {
 
@@ -61,7 +62,7 @@ public class JarFileReader extends FileReader {
 				entryNames.add(parseClassName2(entry.getName()));
 			}
 			entry = zipInput.getNextEntry();
-			
+
 		}
 		zipInput.close();
 
@@ -85,9 +86,9 @@ public class JarFileReader extends FileReader {
 	}
 
 	public static void main(String[] args) {
-		
+
 		System.setProperty("sun.zip.encoding", "default");
-		
+
 		File jarFile = new File("c:\\交通_沈阳地铁.jar");
 		try {
 			InputStream in = new FileInputStream(jarFile);

@@ -10,7 +10,7 @@
 					<label>分析的jars：</label>
 						<input type="file" name="files" multiple="true"/>
 					</div>
-					<span class="help-block">（IE9及以下不支持上传多文件，其它浏览器最新版本均已支持。上传jar中不能包含中文文件名。）.</span>
+					<span class="help-block">（IE9及以下不支持上传多文件，其它浏览器最新版本均已支持）</span>
 					<button class="btn" onclick="analyse()">下一步</button>
 				</fieldset>
 			</form>
