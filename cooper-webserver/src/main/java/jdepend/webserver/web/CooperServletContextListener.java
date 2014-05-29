@@ -17,7 +17,7 @@ import jdepend.service.persistent.ServerConnectionProvider;
 import org.apache.log4j.Logger;
 
 public class CooperServletContextListener implements ServletContextListener {
-	
+
 	private Logger logger = Logger.getLogger(CooperServletContextListener.class);
 
 	@Override
@@ -37,16 +37,23 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ServerConnectionProvider());
+
+		try {
+			Class.forName("org.hsqldb.jdbcDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		// 设置日志是否打印
 		PropertyConfigurator conf = new PropertyConfigurator();
 		BusiLogUtil.BUSINESSLOG = conf.isPrintBusiLog();
 		LogUtil.SYSTEMLOG = conf.isPrintSystemLog();
 		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
-//		String classPath = path + File.separator + "WEB-INF" + File.separator + "classes";
-//		SearchUtil search = new SearchUtil();
-//		search.addPath(classPath);
-//		ClassSearchUtil.getInstance().setClassList(search.getClasses());
+		// String classPath = path + File.separator + "WEB-INF" + File.separator
+		// + "classes";
+		// SearchUtil search = new SearchUtil();
+		// search.addPath(classPath);
+		// ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
 }
