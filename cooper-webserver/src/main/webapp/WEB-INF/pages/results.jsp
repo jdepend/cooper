@@ -11,6 +11,7 @@
 				<div class="span12">
 				    <h3>分析结果列表：</h3>
 					<button id="viewResult" class="btn" style="margin-bottom:10px;">查看结果</button>
+					<button id="deleteResult" class="btn" style="margin-bottom:10px;">删除结果</button>
 					<table class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
@@ -83,6 +84,28 @@
 				$('#submitForm').submit();
 			}else{
 				$.Showmsg('请选择一个分析结果！');
+			}
+		});
+		
+		$('#deleteResult').click(function(){
+			if($('#listResult .pa_ui_selected').size() > 0){
+				var ids = [];
+				 $('#listResult .pa_ui_selected .itemId').map(function() {
+					 ids.push($(this).val());
+				});
+				$.ajax( {    
+					    url:'${ctx}/admin/result/delete.ajax',   
+					    data:{    
+					         'ids' : $.toJSON(ids)    
+					    },    
+					    type:'post',    
+					    dataType:'json',    
+					    success:function(data) {    
+					    	$('#listResult .pa_ui_selected').remove();
+					    }   
+					}); 
+			}else{
+				$.Showmsg('请选择分析结果！');
 			}
 		});
 	});

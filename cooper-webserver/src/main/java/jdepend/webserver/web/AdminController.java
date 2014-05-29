@@ -1,6 +1,9 @@
 package jdepend.webserver.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,11 +17,15 @@ import jdepend.util.todolist.TODOListIdentify;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "admin")
@@ -52,6 +59,22 @@ public class AdminController {
 		model.addAttribute("relation_graph_data", relationGraphData);
 
 		return "result";
+	}
+
+	@RequestMapping(value = "result/delete.ajax", method = RequestMethod.POST)
+	public @ResponseBody
+	Map<String, Object> createTask(@ModelAttribute("ids") String ids, HttpServletRequest request)
+			throws JDependException {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		JSONArray idArray = new JSONArray(ids);
+		for (int i = 0; i < idArray.length(); i++) {
+			AnalysisResultRepository.delete(idArray.getString(i));
+		}
+
+		resultMap.put("code", "1");
+		resultMap.put("msg", "删除成功！");
+
+		return resultMap;
 	}
 
 }
