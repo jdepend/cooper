@@ -4,11 +4,13 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
+<link rel="stylesheet" href="${ctx}/styles/css/Validform-Style.css">
 <div class="container-fluid">
 		<c:if test="${!empty resultSummrys}">
 			<div class="row-fluid">
 				<div class="span12">
-					<h3>分析结果列表：</h3>
+				    <h3>分析结果列表：</h3>
+					<button id="viewResult" class="btn" style="margin-bottom:10px;">查看结果</button>
 					<table class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
@@ -33,11 +35,11 @@
 								<th>封装性</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="listResult">
 							<c:forEach items="${resultSummrys}" var="item">
 								<tr>
-									<td><input type="checkbox" /></td>
-									<td class="itemName"><fmt:formatDate value="${item.createDate}" type="both"/></td>
+									<td><input type="checkbox" class="itemId" value="${item.id}"/></td>
+									<td><fmt:formatDate value="${item.createDate}" type="both"/></td>
 									<td>${item.summry.lineCount}</td>
 									<td>${item.summry.classCount}</td>
 									<td>${item.summry.abstractClassCount}</td>
@@ -66,8 +68,22 @@
 					</table>
 				</div>
 			</div>
+			<form id="submitForm" action = "" method="GET"/>
 		</c:if>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/esl.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+		$('#viewResult').click(function(){
+			if($('#listResult .pa_ui_selected').size() == 1){
+				var id = $('#listResult .pa_ui_selected .itemId').val();
+				$('#submitForm').attr('action', '${ctx}/admin/result/' + id + '/view');
+				$('#submitForm').submit();
+			}else{
+				$.Showmsg('请选择一个分析结果！');
+			}
+		});
+	});
+</script>
