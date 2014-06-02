@@ -446,7 +446,7 @@ margin: 0 0 0 -500px;
     );
     
     $().ready(function() {
-    	$('.classCount').click(function(){
+    	$('.classCount').click(function(event){
     		var componentName = $(this).parent().find('.itemName').text();
     		$.ajax({    
 			    url:'${ctx}/result/component/' + componentName + '/classes/view.ajax',   
@@ -457,9 +457,10 @@ margin: 0 0 0 -500px;
 			    	$('#myModal').modal('toggle');
 			    }   
 			});
+    		event.stopPropagation();
     	});
     	
-    	$('.relation').click(function(){
+    	$('.relation').click(function(event){
     		var current = $(this).parent().find('.current').text();
     		var depend = $(this).parent().find('.depend').text();
     		$.ajax({    
@@ -471,6 +472,7 @@ margin: 0 0 0 -500px;
 			    	$('#myModal').modal('toggle');
 			    }   
 			});
+    		event.stopPropagation();
     	});
 
     });
