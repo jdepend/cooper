@@ -116,7 +116,7 @@ public class PropertyPanel extends JPanel {
 	}
 
 	public void showClassProperty(String unitID) {
-		jdepend.model.Component component = JDependUnitMgr.getInstance().getTheComponent(unitID);
+		jdepend.model.Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(unitID);
 		classPanel.showClassList(component);
 		this.setTab(ClassListPanel);
 	}

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ResultController {
 
 	@RequestMapping(value = "/component/{componentId}/classes/view.ajax", method = RequestMethod.GET)
-	public String upload(Model model, @PathVariable String componentId, HttpServletRequest request)
+	public String componentDtail(Model model, @PathVariable String componentId, HttpServletRequest request)
 			throws JDependException {
 
 		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
@@ -24,6 +24,19 @@ public class ResultController {
 		}
 		model.addAttribute("component", result.getComponentForNames().get(componentId));
 		return "class_list";
+	}
+	
+	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
+	public String relationDtail(Model model, @PathVariable String current, @PathVariable String depend, HttpServletRequest request)
+			throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("relation", result.getTheRelation(current, depend));
+		
+		return "relation_dtail";
 	}
 
 }

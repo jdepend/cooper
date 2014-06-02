@@ -48,7 +48,7 @@ public final class SplitCompoentTODOItem extends TODOItem {
 		// 移动“寄养”JavaClass到自己的“亲父母”那里
 		for (String target : moveInfos.keySet()) {
 			RefactorToolFactory.createTool().moveClass(moveInfos.get(target),
-					JDependUnitMgr.getInstance().getTheComponent(target));
+					JDependUnitMgr.getInstance().getResult().getTheComponent(target));
 		}
 
 		return null;

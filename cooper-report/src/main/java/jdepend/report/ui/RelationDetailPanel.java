@@ -42,12 +42,8 @@ public final class RelationDetailPanel extends JPanel {
 	private List<String> extendUnits = new ArrayList<String>();
 
 	public RelationDetailPanel(String current, String depend) {
-		for (Relation relation : JDependUnitMgr.getInstance().getRelations()) {
-			if (relation.getCurrent().getName().equals(current) && relation.getDepend().getName().equals(depend)) {
-				this.currentRelation = relation;
-				break;
-			}
-		}
+		this.currentRelation = JDependUnitMgr.getInstance().getResult().getTheRelation(current, depend);
+
 		if (this.currentRelation == null) {
 			return;
 		}
@@ -61,7 +57,7 @@ public final class RelationDetailPanel extends JPanel {
 
 	private void display() {
 
-		for (JavaClass unit : JDependUnitMgr.getInstance().getClasses()) {
+		for (JavaClass unit : JDependUnitMgr.getInstance().getResult().getClasses()) {
 			if (!unit.isInner()) {
 				extendUnits.add(unit.getName());
 			}

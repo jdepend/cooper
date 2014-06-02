@@ -297,7 +297,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 				if (col == 0 && row > -1) {
 					String componentName = (String) table.getValueAt(row, col);
 					jdepend.model.Component component = JDependUnitMgr
-							.getInstance().getTheComponent(componentName);
+							.getInstance().getResult().getTheComponent(componentName);
 					if (component != null) {
 						table.setToolTipText(component.getLayerDesc());
 					}
@@ -399,7 +399,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 		List<String> javaPackages = new ArrayList<String>();
 		for (String unitName : this.selectedUnits) {
 			jdepend.model.Component component = JDependUnitMgr.getInstance()
-					.getTheComponent(unitName);
+					.getResult().getTheComponent(unitName);
 			if (component != null) {
 				for (JavaPackage javaPackage : component.getJavaPackages()) {
 					if (incluedsub) {

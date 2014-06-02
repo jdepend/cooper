@@ -43,7 +43,7 @@ public final class BigClassDialog extends CooperDialog {
 	}
 
 	private void viewMethodList(String current) {
-		JavaClass javaClass = JDependUnitMgr.getInstance().getTheClass(current);
+		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);

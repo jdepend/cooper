@@ -65,7 +65,7 @@ public class JavaClassType {
 
 	public Collection<JavaClass> getJavaClasses() {
 		if (this.javaClasses == null) {
-			this.javaClasses = JDependUnitMgr.getInstance().getClasses();
+			this.javaClasses = JDependUnitMgr.getInstance().getResult().getClasses();
 		}
 		return javaClasses;
 	}

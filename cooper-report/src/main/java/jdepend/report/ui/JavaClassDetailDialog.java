@@ -19,7 +19,7 @@ public class JavaClassDetailDialog extends CooperDialog {
 
 		TextViewer classProperty = new TextViewer();
 
-		JavaClass javaClass = JDependUnitMgr.getInstance().getTheClass(name);
+		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(name);
 
 		classProperty.setText(javaClass.toString());
 		classProperty.setCaretPosition(0);

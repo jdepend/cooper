@@ -42,18 +42,6 @@ public final class JDependUnitMgr {
 		}
 	}
 
-	public Collection<JavaClass> getClasses() {
-		return this.result.getClasses();
-	}
-
-	public JavaClass getTheClass(String name) {
-		return this.result.getTheClass(name);
-	}
-
-	public Component getTheComponent(String name) {
-		return this.result.getTheComponent(name);
-	}
-
 	public JDependUnit getUnit(String unitID) {
 		if (result == null) {
 			return null;
@@ -95,14 +83,6 @@ public final class JDependUnitMgr {
 
 	public AnalysisResult getResult() {
 		return result;
-	}
-
-	public Collection<Relation> getRelations() {
-		if (result == null) {
-			return null;
-		} else {
-			return this.result.getRelations();
-		}
 	}
 
 	public void addAnalysisResultListener(AnalysisResultListener listener) {

@@ -22,7 +22,7 @@ public final class BalanceJavaClassDialog extends CooperDialog {
 		getContentPane().setLayout(new BorderLayout());
 		TextViewer balance = new TextViewer();
 
-		JavaClass unit = JDependUnitMgr.getInstance().getTheClass(this.javaClassName);
+		JavaClass unit = JDependUnitMgr.getInstance().getResult().getTheClass(this.javaClassName);
 		balance.setText(getBalance(unit));
 		balance.setCaretPosition(0);
 

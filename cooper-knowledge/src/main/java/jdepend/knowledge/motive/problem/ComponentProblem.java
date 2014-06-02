@@ -23,7 +23,7 @@ public final class ComponentProblem extends Problem {
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
-		this.component = JDependUnitMgr.getInstance().getTheComponent(this.componentName);
+		this.component = JDependUnitMgr.getInstance().getResult().getTheComponent(this.componentName);
 	}
 
 }

@@ -543,7 +543,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 										java.awt.event.MouseEvent evt) {
 									jdepend.model.Component component = JDependUnitMgr
 											.getInstance()
-											.getTheComponent(
+											.getResult().getTheComponent(
 													advise.getComponentNameInfo());
 									ClassListDialog d = new ClassListDialog(
 											component);

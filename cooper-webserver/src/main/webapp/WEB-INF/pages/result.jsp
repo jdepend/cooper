@@ -140,9 +140,9 @@ margin: 0 0 0 -500px;
 							<c:forEach items="${result.relations}" var="item">
 								<tr>
 									<td><input type="checkbox" /></td>
-									<td>${item.current.name}</td>
-									<td>${item.depend.name}</td>
-									<td><fmt:formatNumber value="${item.intensity}"
+									<td class="current">${item.current.name}</td>
+									<td class="depend">${item.depend.name}</td>
+									<td class="relation" style="color:blue;"><fmt:formatNumber value="${item.intensity}"
 											pattern="###,###.##" /></td>
 									<td><fmt:formatNumber
 											value="${item.current.component.cohesion}"
@@ -243,7 +243,7 @@ margin: 0 0 0 -500px;
 	</div>
 </div>
 <!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width : 800px">
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel"></h3>
@@ -457,7 +457,21 @@ margin: 0 0 0 -500px;
 			    	$('#myModal').modal('toggle');
 			    }   
 			});
-    		
     	});
+    	
+    	$('.relation').click(function(){
+    		var current = $(this).parent().find('.current').text();
+    		var depend = $(this).parent().find('.depend').text();
+    		$.ajax({    
+			    url:'${ctx}/result/relation/' + current + '/' + depend + '/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text(current + "->" + depend + '关系明细');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    }   
+			});
+    	});
+
     });
 </script>

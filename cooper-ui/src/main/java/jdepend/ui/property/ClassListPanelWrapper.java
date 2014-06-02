@@ -135,13 +135,13 @@ public class ClassListPanelWrapper extends ClassListPanel {
 	}
 
 	private void viewDetail() {
-		StringBuilder detail = new StringBuilder(JDependUnitMgr.getInstance().getTheClass(current).toString());
+		StringBuilder detail = new StringBuilder(JDependUnitMgr.getInstance().getResult().getTheClass(current).toString());
 		frame.getResultPanel().addResult(current, detail);
 		frame.getResultPanel().setLastedTab();
 	}
 
 	private void viewMethodList() {
-		JavaClass javaClass = JDependUnitMgr.getInstance().getTheClass(current);
+		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);
@@ -258,7 +258,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 				String target = (String) this.componentTable.getValueAt(this.componentTable.getSelectedRows()[0], 0);
 
 				List<JavaClass> javaClasses = new ArrayList<JavaClass>();
-				for (JavaClass javaClass : JDependUnitMgr.getInstance().getClasses()) {
+				for (JavaClass javaClass : JDependUnitMgr.getInstance().getResult().getClasses()) {
 					if (selectedJavaClass.contains(javaClass.getName())) {
 						javaClasses.add(javaClass);
 					}

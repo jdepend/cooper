@@ -120,7 +120,7 @@ public class AdjustInfo implements Serializable {
 
 	public void addMiddle(String componentName, Float balance) {
 		this.middles.put(componentName, balance);
-		JDependUnitMgr.getInstance().getTheComponent(componentName).setSteadyType(Component.MiddleType);
+		JDependUnitMgr.getInstance().getResult().getTheComponent(componentName).setSteadyType(Component.MiddleType);
 	}
 
 	public void deleteMiddle(String componentName) {
@@ -133,7 +133,7 @@ public class AdjustInfo implements Serializable {
 
 	public void addMutability(String componentName, Float balance) {
 		this.mutabilitys.put(componentName, balance);
-		JDependUnitMgr.getInstance().getTheComponent(componentName).setSteadyType(Component.MutabilityType);
+		JDependUnitMgr.getInstance().getResult().getTheComponent(componentName).setSteadyType(Component.MutabilityType);
 	}
 
 	public void deleteMutability(String componentName) {
@@ -146,7 +146,7 @@ public class AdjustInfo implements Serializable {
 
 	public void addStable(String componentName, Float balance) {
 		this.stables.put(componentName, balance);
-		JDependUnitMgr.getInstance().getTheComponent(componentName).setSteadyType(Component.StableType);
+		JDependUnitMgr.getInstance().getResult().getTheComponent(componentName).setSteadyType(Component.StableType);
 	}
 
 	public void deleteStable(String componentName) {

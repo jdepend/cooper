@@ -17,7 +17,7 @@ public final class BalanceComponentDialog extends CooperDialog {
 
 		getContentPane().setLayout(new BorderLayout());
 
-		Component component = JDependUnitMgr.getInstance().getTheComponent(this.componentName);
+		Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(this.componentName);
 
 		this.add(GraphJDepend.printGraph(component.open()));
 

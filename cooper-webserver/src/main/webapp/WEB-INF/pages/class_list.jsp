@@ -4,7 +4,6 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
-<link rel="stylesheet" href="${ctx}/styles/css/Validform-Style.css">
 
 <table class="table table-bordered" pa_ui_name="table,exinput"
 	pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
@@ -48,9 +47,9 @@
 				<td><fmt:formatNumber value="${item.balance}" pattern="#.###" /></td>
 				<td><fmt:formatNumber value="${item.encapsulation}"
 						pattern="#.###" /></td>
-				<td>${item.stable}</td>
-				<td>${item.state}</td>
-				<td>${item.usedByExternal}</td>
+				<td>${item.stable ? "是":"否"}</td>
+				<td>${item.state ? "有":"无"}</td>
+				<td>${item.usedByExternal ? "否":"是"}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
