@@ -450,7 +450,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.ceItems) {
 			if (jdependUnit.containsClass(relationItem.getDepend())) {
-				intensity += relationItem.calRelationIntensity();
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		return intensity;
@@ -465,7 +465,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.caItems) {
 			if (jdependUnit.containsClass(relationItem.getDepend())) {
-				intensity += relationItem.calRelationIntensity();
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		return intensity;
@@ -508,7 +508,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.caItems) {
 			if (!this.component.containsClass(relationItem.getDepend())) {
-				intensity += relationItem.calRelationIntensity();
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		return intensity;
@@ -520,7 +520,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		for (JavaClassRelationItem relationItem : this.ceItems) {
 			if (!this.component.containsClass(relationItem.getDepend())) {
 				if (!relationItem.getDepend().isStable()) {
-					intensity += relationItem.calRelationIntensity();
+					intensity += relationItem.getRelationIntensity();
 				}
 			}
 		}
@@ -539,12 +539,12 @@ public final class JavaClass extends AbstractJDependUnit {
 			float intensity = 0;
 			for (JavaClassRelationItem relationItem : this.getCeItems()) {
 				if (this.component.containsClass(relationItem.getDepend())) {
-					intensity += relationItem.calRelationIntensity();
+					intensity += relationItem.getRelationIntensity();
 				}
 			}
 			for (JavaClassRelationItem relationItem : this.getCaItems()) {
 				if (this.component.containsClass(relationItem.getDepend())) {
-					intensity += relationItem.calRelationIntensity();
+					intensity += relationItem.getRelationIntensity();
 				}
 			}
 

@@ -151,7 +151,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 				// 采用Ce来计算内值值
 				for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 					if (this.containsClass(relationItem.getDepend())) {
-						intensity += relationItem.calRelationIntensity();
+						intensity += relationItem.getRelationIntensity();
 					}
 				}
 			}
@@ -177,7 +177,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		for (JavaClass javaClass : this.getClasses()) {
 			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 				if (jdependUnit.containsClass(relationItem.getDepend())) {
-					intensity += relationItem.calRelationIntensity();
+					intensity += relationItem.getRelationIntensity();
 				}
 			}
 		}

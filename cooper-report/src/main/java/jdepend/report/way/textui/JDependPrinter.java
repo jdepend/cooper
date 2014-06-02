@@ -362,7 +362,7 @@ public final class JDependPrinter extends Printer {
 				getWriter().println(
 						"\n #javaClassName: " + item.getCurrent().getName() + " #DependJavaClassName: "
 								+ item.getDepend().getName() + " #DependType: " + item.getType().getName()
-								+ " #Intensity: " + item.calRelationIntensity());
+								+ " #Intensity: " + item.getRelationIntensity());
 			}
 		}
 	}

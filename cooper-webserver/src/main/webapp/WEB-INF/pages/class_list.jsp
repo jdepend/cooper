@@ -28,10 +28,10 @@
 			<th>是否私有</th>
 		</tr>
 	</thead>
-	<tbody id="listResult">
+	<tbody>
 		<c:forEach items="${component.classes}" var="item">
 			<tr>
-				<td><input type="checkbox" class="itemId" value="${item.name}" /></td>
+				<td><input type="checkbox"/></td>
 				<td>${item.name}</td>
 				<td>${item.lineCount}</td>
 				<td>${item.afferentCoupling}</td>

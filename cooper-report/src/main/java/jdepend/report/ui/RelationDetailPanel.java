@@ -97,7 +97,7 @@ public final class RelationDetailPanel extends JPanel {
 				row[0] = item.getCurrent().getName();
 				row[1] = item.getDepend().getName();
 				row[2] = item.getType().getName();
-				row[3] = item.calRelationIntensity();
+				row[3] = item.getRelationIntensity();
 
 				listModel.addRow(row);
 			}

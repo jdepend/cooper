@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ResultController {
 
 	@RequestMapping(value = "/component/{componentId}/classes/view.ajax", method = RequestMethod.GET)
-	public String componentDtail(Model model, @PathVariable String componentId, HttpServletRequest request)
+	public String componentDetails(Model model, @PathVariable String componentId, HttpServletRequest request)
 			throws JDependException {
 
 		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
@@ -27,7 +27,7 @@ public class ResultController {
 	}
 	
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
-	public String relationDtail(Model model, @PathVariable String current, @PathVariable String depend, HttpServletRequest request)
+	public String relationDetails(Model model, @PathVariable String current, @PathVariable String depend, HttpServletRequest request)
 			throws JDependException {
 
 		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
@@ -36,7 +36,7 @@ public class ResultController {
 		}
 		model.addAttribute("relation", result.getTheRelation(current, depend));
 		
-		return "relation_dtail";
+		return "relation_details";
 	}
 
 }
