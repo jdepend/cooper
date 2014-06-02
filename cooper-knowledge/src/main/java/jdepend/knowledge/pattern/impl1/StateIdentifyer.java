@@ -22,7 +22,7 @@ public final class StateIdentifyer extends AbstractPatternIdentifyer {
 	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 		for (JavaClass javaClass : javaClasses) {
-			if (javaClass.isAbstract() && javaClass.haveState()) {
+			if (javaClass.isAbstract() && javaClass.isState()) {
 				Collection<JavaClass> subClasses = javaClass.getSubClasses();
 				if (subClasses.size() > 1) {
 					L: for (JavaClass subClass : subClasses) {

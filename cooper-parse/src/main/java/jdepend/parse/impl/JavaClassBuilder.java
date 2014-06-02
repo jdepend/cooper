@@ -50,10 +50,10 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 			this.parseConfigs(data.getConfigs());
 			// 解析JavaClasses
 			this.parseClasses(data.getClasses());
-			// 补充 ImportedPackage
-			this.calImportedPackages();
 			// 补充JavaClassDetail信息
 			JavaClassUtil.supplyJavaClassDetail(this.javaClassesForName);
+			// 补充 ImportedPackage
+			this.calImportedPackages();
 			// 添加外部classes
 			this.appendExtClasses();
 			// 建立Class的关系

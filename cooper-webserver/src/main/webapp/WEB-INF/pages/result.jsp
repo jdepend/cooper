@@ -4,6 +4,12 @@
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
+<style type='text/css'>
+#myModal {
+width: 1000px;
+margin: 0 0 0 -500px;
+}
+</style>
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12">
@@ -81,7 +87,7 @@
 									<td><input type="checkbox" /></td>
 									<td class="itemName">${item.name}</td>
 									<td>${item.lineCount}</td>
-									<td>${item.classCount}</td>
+									<td class="classCount" style="color:blue;">${item.classCount}</td>
 									<td>${item.abstractClassCount}</td>
 									<td>${item.concreteClassCount}</td>
 									<td>${item.afferentCoupling}</td>
@@ -235,6 +241,19 @@
 			</div>
 		</c:if>
 	</div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width : 800px">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"></h3>
+  </div>
+  <div class="modal-body">
+    <p id="myData">One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  </div>
 </div>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/pa_ui.js"></script>
@@ -425,4 +444,20 @@
             	myChart.setOption(option, true);
         }
     );
+    
+    $().ready(function() {
+    	$('.classCount').click(function(){
+    		var componentName = $(this).parent().find('.itemName').text();
+    		$.ajax({    
+			    url:'${ctx}/result/component/' + componentName + '/classes/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text(componentName + '组件类列表');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    }   
+			});
+    		
+    	});
+    });
 </script>

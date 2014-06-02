@@ -7,7 +7,7 @@ public class SelfHaveStateFeature extends AbstractFeature {
 
 	@Override
 	protected boolean have(FeatureCheckContext context) {
-		if (context.getCurrent().haveState()) {
+		if (context.getCurrent().isState()) {
 			return true;
 		} else {
 			return false;

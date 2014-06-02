@@ -96,7 +96,7 @@ public class ClassListPanel extends JPanel {
 			if (javaClass.getContainsCycle()) {
 				row[13] = MetricsMgr.Cyclic;
 			}
-			if (javaClass.haveState()) {
+			if (javaClass.isState()) {
 				row[14] = MetricsMgr.HaveState;
 			}
 			if (javaClass.isStable()) {
@@ -316,7 +316,7 @@ public class ClassListPanel extends JPanel {
 					if (item.getDepend().getContainsCycle()) {
 						row[15] = MetricsMgr.Cyclic;
 					}
-					if (item.getDepend().haveState()) {
+					if (item.getDepend().isState()) {
 						row[16] = MetricsMgr.HaveState;
 					}
 					if (javaClass.isStable()) {

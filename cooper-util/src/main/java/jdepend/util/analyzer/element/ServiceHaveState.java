@@ -41,7 +41,7 @@ public class ServiceHaveState extends AbstractAnalyzer {
 		for (JavaClass javaClass : javaClasses) {
 			if (serviceClassType.isMember(javaClass)) {
 				totalService++;
-				if (javaClass.haveState()) {
+				if (javaClass.isState()) {
 					this.print(javaClass.getName() + "\n");
 					printService++;
 				}

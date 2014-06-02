@@ -671,7 +671,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		return NoCycle;// 不存在循环依赖
 	}
 
-	public boolean haveState() {
+	public boolean isState() {
 		if (this.haveState == UnCalculate) {
 			this.haveState = this.searchState();
 		}
@@ -764,7 +764,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		obj.stable = this.stable;
 		obj.isIncludeTransactionalAnnotation = this.isIncludeTransactionalAnnotation;
 
-		obj.setState(this.haveState());
+		obj.setState(this.isState());
 		obj.setType(this.getType());
 
 		for (String importPackage : this.getImportedPackages()) {
