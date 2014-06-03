@@ -41,12 +41,13 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/result/{id}/view", method = RequestMethod.GET)
-	public String view(Model model, @PathVariable String id) throws JDependException {
+	public String view(Model model, @PathVariable String id, HttpServletRequest request) throws JDependException {
 
 		AnalysisResult result = AnalysisResultRepository.getResult(id);
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
+		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
 
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
@@ -57,13 +58,15 @@ public class AdminController {
 
 		RelationGraphData relationGraphData = WebRelationGraphUtil.getGraphData(result.getRelations());
 		model.addAttribute("relation_graph_data", relationGraphData);
+		
+		
 
 		return "result";
 	}
 
 	@RequestMapping(value = "result/delete.ajax", method = RequestMethod.POST)
 	public @ResponseBody
-	Map<String, Object> createTask(@ModelAttribute("ids") String ids, HttpServletRequest request)
+	Map<String, Object> delete(@ModelAttribute("ids") String ids, HttpServletRequest request)
 			throws JDependException {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		JSONArray idArray = new JSONArray(ids);

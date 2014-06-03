@@ -88,7 +88,7 @@ public class AnalyseController {
 	}
 
 	@RequestMapping(value = "/execute", method = RequestMethod.POST)
-	public String upload(@ModelAttribute("componentModel") String componentModel, Model model,
+	public String execute(@ModelAttribute("componentModel") String componentModel, Model model,
 			HttpServletRequest request) throws JDependException {
 
 		ComponentModelConf componentModelConf = new ComponentModelConf();
