@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="${ctx}/styles/css/pa_ui.css">
 
 <table class="table table-bordered" pa_ui_name="table,exinput"
 	pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
@@ -32,5 +30,3 @@
 	</tbody>
 </table>
 
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/pa_ui.js"></script>
