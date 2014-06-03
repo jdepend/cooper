@@ -184,6 +184,7 @@
 				$.Showmsg('请创建组件！');
 				return;
 			}
+			$.cookie('componentModel_' + '${analysePath}', $.toJSON(componentModel)); 
 			$('#componentModel').val($.toJSON(componentModel));
 			$('#submitForm').submit();
 		});
@@ -209,6 +210,8 @@
 				$.Showmsg('请选择包！');
 			}
 		});
+		
+		loadComponentModel();
 	});
 	
 	function deleteComponent(){
@@ -231,6 +234,24 @@
 		//删除组件的显示信息
 		$('#componentList li.pa_ui_hover').remove();
 		$('#componentPackageList').empty();
+	}
+	
+	function loadComponentModel(){
+		var componentModelInfo = $.cookie('componentModel_' + '${analysePath}'); 
+		if(componentModelInfo != null){
+			componentModel = JSON.parse(componentModelInfo);
+			for (var componentName in componentModel) {
+				$('#componentList').append('<li>' + componentName + '<i class="icon-remove" onclick="deleteComponent()" style="margin-left:10px"></i></li>');
+				for(var j in componentModel[componentName]){
+					$('#componentPackageList').append('<li>' + componentModel[componentName][j] + '</li>');
+					$('#listPackages .itemName').map(function() {
+						if($(this).text() == componentModel[componentName][j]){
+							$(this).parent().hide();
+						}
+					});
+				}
+	        } 
+		}
 	}
 </script>
 

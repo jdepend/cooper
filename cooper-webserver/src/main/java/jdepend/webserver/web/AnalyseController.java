@@ -77,6 +77,7 @@ public class AnalyseController {
 		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(analyseService.listPackages(analyseData));
 		Collections.sort(sortedInnerJavaPackages);
 		model.addAttribute("listPackages", sortedInnerJavaPackages);
+		model.addAttribute("analysePath", analyseData.getPath());
 
 		request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
 
