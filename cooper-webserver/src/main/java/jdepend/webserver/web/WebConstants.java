@@ -11,6 +11,10 @@ public interface WebConstants {
 	 */
 	public final static String SESSION_RESULT = "SESSION_RESULT";
 	/**
+	 * 分析结果TODOLIST
+	 */
+	public final static String SESSION_RESULT_TODOLIST = "SESSION_RESULT_TODOLIST";
+	/**
 	 * 分析的组名称
 	 */
 	public final static String DEFLAUT_GROUP = "无";

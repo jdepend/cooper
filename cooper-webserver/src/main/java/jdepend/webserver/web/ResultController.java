@@ -1,8 +1,11 @@
 package jdepend.webserver.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.util.todolist.TODOItem;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +28,36 @@ public class ResultController {
 		model.addAttribute("component", result.getComponentForNames().get(componentId));
 		return "class_list";
 	}
-	
+
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
-	public String relationDetails(Model model, @PathVariable String current, @PathVariable String depend, HttpServletRequest request)
-			throws JDependException {
+	public String relationDetails(Model model, @PathVariable String current, @PathVariable String depend,
+			HttpServletRequest request) throws JDependException {
 
 		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
 		if (result == null) {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
 		model.addAttribute("relation", result.getTheRelation(current, depend));
-		
+
 		return "relation_details";
+	}
+
+	@RequestMapping(value = "/todoItem/{id}/view.ajax", method = RequestMethod.GET)
+	public String todoItemDetails(Model model, @PathVariable String id, HttpServletRequest request)
+			throws JDependException {
+
+		List<TODOItem> todoList = (List<TODOItem>) request.getSession().getAttribute(
+				WebConstants.SESSION_RESULT_TODOLIST);
+		if (todoList == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		for (TODOItem item : todoList) {
+			if (item.getId().equals(id)) {
+				model.addAttribute("todoItem", item);
+			}
+		}
+
+		return "todo_item";
 	}
 
 }

@@ -120,8 +120,8 @@ public class AnalyseController {
 		TODOListIdentify identify = new TODOListIdentify();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
-		// temp
-		request.getSession().setAttribute("todoList", todoList);
+		
+		request.getSession().setAttribute(WebConstants.SESSION_RESULT_TODOLIST, todoList);
 
 		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
 		model.addAttribute("tableList", tableInfos);
@@ -143,7 +143,7 @@ public class AnalyseController {
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(Model model, HttpServletRequest request) throws JDependException {
 		model.addAttribute("result", request.getSession().getAttribute(WebConstants.SESSION_RESULT));
-		model.addAttribute("todoList", request.getSession().getAttribute("todoList"));
+		model.addAttribute("todoList", request.getSession().getAttribute(WebConstants.SESSION_RESULT_TODOLIST));
 		model.addAttribute("tableList", request.getSession().getAttribute("tableList"));
 		model.addAttribute("relation_graph_data", request.getSession().getAttribute("relation_graph_data"));
 

@@ -162,7 +162,7 @@ margin: 0 0 0 -500px;
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${!empty tableList}">
+		<c:if test="${!empty todoList}">
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>待做事项：</h3>
@@ -180,8 +180,8 @@ margin: 0 0 0 -500px;
 						<tbody id="listTodos">
 							<c:forEach items="${todoList}" var="item">
 								<tr>
-									<td><input type="checkbox" /></td>
-									<td>${item.content}</td>
+									<td><input type="checkbox" class="itemId" value="${item.id}" /></td>
+									<td class="todoItem" style="color:blue;">${item.content}</td>
 									<td>${item.according}</td>
 								</tr>
 							</c:forEach>
@@ -446,7 +446,7 @@ margin: 0 0 0 -500px;
     );
     
     $().ready(function() {
-    	$('.classCount').click(function(event){
+    	$('.classCount').click(function(){
     		var componentName = $(this).parent().find('.itemName').text();
     		$.ajax({    
 			    url:'${ctx}/result/component/' + componentName + '/classes/view.ajax',   
@@ -457,10 +457,9 @@ margin: 0 0 0 -500px;
 			    	$('#myModal').modal('toggle');
 			    }   
 			});
-    		event.stopPropagation();
     	});
     	
-    	$('.relation').click(function(event){
+    	$('.relation').click(function(){
     		var current = $(this).parent().find('.current').text();
     		var depend = $(this).parent().find('.depend').text();
     		$.ajax({    
@@ -472,7 +471,20 @@ margin: 0 0 0 -500px;
 			    	$('#myModal').modal('toggle');
 			    }   
 			});
-    		event.stopPropagation();
+    	});
+    	
+    	$('.todoItem').click(function(){
+    		var id = $(this).parent().find('.itemId').val();
+    		var name = $(this).text();
+    		$.ajax({    
+			    url:'${ctx}/result/todoItem/' + id + '/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text('待做事项说明');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    }   
+			});
     	});
 
     });
