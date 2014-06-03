@@ -28,6 +28,32 @@ public class ResultController {
 		model.addAttribute("component", result.getComponentForNames().get(componentId));
 		return "class_list";
 	}
+	
+	@RequestMapping(value = "/component/{componentId}/ca/view.ajax", method = RequestMethod.GET)
+	public String componentCa(Model model, @PathVariable String componentId, HttpServletRequest request)
+			throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("components", result.getComponentForNames().get(componentId).getAfferents());
+		
+		return "component_list";
+	}
+	
+	@RequestMapping(value = "/component/{componentId}/ce/view.ajax", method = RequestMethod.GET)
+	public String componentCe(Model model, @PathVariable String componentId, HttpServletRequest request)
+			throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("components", result.getComponentForNames().get(componentId).getEfferents());
+		
+		return "component_list";
+	}
 
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
 	public String relationDetails(Model model, @PathVariable String current, @PathVariable String depend,

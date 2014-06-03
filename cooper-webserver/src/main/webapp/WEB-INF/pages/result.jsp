@@ -90,8 +90,8 @@ margin: 0 0 0 -500px;
 									<td class="classCount" style="color:blue;">${item.classCount}</td>
 									<td>${item.abstractClassCount}</td>
 									<td>${item.concreteClassCount}</td>
-									<td>${item.afferentCoupling}</td>
-									<td>${item.efferentCoupling}</td>
+									<td class="Ca" style="color:blue;">${item.afferentCoupling}</td>
+									<td class="Ce" style="color:blue;">${item.efferentCoupling}</td>
 									<td><fmt:formatNumber value="${item.abstractness}"
 											pattern="#.###" /></td>
 									<td><fmt:formatNumber value="${item.volatility}"
@@ -453,6 +453,32 @@ margin: 0 0 0 -500px;
 			    type:'get',    
 			    success:function(data) {
 			    	$('#myModalLabel').text(componentName + '组件类列表');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    }   
+			});
+    	});
+    	
+    	$('.Ca').click(function(){
+    		var componentName = $(this).parent().find('.itemName').text();
+    		$.ajax({    
+			    url:'${ctx}/result/component/' + componentName + '/ca/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text(componentName + '组件传入列表');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    }   
+			});
+    	});
+    	
+    	$('.Ce').click(function(){
+    		var componentName = $(this).parent().find('.itemName').text();
+    		$.ajax({    
+			    url:'${ctx}/result/component/' + componentName + '/ce/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text(componentName + '组件传出列表');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
 			    }   

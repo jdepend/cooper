@@ -184,7 +184,7 @@
 				$.Showmsg('请创建组件！');
 				return;
 			}
-			$.cookie('componentModel_' + '${analysePath}', $.toJSON(componentModel)); 
+			$.cookie('componentModel_' + '${analysePath}', $.toJSON(componentModel), {expires: 365}); 
 			$('#componentModel').val($.toJSON(componentModel));
 			$('#submitForm').submit();
 		});
