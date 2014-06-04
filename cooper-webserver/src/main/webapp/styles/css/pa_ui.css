@@ -1,8 +1,4 @@
 /*common*/
-*{margin:0; padding:0;}
-html{ border:0;}
-ul{list-style:none;}
-body{font-size:12px; font-family: "宋体";}
 .pa_ui_show{display:block;}
 .pa_ui_hidden{display:none !important;}
 .pa_ui_hidden_accessible{position: absolute; left: -99999999px; }
