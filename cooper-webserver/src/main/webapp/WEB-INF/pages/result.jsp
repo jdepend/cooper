@@ -446,7 +446,10 @@ margin: 0 0 0 -500px;
     );
     
     $().ready(function() {
-    	$('.classCount').click(function(){
+    	$('.classCount').mousedown(function(e){
+    		e.stopPropagation();
+    	});
+    	$('.classCount').click(function(e){
     		var componentName = $(this).parent().find('.itemName').text();
     		$.ajax({    
 			    url:'${ctx}/result/component/' + componentName + '/classes/view.ajax',   
@@ -459,6 +462,9 @@ margin: 0 0 0 -500px;
 			});
     	});
     	
+    	$('.Ca').mousedown(function(e){
+    		e.stopPropagation();
+    	});
     	$('.Ca').click(function(){
     		var componentName = $(this).parent().find('.itemName').text();
     		$.ajax({    
@@ -472,6 +478,9 @@ margin: 0 0 0 -500px;
 			});
     	});
     	
+    	$('.Ce').mousedown(function(e){
+    		e.stopPropagation();
+    	});
     	$('.Ce').click(function(){
     		var componentName = $(this).parent().find('.itemName').text();
     		$.ajax({    
@@ -485,6 +494,9 @@ margin: 0 0 0 -500px;
 			});
     	});
     	
+    	$('.relation').mousedown(function(e){
+    		e.stopPropagation();
+    	});
     	$('.relation').click(function(){
     		var current = $(this).parent().find('.current').text();
     		var depend = $(this).parent().find('.depend').text();
@@ -499,6 +511,9 @@ margin: 0 0 0 -500px;
 			});
     	});
     	
+    	$('.todoItem').mousedown(function(e){
+    		e.stopPropagation();
+    	});
     	$('.todoItem').click(function(){
     		var id = $(this).parent().find('.itemId').val();
     		var name = $(this).text();
