@@ -38,7 +38,7 @@ function record(){
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container-fluid">
-						    <a href="#" class="brand">Cooper</a><a href="#" class="brand" style="font-size:16px;">致力于提高代码结构的质量</a>
+						    <a href="${ctx}/analyse/upload" class="brand">Cooper</a><a class="brand" style="font-size:16px;">致力于提高代码结构的质量</a>
 							<div class="nav-collapse collapse navbar-responsive-collapse">
 								<ul class="nav pull-right">
 									<li class="dropdown"><a data-toggle="dropdown"
