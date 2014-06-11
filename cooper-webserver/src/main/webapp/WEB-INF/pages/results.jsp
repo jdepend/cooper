@@ -10,12 +10,12 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<h3>分析结果列表：</h3>
-			<shiro:hasRole name="user">
+			<shiro:hasPermission name="admin:view">
 			<button id="viewResult" class="btn" style="margin-bottom:10px;">查看结果</button>
-			</shiro:hasRole>
-			<shiro:hasRole name="admin">
+			</shiro:hasPermission>
+			<shiro:hasPermission name="admin:delete">
 			<button id="deleteResult" class="btn" style="margin-bottom:10px;">删除结果</button>
-			</shiro:hasRole>
+			</shiro:hasPermission>
 			<table class="table table-bordered" pa_ui_name="table,exinput"
 				pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
 				pa_ui_select_trigger="tr" pa_ui_select_column="0"

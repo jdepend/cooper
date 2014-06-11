@@ -16,6 +16,7 @@ import jdepend.util.todolist.TODOListIdentify;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +32,15 @@ public class AdminController {
 
 	private Logger logger = Logger.getLogger(AdminController.class);
 
+	@RequiresPermissions("admin:list")
 	@RequestMapping(value = "/result/list", method = RequestMethod.GET)
-	public String upload(Model model, HttpServletRequest request) throws JDependException {
+	public String list(Model model, HttpServletRequest request) throws JDependException {
 		model.addAttribute("resultSummrys",
 				AnalysisResultRepository.getResultSummrys(WebConstants.DEFLAUT_GROUP, WebConstants.DEFLAUT_COMMAND));
 		return "results";
 	}
 
+	@RequiresPermissions("admin:view")
 	@RequestMapping(value = "/result/{id}/view", method = RequestMethod.GET)
 	public String view(Model model, @PathVariable String id, HttpServletRequest request) throws JDependException {
 
@@ -62,6 +65,7 @@ public class AdminController {
 		return "result";
 	}
 
+	@RequiresPermissions("admin:delete")
 	@RequestMapping(value = "result/delete.ajax", method = RequestMethod.POST)
 	public @ResponseBody
 	Map<String, Object> delete(@ModelAttribute("ids") String ids, HttpServletRequest request)
