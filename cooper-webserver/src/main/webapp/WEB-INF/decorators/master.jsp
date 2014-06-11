@@ -8,23 +8,13 @@
 <head>
 <title>Cooper</title>
 <link rel="stylesheet" href="${ctx}/styles/css/bootstrap.min.css">
-
-<script type="text/javascript" src="${ctx}/styles/js/jquery-1.7.2.min.js"></script>
-
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery-ui-1.7.1.js"></script>
-	
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery.json-2.4.js"></script>
-
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/jquery.highlighter.js"></script>
-
-<script language="javascript" type="text/javascript"
-	src="${ctx}/styles/js/Validform_v5.3.2.js"></script>
-
-<script type="text/javascript" src="${ctx}/styles/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="${ctx}/styles/css/cooper.css">
+<script type="text/javascript" src="${ctx}/styles/js/jquery-1.7.2.min.js"/>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery-ui-1.7.1.js"/>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.json-2.4.js"/>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.highlighter.js"/>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/Validform_v5.3.2.js"/>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/bootstrap.min.js"/>
 <script type="text/javascript">
 function record(){
 	$.ajax({url:"${ctx}/record/download"});
