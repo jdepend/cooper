@@ -36,12 +36,6 @@ public class LoginController {
 		model.addAttribute("msg", "登录失败！");
 		return LOGIN_PAGE;
 	}
-	
-	@RequestMapping(value = "login/fail", method = RequestMethod.GET)
-	public String fail(Model model) {
-		model.addAttribute("msg", "登录失败！");
-		return LOGIN_PAGE;
-	}
 
 	@RequestMapping(value = "login/success", method = RequestMethod.GET)
 	public String success() {
