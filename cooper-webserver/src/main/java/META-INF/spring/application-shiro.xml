@@ -21,6 +21,7 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
 		<property name="successUrl" value="/login/success" />
+		<property name="unauthorizedUrl" value="/unauthorized"/>
 		<property name="filterChainDefinitions">
 			<value>
 			    / = anon
@@ -31,7 +32,8 @@
 				/login/timeout = anon
 				/login = authc
 				/logout = logout
-				/admin/** = user
+				/admin/result/delete.ajax = roles[admin]
+				/admin/** = roles[user]
 		 	</value>
 		</property>
 	</bean>

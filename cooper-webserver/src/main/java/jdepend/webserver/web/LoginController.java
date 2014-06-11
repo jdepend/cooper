@@ -25,6 +25,7 @@ public class LoginController {
 	private Logger logger = Logger.getLogger(LoginController.class);
 
 	private static final String LOGIN_PAGE = "account/login";
+	private static final String UNAUTHORIZED_PAGE = "account/unauthorized";
 
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
@@ -40,6 +41,12 @@ public class LoginController {
 	@RequestMapping(value = "login/success", method = RequestMethod.GET)
 	public String success() {
 		return "redirect:/admin/result/list";
+	}
+	
+	@RequestMapping(value = "unauthorized", method = RequestMethod.GET)
+	public String unauthorized(Model model) {
+		model.addAttribute("msg", "您不能访问该资源！");
+		return UNAUTHORIZED_PAGE;
 	}
 
 }
