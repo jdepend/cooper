@@ -2,6 +2,7 @@
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -36,6 +37,10 @@ function record(){
 											<li><a href="${ctx}/standalone/Cooper.zip" onclick="record()">下载单机版</a></li>
 											<li><a href="https://github.com/jdepend/cooper">访问源码</a></li>
 											<li><a href="http://ohwyaa.neusoft.com/blog/list">了解作者</a></li>
+											<shiro:user>
+												<li class="divider"></li>
+												<li><a href="${ctx}/logout">退出</a></li>
+											</shiro:user>
 										</ul></li>
 								</ul>
 							</div>
