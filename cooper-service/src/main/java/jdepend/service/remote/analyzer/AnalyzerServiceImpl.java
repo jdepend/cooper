@@ -46,4 +46,15 @@ public final class AnalyzerServiceImpl extends UnicastRemoteObject implements An
 		return new AnalyzerDTO(info);
 	}
 
+	@Override
+	public void delete(String className) throws JDependException {
+		(new AnalyzerRepository()).delete(className);
+		
+	}
+
+	@Override
+	public List<AnalyzerSummaryDTO> queryAll() throws JDependException {
+		return (new AnalyzerRepository()).queryAll();
+	}
+
 }

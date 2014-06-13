@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.ServiceFactory;
-import jdepend.service.remote.analyzer.AnalyzerRepository;
 import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 
@@ -143,7 +142,7 @@ public final class AnalyzerMgrPanel extends JPanel {
 		if (this.currentClassName == null) {
 			throw new JDependException("请选择分析器。");
 		} else {
-			(new AnalyzerRepository()).delete(this.currentClassName);
+			analyzerService.delete(this.currentClassName);
 		}
 	}
 
@@ -151,7 +150,7 @@ public final class AnalyzerMgrPanel extends JPanel {
 
 		model.setRowCount(0);
 
-		analyzers = (new AnalyzerRepository()).queryAll();
+		analyzers = analyzerService.queryAll();
 
 		Object[] row;
 		for (AnalyzerSummaryDTO analyzer : analyzers) {

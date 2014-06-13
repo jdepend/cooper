@@ -3,6 +3,8 @@ package jdepend.service.remote.analyzer;
 import java.rmi.Remote;
 import java.util.List;
 
+import jdepend.framework.exception.JDependException;
+
 /**
  * 分析器远程服务
  * 
@@ -37,5 +39,21 @@ public interface AnalyzerService extends Remote {
 	 * @throws java.rmi.RemoteException
 	 */
 	public AnalyzerDTO download(String className) throws java.rmi.RemoteException;
+
+	/**
+	 * 删除分析器
+	 * 
+	 * @param className
+	 * @throws JDependException 
+	 */
+	public void delete(String className) throws JDependException;
+
+	/**
+	 * 获取全部的分析器信息
+	 * 
+	 * @return
+	 * @throws JDependException 
+	 */
+	public List<AnalyzerSummaryDTO> queryAll() throws JDependException;
 
 }
