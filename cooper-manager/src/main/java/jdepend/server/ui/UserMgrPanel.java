@@ -21,8 +21,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.ServiceFactory;
 import jdepend.service.remote.user.User;
+import jdepend.service.remote.user.UserDomainService;
 import jdepend.service.remote.user.UserRemoteService;
-import jdepend.service.remote.user.UserRepository;
 import jdepend.service.remote.user.UserStateChangeListener;
 
 public final class UserMgrPanel extends JPanel implements UserStateChangeListener {
@@ -34,6 +34,8 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 	private String currentUserName;
 
 	private UserRemoteService userRemoteService;
+	
+	private UserDomainService userDomainService;
 
 	private int stateChangeCount = 0;
 
@@ -137,7 +139,7 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 		model.setRowCount(0);
 
 		Object[] row;
-		for (User user : UserRepository.findUsers()) {
+		for (User user : userDomainService.findUsers()) {
 			row = new Object[4];
 			row[0] = user.getName();
 			row[1] = user.getDept();

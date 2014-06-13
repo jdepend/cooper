@@ -34,6 +34,11 @@ public final class UserDomainService {
 	public List<UserActionItem> getTheUserActions(String username) throws JDependException {
 		return UserActionRepository.getTheUserActions(username);
 	}
+	
+
+	public List<User> findUsers() throws JDependException {
+		return UserRepository.findUsers();
+	}
 
 	public static final Map<Operation, Integer> operationToIntegral = new HashMap<Operation, Integer>();
 	static {
