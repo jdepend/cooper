@@ -1,4 +1,4 @@
-package jdepend.service;
+package jdepend.service.remote;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,6 +13,8 @@ import jdepend.framework.util.TargetFileManager;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
+import jdepend.parse.ParseData;
+import jdepend.service.local.AnalyseData;
 
 /**
  * 分析数据
@@ -126,17 +128,23 @@ public class AnalyseDataDTO implements Serializable {
 		return javaClassRelationTypes;
 	}
 
-	public void setJavaClassRelationTypes(
-			Map<String, JavaClassRelationType> javaClassRelationTypes) {
+	public void setJavaClassRelationTypes(Map<String, JavaClassRelationType> javaClassRelationTypes) {
 		this.javaClassRelationTypes = javaClassRelationTypes;
+	}
+
+	public AnalyseData toAnalyseData() {
+		AnalyseData analyseData = new AnalyseData();
+		analyseData.setClasses(classes);
+		analyseData.setConfigs(configs);
+		analyseData.setTargetFiles(targetFiles);
+
+		return analyseData;
 	}
 
 	@Override
 	public String toString() {
-		return "AnalyseData [classes=" + classes + ", component=" + component
-				+ ", configs=" + configs + ", directories=" + directories
-				+ ", filteredPackages=" + filteredPackages
-				+ ", javaClassRelationTypes=" + javaClassRelationTypes
-				+ ", metricses=" + metricses + "]";
+		return "AnalyseData [classes=" + classes + ", component=" + component + ", configs=" + configs
+				+ ", directories=" + directories + ", filteredPackages=" + filteredPackages
+				+ ", javaClassRelationTypes=" + javaClassRelationTypes + ", metricses=" + metricses + "]";
 	}
 }

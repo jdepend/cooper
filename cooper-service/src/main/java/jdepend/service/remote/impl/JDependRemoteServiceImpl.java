@@ -10,11 +10,11 @@ import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.AnalyseDataDTO;
 import jdepend.service.context.AnalyseContext;
 import jdepend.service.context.AnalyseContextMgr;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
+import jdepend.service.remote.AnalyseDataDTO;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 import jdepend.service.remote.JDependSession;
@@ -49,7 +49,13 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 				localService.setComponent(data.getComponent());
 			}
 			// 设置分析数据
-			localService.addAnalyzeData(data);
+			localService.setAnalyzeData(data.toAnalyseData());
+
+			String path = data.getPath();
+			if (path != null && path.length() > 0) {
+				localService.addDirectory(path);
+			}
+
 			// 设置FileterPackages
 			localService.addFilteredPackages(data.getFilteredPackages());
 			// 注册外部指标
@@ -66,7 +72,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			localService.setLocalRunning(false);
 			// 分析服务
 			AnalysisResult result = localService.analyze();
-			//保存分析结果
+			// 保存分析结果
 			if (new PropertyConfigurator().isSaveResult()) {
 				AnalysisResultRepository.save(result);
 			}

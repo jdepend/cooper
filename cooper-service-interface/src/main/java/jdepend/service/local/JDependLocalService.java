@@ -11,7 +11,7 @@ import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
-import jdepend.service.AnalyseDataDTO;
+import jdepend.service.remote.AnalyseDataDTO;
 
 /**
  * 本地后台服务接口
@@ -51,14 +51,6 @@ public interface JDependLocalService {
 	 */
 	public void addDirectory(String name) throws IOException;
 
-	/**
-	 * 增加分析数据
-	 * 
-	 * @param name
-	 * @throws IOException
-	 */
-	public void addAnalyzeData(AnalyseDataDTO data) throws JDependException;
-	
 	/**
 	 * 增加分析数据
 	 * 

@@ -3,7 +3,6 @@ package jdepend.service.remote;
 import java.rmi.Remote;
 
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.AnalyseDataDTO;
 
 /**
  * 远程后台服务接口

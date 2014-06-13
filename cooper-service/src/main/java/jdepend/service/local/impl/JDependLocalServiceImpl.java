@@ -23,9 +23,7 @@ import jdepend.model.result.AnalysisRunningContextMgr;
 import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
-import jdepend.service.AnalyseDataDTO;
 import jdepend.service.avertcheat.framework.AvertCheat;
 import jdepend.service.avertcheat.framework.AvertCheatMgr;
 import jdepend.service.context.AnalyseContext;
@@ -54,8 +52,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this(groupName, commandName, new ParseConfigurator());
 	}
 
-	private JDependLocalServiceImpl(String groupName, String commandName,
-			ParseConfigurator conf) {
+	private JDependLocalServiceImpl(String groupName, String commandName, ParseConfigurator conf) {
 		this.group = groupName;
 		this.command = commandName;
 		parse = new Parse(conf);
@@ -70,8 +67,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	 */
 	public AnalysisResult analyze() throws JDependException {
 
-		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog(
-				"analyze is start!");
+		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("analyze is start!");
 		// 创建服务上下文
 		initServiceContext();
 		// 创建运行上下文
@@ -86,22 +82,19 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		// 组织成组件
 		List<Component> components = component.list(javaPackages);
 
-		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog(
-				components.size() + " components is created!");
+		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog(components.size() + " components is created!");
 		// 创建返回结果
 		final AnalysisResult result = new AnalysisResult(components, context);
 		// 调用分析监听器
 		this.onAnalyse(result);
 		// 设置End时间
-		AnalyseContextMgr.getContext().setExecuteEndTime(
-				System.currentTimeMillis());
+		AnalyseContextMgr.getContext().setExecuteEndTime(System.currentTimeMillis());
 
 		return result;
 	}
 
 	private void startAvertCheat(AnalysisRunningContext context) {
-		for (AvertCheat avertCheat : AvertCheatMgr.getInstance()
-				.getAvertCheats()) {
+		for (AvertCheat avertCheat : AvertCheatMgr.getInstance().getAvertCheats()) {
 			if (avertCheat.enable(context)) {
 				if (avertCheat instanceof AnalyseListener) {
 					this.addAnalyseListener((AnalyseListener) avertCheat);
@@ -173,58 +166,17 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		parse.addBuildListener(listener);
 	}
 
-	public void addAnalyzeData(AnalyseDataDTO data) throws JDependException {
-		List<byte[]> classes = data.getClasses();
-		List<byte[]> configs = data.getConfigs();
-		String path = data.getPath();
-		boolean ok = false;
-		if (classes != null && classes.size() > 0) {
-			ParseData analyseData = new ParseData();
-			analyseData.setClasses(classes);
-			analyseData.setConfigs(configs);
-			this.parse.setAnalyseData(analyseData);
-			ok = true;
-		}
-
-		if (path != null && path.length() > 0) {
-			try {
-				if (this.parse.getDirectorys() != null
-						&& this.parse.getDirectorys().length() > 0
-						&& this.parse.getDirectorys().equals(path)) {
-					throw new JDependException("分析数据路径已经存在["
-							+ this.parse.getDirectorys() + "]");
-				} else {
-					this.parse.addDirectorys(path);
-					ok = true;
-				}
-			} catch (IOException e) {
-				throw new JDependException(e);
-			}
-		}
-		if (!ok) {
-			throw new JDependException("分析数据有问题.[" + data + "]");
-		}
-		// 设置目标文件分组信息
-		this.parse.setTargetFileGroupInfo(data.getTargetFiles());
-		// 设置组织包的组件
-		if (data.getComponent() != null) {
-			this.setComponent(data.getComponent());
-		}
-	}
-	
 	@Override
-	public void setAnalyzeData(AnalyseData data){
+	public void setAnalyzeData(AnalyseData data) {
 		this.parse.setAnalyseData(data.toParseData());
 		this.parse.setTargetFileGroupInfo(data.getTargetFiles());
 	}
 
-	public void registMetrics(String key, Metrics metrics)
-			throws JDependException {
+	public void registMetrics(String key, Metrics metrics) throws JDependException {
 		MetricsMgr.getInstance().addMetrics(key, metrics);
 	}
 
-	public void registRelationType(JavaClassRelationType type)
-			throws JDependException {
+	public void registRelationType(JavaClassRelationType type) throws JDependException {
 		JavaClassRelationTypeMgr.getInstance().registType(type);
 
 	}
@@ -234,8 +186,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 	}
 
-	private AnalysisRunningContext createRunningContext()
-			throws JDependException {
+	private AnalysisRunningContext createRunningContext() throws JDependException {
 
 		AnalysisRunningContext context = new AnalysisRunningContext();
 		context.setLocalRunning(isLocalRunning);
@@ -248,8 +199,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setComponent(component);
 
 		context.setAnalyzeInnerClasses(conf.getAnalyzeInnerClasses());
-		context.setEnableAbstractClassCountQualificationConfirmer(conf
-				.enableAbstractClassCountQualificationConfirmer());
+		context.setEnableAbstractClassCountQualificationConfirmer(conf.enableAbstractClassCountQualificationConfirmer());
 		context.setSaveResult((new PropertyConfigurator()).isSaveResult());
 
 		context.setClient(AnalyseContextMgr.getContext().getClient());

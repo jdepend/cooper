@@ -20,8 +20,8 @@ import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
-import jdepend.service.AnalyseDataDTO;
 import jdepend.service.local.AnalyseData;
+import jdepend.service.remote.AnalyseDataDTO;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 
