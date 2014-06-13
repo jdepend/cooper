@@ -8,8 +8,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.SettingDialog;
+import jdepend.parse.ParseConfigurator;
 import jdepend.parse.impl.AbstractParser;
-import jdepend.parse.impl.ParseConfigurator;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 

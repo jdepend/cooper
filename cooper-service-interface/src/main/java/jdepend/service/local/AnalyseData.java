@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.parse.impl.ParseData;
+import jdepend.parse.ParseData;
 
 public class AnalyseData {
 

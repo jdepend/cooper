@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse;
 
 import java.util.List;
 

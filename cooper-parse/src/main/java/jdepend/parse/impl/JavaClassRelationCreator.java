@@ -15,6 +15,7 @@ import jdepend.model.JavaClassRelationType;
 import jdepend.model.Method;
 import jdepend.model.TableInfo;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.parse.ParseConfigurator;
 
 public class JavaClassRelationCreator {
 

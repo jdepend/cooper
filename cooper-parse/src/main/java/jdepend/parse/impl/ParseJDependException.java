@@ -1,4 +1,4 @@
-package jdepend.parse;
+package jdepend.parse.impl;
 
 import jdepend.framework.exception.JDependException;
 

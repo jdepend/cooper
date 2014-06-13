@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.model.JavaClass;
+import jdepend.parse.ParseConfigurator;
+import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 import com.jacob.activeX.ActiveXComponent;

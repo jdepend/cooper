@@ -3,7 +3,7 @@ package jdepend.parse.impl;
 import java.io.InputStream;
 
 import jdepend.model.JavaClass;
-import jdepend.parse.ParseJDependException;
+import jdepend.parse.ParseConfigurator;
 
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.ConstantClass;

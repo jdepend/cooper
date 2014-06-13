@@ -14,6 +14,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.util.JavaClassUtil;
+import jdepend.parse.ParseConfigurator;
+import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 /**

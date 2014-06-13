@@ -17,10 +17,8 @@ import jdepend.model.JavaPackage;
 import jdepend.model.Metrics;
 import jdepend.model.MetricsMgr;
 import jdepend.parse.impl.AbstractClassBuilder;
-import jdepend.parse.impl.ParseData;
 import jdepend.parse.impl.CSharpClassBuilder;
 import jdepend.parse.impl.JavaClassBuilder;
-import jdepend.parse.impl.ParseConfigurator;
 
 /**
  * 解析器

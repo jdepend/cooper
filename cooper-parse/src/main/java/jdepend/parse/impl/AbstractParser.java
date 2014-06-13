@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import jdepend.model.JavaClass;
-import jdepend.parse.ParseJDependException;
+import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 
 /**

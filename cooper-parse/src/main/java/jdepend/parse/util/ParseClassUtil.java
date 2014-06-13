@@ -3,9 +3,9 @@ package jdepend.parse.util;
 import java.io.InputStream;
 
 import jdepend.model.JavaClass;
-import jdepend.parse.ParseJDependException;
+import jdepend.parse.ParseConfigurator;
 import jdepend.parse.impl.BCELClassFileParser;
-import jdepend.parse.impl.ParseConfigurator;
+import jdepend.parse.impl.ParseJDependException;
 
 public final class ParseClassUtil {
 

@@ -2,6 +2,8 @@ package jdepend.parse.impl;
 
 import java.lang.reflect.Constructor;
 
+import jdepend.parse.ParseConfigurator;
+
 public class ClassFileParserFactory {
 
 	public ClassFileParserFactory() {

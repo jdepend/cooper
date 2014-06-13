@@ -14,7 +14,7 @@ import jdepend.framework.util.FileType;
 import jdepend.framework.util.JarFileReader;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ClassSearchUtil;
-import jdepend.parse.impl.ParseData;
+import jdepend.parse.ParseData;
 import jdepend.parse.util.SearchUtil;
 import jdepend.service.AnalyseDataDTO;
 import jdepend.service.local.AnalyseData;

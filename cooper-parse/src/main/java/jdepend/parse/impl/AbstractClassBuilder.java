@@ -7,6 +7,8 @@ import java.util.Iterator;
 
 import jdepend.model.JavaClass;
 import jdepend.parse.BuildListener;
+import jdepend.parse.ParseConfigurator;
+import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 /**

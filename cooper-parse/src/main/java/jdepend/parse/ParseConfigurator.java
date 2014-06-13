@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +15,7 @@ import java.util.Properties;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.parse.impl.FilteredPackageConfigurator;
 
 /**
  * 解析配置信息

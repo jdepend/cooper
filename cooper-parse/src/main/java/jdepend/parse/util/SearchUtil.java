@@ -9,8 +9,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.parse.Parse;
+import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
-import jdepend.parse.impl.ParseData;
 
 public final class SearchUtil {
 

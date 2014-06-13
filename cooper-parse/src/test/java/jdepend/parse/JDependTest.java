@@ -18,7 +18,6 @@ import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.LayerComponentJudge;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.parse.impl.ParseData;
 import junit.framework.TestCase;
 
 public class JDependTest extends TestCase {
