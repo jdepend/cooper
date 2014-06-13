@@ -44,10 +44,7 @@ public final class CooperSettingDialog extends SettingDialog {
 	@Override
 	protected void doSaveAfter(String filePath) throws JDependException {
 
-		if (filePath.endsWith("parse.properties")) {
-			ParseConfigurator conf = new ParseConfigurator();
-			AbstractParser.DEBUG = conf.getParseDebug();
-		} else if (filePath.endsWith("jdepend.properties")) {
+		if (filePath.endsWith("jdepend.properties")) {
 			PropertyConfigurator conf = new PropertyConfigurator();
 			BusiLogUtil.BUSINESSLOG = conf.isPrintBusiLog();
 			LogUtil.SYSTEMLOG = conf.isPrintSystemLog();

@@ -33,7 +33,7 @@ public abstract class AbstractParser {
 
 	private ArrayList<ParseListener> parseListeners;
 	private PackageFilter filter;
-	public static boolean DEBUG = false;
+	private boolean DEBUG = false;
 
 	private PrintWriter writer = new PrintWriter(System.err);
 

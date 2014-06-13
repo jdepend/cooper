@@ -20,10 +20,12 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 
 	private JDependLocalService service;
 
+	private final static String JDependLocalServiceImplClassName = "jdepend.service.local.impl.JDependLocalServiceImpl";
+
 	public JDependServiceLocalProxy(String groupName, String commandName) {
 		try {
 			Constructor<JDependLocalService> constructor = (Constructor<JDependLocalService>) Class.forName(
-					"jdepend.service.local.impl.JDependLocalServiceImpl").getConstructor(String.class, String.class);
+					JDependLocalServiceImplClassName).getConstructor(String.class, String.class);
 			this.service = constructor.newInstance(groupName, commandName);
 		} catch (Exception e) {
 			e.printStackTrace();
