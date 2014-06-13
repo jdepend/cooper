@@ -55,19 +55,5 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-ext-prefuse</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-ext-wilmascope</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
   </dependencies>
 </project>
