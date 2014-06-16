@@ -16,7 +16,7 @@ import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogItem;
 import jdepend.framework.log.BusiLogListener;
-import jdepend.framework.log.DBBusinessLogWriter;
+import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.service.remote.user.UserActionItem;
@@ -71,9 +71,9 @@ public final class UserActionGather extends PersistentBean implements BusiLogLis
 					// 收集指定时间段的用户行为信息
 					List<BusiLogItem> items;
 					if (this.collectEndTime == null) {
-						items = DBBusinessLogWriter.getAllLogItems();
+						items = BusiLogUtil.getInstance().getAllLogItems();
 					} else {
-						items = DBBusinessLogWriter.getLogItems(this.collectEndTime);
+						items = BusiLogUtil.getInstance().getLogItems(this.collectEndTime);
 					}
 					if (items != null && items.size() > 0) {
 						List<UserActionItem> actionItems = new ArrayList<UserActionItem>();
