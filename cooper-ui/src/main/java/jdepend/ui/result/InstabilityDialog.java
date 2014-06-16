@@ -1,4 +1,4 @@
-package jdepend.report.ui;
+package jdepend.ui.result;
 
 import java.awt.BorderLayout;
 import java.util.HashMap;

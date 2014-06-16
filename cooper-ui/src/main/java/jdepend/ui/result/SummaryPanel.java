@@ -46,7 +46,6 @@ import jdepend.report.ui.BalanceComponentDialog;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.CouplingDialog;
 import jdepend.report.ui.CycleDialog;
-import jdepend.report.ui.InstabilityDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
