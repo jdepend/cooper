@@ -1,5 +1,6 @@
 package jdepend.util.analyzer.framework;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import jdepend.framework.exception.JDependException;
@@ -29,5 +30,9 @@ public interface Analyzer extends Serializable, Comparable<Analyzer> {
 	public void init() throws JDependException;
 
 	public void release() throws JDependException;
+	
+	public void save() throws IOException;
+	
+	public boolean needSave();
 
 }

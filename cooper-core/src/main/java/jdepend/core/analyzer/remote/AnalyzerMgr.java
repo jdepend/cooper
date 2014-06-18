@@ -13,13 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.core.session.RemoteSessionProxy;
-import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.StreamUtil;
 import jdepend.service.remote.analyzer.AnalyzerDTO;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
-import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -58,18 +56,14 @@ public final class AnalyzerMgr {
 	public void save() {
 		for (String type : types) {
 			for (Analyzer analyzer : this.analyzers.get(type)) {
-				if (analyzer instanceof PersistentBean) {
-					if (analyzer instanceof AbstractAnalyzer) {
-						if (!((AbstractAnalyzer) analyzer).needSave()) {
-							continue;
-						}
-					}
-					LogUtil.getInstance(AnalyzerMgr.class).systemLog("保存分析器[" + analyzer.getName() + "]配置。。。");
-					try {
-						((PersistentBean) analyzer).save();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+				if (!analyzer.needSave()) {
+					continue;
+				}
+				LogUtil.getInstance(AnalyzerMgr.class).systemLog("保存分析器[" + analyzer.getName() + "]配置。。。");
+				try {
+					analyzer.save();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		}
