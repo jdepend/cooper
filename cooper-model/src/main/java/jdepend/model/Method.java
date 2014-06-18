@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.framework.util.ParseUtil;
+import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AccessFlags;

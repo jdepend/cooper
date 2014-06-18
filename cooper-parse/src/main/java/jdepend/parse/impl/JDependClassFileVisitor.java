@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.util.ParseUtil;
 import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.TableInfo;
+import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
 import org.apache.bcel.classfile.Attribute;

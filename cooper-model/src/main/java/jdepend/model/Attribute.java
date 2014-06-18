@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.util.ParseUtil;
+import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
 import org.apache.bcel.Constants;

@@ -3,9 +3,9 @@ package jdepend.parse.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import jdepend.framework.util.ParseUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
+import jdepend.model.util.ParseUtil;
 
 class IdentifyExtClassesUtil {
 

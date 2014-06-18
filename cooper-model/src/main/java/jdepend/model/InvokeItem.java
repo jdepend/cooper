@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-import jdepend.framework.util.ParseUtil;
+import jdepend.model.util.ParseUtil;
 
 public final class InvokeItem implements Serializable {
 

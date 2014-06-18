@@ -10,9 +10,9 @@ import java.util.Map;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.ParseUtil;
 import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.model.util.ParseUtil;
 
 import org.apache.bcel.Constants;
 
