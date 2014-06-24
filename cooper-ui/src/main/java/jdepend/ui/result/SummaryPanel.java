@@ -1,6 +1,5 @@
 package jdepend.ui.result;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -49,6 +47,7 @@ import jdepend.report.ui.CycleDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
+import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.RefactorToolFactory;
@@ -77,13 +76,10 @@ public final class SummaryPanel extends SubResultTabPanel {
 	@Override
 	protected void init(AnalysisResult result) {
 
-		this.headers = new String[] { ReportConstant.Name, ReportConstant.LC,
-				ReportConstant.CN, ReportConstant.CC, ReportConstant.AC,
-				ReportConstant.Ca, ReportConstant.Ce, ReportConstant.A,
-				ReportConstant.V, ReportConstant.I, ReportConstant.D,
-				ReportConstant.Coupling, ReportConstant.Cohesion,
-				ReportConstant.Balance, ReportConstant.Encapsulation,
-				ReportConstant.OO, ReportConstant.Cycle };
+		this.headers = new String[] { ReportConstant.Name, ReportConstant.LC, ReportConstant.CN, ReportConstant.CC,
+				ReportConstant.AC, ReportConstant.Ca, ReportConstant.Ce, ReportConstant.A, ReportConstant.V,
+				ReportConstant.I, ReportConstant.D, ReportConstant.Coupling, ReportConstant.Cohesion,
+				ReportConstant.Balance, ReportConstant.Encapsulation, ReportConstant.OO, ReportConstant.Cycle };
 
 		DefaultTableModel model = new DefaultTableModel() {
 			@Override
@@ -97,13 +93,12 @@ public final class SummaryPanel extends SubResultTabPanel {
 		final JTable table = new JDependTable(sorter) {
 			@Override
 			public TableCellRenderer getCellRenderer(int row, int column) {
-				return new SummaryTableCellRenderer(this);
+				return new SummaryTableCellRenderer();
 			}
 		};
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem addIgnoreItem1 = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_AddIgnoreList));
+		JMenuItem addIgnoreItem1 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_AddIgnoreList));
 		addIgnoreItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -111,16 +106,13 @@ public final class SummaryPanel extends SubResultTabPanel {
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					Component source = (Component) e.getSource();
-					JOptionPane.showMessageDialog(source, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		popupMenu.add(addIgnoreItem1);
 
-		JMenuItem addIgnoreItem2 = new JMenuItem(
-				BundleUtil
-						.getString(BundleUtil.Command_AddIgnoreListWithChildren));
+		JMenuItem addIgnoreItem2 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_AddIgnoreListWithChildren));
 		addIgnoreItem2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -128,15 +120,13 @@ public final class SummaryPanel extends SubResultTabPanel {
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					Component source = (Component) e.getSource();
-					JOptionPane.showMessageDialog(source, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		popupMenu.add(addIgnoreItem2);
 
-		JMenuItem viewIgnoreItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_ViewIgnoreList));
+		JMenuItem viewIgnoreItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewIgnoreList));
 		viewIgnoreItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewIgnoreList();
@@ -146,8 +136,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 		popupMenu.addSeparator();
 
-		JMenuItem uniteItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_Unite));
+		JMenuItem uniteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Unite));
 		uniteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -155,15 +144,13 @@ public final class SummaryPanel extends SubResultTabPanel {
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					Component source = (Component) e.getSource();
-					JOptionPane.showMessageDialog(source, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		popupMenu.add(uniteItem);
 
-		JMenuItem createItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_CreateComponent));
+		JMenuItem createItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_CreateComponent));
 		createItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -171,15 +158,13 @@ public final class SummaryPanel extends SubResultTabPanel {
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					Component source = (Component) e.getSource();
-					JOptionPane.showMessageDialog(source, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		popupMenu.add(createItem);
 
-		JMenuItem deleteItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_DeleteComponent));
+		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_DeleteComponent));
 		deleteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -187,8 +172,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					Component source = (Component) e.getSource();
-					JOptionPane.showMessageDialog(source, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -196,8 +180,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 		popupMenu.addSeparator();
 
-		JMenuItem saveAsItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_SaveAs));
+		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTableUtil.exportTableToExcel(table);
@@ -219,30 +202,24 @@ public final class SummaryPanel extends SubResultTabPanel {
 				for (int row : table.getSelectedRows()) {
 					selectedUnits.add((String) table.getValueAt(row, 0));
 				}
-				String current = (String) table.getValueAt(
-						table.rowAtPoint(e.getPoint()), 0);
-				String currentCol = (String) table.getColumnModel()
-						.getColumn(table.columnAtPoint(e.getPoint()))
+				String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
+				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
-					if (currentCol.equals(ReportConstant.Ca)
-							|| currentCol.equals(ReportConstant.Ce)) {
-						CaCeListDialog d = new CaCeListDialog(current,
-								currentCol);
+					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
+						CaCeListDialog d = new CaCeListDialog(current, currentCol);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cycle)) {
-						if (MetricsMgr.Cyclic.equals(table.getModel()
-								.getValueAt(table.rowAtPoint(e.getPoint()),
-										table.columnAtPoint(e.getPoint())))) {
+						if (MetricsMgr.Cyclic.equals(table.getModel().getValueAt(table.rowAtPoint(e.getPoint()),
+								table.columnAtPoint(e.getPoint())))) {
 							CycleDialog d = new CycleDialog(current);
 							d.setModal(true);
 							d.setVisible(true);
 						}
 					} else if (currentCol.equals(ReportConstant.Name)) {
-						JDependUnitDetailDialog d = new JDependUnitDetailDialog(
-								current);
+						JDependUnitDetailDialog d = new JDependUnitDetailDialog(current);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
@@ -258,8 +235,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceComponentDialog d = new BalanceComponentDialog(
-								current);
+						BalanceComponentDialog d = new BalanceComponentDialog(current);
 						d.setModal(true);
 						d.setVisible(true);
 					}
@@ -285,8 +261,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 		detailColumnNames.add(ReportConstant.Balance);
 		detailColumnNames.add(ReportConstant.Cycle);
 
-		table.addMouseMotionListener(new TableMouseMotionAdapter(table,
-				detailColumnNames) {
+		table.addMouseMotionListener(new TableMouseMotionAdapter(table, detailColumnNames) {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);
@@ -295,8 +270,8 @@ public final class SummaryPanel extends SubResultTabPanel {
 				int row = table.rowAtPoint(p);
 				if (col == 0 && row > -1) {
 					String componentName = (String) table.getValueAt(row, col);
-					jdepend.model.Component component = JDependUnitMgr
-							.getInstance().getResult().getTheComponent(componentName);
+					jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
+							.getTheComponent(componentName);
 					if (component != null) {
 						table.setToolTipText(component.getLayerDesc());
 					}
@@ -344,8 +319,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 			}
 		}
 
-		CreateUniteComponentDialog d = new CreateUniteComponentDialog(
-				selectedUnits);
+		CreateUniteComponentDialog d = new CreateUniteComponentDialog(selectedUnits);
 		d.setModal(true);
 		d.setVisible(true);
 
@@ -377,8 +351,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 	protected void addIgnoreList(boolean incluedsub) throws JDependException {
 
-		GroupConf group = CommandConfMgr.getInstance().getTheGroup(
-				CommandAdapterMgr.getCurrentGroup());
+		GroupConf group = CommandConfMgr.getInstance().getTheGroup(CommandAdapterMgr.getCurrentGroup());
 
 		for (String ingorePackage : this.calPackages(incluedsub)) {
 			group.addFilteredPackage(ingorePackage);
@@ -388,8 +361,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 		adapter.onAddIgnoreList(this.selectedUnits);
 	}
 
-	private List<String> calPackages(boolean incluedsub)
-			throws JDependException {
+	private List<String> calPackages(boolean incluedsub) throws JDependException {
 
 		if (this.selectedUnits == null || this.selectedUnits.size() == 0) {
 			throw new JDependException("请选择分析单元");
@@ -397,8 +369,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 		List<String> javaPackages = new ArrayList<String>();
 		for (String unitName : this.selectedUnits) {
-			jdepend.model.Component component = JDependUnitMgr.getInstance()
-					.getResult().getTheComponent(unitName);
+			jdepend.model.Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(unitName);
 			if (component != null) {
 				for (JavaPackage javaPackage : component.getJavaPackages()) {
 					if (incluedsub) {
@@ -454,8 +425,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 		@Override
 		protected void doService(ActionEvent e) throws JDependException {
-			RefactorToolFactory.createTool().uniteComponent(
-					this.componentname.getText(), this.getComponentLayer(),
+			RefactorToolFactory.createTool().uniteComponent(this.componentname.getText(), this.getComponentLayer(),
 					units);
 			adapter.onRefactoring();
 			// 记录日志
@@ -470,101 +440,25 @@ public final class SummaryPanel extends SubResultTabPanel {
 		@Override
 		protected void doService(ActionEvent e) throws JDependException {
 			String componentName = this.componentname.getText();
-			RefactorToolFactory.createTool().createComponent(componentName,
-					this.getComponentLayer());
+			RefactorToolFactory.createTool().createComponent(componentName, this.getComponentLayer());
 			adapter.onRefactoring();
 			// 记录日志
 			BusiLogUtil.getInstance().businessLog(Operation.createComponent);
 		}
 	}
 
-	class SummaryTableCellRenderer extends JPanel implements TableCellRenderer {
-
-		private JTable table;
-
-		private Object originality;
-
-		public SummaryTableCellRenderer(JTable table) {
-			super();
-
-			this.setLayout(new GridLayout());
-
-			this.table = table;
-
-			ToolTipManager.sharedInstance().registerComponent(this);
-		}
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus,
-				final int row, final int column) {
-
-			this.removeAll();
-
-			if (value != null) {
-
-				JLabel labelValue = new JLabel();
-				labelValue.setFont(table.getFont());
-				if (extendUnits.contains(table.getValueAt(row, 0))) {
-					labelValue.setForeground(Color.GRAY);
-				}
-				labelValue.setText(String.valueOf(value));
-
-				this.add(labelValue);
-
-				String metrics = ReportConstant.toMetrics(headers[column]);
-				String objectMeasuredName = (String) this.table.getValueAt(row,
-						0);
-				CompareInfo info = AdjustHistory.getInstance().compare(value,
-						objectMeasuredName, metrics);
-
-				if (info != null && info.isDiff()) {
-					// 暂存原始数据
-					originality = info.getOriginality();
-					JLabel labelDirection = new JLabel();
-					labelDirection.setFont(table.getFont());
-					labelDirection.setText(getCompare(info.getResult()));
-					labelDirection.setForeground(calDirectionColor(info
-							.getEvaluate()));
-					this.add(labelDirection);
-				}
-			}
-
-			if (isSelected) {
-				this.setBackground(table.getSelectionBackground());
-			} else {
-				this.setBackground(table.getBackground());
-			}
-
-			return this;
-		}
-
+	class SummaryTableCellRenderer extends CompareTableCellRenderer {
 		@Override
-		public String getToolTipText(MouseEvent e) {
-			if (originality != null) {
-				return "Originality:" + originality;
-			} else {
-				return null;
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+				boolean hasFocus, final int row, final int column) {
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			if (this.getComponentCount() > 0) {
+				Component component = this.getComponent(0);
+				if (extendUnits.contains(table.getValueAt(row, 0))) {
+					component.setForeground(Color.GRAY);
+				}
 			}
-		}
-
-		private Color calDirectionColor(Boolean evaluate) {
-			if (evaluate == null) {
-				return Color.blue;
-			} else if (evaluate) {
-				return Color.green;
-			} else {
-				return Color.red;
-			}
-		}
-
-		private String getCompare(int compare) {
-			if (compare < 0) {
-				return "↓";
-			} else if (compare > 0) {
-				return "↑";
-			} else {
-				return "";
-			}
+			return this;
 		}
 	}
 }
