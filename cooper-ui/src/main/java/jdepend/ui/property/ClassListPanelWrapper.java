@@ -37,6 +37,8 @@ import jdepend.model.component.JavaClassComponent;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public class ClassListPanelWrapper extends ClassListPanel {
@@ -53,6 +55,11 @@ public class ClassListPanelWrapper extends ClassListPanel {
 	protected void initClassList() {
 
 		super.initClassList();
+
+		CompareTableCellRenderer render = new CompareTableCellRenderer(AdjustHistory.CompareType_Class);
+		for (int i = 0; i < classListTable.getColumnCount(); i++) {
+			classListTable.getColumnModel().getColumn(i).setCellRenderer(render);
+		}
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem viewSrcItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewSourceCode));
@@ -135,7 +142,8 @@ public class ClassListPanelWrapper extends ClassListPanel {
 	}
 
 	private void viewDetail() {
-		StringBuilder detail = new StringBuilder(JDependUnitMgr.getInstance().getResult().getTheClass(current).toString());
+		StringBuilder detail = new StringBuilder(JDependUnitMgr.getInstance().getResult().getTheClass(current)
+				.toString());
 		frame.getResultPanel().addResult(current, detail);
 		frame.getResultPanel().setLastedTab();
 	}

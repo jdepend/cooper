@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.ToolTipManager;
 import javax.swing.table.TableCellRenderer;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.report.util.ReportConstant;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
@@ -19,10 +20,14 @@ public class CompareTableCellRenderer extends JPanel implements TableCellRendere
 
 	private Object originality;
 
-	public CompareTableCellRenderer() {
+	private String compareType;
+
+	public CompareTableCellRenderer(String compareType) {
 		super();
 
 		this.setLayout(new GridLayout());
+
+		this.compareType = compareType;
 
 		ToolTipManager.sharedInstance().registerComponent(this);
 	}
@@ -42,16 +47,20 @@ public class CompareTableCellRenderer extends JPanel implements TableCellRendere
 
 			String metrics = ReportConstant.toMetrics(table.getColumnName(column));
 			String objectMeasuredName = (String) table.getValueAt(row, 0);
-			CompareInfo info = AdjustHistory.getInstance().compare(value, objectMeasuredName, metrics);
-
-			if (info != null && info.isDiff()) {
-				// 暂存原始数据
-				originality = info.getOriginality();
-				JLabel labelDirection = new JLabel();
-				labelDirection.setFont(table.getFont());
-				labelDirection.setText(getCompare(info.getResult()));
-				labelDirection.setForeground(calDirectionColor(info.getEvaluate()));
-				this.add(labelDirection);
+			try {
+				CompareInfo info = AdjustHistory.getInstance().compare(value, this.compareType, objectMeasuredName,
+						metrics);
+				if (info != null && info.isDiff()) {
+					// 暂存原始数据
+					originality = info.getOriginality();
+					JLabel labelDirection = new JLabel();
+					labelDirection.setFont(table.getFont());
+					labelDirection.setText(getCompare(info.getResult()));
+					labelDirection.setForeground(calDirectionColor(info.getEvaluate()));
+					this.add(labelDirection);
+				}
+			} catch (JDependException e) {
+				e.printStackTrace();
 			}
 		}
 

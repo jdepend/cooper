@@ -47,7 +47,7 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 			if (unit.getContainsCycle()) {
 				this.printTableRowElement(MetricsMgr.Cyclic);
 			} else {
-				this.printTableRowElement(MetricsMgr.NoCyclic);
+				this.printTableRowElement(MetricsMgr.NoValue);
 			}
 			getWriter().println("\n</tr>");
 		}

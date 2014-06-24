@@ -95,6 +95,10 @@ public class ReportConstant {
 		toMetricses.put(Encapsulation, MetricsMgr.Encapsulation);
 		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
+		toMetricses.put(State, MetricsMgr.State);
+		toMetricses.put(Stable, MetricsMgr.Stable);
+		toMetricses.put(isPrivateElement, MetricsMgr.isPrivateElement);
+		toMetricses.put(isExt, MetricsMgr.isExt);
 	}
 
 }

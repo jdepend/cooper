@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MathUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.Measurable;
@@ -19,6 +20,10 @@ public class AdjustHistory {
 	private AnalysisResult current;// 移动后的当前结果
 
 	private static AdjustHistory inst = new AdjustHistory();
+
+	public static final String CompareType_Component = "CompareType_Component";
+
+	public static final String CompareType_Class = "CompareType_Class";
 
 	private AdjustHistory() {
 	}
@@ -91,14 +96,21 @@ public class AdjustHistory {
 		return current;
 	}
 
-	public CompareInfo compare(Object value, String objectMeasuredName, String metrics) {
+	public CompareInfo compare(Object value, String type, String objectMeasuredName, String metrics)
+			throws JDependException {
 		if (this.getOriginality() != null) {
 			AnalysisResult result = this.getOriginality().getResult();
 			Measurable measurable;
-			if (objectMeasuredName.equals(AnalysisResultSummary.Name)) {
-				measurable = result.getSummary();
+			if (type.equals(CompareType_Component)) {
+				if (objectMeasuredName.equals(AnalysisResultSummary.Name)) {
+					measurable = result.getSummary();
+				} else {
+					measurable = result.getTheComponent(objectMeasuredName);
+				}
+			} else if (type.equals(CompareType_Class)) {
+				measurable = result.getTheClass(objectMeasuredName);
 			} else {
-				measurable = result.getTheComponent(objectMeasuredName);
+				throw new JDependException("compare type is error");
 			}
 
 			if (measurable != null) {

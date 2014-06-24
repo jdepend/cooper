@@ -935,6 +935,76 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	}
 
+	public void calImportedPackages() {
+		String packageName;
+
+		if (this.detail.getSuperClassName() != null) {
+			packageName = ParseUtil.getPackageName(this.detail.getSuperClassName());
+			addImportedPackage(packageName);
+		}
+
+		for (String name : this.detail.getInterfaceNames()) {
+			packageName = ParseUtil.getPackageName(name);
+			addImportedPackage(packageName);
+		}
+
+		for (String name : this.detail.getAttributeTypes()) {
+			packageName = ParseUtil.getPackageName(name);
+			addImportedPackage(packageName);
+		}
+
+		for (String name : this.detail.getParamTypes()) {
+			packageName = ParseUtil.getPackageName(name);
+			addImportedPackage(packageName);
+		}
+
+		for (String name : this.detail.getVariableTypes()) {
+			packageName = ParseUtil.getPackageName(name);
+			addImportedPackage(packageName);
+		}
+	}
+
+	@Override
+	public Object getValue(String metrics) {
+		if (metrics.equals(MetricsMgr.State)) {
+			if (this.isState()) {
+				return MetricsMgr.HaveState;
+			} else {
+				return MetricsMgr.NoValue;
+			}
+		} else if (metrics.equals(MetricsMgr.Stable)) {
+			if (this.isStable()) {
+				return MetricsMgr.Stability;
+			} else {
+				return MetricsMgr.NoValue;
+			}
+		} else if (metrics.equals(MetricsMgr.Private)) {
+			if (this.isUsedByExternal()) {
+				return MetricsMgr.Private;
+			} else {
+				return MetricsMgr.NoValue;
+			}
+		} else if (metrics.equals(MetricsMgr.isExt)) {
+			if (this.isUsedByExternal()) {
+				return MetricsMgr.isExt;
+			} else {
+				return MetricsMgr.NoValue;
+			}
+		} else if (metrics.equals(MetricsMgr.Ca)) {
+			return this.getAfferentCoupling() + "|" + this.getCaList().size();
+		} else if (metrics.equals(MetricsMgr.Ce)) {
+			return this.getEfferentCoupling() + "|" + this.getCeList().size();
+		} else if (metrics.equals(MetricsMgr.isExt)) {
+			if (this.isUsedByExternal()) {
+				return MetricsMgr.isExt;
+			} else {
+				return MetricsMgr.NoValue;
+			}
+		} else {
+			return super.getValue(metrics);
+		}
+	}
+
 	private void collectInvokeClasses(JavaClass javaClass, Collection<JavaClass> invokeClasses) {
 		JavaClass invokeClass;
 		for (Method method : javaClass.getSelfMethods()) {
@@ -1010,35 +1080,6 @@ public final class JavaClass extends AbstractJDependUnit {
 			JDependContext.setInfo(SCOPE.THREAD_SCOPSE, haveStateJavaClasses, null);
 		}
 		return NoHaveState;
-	}
-
-	public void calImportedPackages() {
-		String packageName;
-
-		if (this.detail.getSuperClassName() != null) {
-			packageName = ParseUtil.getPackageName(this.detail.getSuperClassName());
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getInterfaceNames()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getAttributeTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getParamTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getVariableTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
 	}
 
 	private boolean addImportedPackage(String jPackage) {

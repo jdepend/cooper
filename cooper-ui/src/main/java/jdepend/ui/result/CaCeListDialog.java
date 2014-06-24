@@ -90,7 +90,7 @@ public final class CaCeListDialog extends CooperDialog {
 			if (unit.getContainsCycle()) {
 				row[12] = MetricsMgr.Cyclic;
 			} else {
-				row[12] = MetricsMgr.NoCyclic;
+				row[12] = MetricsMgr.NoValue;
 			}
 
 			listModel.addRow(row);

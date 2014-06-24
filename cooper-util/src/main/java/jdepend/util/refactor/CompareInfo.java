@@ -54,7 +54,7 @@ public class CompareInfo {
 	private static Boolean evaluate(int result, String metrics) {
 		if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
-				|| metrics.equals(MetricsMgr.Ce)) {
+				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(MetricsMgr.State)) {
 			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
 			if (result < 0) {
@@ -117,6 +117,18 @@ public class CompareInfo {
 				return true;
 			}
 		} else if (metrics.equals(MetricsMgr.Cycle)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(MetricsMgr.Stable)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(MetricsMgr.isPrivateElement)) {
 			if (result < 0) {
 				return true;
 			} else {

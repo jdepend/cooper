@@ -268,7 +268,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 			if (unit.getContainsCycle()) {
 				row[14] = MetricsMgr.Cyclic;
 			} else {
-				row[14] = MetricsMgr.NoCyclic;
+				row[14] = MetricsMgr.NoValue;
 			}
 			for (int col = 0; col < row.length; col++) {
 				data[rowCount][col] = row[col];

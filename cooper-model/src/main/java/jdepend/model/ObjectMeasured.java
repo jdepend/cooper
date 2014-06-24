@@ -39,7 +39,7 @@ public abstract class ObjectMeasured implements Measurable {
 			if (this.getContainsCycle()) {
 				return MetricsMgr.Cyclic;
 			} else {
-				return MetricsMgr.NoCyclic;
+				return MetricsMgr.NoValue;
 			}
 		} else if (metrics.equals(MetricsMgr.Cohesion)) {
 			return MetricsFormat.toFormattedMetrics(this.getCohesion());

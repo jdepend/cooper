@@ -448,6 +448,11 @@ public final class SummaryPanel extends SubResultTabPanel {
 	}
 
 	class SummaryTableCellRenderer extends CompareTableCellRenderer {
+
+		public SummaryTableCellRenderer() {
+			super(AdjustHistory.CompareType_Component);
+		}
+
 		@Override
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 				boolean hasFocus, final int row, final int column) {

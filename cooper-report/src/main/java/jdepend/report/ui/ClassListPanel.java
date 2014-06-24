@@ -29,6 +29,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
+import jdepend.util.refactor.AdjustHistory;
 
 public class ClassListPanel extends JPanel {
 
