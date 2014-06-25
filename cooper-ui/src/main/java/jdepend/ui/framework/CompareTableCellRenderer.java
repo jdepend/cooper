@@ -12,6 +12,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.table.TableCellRenderer;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
@@ -51,6 +52,9 @@ public class CompareTableCellRenderer extends JPanel implements TableCellRendere
 				CompareInfo info = AdjustHistory.getInstance().compare(value, this.compareType, objectMeasuredName,
 						metrics);
 				if (info != null && info.isDiff()) {
+					if(metrics.equals(MetricsMgr.isPrivateElement)){
+						System.out.println("xxx");
+					}
 					// 暂存原始数据
 					originality = info.getOriginality();
 					JLabel labelDirection = new JLabel();

@@ -284,7 +284,6 @@ public final class SummaryPanel extends SubResultTabPanel {
 		sorter.setSortingStatus(0, TableSorter.ASCENDING);
 
 		Object[] row;
-		int rowCount = 0;
 		for (jdepend.model.Component unit : result.getComponents()) {
 			row = new Object[headers.length];
 			for (int i = 0; i < headers.length; i++) {
@@ -293,7 +292,6 @@ public final class SummaryPanel extends SubResultTabPanel {
 			if (!unit.isInner()) {
 				this.extendUnits.add(unit.getName());
 			}
-			rowCount++;
 			model.addRow(row);
 		}
 		model.addRow(this.formatSummary(result.getSummary()));

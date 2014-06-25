@@ -96,15 +96,23 @@ public class ClassListPanel extends JPanel {
 			row[12] = MetricsFormat.toFormattedMetrics(javaClass.getObjectOriented());
 			if (javaClass.getContainsCycle()) {
 				row[13] = MetricsMgr.Cyclic;
+			} else {
+				row[13] = MetricsMgr.NoValue;
 			}
 			if (javaClass.isState()) {
 				row[14] = MetricsMgr.HaveState;
+			} else {
+				row[14] = MetricsMgr.NoValue;
 			}
 			if (javaClass.isStable()) {
 				row[15] = MetricsMgr.Stability;
+			} else {
+				row[15] = MetricsMgr.NoValue;
 			}
 			if (!javaClass.isUsedByExternal()) {
 				row[16] = MetricsMgr.Private;
+			} else {
+				row[16] = MetricsMgr.NoValue;
 			}
 			classListModel.addRow(row);
 			if (!javaClass.isInner()) {
@@ -316,15 +324,23 @@ public class ClassListPanel extends JPanel {
 					row[14] = MetricsFormat.toFormattedMetrics(item.getDepend().getObjectOriented());
 					if (item.getDepend().getContainsCycle()) {
 						row[15] = MetricsMgr.Cyclic;
+					} else {
+						row[15] = MetricsMgr.NoValue;
 					}
 					if (item.getDepend().isState()) {
 						row[16] = MetricsMgr.HaveState;
+					} else {
+						row[16] = MetricsMgr.NoValue;
 					}
 					if (javaClass.isStable()) {
 						row[17] = MetricsMgr.Stability;
+					} else {
+						row[17] = MetricsMgr.NoValue;
 					}
 					if (!javaClass.isUsedByExternal()) {
 						row[18] = MetricsMgr.Private;
+					} else {
+						row[18] = MetricsMgr.NoValue;
 					}
 
 					listModel.addRow(row);
