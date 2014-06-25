@@ -42,7 +42,7 @@ public class ClassListPanel extends JPanel {
 	protected List<String> selectedJavaClass;
 
 	// 外部JavaClass名称
-	private List<String> extendUnits = new ArrayList<String>();
+	protected List<String> extendUnits = new ArrayList<String>();
 
 	public ClassListPanel() {
 		super();
@@ -212,8 +212,9 @@ public class ClassListPanel extends JPanel {
 
 		sorter.setSortingStatus(0, TableSorter.ASCENDING);
 
+		JavaClassTableRenderer renderer = new JavaClassTableRenderer();
 		for (int i = 0; i < classListTable.getColumnCount(); i++) {
-			classListTable.getColumn(classListTable.getColumnName(i)).setCellRenderer(new JavaClassTableRenderer());
+			classListTable.getColumn(classListTable.getColumnName(i)).setCellRenderer(renderer);
 		}
 	}
 

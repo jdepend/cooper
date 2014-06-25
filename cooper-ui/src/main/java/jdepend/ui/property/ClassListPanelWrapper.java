@@ -1,6 +1,7 @@
 package jdepend.ui.property;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -56,9 +57,9 @@ public class ClassListPanelWrapper extends ClassListPanel {
 
 		super.initClassList();
 
-		CompareTableCellRenderer render = new CompareTableCellRenderer(AdjustHistory.CompareType_Class);
+		JavaClassCompareTableCellRenderer renderer = new JavaClassCompareTableCellRenderer();
 		for (int i = 0; i < classListTable.getColumnCount(); i++) {
-			classListTable.getColumnModel().getColumn(i).setCellRenderer(render);
+			classListTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 
 		final JPopupMenu popupMenu = new JPopupMenu();
@@ -305,6 +306,26 @@ public class ClassListPanelWrapper extends ClassListPanel {
 				Component source = (Component) e.getSource();
 				JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 			}
+		}
+	}
+	
+	class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer {
+
+		public JavaClassCompareTableCellRenderer() {
+			super(AdjustHistory.CompareType_Class);
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+				boolean hasFocus, final int row, final int column) {
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			if (this.getComponentCount() > 0) {
+				Component component = this.getComponent(0);
+				if (extendUnits.contains(table.getValueAt(row, 0))) {
+					component.setForeground(Color.GRAY);
+				}
+			}
+			return this;
 		}
 	}
 }

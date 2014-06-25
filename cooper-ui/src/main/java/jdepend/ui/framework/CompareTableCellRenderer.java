@@ -12,7 +12,6 @@ import javax.swing.ToolTipManager;
 import javax.swing.table.TableCellRenderer;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
