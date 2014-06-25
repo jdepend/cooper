@@ -52,9 +52,6 @@ public class CompareTableCellRenderer extends JPanel implements TableCellRendere
 				CompareInfo info = AdjustHistory.getInstance().compare(value, this.compareType, objectMeasuredName,
 						metrics);
 				if (info != null && info.isDiff()) {
-					if(metrics.equals(MetricsMgr.isPrivateElement)){
-						System.out.println("xxx");
-					}
 					// 暂存原始数据
 					originality = info.getOriginality();
 					JLabel labelDirection = new JLabel();

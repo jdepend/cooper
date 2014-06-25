@@ -978,15 +978,9 @@ public final class JavaClass extends AbstractJDependUnit {
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.Private)) {
-			if (this.isUsedByExternal()) {
+		} else if (metrics.equals(MetricsMgr.isPrivateElement)) {
+			if (!this.isUsedByExternal()) {
 				return MetricsMgr.Private;
-			} else {
-				return MetricsMgr.NoValue;
-			}
-		} else if (metrics.equals(MetricsMgr.isExt)) {
-			if (this.isUsedByExternal()) {
-				return MetricsMgr.isExt;
 			} else {
 				return MetricsMgr.NoValue;
 			}
@@ -994,12 +988,6 @@ public final class JavaClass extends AbstractJDependUnit {
 			return this.getAfferentCoupling() + "|" + this.getCaList().size();
 		} else if (metrics.equals(MetricsMgr.Ce)) {
 			return this.getEfferentCoupling() + "|" + this.getCeList().size();
-		} else if (metrics.equals(MetricsMgr.isExt)) {
-			if (this.isUsedByExternal()) {
-				return MetricsMgr.isExt;
-			} else {
-				return MetricsMgr.NoValue;
-			}
 		} else {
 			return super.getValue(metrics);
 		}

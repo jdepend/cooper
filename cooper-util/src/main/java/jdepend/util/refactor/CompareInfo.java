@@ -130,9 +130,9 @@ public class CompareInfo {
 			}
 		} else if (metrics.equals(MetricsMgr.isPrivateElement)) {
 			if (result < 0) {
-				return true;
-			} else {
 				return false;
+			} else {
+				return true;
 			}
 		} else {
 			return null;

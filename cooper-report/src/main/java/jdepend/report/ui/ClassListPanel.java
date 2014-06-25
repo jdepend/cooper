@@ -24,12 +24,10 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
-import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
-import jdepend.util.refactor.AdjustHistory;
 
 public class ClassListPanel extends JPanel {
 
@@ -79,40 +77,12 @@ public class ClassListPanel extends JPanel {
 
 		this.component = component;
 
+		String metrics = null;
 		for (JavaClass javaClass : this.component.getClasses()) {
 			row = new Object[17];
-			row[0] = javaClass.getName();
-			row[1] = javaClass.getLineCount();
-			row[2] = javaClass.getConcreteClassCount();
-			row[3] = javaClass.getAbstractClassCount();
-			row[4] = javaClass.getAfferentCoupling() + "|" + javaClass.getCaList().size();
-			row[5] = javaClass.getEfferentCoupling() + "|" + javaClass.getCeList().size();
-			row[6] = MetricsFormat.toFormattedMetrics(javaClass.getAbstractness());
-			row[7] = MetricsFormat.toFormattedMetrics(javaClass.getStability());
-			row[8] = MetricsFormat.toFormattedMetrics(javaClass.getDistance());
-			row[9] = MetricsFormat.toFormattedMetrics(javaClass.getCoupling());
-			row[10] = MetricsFormat.toFormattedMetrics(javaClass.getCohesion());
-			row[11] = MetricsFormat.toFormattedMetrics(javaClass.getBalance());
-			row[12] = MetricsFormat.toFormattedMetrics(javaClass.getObjectOriented());
-			if (javaClass.getContainsCycle()) {
-				row[13] = MetricsMgr.Cyclic;
-			} else {
-				row[13] = MetricsMgr.NoValue;
-			}
-			if (javaClass.isState()) {
-				row[14] = MetricsMgr.HaveState;
-			} else {
-				row[14] = MetricsMgr.NoValue;
-			}
-			if (javaClass.isStable()) {
-				row[15] = MetricsMgr.Stability;
-			} else {
-				row[15] = MetricsMgr.NoValue;
-			}
-			if (!javaClass.isUsedByExternal()) {
-				row[16] = MetricsMgr.Private;
-			} else {
-				row[16] = MetricsMgr.NoValue;
+			for (int i = 0; i < 17; i++) {
+				metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+				row[i] = javaClass.getValue(metrics);
 			}
 			classListModel.addRow(row);
 			if (!javaClass.isInner()) {
@@ -302,47 +272,22 @@ public class ClassListPanel extends JPanel {
 				items = javaClass.getCeItems();
 			}
 			boolean isInner;
+			String metrics1 = null;
 			for (JavaClassRelationItem item : items) {
 				isInner = ClassListPanel.this.component.containsClass(item.getDepend());
 				// 判断是否是环境外的
 				if (includeInner || !isInner) {
 					row = new Object[19];
-					row[0] = item.getDepend().getName();
-					row[1] = item.getType().getName();
-					row[2] = isInner ? "否" : "是";
-					row[3] = item.getDepend().getLineCount();
-					row[4] = item.getDepend().getConcreteClassCount();
-					row[5] = item.getDepend().getAbstractClassCount();
-					row[6] = item.getDepend().getAfferentCoupling() + "|" + item.getDepend().getCaList().size();
-					row[7] = item.getDepend().getEfferentCoupling() + "|" + item.getDepend().getCeList().size();
-					row[8] = MetricsFormat.toFormattedMetrics(item.getDepend().getAbstractness());
-					row[9] = MetricsFormat.toFormattedMetrics(item.getDepend().getStability());
-					row[10] = MetricsFormat.toFormattedMetrics(item.getDepend().getDistance());
-					row[11] = MetricsFormat.toFormattedMetrics(item.getDepend().getCoupling());
-					row[12] = MetricsFormat.toFormattedMetrics(item.getDepend().getCohesion());
-					row[13] = MetricsFormat.toFormattedMetrics(item.getDepend().getBalance());
-					row[14] = MetricsFormat.toFormattedMetrics(item.getDepend().getObjectOriented());
-					if (item.getDepend().getContainsCycle()) {
-						row[15] = MetricsMgr.Cyclic;
-					} else {
-						row[15] = MetricsMgr.NoValue;
+					for (int i = 0; i < 19; i++) {
+						if (i == 1) {
+							row[1] = item.getType().getName();
+						} else if (i == 2) {
+							row[2] = isInner ? "否" : "是";
+						} else {
+							metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
+							row[i] = item.getDepend().getValue(metrics1);
+						}
 					}
-					if (item.getDepend().isState()) {
-						row[16] = MetricsMgr.HaveState;
-					} else {
-						row[16] = MetricsMgr.NoValue;
-					}
-					if (javaClass.isStable()) {
-						row[17] = MetricsMgr.Stability;
-					} else {
-						row[17] = MetricsMgr.NoValue;
-					}
-					if (!javaClass.isUsedByExternal()) {
-						row[18] = MetricsMgr.Private;
-					} else {
-						row[18] = MetricsMgr.NoValue;
-					}
-
 					listModel.addRow(row);
 				}
 			}

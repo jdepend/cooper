@@ -33,22 +33,21 @@ public final class MetricsMgr {
 	public static final String OO = "OO";
 	public static final String Cycle = "Cycle";
 	public static final String Encapsulation = "Encapsulation";
-	
+
 	public static final String State = "State";
 	public static final String Stable = "Stable";
 	public static final String isPrivateElement = "isPrivateElement";
 	
 	public static final String Cyclic = "存在";
-
+	
 	public static final String HaveState = "有";
 	public static final String Stability = "稳定";
 	public static final String Private = "私有";
 	public static final String isExt = "是";
-	
+
 	public static final String NoValue = "";
 
 	private static MetricsMgr mgr = new MetricsMgr();
-	
 
 	protected Map<String, Metrics> metricses = new HashMap<String, Metrics>();
 
