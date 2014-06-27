@@ -21,6 +21,7 @@ import javax.swing.ToolTipManager;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.util.BundleUtil;
+import jdepend.framework.util.StringUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 
@@ -98,7 +99,13 @@ public class WorkspaceSettingDialog extends JDialog {
 
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
+				String defaultDir = null;
+				if (workspacePath.getText() == null) {
+					defaultDir = System.getProperty("user.home");
+				} else {
+					defaultDir = workspacePath.getText().substring(0, StringUtil.lastIndexOf(workspacePath.getText(), "\\", 3));
+				}
+				JFileChooser jFileChooser = new JFileChooser(defaultDir);
 				jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int result = jFileChooser.showOpenDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
@@ -144,7 +151,7 @@ public class WorkspaceSettingDialog extends JDialog {
 						frame.getGroupPanel().refreshGroup();
 						// 刷新分析器
 						frame.getCulturePanel().refreshAnalyzer();
-						//刷新新的UI信息
+						// 刷新新的UI信息
 						UIPropertyConfigurator.getInstance().refresh();
 						// 刷新Layout
 						frame.refreshLayout();

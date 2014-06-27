@@ -28,4 +28,15 @@ public final class StringUtil {
 		}
 		return valueLength;
 	}
+
+	public static int lastIndexOf(String sA, String sB, int num) {
+		int weizhi = 0;
+		for (int i = 1; i < num; i++) {
+			if (weizhi == 0) {
+				weizhi = sA.lastIndexOf(sB);
+			}
+			weizhi = sA.lastIndexOf(sB, weizhi - 1);
+		}
+		return weizhi;
+	}
 }
