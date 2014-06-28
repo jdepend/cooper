@@ -16,7 +16,7 @@
 						<div
 							class="input-prepend ${not empty param.login_error ? 'error' : ''}">
 							<span class="add-on">邮箱&nbsp;</span> <input id="username"
-								name='username' value="tian.ye" type="text" />
+								name='username' type="text" />
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 						<div
 							class="input-prepend ${not empty param.login_error ? 'error' : ''}">
 							<span class="add-on">密码&nbsp;</span> <input id="password"
-								name='password' value="123456" type="password" />
+								name='password' type="password" />
 						</div>
 					</div>
 				</div>
