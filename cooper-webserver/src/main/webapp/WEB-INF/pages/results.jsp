@@ -16,6 +16,9 @@
 			<shiro:hasPermission name="admin:delete">
 			<button id="deleteResult" class="btn" style="margin-bottom:10px;">删除结果</button>
 			</shiro:hasPermission>
+			<shiro:hasPermission name="admin:download">
+			<button id="downloadData" class="btn" style="margin-bottom:10px;">下载数据文件</button>
+			</shiro:hasPermission>
 			<table class="table table-bordered" pa_ui_name="table,exinput"
 				pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
 				pa_ui_select_trigger="tr" pa_ui_select_column="0"
@@ -111,6 +114,11 @@
 			}else{
 				$.Showmsg('请选择分析结果！');
 			}
+		});
+		
+		$('#downloadData').click(function(){
+			$('#submitForm').attr('action', '${ctx}/admin/result/data/download');
+			$('#submitForm').submit();
 		});
 	});
 </script>

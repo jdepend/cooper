@@ -1,7 +1,5 @@
 package jdepend.framework.util;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,8 +11,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import java.util.jar.JarInputStream;
-import java.util.zip.ZipEntry;
 
 import jdepend.framework.exception.JDependException;
 
