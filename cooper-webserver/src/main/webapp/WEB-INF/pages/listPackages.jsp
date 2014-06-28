@@ -184,6 +184,14 @@
 				$.Showmsg('请创建组件！');
 				return;
 			}
+			var componentCount = 0;
+			for (var componentName in componentModel) {
+				componentCount++;
+			}
+			if(componentCount < 2){
+				$.Showmsg('请至少创建2个组件！');
+				return;
+			}
 			$.cookie('componentModel_' + '${analysePath}', $.toJSON(componentModel), {expires: 365}); 
 			$('#componentModel').val($.toJSON(componentModel));
 			$('#submitForm').submit();
