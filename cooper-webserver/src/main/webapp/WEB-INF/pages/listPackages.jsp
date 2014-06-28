@@ -11,6 +11,7 @@
 			</fieldset>
 			<button id="createComponent" class="btn">选择包创建组件</button>
 			<button id="joinComponent" class="btn">选择包加入已有组件</button>
+			请至少创建两个组件
 			<div id = "listPackageScroll"
 				style="overflow-x: auto; overflow-y: auto; height: 350px; width:100%; border: 1px solid #dddddd;margin-top:10px;">
 				<table class="table table-bordered" pa_ui_name="table,exinput"
@@ -189,7 +190,7 @@
 				componentCount++;
 			}
 			if(componentCount < 2){
-				$.Showmsg('请至少创建2个组件！');
+				$.Showmsg('请至少创建两个组件！');
 				return;
 			}
 			$.cookie('componentModel_' + '${analysePath}', $.toJSON(componentModel), {expires: 365}); 
