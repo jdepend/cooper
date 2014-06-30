@@ -5,8 +5,7 @@
 <div class="layout">
 	<div class="login">
 		<div class="login-form">
-			<form name="f" action="${ctx}/login" method="POST"
-				onsubmit="rememberUserName()">
+			<form name="f" action="${ctx}/login" method="POST">
 				<c:if test="${msg!=null }">
 					<p style="color: red; margin-left: 10px;">${msg }</p>
 				</c:if>
@@ -33,7 +32,7 @@
 
 				<div class="control-group">
 					<div class="controls rememberme">
-						<label> <input type="checkbox" id="todo" name="todo" /> <span>两周内记住我</span></label>
+						<label> <input type="checkbox" name="rememberMe" value="true"> <span>两周内记住我</span></label>
 						<div style="clear:both"></div>
 					</div>
 				</div>
@@ -177,52 +176,3 @@
 	font-size: 16px;
 }
 </style>
-<script type="text/javascript">
-	require([ 'jquery' ], function($) {
-		var userName = getLastUser();
-		if (userName != null) {
-			$('#username').val(userName);
-		}
-		$('#username').focus().select().each(function(i, username) {
-			//filter @neusoft.com
-			$(username).closest('form').submit(function() {
-				var val = username.value, index;
-				if ((index = val.indexOf('@')) > 0) {
-					// 					val = val.substr(0,index)
-					// 					username.value = val;
-					// console.log(val);
-				}
-			})
-		})
-
-	});
-
-	function getLastUser() {
-		var name = "lastUser";
-		return getCookie(name);
-	};
-
-	function getCookie(name) {
-		var arr = document.cookie.match(new RegExp("(^| )" + name
-				+ "=([^;]*)(;|$)"));
-		if (arr != null)
-			return unescape(arr[2]);
-		return null;
-	};
-
-	function rememberUserName() {
-		var userName = $('#username').val();
-		var name = "lastUser";
-		SetCookie(name, userName);
-	};
-
-	function SetCookie(name, value) {
-		//cookie有效时间为30天
-		var Days = 30;
-		var exp = new Date();
-		//当前时间加上两周的时间
-		exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-		document.cookie = name + "=" + escape(value) + ";expires="
-				+ exp.toGMTString();
-	};
-</script>
