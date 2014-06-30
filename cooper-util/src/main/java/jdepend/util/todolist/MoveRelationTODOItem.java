@@ -1,6 +1,8 @@
 package jdepend.util.todolist;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
@@ -22,7 +24,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 
 	protected transient boolean isChangeDir;
 
-	protected transient ThreadLocal<collectData> collectData = new ThreadLocal<collectData>();
+	private static ThreadLocal<Map<Relation, RelationData>> relationDatas = new ThreadLocal<Map<Relation, RelationData>>();
 
 	public MoveRelationTODOItem(Relation relation) {
 		super();
@@ -42,13 +44,18 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 	}
 
 	private void collect() {
-		if (this.collectData.get() == null) {
-			this.collectData.set(new collectData(relation));
+		Map<Relation, RelationData> datas = relationDatas.get();
+		if (datas == null) {
+			datas = new HashMap<Relation, RelationData>();
+			relationDatas.set(datas);
+		}
+		if (datas.get(this.relation) == null) {
+			datas.put(relation, new RelationData(relation));
 		}
 	}
 
-	protected collectData getCollectData() {
-		return this.collectData.get();
+	protected RelationData getCollectData() {
+		return relationDatas.get().get(this.relation);
 	}
 
 	public final boolean isMove() throws JDependException {
@@ -90,7 +97,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		}
 	}
 
-	class collectData {
+	class RelationData {
 
 		float currentCeIntensity;
 		float currentCaIntensity;
@@ -101,7 +108,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		Component current;
 		Component depend;
 
-		public collectData(Relation relation) {
+		public RelationData(Relation relation) {
 			this.current = new VirtualComponent("current");
 			this.depend = new VirtualComponent("depend");
 
