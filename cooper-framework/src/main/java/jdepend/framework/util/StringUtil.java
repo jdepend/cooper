@@ -30,6 +30,9 @@ public final class StringUtil {
 	}
 
 	public static int lastIndexOf(String sA, String sB, int num) {
+
+		assert (num > 1);
+
 		int weizhi = 0;
 		for (int i = 1; i < num; i++) {
 			if (weizhi == 0) {
@@ -39,4 +42,11 @@ public final class StringUtil {
 		}
 		return weizhi;
 	}
+
+	public static void main(String[] args) {
+		String test = "126";
+
+		System.out.print(lastIndexOf(test, "3", 3));
+	}
+
 }

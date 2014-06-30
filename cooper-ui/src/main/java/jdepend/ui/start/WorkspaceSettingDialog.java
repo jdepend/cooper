@@ -100,10 +100,15 @@ public class WorkspaceSettingDialog extends JDialog {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String defaultDir = null;
-				if (workspacePath.getText() == null) {
+				if (workspacePath.getText() == null || workspacePath.getText().length() == 0) {
 					defaultDir = System.getProperty("user.home");
 				} else {
-					defaultDir = workspacePath.getText().substring(0, StringUtil.lastIndexOf(workspacePath.getText(), "\\", 3));
+					int pos = StringUtil.lastIndexOf(workspacePath.getText(), "\\", 3);
+					if (pos != -1) {
+						defaultDir = workspacePath.getText().substring(0, pos);
+					} else {
+						defaultDir = System.getProperty("user.home");
+					}
 				}
 				JFileChooser jFileChooser = new JFileChooser(defaultDir);
 				jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
