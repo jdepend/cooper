@@ -22,14 +22,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 
 	protected transient boolean isChangeDir;
 
-	protected transient float currentCeIntensity;
-	protected transient float currentCaIntensity;
-
-	protected transient float dependCeIntensity;
-	protected transient float dependCaIntensity;
-
-	protected transient Component current;
-	protected transient Component depend;
+	protected transient ThreadLocal<collectData> collectData = new ThreadLocal<collectData>();
 
 	public MoveRelationTODOItem(Relation relation) {
 		super();
@@ -49,37 +42,13 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 	}
 
 	private void collect() {
-		this.current = new VirtualComponent("current");
-		this.depend = new VirtualComponent("depend");
-
-		VirtualComponent currentOther = new VirtualComponent("currentOther");
-		VirtualComponent dependOther = new VirtualComponent("dependOther");
-
-		Component currentComponent = this.relation.getCurrent().getComponent();
-		Component dependComponent = this.relation.getDepend().getComponent();
-		// 计算需要分析的组件
-		for (JavaClassRelationItem item : this.relation.getItems()) {
-			current.addJavaClass(item.getCurrent());
-			depend.addJavaClass(item.getDepend());
+		if (this.collectData.get() == null) {
+			this.collectData.set(new collectData(relation));
 		}
+	}
 
-		for (JavaClass javaClass : currentComponent.getClasses()) {
-			if (!current.containsClass(javaClass)) {
-				currentOther.addJavaClass(javaClass);
-			}
-		}
-
-		for (JavaClass javaClass : dependComponent.getClasses()) {
-			if (!depend.containsClass(javaClass)) {
-				dependOther.addJavaClass(javaClass);
-			}
-		}
-		// 计算组件间的耦合值
-		this.currentCeIntensity = current.calCeCoupling(currentOther);
-		this.currentCaIntensity = currentOther.calCeCoupling(current);
-
-		this.dependCeIntensity = depend.calCeCoupling(dependOther);
-		this.dependCaIntensity = dependOther.calCeCoupling(depend);
+	protected collectData getCollectData() {
+		return this.collectData.get();
 	}
 
 	public final boolean isMove() throws JDependException {
@@ -121,4 +90,49 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		}
 	}
 
+	class collectData {
+
+		float currentCeIntensity;
+		float currentCaIntensity;
+
+		float dependCeIntensity;
+		float dependCaIntensity;
+
+		Component current;
+		Component depend;
+
+		public collectData(Relation relation) {
+			this.current = new VirtualComponent("current");
+			this.depend = new VirtualComponent("depend");
+
+			VirtualComponent currentOther = new VirtualComponent("currentOther");
+			VirtualComponent dependOther = new VirtualComponent("dependOther");
+
+			Component currentComponent = relation.getCurrent().getComponent();
+			Component dependComponent = relation.getDepend().getComponent();
+			// 计算需要分析的组件
+			for (JavaClassRelationItem item : relation.getItems()) {
+				current.addJavaClass(item.getCurrent());
+				depend.addJavaClass(item.getDepend());
+			}
+
+			for (JavaClass javaClass : currentComponent.getClasses()) {
+				if (!current.containsClass(javaClass)) {
+					currentOther.addJavaClass(javaClass);
+				}
+			}
+
+			for (JavaClass javaClass : dependComponent.getClasses()) {
+				if (!depend.containsClass(javaClass)) {
+					dependOther.addJavaClass(javaClass);
+				}
+			}
+			// 计算组件间的耦合值
+			this.currentCeIntensity = current.calCeCoupling(currentOther);
+			this.currentCaIntensity = currentOther.calCeCoupling(current);
+
+			this.dependCeIntensity = depend.calCeCoupling(dependOther);
+			this.dependCaIntensity = dependOther.calCeCoupling(depend);
+		}
+	}
 }

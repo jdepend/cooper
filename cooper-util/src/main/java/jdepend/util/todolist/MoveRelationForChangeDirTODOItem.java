@@ -17,24 +17,26 @@ public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem
 			throw new JDependException("该关系不是下层组件依赖了上层组件或者稳定的组件依赖不稳定的组件或者循环依赖");
 		}
 		// 根据耦合值判断需要移动Relation
-		if (MathUtil.isZero(currentCaIntensity) || MathUtil.isZero(dependCeIntensity)) {
-			if (currentCeIntensity > dependCaIntensity) {
-				this.moveClasses = depend.getClasses();
+		if (MathUtil.isZero(getCollectData().currentCaIntensity) || MathUtil.isZero(getCollectData().dependCeIntensity)) {
+			if (getCollectData().currentCeIntensity > getCollectData().dependCaIntensity) {
+				this.moveClasses = getCollectData().depend.getClasses();
 				this.targetComponent = this.relation.getCurrent().getComponent();
 			} else {
-				this.moveClasses = current.getClasses();
+				this.moveClasses = getCollectData().current.getClasses();
 				this.targetComponent = this.relation.getDepend().getComponent();
 			}
 			this.isChangeDir = true;
 
 			return true;
-		} else if (MathUtil.isZero(currentCeIntensity) && currentCaIntensity < this.relation.getIntensity()) {
-			this.moveClasses = current.getClasses();
+		} else if (MathUtil.isZero(getCollectData().currentCeIntensity)
+				&& getCollectData().currentCaIntensity < this.relation.getIntensity()) {
+			this.moveClasses = getCollectData().current.getClasses();
 			this.targetComponent = this.relation.getDepend().getComponent();
 			this.isChangeDir = false;
 			return true;
-		} else if (MathUtil.isZero(dependCaIntensity) && dependCeIntensity < this.relation.getIntensity()) {
-			this.moveClasses = depend.getClasses();
+		} else if (MathUtil.isZero(getCollectData().dependCaIntensity)
+				&& getCollectData().dependCeIntensity < this.relation.getIntensity()) {
+			this.moveClasses = getCollectData().depend.getClasses();
 			this.targetComponent = this.relation.getCurrent().getComponent();
 			this.isChangeDir = false;
 			return true;

@@ -11,23 +11,27 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 	}
 
 	protected boolean decision() throws JDependException {
-		if(this.relation.isAttention()){
+		if (this.relation.isAttention()) {
 			throw new JDependException("该关系值得关注，不应进入解决高耦合低内聚TODOItem");
 		}
 		// 根据耦合值判断是否需要移动Relation
-		if (!MathUtil.isZero(currentCeIntensity) && !MathUtil.isZero(currentCaIntensity)
-				&& !MathUtil.isZero(dependCeIntensity) && !MathUtil.isZero(dependCaIntensity)) {
+		if (!MathUtil.isZero(getCollectData().currentCeIntensity)
+				&& !MathUtil.isZero(getCollectData().currentCaIntensity)
+				&& !MathUtil.isZero(getCollectData().dependCeIntensity)
+				&& !MathUtil.isZero(getCollectData().dependCaIntensity)) {
 			return false;
 		} else {
 
 			// 计算current偶合值
 			float currentIntensity;
 			boolean isCurrentChangeDir;
-			if (!MathUtil.isZero(currentCeIntensity) && MathUtil.isZero(currentCaIntensity)) {
-				currentIntensity = currentCeIntensity;
+			if (!MathUtil.isZero(getCollectData().currentCeIntensity)
+					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
+				currentIntensity = getCollectData().currentCeIntensity;
 				isCurrentChangeDir = true;
-			} else if (MathUtil.isZero(currentCeIntensity) && !MathUtil.isZero(currentCaIntensity)) {
-				currentIntensity = currentCaIntensity;
+			} else if (MathUtil.isZero(getCollectData().currentCeIntensity)
+					&& !MathUtil.isZero(getCollectData().currentCaIntensity)) {
+				currentIntensity = getCollectData().currentCaIntensity;
 				isCurrentChangeDir = false;
 			} else {
 				currentIntensity = Float.MAX_VALUE;
@@ -36,11 +40,13 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 			// 计算depend偶合值
 			float dependIntensity;
 			boolean isDependChangeDir;
-			if (!MathUtil.isZero(dependCeIntensity) && MathUtil.isZero(dependCaIntensity)) {
-				dependIntensity = dependCeIntensity;
+			if (!MathUtil.isZero(getCollectData().dependCeIntensity)
+					&& MathUtil.isZero(getCollectData().dependCaIntensity)) {
+				dependIntensity = getCollectData().dependCeIntensity;
 				isDependChangeDir = false;
-			} else if (MathUtil.isZero(dependCeIntensity) && !MathUtil.isZero(dependCaIntensity)) {
-				dependIntensity = dependCaIntensity;
+			} else if (MathUtil.isZero(getCollectData().dependCeIntensity)
+					&& !MathUtil.isZero(getCollectData().dependCaIntensity)) {
+				dependIntensity = getCollectData().dependCaIntensity;
 				isDependChangeDir = true;
 			} else {
 				dependIntensity = Float.MAX_VALUE;
@@ -52,11 +58,11 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 				return false;
 			} else {
 				if (currentIntensity > dependIntensity) {
-					this.moveClasses = depend.getClasses();
+					this.moveClasses = getCollectData().depend.getClasses();
 					this.targetComponent = this.relation.getCurrent().getComponent();
 					this.isChangeDir = isDependChangeDir;
 				} else {
-					this.moveClasses = current.getClasses();
+					this.moveClasses = getCollectData().current.getClasses();
 					this.targetComponent = this.relation.getDepend().getComponent();
 					this.isChangeDir = isCurrentChangeDir;
 				}
