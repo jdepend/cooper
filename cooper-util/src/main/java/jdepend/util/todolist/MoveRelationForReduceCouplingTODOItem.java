@@ -6,6 +6,8 @@ import jdepend.model.Relation;
 
 public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTODOItem {
 
+	private boolean deleteRelation = false;
+
 	public MoveRelationForReduceCouplingTODOItem(Relation relation) {
 		super(relation);
 	}
@@ -21,11 +23,16 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 				&& !MathUtil.isZero(getCollectData().dependCaIntensity)) {
 			return false;
 		} else {
-
 			// 计算current偶合值
 			float currentIntensity;
 			boolean isCurrentChangeDir;
-			if (!MathUtil.isZero(getCollectData().currentCeIntensity)
+			if (MathUtil.isZero(getCollectData().currentCeIntensity)
+					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
+				this.moveClasses = getCollectData().current.getClasses();
+				this.targetComponent = this.relation.getDepend().getComponent();
+				this.deleteRelation = true;
+				return true;
+			} else if (!MathUtil.isZero(getCollectData().currentCeIntensity)
 					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
 				currentIntensity = getCollectData().currentCeIntensity;
 				isCurrentChangeDir = true;
@@ -40,7 +47,13 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 			// 计算depend偶合值
 			float dependIntensity;
 			boolean isDependChangeDir;
-			if (!MathUtil.isZero(getCollectData().dependCeIntensity)
+			if (MathUtil.isZero(getCollectData().currentCeIntensity)
+					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
+				this.moveClasses = getCollectData().depend.getClasses();
+				this.targetComponent = this.relation.getCurrent().getComponent();
+				this.deleteRelation = true;
+				return true;
+			} else if (!MathUtil.isZero(getCollectData().dependCeIntensity)
 					&& MathUtil.isZero(getCollectData().dependCaIntensity)) {
 				dependIntensity = getCollectData().dependCeIntensity;
 				isDependChangeDir = false;
@@ -66,6 +79,12 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 					this.targetComponent = this.relation.getDepend().getComponent();
 					this.isChangeDir = isCurrentChangeDir;
 				}
+				if (this.isChangeDir) {
+					if (this.relation.getCurrent().getComponent().getStability() > this.relation.getDepend()
+							.getComponent().getStability()) {
+						return false;
+					}
+				}
 				return true;
 			}
 		}
@@ -78,7 +97,16 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 
 	@Override
 	public String getContent() {
-		return relation.getCurrent().getName() + " 依赖了 " + relation.getDepend().getName() + " 该移动"
-				+ (this.isChangeDir() ? "" : "不") + "会改变依赖方向";
+		StringBuilder info = new StringBuilder();
+		info.append(relation.getCurrent().getName());
+		info.append(" 依赖了 ");
+		info.append(relation.getDepend().getName());
+		info.append(" 该移动");
+		if (this.deleteRelation) {
+			info.append("会删除该关系");
+		} else {
+			info.append((this.isChangeDir() ? "" : "不") + "会改变依赖方向");
+		}
+		return info.toString();
 	}
 }
