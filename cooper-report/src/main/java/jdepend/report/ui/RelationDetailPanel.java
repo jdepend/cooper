@@ -163,7 +163,7 @@ public final class RelationDetailPanel extends JPanel {
 		listModel.addColumn(ReportConstant.CurrentJC);
 		listModel.addColumn(ReportConstant.DependJC);
 		listModel.addColumn(ReportConstant.DependType);
-		listModel.addColumn(ReportConstant.Intensity);
+		listModel.addColumn(ReportConstant.Relation_Intensity);
 
 		for (int i = 0; i < listTable.getColumnCount(); i++) {
 			listTable.getColumn(listTable.getColumnName(i)).setCellRenderer(new JavaClassRelationTableRenderer());

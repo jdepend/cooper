@@ -76,7 +76,8 @@ public class CompareInfo {
 	private static Boolean evaluate(int result, String metrics) {
 		if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
-				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(MetricsMgr.State)) {
+				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(MetricsMgr.JavaClass_State)
+				|| metrics.equals(MetricsMgr.Relation_CurrentName) || metrics.equals(MetricsMgr.Relation_DependName)) {
 			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
 			if (result < 0) {
@@ -144,13 +145,43 @@ public class CompareInfo {
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.Stable)) {
+		} else if (metrics.equals(MetricsMgr.JavaClass_Stable)) {
 			if (result < 0) {
 				return true;
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.isPrivateElement)) {
+		} else if (metrics.equals(MetricsMgr.JavaClass_isPrivateElement)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(MetricsMgr.Relation_CurrentCohesion)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(MetricsMgr.Relation_DependCohesion)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(MetricsMgr.Relation_Intensity)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(MetricsMgr.Relation_AttentionLevel)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(MetricsMgr.Relation_AttentionType)) {
 			if (result < 0) {
 				return false;
 			} else {

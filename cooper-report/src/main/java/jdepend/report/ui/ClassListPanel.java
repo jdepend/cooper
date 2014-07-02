@@ -193,9 +193,9 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.Balance);
 		classListModel.addColumn(ReportConstant.OO);
 		classListModel.addColumn(ReportConstant.Cycle);
-		classListModel.addColumn(ReportConstant.State);
-		classListModel.addColumn(ReportConstant.Stable);
-		classListModel.addColumn(ReportConstant.isPrivateElement);
+		classListModel.addColumn(ReportConstant.JavaClass_State);
+		classListModel.addColumn(ReportConstant.JavaClass_Stable);
+		classListModel.addColumn(ReportConstant.JavaClass_isPrivateElement);
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();
@@ -312,7 +312,7 @@ public class ClassListPanel extends JPanel {
 
 			listModel.addColumn(ReportConstant.Name);
 			listModel.addColumn(ReportConstant.DependType);
-			listModel.addColumn(ReportConstant.isExt);
+			listModel.addColumn(ReportConstant.JavaClass_isExt);
 			listModel.addColumn(ReportConstant.LC);
 			listModel.addColumn(ReportConstant.CC);
 			listModel.addColumn(ReportConstant.AC);
@@ -326,9 +326,9 @@ public class ClassListPanel extends JPanel {
 			listModel.addColumn(ReportConstant.Balance);
 			listModel.addColumn(ReportConstant.OO);
 			listModel.addColumn(ReportConstant.Cycle);
-			listModel.addColumn(ReportConstant.State);
-			listModel.addColumn(ReportConstant.Stable);
-			listModel.addColumn(ReportConstant.isPrivateElement);
+			listModel.addColumn(ReportConstant.JavaClass_State);
+			listModel.addColumn(ReportConstant.JavaClass_Stable);
+			listModel.addColumn(ReportConstant.JavaClass_isPrivateElement);
 		}
 	}
 

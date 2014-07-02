@@ -32,6 +32,9 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.RelationDetailDialog;
 import jdepend.report.util.ReportConstant;
+import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.util.refactor.CompareObject;
+import jdepend.util.refactor.RelationCompareObject;
 
 public final class RelationPanel extends SubResultTabPanel {
 
@@ -72,14 +75,14 @@ public final class RelationPanel extends SubResultTabPanel {
 			}
 		};
 
-		model.addColumn(ReportConstant.CurrentElement);
-		model.addColumn(ReportConstant.DependElement);
-		model.addColumn(ReportConstant.Intensity);
-		model.addColumn(ReportConstant.Current);
-		model.addColumn(ReportConstant.Depend);
-		model.addColumn(ReportConstant.RelationBalance);
-		model.addColumn(ReportConstant.RelationAttentionType);
-		model.addColumn(ReportConstant.RelationAttentionLevel);
+		model.addColumn(ReportConstant.Relation_CurrentName);
+		model.addColumn(ReportConstant.Relation_DependName);
+		model.addColumn(ReportConstant.Relation_Intensity);
+		model.addColumn(ReportConstant.Relation_CurrentCohesion);
+		model.addColumn(ReportConstant.Relation_DependCohesion);
+		model.addColumn(ReportConstant.Relation_Balance);
+		model.addColumn(ReportConstant.Relation_AttentionType);
+		model.addColumn(ReportConstant.Relation_AttentionLevel);
 
 		sorter = new TableSorter(model);
 
@@ -117,12 +120,12 @@ public final class RelationPanel extends SubResultTabPanel {
 					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
 
-					if (currentCol.equals(ReportConstant.Intensity)) {
+					if (currentCol.equals(ReportConstant.Relation_Intensity)) {
 						RelationDetailDialog d = new RelationDetailDialog(current, depend);
 						d.setModal(true);
 						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.CurrentElement)
-							|| currentCol.equals(ReportConstant.DependElement)) {
+					} else if (currentCol.equals(ReportConstant.Relation_CurrentName)
+							|| currentCol.equals(ReportConstant.Relation_DependName)) {
 
 						String element = (String) table.getValueAt(table.rowAtPoint(e.getPoint()),
 								table.columnAtPoint(e.getPoint()));
@@ -136,9 +139,9 @@ public final class RelationPanel extends SubResultTabPanel {
 		});
 
 		List<String> colNames = new ArrayList<String>();
-		colNames.add(ReportConstant.CurrentElement);
-		colNames.add(ReportConstant.DependElement);
-		colNames.add(ReportConstant.Intensity);
+		colNames.add(ReportConstant.Relation_CurrentName);
+		colNames.add(ReportConstant.Relation_DependName);
+		colNames.add(ReportConstant.Relation_Intensity);
 
 		table.addMouseMotionListener(new TableMouseMotionAdapter(table, colNames));
 
@@ -166,41 +169,37 @@ public final class RelationPanel extends SubResultTabPanel {
 		sorter.setSortingStatus(7, TableSorter.DESCENDING);
 
 		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.CurrentElement);
-		fitColNames.add(ReportConstant.DependElement);
+		fitColNames.add(ReportConstant.Relation_CurrentName);
+		fitColNames.add(ReportConstant.Relation_DependName);
 		JTableUtil.fitTableColumns(table, fitColNames);
 	}
 
-	class RelationTableRenderer extends JPanel implements TableCellRenderer {
+	class RelationTableRenderer extends CompareTableCellRenderer {
 
 		public RelationTableRenderer() {
-			this.setLayout(new BorderLayout());
 		}
 
 		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 				boolean hasFocus, int row, int column) {
 
-			this.removeAll();
-
-			if (value != null) {
-
-				JLabel labelValue = new JLabel();
-
-				labelValue.setFont(table.getFont());
+			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			if (this.getComponentCount() > 0) {
+				Component component = this.getComponent(0);
 				if (extendUnits.contains(value)) {
-					labelValue.setForeground(Color.GRAY);
+					component.setForeground(Color.GRAY);
 				}
-				labelValue.setText(String.valueOf(value));
-
-				this.add(labelValue);
-			}
-
-			if (isSelected) {
-				this.setBackground(table.getSelectionBackground());
-			} else {
-				this.setBackground(table.getBackground());
 			}
 			return this;
+		}
+
+		@Override
+		protected CompareObject getCompareObject(Object value, String id, String metrics) {
+			return new RelationCompareObject(value, id, metrics);
+		}
+
+		@Override
+		protected String getRowObjectId(JTable table, int row) {
+			return (String) table.getValueAt(row, 0) + "|" + (String) table.getValueAt(row, 1);
 		}
 
 	}

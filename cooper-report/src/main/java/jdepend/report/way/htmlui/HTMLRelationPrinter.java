@@ -12,13 +12,13 @@ public class HTMLRelationPrinter extends HTMLSortTablePrinter {
 
 		getWriter().println("<table id=\"RelationList\" class=\"sortable\">");
 		getWriter().println("<tr>");
-		this.printTableHeadElement(ReportConstant.CurrentElement);
-		this.printTableHeadElement(ReportConstant.DependElement);
-		this.printTableHeadElement(ReportConstant.Intensity);
-		this.printTableHeadElement(ReportConstant.Current);
-		this.printTableHeadElement(ReportConstant.Depend);
-		this.printTableHeadElement(ReportConstant.RelationBalance);
-		this.printTableHeadElement(ReportConstant.RelationAttentionType);
+		this.printTableHeadElement(ReportConstant.Relation_CurrentName);
+		this.printTableHeadElement(ReportConstant.Relation_DependName);
+		this.printTableHeadElement(ReportConstant.Relation_Intensity);
+		this.printTableHeadElement(ReportConstant.Relation_CurrentCohesion);
+		this.printTableHeadElement(ReportConstant.Relation_DependCohesion);
+		this.printTableHeadElement(ReportConstant.Relation_Balance);
+		this.printTableHeadElement(ReportConstant.Relation_AttentionType);
 		getWriter().println("\n</tr>");
 
 		for (Relation relation : relations) {

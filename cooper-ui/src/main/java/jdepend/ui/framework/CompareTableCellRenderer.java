@@ -43,10 +43,9 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 			this.add(labelValue);
 
 			String metrics = ReportConstant.toMetrics(table.getColumnName(column));
-			String objectMeasuredName = (String) table.getValueAt(row, 0);
+			String id = this.getRowObjectId(table, row);
 			try {
-				CompareInfo info = AdjustHistory.getInstance().compare(
-						this.getCompareObject(value, objectMeasuredName, metrics));
+				CompareInfo info = AdjustHistory.getInstance().compare(this.getCompareObject(value, id, metrics));
 				if (info != null && info.isDiff()) {
 					// 暂存原始数据
 					originality = info.getOriginality();
@@ -71,6 +70,10 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 	}
 
 	protected abstract CompareObject getCompareObject(Object value, String id, String metrics);
+
+	protected String getRowObjectId(JTable table, int row) {
+		return (String) table.getValueAt(row, 0);
+	}
 
 	@Override
 	public String getToolTipText(MouseEvent e) {

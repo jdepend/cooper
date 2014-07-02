@@ -966,19 +966,19 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	@Override
 	public Object getValue(String metrics) {
-		if (metrics.equals(MetricsMgr.State)) {
+		if (metrics.equals(MetricsMgr.JavaClass_State)) {
 			if (this.isState()) {
 				return MetricsMgr.HaveState;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.Stable)) {
+		} else if (metrics.equals(MetricsMgr.JavaClass_Stable)) {
 			if (this.isStable()) {
 				return MetricsMgr.Stability;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.isPrivateElement)) {
+		} else if (metrics.equals(MetricsMgr.JavaClass_isPrivateElement)) {
 			if (!this.isUsedByExternal()) {
 				return MetricsMgr.Private;
 			} else {

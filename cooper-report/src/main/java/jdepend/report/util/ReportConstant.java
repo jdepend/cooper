@@ -27,19 +27,19 @@ public class ReportConstant {
 	public static final String OO = BundleUtil.getString(BundleUtil.Metrics_OO);
 	public static final String Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
 	public static final String Cycle = BundleUtil.getString(BundleUtil.Metrics_Cycle);
-	public static final String State = BundleUtil.getString(BundleUtil.Metrics_State);
-	public static final String Stable = BundleUtil.getString(BundleUtil.Metrics_Stable);
-	public static final String isPrivateElement = BundleUtil.getString(BundleUtil.Metrics_isPrivateElement);
-	public static final String isExt = BundleUtil.getString(BundleUtil.Metrics_isExt);
+	public static final String JavaClass_State = BundleUtil.getString(BundleUtil.Metrics_State);
+	public static final String JavaClass_Stable = BundleUtil.getString(BundleUtil.Metrics_Stable);
+	public static final String JavaClass_isPrivateElement = BundleUtil.getString(BundleUtil.Metrics_isPrivateElement);
+	public static final String JavaClass_isExt = BundleUtil.getString(BundleUtil.Metrics_isExt);
 
-	public static final String CurrentElement = BundleUtil.getString(BundleUtil.Relation_CurrentElement);
-	public static final String DependElement = BundleUtil.getString(BundleUtil.Relation_DependElement);
-	public static final String Intensity = BundleUtil.getString(BundleUtil.Relation_Intensity);
-	public static final String Current = BundleUtil.getString(BundleUtil.Relation_CurrentCohesion);
-	public static final String Depend = BundleUtil.getString(BundleUtil.Relation_DependCohesion);
-	public static final String RelationBalance = BundleUtil.getString(BundleUtil.Relation_Balance);
-	public static final String RelationAttentionType = BundleUtil.getString(BundleUtil.Relation_AttentionType);
-	public static final String RelationAttentionLevel = BundleUtil.getString(BundleUtil.Relation_AttentionLevel);
+	public static final String Relation_CurrentName = BundleUtil.getString(BundleUtil.Relation_CurrentElement);
+	public static final String Relation_DependName = BundleUtil.getString(BundleUtil.Relation_DependElement);
+	public static final String Relation_Intensity = BundleUtil.getString(BundleUtil.Relation_Intensity);
+	public static final String Relation_CurrentCohesion = BundleUtil.getString(BundleUtil.Relation_CurrentCohesion);
+	public static final String Relation_DependCohesion = BundleUtil.getString(BundleUtil.Relation_DependCohesion);
+	public static final String Relation_Balance = BundleUtil.getString(BundleUtil.Relation_Balance);
+	public static final String Relation_AttentionType = BundleUtil.getString(BundleUtil.Relation_AttentionType);
+	public static final String Relation_AttentionLevel = BundleUtil.getString(BundleUtil.Relation_AttentionLevel);
 
 	public static final String DependInterface = BundleUtil.getString(BundleUtil.TableHead_DependInterface);
 
@@ -68,7 +68,7 @@ public class ReportConstant {
 		Tips.put(OO, "私有属性 / 公开方法，值越大越好");
 		Tips.put(Encapsulation, "私有类比例，值越大越好");
 		Tips.put(Balance, "内聚值/(内聚值+分组耦合最大顺序差值)，分析单元内聚性指标。值越大越好");
-		Tips.put(RelationBalance, "关系双方内聚值 - 关系耦合值，关系的平衡指数。值越大越好");
+		Tips.put(Relation_Balance, "关系双方内聚值 - 关系耦合值，关系的平衡指数。值越大越好");
 	}
 
 	public static String toMetrics(String title) {
@@ -95,9 +95,18 @@ public class ReportConstant {
 		toMetricses.put(Encapsulation, MetricsMgr.Encapsulation);
 		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
-		toMetricses.put(State, MetricsMgr.State);
-		toMetricses.put(Stable, MetricsMgr.Stable);
-		toMetricses.put(isPrivateElement, MetricsMgr.isPrivateElement);
+		toMetricses.put(JavaClass_State, MetricsMgr.JavaClass_State);
+		toMetricses.put(JavaClass_Stable, MetricsMgr.JavaClass_Stable);
+		toMetricses.put(JavaClass_isPrivateElement, MetricsMgr.JavaClass_isPrivateElement);
+
+		toMetricses.put(Relation_CurrentName, MetricsMgr.Relation_CurrentName);
+		toMetricses.put(Relation_DependName, MetricsMgr.Relation_DependName);
+		toMetricses.put(Relation_Intensity, MetricsMgr.Relation_Intensity);
+		toMetricses.put(Relation_CurrentCohesion, MetricsMgr.Relation_CurrentCohesion);
+		toMetricses.put(Relation_DependCohesion, MetricsMgr.Relation_DependCohesion);
+		toMetricses.put(Relation_Balance, MetricsMgr.Relation_Balance);
+		toMetricses.put(Relation_AttentionType, MetricsMgr.Relation_AttentionType);
+		toMetricses.put(Relation_AttentionLevel, MetricsMgr.Relation_AttentionLevel);
 	}
 
 }

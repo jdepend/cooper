@@ -186,6 +186,28 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		this.isAttention = isAttention;
 	}
 
+	public Object getValue(String metrics) {
+		if (metrics.equals(MetricsMgr.Relation_CurrentName)) {
+			return this.current.getName();
+		} else if (metrics.equals(MetricsMgr.Relation_DependName)) {
+			return this.depend.getName();
+		} else if (metrics.equals(MetricsMgr.Relation_CurrentCohesion)) {
+			return MetricsFormat.toFormattedMetrics(this.current.getInstability());
+		} else if (metrics.equals(MetricsMgr.Relation_DependCohesion)) {
+			return MetricsFormat.toFormattedMetrics(this.depend.getInstability());
+		} else if (metrics.equals(MetricsMgr.Relation_Balance)) {
+			return MetricsFormat.toFormattedMetrics(this.getBalance());
+		} else if (metrics.equals(MetricsMgr.Relation_Intensity)) {
+			return MetricsFormat.toFormattedMetrics(this.getIntensity());
+		} else if (metrics.equals(MetricsMgr.Relation_AttentionType)) {
+			return Relation.AttentionTypeList.get(this.getAttentionType());
+		} else if (metrics.equals(MetricsMgr.Relation_AttentionLevel)) {
+			return this.getAttentionLevel();
+		} else {
+			return null;
+		}
+	}
+
 	private int calAttentionType() {
 		if (this.depend.getComponent().getEfferents().contains(this.current.getComponent())) {// 检测彼此依赖
 			return MutualDependAttentionType;
