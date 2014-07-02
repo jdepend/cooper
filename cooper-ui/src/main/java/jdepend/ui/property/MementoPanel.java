@@ -189,6 +189,6 @@ public class MementoPanel extends JPanel {
 		} else {
 			JDependUnitMgr.getInstance().setResult(AdjustHistory.getInstance().getCurrent());
 		}
-		frame.getResultPanel().showResults();
+		frame.getResultPanel().showMemoryResults();
 	}
 }

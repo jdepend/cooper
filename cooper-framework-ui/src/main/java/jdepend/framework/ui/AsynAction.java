@@ -51,34 +51,49 @@ public abstract class AsynAction extends AbstractAction {
 		}
 		result = new LinkedHashMap<String, JComponent>();
 		try {
+			this.beforeAnalyse();
 			this.frame.startProgressMonitor(this.getProcess());
 			// 在独立的线程中执行分析
 			new Thread() {
 				public void run() {
-						try {
-							//执行核心服务
-							analyse(e);
-							// 截止进度条
-							frame.stopProgressMonitor();
-							stopProgressLater();
-							// 显示第一批结果
-							frame.show(result);
-							//显示后续结果
-							new Thread() {
-								public void run() {
+					try {
+						// 执行核心服务
+						analyse(e);
+						// 截止进度条
+						frame.stopProgressMonitor();
+						stopProgressLater();
+						// 显示第一批结果
+						frame.show(result);
+						// 显示后续结果
+						new Thread() {
+							public void run() {
+								try {
 									showResultLater();
-									//设置执行截止标志
+								} catch (JDependException e2) {
+									e2.printStackTrace();
+									result = createErrorResult(e2);
 									synchronized (running) {
 										running.running = false;
 									}
+									// 显示结果
+									frame.show(result);
 								}
-							}.start();
-							
-						} catch (Exception e1) {
-							e1.printStackTrace();
-							result = createErrorResult(e1);
+								// 设置执行截止标志
+								synchronized (running) {
+									running.running = false;
+								}
+							}
+						}.start();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						result = createErrorResult(e1);
+						synchronized (running) {
+							running.running = false;
 						}
-					
+						// 显示结果
+						frame.show(result);
+					}
 				}
 			}.start();
 		} catch (JDependException e2) {
@@ -96,7 +111,10 @@ public abstract class AsynAction extends AbstractAction {
 		frame.showStatusMessage("完成了[" + name + "]分析。");
 	}
 
-	protected void showResultLater() {
+	protected void beforeAnalyse() throws JDependException {
+	}
+
+	protected void showResultLater() throws JDependException {
 	}
 
 	protected void addResult(String label, JComponent component) {

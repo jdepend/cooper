@@ -63,7 +63,7 @@ public final class CommandAction extends AsynAction {
 		if (adapter.getLog() != null && adapter.getLog().length() != 0) {
 			frame.getResultPanel().appendResult("log", adapter.getLog());
 		}
-		
+
 		// 刷新TODOList
 		frame.getPropertyPanel().showTODOList();
 		// 保存分数
@@ -88,8 +88,7 @@ public final class CommandAction extends AsynAction {
 	}
 
 	@Override
-	protected int getProcess() throws JDependException {
-
+	protected void beforeAnalyse() throws JDependException {
 		frame.clearPriorResult();
 
 		LogUtil.getInstance(CommandPanel.class).systemLog("准备运行环境");
@@ -103,7 +102,10 @@ public final class CommandAction extends AsynAction {
 		// 设置正在运行的group和command名称
 		CommandAdapterMgr.setCurrentGroup(group);
 		CommandAdapterMgr.setCurrentCommand(command);
+	}
 
+	@Override
+	protected int getProcess() throws JDependException {
 		return adapter.getTaskSize();
 	}
 }
