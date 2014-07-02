@@ -96,46 +96,19 @@ public class AdjustHistory {
 		return current;
 	}
 
-	public CompareInfo compare(Object value, String type, String objectMeasuredName, String metrics)
-			throws JDependException {
+	public CompareInfo compare(CompareObject object) throws JDependException {
 		if (this.getOriginality() != null) {
 			AnalysisResult result = this.getOriginality().getResult();
-			Measurable measurable;
-			if (type.equals(CompareType_Component)) {
-				if (objectMeasuredName.equals(AnalysisResultSummary.Name)) {
-					measurable = result.getSummary();
-				} else {
-					measurable = result.getTheComponent(objectMeasuredName);
-				}
-			} else if (type.equals(CompareType_Class)) {
-				measurable = result.getTheClass(objectMeasuredName);
-			} else {
-				throw new JDependException("compare type is error");
-			}
-
-			if (measurable != null) {
+			Object originality = object.getOriginalityValue(result);
+			if (originality != null) {
 				// 获取比较的数值
 				CompareInfo info = new CompareInfo();
-				info.setMetrics(metrics);
-				Object originality = measurable.getValue(metrics);
-				info.setValue(value);
+				info.setMetrics(object.getMetrics());
+				info.setValue(object.getValue());
 				info.setOriginality(originality);
 				// 进行比较
-				if (value instanceof Float) {
-					Float newValue = (Float) value;
-					Float oldValue = (Float) originality;
-					info.setResult(MathUtil.compare(newValue, oldValue));
-				} else if (value instanceof String) {
-					String newValue = (String) value;
-					String oldValue = (String) originality;
-					info.setResult(MathUtil.compare(newValue, oldValue));
-				} else if (value instanceof Integer) {
-					Integer newValue = (Integer) value;
-					Integer oldValue = (Integer) originality;
-					info.setResult(MathUtil.compare(newValue, oldValue));
-				} else {
-					info.setResult(0);
-				}
+				info.calResult();
+
 				return info;
 			} else {
 				return null;

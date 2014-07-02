@@ -50,6 +50,9 @@ import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
+import jdepend.util.refactor.CompareObject;
+import jdepend.util.refactor.ComponentCompareObject;
+import jdepend.util.refactor.JavaClassCompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
 /**
@@ -448,7 +451,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 	class SummaryTableCellRenderer extends CompareTableCellRenderer {
 
 		public SummaryTableCellRenderer() {
-			super(AdjustHistory.CompareType_Component);
+			super();
 		}
 
 		@Override
@@ -462,6 +465,11 @@ public final class SummaryPanel extends SubResultTabPanel {
 				}
 			}
 			return this;
+		}
+
+		@Override
+		protected CompareObject getCompareObject(Object value, String id, String metrics) {
+			return new ComponentCompareObject(value, id, metrics);
 		}
 	}
 }

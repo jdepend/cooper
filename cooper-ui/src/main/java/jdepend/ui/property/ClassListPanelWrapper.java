@@ -40,6 +40,8 @@ import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.util.refactor.AdjustHistory;
+import jdepend.util.refactor.CompareObject;
+import jdepend.util.refactor.JavaClassCompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public class ClassListPanelWrapper extends ClassListPanel {
@@ -308,11 +310,11 @@ public class ClassListPanelWrapper extends ClassListPanel {
 			}
 		}
 	}
-	
+
 	class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer {
 
 		public JavaClassCompareTableCellRenderer() {
-			super(AdjustHistory.CompareType_Class);
+			super();
 		}
 
 		@Override
@@ -327,5 +329,11 @@ public class ClassListPanelWrapper extends ClassListPanel {
 			}
 			return this;
 		}
+
+		@Override
+		protected CompareObject getCompareObject(Object value, String id, String metrics) {
+			return new JavaClassCompareObject(value, id, metrics);
+		}
+
 	}
 }

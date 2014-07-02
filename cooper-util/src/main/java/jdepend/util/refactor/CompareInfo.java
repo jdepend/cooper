@@ -1,5 +1,6 @@
 package jdepend.util.refactor;
 
+import jdepend.framework.util.MathUtil;
 import jdepend.model.MetricsMgr;
 
 public class CompareInfo {
@@ -7,7 +8,7 @@ public class CompareInfo {
 	private String metrics;
 	private Object value;
 	private Object originality;
-	private int result;
+	private Integer result;
 	private Boolean evaluate;
 
 	public String getMetrics() {
@@ -35,12 +36,33 @@ public class CompareInfo {
 	}
 
 	public int getResult() {
+		if (this.result == null) {
+			this.calResult();
+		}
 		return result;
 	}
 
-	public void setResult(int result) {
+	private void setResult(int result) {
 		this.result = result;
 		this.evaluate = evaluate(result, metrics);
+	}
+
+	public void calResult() {
+		if (value instanceof Float) {
+			Float newValue = (Float) value;
+			Float oldValue = (Float) originality;
+			this.setResult(MathUtil.compare(newValue, oldValue));
+		} else if (value instanceof String) {
+			String newValue = (String) value;
+			String oldValue = (String) originality;
+			this.setResult(MathUtil.compare(newValue, oldValue));
+		} else if (value instanceof Integer) {
+			Integer newValue = (Integer) value;
+			Integer oldValue = (Integer) originality;
+			this.setResult(MathUtil.compare(newValue, oldValue));
+		} else {
+			this.setResult(0);
+		}
 	}
 
 	public Boolean getEvaluate() {
