@@ -21,10 +21,6 @@ public class AdjustHistory {
 
 	private static AdjustHistory inst = new AdjustHistory();
 
-	public static final String CompareType_Component = "CompareType_Component";
-
-	public static final String CompareType_Class = "CompareType_Class";
-
 	private AdjustHistory() {
 	}
 

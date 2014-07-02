@@ -2,7 +2,6 @@ package jdepend.ui.result;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ToolTipManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -36,6 +32,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
+import jdepend.model.Measurable;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultSummary;
@@ -48,11 +45,7 @@ import jdepend.report.util.ReportConstant;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
-import jdepend.util.refactor.AdjustHistory;
-import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
-import jdepend.util.refactor.ComponentCompareObject;
-import jdepend.util.refactor.JavaClassCompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
 /**
@@ -469,7 +462,22 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 		@Override
 		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new ComponentCompareObject(value, id, metrics);
+			return new CompareObject(value, id, metrics) {
+				@Override
+				public Object getOriginalityValue(AnalysisResult result) {
+					Measurable measurable;
+					if (this.getId().equals(AnalysisResultSummary.Name)) {
+						measurable = result.getSummary();
+					} else {
+						measurable = result.getTheComponent(this.getId());
+					}
+					if (measurable != null) {
+						return measurable.getValue(this.getMetrics());
+					} else {
+						return null;
+					}
+				}
+			};
 		}
 	}
 }

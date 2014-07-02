@@ -1,6 +1,5 @@
 package jdepend.ui.result;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -11,22 +10,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.CohesionDialog;
@@ -34,7 +28,6 @@ import jdepend.report.ui.RelationDetailDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.util.refactor.CompareObject;
-import jdepend.util.refactor.RelationCompareObject;
 
 public final class RelationPanel extends SubResultTabPanel {
 
@@ -194,7 +187,19 @@ public final class RelationPanel extends SubResultTabPanel {
 
 		@Override
 		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new RelationCompareObject(value, id, metrics);
+			return new CompareObject(value, id, metrics){
+				@Override
+				public Object getOriginalityValue(AnalysisResult result) {
+					String current = this.getId().substring(0, this.getId().indexOf('|'));
+					String depend = this.getId().substring(this.getId().indexOf('|') + 1);
+					Relation relation = result.getTheRelation(current, depend);
+					if (relation != null) {
+						return relation.getValue(this.getMetrics());
+					} else {
+						return null;
+					}
+				}
+			};
 		}
 
 		@Override

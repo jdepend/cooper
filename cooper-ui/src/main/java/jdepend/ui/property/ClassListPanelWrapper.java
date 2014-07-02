@@ -34,14 +34,14 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
+import jdepend.model.Measurable;
 import jdepend.model.component.JavaClassComponent;
+import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.CompareTableCellRenderer;
-import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareObject;
-import jdepend.util.refactor.JavaClassCompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public class ClassListPanelWrapper extends ClassListPanel {
@@ -332,7 +332,17 @@ public class ClassListPanelWrapper extends ClassListPanel {
 
 		@Override
 		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new JavaClassCompareObject(value, id, metrics);
+			return new CompareObject(value, id, metrics){
+				@Override
+				public Object getOriginalityValue(AnalysisResult result) {
+					Measurable measurable = result.getTheClass(this.getId());
+					if (measurable != null) {
+						return measurable.getValue(this.getMetrics());
+					} else {
+						return null;
+					}
+				}
+			};
 		}
 
 	}
