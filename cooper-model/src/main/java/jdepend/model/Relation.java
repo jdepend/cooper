@@ -192,9 +192,9 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		} else if (metrics.equals(MetricsMgr.Relation_DependName)) {
 			return this.depend.getName();
 		} else if (metrics.equals(MetricsMgr.Relation_CurrentCohesion)) {
-			return MetricsFormat.toFormattedMetrics(this.current.getInstability());
+			return MetricsFormat.toFormattedMetrics(this.current.getIntensity());
 		} else if (metrics.equals(MetricsMgr.Relation_DependCohesion)) {
-			return MetricsFormat.toFormattedMetrics(this.depend.getInstability());
+			return MetricsFormat.toFormattedMetrics(this.depend.getIntensity());
 		} else if (metrics.equals(MetricsMgr.Relation_Balance)) {
 			return MetricsFormat.toFormattedMetrics(this.getBalance());
 		} else if (metrics.equals(MetricsMgr.Relation_Intensity)) {

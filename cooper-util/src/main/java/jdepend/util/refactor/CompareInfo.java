@@ -175,6 +175,12 @@ public class CompareInfo {
 			} else {
 				return false;
 			}
+		} else if (metrics.equals(MetricsMgr.Relation_Balance)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
 		} else if (metrics.equals(MetricsMgr.Relation_AttentionLevel)) {
 			if (result < 0) {
 				return true;
@@ -183,9 +189,9 @@ public class CompareInfo {
 			}
 		} else if (metrics.equals(MetricsMgr.Relation_AttentionType)) {
 			if (result < 0) {
-				return false;
-			} else {
 				return true;
+			} else {
+				return false;
 			}
 		} else {
 			return null;
