@@ -80,8 +80,7 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 					this.isChangeDir = isCurrentChangeDir;
 				}
 				if (this.isChangeDir) {
-					if (this.relation.getCurrent().getComponent().getStability() > this.relation.getDepend()
-							.getComponent().getStability()) {
+					if (this.relation.getDepend().getComponent().stability(this.relation.getCurrent().getComponent())) {
 						return false;
 					}
 				}

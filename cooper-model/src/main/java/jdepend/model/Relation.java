@@ -51,8 +51,6 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		AttentionTypeList.put(MutualDependAttentionType, "彼此依赖");
 	}
 
-	public static final float SDPDifference = 0.1F;
-	
 	public static final String Intensity = "Intensity";
 	public static final String AttentionType = "AttentionType";
 	public static final String AttentionLevel = "AttentionLevel";
@@ -200,7 +198,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 				&& this.current.getComponent().getAreaComponent().instability() < this.depend.getComponent()
 						.getAreaComponent().instability()) {// 检测组件层依赖（按着AreaComponent）
 			return ComponentLayerAttentionType;
-		} else if (this.current.getComponent().getStability() + SDPDifference < this.depend.getComponent().getStability()) {// 检测稳定依赖（按着自动计算的稳定性）
+		} else if (this.current.getComponent().stability(this.depend.getComponent())) {// 检测稳定依赖（按着自动计算的稳定性）
 			return SDPAttentionType;
 		} else if (this.current.getComponent().getSteadyType() != null
 				&& this.depend.getComponent().getSteadyType() != null

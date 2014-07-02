@@ -87,6 +87,8 @@ public abstract class Component extends AbstractJDependUnit {
 	public static final String MiddleType = "MiddleType";
 
 	public static final String StableType = "StableType";
+	
+	public static final float SDPDifference = 0.1F;
 
 	public Component() {
 	}
@@ -361,6 +363,10 @@ public abstract class Component extends AbstractJDependUnit {
 
 	public Collection<Relation> getRelations() {
 		return this.relations;
+	}
+	
+	public boolean stability(Component component){
+		return this.getStability() + SDPDifference < component.getStability();
 	}
 
 	public Collection<Relation> open() {
