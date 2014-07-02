@@ -88,7 +88,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	public static final String StableType = "StableType";
 	
-	public static final float SDPDifference = 0.1F;
+	private static final float SDPDifference = 0.1F;
 
 	public Component() {
 	}
