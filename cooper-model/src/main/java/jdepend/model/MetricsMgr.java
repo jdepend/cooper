@@ -35,10 +35,6 @@ public final class MetricsMgr {
 	public static final String Cycle = "Cycle";
 	public static final String Encapsulation = "Encapsulation";
 
-	public static final String JavaClass_State = "JavaClass_State";
-	public static final String JavaClass_Stable = "JavaClass_Stable";
-	public static final String JavaClass_isPrivateElement = "JavaClass_isPrivateElement";
-
 	public static final String Cyclic = "存在";
 
 	public static final String HaveState = "有";

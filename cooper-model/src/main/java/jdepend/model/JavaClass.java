@@ -97,6 +97,10 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	private transient Collection<JavaClass> invokeClasses;
 
+	public static final String isPrivateElement = "JavaClass_isPrivateElement";
+	public static final String Stable = "JavaClass_Stable";
+	public static final String State = "JavaClass_State";
+
 	public JavaClass(String name, boolean isInner, int access_flags) {
 		this(name, isInner);
 		this.access_flags = access_flags;
@@ -966,19 +970,19 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	@Override
 	public Object getValue(String metrics) {
-		if (metrics.equals(MetricsMgr.JavaClass_State)) {
+		if (metrics.equals(JavaClass.State)) {
 			if (this.isState()) {
 				return MetricsMgr.HaveState;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.JavaClass_Stable)) {
+		} else if (metrics.equals(JavaClass.Stable)) {
 			if (this.isStable()) {
 				return MetricsMgr.Stability;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.JavaClass_isPrivateElement)) {
+		} else if (metrics.equals(JavaClass.isPrivateElement)) {
 			if (!this.isUsedByExternal()) {
 				return MetricsMgr.Private;
 			} else {

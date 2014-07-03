@@ -1,6 +1,7 @@
 package jdepend.util.refactor;
 
 import jdepend.framework.util.MathUtil;
+import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
 
@@ -77,7 +78,7 @@ public class CompareInfo {
 	private static Boolean evaluate(int result, String metrics) {
 		if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
-				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(MetricsMgr.JavaClass_State)
+				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(JavaClass.State)
 				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)) {
 			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
@@ -146,13 +147,13 @@ public class CompareInfo {
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.JavaClass_Stable)) {
+		} else if (metrics.equals(JavaClass.Stable)) {
 			if (result < 0) {
 				return true;
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.JavaClass_isPrivateElement)) {
+		} else if (metrics.equals(JavaClass.isPrivateElement)) {
 			if (result < 0) {
 				return false;
 			} else {

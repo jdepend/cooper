@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
 
@@ -96,9 +97,10 @@ public class ReportConstant {
 		toMetricses.put(Encapsulation, MetricsMgr.Encapsulation);
 		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
-		toMetricses.put(JavaClass_State, MetricsMgr.JavaClass_State);
-		toMetricses.put(JavaClass_Stable, MetricsMgr.JavaClass_Stable);
-		toMetricses.put(JavaClass_isPrivateElement, MetricsMgr.JavaClass_isPrivateElement);
+		
+		toMetricses.put(JavaClass_State, JavaClass.State);
+		toMetricses.put(JavaClass_Stable, JavaClass.Stable);
+		toMetricses.put(JavaClass_isPrivateElement, JavaClass.isPrivateElement);
 
 		toMetricses.put(Relation_CurrentName, Relation.CurrentName);
 		toMetricses.put(Relation_DependName, Relation.DependName);
