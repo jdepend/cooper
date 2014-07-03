@@ -204,7 +204,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		} else if (metrics.equals(Intensity)) {
 			return MetricsFormat.toFormattedMetrics(this.getIntensity());
 		} else if (metrics.equals(AttentionType)) {
-			return AttentionTypeList.get(this.getAttentionType());
+			return this.getAttentionType();
 		} else if (metrics.equals(AttentionLevel)) {
 			return this.getAttentionLevel();
 		} else {

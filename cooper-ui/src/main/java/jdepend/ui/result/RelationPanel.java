@@ -154,7 +154,7 @@ public final class RelationPanel extends SubResultTabPanel {
 			arg[3] = MetricsFormat.toFormattedMetrics(relation.getCurrent().getIntensity());
 			arg[4] = MetricsFormat.toFormattedMetrics(relation.getDepend().getIntensity());
 			arg[5] = MetricsFormat.toFormattedMetrics(relation.getBalance());
-			arg[6] = Relation.AttentionTypeList.get(relation.getAttentionType());
+			arg[6] = relation.getAttentionType();
 			arg[7] = MetricsFormat.toFormattedMetrics(relation.getAttentionLevel());
 			model.addRow(arg);
 		}
@@ -182,12 +182,31 @@ public final class RelationPanel extends SubResultTabPanel {
 					component.setForeground(Color.GRAY);
 				}
 			}
+
 			return this;
 		}
 
 		@Override
+		protected String getValue(Object value, int row, int column) {
+			if (column != 6) {
+				return super.getValue(value, row, column);
+			} else {
+				return Relation.AttentionTypeList.get(value);
+			}
+		}
+
+		@Override
+		protected Object getOriginality(Object originality, int row, int column) {
+			if (column != 6) {
+				return super.getOriginality(originality, row, column);
+			} else {
+				return Relation.AttentionTypeList.get(originality);
+			}
+		}
+
+		@Override
 		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new CompareObject(value, id, metrics){
+			return new CompareObject(value, id, metrics) {
 				@Override
 				public Object getOriginalityValue(AnalysisResult result) {
 					String current = this.getId().substring(0, this.getId().indexOf('|'));

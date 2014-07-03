@@ -38,7 +38,7 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 
 			JLabel labelValue = new JLabel();
 			labelValue.setFont(table.getFont());
-			labelValue.setText(String.valueOf(value));
+			labelValue.setText(this.getValue(value, row, column));
 
 			this.add(labelValue);
 
@@ -48,7 +48,7 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 				CompareInfo info = AdjustHistory.getInstance().compare(this.getCompareObject(value, id, metrics));
 				if (info != null && info.isDiff()) {
 					// 暂存原始数据
-					originality = info.getOriginality();
+					originality = this.getOriginality(info.getOriginality(), row, column);
 					JLabel labelDirection = new JLabel();
 					labelDirection.setFont(table.getFont());
 					labelDirection.setText(getCompare(info.getResult()));
@@ -73,6 +73,14 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 
 	protected String getRowObjectId(JTable table, int row) {
 		return (String) table.getValueAt(row, 0);
+	}
+
+	protected String getValue(Object value, int row, int column) {
+		return String.valueOf(value);
+	}
+
+	protected Object getOriginality(Object originality, int row, int column) {
+		return originality;
 	}
 
 	@Override
