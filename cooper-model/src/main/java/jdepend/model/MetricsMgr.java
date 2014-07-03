@@ -15,7 +15,6 @@ import jdepend.framework.util.BundleUtil;
 public final class MetricsMgr {
 	
 	public static final String Name = "Name";
-	public static final String Area = "Area";
 	public static final String Title = "Title";
 	public static final String LC = "LC";
 	public static final String CN = "CN";

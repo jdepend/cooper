@@ -102,7 +102,7 @@ public class ReportConstant {
 		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
 
-		toMetricses.put(Component_Area, MetricsMgr.Area);
+		toMetricses.put(Component_Area, Component.Area);
 
 		toMetricses.put(JavaClass_State, JavaClass.State);
 		toMetricses.put(JavaClass_Stable, JavaClass.Stable);

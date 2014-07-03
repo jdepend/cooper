@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.model.Component;
 
-public class AreaComponentInfo {
+class AreaComponentInfo {
 
 	private Integer layer;
 	private String name;

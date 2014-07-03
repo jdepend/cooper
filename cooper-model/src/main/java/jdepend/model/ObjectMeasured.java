@@ -13,8 +13,6 @@ public abstract class ObjectMeasured implements Measurable {
 	public Object getValue(String metrics) {
 		if (metrics.equals(MetricsMgr.Name)) {
 			return this.getName();
-		} else if (metrics.equals(MetricsMgr.Area)) {
-			return this.getArea();
 		} else if (metrics.equals(MetricsMgr.Title)) {
 			return this.getTitle();
 		} else if (metrics.equals(MetricsMgr.LC)) {

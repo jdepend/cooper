@@ -56,11 +56,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	private int relationCount;
 
 	@Override
-	public String getArea() {
-		return null;
-	}
-
-	@Override
 	public float getAbstractness() {
 		return this.abstractness;
 	}

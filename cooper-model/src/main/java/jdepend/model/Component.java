@@ -87,6 +87,8 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private static final float SDPDifference = 0.1F;
 
+	public static final String Area = "Area";
+
 	public Component() {
 	}
 
@@ -165,11 +167,6 @@ public abstract class Component extends AbstractJDependUnit {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public String getArea() {
-		return this.areaComponent.getName();
 	}
 
 	@Override
@@ -553,6 +550,15 @@ public abstract class Component extends AbstractJDependUnit {
 
 	public void setResult(AnalysisResult result) {
 		this.result = result;
+	}
+
+	@Override
+	public Object getValue(String metrics) {
+		if (metrics.equals(Area)) {
+			return this.getAreaComponent();
+		} else {
+			return super.getValue(metrics);
+		}
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

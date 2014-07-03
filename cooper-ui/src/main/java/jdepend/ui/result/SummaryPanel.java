@@ -30,10 +30,12 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.model.AreaComponent;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
 import jdepend.model.Measurable;
 import jdepend.model.MetricsMgr;
+import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultSummary;
 import jdepend.report.ReportCreator;
@@ -445,6 +447,24 @@ public final class SummaryPanel extends SubResultTabPanel {
 				}
 			}
 			return this;
+		}
+
+		@Override
+		protected String getValue(Object value, int row, int column) {
+			if (column != 1) {
+				return super.getValue(value, row, column);
+			} else {
+				return ((AreaComponent) value).getName();
+			}
+		}
+
+		@Override
+		protected Object getOriginality(Object originality, int row, int column) {
+			if (column != 1) {
+				return super.getOriginality(originality, row, column);
+			} else {
+				return ((AreaComponent) originality).getName();
+			}
 		}
 
 		@Override
