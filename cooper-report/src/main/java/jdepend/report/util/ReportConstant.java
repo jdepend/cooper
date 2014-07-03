@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -29,6 +30,9 @@ public class ReportConstant {
 	public static final String OO = BundleUtil.getString(BundleUtil.Metrics_OO);
 	public static final String Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
 	public static final String Cycle = BundleUtil.getString(BundleUtil.Metrics_Cycle);
+
+	public static final String Component_Area = BundleUtil.getString(BundleUtil.Metrics_Area);
+
 	public static final String JavaClass_State = BundleUtil.getString(BundleUtil.Metrics_State);
 	public static final String JavaClass_Stable = BundleUtil.getString(BundleUtil.Metrics_Stable);
 	public static final String JavaClass_isPrivateElement = BundleUtil.getString(BundleUtil.Metrics_isPrivateElement);
@@ -97,7 +101,9 @@ public class ReportConstant {
 		toMetricses.put(Encapsulation, MetricsMgr.Encapsulation);
 		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
-		
+
+		toMetricses.put(Component_Area, MetricsMgr.Area);
+
 		toMetricses.put(JavaClass_State, JavaClass.State);
 		toMetricses.put(JavaClass_Stable, JavaClass.Stable);
 		toMetricses.put(JavaClass_isPrivateElement, JavaClass.isPrivateElement);

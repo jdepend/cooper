@@ -2,8 +2,6 @@ package jdepend.model.area;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
@@ -11,17 +9,22 @@ import jdepend.model.result.AnalysisResult;
 public class AreaCreatorWithComponentLayer extends AbstractAreaCreator {
 
 	@Override
-	public Map<String, Collection<Component>> calCoverCount(AnalysisResult result) {
-		Map<String, Collection<Component>> areaComponents = new HashMap<String, Collection<Component>>();
+	public Collection<AreaComponentInfo> calCoverCount(AnalysisResult result) {
+		Collection<AreaComponentInfo> areaComponents = new ArrayList<AreaComponentInfo>();
 
 		String name;
+		AreaComponentInfo componentInfo;
 		for (Component component : result.getComponents()) {
 			if (component.isDefinedComponentLevel()) {
 				name = Component.layerDesc(component.getLayer());
-				if (!areaComponents.containsKey(name)) {
-					areaComponents.put(name, new ArrayList<Component>());
+				componentInfo = getTheAreaComponentInfo(areaComponents, name);
+				if (componentInfo == null) {
+					componentInfo = new AreaComponentInfo();
+					componentInfo.setLayer(component.getLayer());
+					componentInfo.setName(name);
+					areaComponents.add(componentInfo);
 				}
-				areaComponents.get(name).add(component);
+				componentInfo.getComponents().add(component);
 			}
 		}
 

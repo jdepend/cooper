@@ -12,13 +12,10 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
-import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassUtil;
-import jdepend.model.util.SecondComponentIdentifyer;
 
 /**
  * 组件抽象类
@@ -87,7 +84,7 @@ public abstract class Component extends AbstractJDependUnit {
 	public static final String MiddleType = "MiddleType";
 
 	public static final String StableType = "StableType";
-	
+
 	private static final float SDPDifference = 0.1F;
 
 	public Component() {
@@ -168,6 +165,11 @@ public abstract class Component extends AbstractJDependUnit {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String getArea() {
+		return this.areaComponent.getName();
 	}
 
 	@Override
@@ -364,8 +366,8 @@ public abstract class Component extends AbstractJDependUnit {
 	public Collection<Relation> getRelations() {
 		return this.relations;
 	}
-	
-	public boolean stability(Component component){
+
+	public boolean stability(Component component) {
 		return this.getStability() + SDPDifference < component.getStability();
 	}
 
@@ -574,8 +576,9 @@ public abstract class Component extends AbstractJDependUnit {
 		return "名称:" + this.getName() + "标题:" + this.getTitle() + " 是否内部:" + this.isInner() + " 类总数:"
 				+ this.getClassCount() + " 具体类:" + this.getConcreteClassCount() + " 抽象类:"
 				+ this.getAbstractClassCount() + " 总行数:" + this.getLineCount() + " 传入:" + this.getAfferentCoupling()
-				+ " 传出:" + this.getEfferentCoupling() + " 抽象程度:" + MetricsFormat.toFormattedMetrics(this.getAbstractness())
-				+ " 稳定性:" + MetricsFormat.toFormattedMetrics(this.getStability()) + " 合理性:"
+				+ " 传出:" + this.getEfferentCoupling() + " 抽象程度:"
+				+ MetricsFormat.toFormattedMetrics(this.getAbstractness()) + " 稳定性:"
+				+ MetricsFormat.toFormattedMetrics(this.getStability()) + " 合理性:"
 				+ MetricsFormat.toFormattedMetrics(this.getDistance()) + " 耦合值:"
 				+ MetricsFormat.toFormattedMetrics(this.getCoupling()) + " 内聚值:"
 				+ MetricsFormat.toFormattedMetrics(this.getCohesion()) + " 内聚性:"

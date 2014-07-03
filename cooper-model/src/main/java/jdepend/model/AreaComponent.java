@@ -16,6 +16,7 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 	 */
 	private static final long serialVersionUID = 1064914807135244713L;
 
+	private Integer layer;
 	private String name;
 	private Float instability;
 	private Collection<String> components;
@@ -26,8 +27,9 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 
 	private transient Collection<Component> efferents = null;// 缓存
 
-	public AreaComponent(String name) {
+	public AreaComponent(Integer layer, String name) {
 		super();
+		this.layer = layer;
 		this.name = name;
 		this.components = new ArrayList<String>();
 	}
@@ -38,6 +40,14 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getLayer() {
+		return layer;
+	}
+
+	public void setLayer(Integer layer) {
+		this.layer = layer;
 	}
 
 	public Float instability() {

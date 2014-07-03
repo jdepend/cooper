@@ -115,6 +115,11 @@ public final class JavaClass extends AbstractJDependUnit {
 		this.isIncludeTransactionalAnnotation = false;
 	}
 
+	@Override
+	public String getArea() {
+		return null;
+	}
+
 	/**
 	 * 是否是内部类
 	 * 

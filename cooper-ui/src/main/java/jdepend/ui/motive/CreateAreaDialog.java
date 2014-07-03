@@ -38,7 +38,7 @@ public final class CreateAreaDialog extends ComponentListDialog {
 
 	}
 
-	private void addAreaInfo(String areaName) throws JDependException {
+	private void addAreaInfo(int areaLayer, String areaName) throws JDependException {
 		Collection<jdepend.model.Component> components = new ArrayList<jdepend.model.Component>();
 		Map<String, jdepend.model.Component> unitForNames = JDependUnitMgr.getInstance().getResult()
 				.getComponentForNames();
@@ -47,7 +47,7 @@ public final class CreateAreaDialog extends ComponentListDialog {
 				components.add(unitForNames.get(componentName));
 			}
 		}
-		this.motiveContainer.addAreaComponent(areaName, components);
+		this.motiveContainer.addAreaComponent(areaLayer, areaName, components);
 		motiveOperationPanel.refreshArea();
 	}
 
@@ -55,16 +55,22 @@ public final class CreateAreaDialog extends ComponentListDialog {
 
 		private JTextField areaNameField;
 
+		private JTextField areaLayerField;
+
 		public InputAreaNameDialog() {
 			this.setTitle("区域名称");
 			getContentPane().setLayout(new BorderLayout());
 			setSize(350, 100);
 			this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
+			JPanel workpacePanel = new JPanel();
 			areaNameField = new JTextField();
 			if (CreateAreaDialog.this.currentComponentNames.size() == 1) {
 				areaNameField.setText(CreateAreaDialog.this.currentComponentNames.get(0));
 			}
+
+			areaLayerField = new JTextField();
+
 			this.add(BorderLayout.CENTER, areaNameField);
 
 			JPanel buttonBar = new JPanel(new FlowLayout());
@@ -84,7 +90,7 @@ public final class CreateAreaDialog extends ComponentListDialog {
 						return;
 					}
 					try {
-						CreateAreaDialog.this.addAreaInfo(areaNameField.getText());
+						CreateAreaDialog.this.addAreaInfo(0, areaNameField.getText());
 						dispose();
 						CreateAreaDialog.this.dispose();
 					} catch (JDependException e1) {

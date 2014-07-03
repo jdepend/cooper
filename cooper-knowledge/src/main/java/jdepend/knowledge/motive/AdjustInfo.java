@@ -162,14 +162,15 @@ public class AdjustInfo implements Serializable {
 		}
 	}
 
-	public void addAreaComponent(String areaName, Collection<Component> components) throws JDependException {
+	public void addAreaComponent(int areaLayer, String areaName, Collection<Component> components)
+			throws JDependException {
 		for (AreaComponent areaComponent : this.areaComponents) {
 			if (areaComponent.getName().equals(areaName)) {
 				throw new JDependException("区域名字已经存在了");
 			}
 		}
 
-		AreaComponent areaComponent = new AreaComponent(areaName);
+		AreaComponent areaComponent = new AreaComponent(areaLayer, areaName);
 		areaComponent.setComponentList(components);
 		this.areaComponents.add(areaComponent);
 

@@ -2,10 +2,8 @@ package jdepend.model.area;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
@@ -14,9 +12,9 @@ import jdepend.model.util.ComponentPathSegment;
 public class AreaCreatorWithPathInfo extends AbstractAreaCreator {
 
 	@Override
-	public Map<String, Collection<Component>> calCoverCount(AnalysisResult result) {
+	public Collection<AreaComponentInfo> calCoverCount(AnalysisResult result) {
 
-		Map<String, Collection<Component>> areaComponents = new HashMap<String, Collection<Component>>();
+		Collection<AreaComponentInfo> areaComponents = new ArrayList<AreaComponentInfo>();
 
 		List<String> paths = new ArrayList<String>();
 		for (Component unit : result.getComponents()) {
@@ -44,7 +42,11 @@ public class AreaCreatorWithPathInfo extends AbstractAreaCreator {
 
 			}
 			if (components.size() > 0) {
-				areaComponents.put(areaKey, components);
+				AreaComponentInfo componentInfo = new AreaComponentInfo();
+				componentInfo.setName(areaKey);
+				componentInfo.setLayer(0);
+				componentInfo.setComponents(components);
+				areaComponents.add(componentInfo);
 			}
 		}
 

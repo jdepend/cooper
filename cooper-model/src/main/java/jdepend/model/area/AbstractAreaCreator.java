@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.model.AreaComponent;
 import jdepend.model.Component;
@@ -12,15 +11,15 @@ import jdepend.model.result.AnalysisResult;
 
 public abstract class AbstractAreaCreator implements AreaCreator {
 
-	private Map<String, Collection<Component>> areaComponentInfo;
+	private Collection<AreaComponentInfo> areaComponentInfos;
 
 	@Override
 	public final int coverCount(AnalysisResult result) {
-		this.areaComponentInfo = this.calCoverCount(result);
-		if (this.areaComponentInfo != null) {
+		this.areaComponentInfos = this.calCoverCount(result);
+		if (this.areaComponentInfos != null) {
 			int count = 0;
-			for (String name : areaComponentInfo.keySet()) {
-				count += areaComponentInfo.get(name).size();
+			for (AreaComponentInfo areaComponentInfo : areaComponentInfos) {
+				count += areaComponentInfo.getComponents().size();
 			}
 			return count;
 		} else {
@@ -30,33 +29,42 @@ public abstract class AbstractAreaCreator implements AreaCreator {
 
 	@Override
 	public int areaCount() {
-		if (areaComponentInfo != null) {
-			return this.areaComponentInfo.size();
+		if (areaComponentInfos != null) {
+			return this.areaComponentInfos.size();
 		} else {
 			return 0;
 		}
 	}
 
-	public abstract Map<String, Collection<Component>> calCoverCount(AnalysisResult result);
+	public abstract Collection<AreaComponentInfo> calCoverCount(AnalysisResult result);
 
 	@Override
 	public List<AreaComponent> create() {
 		List<AreaComponent> areaComponents = new ArrayList<AreaComponent>();
 
-		if (this.areaComponentInfo != null) {
+		if (this.areaComponentInfos != null) {
 			AreaComponent areaComponent;
-			Collection<Component> compoents;
-			for (String name : areaComponentInfo.keySet()) {
-				compoents = areaComponentInfo.get(name);
-				if (compoents != null && compoents.size() > 0) {
-					areaComponent = new AreaComponent(name);
-					areaComponent.setComponentList(compoents);
+			Collection<Component> components;
+			for (AreaComponentInfo areaComponentInfo : areaComponentInfos) {
+				components = areaComponentInfo.getComponents();
+				if (components != null && components.size() > 0) {
+					areaComponent = new AreaComponent(areaComponentInfo.getLayer(), areaComponentInfo.getName());
+					areaComponent.setComponentList(components);
 					areaComponents.add(areaComponent);
 				}
 			}
 		}
 		Collections.sort(areaComponents);
 		return areaComponents;
+	}
+
+	protected static AreaComponentInfo getTheAreaComponentInfo(Collection<AreaComponentInfo> areaComponents, String name) {
+		for (AreaComponentInfo areaComponent : areaComponents) {
+			if (areaComponent.getName().equals(name)) {
+				return areaComponent;
+			}
+		}
+		return null;
 	}
 
 }

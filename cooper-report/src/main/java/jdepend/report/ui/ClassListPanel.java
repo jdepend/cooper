@@ -79,8 +79,8 @@ public class ClassListPanel extends JPanel {
 
 		String metrics = null;
 		for (JavaClass javaClass : this.component.getClasses()) {
-			row = new Object[17];
-			for (int i = 0; i < 17; i++) {
+			row = new Object[classListTable.getColumnCount()];
+			for (int i = 0; i < classListTable.getColumnCount(); i++) {
 				metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
 				row[i] = javaClass.getValue(metrics);
 			}
@@ -191,7 +191,7 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.Coupling);
 		classListModel.addColumn(ReportConstant.Cohesion);
 		classListModel.addColumn(ReportConstant.Balance);
-		classListModel.addColumn(ReportConstant.OO);
+//		classListModel.addColumn(ReportConstant.OO);
 		classListModel.addColumn(ReportConstant.Cycle);
 		classListModel.addColumn(ReportConstant.JavaClass_State);
 		classListModel.addColumn(ReportConstant.JavaClass_Stable);
@@ -278,8 +278,8 @@ public class ClassListPanel extends JPanel {
 				isInner = ClassListPanel.this.component.containsClass(item.getDepend());
 				// 判断是否是环境外的
 				if (includeInner || !isInner) {
-					row = new Object[19];
-					for (int i = 0; i < 19; i++) {
+					row = new Object[listTable.getColumnCount()];
+					for (int i = 0; i < listTable.getColumnCount(); i++) {
 						if (i == 1) {
 							row[1] = item.getType().getName();
 						} else if (i == 2) {
@@ -324,7 +324,7 @@ public class ClassListPanel extends JPanel {
 			listModel.addColumn(ReportConstant.Coupling);
 			listModel.addColumn(ReportConstant.Cohesion);
 			listModel.addColumn(ReportConstant.Balance);
-			listModel.addColumn(ReportConstant.OO);
+//			listModel.addColumn(ReportConstant.OO);
 			listModel.addColumn(ReportConstant.Cycle);
 			listModel.addColumn(ReportConstant.JavaClass_State);
 			listModel.addColumn(ReportConstant.JavaClass_Stable);

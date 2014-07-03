@@ -56,6 +56,11 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	private int relationCount;
 
 	@Override
+	public String getArea() {
+		return null;
+	}
+
+	@Override
 	public float getAbstractness() {
 		return this.abstractness;
 	}
@@ -339,7 +344,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		resultSummry.setObjectOriented(MetricsFormat.toFormattedMetrics((Float) summry[13]));
 		resultSummry.setComponentCount(objs.size());
 		resultSummry.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[14]));
-		
+
 		resultSummry.setRelationCount(result.getRelations().size());
 
 		return resultSummry;

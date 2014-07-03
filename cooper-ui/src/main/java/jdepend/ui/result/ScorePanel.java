@@ -114,15 +114,15 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		leftPanel.add(BorderLayout.CENTER, scorePanel);
 
-		JPanel otherPanel = new JPanel(new BorderLayout());
-		otherPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_OtherMetrics)));
-		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-		otherPanel.add(this.createItem(AnalysisResult.OOName, result
-				.getSummary().getObjectOriented()));
-
-		leftPanel.add(BorderLayout.SOUTH, otherPanel);
+//		JPanel otherPanel = new JPanel(new BorderLayout());
+//		otherPanel.setBorder(new TitledBorder(BundleUtil
+//				.getString(BundleUtil.ClientWin_ScorePanel_OtherMetrics)));
+//		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
+//
+//		otherPanel.add(this.createItem(AnalysisResult.OOName, result
+//				.getSummary().getObjectOriented()));
+//
+//		leftPanel.add(BorderLayout.SOUTH, otherPanel);
 
 		workspacePanel.add(leftPanel);
 

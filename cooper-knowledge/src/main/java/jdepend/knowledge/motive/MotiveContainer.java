@@ -258,8 +258,8 @@ public class MotiveContainer extends PersistentBean implements AnalysisResultLis
 		this.memoryOperation.addMemoryOperationA(areaName, component.getName(), MemoryOperation.Add);
 	}
 
-	public void addAreaComponent(String areaName, Collection<Component> components) throws JDependException {
-		this.adjustInfo.addAreaComponent(areaName, components);
+	public void addAreaComponent(int areaLayer, String areaName, Collection<Component> components) throws JDependException {
+		this.adjustInfo.addAreaComponent(areaLayer, areaName, components);
 		this.memoryOperation.addMemoryOperationA(areaName, null, MemoryOperation.Add);
 		for (Component component : components) {
 			this.memoryOperation.addMemoryOperationA(areaName, component.getName(), MemoryOperation.Add);

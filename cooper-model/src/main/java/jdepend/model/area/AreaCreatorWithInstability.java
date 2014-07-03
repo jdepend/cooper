@@ -2,8 +2,6 @@ package jdepend.model.area;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
@@ -11,22 +9,32 @@ import jdepend.model.result.AnalysisResult;
 public class AreaCreatorWithInstability extends AbstractAreaCreator {
 
 	@Override
-	public Map<String, Collection<Component>> calCoverCount(AnalysisResult result) {
-		Map<String, Collection<Component>> areaComponents = new HashMap<String, Collection<Component>>();
+	public Collection<AreaComponentInfo> calCoverCount(AnalysisResult result) {
+		Collection<AreaComponentInfo> areaComponents = new ArrayList<AreaComponentInfo>();
 
+		int layer;
 		String name;
+		AreaComponentInfo componentInfo;
 		for (Component component : result.getComponents()) {
 			if (component.getStability() == 0) {
+				layer = 100;
 				name = "底层组件";
 			} else if (component.getStability() == 1) {
+				layer = 102;
 				name = "高层组件";
 			} else {
+				layer = 101;
 				name = "中层组件";
 			}
-			if (!areaComponents.containsKey(name)) {
-				areaComponents.put(name, new ArrayList<Component>());
+
+			componentInfo = getTheAreaComponentInfo(areaComponents, name);
+			if (componentInfo == null) {
+				componentInfo = new AreaComponentInfo();
+				componentInfo.setLayer(layer);
+				componentInfo.setName(name);
+				areaComponents.add(componentInfo);
 			}
-			areaComponents.get(name).add(component);
+			componentInfo.getComponents().add(component);
 		}
 
 		return areaComponents;

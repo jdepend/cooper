@@ -166,6 +166,7 @@ public class BundleUtil {
 	public static final String Metrics_OO = "Metrics_OO";// 面向对象指数
 
 	public static final String Metrics_Name = "Metrics_Name";
+	public static final String Metrics_Area = "Metrics_Area";
 	public static final String Metrics_Title = "Metrics_Title";
 	public static final String Metrics_LC = "Metrics_LC";
 	public static final String Metrics_CN = "Metrics_CN";

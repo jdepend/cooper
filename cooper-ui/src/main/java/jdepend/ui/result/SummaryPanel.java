@@ -72,10 +72,10 @@ public final class SummaryPanel extends SubResultTabPanel {
 	@Override
 	protected void init(AnalysisResult result) {
 
-		this.headers = new String[] { ReportConstant.Name, ReportConstant.LC, ReportConstant.CN, ReportConstant.CC,
-				ReportConstant.AC, ReportConstant.Ca, ReportConstant.Ce, ReportConstant.A, ReportConstant.V,
-				ReportConstant.I, ReportConstant.D, ReportConstant.Coupling, ReportConstant.Cohesion,
-				ReportConstant.Balance, ReportConstant.Encapsulation, ReportConstant.OO, ReportConstant.Cycle };
+		this.headers = new String[] { ReportConstant.Name, ReportConstant.Component_Area, ReportConstant.LC,
+				ReportConstant.CN, ReportConstant.CC, ReportConstant.AC, ReportConstant.Ca, ReportConstant.Ce,
+				ReportConstant.A, ReportConstant.V, ReportConstant.I, ReportConstant.D, ReportConstant.Coupling,
+				ReportConstant.Cohesion, ReportConstant.Balance, ReportConstant.Encapsulation, ReportConstant.Cycle };
 
 		DefaultTableModel model = new DefaultTableModel() {
 			@Override
@@ -381,25 +381,12 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 	private Object[] formatSummary(AnalysisResultSummary summary) {
 
-		Object[] rtn = new Object[headers.length];
-		rtn[0] = summary.getName();
-		rtn[1] = summary.getLineCount();
-		rtn[2] = summary.getClassCount();
-		rtn[3] = summary.getConcreteClassCount();
-		rtn[4] = summary.getAbstractClassCount();
-		rtn[5] = summary.getAfferentCoupling();
-		rtn[6] = summary.getEfferentCoupling();
-		rtn[7] = MetricsFormat.toFormattedMetrics(summary.getAbstractness());
-		rtn[8] = MetricsFormat.toFormattedMetrics(summary.getVolatility());
-		rtn[9] = MetricsFormat.toFormattedMetrics(summary.getInstability());
-		rtn[10] = MetricsFormat.toFormattedMetrics(summary.getDistance());
-		rtn[11] = MetricsFormat.toFormattedMetrics(summary.getCoupling());
-		rtn[12] = MetricsFormat.toFormattedMetrics(summary.getCohesion());
-		rtn[13] = MetricsFormat.toFormattedMetrics(summary.getBalance());
-		rtn[14] = MetricsFormat.toFormattedMetrics(summary.getEncapsulation());
-		rtn[15] = MetricsFormat.toFormattedMetrics(summary.getObjectOriented());
+		Object[] row = new Object[headers.length];
+		for (int i = 0; i < headers.length; i++) {
+			row[i] = summary.getValue(ReportConstant.toMetrics(headers[i]));
+		}
 
-		return rtn;
+		return row;
 	}
 
 	class CreateUniteComponentDialog extends CreateComponentConfDialog {
