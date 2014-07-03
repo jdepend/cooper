@@ -51,10 +51,14 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		AttentionTypeList.put(MutualDependAttentionType, "彼此依赖");
 	}
 
-	public static final String Intensity = "Intensity";
-	public static final String AttentionType = "AttentionType";
-	public static final String AttentionLevel = "AttentionLevel";
-	public static final String Balance = "Balance";
+	public static final String CurrentName = "Relation_CurrentName";
+	public static final String DependName = "Relation_DependName";
+	public static final String CurrentCohesion = "Relation_CurrentCohesion";
+	public static final String DependCohesion = "Relation_DependCohesion";
+	public static final String Intensity = "Relation_Intensity";
+	public static final String AttentionType = "Relation_AttentionType";
+	public static final String AttentionLevel = "Relation_AttentionLevel";
+	public static final String Balance = "Relation_Balance";
 
 	public void setCurrent(Element current) {
 		this.current = current;
@@ -187,21 +191,21 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	public Object getValue(String metrics) {
-		if (metrics.equals(MetricsMgr.Relation_CurrentName)) {
+		if (metrics.equals(CurrentName)) {
 			return this.current.getName();
-		} else if (metrics.equals(MetricsMgr.Relation_DependName)) {
+		} else if (metrics.equals(DependName)) {
 			return this.depend.getName();
-		} else if (metrics.equals(MetricsMgr.Relation_CurrentCohesion)) {
+		} else if (metrics.equals(CurrentCohesion)) {
 			return MetricsFormat.toFormattedMetrics(this.current.getIntensity());
-		} else if (metrics.equals(MetricsMgr.Relation_DependCohesion)) {
+		} else if (metrics.equals(DependCohesion)) {
 			return MetricsFormat.toFormattedMetrics(this.depend.getIntensity());
-		} else if (metrics.equals(MetricsMgr.Relation_Balance)) {
+		} else if (metrics.equals(Balance)) {
 			return MetricsFormat.toFormattedMetrics(this.getBalance());
-		} else if (metrics.equals(MetricsMgr.Relation_Intensity)) {
+		} else if (metrics.equals(Intensity)) {
 			return MetricsFormat.toFormattedMetrics(this.getIntensity());
-		} else if (metrics.equals(MetricsMgr.Relation_AttentionType)) {
-			return Relation.AttentionTypeList.get(this.getAttentionType());
-		} else if (metrics.equals(MetricsMgr.Relation_AttentionLevel)) {
+		} else if (metrics.equals(AttentionType)) {
+			return AttentionTypeList.get(this.getAttentionType());
+		} else if (metrics.equals(AttentionLevel)) {
 			return this.getAttentionLevel();
 		} else {
 			return null;

@@ -39,15 +39,6 @@ public final class MetricsMgr {
 	public static final String JavaClass_Stable = "JavaClass_Stable";
 	public static final String JavaClass_isPrivateElement = "JavaClass_isPrivateElement";
 
-	public static final String Relation_CurrentName = "Relation_CurrentName";
-	public static final String Relation_DependName = "Relation_DependName";
-	public static final String Relation_Intensity = "Relation_Intensity";
-	public static final String Relation_CurrentCohesion = "Relation_CurrentCohesion";
-	public static final String Relation_DependCohesion = "Relation_DependCohesion";
-	public static final String Relation_Balance = "Relation_Balance";
-	public static final String Relation_AttentionType = "Relation_AttentionType";
-	public static final String Relation_AttentionLevel = "Relation_AttentionLevel";
-
 	public static final String Cyclic = "存在";
 
 	public static final String HaveState = "有";

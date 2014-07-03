@@ -2,6 +2,7 @@ package jdepend.util.refactor;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.MetricsMgr;
+import jdepend.model.Relation;
 
 public class CompareInfo {
 
@@ -77,7 +78,7 @@ public class CompareInfo {
 		if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
 				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(MetricsMgr.JavaClass_State)
-				|| metrics.equals(MetricsMgr.Relation_CurrentName) || metrics.equals(MetricsMgr.Relation_DependName)) {
+				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)) {
 			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
 			if (result < 0) {
@@ -157,37 +158,37 @@ public class CompareInfo {
 			} else {
 				return true;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_CurrentCohesion)) {
+		} else if (metrics.equals(Relation.CurrentCohesion)) {
 			if (result < 0) {
 				return false;
 			} else {
 				return true;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_DependCohesion)) {
+		} else if (metrics.equals(Relation.DependCohesion)) {
 			if (result < 0) {
 				return false;
 			} else {
 				return true;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_Intensity)) {
+		} else if (metrics.equals(Relation.Intensity)) {
 			if (result < 0) {
 				return true;
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_Balance)) {
+		} else if (metrics.equals(Relation.Balance)) {
 			if (result < 0) {
 				return false;
 			} else {
 				return true;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_AttentionLevel)) {
+		} else if (metrics.equals(Relation.AttentionLevel)) {
 			if (result < 0) {
 				return true;
 			} else {
 				return false;
 			}
-		} else if (metrics.equals(MetricsMgr.Relation_AttentionType)) {
+		} else if (metrics.equals(Relation.AttentionType)) {
 			if (result < 0) {
 				return true;
 			} else {

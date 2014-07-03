@@ -5,6 +5,7 @@ import java.util.Map;
 
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.MetricsMgr;
+import jdepend.model.Relation;
 
 public class ReportConstant {
 
@@ -99,14 +100,14 @@ public class ReportConstant {
 		toMetricses.put(JavaClass_Stable, MetricsMgr.JavaClass_Stable);
 		toMetricses.put(JavaClass_isPrivateElement, MetricsMgr.JavaClass_isPrivateElement);
 
-		toMetricses.put(Relation_CurrentName, MetricsMgr.Relation_CurrentName);
-		toMetricses.put(Relation_DependName, MetricsMgr.Relation_DependName);
-		toMetricses.put(Relation_Intensity, MetricsMgr.Relation_Intensity);
-		toMetricses.put(Relation_CurrentCohesion, MetricsMgr.Relation_CurrentCohesion);
-		toMetricses.put(Relation_DependCohesion, MetricsMgr.Relation_DependCohesion);
-		toMetricses.put(Relation_Balance, MetricsMgr.Relation_Balance);
-		toMetricses.put(Relation_AttentionType, MetricsMgr.Relation_AttentionType);
-		toMetricses.put(Relation_AttentionLevel, MetricsMgr.Relation_AttentionLevel);
+		toMetricses.put(Relation_CurrentName, Relation.CurrentName);
+		toMetricses.put(Relation_DependName, Relation.DependName);
+		toMetricses.put(Relation_Intensity, Relation.Intensity);
+		toMetricses.put(Relation_CurrentCohesion, Relation.CurrentCohesion);
+		toMetricses.put(Relation_DependCohesion, Relation.DependCohesion);
+		toMetricses.put(Relation_Balance, Relation.Balance);
+		toMetricses.put(Relation_AttentionType, Relation.AttentionType);
+		toMetricses.put(Relation_AttentionLevel, Relation.AttentionLevel);
 	}
 
 }

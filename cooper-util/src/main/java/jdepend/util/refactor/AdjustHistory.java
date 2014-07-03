@@ -5,11 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.MathUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.Measurable;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.result.AnalysisResultSummary;
 
 public class AdjustHistory {
 
