@@ -103,7 +103,9 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 	}
 
 	private String getCompare(int compare) {
-		if (compare < 0) {
+		if (compare == CompareInfo.NEW) {
+			return "-";
+		} else if (compare < 0) {
 			return "↓";
 		} else if (compare > 0) {
 			return "↑";

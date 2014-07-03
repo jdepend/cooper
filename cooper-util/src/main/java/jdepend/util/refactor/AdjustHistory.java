@@ -93,22 +93,17 @@ public class AdjustHistory {
 		if (this.getOriginality() != null) {
 			AnalysisResult result = this.getOriginality().getResult();
 			Object originality = object.getOriginalityValue(result);
-			if (originality != null) {
-				// 获取比较的数值
-				CompareInfo info = new CompareInfo();
-				info.setMetrics(object.getMetrics());
-				info.setValue(object.getValue());
-				info.setOriginality(originality);
-				// 进行比较
-				info.calResult();
+			// 获取比较的数值
+			CompareInfo info = new CompareInfo();
+			info.setMetrics(object.getMetrics());
+			info.setValue(object.getValue());
+			info.setOriginality(originality);
+			// 进行比较
+			info.calResult();
 
-				return info;
-			} else {
-				return null;
-			}
+			return info;
 		} else {
 			return null;
 		}
 	}
-
 }

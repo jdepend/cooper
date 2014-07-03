@@ -13,6 +13,8 @@ public class CompareInfo {
 	private Integer result;
 	private Boolean evaluate;
 
+	public static final int NEW = 100;
+
 	public String getMetrics() {
 		return metrics;
 	}
@@ -50,6 +52,10 @@ public class CompareInfo {
 	}
 
 	public void calResult() {
+		if (originality == null) {
+			this.setResult(NEW);
+			return;
+		}
 		if (value instanceof Float) {
 			Float newValue = (Float) value;
 			Float oldValue = (Float) originality;
@@ -76,7 +82,9 @@ public class CompareInfo {
 	}
 
 	private static Boolean evaluate(int result, String metrics) {
-		if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
+		if (result == NEW) {
+			return null;
+		} else if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
 				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(JavaClass.State)
 				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)) {
