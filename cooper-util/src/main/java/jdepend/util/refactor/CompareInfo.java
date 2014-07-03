@@ -1,6 +1,8 @@
 package jdepend.util.refactor;
 
 import jdepend.framework.util.MathUtil;
+import jdepend.model.AreaComponent;
+import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -68,6 +70,10 @@ public class CompareInfo {
 			Integer newValue = (Integer) value;
 			Integer oldValue = (Integer) originality;
 			this.setResult(MathUtil.compare(newValue, oldValue));
+		} else if (value instanceof AreaComponent) {
+			Integer valueLayer = ((AreaComponent) value).getLayer();
+			Integer originalityLayer = ((AreaComponent) originality).getLayer();
+			this.setResult(MathUtil.compare(valueLayer, originalityLayer));
 		} else {
 			this.setResult(0);
 		}
@@ -87,7 +93,8 @@ public class CompareInfo {
 		} else if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
 				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
 				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(JavaClass.State)
-				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)) {
+				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)
+				|| metrics.equals(Component.Area)) {
 			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
 			if (result < 0) {
