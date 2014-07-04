@@ -267,7 +267,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-		JPanel descPanel = new JPanel(new GridLayout(3, 2));
+		JPanel descPanel = new JPanel(new GridLayout(8, 1));
 		descPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JPanel panel = null;
 		JLabel valuePanel = null;
@@ -318,6 +318,18 @@ public final class ScorePanel extends SubResultTabPanel implements
 				.getString(BundleUtil.Metrics_RelationComponentScale)
 				+ ":"
 				+ result.calRelationComponentScale()));
+		descPanel.add(panel);
+		
+		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panel.setBackground(new java.awt.Color(255, 255, 255));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"
+				+ result.getSummary().getCoupling()));
+		descPanel.add(panel);
+		
+		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panel.setBackground(new java.awt.Color(255, 255, 255));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"
+				+ result.getSummary().getCohesion()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
