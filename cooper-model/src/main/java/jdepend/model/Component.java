@@ -204,6 +204,15 @@ public abstract class Component extends AbstractJDependUnit {
 		return path;
 	}
 
+	@Override
+	public String getArea() {
+		if (this.areaComponent == null) {
+			return null;
+		} else {
+			return this.areaComponent.getName();
+		}
+	}
+
 	public void addJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);

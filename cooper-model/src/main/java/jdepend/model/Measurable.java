@@ -16,6 +16,13 @@ public interface Measurable extends Named {
 	public String getTitle();
 	
 	/**
+	 * 区域
+	 * 
+	 * @return
+	 */
+	public String getArea();
+	
+	/**
 	 * 代码行数
 	 * 
 	 * @return

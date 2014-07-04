@@ -149,6 +149,11 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	public String getName() {
 		return Name;
 	}
+	
+	@Override
+	public String getArea() {
+		return null;
+	}
 
 	public void setAbstractness(float abstractness) {
 		this.abstractness = abstractness;

@@ -65,6 +65,7 @@ margin: 0 0 0 -500px;
 							<tr>
 								<th>选择</th>
 								<th>组件名称</th>
+								<th>区域</th>
 								<th>代码行数</th>
 								<th>类数量</th>
 								<th>具体类数量</th>
@@ -86,6 +87,7 @@ margin: 0 0 0 -500px;
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td class="itemName">${item.name}</td>
+									<td>${item.area}</td>
 									<td>${item.lineCount}</td>
 									<td class="classCount" style="color:blue;">${item.classCount}</td>
 									<td>${item.abstractClassCount}</td>

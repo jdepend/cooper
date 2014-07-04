@@ -140,6 +140,11 @@ public final class JavaClass extends AbstractJDependUnit {
 	public String getPath() {
 		return packageName;
 	}
+	
+	@Override
+	public String getArea() {
+		return null;
+	}
 
 	public Collection<String> getImportedPackages() {
 		return imports;
