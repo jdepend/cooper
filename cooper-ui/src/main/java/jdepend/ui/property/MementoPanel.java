@@ -12,17 +12,21 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.MultiLineTableCellRender;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JDependUnitMgr;
+import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.Memento;
@@ -113,6 +117,18 @@ public class MementoPanel extends JPanel {
 		});
 		popupMenu.add(viewMementoItem);
 
+		JMenuItem compareItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Compare));
+		compareItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (selectedMementos.size() == 2) {
+					compare(selectedMementos.get(0), selectedMementos.get(1));
+				} else {
+					JOptionPane.showMessageDialog(frame, "请选择2条需要比较的记录", "alert", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		popupMenu.add(compareItem);
+
 		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,6 +205,16 @@ public class MementoPanel extends JPanel {
 		} else {
 			JDependUnitMgr.getInstance().setResult(AdjustHistory.getInstance().getCurrent());
 		}
+		AdjustHistory.getInstance().setCompared(null);
 		frame.getResultPanel().showMemoryResults();
+	}
+
+	private void compare(Date id1, Date id2) {
+		Memento memento1 = AdjustHistory.getInstance().getTheMemento(id1);
+		AdjustHistory.getInstance().setCompared(memento1);
+		AnalysisResult result2 = AdjustHistory.getInstance().getTheMemento(id2).getResult();
+		JDependUnitMgr.getInstance().setResult(result2);
+		AdjustHistory.getInstance().setCurrent(result2);
+		frame.getResultPanel().showResults();
 	}
 }

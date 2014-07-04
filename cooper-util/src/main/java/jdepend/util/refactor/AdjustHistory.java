@@ -16,6 +16,8 @@ public class AdjustHistory {
 
 	private AnalysisResult current;// 移动后的当前结果
 
+	private Memento compared = null;
+
 	private static AdjustHistory inst = new AdjustHistory();
 
 	private AdjustHistory() {
@@ -38,12 +40,24 @@ public class AdjustHistory {
 		return new Memento(result, actions);
 	}
 
+	public Memento getCompared() {
+		if (this.compared != null) {
+			return this.compared;
+		} else {
+			return this.getOriginality();
+		}
+	}
+
 	public Memento getOriginality() {
 		if (this.mementos.size() == 0) {
 			return null;
 		} else {
 			return this.mementos.get(0);
 		}
+	}
+
+	public void setCompared(Memento memento) {
+		this.compared = memento;
 	}
 
 	public List<String> getActions() {
@@ -90,8 +104,8 @@ public class AdjustHistory {
 	}
 
 	public CompareInfo compare(CompareObject object) throws JDependException {
-		if (this.getOriginality() != null) {
-			AnalysisResult result = this.getOriginality().getResult();
+		if (this.getCompared() != null) {
+			AnalysisResult result = this.getCompared().getResult();
 			Object originality = object.getOriginalityValue(result);
 			// 获取比较的数值
 			CompareInfo info = new CompareInfo();

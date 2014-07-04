@@ -90,8 +90,8 @@ public class ScoreListPanel extends JPanel {
 			tableData.setData(
 					BundleUtil.getString(BundleUtil.Metrics_TotalScore),
 					MetricsFormat.toFormattedMetrics(scoreInfo.score));
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_OO),
-					MetricsFormat.toFormattedMetrics(scoreInfo.oo));
+//			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_OO),
+//					MetricsFormat.toFormattedMetrics(scoreInfo.oo));
 			tableData.setData(
 					BundleUtil.getString(BundleUtil.TableHead_CreateTime),
 					scoreInfo.getCreateDate());

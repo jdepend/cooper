@@ -286,8 +286,8 @@ public final class ScoreListDialog extends CooperDialog {
 					contentList.append(scoreInfo.relation);
 					contentList.append("	");
 					contentList.append(scoreInfo.score);
-					contentList.append("	");
-					contentList.append(scoreInfo.oo);
+//					contentList.append("	");
+//					contentList.append(scoreInfo.oo);
 					contentList.append("	");
 					contentList.append(scoreInfo.getCreateDate());
 					contentList.append("\n");

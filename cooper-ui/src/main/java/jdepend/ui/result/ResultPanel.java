@@ -223,7 +223,7 @@ public class ResultPanel extends TabsPanel {
 				this.appendResult(otherName, otherReport.get(otherName));
 			}
 			// 添加差异页
-			Memento memento = AdjustHistory.getInstance().getOriginality();
+			Memento memento = AdjustHistory.getInstance().getCompared();
 			if (memento != null) {
 				AnalysisResult result1 = memento.getResult();
 				StringBuilder diff = result.equals(result1);
