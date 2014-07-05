@@ -6,6 +6,7 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
+import jdepend.model.result.AnalysisResult;
 
 public class CompareInfo {
 
@@ -209,6 +210,36 @@ public class CompareInfo {
 				return true;
 			} else {
 				return false;
+			}
+		} else if (metrics.equals(AnalysisResult.ScoreName)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(AnalysisResult.DName)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(AnalysisResult.BalanceName)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(AnalysisResult.RelationRationalityName)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (metrics.equals(AnalysisResult.EncapsulationName)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
 			}
 		} else {
 			return null;

@@ -89,6 +89,7 @@ public class AdjustHistory {
 		this.mementos = new ArrayList<Memento>();
 		this.actions = null;
 		this.current = null;
+		this.compared = null;
 	}
 
 	public boolean empty() {

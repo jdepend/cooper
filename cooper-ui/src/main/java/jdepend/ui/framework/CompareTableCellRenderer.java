@@ -47,12 +47,13 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 			try {
 				CompareInfo info = AdjustHistory.getInstance().compare(this.getCompareObject(value, id, metrics));
 				if (info != null && info.isDiff()) {
+					CompareInfoWebWarpper warpper = new CompareInfoWebWarpper(info);
 					// 暂存原始数据
 					originality = this.getOriginality(info.getOriginality(), row, column);
 					JLabel labelDirection = new JLabel();
 					labelDirection.setFont(table.getFont());
-					labelDirection.setText(getCompare(info.getResult()));
-					labelDirection.setForeground(calDirectionColor(info.getEvaluate()));
+					labelDirection.setText(warpper.getCompare());
+					labelDirection.setForeground(warpper.getDirectionColor());
 					this.add(labelDirection);
 				}
 			} catch (JDependException e) {
@@ -89,28 +90,6 @@ public abstract class CompareTableCellRenderer extends JPanel implements TableCe
 			return "Originality:" + originality;
 		} else {
 			return null;
-		}
-	}
-
-	private Color calDirectionColor(Boolean evaluate) {
-		if (evaluate == null) {
-			return Color.blue;
-		} else if (evaluate) {
-			return Color.green;
-		} else {
-			return Color.red;
-		}
-	}
-
-	private String getCompare(int compare) {
-		if (compare == CompareInfo.NEW) {
-			return "-";
-		} else if (compare < 0) {
-			return "↓";
-		} else if (compare > 0) {
-			return "↑";
-		} else {
-			return "";
 		}
 	}
 }

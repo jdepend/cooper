@@ -3,6 +3,7 @@ package jdepend.ui.result;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -42,10 +44,13 @@ import jdepend.report.ui.ClassListDialog;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ChangedPackageListDialog;
+import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
+import jdepend.util.refactor.AdjustHistory;
+import jdepend.util.refactor.CompareInfo;
+import jdepend.util.refactor.CompareObject;
 
-public final class ScorePanel extends SubResultTabPanel implements
-		CapacityCreatedListener {
+public final class ScorePanel extends SubResultTabPanel implements CapacityCreatedListener {
 
 	private AnalysisResult result;
 	private JDependCooper frame;
@@ -88,11 +93,9 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		executeInfo.setFont(new java.awt.Font("宋体", 0, 10));
 		executeInfo.setForeground(new java.awt.Color(204, 204, 204));
-		executeInfo.setText(BundleUtil.getString(BundleUtil.Analysis_Time)
-				+ ":" + this.result.getRunningContext().getAnalyseDate() + " V"
-				+ VersionUtil.getVersion() + " BuildDate:"
-				+ VersionUtil.getBuildDate() + " Group:"
-				+ this.result.getRunningContext().getGroup() + " Command:"
+		executeInfo.setText(BundleUtil.getString(BundleUtil.Analysis_Time) + ":"
+				+ this.result.getRunningContext().getAnalyseDate() + " V" + VersionUtil.getVersion() + " BuildDate:"
+				+ VersionUtil.getBuildDate() + " Group:" + this.result.getRunningContext().getGroup() + " Command:"
 				+ this.result.getRunningContext().getCommand());
 
 		return executeInfo;
@@ -106,23 +109,22 @@ public final class ScorePanel extends SubResultTabPanel implements
 		JPanel leftPanel = new JPanel(new BorderLayout());
 
 		JPanel scorePanel = new JPanel(new BorderLayout());
-		scorePanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_TotalScore)));
+		scorePanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_TotalScore)));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
 		scorePanel.add(this.createScorePanel());
 
 		leftPanel.add(BorderLayout.CENTER, scorePanel);
 
-//		JPanel otherPanel = new JPanel(new BorderLayout());
-//		otherPanel.setBorder(new TitledBorder(BundleUtil
-//				.getString(BundleUtil.ClientWin_ScorePanel_OtherMetrics)));
-//		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-//
-//		otherPanel.add(this.createItem(AnalysisResult.OOName, result
-//				.getSummary().getObjectOriented()));
-//
-//		leftPanel.add(BorderLayout.SOUTH, otherPanel);
+		// JPanel otherPanel = new JPanel(new BorderLayout());
+		// otherPanel.setBorder(new TitledBorder(BundleUtil
+		// .getString(BundleUtil.ClientWin_ScorePanel_OtherMetrics)));
+		// otherPanel.setBackground(new java.awt.Color(255, 255, 255));
+		//
+		// otherPanel.add(this.createItem(AnalysisResult.OOName, result
+		// .getSummary().getObjectOriented()));
+		//
+		// leftPanel.add(BorderLayout.SOUTH, otherPanel);
 
 		workspacePanel.add(leftPanel);
 
@@ -130,38 +132,31 @@ public final class ScorePanel extends SubResultTabPanel implements
 		subitemPanel.setBackground(new java.awt.Color(255, 255, 255));
 
 		JPanel dPanel = new JPanel(new BorderLayout());
-		dPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_D)));
+		dPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_D)));
 		dPanel.setBackground(new java.awt.Color(255, 255, 255));
 		dPanel.add(this.createItem(AnalysisResult.DName, result.getD()));
 
 		subitemPanel.add(dPanel);
 
 		JPanel balancePanel = new JPanel(new BorderLayout());
-		balancePanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_Balance)));
+		balancePanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Balance)));
 		balancePanel.setBackground(new java.awt.Color(255, 255, 255));
-		balancePanel.add(this.createItem(AnalysisResult.BalanceName,
-				result.getBalance()));
+		balancePanel.add(this.createItem(AnalysisResult.BalanceName, result.getBalance()));
 
 		subitemPanel.add(balancePanel);
 
 		JPanel encapsulationPanel = new JPanel(new BorderLayout());
-		encapsulationPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_Encapsulation)));
+		encapsulationPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Encapsulation)));
 		encapsulationPanel.setBackground(new java.awt.Color(255, 255, 255));
-		encapsulationPanel.add(this.createItem(
-				AnalysisResult.EncapsulationName, result.getEncapsulation()));
+		encapsulationPanel.add(this.createItem(AnalysisResult.EncapsulationName, result.getEncapsulation()));
 
 		subitemPanel.add(encapsulationPanel);
 
 		JPanel relationRationalityPanel = new JPanel(new BorderLayout());
 		relationRationalityPanel.setBorder(new TitledBorder(BundleUtil
 				.getString(BundleUtil.Metrics_RelationRationality)));
-		relationRationalityPanel
-				.setBackground(new java.awt.Color(255, 255, 255));
-		relationRationalityPanel.add(this.createItem(
-				AnalysisResult.RelationRationalityName,
+		relationRationalityPanel.setBackground(new java.awt.Color(255, 255, 255));
+		relationRationalityPanel.add(this.createItem(AnalysisResult.RelationRationalityName,
 				result.getRelationRationality()));
 
 		subitemPanel.add(relationRationalityPanel);
@@ -181,14 +176,15 @@ public final class ScorePanel extends SubResultTabPanel implements
 		JPanel scorePanel = new JPanel(new GridLayout(2, 1));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
+		JPanel scoreItemPanel = new JPanel(new GridLayout());
+		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
 		String title = null;
 		if (itemName.equals(AnalysisResult.OOName)) {
 			title = itemName + ":";
 		} else {
-			title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score)
-					+ ":";
+			title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":";
 		}
 		score.setText(title + MetricsFormat.toFormattedMetrics(scoreValue));
 		if (itemName.equals(AnalysisResult.ScoreName)) {
@@ -203,7 +199,12 @@ public final class ScorePanel extends SubResultTabPanel implements
 			JDependUIUtil.addClickTipEffect(score);
 		}
 
-		scorePanel.add(score);
+		scoreItemPanel.add(score);
+		JLabel scoreCompareLabel = this.getComparedLabel(scoreValue, itemName);
+		if (scoreCompareLabel != null) {
+			scoreItemPanel.add(scoreCompareLabel);
+		}
+		scorePanel.add(scoreItemPanel);
 
 		JLabel fullScore = new JLabel();
 		fullScore.setBackground(new java.awt.Color(153, 153, 153));
@@ -212,29 +213,19 @@ public final class ScorePanel extends SubResultTabPanel implements
 		if (itemName.equals(AnalysisResult.OOName)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.Metrics_OO_Desc));
 		} else if (itemName.equals(AnalysisResult.ScoreName)) {
-			fullScore.setText(BundleUtil
-					.getString(BundleUtil.ClientWin_ScorePanel_FullScore)
-					+ ":"
+			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.FullScore);
 		} else if (itemName.equals(AnalysisResult.RelationRationalityName)) {
-			fullScore.setText(BundleUtil
-					.getString(BundleUtil.ClientWin_ScorePanel_FullScore)
-					+ ":"
+			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.RelationRationality);
 		} else if (itemName.equals(AnalysisResult.DName)) {
-			fullScore.setText(BundleUtil
-					.getString(BundleUtil.ClientWin_ScorePanel_FullScore)
-					+ ":"
+			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.D);
 		} else if (itemName.equals(AnalysisResult.BalanceName)) {
-			fullScore.setText(BundleUtil
-					.getString(BundleUtil.ClientWin_ScorePanel_FullScore)
-					+ ":"
+			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.Balance);
 		} else if (itemName.equals(AnalysisResult.EncapsulationName)) {
-			fullScore.setText(BundleUtil
-					.getString(BundleUtil.ClientWin_ScorePanel_FullScore)
-					+ ":"
+			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.Encapsulation);
 		}
 
@@ -258,12 +249,52 @@ public final class ScorePanel extends SubResultTabPanel implements
 		return itemPanel;
 	}
 
+	private JLabel getComparedLabel(Float value, String metrics) {
+		try {
+			final CompareInfo info = AdjustHistory.getInstance().compare(new CompareObject(value, null, metrics) {
+				@Override
+				public Object getOriginalityValue(AnalysisResult result) {
+					if (this.getMetrics().equals(AnalysisResult.ScoreName)) {
+						return result.getScore();
+					}else if(this.getMetrics().equals(AnalysisResult.DName)){
+						return result.getD();
+					}else if(this.getMetrics().equals(AnalysisResult.BalanceName)){
+						return result.getBalance();
+					}else if(this.getMetrics().equals(AnalysisResult.RelationRationalityName)){
+						return result.getRelationRationality();
+					}else if(this.getMetrics().equals(AnalysisResult.EncapsulationName)){
+						return result.getEncapsulation();
+					}
+					return null;
+				}
+			});
+
+			if (info != null && info.isDiff()) {
+				JLabel labelDirection = new JLabel() {
+					@Override
+					public String getToolTipText(MouseEvent e) {
+						return "Originality:" + info.getOriginality();
+					}
+				};
+				ToolTipManager.sharedInstance().registerComponent(labelDirection);
+				CompareInfoWebWarpper warpper = new CompareInfoWebWarpper(info);
+				labelDirection.setText(warpper.getCompare());
+				labelDirection.setForeground(warpper.getDirectionColor());
+				return labelDirection;
+			} else {
+				return null;
+			}
+		} catch (JDependException e1) {
+			e1.printStackTrace();
+			return null;
+		}
+	}
+
 	private JComponent createScorePanel() {
 
 		JPanel scorePanel = new JPanel(new BorderLayout());
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
-		scorePanel.add(BorderLayout.NORTH,
-				this.createItem(AnalysisResult.ScoreName, result.getScore()));
+		scorePanel.add(BorderLayout.NORTH, this.createItem(AnalysisResult.ScoreName, result.getScore()));
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -274,20 +305,17 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_LC) + ":"
-				+ result.getSummary().getLineCount()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_LC) + ":" + result.getSummary().getLineCount()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":"
-				+ result.getSummary().getClassCount()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":" + result.getSummary().getClassCount()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil
-				.getString(BundleUtil.Metrics_ComponentCount) + ":"));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_ComponentCount) + ":"));
 		valuePanel = new JLabel("" + result.getComponents().size());
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,8 +328,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil
-				.getString(BundleUtil.Metrics_RelationCount) + ":"));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationCount) + ":"));
 		valuePanel = new JLabel("" + result.getRelations().size());
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -314,18 +341,16 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil
-				.getString(BundleUtil.Metrics_RelationComponentScale)
-				+ ":"
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationComponentScale) + ":"
 				+ result.calRelationComponentScale()));
 		descPanel.add(panel);
-		
+
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"
 				+ result.getSummary().getCoupling()));
 		descPanel.add(panel);
-		
+
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"
@@ -334,8 +359,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Capacity)
-				+ ":"));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Capacity) + ":"));
 		this.capacityLabel = new JLabel();
 		JDependUIUtil.addClickTipEffect(this.capacityLabel);
 		this.capacityLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,17 +376,13 @@ public final class ScorePanel extends SubResultTabPanel implements
 		if (diffPackages != null && diffPackages.size() > 0) {
 			JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			tipPanel.setBackground(new java.awt.Color(255, 255, 255));
-			tipPanel.add(new JLabel(
-					BundleUtil
-							.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip)));
+			tipPanel.add(new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip)));
 			JLabel tipClickLabel = new JLabel(
-					BundleUtil
-							.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip_This));
+					BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip_This));
 			JDependUIUtil.addClickTipEffect(tipClickLabel);
 			tipClickLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					ChangedPackageListDialog d = new ChangedPackageListDialog(
-							frame);
+					ChangedPackageListDialog d = new ChangedPackageListDialog(frame);
 					d.setModal(true);
 					d.setVisible(true);
 				}
@@ -389,11 +409,9 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.getD() / AnalysisResult.D);
-		datas.put(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.getD() / AnalysisResult.D);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getD() / AnalysisResult.D);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getD()
+				/ AnalysisResult.D);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -401,11 +419,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Balance));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.getBalance() / AnalysisResult.Balance);
-		datas.put(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.getBalance() / AnalysisResult.Balance);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getBalance()
+				/ AnalysisResult.Balance);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getBalance()
+				/ AnalysisResult.Balance);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -413,26 +430,21 @@ public final class ScorePanel extends SubResultTabPanel implements
 		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Encapsulation));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.getEncapsulation() / AnalysisResult.Encapsulation);
-		datas.put(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.getEncapsulation() / AnalysisResult.Encapsulation);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getEncapsulation()
+				/ AnalysisResult.Encapsulation);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+				1F - this.result.getEncapsulation() / AnalysisResult.Encapsulation);
 		item.setDatas(datas);
 		graph.addItem(item);
 
 		item = new GraphDataItem();
-		item.setTitle(BundleUtil
-				.getString(BundleUtil.Metrics_RelationRationality));
+		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_RelationRationality));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
-				this.result.getRelationRationality()
-						/ AnalysisResult.RelationRationality);
-		datas.put(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F
-				- this.result.getRelationRationality()
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getRelationRationality()
 				/ AnalysisResult.RelationRationality);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+				1F - this.result.getRelationRationality() / AnalysisResult.RelationRationality);
 		item.setDatas(datas);
 		graph.addItem(item);
 
@@ -462,11 +474,9 @@ public final class ScorePanel extends SubResultTabPanel implements
 			structure.setCategory(StructureCategory.LowScoreItemIdentifier);
 			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(
-						structure);
+				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
 				if (advise != null) {
-					adviseLabel.setText(advise.getDesc()
-							+ advise.getComponentNameInfo());
+					adviseLabel.setText(advise.getDesc() + advise.getComponentNameInfo());
 					advisePanel.add(adviseLabel);
 				}
 			} catch (JDependException e) {
@@ -477,8 +487,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 			structure.setCategory(StructureCategory.DDomainAnalysis);
 			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(
-						structure);
+				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());
@@ -486,17 +495,14 @@ public final class ScorePanel extends SubResultTabPanel implements
 					adviseLabel.setFont(new java.awt.Font("宋体", 1, 15)); // NOI18N
 					adviseLabel.setText(advise.getComponentNameInfo());
 					JDependUIUtil.addClickTipEffect(adviseLabel);
-					adviseLabel
-							.addMouseListener(new java.awt.event.MouseAdapter() {
-								public void mouseClicked(
-										java.awt.event.MouseEvent evt) {
-									JDependUnitDetailDialog d = new JDependUnitDetailDialog(
-											((JLabel) evt.getSource())
-													.getText());
-									d.setModal(true);
-									d.setVisible(true);
-								}
-							});
+					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+						public void mouseClicked(java.awt.event.MouseEvent evt) {
+							JDependUnitDetailDialog d = new JDependUnitDetailDialog(((JLabel) evt.getSource())
+									.getText());
+							d.setModal(true);
+							d.setVisible(true);
+						}
+					});
 					advisePanel.add(adviseLabel);
 					advisePanel.add(descLabel);
 				}
@@ -508,8 +514,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 			structure.setCategory(StructureCategory.CohesionDomainAnalysis);
 			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(
-						structure);
+				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());
@@ -517,17 +522,13 @@ public final class ScorePanel extends SubResultTabPanel implements
 					adviseLabel.setFont(new java.awt.Font("宋体", 1, 15)); // NOI18N
 					adviseLabel.setText(advise.getComponentNameInfo());
 					JDependUIUtil.addClickTipEffect(adviseLabel);
-					adviseLabel
-							.addMouseListener(new java.awt.event.MouseAdapter() {
-								public void mouseClicked(
-										java.awt.event.MouseEvent evt) {
-									CohesionDialog d = new CohesionDialog(
-											((JLabel) evt.getSource())
-													.getText());
-									d.setModal(true);
-									d.setVisible(true);
-								}
-							});
+					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+						public void mouseClicked(java.awt.event.MouseEvent evt) {
+							CohesionDialog d = new CohesionDialog(((JLabel) evt.getSource()).getText());
+							d.setModal(true);
+							d.setVisible(true);
+						}
+					});
 					advisePanel.add(descLabel);
 					advisePanel.add(adviseLabel);
 				}
@@ -536,12 +537,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 			}
 		} else if (itemName.equals(AnalysisResult.EncapsulationName)) {
 			structure = new Structure();
-			structure
-					.setCategory(StructureCategory.EncapsulationDomainAnalysis);
+			structure.setCategory(StructureCategory.EncapsulationDomainAnalysis);
 			structure.setData(result);
 			try {
-				final AdviseInfo advise = new ExpertFactory().createExpert()
-						.advise(structure);
+				final AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());
@@ -549,20 +548,15 @@ public final class ScorePanel extends SubResultTabPanel implements
 					adviseLabel.setFont(new java.awt.Font("宋体", 1, 15)); // NOI18N
 					adviseLabel.setText(advise.getComponentNameInfo());
 					JDependUIUtil.addClickTipEffect(adviseLabel);
-					adviseLabel
-							.addMouseListener(new java.awt.event.MouseAdapter() {
-								public void mouseClicked(
-										java.awt.event.MouseEvent evt) {
-									jdepend.model.Component component = JDependUnitMgr
-											.getInstance()
-											.getResult().getTheComponent(
-													advise.getComponentNameInfo());
-									ClassListDialog d = new ClassListDialog(
-											component);
-									d.setModal(true);
-									d.setVisible(true);
-								}
-							});
+					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+						public void mouseClicked(java.awt.event.MouseEvent evt) {
+							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
+									.getTheComponent(advise.getComponentNameInfo());
+							ClassListDialog d = new ClassListDialog(component);
+							d.setModal(true);
+							d.setVisible(true);
+						}
+					});
 					advisePanel.add(descLabel);
 					advisePanel.add(adviseLabel);
 				}
@@ -573,13 +567,10 @@ public final class ScorePanel extends SubResultTabPanel implements
 			Float rs = result.getAttentionRelationScale();
 			adviseLabel = new JLabel();
 			if (MathUtil.isZero(rs)) {
-				adviseLabel
-						.setText(BundleUtil
-								.getString(BundleUtil.ClientWin_ScorePanel_RelationNormal));
+				adviseLabel.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_RelationNormal));
 			} else {
-				adviseLabel.setText(BundleUtil
-						.getString(BundleUtil.Metrics_AttentionRelationScale)
-						+ ":" + MetricsFormat.toFormattedPercent(rs));
+				adviseLabel.setText(BundleUtil.getString(BundleUtil.Metrics_AttentionRelationScale) + ":"
+						+ MetricsFormat.toFormattedPercent(rs));
 				JDependUIUtil.addClickTipEffect(adviseLabel);
 				adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 					public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -594,8 +585,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 
 	}
 
-	private JPanel createScope(ScoreInfo lScoreInfo, ScoreInfo hScoreInfo,
-			String itemName) {
+	private JPanel createScope(ScoreInfo lScoreInfo, ScoreInfo hScoreInfo, String itemName) {
 		Float lScore = null;
 		String lScoreId;
 		Float hScore = null;
@@ -626,23 +616,18 @@ public final class ScorePanel extends SubResultTabPanel implements
 		return this.createScope(lScore, lScoreId, hScore, hScoreId);
 	}
 
-	private JPanel createScope(final Float lScore, final String lScoreId,
-			final Float hScore, final String hScoreId) {
+	private JPanel createScope(final Float lScore, final String lScoreId, final Float hScore, final String hScoreId) {
 		JPanel scoreScope = new JPanel();
 		FlowLayout flowLayout = new FlowLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		scoreScope.setLayout(flowLayout);
 		scoreScope.setBackground(new java.awt.Color(255, 255, 255));
-		JLabel scopeTitle = new JLabel(
-				BundleUtil
-						.getString(BundleUtil.ClientWin_ScorePanel_ExistingScoreScope)
-						+ ":");
+		JLabel scopeTitle = new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ExistingScoreScope) + ":");
 		scopeTitle.setForeground(new java.awt.Color(204, 204, 204));
 		scoreScope.add(scopeTitle);
 		JLabel lScoreJLablel = new JLabel(String.valueOf(lScore));
 		lScoreJLablel.setForeground(new java.awt.Color(204, 204, 204));
-		lScoreJLablel
-				.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		lScoreJLablel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		scoreScope.add(lScoreJLablel);
 		lScoreJLablel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -658,8 +643,7 @@ public final class ScorePanel extends SubResultTabPanel implements
 		scoreScope.add(interval);
 		JLabel hScoreJLablel = new JLabel(String.valueOf(hScore));
 		hScoreJLablel.setForeground(new java.awt.Color(204, 204, 204));
-		hScoreJLablel
-				.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		hScoreJLablel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		hScoreJLablel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				try {
