@@ -176,7 +176,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JPanel scorePanel = new JPanel(new GridLayout(2, 1));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-		JPanel scoreItemPanel = new JPanel(new GridLayout(1,2,4,0));
+		JPanel scoreItemPanel = new JPanel(new GridLayout(1, 2, 4, 0));
 		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
@@ -266,6 +266,18 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 						return result.getEncapsulation();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_LC)) {
 						return result.getSummary().getLineCount();
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_CN)) {
+						return result.getSummary().getClassCount();
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_ComponentCount)) {
+						return result.getComponents().size();
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationCount)) {
+						return result.getRelations().size();
+					}else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationComponentScale)) {
+						return result.calRelationComponentScale();
+					}else if (this.getMetrics().equals(AnalysisResult.Metrics_Coupling)) {
+						return result.getSummary().getCoupling();
+					}else if (this.getMetrics().equals(AnalysisResult.Metrics_Cohesion)) {
+						return result.getSummary().getCohesion();
 					}
 					return null;
 				}
@@ -320,6 +332,10 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":"));
 		panel.add(new JLabel("" + result.getSummary().getClassCount()));
+		itemCompareLabel = this.getComparedLabel(result.getSummary().getClassCount(), AnalysisResult.Metrics_CN);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -333,6 +349,10 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			}
 		});
 		panel.add(valuePanel);
+		itemCompareLabel = this.getComparedLabel(result.getComponents().size(), AnalysisResult.Metrics_ComponentCount);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -346,24 +366,40 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			}
 		});
 		panel.add(valuePanel);
+		itemCompareLabel = this.getComparedLabel(result.getRelations().size(), AnalysisResult.Metrics_RelationCount);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationComponentScale) + ":"));
 		panel.add(new JLabel("" + result.calRelationComponentScale()));
+		itemCompareLabel = this.getComparedLabel(result.calRelationComponentScale(), AnalysisResult.Metrics_RelationComponentScale);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"));
 		panel.add(new JLabel("" + result.getSummary().getCoupling()));
+		itemCompareLabel = this.getComparedLabel(result.getSummary().getCoupling(), AnalysisResult.Metrics_Coupling);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"));
 		panel.add(new JLabel("" + result.getSummary().getCohesion()));
+		itemCompareLabel = this.getComparedLabel(result.getSummary().getCohesion(), AnalysisResult.Metrics_Cohesion);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));

@@ -235,6 +235,24 @@ public class CompareInfo {
 			} else {
 				return true;
 			}
+		} else if (metrics.equals(AnalysisResult.Metrics_RelationComponentScale)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(AnalysisResult.Metrics_Coupling)) {
+			if (result < 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (metrics.equals(AnalysisResult.Metrics_Cohesion)) {
+			if (result < 0) {
+				return false;
+			} else {
+				return true;
+			}
 		} else {
 			return null;
 		}

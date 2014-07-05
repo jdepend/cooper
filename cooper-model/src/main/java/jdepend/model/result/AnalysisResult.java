@@ -76,7 +76,15 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private transient Collection<Method> methods;
 	
 	public static final String Metrics_LC = "Result_Metrics_LC";
+	public static final String Metrics_CN = "Result_Metrics_CN";
+	public static final String Metrics_ComponentCount = "Result_Metrics_ComponentCount";
+	public static final String Metrics_RelationCount = "Result_Metrics_RelationCount";
+	public static final String Metrics_RelationComponentScale = "Result_Metrics_RelationComponentScale";
 
+	public static final String Metrics_Coupling = "Result_Metrics_Coupling";
+
+	public static final String Metrics_Cohesion = "Result_Metrics_Cohesion";
+	
 	public AnalysisResult(List<Component> components) {
 		super();
 		this.components = components;
