@@ -91,12 +91,6 @@ public class CompareInfo {
 	private static Boolean evaluate(int result, String metrics) {
 		if (result == NEW) {
 			return null;
-		} else if (metrics.equals(MetricsMgr.Name) || metrics.equals(MetricsMgr.LC) || metrics.equals(MetricsMgr.CN)
-				|| metrics.equals(MetricsMgr.CC) || metrics.equals(MetricsMgr.AC) || metrics.equals(MetricsMgr.Ca)
-				|| metrics.equals(MetricsMgr.Ce) || metrics.equals(JavaClass.State)
-				|| metrics.equals(Relation.CurrentName) || metrics.equals(Relation.DependName)
-				|| metrics.equals(Component.Area)) {
-			return null;
 		} else if (metrics.equals(MetricsMgr.A)) {
 			if (result < 0) {
 				return false;

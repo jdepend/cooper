@@ -176,7 +176,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JPanel scorePanel = new JPanel(new GridLayout(2, 1));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-		JPanel scoreItemPanel = new JPanel(new GridLayout());
+		JPanel scoreItemPanel = new JPanel(new GridLayout(1,2,4,0));
 		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
@@ -249,21 +249,23 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		return itemPanel;
 	}
 
-	private JLabel getComparedLabel(Float value, String metrics) {
+	private JLabel getComparedLabel(Object value, String metrics) {
 		try {
 			final CompareInfo info = AdjustHistory.getInstance().compare(new CompareObject(value, null, metrics) {
 				@Override
 				public Object getOriginalityValue(AnalysisResult result) {
 					if (this.getMetrics().equals(AnalysisResult.ScoreName)) {
 						return result.getScore();
-					}else if(this.getMetrics().equals(AnalysisResult.DName)){
+					} else if (this.getMetrics().equals(AnalysisResult.DName)) {
 						return result.getD();
-					}else if(this.getMetrics().equals(AnalysisResult.BalanceName)){
+					} else if (this.getMetrics().equals(AnalysisResult.BalanceName)) {
 						return result.getBalance();
-					}else if(this.getMetrics().equals(AnalysisResult.RelationRationalityName)){
+					} else if (this.getMetrics().equals(AnalysisResult.RelationRationalityName)) {
 						return result.getRelationRationality();
-					}else if(this.getMetrics().equals(AnalysisResult.EncapsulationName)){
+					} else if (this.getMetrics().equals(AnalysisResult.EncapsulationName)) {
 						return result.getEncapsulation();
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_LC)) {
+						return result.getSummary().getLineCount();
 					}
 					return null;
 				}
@@ -302,15 +304,22 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		descPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JPanel panel = null;
 		JLabel valuePanel = null;
+		JLabel itemCompareLabel = null;
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_LC) + ":" + result.getSummary().getLineCount()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_LC) + ":"));
+		panel.add(new JLabel("" + result.getSummary().getLineCount()));
+		itemCompareLabel = this.getComparedLabel(result.getSummary().getLineCount(), AnalysisResult.Metrics_LC);
+		if (itemCompareLabel != null) {
+			panel.add(itemCompareLabel);
+		}
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":" + result.getSummary().getClassCount()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":"));
+		panel.add(new JLabel("" + result.getSummary().getClassCount()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -341,20 +350,20 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationComponentScale) + ":"
-				+ result.calRelationComponentScale()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationComponentScale) + ":"));
+		panel.add(new JLabel("" + result.calRelationComponentScale()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"
-				+ result.getSummary().getCoupling()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"));
+		panel.add(new JLabel("" + result.getSummary().getCoupling()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"
-				+ result.getSummary().getCohesion()));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"));
+		panel.add(new JLabel("" + result.getSummary().getCohesion()));
 		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));

@@ -74,6 +74,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private transient JavaPackageNode javaPackageTree;
 
 	private transient Collection<Method> methods;
+	
+	public static final String Metrics_LC = "Result_Metrics_LC";
 
 	public AnalysisResult(List<Component> components) {
 		super();
