@@ -2,10 +2,7 @@ package jdepend.util.refactor;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.AreaComponent;
-import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
-import jdepend.model.Relation;
-import jdepend.model.result.AnalysisResult;
 
 public class CompareInfo {
 

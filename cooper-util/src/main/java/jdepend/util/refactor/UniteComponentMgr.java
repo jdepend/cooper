@@ -97,7 +97,7 @@ final class UniteComponentMgr {
 		newComponent.setSubComponents(this.currentAction.getComponents());
 		newComponent.setLayer(this.currentAction.getLayer());
 		for (String component : this.currentAction.getComponents()) {
-			for (JDependUnit unit1 : units) {
+			for (Component unit1 : units) {
 				if (unit1.getName().equals(component)) {
 					for (JavaClass javaClass : unit1.getClasses()) {
 						newComponent.addJavaClass(javaClass);

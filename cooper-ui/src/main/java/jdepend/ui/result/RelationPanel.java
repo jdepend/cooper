@@ -261,7 +261,6 @@ public final class RelationPanel extends SubResultTabPanel {
 						return null;
 					}
 				}
-
 			};
 		}
 
