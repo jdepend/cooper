@@ -218,6 +218,50 @@ public final class RelationPanel extends SubResultTabPanel {
 						return null;
 					}
 				}
+
+				@Override
+				public Boolean evaluate(int result, String metrics) {
+					if (metrics.equals(Relation.CurrentCohesion)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(Relation.DependCohesion)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(Relation.Intensity)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else if (metrics.equals(Relation.Balance)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(Relation.AttentionLevel)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else if (metrics.equals(Relation.AttentionType)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else {
+						return null;
+					}
+				}
+
 			};
 		}
 

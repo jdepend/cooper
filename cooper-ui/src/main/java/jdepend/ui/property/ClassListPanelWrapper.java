@@ -332,7 +332,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 
 		@Override
 		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new CompareObject(value, id, metrics){
+			return new CompareObject(value, id, metrics) {
 				@Override
 				public Object getOriginalityValue(AnalysisResult result) {
 					Measurable measurable = result.getTheClass(this.getId());
@@ -342,6 +342,26 @@ public class ClassListPanelWrapper extends ClassListPanel {
 						return null;
 					}
 				}
+
+				@Override
+				public Boolean evaluate(int result, String metrics) {
+					if (metrics.equals(JavaClass.Stable)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else if (metrics.equals(JavaClass.isPrivateElement)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else {
+						return null;
+					}
+				}
+
 			};
 		}
 

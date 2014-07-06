@@ -272,15 +272,71 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 						return result.getComponents().size();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationCount)) {
 						return result.getRelations().size();
-					}else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationComponentScale)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationComponentScale)) {
 						return result.calRelationComponentScale();
-					}else if (this.getMetrics().equals(AnalysisResult.Metrics_Coupling)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_Coupling)) {
 						return result.getSummary().getCoupling();
-					}else if (this.getMetrics().equals(AnalysisResult.Metrics_Cohesion)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_Cohesion)) {
 						return result.getSummary().getCohesion();
 					}
 					return null;
 				}
+
+				@Override
+				public Boolean evaluate(int result, String metrics) {
+					if (metrics.equals(AnalysisResult.ScoreName)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(AnalysisResult.DName)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(AnalysisResult.BalanceName)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(AnalysisResult.RelationRationalityName)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(AnalysisResult.EncapsulationName)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else if (metrics.equals(AnalysisResult.Metrics_RelationComponentScale)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else if (metrics.equals(AnalysisResult.Metrics_Coupling)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					} else if (metrics.equals(AnalysisResult.Metrics_Cohesion)) {
+						if (result < 0) {
+							return false;
+						} else {
+							return true;
+						}
+					} else {
+						return null;
+					}
+				}
+
 			});
 
 			if (info != null && info.isDiff()) {
@@ -376,7 +432,8 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_RelationComponentScale) + ":"));
 		panel.add(new JLabel("" + result.calRelationComponentScale()));
-		itemCompareLabel = this.getComparedLabel(result.calRelationComponentScale(), AnalysisResult.Metrics_RelationComponentScale);
+		itemCompareLabel = this.getComparedLabel(result.calRelationComponentScale(),
+				AnalysisResult.Metrics_RelationComponentScale);
 		if (itemCompareLabel != null) {
 			panel.add(itemCompareLabel);
 		}

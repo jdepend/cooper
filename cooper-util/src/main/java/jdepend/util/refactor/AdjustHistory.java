@@ -109,7 +109,7 @@ public class AdjustHistory {
 			AnalysisResult result = this.getCompared().getResult();
 			Object originality = object.getOriginalityValue(result);
 			// 获取比较的数值
-			CompareInfo info = new CompareInfo();
+			CompareInfo info = new CompareInfo(object);
 			info.setMetrics(object.getMetrics());
 			info.setValue(object.getValue());
 			info.setOriginality(originality);

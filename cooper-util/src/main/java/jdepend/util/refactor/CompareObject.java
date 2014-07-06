@@ -40,4 +40,8 @@ public abstract class CompareObject {
 	}
 
 	public abstract Object getOriginalityValue(AnalysisResult result);
+
+	public Boolean evaluate(int result, String metrics) {
+		return null;
+	}
 }

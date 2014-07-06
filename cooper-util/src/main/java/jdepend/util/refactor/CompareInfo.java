@@ -2,7 +2,6 @@ package jdepend.util.refactor;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.AreaComponent;
-import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -16,7 +15,13 @@ public class CompareInfo {
 	private Integer result;
 	private Boolean evaluate;
 
+	private CompareObject object;
+
 	public static final int NEW = 100;
+
+	public CompareInfo(CompareObject object) {
+		this.object = object;
+	}
 
 	public String getMetrics() {
 		return metrics;
@@ -88,173 +93,82 @@ public class CompareInfo {
 		return !this.value.equals(this.originality);
 	}
 
-	private static Boolean evaluate(int result, String metrics) {
+	private Boolean evaluate(int result, String metrics) {
 		if (result == NEW) {
 			return null;
-		} else if (metrics.equals(MetricsMgr.A)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.I)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(MetricsMgr.D)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(MetricsMgr.A)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.V)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.Coupling)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(MetricsMgr.Cohesion)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.Balance)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.OO)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.Encapsulation)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(MetricsMgr.Cycle)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(JavaClass.Stable)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(JavaClass.isPrivateElement)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(Relation.CurrentCohesion)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(Relation.DependCohesion)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(Relation.Intensity)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(Relation.Balance)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(Relation.AttentionLevel)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(Relation.AttentionType)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(AnalysisResult.ScoreName)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(AnalysisResult.DName)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(AnalysisResult.BalanceName)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(AnalysisResult.RelationRationalityName)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(AnalysisResult.EncapsulationName)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (metrics.equals(AnalysisResult.Metrics_RelationComponentScale)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(AnalysisResult.Metrics_Coupling)) {
-			if (result < 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else if (metrics.equals(AnalysisResult.Metrics_Cohesion)) {
-			if (result < 0) {
-				return false;
-			} else {
-				return true;
-			}
 		} else {
-			return null;
+			Boolean evaluate = this.object.evaluate(result, metrics);
+			if (evaluate != null) {
+				return evaluate;
+			} else if (metrics.equals(MetricsMgr.A)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.I)) {
+				if (result < 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (metrics.equals(MetricsMgr.D)) {
+				if (result < 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (metrics.equals(MetricsMgr.A)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.V)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.Coupling)) {
+				if (result < 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (metrics.equals(MetricsMgr.Cohesion)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.Balance)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.OO)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.Encapsulation)) {
+				if (result < 0) {
+					return false;
+				} else {
+					return true;
+				}
+			} else if (metrics.equals(MetricsMgr.Cycle)) {
+				if (result < 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return null;
+			}
 		}
 	}
 }
