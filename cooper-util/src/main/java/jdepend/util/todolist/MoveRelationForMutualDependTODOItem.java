@@ -17,24 +17,24 @@ public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOI
 		// 根据耦合值判断需要移动Relation
 		if (MathUtil.isZero(getCollectData().currentCaIntensity) || MathUtil.isZero(getCollectData().dependCeIntensity)) {
 			if (getCollectData().currentCeIntensity > getCollectData().dependCaIntensity) {
-				this.moveClasses = getCollectData().depend.getClasses();
-				this.targetComponent = this.relation.getCurrent().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
 			} else {
-				this.moveClasses = getCollectData().current.getClasses();
-				this.targetComponent = this.relation.getDepend().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
 			}
-			this.isChangeDir = true;
+			this.moveRelationInfo.setChangeDir(true);
 		} else {
 			Float currentIntensity = getCollectData().currentCaIntensity + getCollectData().currentCeIntensity;
 			Float dependIntensity = getCollectData().dependCaIntensity + getCollectData().dependCeIntensity;
 			if (currentIntensity > dependIntensity) {
-				this.moveClasses = getCollectData().depend.getClasses();
-				this.targetComponent = this.relation.getCurrent().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
 			} else {
-				this.moveClasses = getCollectData().current.getClasses();
-				this.targetComponent = this.relation.getDepend().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
 			}
-			this.isChangeDir = false;
+			this.moveRelationInfo.setChangeDir(false);
 		}
 		return true;
 	}

@@ -28,8 +28,8 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 			boolean isCurrentChangeDir;
 			if (MathUtil.isZero(getCollectData().currentCeIntensity)
 					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
-				this.moveClasses = getCollectData().current.getClasses();
-				this.targetComponent = this.relation.getDepend().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
 				this.deleteRelation = true;
 				return true;
 			} else if (!MathUtil.isZero(getCollectData().currentCeIntensity)
@@ -49,8 +49,8 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 			boolean isDependChangeDir;
 			if (MathUtil.isZero(getCollectData().currentCeIntensity)
 					&& MathUtil.isZero(getCollectData().currentCaIntensity)) {
-				this.moveClasses = getCollectData().depend.getClasses();
-				this.targetComponent = this.relation.getCurrent().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
 				this.deleteRelation = true;
 				return true;
 			} else if (!MathUtil.isZero(getCollectData().dependCeIntensity)
@@ -71,15 +71,16 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 				return false;
 			} else {
 				if (currentIntensity > dependIntensity) {
-					this.moveClasses = getCollectData().depend.getClasses();
-					this.targetComponent = this.relation.getCurrent().getComponent();
-					this.isChangeDir = isDependChangeDir;
+					this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+					this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+					this.moveRelationInfo.setChangeDir(isDependChangeDir);
 				} else {
-					this.moveClasses = getCollectData().current.getClasses();
-					this.targetComponent = this.relation.getDepend().getComponent();
-					this.isChangeDir = isCurrentChangeDir;
+					this.moveRelationInfo = new MoveRelationInfo(getCollectData().current,
+							getCollectData().currentOther);
+					this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+					this.moveRelationInfo.setChangeDir(isCurrentChangeDir);
 				}
-				if (this.isChangeDir) {
+				if (this.moveRelationInfo.isChangeDir()) {
 					if (this.relation.getDepend().getComponent().stability(this.relation.getCurrent().getComponent())) {
 						return false;
 					}

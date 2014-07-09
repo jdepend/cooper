@@ -19,26 +19,26 @@ public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem
 		// 根据耦合值判断需要移动Relation
 		if (MathUtil.isZero(getCollectData().currentCaIntensity) || MathUtil.isZero(getCollectData().dependCeIntensity)) {
 			if (getCollectData().currentCeIntensity > getCollectData().dependCaIntensity) {
-				this.moveClasses = getCollectData().depend.getClasses();
-				this.targetComponent = this.relation.getCurrent().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
 			} else {
-				this.moveClasses = getCollectData().current.getClasses();
-				this.targetComponent = this.relation.getDepend().getComponent();
+				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
 			}
-			this.isChangeDir = true;
+			this.moveRelationInfo.setChangeDir(true);
 
 			return true;
 		} else if (MathUtil.isZero(getCollectData().currentCeIntensity)
 				&& getCollectData().currentCaIntensity < this.relation.getIntensity()) {
-			this.moveClasses = getCollectData().current.getClasses();
-			this.targetComponent = this.relation.getDepend().getComponent();
-			this.isChangeDir = false;
+			this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
+			this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+			this.moveRelationInfo.setChangeDir(false);
 			return true;
 		} else if (MathUtil.isZero(getCollectData().dependCaIntensity)
 				&& getCollectData().dependCeIntensity < this.relation.getIntensity()) {
-			this.moveClasses = getCollectData().depend.getClasses();
-			this.targetComponent = this.relation.getCurrent().getComponent();
-			this.isChangeDir = false;
+			this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
+			this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+			this.moveRelationInfo.setChangeDir(false);
 			return true;
 		} else {
 			return false;
