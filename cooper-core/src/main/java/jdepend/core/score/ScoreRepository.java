@@ -29,6 +29,8 @@ public final class ScoreRepository {
 
 	private static String findSqlFromBeginDate = "select * from score where createdate >= ?";
 
+	private static String findTheSql = "select * from score where id = ?";
+
 	private static String deleteSql = "delete from score where id = ?";
 
 	private final static String CreateScoreDataSQL = "insert into scoredata values(?, ?)";
@@ -433,14 +435,11 @@ public final class ScoreRepository {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		PreparedStatement ps1 = null;
-		ResultSet rs1 = null;
-		String itemname;
-
 		ScoreInfo score;
 		try {
 			conn = ConnectionFactory.getConnection();
-			ps = conn.prepareStatement(findAllSql);
+			ps = conn.prepareStatement(findTheSql);
+			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				score = new ScoreInfo();
@@ -455,16 +454,6 @@ public final class ScoreRepository {
 				score.relation = rs.getFloat("relation");
 				score.oo = rs.getFloat("oo");
 				score.createDate = rs.getTimestamp("createDate");
-
-				ps1 = conn.prepareStatement(findScoreExtSql);
-				ps1.setString(1, score.id);
-				rs1 = ps1.executeQuery();
-				while (rs1.next()) {
-					itemname = rs1.getString("itemname");
-					// if (itemname.equals(Encapsulation)) {
-					// score.encapsulation = rs1.getFloat("score");
-					// }
-				}
 
 				return score;
 			}
