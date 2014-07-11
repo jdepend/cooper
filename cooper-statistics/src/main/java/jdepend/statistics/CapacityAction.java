@@ -25,7 +25,7 @@ public class CapacityAction extends ScoreListAction {
 		TableData tableData = new TableData();
 		Capacity capacity;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			if (result.getComponents().size() != 0) {
 				capacity = CapacityMgr.getInstance().getCapacity(result);
 				tableData.setData("组名", capacity.getGroup());

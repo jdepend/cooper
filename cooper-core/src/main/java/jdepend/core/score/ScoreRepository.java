@@ -332,6 +332,10 @@ public final class ScoreRepository {
 	}
 
 	public static AnalysisResult getTheResult(String id) throws JDependException {
+		return getTheResult(getTheScoreInfo(id));
+	}
+
+	public static AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {
 		InputStream inputstream = null;
 
 		Connection conn = null;
@@ -342,7 +346,7 @@ public final class ScoreRepository {
 		try {
 			conn = ConnectionFactory.getConnection();
 			ps = conn.prepareStatement(FindScoreDataSQL);
-			ps.setString(1, id);
+			ps.setString(1, scoreInfo.id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				result = rs.getBlob("result");
@@ -352,7 +356,8 @@ public final class ScoreRepository {
 			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new JDependException("读取id[" + id + "]分数结果失败", e);
+			throw new JDependException("读取id[" + scoreInfo.id + "]group=[" + scoreInfo.group + "]command=["
+					+ scoreInfo.command + "]分数结果失败", e);
 		} finally {
 			if (rs != null) {
 				try {

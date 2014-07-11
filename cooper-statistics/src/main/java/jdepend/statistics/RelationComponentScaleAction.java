@@ -24,7 +24,7 @@ public class RelationComponentScaleAction extends ScoreListAction {
 		String command;
 		TableData tableData = new TableData();
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			if (result.getComponents().size() != 0) {
 				group = result.getRunningContext().getGroup();
 				command = result.getRunningContext().getCommand();

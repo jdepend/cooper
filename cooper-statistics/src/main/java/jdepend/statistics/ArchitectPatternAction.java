@@ -28,7 +28,7 @@ public class ArchitectPatternAction extends ScoreListAction {
 		TableData tableData = new TableData();
 		Capacity capacity;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			if (result.getComponents().size() != 0) {
 				tableData.setData("组名", result.getRunningContext().getGroup());
 				tableData.setData("命令名", result.getRunningContext().getCommand());

@@ -22,7 +22,7 @@ public final class TableRelationScaleAction extends ScoreListAction {
 		Map<Object, Object> datas = new LinkedHashMap<Object, Object>();
 		AnalysisResult result;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			datas.put(result.getRunningContext().getGroup() + "|" + result.getRunningContext().getCommand(),
 					result.calTableRelationScale());
 			this.progress();

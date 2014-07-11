@@ -32,11 +32,11 @@ public class ScoreCollection {
 		return scoreInfos;
 	}
 
-	public synchronized AnalysisResult getTheResult(String scoreId) throws JDependException {
-		if (!results.containsKey(scoreId)) {
-			results.put(scoreId, ScoreRepository.getTheResult(scoreId));
+	public synchronized AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {
+		if (!results.containsKey(scoreInfo.id)) {
+			results.put(scoreInfo.id, ScoreRepository.getTheResult(scoreInfo));
 		}
-		return results.get(scoreId);
+		return results.get(scoreInfo.id);
 
 	}
 

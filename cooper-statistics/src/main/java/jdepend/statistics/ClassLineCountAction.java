@@ -28,7 +28,7 @@ public class ClassLineCountAction extends ScoreListAction {
 		String group;
 		String command;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			item = new GraphDataItem();
 			group = result.getRunningContext().getGroup();
 			command = result.getRunningContext().getCommand();

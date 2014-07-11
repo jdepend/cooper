@@ -28,7 +28,7 @@ public class ClassRelationTypeAction extends ScoreListAction {
 		String group;
 		String command;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			javaClassRelationUtil = new JavaClassRelationUtil(result);
 			item = new GraphDataItem();
 			group = result.getRunningContext().getGroup();

@@ -29,7 +29,7 @@ public final class PackagesViewerAction extends ScoreListAction {
 		tabs.setTabPlacement(JTabbedPane.LEFT);
 		AnalysisResult result;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 
 			javaPackageRoot = result.getJavaPackageTree();
 

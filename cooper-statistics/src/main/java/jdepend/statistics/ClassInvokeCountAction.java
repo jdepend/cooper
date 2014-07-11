@@ -24,7 +24,7 @@ public class ClassInvokeCountAction extends ScoreListAction {
 		TableData tableData;
 		String title;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo.id);
+			result = scoreCollection.getTheResult(scoreInfo);
 			tableData = new TableData();
 			for (JavaClass javaClass : result.getClasses()) {
 				tableData.setData("类名", javaClass.getName());
