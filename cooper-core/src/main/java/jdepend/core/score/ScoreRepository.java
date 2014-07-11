@@ -456,8 +456,9 @@ public final class ScoreRepository {
 				score.createDate = rs.getTimestamp("createDate");
 
 				return score;
+			} else {
+				throw new JDependException("id=[" + id + "]没有对应的分数信息");
 			}
-			return null;
 
 		} catch (SQLException e) {
 			e.printStackTrace();

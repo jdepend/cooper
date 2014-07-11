@@ -344,7 +344,6 @@ public class ExecuteHistoryPanel extends JPanel implements
 			AdjustHistory.getInstance().addMemento();
 			AnalysisResult result2 = AnalysisResultRepository.getResult(id2);
 			JDependUnitMgr.getInstance().setResult(result2);
-			AdjustHistory.getInstance().setCurrent(result2);
 			frame.getResultPanel().showResults();
 		} catch (JDependException e) {
 			e.printStackTrace();

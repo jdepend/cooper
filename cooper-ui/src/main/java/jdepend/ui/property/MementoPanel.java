@@ -39,8 +39,6 @@ public class MementoPanel extends JPanel {
 
 	private DefaultTableModel mementoModel;
 
-	private Date current;
-
 	private List<Date> selectedMementos;
 
 	public MementoPanel(JDependCooper frame) {
@@ -85,12 +83,6 @@ public class MementoPanel extends JPanel {
 			row[6] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore());
 			mementoModel.addRow(row);
 		}
-
-		this.current = null;
-	}
-
-	public boolean isCurrent() {
-		return this.current == null;
 	}
 
 	private String getAction(List<String> actions) {
@@ -157,18 +149,8 @@ public class MementoPanel extends JPanel {
 
 		mementoListTable.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				JTable table = (JTable) e.getSource();
-				int currentRow = table.rowAtPoint(e.getPoint());
-				if (currentRow >= 0) {
-					table.setRowSelectionInterval(currentRow, currentRow);
-				}
-			}
-
-			@Override
 			public void mousePressed(MouseEvent e) {
 				JTable table = (JTable) e.getSource();
-				current = (Date) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 				selectedMementos = new ArrayList<Date>();
 				for (int row : table.getSelectedRows()) {
 					selectedMementos.add((Date) table.getValueAt(row, 0));
@@ -197,24 +179,37 @@ public class MementoPanel extends JPanel {
 	}
 
 	private void viewMemento() {
-		if (current != null) {
-			Memento memento = AdjustHistory.getInstance().getTheMemento(current);
-			if (memento != null) {
-				JDependUnitMgr.getInstance().setResult(memento.getResult());
+		if (this.selectedMementos != null && this.selectedMementos.size() == 1) {
+			if (this.selectedMementos.get(0) != null) {
+				Memento memento = AdjustHistory.getInstance().getTheMemento(this.selectedMementos.get(0));
+				if (memento != null) {
+					JDependUnitMgr.getInstance().setResult(memento.getResult());
+				}
+			} else {
+				JDependUnitMgr.getInstance().setResult(AdjustHistory.getInstance().getCurrent());
 			}
+			AdjustHistory.getInstance().setCompared(null);
+			frame.getResultPanel().showMemoryResults();
 		} else {
-			JDependUnitMgr.getInstance().setResult(AdjustHistory.getInstance().getCurrent());
+			JOptionPane.showMessageDialog(frame, "请选择一条历史进行查看.", "alert", JOptionPane.WARNING_MESSAGE);
+			return;
 		}
-		AdjustHistory.getInstance().setCompared(null);
-		frame.getResultPanel().showMemoryResults();
+
 	}
 
 	private void compare(Date id1, Date id2) {
+
 		Memento memento1 = AdjustHistory.getInstance().getTheMemento(id1);
 		AdjustHistory.getInstance().setCompared(memento1);
-		AnalysisResult result2 = AdjustHistory.getInstance().getTheMemento(id2).getResult();
-		JDependUnitMgr.getInstance().setResult(result2);
-		AdjustHistory.getInstance().setCurrent(result2);
+
+		AnalysisResult result;
+		if (id2 != null) {
+			result = AdjustHistory.getInstance().getTheMemento(id2).getResult();
+		} else {
+			result = AdjustHistory.getInstance().getCurrent();
+		}
+		JDependUnitMgr.getInstance().setResult(result);
+
 		frame.getResultPanel().showResults();
 	}
 }

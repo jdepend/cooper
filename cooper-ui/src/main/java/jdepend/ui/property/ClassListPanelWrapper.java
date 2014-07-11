@@ -93,10 +93,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		moveToItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedJavaClass.size() > 0) {
-					if (!frame.getPropertyPanel().getMementoPanel().isCurrent()) {
-						JOptionPane.showMessageDialog(frame, "请到移动历史列表中切换到当前结果再进行移动.", "alert",
-								JOptionPane.WARNING_MESSAGE);
-					} else if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
+					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
 						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
 					} else {
 						moveTo();
