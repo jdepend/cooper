@@ -6,6 +6,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 
@@ -37,6 +38,16 @@ public final class UniteComponent extends Component {
 
 	public void setSubComponents(Collection<String> subComponents) {
 		this.subComponents = subComponents;
+	}
+
+	public void unite() {
+		Component component;
+		for (String componentName : subComponents) {
+			component = JDependUnitMgr.getInstance().getResult().getTheComponent(componentName);
+			for (JavaClass javaClass : component.getClasses()) {
+				this.addJavaClass(javaClass);
+			}
+		}
 	}
 
 	@Override

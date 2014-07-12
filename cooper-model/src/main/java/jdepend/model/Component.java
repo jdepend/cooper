@@ -217,6 +217,21 @@ public abstract class Component extends AbstractJDependUnit {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
+			if (this.javaClassesForName != null) {
+				this.javaClassesForName.put(javaClass.getName(), javaClass);
+			}
+		}
+	}
+
+	public boolean removeJavaClass(JavaClass javaClass) {
+		if (this.javaClasses.remove(javaClass)) {
+			javaClass.setComponent(null);
+			if (this.javaClassesForName != null) {
+				this.javaClassesForName.remove(javaClass.getName());
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 

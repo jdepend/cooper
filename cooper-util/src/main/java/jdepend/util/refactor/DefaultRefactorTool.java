@@ -2,16 +2,13 @@ package jdepend.util.refactor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
-import jdepend.model.component.MemoryComponent;
+import jdepend.model.component.UniteComponent;
 
 final class DefaultRefactorTool implements RefactorTool {
 
@@ -23,10 +20,7 @@ final class DefaultRefactorTool implements RefactorTool {
 		actions.add("创建新组件[" + componentName + "]");
 		AdjustHistory.getInstance().setActions(actions);
 		// 添加新组件
-		List<Component> units = JDependUnitMgr.getInstance().getComponents();
-		MemoryComponent newComponent = new MemoryComponent(componentName);
-		newComponent.setLayer(componentLayer);
-		units.add(newComponent);
+		JDependUnitMgr.getInstance().getResult().addComponent(componentName, componentLayer);
 		// 清空缓存
 		JDependUnitMgr.getInstance().getResult().clearCache();
 		// 保存调整之后的结果
@@ -41,38 +35,7 @@ final class DefaultRefactorTool implements RefactorTool {
 		actions.add("删除组件[" + componentName + "]");
 		AdjustHistory.getInstance().setActions(actions);
 		// 删除组件
-		List<Component> units = JDependUnitMgr.getInstance().getComponents();
-		JDependUnit deleteUnit = null;
-		for (JDependUnit unit : units) {
-			if (unit.getName().equals(componentName)) {
-				deleteUnit = unit;
-				units.remove(unit);
-				break;
-			}
-		}
-		// 删除JavaClass间的关系
-		if (deleteUnit != null) {
-			Iterator<JavaClassRelationItem> it;
-			for (JavaClass javaClass : deleteUnit.getClasses()) {
-				for (JavaClass dependClass : javaClass.getCaList()) {
-					it = dependClass.getCeItems().iterator();
-					while (it.hasNext()) {
-						if (it.next().getDepend().equals(javaClass)) {
-							it.remove();
-						}
-					}
-				}
-				for (JavaClass dependClass : javaClass.getCeList()) {
-					it = dependClass.getCaItems().iterator();
-					while (it.hasNext()) {
-						if (it.next().getDepend().equals(javaClass)) {
-							it.remove();
-						}
-					}
-				}
-			}
-
-		}
+		JDependUnitMgr.getInstance().getResult().deleteTheComponent(componentName);
 		// 清空缓存
 		JDependUnitMgr.getInstance().getResult().clearCache();
 		// 保存调整之后的结果
@@ -81,20 +44,91 @@ final class DefaultRefactorTool implements RefactorTool {
 
 	@Override
 	public void moveClass(Collection<JavaClass> javaClasses, Component target) throws JDependException {
-		(new JavaClassMoveToAdjust()).adjust(javaClasses, target);
+		boolean adjust = false;
+		for (JavaClass javaClass : javaClasses) {
+			if (!javaClass.getComponent().equals(target)) {
+				adjust = true;
+				break;
+			}
+		}
+
+		if (!adjust) {
+			return;
+		}
+
+		AdjustHistory.getInstance().addMemento();
+
+		List<String> actions = new ArrayList<String>();
+		StringBuilder action;
+		for (JavaClass javaClass : javaClasses) {
+			action = new StringBuilder();
+			action.append(javaClass.getName());
+			action.append(" 从 ");
+			action.append(javaClass.getComponent().getName());
+			action.append(" 移动到 ");
+			action.append(target.getName());
+
+			actions.add(action.toString());
+		}
+
+		AdjustHistory.getInstance().setActions(actions);
+
+		for (JavaClass javaClass : javaClasses) {
+			if (!javaClass.getComponent().equals(target)) {
+				// 删除执行的JavaClass
+				javaClass.getComponent().removeJavaClass(javaClass);
+				// 增加到新的组件中
+				target.addJavaClass(javaClass);
+			}
+		}
+		// 清空缓存
+		JDependUnitMgr.getInstance().getResult().clearCache();
+		// 保存调整之后的结果
+		AdjustHistory.getInstance().setCurrent(JDependUnitMgr.getInstance().getResult());
 
 	}
 
 	@Override
-	public void uniteComponent(String componentName, int layer, Collection<String> components) throws JDependException {
-		UniteComponentMgr.getInstance().addUniteComponent(componentName, layer, components);
-		UniteComponentMgr.getInstance().unite();
-	}
+	public void uniteComponent(String name, int layer, Collection<String> components) throws JDependException {
 
-	@Override
-	public void clear() throws JDependException {
-		// 清空合并历史
-		UniteComponentMgr.getInstance().clear();
-	}
+		AdjustHistory.getInstance().addMemento();
 
+		List<String> actions = new ArrayList<String>();
+		StringBuilder content = new StringBuilder();
+
+		UniteComponentConf uniteComponentConf = new UniteComponentConf(name, layer, components);
+		for (String component : uniteComponentConf.getComponents()) {
+			content.append(component);
+			content.append("\n");
+		}
+		content.append(" 合并到 ");
+		content.append("\n");
+		content.append(uniteComponentConf.getName());
+		actions.add(content.toString());
+
+		AdjustHistory.getInstance().setActions(actions);
+
+		List<Component> units = JDependUnitMgr.getInstance().getComponents();
+		List<Component> newUnits = new ArrayList<Component>();
+		UniteComponent newComponent;
+		// 增加未受影响的组件
+		for (Component unit : units) {
+			if (!uniteComponentConf.getComponents().contains(unit.getName())) {
+				newUnits.add(unit);
+			}
+		}
+		// 创建合并组件
+		newComponent = new UniteComponent(uniteComponentConf.getName());
+		newComponent.setSubComponents(uniteComponentConf.getComponents());
+		newComponent.setLayer(uniteComponentConf.getLayer());
+		newComponent.unite();
+
+		newUnits.add(newComponent);
+
+		JDependUnitMgr.getInstance().setComponents(newUnits);
+		// 清空缓存
+		JDependUnitMgr.getInstance().getResult().clearCache();
+		// 保存调整之后的结果
+		AdjustHistory.getInstance().setCurrent(JDependUnitMgr.getInstance().getResult());
+	}
 }

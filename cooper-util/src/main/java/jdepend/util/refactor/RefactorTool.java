@@ -16,6 +16,4 @@ public interface RefactorTool {
 
 	public void deleteComponent(String componentName) throws JDependException;
 
-	public void clear() throws JDependException;
-
 }

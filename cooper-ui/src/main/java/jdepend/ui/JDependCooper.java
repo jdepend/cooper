@@ -601,8 +601,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		LogUtil.getInstance(JDependCooper.class).systemLog("清空上一次结果");
 		// 清空memento
 		AdjustHistory.getInstance().clear();
-		// 清空重构历史
-		RefactorToolFactory.createTool().clear();
 		// 清空之前的结果
 		this.getResultPanel().removeAll();
 		// 刷新移动历史

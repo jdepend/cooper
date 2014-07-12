@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -25,10 +26,12 @@ import jdepend.model.CalculateMetricsTool;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
+import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
 import jdepend.model.Relation;
 import jdepend.model.area.AreaCreatorChain;
+import jdepend.model.component.MemoryComponent;
 import jdepend.model.tree.JavaPackageNode;
 import jdepend.model.tree.JavaPackageTreeCreator;
 import jdepend.model.util.CopyUtil;
@@ -74,7 +77,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private transient JavaPackageNode javaPackageTree;
 
 	private transient Collection<Method> methods;
-	
+
 	public static final String Metrics_LC = "Result_Metrics_LC";
 	public static final String Metrics_CN = "Result_Metrics_CN";
 	public static final String Metrics_ComponentCount = "Result_Metrics_ComponentCount";
@@ -84,11 +87,11 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public static final String Metrics_Coupling = "Result_Metrics_Coupling";
 
 	public static final String Metrics_Cohesion = "Result_Metrics_Cohesion";
-	
+
 	public AnalysisResult(List<Component> components) {
 		super();
 		this.components = components;
-		for(Component component : this.components){
+		for (Component component : this.components) {
 			component.setResult(this);
 		}
 		this.calRelations();
@@ -99,17 +102,17 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this(components);
 		this.runningContext = runningContext;
 	}
-	
-	public AnalysisResult(AnalysisResult result){
-		
+
+	public AnalysisResult(AnalysisResult result) {
+
 		this.components = result.components;
-		for(Component component : this.components){
+		for (Component component : this.components) {
 			component.setResult(this);
 		}
 		this.areaComponents = result.areaComponents;
 		this.isExecuteResult = result.isExecuteResult;
 		this.runningContext = result.runningContext;
-		
+
 		this.relations = result.relations;
 		this.summary = result.summary;
 		this.data = result.data;
@@ -195,6 +198,54 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	public Component getTheComponent(String componentName) {
 		return this.getComponentForNames().get(componentName);
+	}
+
+	public Component deleteTheComponent(String name) {
+		Component deleteComponent = null;
+		for (Component component : this.components) {
+			if (component.getName().equals(name)) {
+				deleteComponent = component;
+				this.components.remove(component);
+				break;
+			}
+		}
+		// 删除JavaClass间的关系
+		if (deleteComponent != null) {
+			if (this.componentForNames != null) {
+				this.componentForNames.remove(deleteComponent.getName());
+			}
+			Iterator<JavaClassRelationItem> it;
+			for (JavaClass javaClass : deleteComponent.getClasses()) {
+				for (JavaClass dependClass : javaClass.getCaList()) {
+					it = dependClass.getCeItems().iterator();
+					while (it.hasNext()) {
+						if (it.next().getDepend().equals(javaClass)) {
+							it.remove();
+						}
+					}
+				}
+				for (JavaClass dependClass : javaClass.getCeList()) {
+					it = dependClass.getCaItems().iterator();
+					while (it.hasNext()) {
+						if (it.next().getDepend().equals(javaClass)) {
+							it.remove();
+						}
+					}
+				}
+			}
+		}
+
+		return deleteComponent;
+	}
+
+	public void addComponent(String componentName, int componentLayer) {
+		MemoryComponent newComponent = new MemoryComponent(componentName);
+		newComponent.setLayer(componentLayer);
+		this.components.add(newComponent);
+		if (this.componentForNames != null) {
+			this.componentForNames.put(newComponent.getName(), newComponent);
+		}
+
 	}
 
 	public AnalysisResultSummary getSummary() {
@@ -496,8 +547,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		JavaClassUtil.supplyJavaClassRelationItem(getClasses());
 		// 填充Method中的InvokeItem中的Method
 		JavaClassUtil.supplyJavaClassDetail(getClasses());
-		//填充Result
-		for(Component component : this.components){
+		// 填充Result
+		for (Component component : this.components) {
 			component.setResult(this);
 		}
 		// 计算关系
