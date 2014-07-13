@@ -21,7 +21,7 @@ public class ScaleRelationAction extends ScoreListAction {
 	@Override
 	protected void analyse(ActionEvent e) throws JDependException {
 
-		Collections.sort(scoreCollection.getScoreInfos(), new ScoreByItemComparator(AnalysisResult.LCName));
+		Collections.sort(scoreCollection.getScoreInfos(), new ScoreByItemComparator(AnalysisResult.Metrics_LC));
 
 		GraphData graph = new GraphData();
 		GraphDataItem item = new GraphDataItem();

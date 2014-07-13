@@ -54,14 +54,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<JavaPackage> javaPackages;
 
-	public static final String LCName = BundleUtil.getString(BundleUtil.Metrics_LC);
-	public static final String DName = BundleUtil.getString(BundleUtil.Metrics_D);
-	public static final String BalanceName = BundleUtil.getString(BundleUtil.Metrics_Balance);
-	public static final String RelationRationalityName = BundleUtil.getString(BundleUtil.Metrics_RelationRationality);
-	public static final String ScoreName = BundleUtil.getString(BundleUtil.Metrics_TotalScore);
-	public static final String OOName = BundleUtil.getString(BundleUtil.Metrics_OO);
-	public static final String EncapsulationName = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
-
 	private transient Float tableRelationScale = null;// tableRelation比例
 
 	private transient byte[] data = null;// result字节数据
@@ -77,6 +69,14 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private transient JavaPackageNode javaPackageTree;
 
 	private transient Collection<Method> methods;
+	
+	public static final String Metrics_D = "Result_Metrics_D";
+	public static final String Metrics_Balance = "Result_Metrics_Balance";
+	public static final String Metrics_RelationRationality = "Result_Metrics_RelationRationality";
+	public static final String Metrics_Encapsulation = "Result_Metrics_Encapsulation";
+	
+	public static final String Metrics_OO = "Result_Metrics_OO";
+	public static final String Metrics_TotalScore = "Result_Metrics_TotalScore";
 
 	public static final String Metrics_LC = "Result_Metrics_LC";
 	public static final String Metrics_CN = "Result_Metrics_CN";
@@ -85,7 +85,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public static final String Metrics_RelationComponentScale = "Result_Metrics_RelationComponentScale";
 
 	public static final String Metrics_Coupling = "Result_Metrics_Coupling";
-
 	public static final String Metrics_Cohesion = "Result_Metrics_Cohesion";
 
 	public AnalysisResult(List<Component> components) {

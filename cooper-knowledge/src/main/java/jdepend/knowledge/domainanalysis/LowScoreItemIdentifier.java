@@ -21,11 +21,11 @@ public final class LowScoreItemIdentifier extends AbstractDomainAnalysis {
 
 		List<ScoreScaleItem> items = new ArrayList<ScoreScaleItem>();
 
-		items.add(new ScoreScaleItem(AnalysisResult.DName, result.getD() / AnalysisResult.D));
-		items.add(new ScoreScaleItem(AnalysisResult.BalanceName, result.getBalance() / AnalysisResult.Balance));
-		items.add(new ScoreScaleItem(AnalysisResult.EncapsulationName, result.getEncapsulation()
+		items.add(new ScoreScaleItem(AnalysisResult.Metrics_D, result.getD() / AnalysisResult.D));
+		items.add(new ScoreScaleItem(AnalysisResult.Metrics_Balance, result.getBalance() / AnalysisResult.Balance));
+		items.add(new ScoreScaleItem(AnalysisResult.Metrics_Encapsulation, result.getEncapsulation()
 				/ AnalysisResult.Encapsulation));
-		items.add(new ScoreScaleItem(AnalysisResult.RelationRationalityName, result.getRelationRationality()
+		items.add(new ScoreScaleItem(AnalysisResult.Metrics_RelationRationality, result.getRelationRationality()
 				/ AnalysisResult.RelationRationality));
 
 		Collections.sort(items);

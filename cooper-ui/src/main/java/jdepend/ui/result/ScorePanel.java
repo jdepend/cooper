@@ -42,6 +42,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
 import jdepend.report.ui.ClassListDialog;
 import jdepend.report.ui.CohesionDialog;
+import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ChangedPackageListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
@@ -134,21 +135,21 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JPanel dPanel = new JPanel(new BorderLayout());
 		dPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_D)));
 		dPanel.setBackground(new java.awt.Color(255, 255, 255));
-		dPanel.add(this.createItem(AnalysisResult.DName, result.getD()));
+		dPanel.add(this.createItem(AnalysisResult.Metrics_D, result.getD()));
 
 		subitemPanel.add(dPanel);
 
 		JPanel balancePanel = new JPanel(new BorderLayout());
 		balancePanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Balance)));
 		balancePanel.setBackground(new java.awt.Color(255, 255, 255));
-		balancePanel.add(this.createItem(AnalysisResult.BalanceName, result.getBalance()));
+		balancePanel.add(this.createItem(AnalysisResult.Metrics_Balance, result.getBalance()));
 
 		subitemPanel.add(balancePanel);
 
 		JPanel encapsulationPanel = new JPanel(new BorderLayout());
 		encapsulationPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Encapsulation)));
 		encapsulationPanel.setBackground(new java.awt.Color(255, 255, 255));
-		encapsulationPanel.add(this.createItem(AnalysisResult.EncapsulationName, result.getEncapsulation()));
+		encapsulationPanel.add(this.createItem(AnalysisResult.Metrics_Encapsulation, result.getEncapsulation()));
 
 		subitemPanel.add(encapsulationPanel);
 
@@ -156,7 +157,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		relationRationalityPanel.setBorder(new TitledBorder(BundleUtil
 				.getString(BundleUtil.Metrics_RelationRationality)));
 		relationRationalityPanel.setBackground(new java.awt.Color(255, 255, 255));
-		relationRationalityPanel.add(this.createItem(AnalysisResult.RelationRationalityName,
+		relationRationalityPanel.add(this.createItem(AnalysisResult.Metrics_RelationRationality,
 				result.getRelationRationality()));
 
 		subitemPanel.add(relationRationalityPanel);
@@ -181,13 +182,13 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
 		String title = null;
-		if (itemName.equals(AnalysisResult.OOName)) {
+		if (itemName.equals(AnalysisResult.Metrics_OO)) {
 			title = itemName + ":";
 		} else {
 			title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":";
 		}
 		score.setText(title + MetricsFormat.toFormattedMetrics(scoreValue));
-		if (itemName.equals(AnalysisResult.ScoreName)) {
+		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			score.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -210,21 +211,21 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		fullScore.setBackground(new java.awt.Color(153, 153, 153));
 		fullScore.setFont(new java.awt.Font("宋体", 0, 10));
 		fullScore.setForeground(new java.awt.Color(204, 204, 204));
-		if (itemName.equals(AnalysisResult.OOName)) {
+		if (itemName.equals(AnalysisResult.Metrics_OO)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.Metrics_OO_Desc));
-		} else if (itemName.equals(AnalysisResult.ScoreName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.FullScore);
-		} else if (itemName.equals(AnalysisResult.RelationRationalityName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.RelationRationality);
-		} else if (itemName.equals(AnalysisResult.DName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.D);
-		} else if (itemName.equals(AnalysisResult.BalanceName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.Balance);
-		} else if (itemName.equals(AnalysisResult.EncapsulationName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Encapsulation)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.Encapsulation);
 		}
@@ -254,15 +255,15 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			final CompareInfo info = AdjustHistory.getInstance().compare(new CompareObject(value, null, metrics) {
 				@Override
 				public Object getOriginalityValue(AnalysisResult result) {
-					if (this.getMetrics().equals(AnalysisResult.ScoreName)) {
+					if (this.getMetrics().equals(AnalysisResult.Metrics_TotalScore)) {
 						return result.getScore();
-					} else if (this.getMetrics().equals(AnalysisResult.DName)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_D)) {
 						return result.getD();
-					} else if (this.getMetrics().equals(AnalysisResult.BalanceName)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_Balance)) {
 						return result.getBalance();
-					} else if (this.getMetrics().equals(AnalysisResult.RelationRationalityName)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationRationality)) {
 						return result.getRelationRationality();
-					} else if (this.getMetrics().equals(AnalysisResult.EncapsulationName)) {
+					} else if (this.getMetrics().equals(AnalysisResult.Metrics_Encapsulation)) {
 						return result.getEncapsulation();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_LC)) {
 						return result.getSummary().getLineCount();
@@ -284,31 +285,31 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 				@Override
 				public Boolean evaluate(int result, String metrics) {
-					if (metrics.equals(AnalysisResult.ScoreName)) {
+					if (metrics.equals(AnalysisResult.Metrics_TotalScore)) {
 						if (result < 0) {
 							return false;
 						} else {
 							return true;
 						}
-					} else if (metrics.equals(AnalysisResult.DName)) {
+					} else if (metrics.equals(AnalysisResult.Metrics_D)) {
 						if (result < 0) {
 							return false;
 						} else {
 							return true;
 						}
-					} else if (metrics.equals(AnalysisResult.BalanceName)) {
+					} else if (metrics.equals(AnalysisResult.Metrics_Balance)) {
 						if (result < 0) {
 							return false;
 						} else {
 							return true;
 						}
-					} else if (metrics.equals(AnalysisResult.RelationRationalityName)) {
+					} else if (metrics.equals(AnalysisResult.Metrics_RelationRationality)) {
 						if (result < 0) {
 							return false;
 						} else {
 							return true;
 						}
-					} else if (metrics.equals(AnalysisResult.EncapsulationName)) {
+					} else if (metrics.equals(AnalysisResult.Metrics_Encapsulation)) {
 						if (result < 0) {
 							return false;
 						} else {
@@ -364,7 +365,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 		JPanel scorePanel = new JPanel(new BorderLayout());
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
-		scorePanel.add(BorderLayout.NORTH, this.createItem(AnalysisResult.ScoreName, result.getScore()));
+		scorePanel.add(BorderLayout.NORTH, this.createItem(AnalysisResult.Metrics_TotalScore, result.getScore()));
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -570,7 +571,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JLabel adviseLabel = null;
 		JLabel descLabel = null;
 		Structure structure = null;
-		if (itemName.equals(AnalysisResult.ScoreName)) {
+		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			adviseLabel = new JLabel();
 			structure = new Structure();
 			structure.setCategory(StructureCategory.LowScoreItemIdentifier);
@@ -578,13 +579,13 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			try {
 				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
 				if (advise != null) {
-					adviseLabel.setText(advise.getDesc() + advise.getComponentNameInfo());
+					adviseLabel.setText(advise.getDesc() + ReportConstant.toMetricsName(advise.getComponentNameInfo()));
 					advisePanel.add(adviseLabel);
 				}
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}
-		} else if (itemName.equals(AnalysisResult.DName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
 			structure = new Structure();
 			structure.setCategory(StructureCategory.DDomainAnalysis);
 			structure.setData(result);
@@ -611,7 +612,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}
-		} else if (itemName.equals(AnalysisResult.BalanceName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			structure = new Structure();
 			structure.setCategory(StructureCategory.CohesionDomainAnalysis);
 			structure.setData(result);
@@ -637,7 +638,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}
-		} else if (itemName.equals(AnalysisResult.EncapsulationName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Encapsulation)) {
 			structure = new Structure();
 			structure.setCategory(StructureCategory.EncapsulationDomainAnalysis);
 			structure.setData(result);
@@ -665,7 +666,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}
-		} else if (itemName.equals(AnalysisResult.RelationRationalityName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
 			Float rs = result.getAttentionRelationScale();
 			adviseLabel = new JLabel();
 			if (MathUtil.isZero(rs)) {
@@ -695,22 +696,22 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 		lScoreId = lScoreInfo.id;
 		hScoreId = hScoreInfo.id;
-		if (itemName.equals(AnalysisResult.ScoreName)) {
+		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			lScore = lScoreInfo.score;
 			hScore = hScoreInfo.score;
-		} else if (itemName.equals(AnalysisResult.DName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
 			lScore = lScoreInfo.d;
 			hScore = hScoreInfo.d;
-		} else if (itemName.equals(AnalysisResult.BalanceName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			lScore = lScoreInfo.balance;
 			hScore = hScoreInfo.balance;
-		} else if (itemName.equals(AnalysisResult.EncapsulationName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_Encapsulation)) {
 			lScore = lScoreInfo.encapsulation;
 			hScore = hScoreInfo.encapsulation;
-		} else if (itemName.equals(AnalysisResult.RelationRationalityName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
 			lScore = lScoreInfo.relation;
 			hScore = hScoreInfo.relation;
-		} else if (itemName.equals(AnalysisResult.OOName)) {
+		} else if (itemName.equals(AnalysisResult.Metrics_OO)) {
 			lScore = lScoreInfo.oo;
 			hScore = hScoreInfo.oo;
 		}

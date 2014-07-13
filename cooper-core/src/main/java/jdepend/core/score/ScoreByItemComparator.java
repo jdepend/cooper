@@ -37,19 +37,19 @@ public class ScoreByItemComparator implements Comparator {
 		int rtn = 0;
 
 		if (this.metrics != null) {
-			if (this.metrics.equals(AnalysisResult.LCName)) {
+			if (this.metrics.equals(AnalysisResult.Metrics_LC)) {
 				rtn = a.lc.compareTo(b.lc);
-			} else if (this.metrics.equals(AnalysisResult.DName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_D)) {
 				rtn = a.d.compareTo(b.d);
-			} else if (this.metrics.equals(AnalysisResult.BalanceName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_Balance)) {
 				rtn = a.balance.compareTo(b.balance);
-			} else if (this.metrics.equals(AnalysisResult.RelationRationalityName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_RelationRationality)) {
 				rtn = a.relation.compareTo(b.relation);
-			} else if (this.metrics.equals(AnalysisResult.ScoreName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_TotalScore)) {
 				rtn = a.score.compareTo(b.score);
-			} else if (this.metrics.equals(AnalysisResult.OOName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_OO)) {
 				rtn = a.oo.compareTo(b.oo);
-			} else if (this.metrics.equals(AnalysisResult.EncapsulationName)) {
+			} else if (this.metrics.equals(AnalysisResult.Metrics_Encapsulation)) {
 				rtn = a.encapsulation.compareTo(b.encapsulation);
 			} else {
 				rtn = a.score.compareTo(b.score);

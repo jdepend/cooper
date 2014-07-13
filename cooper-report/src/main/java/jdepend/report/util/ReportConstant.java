@@ -8,6 +8,7 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
+import jdepend.model.result.AnalysisResult;
 
 public class ReportConstant {
 
@@ -46,6 +47,13 @@ public class ReportConstant {
 	public static final String Relation_Balance = BundleUtil.getString(BundleUtil.Relation_Balance);
 	public static final String Relation_AttentionType = BundleUtil.getString(BundleUtil.Relation_AttentionType);
 	public static final String Relation_AttentionLevel = BundleUtil.getString(BundleUtil.Relation_AttentionLevel);
+
+	public static final String Result_Metrics_D = BundleUtil.getString(BundleUtil.Metrics_D);
+	public static final String Result_Metrics_Balance = BundleUtil.getString(BundleUtil.Metrics_Balance);
+	public static final String Result_Metrics_RelationRationality = BundleUtil
+			.getString(BundleUtil.Metrics_RelationRationality);
+	public static final String Result_Metrics_OO = BundleUtil.getString(BundleUtil.Metrics_OO);
+	public static final String Result_Metrics_Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
 
 	public static final String DependInterface = BundleUtil.getString(BundleUtil.TableHead_DependInterface);
 
@@ -116,6 +124,20 @@ public class ReportConstant {
 		toMetricses.put(Relation_Balance, Relation.Balance);
 		toMetricses.put(Relation_AttentionType, Relation.AttentionType);
 		toMetricses.put(Relation_AttentionLevel, Relation.AttentionLevel);
+	}
+
+	private static final Map<String, String> toMetricsNames = new HashMap<String, String>();
+
+	static {
+		toMetricsNames.put(AnalysisResult.Metrics_D, Result_Metrics_D);
+		toMetricsNames.put(AnalysisResult.Metrics_Balance, Result_Metrics_Balance);
+		toMetricsNames.put(AnalysisResult.Metrics_RelationRationality, Result_Metrics_RelationRationality);
+		toMetricsNames.put(AnalysisResult.Metrics_OO, Result_Metrics_OO);
+		toMetricsNames.put(AnalysisResult.Metrics_Encapsulation, Result_Metrics_Encapsulation);
+	}
+
+	public static String toMetricsName(String metrics) {
+		return toMetricsNames.get(metrics);
 	}
 
 }
