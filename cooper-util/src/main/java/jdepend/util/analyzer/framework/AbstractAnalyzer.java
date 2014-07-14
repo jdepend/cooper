@@ -20,11 +20,13 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 
 	public AbstractAnalyzer() {
 		super();
+		this.setWorker(new DefaultAnalyzerWorker());
 	}
 
 	public AbstractAnalyzer(String name, String type, String tip) {
 		super(name, tip, "analyzerData");
 		this.type = type;
+		this.setWorker(new DefaultAnalyzerWorker());
 	}
 
 	public void search(AnalysisResult result) throws JDependException {

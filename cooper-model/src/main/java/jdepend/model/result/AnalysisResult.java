@@ -18,7 +18,6 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.AreaComponent;
