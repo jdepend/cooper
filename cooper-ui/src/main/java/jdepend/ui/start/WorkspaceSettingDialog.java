@@ -179,9 +179,11 @@ public class WorkspaceSettingDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (welcomeDialog != null) {
 					welcomeDialog.dispose();
+					WorkspaceSettingDialog.this.dispose();
+					System.exit(0);
+				} else {
+					WorkspaceSettingDialog.this.dispose();
 				}
-				WorkspaceSettingDialog.this.dispose();
-				System.exit(0);
 			}
 		});
 
