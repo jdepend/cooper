@@ -118,7 +118,7 @@ public interface Measurable extends Named {
 	 * 
 	 * @return
 	 */
-	public float getEncapsulation();
+	public Float getEncapsulation();
 
 	/**
 	 * 面向对象指数（0~）

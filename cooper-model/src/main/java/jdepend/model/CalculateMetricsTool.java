@@ -101,7 +101,9 @@ public final class CalculateMetricsTool {
 	 * @return
 	 */
 	public Float encapsulation() {
-		if (this.unit.getClasses() != null && this.unit.getClasses().size() > 0) {
+		if (this.unit.getAfferentCoupling() == 0) {
+			return null;
+		} else {
 			int privates = 0;
 			for (JavaClass javaClass : this.unit.getClasses()) {
 				if (!javaClass.isUsedByExternal()) {
@@ -109,10 +111,7 @@ public final class CalculateMetricsTool {
 				}
 			}
 			return privates * 1F / this.unit.getClasses().size();
-		} else {
-			return 0.0F;
 		}
-
 	}
 
 	/**

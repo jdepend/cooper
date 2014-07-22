@@ -30,7 +30,7 @@ public class MetricsFormat {
 
 	public static Float toFormattedMetrics(Float f) {
 		if (f == null) {
-			return toFormattedMetrics(0F);
+			return null;
 		} else {
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setGroupingUsed(false);

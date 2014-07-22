@@ -69,7 +69,15 @@ public class JDependUnitByMetricsComparator implements Comparator {
 			} else if (this.metrics.equals(MetricsMgr.Balance)) {
 				rtn = new Float(a.getBalance()).compareTo(new Float(b.getBalance()));
 			} else if (this.metrics.equals(MetricsMgr.Encapsulation)) {
-				rtn = new Float(a.getEncapsulation()).compareTo(new Float(b.getEncapsulation()));
+				if (a.getEncapsulation() == null && b.getEncapsulation() == null) {
+					rtn = 0;
+				} else if (a.getEncapsulation() == null && b.getEncapsulation() != null) {
+					rtn = 1;
+				} else if (a.getEncapsulation() != null && b.getEncapsulation() == null) {
+					rtn = -1;
+				} else {
+					rtn = a.getEncapsulation().compareTo(b.getEncapsulation());
+				}
 			} else if (this.metrics.equals(MetricsMgr.OO)) {
 				rtn = new Float(a.getObjectOriented()).compareTo(new Float(b.getObjectOriented()));
 			} else if (a.extendMetrics(metrics) != null) {

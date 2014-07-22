@@ -612,8 +612,9 @@ public abstract class Component extends AbstractJDependUnit {
 				+ MetricsFormat.toFormattedMetrics(this.getDistance()) + " 耦合值:"
 				+ MetricsFormat.toFormattedMetrics(this.getCoupling()) + " 内聚值:"
 				+ MetricsFormat.toFormattedMetrics(this.getCohesion()) + " 内聚性:"
-				+ MetricsFormat.toFormattedMetrics(this.getBalance()) + " 面向对象:"
-				+ MetricsFormat.toFormattedMetrics(this.getObjectOriented());
+				+ MetricsFormat.toFormattedMetrics(this.getBalance()) + " 封装性:"
+				+ (this.getEncapsulation() == null ? "-" : MetricsFormat.toFormattedMetrics(this.getEncapsulation()))
+				+ " 面向对象:" + MetricsFormat.toFormattedMetrics(this.getObjectOriented());
 	}
 
 	public static String getDefaultComponentName(List<String> javaPackages, boolean isFullComponentName) {

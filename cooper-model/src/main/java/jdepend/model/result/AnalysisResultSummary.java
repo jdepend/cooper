@@ -14,9 +14,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private static final long serialVersionUID = -5109171634600473818L;
 
-	private static final String LogicAVE = "AVE";// 求平均
-	private static final String LogicSUM = "SUM";// 求和
-
 	public static final String Name = "小结";
 
 	private float abstractness;
@@ -33,7 +30,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private float distance;
 
-	private float encapsulation;
+	private Float encapsulation;
 
 	private int abstractClassCount;
 
@@ -54,6 +51,42 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	private int componentCount;
 
 	private int relationCount;
+
+	private static MetricsSummaryInfo[] metricsSummaryInfos;
+
+	static {
+		metricsSummaryInfos = new MetricsSummaryInfo[15];
+		metricsSummaryInfos[0] = new MetricsSummaryInfo(MetricsMgr.LC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[1] = new MetricsSummaryInfo(MetricsMgr.CN, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[2] = new MetricsSummaryInfo(MetricsMgr.CC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[3] = new MetricsSummaryInfo(MetricsMgr.AC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[4] = new MetricsSummaryInfo(MetricsMgr.Ca, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[5] = new MetricsSummaryInfo(MetricsMgr.Ce, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[6] = new MetricsSummaryInfo(MetricsMgr.A, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[7] = new MetricsSummaryInfo(MetricsMgr.V, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[8] = new MetricsSummaryInfo(MetricsMgr.I, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[9] = new MetricsSummaryInfo(MetricsMgr.D, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[10] = new MetricsSummaryInfo(MetricsMgr.Coupling, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[11] = new MetricsSummaryInfo(MetricsMgr.Cohesion, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[12] = new MetricsSummaryInfo(MetricsMgr.Balance, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.OO, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+		metricsSummaryInfos[14] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicAVE);
+	}
 
 	@Override
 	public float getAbstractness() {
@@ -96,7 +129,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float getEncapsulation() {
+	public Float getEncapsulation() {
 		return this.encapsulation;
 	}
 
@@ -149,7 +182,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	public String getName() {
 		return Name;
 	}
-	
+
 	@Override
 	public String getArea() {
 		return null;
@@ -183,7 +216,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.distance = distance;
 	}
 
-	public void setEncapsulation(float encapsulation) {
+	public void setEncapsulation(Float encapsulation) {
 		this.encapsulation = encapsulation;
 	}
 
@@ -245,86 +278,63 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	public static AnalysisResultSummary calSummary(AnalysisResult result) {
 
-		String[] metrics = new String[] { MetricsMgr.LC, MetricsMgr.CN, MetricsMgr.CC, MetricsMgr.AC, MetricsMgr.Ca,
-				MetricsMgr.Ce, MetricsMgr.A, MetricsMgr.V, MetricsMgr.I, MetricsMgr.D, MetricsMgr.Coupling,
-				MetricsMgr.Cohesion, MetricsMgr.Balance, MetricsMgr.OO, MetricsMgr.Encapsulation };
-
-		String[] logic = new String[metrics.length];
-
-		logic[0] = LogicSUM;
-		logic[1] = LogicSUM;
-		logic[2] = LogicSUM;
-		logic[3] = LogicSUM;
-		logic[4] = LogicSUM;
-		logic[5] = LogicSUM;
-		logic[6] = LogicAVE;
-		logic[7] = LogicAVE;
-		logic[8] = LogicAVE;
-		logic[9] = LogicAVE;
-		logic[10] = LogicAVE;
-		logic[11] = LogicAVE;
-		logic[12] = LogicAVE;
-		logic[13] = LogicAVE;
-		logic[14] = LogicAVE;
-
 		List<Object[]> data = new ArrayList<Object[]>();
 		Object[] rowData;
 		for (Component unit : result.getComponents()) {
 			if (unit.isInner()) {// 只计算内部分析单元
-				rowData = new Object[metrics.length];
-				for (int i = 0; i < metrics.length; i++) {
-					rowData[i] = unit.getValue(metrics[i]);
+				rowData = new Object[metricsSummaryInfos.length];
+				for (int i = 0; i < metricsSummaryInfos.length; i++) {
+					rowData[i] = unit.getValue(metricsSummaryInfos[i].name);
 				}
 				data.add(rowData);
 			}
 		}
 
-		return getSummry(data, logic, result);
+		return getSummry(data, result);
 	}
 
-	private static AnalysisResultSummary getSummry(List<Object[]> objs, String[] logic, AnalysisResult result) {
+	private static AnalysisResultSummary getSummry(List<Object[]> objs, AnalysisResult result) {
 
 		AnalysisResultSummary resultSummry = new AnalysisResultSummary();
 
 		if (objs.size() == 0)
 			return resultSummry;
 
-		Object[] summry = new Object[objs.get(0).length];
-		for (int i = 0; i < logic.length; i++) {
-			if (objs.get(0)[i] instanceof Integer) {
+		Object[] summry = new Object[metricsSummaryInfos.length];
+		for (int i = 0; i < metricsSummaryInfos.length; i++) {
+			if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeInteger)) {
 				summry[i] = 0;
-			} else if (objs.get(0)[i] instanceof Float) {
+			} else if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeFloat)) {
 				summry[i] = 0F;
 			}
 		}
 
+		Integer[] calComponents = new Integer[metricsSummaryInfos.length];
+		for (int col = 0; col < metricsSummaryInfos.length; col++) {
+			calComponents[col] = 0;
+		}
+
 		for (int row = 0; row < objs.size(); row++) {
-			for (int col = 0; col < logic.length; col++) {
-				if (logic[col] != null && objs.get(row)[col] != null) {
-					if (objs.get(row)[col] instanceof Float) {
+			for (int col = 0; col < metricsSummaryInfos.length; col++) {
+				if (objs.get(row)[col] != null) {
+					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
 						summry[col] = (Float) summry[col] + (Float) objs.get(row)[col];
-					} else if (objs.get(row)[col] instanceof Integer) {
+					} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
 						summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col];
 					}
+					calComponents[col]++;
 				}
-
 			}
 		}
-		for (int col = 0; col < logic.length; col++) {
-			if (logic[col] != null) {
-				if (logic[col].equals(LogicAVE)) {
-					if (summry[col] instanceof Integer) {
-						summry[col] = (Integer) ((Integer) summry[col] / objs.size());
-					} else {
-						summry[col] = ((Float) summry[col]) / objs.size();
-					}
-
-				} else if (logic[col].equals(LogicSUM)) {
-					if (summry[col] instanceof Float) {
-						summry[col] = (Float) summry[col];
-					}
+		for (int col = 0; col < metricsSummaryInfos.length; col++) {
+			if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
+				if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+					summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
+				} else {
+					summry[col] = ((Float) summry[col]) / calComponents[col];
 				}
-			}
+
+			} 
 		}
 
 		resultSummry.setJavaPackageCount(result.getJavaPackages().size());
@@ -377,5 +387,25 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		info.append("   封装性" + MetricsFormat.toFormattedMetrics(this.getEncapsulation()) + " [私有类比例，值越大越好]\n");
 
 		return info.toString();
+	}
+
+	static class MetricsSummaryInfo {
+
+		private static final String LogicAVE = "AVE";// 求平均
+		private static final String LogicSUM = "SUM";// 求和
+
+		private static final String TypeInteger = "Integer";
+		private static final String TypeFloat = "Float";
+
+		String name;
+		String type;
+		String logic;
+
+		public MetricsSummaryInfo(String name, String type, String logic) {
+			super();
+			this.name = name;
+			this.type = type;
+			this.logic = logic;
+		}
 	}
 }

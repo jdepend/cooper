@@ -158,7 +158,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return cohesion;
 	}
 
-	public float getEncapsulation() {
+	public Float getEncapsulation() {
 		if (this.encapsulation == null) {
 			this.encapsulation = new CalculateMetricsTool(this).encapsulation();
 		}
