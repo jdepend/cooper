@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.TargetFileManager;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Metrics;
@@ -36,7 +36,7 @@ public class Parse {
 
 	private ParseConfigurator conf;
 
-	private ParseData data;
+	private AnalyzeData data;
 
 	public Parse() {
 		init(new ParseConfigurator());
@@ -60,12 +60,7 @@ public class Parse {
 
 		this.beforeAnalyze();
 
-		Collection<JavaClass> javaClasses;
-		try {
-			javaClasses = getClassBuilder().build(getAnalyseData());
-		} catch (IOException e) {
-			throw new JDependException(e);
-		}
+		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 
 		LogUtil.getInstance(Parse.class).systemLog("开始建立Package");
 		for (JavaClass javaClass : javaClasses) {
@@ -74,10 +69,12 @@ public class Parse {
 
 		return packages.values();
 	}
-	
+
 	/**
 	 * 增加分析目标地址
-	 * @param names 以“;”分割可以添加多个
+	 * 
+	 * @param names
+	 *            以“;”分割可以添加多个
 	 * @throws IOException
 	 */
 	public void addDirectorys(String names) throws IOException {
@@ -90,6 +87,7 @@ public class Parse {
 
 	/**
 	 * 得到分析目标的地址
+	 * 
 	 * @return
 	 */
 	public String getDirectorys() {
@@ -105,17 +103,13 @@ public class Parse {
 		return dir.toString();
 	}
 
-	/**
-	 * 设置分析数据
-	 * 
-	 * @param data
-	 */
-	public void setAnalyseData(ParseData data) {
+	public void setAnalyseData(AnalyzeData data) {
 		this.data = data;
 	}
 
 	/**
 	 * 设置是否分析内部类
+	 * 
 	 * @param b
 	 */
 	public void analyzeInnerClasses(boolean b) {
@@ -124,6 +118,7 @@ public class Parse {
 
 	/**
 	 * 计算类个数
+	 * 
 	 * @return
 	 */
 	public int countClasses() {
@@ -132,6 +127,7 @@ public class Parse {
 
 	/**
 	 * 增加解析监听器
+	 * 
 	 * @param listener
 	 */
 	public void addParseListener(ParseListener listener) {
@@ -140,13 +136,16 @@ public class Parse {
 
 	/**
 	 * 增加构建监听器
+	 * 
 	 * @param listener
 	 */
 	public void addBuildListener(BuildListener listener) {
 		getClassBuilder().addBuildListener(listener);
 	}
+
 	/**
 	 * 设置日志输出器
+	 * 
 	 * @param writer
 	 */
 	public void setLogWriter(PrintWriter writer) {
@@ -155,28 +154,11 @@ public class Parse {
 
 	/**
 	 * 增加不分析的包
+	 * 
 	 * @param filteredPackages
 	 */
 	public void addFilteredPackages(List<String> filteredPackages) {
 		this.getClassBuilder().getFilter().addFilters(filteredPackages);
-	}
-
-	/**
-	 * 返回每个分析目录中包含的文件名集合
-	 * 
-	 * @return
-	 */
-	public Map<String, Collection<String>> getTargetFileGroupInfo() {
-		return this.fileManager.getTargetFileGroupInfo();
-	}
-
-	/**
-	 * 设置每个分析目录中包含的文件名集合
-	 * 
-	 * @param targetFileGroupInfo
-	 */
-	public void setTargetFileGroupInfo(Map<String, Collection<String>> targetFileGroupInfo) {
-		this.fileManager.setTargetFileGroupInfo(targetFileGroupInfo);
 	}
 
 	private void init(ParseConfigurator conf) {
@@ -204,12 +186,13 @@ public class Parse {
 		return this.builder;
 	}
 
-	private ParseData getAnalyseData() throws IOException {
+	public AnalyzeData getAnalyseData() throws JDependException {
 		if (this.data == null) {
-			data = new ParseData();
-			Map<FileType, List<byte[]>> fileData = this.fileManager.getFileData();
-			data.setClasses(fileData.get(FileType.classType));
-			data.setConfigs(fileData.get(FileType.xmlType));
+			try {
+				data = this.fileManager.getAnalyzeData();
+			} catch (IOException e) {
+				throw new JDependException(e);
+			}
 		}
 		return data;
 	}

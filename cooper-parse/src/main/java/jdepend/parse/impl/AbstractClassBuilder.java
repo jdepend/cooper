@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.JavaClass;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseConfigurator;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 /**
@@ -54,7 +54,7 @@ public abstract class AbstractClassBuilder {
 		this.isBuildClassRelation = isBuildClassRelation;
 	}
 
-	public abstract Collection<JavaClass> build(ParseData data);
+	public abstract Collection<JavaClass> build(AnalyzeData data);
 
 	public abstract PackageFilter getFilter();
 

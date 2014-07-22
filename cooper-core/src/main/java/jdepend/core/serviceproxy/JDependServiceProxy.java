@@ -4,13 +4,13 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseData;
 import jdepend.service.local.AnalyseListener;
 
 /**
@@ -59,7 +59,7 @@ public interface JDependServiceProxy {
 	 * @param data
 	 * @throws JDependException 
 	 */
-	void setAnalyseData(AnalyseData data);
+	void setAnalyseData(AnalyzeData data);
 
 	/**
 	 * 计算类总数

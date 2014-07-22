@@ -13,9 +13,9 @@ import java.util.Map;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.FileUtil;
-import jdepend.framework.util.TargetFileManager;
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.service.remote.analyzer.AnalyzerDTO;
 import jdepend.util.analyzer.framework.Analyzer;

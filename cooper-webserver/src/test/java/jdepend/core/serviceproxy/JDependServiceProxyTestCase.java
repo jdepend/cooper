@@ -4,20 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.JarFileReader;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.JarFileReader;
+import jdepend.framework.file.TargetFileInfo;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ClassSearchUtil;
-import jdepend.parse.ParseData;
 import jdepend.parse.util.SearchUtil;
-import jdepend.service.local.AnalyseData;
-import jdepend.service.remote.AnalyseDataDTO;
 import junit.framework.TestCase;
 
 public class JDependServiceProxyTestCase extends TestCase {
@@ -38,31 +33,24 @@ public class JDependServiceProxyTestCase extends TestCase {
 		JDependServiceProxy proxy = new JDependServiceProxyFactory()
 				.getJDependServiceProxy("无", "以包为单位输出分析报告");
 
-		AnalyseData data = new AnalyseData();
+		AnalyzeData data = new AnalyzeData();
 
 		File jarFile = new File("C:\\dom4j-1.6.1.jar");
 
 		JarFileReader reader = new JarFileReader(true);
-		Map<FileType, List<byte[]>> fileDatases = null;
+		List<TargetFileInfo>  fileDatases = null;
 		try {
 			InputStream in = new FileInputStream(jarFile);
 			fileDatases = reader.readDatas(in);
+			for (TargetFileInfo targetFileInfo : fileDatases) {
+				data.addFileInfo(jarFile.getName(), targetFileInfo);
+			}
 			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		data.setClasses(fileDatases.get(FileType.classType));
-		data.setConfigs(fileDatases.get(FileType.xmlType));
-
-		Map<String, Collection<String>> targetFiles = new HashMap<String, Collection<String>>();
-		targetFiles.put("dom4j-1.6.1.jar", reader.getEntryNames());
-
-		data.setTargetFiles(targetFiles);
-
+		
 		proxy.setAnalyseData(data);
-		
-		
-
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
 

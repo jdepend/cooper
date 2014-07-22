@@ -38,6 +38,8 @@ public final class JavaClass extends AbstractJDependUnit {
 	private boolean isInner;
 	private boolean stable = false;
 
+	private JavaClassPlace place;
+
 	private JavaPackage javaPackage;
 	private Component component;
 
@@ -115,6 +117,14 @@ public final class JavaClass extends AbstractJDependUnit {
 		this.isIncludeTransactionalAnnotation = false;
 	}
 
+	public JavaClassPlace getPlace() {
+		return place;
+	}
+
+	public void setPlace(JavaClassPlace place) {
+		this.place = place;
+	}
+
 	/**
 	 * 是否是内部类
 	 * 
@@ -140,7 +150,7 @@ public final class JavaClass extends AbstractJDependUnit {
 	public String getPath() {
 		return packageName;
 	}
-	
+
 	@Override
 	public String getArea() {
 		return null;

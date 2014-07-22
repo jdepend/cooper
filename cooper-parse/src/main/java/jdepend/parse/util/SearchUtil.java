@@ -6,10 +6,10 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.parse.Parse;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 public final class SearchUtil {
@@ -37,7 +37,7 @@ public final class SearchUtil {
 		}
 	}
 
-	public SearchUtil(ParseData data) {
+	public SearchUtil(AnalyzeData data) {
 		this.jdepend.setAnalyseData(data);
 	}
 
@@ -92,7 +92,7 @@ public final class SearchUtil {
 		}
 	}
 
-	public void addAnalyseData(ParseData data) {
+	public void addAnalyseData(AnalyzeData data) {
 		this.jdepend.setAnalyseData(data);
 	}
 

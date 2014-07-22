@@ -4,9 +4,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.JavaClass;
 import jdepend.parse.ParseConfigurator;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 import com.jacob.activeX.ActiveXComponent;
@@ -26,7 +26,7 @@ public class CSharpClassBuilder extends AbstractClassBuilder {
 	}
 
 	@Override
-	public List<JavaClass> build(ParseData data) {
+	public List<JavaClass> build(AnalyzeData data) {
 		if (this.classes == null || this.getConf().getEveryClassBuild()) {
 			classes = new ArrayList<JavaClass>();
 

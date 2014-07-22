@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,24 +12,24 @@ import jdepend.core.serviceproxy.JDependServiceProxy;
 import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.JarFileReader;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.JarFileReader;
+import jdepend.framework.file.TargetFileInfo;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.util.SearchUtil;
-import jdepend.service.local.AnalyseData;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class AnalyseService {
 
-	public Collection<JavaPackage> listPackages(AnalyseData analyseData) {
+	public Collection<JavaPackage> listPackages(AnalyzeData analyseData) {
 
-		SearchUtil searchUtil = new SearchUtil(analyseData.toParseData());
+		SearchUtil searchUtil = new SearchUtil(analyseData);
 		Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
 		for (JavaPackage javaPackage : searchUtil.getPackages()) {
 			if (javaPackage.isInner()) {
@@ -41,8 +40,8 @@ public class AnalyseService {
 		return innerJavaPackages;
 	}
 
-	public AnalysisResult analyze(String group, String command, AnalyseData data, ComponentModelConf componentModelConf)
-			throws JDependException {
+	public AnalysisResult analyze(String group, String command, AnalyzeData data,
+			ComponentModelConf componentModelConf) throws JDependException {
 
 		CustomComponent component = new CustomComponent();
 		component.setComponentInfo(componentModelConf);
@@ -65,33 +64,25 @@ public class AnalyseService {
 		return result;
 	}
 
-	public AnalyseData createAnalyseData(Map<String, byte[]> fileDatas) {
+	public AnalyzeData createAnalyseData(Map<String, byte[]> fileDatas) {
 
-		AnalyseData data = new AnalyseData();
-
-		List<byte[]> classes = new ArrayList<byte[]>();
-		List<byte[]> configs = new ArrayList<byte[]>();
-		Map<String, Collection<String>> targetFiles = new LinkedHashMap<String, Collection<String>>();
+		AnalyzeData data = new AnalyzeData();
 
 		for (String fileName : fileDatas.keySet()) {
 			byte[] fileData = fileDatas.get(fileName);
 			JarFileReader reader = new JarFileReader(true);
-			Map<FileType, List<byte[]>> fileDatases = null;
 			try {
 				InputStream in = new ByteArrayInputStream(fileData);
-				fileDatases = reader.readDatas(in);
-				targetFiles.put(fileName, reader.getEntryNames());
+				List<TargetFileInfo> targetFileInfos = reader.readDatas(in);
+				for (TargetFileInfo targetFileInfo : targetFileInfos) {
+					data.addFileInfo(fileName, targetFileInfo);
+				}
 				in.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			classes.addAll(fileDatases.get(FileType.classType));
-			configs.addAll(fileDatases.get(FileType.xmlType));
-		}
 
-		data.setClasses(classes);
-		data.setConfigs(configs);
-		data.setTargetFiles(targetFiles);
+		}
 
 		return data;
 	}

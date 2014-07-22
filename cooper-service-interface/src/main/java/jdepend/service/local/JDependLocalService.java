@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
@@ -55,7 +56,7 @@ public interface JDependLocalService {
 	 * 
 	 * @param data
 	 */
-	public void setAnalyzeData(AnalyseData data);
+	public void setAnalyzeData(AnalyzeData data);
 
 	/**
 	 * 计算分析目标的类个数

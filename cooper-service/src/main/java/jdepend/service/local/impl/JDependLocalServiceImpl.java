@@ -9,6 +9,7 @@ import java.util.List;
 
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
@@ -28,7 +29,6 @@ import jdepend.service.avertcheat.framework.AvertCheat;
 import jdepend.service.avertcheat.framework.AvertCheatMgr;
 import jdepend.service.context.AnalyseContext;
 import jdepend.service.context.AnalyseContextMgr;
-import jdepend.service.local.AnalyseData;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 
@@ -78,7 +78,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		Collection<JavaPackage> javaPackages = parse.execute();
 		context.setJavaPackages(new ArrayList<JavaPackage>(javaPackages));
 		// 设置目标文件分组信息
-		context.setTargetFiles(parse.getTargetFileGroupInfo());
+		context.setTargetFiles(parse.getAnalyseData().getFileNames());
 		// 组织成组件
 		List<Component> components = component.list(javaPackages);
 
@@ -167,9 +167,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	}
 
 	@Override
-	public void setAnalyzeData(AnalyseData data) {
-		this.parse.setAnalyseData(data.toParseData());
-		this.parse.setTargetFileGroupInfo(data.getTargetFiles());
+	public void setAnalyzeData(AnalyzeData data) {
+		this.parse.setAnalyseData(data);
 	}
 
 	public void registMetrics(String key, Metrics metrics) throws JDependException {

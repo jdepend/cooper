@@ -6,13 +6,13 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseData;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 
@@ -94,7 +94,7 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 	}
 
 	@Override
-	public void setAnalyseData(AnalyseData data) {
+	public void setAnalyseData(AnalyzeData data) {
 		this.service.setAnalyzeData(data);
 	}
 }

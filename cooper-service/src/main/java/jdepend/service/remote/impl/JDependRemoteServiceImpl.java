@@ -49,7 +49,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 				localService.setComponent(data.getComponent());
 			}
 			// 设置分析数据
-			localService.setAnalyzeData(data.toAnalyseData());
+			localService.setAnalyzeData(data.getAnalyzeData());
 
 			String path = data.getPath();
 			if (path != null && path.length() > 0) {

@@ -3,18 +3,15 @@ package jdepend.service.remote;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.TargetFileManager;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
-import jdepend.parse.ParseData;
-import jdepend.service.local.AnalyseData;
 
 /**
  * 分析数据
@@ -26,9 +23,7 @@ public class AnalyseDataDTO implements Serializable {
 
 	private List<String> directories = new ArrayList<String>();
 
-	private List<byte[]> classes;// class文件信息
-
-	private List<byte[]> configs;// 配置文件信息（如：ibats、spring、hibernate的xml信息）
+	private AnalyzeData data;
 
 	private Component component;
 
@@ -37,8 +32,6 @@ public class AnalyseDataDTO implements Serializable {
 	private Map<String, Metrics> metricses = new HashMap<String, Metrics>();
 
 	private Map<String, JavaClassRelationType> javaClassRelationTypes = new HashMap<String, JavaClassRelationType>();
-
-	private Map<String, Collection<String>> targetFiles;
 
 	public List<String> getDirectories() {
 		return directories;
@@ -51,25 +44,22 @@ public class AnalyseDataDTO implements Serializable {
 
 	}
 
-	public void calTargets() throws IOException {
-		if (this.classes == null || this.configs == null) {
+	public AnalyzeData getAnalyzeData() {
+		return data;
+	}
+
+	public void setAnalyzeData(AnalyzeData fileDatas) {
+		this.data = fileDatas;
+	}
+
+	public void calAnalyzeData() throws IOException {
+		if (this.data == null) {
 			TargetFileManager fileManager = new TargetFileManager();
 			for (String dir : directories) {
 				fileManager.addDirectory(dir);
 			}
-			Map<FileType, List<byte[]>> fileDatas = fileManager.getFileData();
-			this.classes = fileDatas.get(FileType.classType);
-			this.configs = fileDatas.get(FileType.xmlType);
-			this.targetFiles = fileManager.getTargetFileGroupInfo();
+			this.data = fileManager.getAnalyzeData();
 		}
-	}
-
-	public Map<String, Collection<String>> getTargetFiles() {
-		return targetFiles;
-	}
-
-	public void setTargetFiles(Map<String, Collection<String>> targetFiles) {
-		this.targetFiles = targetFiles;
 	}
 
 	public String getPath() {
@@ -82,22 +72,6 @@ public class AnalyseDataDTO implements Serializable {
 			path.append(";");
 		}
 		return path.toString();
-	}
-
-	public List<byte[]> getClasses() {
-		return classes;
-	}
-
-	public List<byte[]> getConfigs() {
-		return configs;
-	}
-
-	public void setClasses(List<byte[]> classes) {
-		this.classes = classes;
-	}
-
-	public void setConfigs(List<byte[]> configs) {
-		this.configs = configs;
 	}
 
 	public Component getComponent() {
@@ -132,19 +106,10 @@ public class AnalyseDataDTO implements Serializable {
 		this.javaClassRelationTypes = javaClassRelationTypes;
 	}
 
-	public AnalyseData toAnalyseData() {
-		AnalyseData analyseData = new AnalyseData();
-		analyseData.setClasses(classes);
-		analyseData.setConfigs(configs);
-		analyseData.setTargetFiles(targetFiles);
-
-		return analyseData;
-	}
-
 	@Override
 	public String toString() {
-		return "AnalyseData [classes=" + classes + ", component=" + component + ", configs=" + configs
-				+ ", directories=" + directories + ", filteredPackages=" + filteredPackages
+		return "AnalyseData [classes=" + data.getClasses() + ", component=" + component + ", configs="
+				+ data.getConfigs() + ", directories=" + directories + ", filteredPackages=" + filteredPackages
 				+ ", javaClassRelationTypes=" + javaClassRelationTypes + ", metricses=" + metricses + "]";
 	}
 }

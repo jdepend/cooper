@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.TableInfo;
 
@@ -50,29 +51,31 @@ public final class ConfigParseMgr {
 		return inst;
 	}
 
-	public void parse(List<byte[]> configs) throws JDependException {
+	public void parse(Map<String, List<TargetFileInfo>> configs) throws JDependException {
 
 		try {
 			DocumentBuilder builder = getDocumentBuilder();
 			InputStream is = null;
 			Document doc = null;
-			for (byte[] config : configs) {
-				try {
-					is = new ByteArrayInputStream(config);
-					doc = builder.parse(is);
-					if (currentXMLType != null && this.parses.get(currentXMLType) != null) {
-						this.parses.get(currentXMLType).parse(doc);
-					} else if (currentXMLType != null && this.parses.get(currentXMLType) == null) {
-						LogUtil.getInstance(ConfigParseMgr.class).systemWarning("未配置" + currentXMLType + "XML解析器。");
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					if (is != null) {
-						try {
-							is.close();
-						} catch (IOException e) {
-							e.printStackTrace();
+			for (String place : configs.keySet()) {
+				for (TargetFileInfo config : configs.get(place)) {
+					try {
+						is = new ByteArrayInputStream(config.getContent());
+						doc = builder.parse(is);
+						if (currentXMLType != null && this.parses.get(currentXMLType) != null) {
+							this.parses.get(currentXMLType).parse(doc);
+						} else if (currentXMLType != null && this.parses.get(currentXMLType) == null) {
+							LogUtil.getInstance(ConfigParseMgr.class).systemWarning("未配置" + currentXMLType + "XML解析器。");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (is != null) {
+							try {
+								is.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}

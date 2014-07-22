@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.FileType;
-import jdepend.framework.util.TargetFileManager;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.model.Component;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.AptitudeComponent;
@@ -54,12 +53,9 @@ public class JDependTest extends TestCase {
 
 		Parse jdepend = new Parse();
 
-		ParseData data = new ParseData();
-		Map<FileType, List<byte[]>> fileData = fileManager.getFileData();
-		data.setClasses(fileData.get(FileType.classType));
-		data.setConfigs(fileData.get(FileType.xmlType));
-
-		jdepend.setAnalyseData(data);
+		AnalyzeData fileData = fileManager.getAnalyzeData();
+		
+		jdepend.setAnalyseData(fileData);
 
 		Collection<JavaPackage> javaPackages = jdepend.execute();
 

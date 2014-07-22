@@ -10,12 +10,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
-import jdepend.service.local.AnalyseData;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
 import jdepend.webserver.service.AnalyseService;
@@ -68,7 +68,7 @@ public class AnalyseController {
 			}
 		}
 
-		AnalyseData analyseData = null;
+		AnalyzeData analyseData = null;
 		try {
 			analyseData = analyseService.createAnalyseData(fileDatas);
 		} catch (IllegalArgumentException e) {
@@ -106,7 +106,7 @@ public class AnalyseController {
 			throw new JDependException("没有配置组件模型信息。");
 		}
 
-		AnalyseData data = (AnalyseData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
+		AnalyzeData data = (AnalyzeData) request.getSession().getAttribute(WebConstants.SESSION_FILE);
 		if (data == null) {
 			throw new JDependException("Session 中不存在 AnalyseData");
 		}

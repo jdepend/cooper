@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
 
 /**
@@ -40,12 +41,8 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 		this.parser = new ClassFileParserFactory().createParser(conf);
 	}
 
-	/**
-	 * Builds the <code>JavaClass</code> instances.
-	 * 
-	 * @return Collection of <code>JavaClass</code> instances.
-	 */
-	public Collection<JavaClass> build(ParseData data) {
+	@Override
+	public Collection<JavaClass> build(AnalyzeData data) {
 		if (this.javaClassesForName == null || this.getConf().getEveryClassBuild()) {
 			javaClassesForName = new HashMap<String, JavaClass>();
 			// 解析Config
@@ -70,7 +67,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 		return this.getJavaClasses();
 	}
 
-	private void parseConfigs(List<byte[]> configs) {
+	private void parseConfigs(Map<String, List<TargetFileInfo>> configs) {
 		try {
 			ConfigParseMgr.getInstance().parse(configs);
 		} catch (JDependException e) {
@@ -78,12 +75,13 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 		}
 	}
 
-	private void parseClasses(List<byte[]> classes) {
+	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 		InputStream is = null;
-		for (byte[] classData : classes) {
+		for (String place : classes.keySet()) {
+		for (TargetFileInfo classData : classes.get(place)) {
 
 			try {
-				is = new ByteArrayInputStream(classData);
+				is = new ByteArrayInputStream(classData.getContent());
 				JavaClass javaClass = this.parser.parse(is);
 				if (this.parser.getFilter().accept(javaClass.getPackageName())
 						&& !this.javaClassesForName.containsKey(javaClass.getName())) {
@@ -100,6 +98,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 					}
 				}
 			}
+		}
 		}
 	}
 

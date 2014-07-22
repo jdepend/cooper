@@ -12,15 +12,14 @@ import java.util.List;
 import jdepend.core.serverconf.ServerConfigurator;
 import jdepend.core.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.AnalyzeData;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.util.TargetFileManager;
 import jdepend.model.Component;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
-import jdepend.parse.ParseData;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseData;
 import jdepend.service.remote.AnalyseDataDTO;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
@@ -110,7 +109,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 			// 启动监控进度服务
 			startMonitorAnalyseService();
 			// 本地计算分析数据
-			data.calTargets();
+			data.calAnalyzeData();
 			// 执行分析服务
 			AnalysisResult result = getRemoteService().analyze(request, data);
 			result.unSequence();
@@ -137,7 +136,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 						schedule = getRemoteService().getAnalyzeSchedule(request);
 						listener.onParsedJavaClass(null, schedule);
 						count++;
-					} while (schedule < data.getClasses().size() && count < TIMEOUT);
+					} while (schedule < data.getAnalyzeData().getClassesCount() && count < TIMEOUT);
 					LogUtil.getInstance(JDependServiceRemoteProxy.class).systemLog(
 							"监控远程服务执行进度线程结束，结束参数为 schedule:" + schedule + " count:" + count);
 				} catch (RemoteException e) {
@@ -153,8 +152,8 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 
 	public int countClasses() {
 		try {
-			data.calTargets();
-			return data.getClasses().size();
+			data.calAnalyzeData();
+			return data.getAnalyzeData().getClassesCount();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -196,9 +195,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	}
 
 	@Override
-	public void setAnalyseData(AnalyseData data) {
-		this.data.setClasses(data.getClasses());
-		this.data.setConfigs(data.getConfigs());
-		this.data.setTargetFiles(data.getTargetFiles());
+	public void setAnalyseData(AnalyzeData data) {
+		this.data.setAnalyzeData(data);
 	}
 }

@@ -13,9 +13,9 @@ import java.util.Properties;
 import jdepend.core.command.Command;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.FileUtil;
-import jdepend.framework.util.TargetFileManager;
 
 /**
  * The <code>CommandConfRepository</code> class contains configuration

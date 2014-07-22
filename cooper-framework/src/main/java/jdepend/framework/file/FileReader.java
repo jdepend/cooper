@@ -1,4 +1,4 @@
-package jdepend.framework.util;
+package jdepend.framework.file;
 
 public abstract class FileReader {
 
