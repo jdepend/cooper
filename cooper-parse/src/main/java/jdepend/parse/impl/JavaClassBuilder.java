@@ -78,27 +78,27 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 		InputStream is = null;
 		for (String place : classes.keySet()) {
-		for (TargetFileInfo classData : classes.get(place)) {
+			for (TargetFileInfo classData : classes.get(place)) {
 
-			try {
-				is = new ByteArrayInputStream(classData.getContent());
-				JavaClass javaClass = this.parser.parse(is);
-				if (this.parser.getFilter().accept(javaClass.getPackageName())
-						&& !this.javaClassesForName.containsKey(javaClass.getName())) {
-					javaClassesForName.put(javaClass.getName(), javaClass);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (is != null) {
-					try {
-						is.close();
-					} catch (IOException e) {
-						e.printStackTrace();
+				try {
+					is = new ByteArrayInputStream(classData.getContent());
+					JavaClass javaClass = this.parser.parse(is);
+					if (this.parser.getFilter().accept(javaClass.getPackageName())
+							&& !this.javaClassesForName.containsKey(javaClass.getName())) {
+						javaClassesForName.put(javaClass.getName(), javaClass);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (is != null) {
+						try {
+							is.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-		}
 		}
 	}
 

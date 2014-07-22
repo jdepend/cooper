@@ -17,10 +17,6 @@ public class AnalyzeData implements Serializable {
 		super();
 	}
 
-	public Map<String, List<TargetFileInfo>> getFiles() {
-		return files;
-	}
-
 	public Map<String, Collection<String>> getFileNames() {
 		Map<String, Collection<String>> fileNames = new HashMap<String, Collection<String>>();
 		for (String place : files.keySet()) {
