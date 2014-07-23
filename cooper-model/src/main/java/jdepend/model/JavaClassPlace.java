@@ -8,6 +8,15 @@ public final class JavaClassPlace implements Serializable {
 
 	private String name;
 
+	public JavaClassPlace() {
+		super();
+	}
+
+	public JavaClassPlace(String name) {
+		super();
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

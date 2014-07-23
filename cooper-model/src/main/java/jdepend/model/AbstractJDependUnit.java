@@ -238,4 +238,9 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	public int compareTo(JDependUnit obj) {
 		return this.getName().compareTo(obj.getName());
 	}
+	
+	@Override
+	public int getId() {
+		return this.hashCode();
+	}
 }

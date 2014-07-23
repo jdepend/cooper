@@ -850,6 +850,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		final int prime = 32;
 		int result = 1;
 		result = prime * result + ((this.getName() == null) ? 0 : this.getName().hashCode());
+		result = prime * result + ((place == null) ? 0 : place.hashCode());
 		return result;
 	}
 
@@ -862,6 +863,11 @@ public final class JavaClass extends AbstractJDependUnit {
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClass other = (JavaClass) obj;
+		if (place == null) {
+			if (other.place != null)
+				return false;
+		} else if (!place.equals(other.place))
+			return false;
 		if (this.getName() == null) {
 			if (other.getName() != null)
 				return false;

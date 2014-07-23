@@ -13,7 +13,7 @@ import jdepend.framework.exception.JDependException;
  * @author <b>Abner</b>
  * 
  */
-public interface JDependUnit extends Serializable, Measurable, Comparable<JDependUnit> {
+public interface JDependUnit extends Serializable, Measurable, Identifyer, Comparable<JDependUnit> {
 
 	/**
 	 * 该分析单元是否是内部对象
