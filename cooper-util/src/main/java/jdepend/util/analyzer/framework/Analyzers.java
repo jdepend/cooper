@@ -26,13 +26,14 @@ import jdepend.util.analyzer.element.JavaClassView;
 import jdepend.util.analyzer.element.KeywordSearch;
 import jdepend.util.analyzer.element.OverrideCheck;
 import jdepend.util.analyzer.element.PackagesViewer;
+import jdepend.util.analyzer.element.RepeatClassAnalyzer;
 import jdepend.util.analyzer.element.SearchDAONoPageMethod;
 import jdepend.util.analyzer.element.ServiceHaveState;
 import jdepend.util.analyzer.element.TableView;
 import jdepend.util.analyzer.element.TransactionalAnnotationChecker;
 
 public class Analyzers {
-	
+
 	public static Map<String, List<Analyzer>> getStaticAnalyzers() {
 		Map<String, List<Analyzer>> analyzers = new LinkedHashMap<String, List<Analyzer>>();
 
@@ -63,6 +64,7 @@ public class Analyzers {
 		allAnalyzers.add(new ServiceHaveState());
 		allAnalyzers.add(new TableView());
 		allAnalyzers.add(new TransactionalAnnotationChecker());
+		allAnalyzers.add(new RepeatClassAnalyzer());
 
 		List<Analyzer> analyzerTypes;
 		for (Analyzer analyzer : allAnalyzers) {
