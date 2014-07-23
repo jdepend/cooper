@@ -13,7 +13,7 @@ import jdepend.framework.exception.JDependException;
  * 
  */
 
-public final class JavaPackage implements Serializable, Named, Identifyer, Comparable<JavaPackage> {
+public final class JavaPackage implements Serializable, Named, Comparable<JavaPackage> {
 
 	/**
 	 * 
@@ -112,10 +112,5 @@ public final class JavaPackage implements Serializable, Named, Identifyer, Compa
 	@Override
 	public int compareTo(JavaPackage o) {
 		return this.name.compareTo(o.name);
-	}
-
-	@Override
-	public int getId() {
-		return this.hashCode();
 	}
 }

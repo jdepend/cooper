@@ -86,9 +86,12 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 					is = new ByteArrayInputStream(classData.getContent());
 					JavaClass javaClass = this.parser.parse(is);
 					javaClass.setPlace(javaClassPlace);
-					if (this.parser.getFilter().accept(javaClass.getPackageName())
-							&& !this.javaClassesForName.containsKey(javaClass.getId())) {
-						javaClassesForName.put(javaClass.getName(), javaClass);
+					if (this.parser.getFilter().accept(javaClass.getPackageName())) {
+						if (!this.javaClassesForName.containsKey(javaClass.getName())) {
+							javaClassesForName.put(javaClass.getName(), javaClass);
+						} else {
+							javaClassesForName.put("R_" + javaClass.getName(), javaClass);
+						}
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
