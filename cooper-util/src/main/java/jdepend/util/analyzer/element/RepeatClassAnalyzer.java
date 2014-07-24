@@ -25,8 +25,7 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 		for (JavaClass javaClass : result.getClasses()) {
 			firstRecord = true;
 			for (JavaClass javaClass1 : result.getClasses()) {
-				if (javaClass.getName().equals(javaClass1.getName())
-						&& !javaClass.getPlace().equals(javaClass1.getPlace())) {
+				if (this.repeat(javaClass, javaClass1)) {
 					if (firstRecord) {
 						repeatClasses.add(javaClass);
 						firstRecord = false;
@@ -39,6 +38,24 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 		for (JavaClass javaClass : repeatClasses) {
 			this.printTable("类名", javaClass.getName());
 			this.printTable("位置", javaClass.getPlace().getName());
+		}
+	}
+
+	private boolean repeat(JavaClass javaClass, JavaClass javaClass1) {
+		if (javaClass.getName().equals(javaClass1.getName())) {
+			if (javaClass.getPlace() == null && javaClass1.getPlace() != null) {
+				return true;
+			} else if (javaClass.getPlace() != null && javaClass1.getPlace() == null) {
+				return true;
+			} else if (javaClass.getPlace() == null && javaClass1.getPlace() == null) {
+				return false;
+			} else if (!javaClass.getPlace().equals(javaClass1.getPlace())) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 
