@@ -20,7 +20,7 @@ public class TemplateMethodFeature extends AbstractFeature {
 								if (item.getMethod().equals(abstractMethod)) {
 									// 子类覆盖了抽象方法
 									for (JavaClass subClass : context.getSubClasses()) {
-										if (subClass.getOverrideMethods().values().contains(abstractMethod)) {
+										if (subClass.getOverridedMethods().contains(abstractMethod)) {
 											this.setPatternInfo(publicMethod.getName());
 											return true;
 										}

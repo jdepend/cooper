@@ -33,7 +33,7 @@ public class Method extends AccessFlags {
 	private int selfLineCount;
 
 	private int argumentCount;
-	
+
 	private boolean isIncludeTransactionalAnnotation;
 
 	private transient Collection<String> argTypes;
@@ -114,17 +114,19 @@ public class Method extends AccessFlags {
 	}
 
 	private boolean isInvoked(Method method) {
-		if (this.isPrivate()) {
-			return false;
-		}
 
 		if (method.getInvokeMethods().contains(this)) {
 			return true;
 		}
 
-		Method overrideMethod = this.javaClass.getOverrideMethods().get(this);
-		if (overrideMethod != null && method.getInvokeMethods().equals(overrideMethod)) {
-			return true;
+		if (this.getName().equals("getAbstractness") && this.getJavaClass().getName().equals("jdepend.model.JavaClass")) {
+			System.out.print("");
+		}
+
+		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
+			if (overridedMethod != null && method.getInvokeMethods().contains(overridedMethod)) {
+				return true;
+			}
 		}
 
 		return false;
@@ -281,7 +283,7 @@ public class Method extends AccessFlags {
 
 	@Override
 	public String toString() {
-		return "Method [info=" + info + "]";
+		return "Method [" + info + " Class=" + this.getJavaClass().getName() + "]";
 	}
 
 	@Override

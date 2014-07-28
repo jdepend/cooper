@@ -36,7 +36,7 @@ public class FeatureCheckContext {
 
 	private Collection<Method> abstractMethods;
 
-	private Map<Method, Method> overrideMethods;
+	private Map<Method, Collection<Method>> overrideMethods;
 
 	private Collection<Method> returnIsSuperOverrideMethods;
 
@@ -106,11 +106,11 @@ public class FeatureCheckContext {
 		return staticMethods;
 	}
 
-	public void setOverrideMethods(Map<Method, Method> overrideMethods) {
+	public void setOverrideMethods(Map<Method, Collection<Method>> overrideMethods) {
 		this.overrideMethods = overrideMethods;
 	}
 
-	public Map<Method, Method> getOverrideMethods() {
+	public Map<Method, Collection<Method>> getOverrideMethods() {
 		return overrideMethods;
 	}
 

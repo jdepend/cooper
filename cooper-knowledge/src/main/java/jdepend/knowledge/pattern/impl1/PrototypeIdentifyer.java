@@ -23,7 +23,7 @@ public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 			superClasses = javaClass.getSupers();
 			if (superClasses != null && superClasses.size() > 0) {
 				// 查找克隆方法
-				L: for (Method method : javaClass.getOverrideMethods().keySet()) {
+				L: for (Method method : javaClass.getOverrideMethods()) {
 					// 判断返回值是否是所在的Class的父类
 					returns = method.getReturnTypes();
 					if (returns != null && returns.size() > 0) {

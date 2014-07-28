@@ -2,8 +2,8 @@ package jdepend.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +49,7 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	private transient Collection<Method> methods;
 
-	private transient Map<Method, Method> overrideMethods;
+	private transient Map<Method, Collection<Method>> overrideMethods;
 
 	private transient Collection<JavaClass> supers;
 
@@ -225,15 +225,18 @@ public final class JavaClass extends AbstractJDependUnit {
 	 * 
 	 * @return
 	 */
-	public Map<Method, Method> getOverrideMethods() {
+	public Map<Method, Collection<Method>> calOverrideMethods() {
 		if (this.overrideMethods == null) {
-			this.overrideMethods = new LinkedHashMap<Method, Method>();
+			this.overrideMethods = new HashMap<Method, Collection<Method>>();
 			for (JavaClass superClass : this.getSupers()) {
 				for (Method method : superClass.getSelfMethods()) {
 					if (!method.isConstruction()) {
 						for (Method selfMethod : this.getSelfMethods()) {
 							if (selfMethod.isOverride(method)) {
-								this.overrideMethods.put(selfMethod, method);
+								if (!this.overrideMethods.containsKey(selfMethod)) {
+									this.overrideMethods.put(selfMethod, new HashSet<Method>());
+								}
+								this.overrideMethods.get(selfMethod).add(method);
 							}
 						}
 					}
@@ -241,6 +244,45 @@ public final class JavaClass extends AbstractJDependUnit {
 			}
 		}
 		return this.overrideMethods;
+	}
+
+	/**
+	 * 得到覆盖了父类方法的方法列表
+	 * 
+	 * @return
+	 */
+	public Collection<Method> getOverrideMethods() {
+		return this.calOverrideMethods().keySet();
+	}
+
+	/**
+	 * 得到指定方法覆盖的父类方法列表
+	 * 
+	 * @param method
+	 * @return
+	 */
+	public Collection<Method> getOverridedMethods(Method method) {
+		Collection<Method> overridedMethods = this.calOverrideMethods().get(method);
+		if (overridedMethods == null) {
+			return new HashSet<Method>();
+		} else {
+			return overridedMethods;
+		}
+	}
+
+	/**
+	 * 得到全部方法覆盖的父类方法列表
+	 * 
+	 * @param method
+	 * @return
+	 */
+	public Collection<Method> getOverridedMethods() {
+		Collection<Method> overridedMethods = new HashSet<Method>();
+		Map<Method, Collection<Method>> overrideMethods = this.calOverrideMethods();
+		for (Method overrideMethod : overrideMethods.keySet()) {
+			overridedMethods.addAll(overrideMethods.get(overrideMethod));
+		}
+		return overridedMethods;
 	}
 
 	/**

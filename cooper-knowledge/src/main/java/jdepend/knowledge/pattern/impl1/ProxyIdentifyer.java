@@ -39,19 +39,21 @@ public class ProxyIdentifyer extends AbstractPatternIdentifyer {
 				}
 				if (otherSubClasses.size() > 0) {
 					// 搜索代理方法
-					L: for (Method method : javaClass.getOverrideMethods().keySet()) {
+					L: for (Method method : javaClass.getOverrideMethods()) {
 						for (InvokeItem item : method.getInvokeItems()) {
-							if (otherSubClasses.contains(item.getMethod().getJavaClass())
-									&& item.math2(javaClass.getOverrideMethods().get(method))) {
-								rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
-										+ item.getMethod().getName());
-								if (!rtn.contains(rtnItem)) {
-									rtn.add(rtnItem);
+							if (otherSubClasses.contains(item.getMethod().getJavaClass())) {
+								for (Method superMethod : javaClass.getOverridedMethods(method)) {
+									if (item.math2(superMethod)) {
+										rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
+												+ item.getMethod().getName());
+										if (!rtn.contains(rtnItem)) {
+											rtn.add(rtnItem);
+										}
+										break L;
+									}
 								}
-								break L;
 							}
 						}
-
 					}
 				}
 			}

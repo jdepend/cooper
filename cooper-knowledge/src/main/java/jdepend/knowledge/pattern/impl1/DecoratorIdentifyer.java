@@ -15,8 +15,7 @@ public final class DecoratorIdentifyer extends AbstractPatternIdentifyer {
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
 		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;<strong>装饰模式</strong><br>");
-		explain
-				.append("&nbsp;&nbsp;&nbsp;&nbsp;1、存在父类（可能不止一层）；2、属性有父类类型，并且不是集合类型；3、覆盖了父类方法；4、父类还有其他子类；5、在覆盖的方法中调用了该属性的覆盖方法；6、存在父类类型作为参数的构造函数<br><br>");
+		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;1、存在父类（可能不止一层）；2、属性有父类类型，并且不是集合类型；3、覆盖了父类方法；4、父类还有其他子类；5、在覆盖的方法中调用了该属性的覆盖方法；6、存在父类类型作为参数的构造函数<br><br>");
 		return explain.toString();
 	}
 
@@ -57,17 +56,18 @@ public final class DecoratorIdentifyer extends AbstractPatternIdentifyer {
 							if (!attribute.existCollectionType()) {
 								for (JavaClass superClass : superClasses) {
 									if (attribute.getTypes().contains(superClass.getName())) {
-										for (Method method : javaClass.getOverrideMethods().keySet()) {
-											Method superMethod = javaClass.getOverrideMethods().get(method);
-											for (InvokeItem item : method.getInvokeItems()) {
-												if (item.getMethod().equals(superMethod)
-														&& method.getReadFields().contains(attribute.getName())) {
-													rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
-															+ item.getMethod().getName());
-													if (!rtn.contains(rtnItem)) {
-														rtn.add(rtnItem);
+										for (Method method : javaClass.getOverrideMethods()) {
+											for (Method superMethod : javaClass.getOverridedMethods(method)) {
+												for (InvokeItem item : method.getInvokeItems()) {
+													if (item.getMethod().equals(superMethod)
+															&& method.getReadFields().contains(attribute.getName())) {
+														rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
+																+ item.getMethod().getName());
+														if (!rtn.contains(rtnItem)) {
+															rtn.add(rtnItem);
+														}
+														break L;
 													}
-													break L;
 												}
 											}
 										}

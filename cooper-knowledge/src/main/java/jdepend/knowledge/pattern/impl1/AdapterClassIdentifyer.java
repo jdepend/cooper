@@ -32,15 +32,16 @@ public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 			}
 
 			if (interfaces.size() > 0 && supers.size() > 0) {
-				for (Method method : javaClass.getOverrideMethods().keySet()) {
-					theInterfaceClass = javaClass.getOverrideMethods().get(method).getJavaClass();
-
-					if (interfaces.contains(theInterfaceClass)) {
-						for (InvokeItem item : method.getInvokeItems()) {
-							theSuperClass = item.getMethod().getJavaClass();
-							if (supers.contains(theSuperClass)) {
-								if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
-									rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
+				for (Method method : javaClass.getOverrideMethods()) {
+					for (Method overrideMethod : javaClass.getOverridedMethods(method)) {
+						theInterfaceClass = overrideMethod.getJavaClass();
+						if (interfaces.contains(theInterfaceClass)) {
+							for (InvokeItem item : method.getInvokeItems()) {
+								theSuperClass = item.getMethod().getJavaClass();
+								if (supers.contains(theSuperClass)) {
+									if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
+										rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
+									}
 								}
 							}
 						}

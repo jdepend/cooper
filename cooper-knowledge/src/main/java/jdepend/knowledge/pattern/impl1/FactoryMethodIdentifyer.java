@@ -22,7 +22,7 @@ public final class FactoryMethodIdentifyer extends AbstractPatternIdentifyer {
 			superClasses = javaClass.getSupers();
 			if (superClasses != null && superClasses.size() > 0) {
 				// 查找工厂方法
-				L: for (Method method : javaClass.getOverrideMethods().keySet()) {
+				L: for (Method method : javaClass.getOverrideMethods()) {
 					// 判断返回值是否是某一类型的父类，又不是所在的Class的父类
 					if (method.getReturnTypes().size() == 1) {
 						for (JavaClass returnType : method.getReturnClassTypes()) {

@@ -14,8 +14,7 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
 		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;<strong>模板方法</strong><br>");
-		explain
-				.append("&nbsp;&nbsp;&nbsp;&nbsp;1、自己是抽象类；2、存在protected的抽象方法；3、存在public的调用这些抽象方法的方法；4、存在子类，并覆盖了抽象方法。<br><br>");
+		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;1、自己是抽象类；2、存在protected的抽象方法；3、存在public的调用这些抽象方法的方法；4、存在子类，并覆盖了抽象方法。<br><br>");
 		return explain.toString();
 	}
 
@@ -39,7 +38,7 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 									if (item.getMethod().equals(abstractMethod)) {
 										// 查找是否存在子类，并覆盖了抽象方法
 										for (JavaClass subClass : javaClass.getSubClasses()) {
-											if (subClass.getOverrideMethods().values().contains(abstractMethod)) {
+											if (subClass.getOverridedMethods().contains(abstractMethod)) {
 												rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
 														+ publicMethod.getName());
 												if (!rtn.contains(rtnItem)) {

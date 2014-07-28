@@ -14,12 +14,13 @@ public class ProxyFeature extends AbstractFeature {
 		} else {
 
 			for (Method method : context.getOverrideMethods().keySet()) {
-				Method superMethod = context.getOverrideMethods().get(method);
-				for (InvokeItem item : method.getInvokeItems()) {
-					if (context.getSuperOtherSubClasses().contains(item.getMethod().getJavaClass())
-							&& item.math2(superMethod)) {
-						this.setPatternInfo(item.getMethod().getName());
-						return true;
+				for (Method superMethod : context.getOverrideMethods().get(method)) {
+					for (InvokeItem item : method.getInvokeItems()) {
+						if (context.getSuperOtherSubClasses().contains(item.getMethod().getJavaClass())
+								&& item.math2(superMethod)) {
+							this.setPatternInfo(item.getMethod().getName());
+							return true;
+						}
 					}
 				}
 			}

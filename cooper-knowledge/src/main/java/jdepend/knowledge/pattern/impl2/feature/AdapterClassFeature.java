@@ -13,15 +13,17 @@ public class AdapterClassFeature extends AbstractFeature {
 		if (context.getInterfaces() != null && context.getSupers() != null) {
 			JavaClass theInterfaceClass;
 			JavaClass theSuperClass;
-			for (Method method : context.getCurrent().getOverrideMethods().keySet()) {
-				theInterfaceClass = context.getCurrent().getOverrideMethods().get(method).getJavaClass();
-				if (context.getInterfaces().contains(theInterfaceClass)) {
-					for (InvokeItem item : method.getInvokeItems()) {
-						theSuperClass = item.getMethod().getJavaClass();
-						if (context.getSupers().contains(theSuperClass)) {
-							if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
-								this.setPatternInfo(method.getName());
-								return true;
+			for (Method method : context.getCurrent().getOverrideMethods()) {
+				for (Method overrideMethod : context.getCurrent().getOverridedMethods(method)) {
+					theInterfaceClass = overrideMethod.getJavaClass();
+					if (context.getInterfaces().contains(theInterfaceClass)) {
+						for (InvokeItem item : method.getInvokeItems()) {
+							theSuperClass = item.getMethod().getJavaClass();
+							if (context.getSupers().contains(theSuperClass)) {
+								if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
+									this.setPatternInfo(method.getName());
+									return true;
+								}
 							}
 						}
 					}

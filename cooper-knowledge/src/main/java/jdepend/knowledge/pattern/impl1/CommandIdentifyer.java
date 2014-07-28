@@ -31,7 +31,7 @@ public class CommandIdentifyer extends AbstractPatternIdentifyer {
 				for (JavaClass subClass : javaClass.getSubClasses()) {
 					params = subClass.getAttributes();
 					if (params.size() > 0) {
-						for (Method method : subClass.getOverrideMethods().keySet()) {
+						for (Method method : subClass.getOverrideMethods()) {
 							if (method.getArgumentCount() == 0) {
 								for (InvokeItem item : method.getInvokeItems()) {
 									

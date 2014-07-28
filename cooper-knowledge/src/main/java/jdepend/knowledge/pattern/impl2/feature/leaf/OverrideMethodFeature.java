@@ -1,5 +1,6 @@
 package jdepend.knowledge.pattern.impl2.feature.leaf;
 
+import java.util.Collection;
 import java.util.Map;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
@@ -13,7 +14,7 @@ public class OverrideMethodFeature extends AbstractFeature {
 		if (context.getAllSupers() == null) {
 			return false;
 		} else {
-			Map<Method, Method> overrideMethods = context.getCurrent().getOverrideMethods();
+			Map<Method, Collection<Method>> overrideMethods = context.getCurrent().calOverrideMethods();
 			if (overrideMethods != null && overrideMethods.size() > 0) {
 				context.setOverrideMethods(overrideMethods);
 				return true;

@@ -14,13 +14,14 @@ public class DecoratorFeature extends AbstractFeature {
 			return false;
 		} else {
 			for (Method method : context.getOverrideMethods().keySet()) {
-				Method superMethod = context.getOverrideMethods().get(method);
-				for (InvokeItem item : method.getInvokeItems()) {
-					if (item.getMethod().equals(superMethod)) {
-						for (Attribute attribute : context.getAbstractAttributes()) {
-							if (method.getReadFields().contains(attribute.getName())) {
-								this.setPatternInfo(item.getMethod().getName());
-								return true;
+				for (Method superMethod : context.getOverrideMethods().get(method)) {
+					for (InvokeItem item : method.getInvokeItems()) {
+						if (item.getMethod().equals(superMethod)) {
+							for (Attribute attribute : context.getAbstractAttributes()) {
+								if (method.getReadFields().contains(attribute.getName())) {
+									this.setPatternInfo(item.getMethod().getName());
+									return true;
+								}
 							}
 						}
 					}
