@@ -47,13 +47,7 @@ public final class InvokeItem implements Serializable {
 	public boolean supplyMethod(Map<String, JavaClass> javaClasses) {
 		JavaClass invokeClass = javaClasses.get(this.getInvokeClassName());
 		if (invokeClass != null) {
-			Collection<Method> invokeMethods;
-			if (this.invokeType.equals(virtualType)) {
-				invokeMethods = invokeClass.getMethods();
-			} else {
-				invokeMethods = invokeClass.getSelfMethods();
-			}
-			for (Method invokeMethod : invokeMethods) {
+			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
 					this.method = invokeMethod;
 					return true;

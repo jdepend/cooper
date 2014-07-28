@@ -52,7 +52,7 @@ public class MethodListDialog extends CooperDialog {
 	}
 
 	public MethodListDialog(jdepend.model.JavaClass javaClass) {
-		this(javaClass.getSelfMethods());
+		this(javaClass.getMethods());
 
 	}
 
