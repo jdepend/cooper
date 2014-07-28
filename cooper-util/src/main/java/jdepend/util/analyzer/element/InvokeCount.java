@@ -10,6 +10,11 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public final class InvokeCount extends AbstractAnalyzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1119743992641846769L;
+
 	public InvokeCount() {
 		super("统计方法被调用的次数", Analyzer.Attention, "统计方法被调用的次数");
 

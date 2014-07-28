@@ -20,6 +20,10 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public class DIPPrinciple extends AbstractAnalyzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 792778276091284397L;
 	private transient List<DIPInfo> dipInfos;
 
 	public DIPPrinciple() {

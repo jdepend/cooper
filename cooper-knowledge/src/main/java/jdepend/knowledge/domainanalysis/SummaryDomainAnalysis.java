@@ -8,6 +8,11 @@ import jdepend.model.result.AnalysisResult;
 
 public final class SummaryDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4360237506670726504L;
+
 	public SummaryDomainAnalysis() {
 		super("整体分数小结", "用于对分数进行建议");
 	}

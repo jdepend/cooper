@@ -15,6 +15,11 @@ import jdepend.model.util.JDependUnitByMetricsComparator;
 
 public final class EncapsulationDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2481706787982830019L;
+
 	public EncapsulationDomainAnalysis() {
 		super("封装性分析器", "用于识别封装性最差的组件");
 	}

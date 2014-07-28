@@ -14,6 +14,11 @@ import jdepend.model.util.RelationByMetricsComparator;
 
 public final class RelationRationalityDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8403210347174082973L;
+
 	public RelationRationalityDomainAnalysis() {
 		super("关系合理性分析器", "用于对最值得关注的关系项目进行建议");
 	}

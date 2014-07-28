@@ -16,6 +16,11 @@ import jdepend.model.util.JDependUnitByMetricsComparator;
 
 public final class DDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1817433228682769778L;
+
 	public DDomainAnalysis() {
 		super("抽象程度合理性分析器", "用于对抽象程度合理性项目进行建议");
 	}

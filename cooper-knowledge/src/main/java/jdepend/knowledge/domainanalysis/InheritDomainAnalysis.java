@@ -10,6 +10,10 @@ import jdepend.model.result.AnalysisResult;
 
 public final class InheritDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3528310465287350860L;
 	private final static String DAO = "DAO";
 	private final static String ALL = "ALL";
 

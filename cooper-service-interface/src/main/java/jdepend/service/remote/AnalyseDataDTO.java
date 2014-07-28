@@ -108,8 +108,8 @@ public class AnalyseDataDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AnalyseData [classes=" + data.getClasses() + ", component=" + component + ", configs="
-				+ data.getConfigs() + ", directories=" + directories + ", filteredPackages=" + filteredPackages
+		return "AnalyseData [classes=" + data.getClasses().size() + ", component=" + component + ", configs="
+				+ data.getConfigs().size() + ", directories=" + directories + ", filteredPackages=" + filteredPackages
 				+ ", javaClassRelationTypes=" + javaClassRelationTypes + ", metricses=" + metricses + "]";
 	}
 }

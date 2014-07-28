@@ -12,6 +12,11 @@ import jdepend.model.result.AnalysisResult;
 
 public final class LowScoreItemIdentifier extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7594679029292290185L;
+
 	public LowScoreItemIdentifier() {
 		super("低分项目识别器", "用于识别分数最低的分项项目");
 	}

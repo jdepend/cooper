@@ -10,6 +10,11 @@ import jdepend.model.result.AnalysisResult;
 
 public final class ArchitectPatternDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5627444730583565640L;
+
 	public ArchitectPatternDomainAnalysis() {
 		super("架构模式识别分析器", "用于识别目标系统的整体结构模式");
 	}

@@ -14,11 +14,6 @@ import org.apache.commons.beanutils.BeanUtils;
 
 public abstract class PersistentBean implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6606835123757981876L;
-
 	private String name;
 
 	private String tip;

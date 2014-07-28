@@ -13,6 +13,10 @@ public class AnalyzeData implements Serializable {
 
 	private Map<String, List<TargetFileInfo>> files = new HashMap<String, List<TargetFileInfo>>();
 
+	private transient Map<String, List<TargetFileInfo>> configs;
+
+	private transient Map<String, List<TargetFileInfo>> classes;
+
 	public AnalyzeData() {
 		super();
 	}
@@ -48,27 +52,15 @@ public class AnalyzeData implements Serializable {
 	}
 
 	public Map<String, List<TargetFileInfo>> getConfigs() {
-		Map<String, List<TargetFileInfo>> configs = new HashMap<String, List<TargetFileInfo>>();
-		for (String place : files.keySet()) {
-			configs.put(place, new ArrayList<TargetFileInfo>());
-			for (TargetFileInfo targetFileInfo : files.get(place)) {
-				if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_XML)) {
-					configs.get(place).add(targetFileInfo);
-				}
-			}
+		if (this.configs == null) {
+			this.classifyFiles();
 		}
 		return configs;
 	}
 
 	public Map<String, List<TargetFileInfo>> getClasses() {
-		Map<String, List<TargetFileInfo>> classes = new HashMap<String, List<TargetFileInfo>>();
-		for (String place : files.keySet()) {
-			classes.put(place, new ArrayList<TargetFileInfo>());
-			for (TargetFileInfo targetFileInfo : files.get(place)) {
-				if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_CLASS)) {
-					classes.get(place).add(targetFileInfo);
-				}
-			}
+		if (this.classes == null) {
+			this.classifyFiles();
 		}
 		return classes;
 	}
@@ -79,6 +71,22 @@ public class AnalyzeData implements Serializable {
 			count += getClasses().get(place).size();
 		}
 		return count;
+	}
+
+	private void classifyFiles() {
+		configs = new HashMap<String, List<TargetFileInfo>>();
+		classes = new HashMap<String, List<TargetFileInfo>>();
+		for (String place : files.keySet()) {
+			configs.put(place, new ArrayList<TargetFileInfo>());
+			classes.put(place, new ArrayList<TargetFileInfo>());
+			for (TargetFileInfo targetFileInfo : files.get(place)) {
+				if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_XML)) {
+					configs.get(place).add(targetFileInfo);
+				} else if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_CLASS)) {
+					classes.get(place).add(targetFileInfo);
+				}
+			}
+		}
 	}
 
 }

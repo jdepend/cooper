@@ -9,6 +9,10 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public class SearchDAONoPageMethod extends AbstractAnalyzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5733130337906328027L;
 	private String daoEndClassName;
 	private String pageType;
 

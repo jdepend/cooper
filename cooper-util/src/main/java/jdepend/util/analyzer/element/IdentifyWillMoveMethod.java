@@ -15,6 +15,11 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 981733240201462312L;
+
 	public IdentifyWillMoveMethod() {
 		super("MoveMethod分析", Analyzer.Attention, "识别有移动倾向的Method");
 	}

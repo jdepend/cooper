@@ -14,9 +14,6 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public class CheckButterflyObject extends AbstractAnalyzer {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1060879084785500223L;
 
 	private int number;

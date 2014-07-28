@@ -12,6 +12,11 @@ import jdepend.model.result.AnalysisResult;
 
 public final class CohesionDomainAnalysis extends AbstractDomainAnalysis {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -69084094898912310L;
+
 	public CohesionDomainAnalysis() {
 		super("内聚性分析器", "用于识别内聚性最差的组件");
 	}

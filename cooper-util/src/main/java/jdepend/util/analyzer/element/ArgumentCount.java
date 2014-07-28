@@ -13,6 +13,8 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public final class ArgumentCount extends AbstractAnalyzer {
 
+	private static final long serialVersionUID = 5047118339494071605L;
+
 	private Integer count;
 
 	public ArgumentCount() {
