@@ -119,12 +119,14 @@ public class Method extends AccessFlags {
 			return true;
 		}
 
-		if (this.getName().equals("getAbstractness") && this.getJavaClass().getName().equals("jdepend.model.JavaClass")) {
-			System.out.print("");
+		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
+			if (method.getInvokeMethods().contains(overridedMethod)) {
+				return true;
+			}
 		}
 
-		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
-			if (overridedMethod != null && method.getInvokeMethods().contains(overridedMethod)) {
+		for (Method subOverrideMethod : this.javaClass.getSubOverrideMethods(this)) {
+			if (method.getInvokeMethods().contains(subOverrideMethod)) {
 				return true;
 			}
 		}

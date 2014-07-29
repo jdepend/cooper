@@ -51,6 +51,8 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	private transient Map<Method, Collection<Method>> overrideMethods;
 
+	private transient Map<Method, Collection<Method>> subOverrideMethods;
+
 	private transient Collection<JavaClass> supers;
 
 	private transient Collection<JavaClass> interfaces;
@@ -230,7 +232,7 @@ public final class JavaClass extends AbstractJDependUnit {
 			this.overrideMethods = new HashMap<Method, Collection<Method>>();
 			for (JavaClass superClass : this.getSupers()) {
 				for (Method method : superClass.getSelfMethods()) {
-					if (!method.isConstruction()) {
+					if (!method.isConstruction() && (method.isPublic() || method.isProtected())) {
 						for (Method selfMethod : this.getSelfMethods()) {
 							if (selfMethod.isOverride(method)) {
 								if (!this.overrideMethods.containsKey(selfMethod)) {
@@ -279,6 +281,71 @@ public final class JavaClass extends AbstractJDependUnit {
 	public Collection<Method> getOverridedMethods() {
 		Collection<Method> overridedMethods = new HashSet<Method>();
 		Map<Method, Collection<Method>> overrideMethods = this.calOverrideMethods();
+		for (Method overrideMethod : overrideMethods.keySet()) {
+			overridedMethods.addAll(overrideMethods.get(overrideMethod));
+		}
+		return overridedMethods;
+	}
+
+	/**
+	 * 得到被子类覆盖的方法列表
+	 * 
+	 * @return
+	 */
+	public Map<Method, Collection<Method>> calSubOverrideMethods() {
+		if (this.subOverrideMethods == null) {
+			this.subOverrideMethods = new HashMap<Method, Collection<Method>>();
+			for (JavaClass subClass : this.getSubClasses()) {
+				for (Method method : subClass.getSelfMethods()) {
+					if (!method.isConstruction() && (method.isPublic() || method.isProtected())) {
+						for (Method selfMethod : this.getSelfMethods()) {
+							if (method.isOverride(selfMethod)) {
+								if (!this.subOverrideMethods.containsKey(selfMethod)) {
+									this.subOverrideMethods.put(selfMethod, new HashSet<Method>());
+								}
+								this.subOverrideMethods.get(selfMethod).add(method);
+							}
+						}
+					}
+				}
+			}
+		}
+		return this.subOverrideMethods;
+	}
+
+	/**
+	 * 得到子类覆盖了的方法列表
+	 * 
+	 * @return
+	 */
+	public Collection<Method> getSubOverridedMethods() {
+		return this.calSubOverrideMethods().keySet();
+	}
+
+	/**
+	 * 得到指定方法被子类覆盖的方法列表
+	 * 
+	 * @param method
+	 * @return
+	 */
+	public Collection<Method> getSubOverrideMethods(Method method) {
+		Collection<Method> overridedMethods = this.calSubOverrideMethods().get(method);
+		if (overridedMethods == null) {
+			return new HashSet<Method>();
+		} else {
+			return overridedMethods;
+		}
+	}
+
+	/**
+	 * 得到覆盖的子类全部方法列表
+	 * 
+	 * @param method
+	 * @return
+	 */
+	public Collection<Method> getSubOverrideMethods() {
+		Collection<Method> overridedMethods = new HashSet<Method>();
+		Map<Method, Collection<Method>> overrideMethods = this.calSubOverrideMethods();
 		for (Method overrideMethod : overrideMethods.keySet()) {
 			overridedMethods.addAll(overrideMethods.get(overrideMethod));
 		}
