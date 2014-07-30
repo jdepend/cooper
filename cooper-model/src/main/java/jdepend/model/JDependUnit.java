@@ -38,7 +38,7 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	public Collection<JavaPackage> getJavaPackages();
 
 	/**
-	 * 得到该组件的路径（根包名称）
+	 * 得到该分析单元的路径（根包名称）
 	 * 
 	 * @return
 	 */
@@ -71,15 +71,6 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public float ceCoupling(JDependUnit dependUnit);
-
-	/**
-	 * 与特定分析单元的传出耦合信息明细
-	 * 
-	 * @param dependUnit
-	 * @return
-	 */
-	public Collection<JavaClassRelationItem> ceCouplingDetail(JDependUnit dependUnit);
-
 	/**
 	 * 与特定分析单元的传入耦合值
 	 * 
@@ -87,7 +78,13 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public float caCoupling(JDependUnit dependUnit);
-
+	/**
+	 * 与特定分析单元的传出耦合信息明细
+	 * 
+	 * @param dependUnit
+	 * @return
+	 */
+	public Collection<JavaClassRelationItem> ceCouplingDetail(JDependUnit dependUnit);
 	/**
 	 * 与特定分析单元的传入耦合信息明细
 	 * 
@@ -95,45 +92,6 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public Collection<JavaClassRelationItem> caCouplingDetail(JDependUnit dependUnit);
-
-	/**
-	 * 与特定分析单元的耦合值
-	 * 
-	 * @param dependUnit
-	 * @return
-	 */
-	public float coupling(JDependUnit dependUnit);
-
-	/**
-	 * 传入耦合值
-	 * 
-	 * @return
-	 */
-	public float caCoupling();
-
-	/**
-	 * 传出耦合值
-	 * 
-	 * @return
-	 */
-	public float ceCoupling();
-
-	public void addRelation(Relation relation);
-
-	/**
-	 * 克隆分析单元
-	 */
-	public JDependUnit clone(Collection<JavaClass> javaClasses) throws JDependException;
-
-	/**
-	 * 清空缓存
-	 */
-	public void clear();
-
-	public int hashCode();
-
-	public boolean equals(Object obj);
-
 	/**
 	 * 计算与特定分析单元的传出耦合值
 	 * 
@@ -149,4 +107,37 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public Collection<JavaClassRelationItem> calCeCouplingDetail(JDependUnit jDependUnit);
+	/**
+	 * 传入耦合值
+	 * 
+	 * @return
+	 */
+	public float caCoupling();
+
+	/**
+	 * 传出耦合值
+	 * 
+	 * @return
+	 */
+	public float ceCoupling();
+	/**
+	 * 与特定分析单元的耦合值
+	 * 
+	 * @param dependUnit
+	 * @return
+	 */
+	public float coupling(JDependUnit dependUnit);
+	/**
+	 * 克隆分析单元
+	 */
+	public JDependUnit clone(Collection<JavaClass> javaClasses) throws JDependException;
+
+	/**
+	 * 清空缓存
+	 */
+	public void clear();
+
+	public int hashCode();
+
+	public boolean equals(Object obj);
 }

@@ -6,6 +6,8 @@ b）增加分析器：重复类识别（识别不同jar包中是否存在同包�
 
 c）完善了统计方法调用情况的分析器（Method.isInvoked）
 
+d）修改核心模型，向AbstractJDependUnit中增加AnalysisResult的引用
+
 1.2.2_10 2014-07-16
 
 a）通过ThreadLocal提升MoveRelationTODOItem的性能

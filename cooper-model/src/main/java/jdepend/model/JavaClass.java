@@ -876,11 +876,6 @@ public final class JavaClass extends AbstractJDependUnit {
 		return this.equals(javaClass);
 	}
 
-	@Override
-	public void addRelation(Relation relation) {
-		throw new RuntimeException("该方法不可用");
-	}
-
 	public JavaClass clone() {
 
 		JavaClass obj = new JavaClass(this.getName(), this.isInner);
