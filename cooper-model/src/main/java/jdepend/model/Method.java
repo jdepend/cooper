@@ -103,9 +103,9 @@ public class Method extends AccessFlags {
 		return this.invokeMethods;
 	}
 
-	public Collection<Method> getInvokedMethods(Collection<Method> methods) {
+	public Collection<Method> getInvokedMethods() {
 		Collection<Method> invokedMethods = new ArrayList<Method>();
-		for (Method invokeMethod : methods) {
+		for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
 			if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
 				invokedMethods.add(invokeMethod);
 			}

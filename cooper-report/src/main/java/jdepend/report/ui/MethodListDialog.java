@@ -31,15 +31,11 @@ public class MethodListDialog extends CooperDialog {
 
 	private Collection<Method> methods;
 
-	private Collection<Method> allMethods;
-
 	public MethodListDialog(Collection<Method> methods) {
 		super();
 		getContentPane().setLayout(new BorderLayout());
 
 		this.methods = methods;
-
-		allMethods = JDependUnitMgr.getInstance().getResult().getMethods();
 
 		this.initMethodList();
 
@@ -69,7 +65,7 @@ public class MethodListDialog extends CooperDialog {
 			row[3] = method.getArgumentInfo();
 			row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
 			row[5] = method.getSelfLineCount();
-			row[6] = method.getInvokedMethods(allMethods).size();
+			row[6] = method.getInvokedMethods().size();
 			row[7] = method.getInvokeMethods().size();
 
 			methodListModel.addRow(row);
@@ -105,7 +101,7 @@ public class MethodListDialog extends CooperDialog {
 					Method currentMethod = getCurrentMethod();
 					if (currentMethod != null) {
 						if (currentCol.equals("传入")) {
-							MethodListDialog d = new MethodListDialog(currentMethod.getInvokedMethods(allMethods));
+							MethodListDialog d = new MethodListDialog(currentMethod.getInvokedMethods());
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("传出")) {

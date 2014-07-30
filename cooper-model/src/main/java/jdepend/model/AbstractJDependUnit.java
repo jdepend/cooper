@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import jdepend.model.result.AnalysisResult;
+
 public abstract class AbstractJDependUnit extends ObjectMeasured implements JDependUnit {
 
 	/**
@@ -27,6 +29,8 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	private transient Float cohesion = null;
 	private transient Float coupling = null;
 	private transient Float encapsulation = null;
+
+	private transient AnalysisResult result;
 
 	public AbstractJDependUnit() {
 
@@ -54,6 +58,14 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	public void setType(JDependUnitType type) {
 		this.type = type;
+	}
+
+	public AnalysisResult getResult() {
+		return result;
+	}
+
+	public void setResult(AnalysisResult result) {
+		this.result = result;
 	}
 
 	/**

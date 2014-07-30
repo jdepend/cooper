@@ -25,7 +25,7 @@ public final class InvokeCount extends AbstractAnalyzer {
 
 		Collection<Method> invokedMethods;
 		for (Method method : result.getMethods()) {
-			invokedMethods = method.getInvokedMethods(result.getMethods());
+			invokedMethods = method.getInvokedMethods();
 			if (invokedMethods.size() > 0) {
 				for (Method invokeMethod : invokedMethods) {
 					this.printTable("类名", method.getJavaClass().getName());
