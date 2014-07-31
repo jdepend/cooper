@@ -3,8 +3,6 @@ package jdepend.webserver.web;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +39,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminController {
 
 	private Logger logger = Logger.getLogger(AdminController.class);
+
+	@RequiresPermissions("admin:list")
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String admin(Model model, HttpServletRequest request) throws JDependException {
+		return this.list(model, request);
+	}
 
 	@RequiresPermissions("admin:list")
 	@RequestMapping(value = "/result/list", method = RequestMethod.GET)

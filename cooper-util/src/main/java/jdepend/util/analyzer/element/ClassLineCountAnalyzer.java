@@ -103,6 +103,7 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 		for (JavaClass javaClass : jces) {
 			this.printTable("类名", javaClass.getName());
 			this.printTable("类行数", javaClass.getLineCount());
+			this.printTable("所属组件", javaClass.getComponent().getName());
 		}
 	}
 

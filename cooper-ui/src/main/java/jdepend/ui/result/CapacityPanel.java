@@ -213,6 +213,8 @@ public final class CapacityPanel extends SubResultTabPanel {
 		item.setType(GraphDataItem.PIE);
 		item.setDatas(data);
 		graphData.addItem(item);
+		
+		GraphUtil.getInstance().setAddJScrollPane(false);
 
 		return GraphUtil.getInstance().createGraph(graphData);
 	}

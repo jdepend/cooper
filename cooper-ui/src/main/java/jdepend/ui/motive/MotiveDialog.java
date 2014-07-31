@@ -3,7 +3,6 @@ package jdepend.ui.motive;
 import javax.swing.JTabbedPane;
 
 import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.knowledge.motive.MotiveContainer;
 import jdepend.knowledge.motive.MotiveContainerMgr;
