@@ -192,6 +192,11 @@ public class JavaClassDetail implements Serializable {
 		content.append("isAbstract:");
 		content.append(this.javaClass.isAbstract());
 		content.append("\n");
+		if (this.javaClass.getPlace() != null) {
+			content.append("Place:");
+			content.append(this.javaClass.getPlace().getName());
+			content.append("\n");
+		}
 		content.append("Name:");
 		content.append(this.javaClass.getName());
 		content.append("\n");

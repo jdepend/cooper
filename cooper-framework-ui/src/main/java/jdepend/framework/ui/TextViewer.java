@@ -271,8 +271,9 @@ class KeyWord {
 			"false",
 
 			"JDependUnitName", "Stats", "isInner", "Summary", "TotalClasses", "ConcreteClasses", "AbstractClasses",
-			"TotalLineCount", "Ca", "Ce", "A", "I", "D", "DependsUpon", "UsedBy", "DependencyCycles", "Name", "CC",
-			"LC", "AC", "V", "OO", "Classes", "Coupling", "Cohesion", "Balance",
+			"TotalLineCount", "Ca", "Ce", "A", "I", "D", "DependsUpon", "UsedBy", "DependencyCycles", "Place", "Name",
+			"CC", "LC", "AC", "V", "OO", "Classes", "Coupling", "Cohesion", "Balance", "Encapsulation",
+			"ObjectOriented", "Stability", "Abstractness", "Area", 
 
 			"Attribute", "fields", "methods",
 
