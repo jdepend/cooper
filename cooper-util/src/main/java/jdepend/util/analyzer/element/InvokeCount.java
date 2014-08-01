@@ -33,7 +33,10 @@ public final class InvokeCount extends AbstractAnalyzer {
 					this.printTable("参数", method.getArgumentInfo());
 					this.printTable("调用次数", invokedMethods.size());
 					this.printTable("调用者", invokeMethod.getJavaClass().getName() + "." + invokeMethod.getInfo());
-					this.printTable("是否组件间", method.getJavaClass().getComponent().equals(invokeMethod.getJavaClass().getComponent()) ? "否" : "是");
+					this.printTable(
+							"是否组件间",
+							method.getJavaClass().getComponent().equals(invokeMethod.getJavaClass().getComponent()) ? "否"
+									: "是");
 				}
 			} else {
 				this.printTable("类名", method.getJavaClass().getName());
@@ -43,7 +46,13 @@ public final class InvokeCount extends AbstractAnalyzer {
 				this.printTable("调用者", "");
 				this.printTable("是否组件间", "");
 			}
+			this.progress();
 		}
+	}
+
+	@Override
+	public int getMaxProgress(AnalysisResult result) {
+		return result.getMethods().size();
 	}
 
 	@Override

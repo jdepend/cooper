@@ -12,6 +12,10 @@ public class AnalyzerExecutor {
 		this.analyzer = analyzer;
 	}
 
+	public void setListener(AnalyzerExecutorListener listener) {
+		this.analyzer.setListener(listener);
+	}
+
 	public AnalyzerResult execute(AnalysisResult result) throws JDependException {
 
 		AnalyzerWorker worker = new DefaultAnalyzerWorker();

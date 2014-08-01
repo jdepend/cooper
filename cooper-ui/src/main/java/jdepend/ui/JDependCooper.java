@@ -74,6 +74,8 @@ import jdepend.ui.result.ResultPanel;
 import jdepend.ui.start.ClientWelcomeDialog;
 import jdepend.ui.start.WorkspaceSetting;
 import jdepend.ui.start.WorkspaceSettingDialog;
+import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerExecutorListener;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.RefactorToolFactory;
 
@@ -83,7 +85,7 @@ import jdepend.util.refactor.RefactorToolFactory;
  * @author wangdg
  * 
  */
-public class JDependCooper extends JDependFrame implements ParseListener, ReportListener {
+public class JDependCooper extends JDependFrame implements ParseListener, ReportListener, AnalyzerExecutorListener {
 
 	private LeftPanel leftPanel;
 
@@ -130,38 +132,36 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		// Install the resource string table.
 		//
 		resourceStrings = new HashMap<String, String>();
-		resourceStrings.put("menubar", BundleUtil.getString(BundleUtil.ClientWin_Menu_File) + "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting) + "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Service) + "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Data) + "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Help));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_File), BundleUtil
-				.getString(BundleUtil.ClientWin_Menu_AddGroup)
-				+ "/" + BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting), BundleUtil
-				.getString(BundleUtil.ClientWin_Menu_ParamSetting)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace)
-				+ "/-/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Service), BundleUtil
-				.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Login)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data), BundleUtil
-				.getString(BundleUtil.ClientWin_Menu_ScoreList));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Help), BundleUtil
-				.getString(BundleUtil.ClientWin_Menu_Introduce)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics)
-				+ "/"
-				+ BundleUtil.getString(BundleUtil.ClientWin_Menu_About));
+		resourceStrings.put(
+				"menubar",
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_File) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Service) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Data) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Help));
+		resourceStrings.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_File),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit));
+		resourceStrings.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace) + "/-/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr));
+		resourceStrings.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Service),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Login) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout));
+		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList));
+		resourceStrings.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Help),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_About));
 
 		accelerators = new HashMap<String, String>();
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_File), "F");
@@ -197,9 +197,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr),
 				new SettingClassRelationMgAction(this));
-		actions
-				.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting),
-						new ServiceSettingAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting), new ServiceSettingAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), new LoginAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), new LogoutAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
@@ -266,8 +264,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 		JPanel panel = new JPanel(new BorderLayout());
 
-		topHorizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, this.getResultPanel(), this
-				.getCirclePanel());
+		topHorizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, this.getResultPanel(),
+				this.getCirclePanel());
 
 		PropertyPanel propertyPanel = this.getPropertyPanel();
 
@@ -440,7 +438,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	 *            -startUploadScore（true：启动自动上传分数服务；false：不启动）
 	 */
 	public static void main(String[] args) {
-		
+
 		System.setProperty("sun.zip.encoding", "default");
 
 		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog();
@@ -613,5 +611,10 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		this.getPropertyPanel().getExecuteHistroyPanel().clearHistory();
 		// 清空TODOList
 		this.getPropertyPanel().getToDoListPanel().clear();
+	}
+
+	@Override
+	public void onExecute(Analyzer analyzer) {
+		this.progress();
 	}
 }

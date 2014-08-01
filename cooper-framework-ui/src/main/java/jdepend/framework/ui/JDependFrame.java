@@ -80,9 +80,11 @@ public abstract class JDependFrame extends JFrame {
 	}
 
 	public void startProgressMonitor(final int maxValue) {
-		getProgressBar().setMinimum(0);
-		getProgressBar().setMaximum(maxValue);
-		getStatusPanel().setStatusComponent(getProgressBar());
+		if (maxValue > 0) {
+			getProgressBar().setMinimum(0);
+			getProgressBar().setMaximum(maxValue);
+			getStatusPanel().setStatusComponent(getProgressBar());
+		}
 	}
 
 	public void stopProgressMonitor() {

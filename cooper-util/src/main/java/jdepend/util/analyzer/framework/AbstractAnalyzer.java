@@ -18,6 +18,8 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 
 	private transient boolean isChicked = false;
 
+	private transient AnalyzerExecutorListener listener;
+
 	public AbstractAnalyzer() {
 		super();
 		this.setWorker(new DefaultAnalyzerWorker());
@@ -29,13 +31,29 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.setWorker(new DefaultAnalyzerWorker());
 	}
 
-	public void search(AnalysisResult result) throws JDependException {
+	public void search(final AnalysisResult result) throws JDependException {
 		this.heat++;
 		this.isChicked = true;
+
 		Long start = System.currentTimeMillis();
-		this.doSearch(result);
+		doSearch(result);
 		LogUtil.getInstance(this.getClass()).systemLog(
 				"分析器[" + this.getName() + "]执行用时：" + (System.currentTimeMillis() - start));
+
+	}
+
+	public int getMaxProgress(AnalysisResult result) {
+		return 0;
+	}
+
+	protected void progress() {
+		if (this.listener != null) {
+			listener.onExecute(AbstractAnalyzer.this);
+		}
+	}
+
+	public void setListener(AnalyzerExecutorListener listener) {
+		this.listener = listener;
 	}
 
 	protected abstract void doSearch(AnalysisResult result) throws JDependException;

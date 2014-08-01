@@ -27,12 +27,16 @@ public interface Analyzer extends Serializable, Comparable<Analyzer> {
 
 	public void setWorker(AnalyzerWorker worker);
 
+	public void setListener(AnalyzerExecutorListener listener);
+
+	public int getMaxProgress(AnalysisResult result);
+
 	public void init() throws JDependException;
 
 	public void release() throws JDependException;
-	
+
 	public void save() throws IOException;
-	
+
 	public boolean needSave();
 
 }
