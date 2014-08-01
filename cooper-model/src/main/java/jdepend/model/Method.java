@@ -46,6 +46,8 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokeMethods;
 
+	private transient Collection<Method> invokedMethods;
+
 	public Method() {
 	}
 
@@ -104,10 +106,12 @@ public class Method extends AccessFlags {
 	}
 
 	public Collection<Method> getInvokedMethods() {
-		Collection<Method> invokedMethods = new ArrayList<Method>();
-		for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
-			if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
-				invokedMethods.add(invokeMethod);
+		if (this.invokedMethods == null) {
+			invokedMethods = new ArrayList<Method>();
+			for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
+				if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
+					invokedMethods.add(invokeMethod);
+				}
 			}
 		}
 		return invokedMethods;
