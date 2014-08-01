@@ -333,8 +333,13 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			if (lt.getTableLength() == 1) {
 				return 1;
 			} else {
-				return lt.getLineNumberTable()[lt.getLineNumberTable().length - 1].getLineNumber()
-						- lt.getLineNumberTable()[0].getLineNumber();
+				int length = lt.getLineNumberTable().length;
+				if (length > 1) {
+					return lt.getLineNumberTable()[length - 1].getLineNumber()
+							- lt.getLineNumberTable()[0].getLineNumber();
+				} else {
+					return 0;
+				}
 			}
 		} else {
 			return 0;
