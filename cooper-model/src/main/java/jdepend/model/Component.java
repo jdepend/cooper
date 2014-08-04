@@ -488,8 +488,7 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
-	@Override
-	public Component clone(Collection<JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
 		try {
 			Component obj = this.getClass().newInstance();
 			obj.setName(this.getName());
@@ -498,10 +497,8 @@ public abstract class Component extends AbstractJDependUnit {
 			obj.setLayer(this.getLayer());
 			obj.setAreaComponent(this.getAreaComponent());
 
-			for (JavaClass javaClass : javaClasses) {
-				if (this.javaClasses.contains(javaClass)) {
-					obj.addJavaClass(javaClass);
-				}
+			for (JavaClass javaClass : this.javaClasses) {
+				obj.addJavaClass(javaClasses.get(javaClass.getName()));
 			}
 			return obj;
 		} catch (Exception e) {

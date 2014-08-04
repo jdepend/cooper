@@ -51,10 +51,9 @@ public final class CopyUtil {
 		}
 
 		// 创建Component
-		Collection<JavaClass> classes = javaClasses.values();
 		for (Component component : components) {
 			try {
-				targets.add(component.clone(classes));
+				targets.add(component.clone(javaClasses));
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}

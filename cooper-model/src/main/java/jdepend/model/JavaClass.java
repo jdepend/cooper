@@ -816,11 +816,6 @@ public final class JavaClass extends AbstractJDependUnit {
 	}
 
 	@Override
-	public JavaClass clone(Collection<JavaClass> javaClasses) throws JDependException {
-		throw new JDependException("JavaClass不能够作为组件进行克隆");
-	}
-
-	@Override
 	public Collection<JavaPackage> getJavaPackages() {
 		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
 		javaPackages.add(javaPackage);

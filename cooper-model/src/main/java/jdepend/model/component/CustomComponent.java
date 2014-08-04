@@ -3,6 +3,7 @@ package jdepend.model.component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
@@ -74,7 +75,7 @@ public final class CustomComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Collection<JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
 
 		CustomComponent obj = (CustomComponent) super.clone(javaClasses);
 		obj.setComponentInfo(this.componentModelConf);

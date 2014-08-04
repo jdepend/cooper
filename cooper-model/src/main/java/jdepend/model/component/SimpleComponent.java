@@ -3,6 +3,7 @@ package jdepend.model.component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import jdepend.framework.exception.JDependException;
@@ -61,7 +62,7 @@ public final class SimpleComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Collection<JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
 
 		SimpleComponent obj = (SimpleComponent) super.clone(javaClasses);
 		obj.setComponentNames(this.componentNames);

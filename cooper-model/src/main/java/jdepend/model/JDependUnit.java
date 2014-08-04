@@ -128,11 +128,6 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 */
 	public float coupling(JDependUnit dependUnit);
 	/**
-	 * 克隆分析单元
-	 */
-	public JDependUnit clone(Collection<JavaClass> javaClasses) throws JDependException;
-
-	/**
 	 * 清空缓存
 	 */
 	public void clear();
