@@ -21,8 +21,8 @@ public final class CopyUtil {
 
 	public List<Component> copy(List<Component> components) {
 		// 创建JavaClass
-		for (JDependUnit unit : components) {
-			for (JavaClass javaClass : unit.getClasses()) {
+		for (Component component : components) {
+			for (JavaClass javaClass : component.getClasses()) {
 				if (javaClasses.get(javaClass.getName()) == null) {
 					newJavaClass(javaClass);
 				}
@@ -34,8 +34,8 @@ public final class CopyUtil {
 		JavaClassUtil.supplyJavaClassDetail(javaClasses);
 
 		// 创建JavaPackage
-		for (JDependUnit unit : components) {
-			for (JavaClass javaClass : unit.getClasses()) {
+		for (Component component : components) {
+			for (JavaClass javaClass : component.getClasses()) {
 				if (javaPackages.get(javaClass.getJavaPackage().getName()) == null) {
 					newJavaPackage(javaClass.getJavaPackage());
 				}
@@ -50,11 +50,11 @@ public final class CopyUtil {
 			javaPackage.addClass(javaClass);
 		}
 
-		// 创建Unit
+		// 创建Component
 		Collection<JavaClass> classes = javaClasses.values();
-		for (Component unit : components) {
+		for (Component component : components) {
 			try {
-				targets.add(unit.clone(classes));
+				targets.add(component.clone(classes));
 			} catch (JDependException e) {
 				e.printStackTrace();
 			}

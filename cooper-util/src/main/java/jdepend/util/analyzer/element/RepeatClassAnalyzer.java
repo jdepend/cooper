@@ -37,7 +37,7 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 
 		for (JavaClass javaClass : repeatClasses) {
 			this.printTable("类名", javaClass.getName());
-			this.printTable("位置", javaClass.getPlace().getName());
+			this.printTable("位置", javaClass.getPlace());
 		}
 	}
 

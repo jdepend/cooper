@@ -38,7 +38,7 @@ public final class JavaClass extends AbstractJDependUnit {
 	private boolean isInner;
 	private boolean stable = false;
 
-	private JavaClassPlace place;
+	private String place;
 
 	private JavaPackage javaPackage;
 	private Component component;
@@ -119,11 +119,11 @@ public final class JavaClass extends AbstractJDependUnit {
 		this.isIncludeTransactionalAnnotation = false;
 	}
 
-	public JavaClassPlace getPlace() {
+	public String getPlace() {
 		return place;
 	}
 
-	public void setPlace(JavaClassPlace place) {
+	public void setPlace(String place) {
 		this.place = place;
 	}
 
@@ -880,6 +880,7 @@ public final class JavaClass extends AbstractJDependUnit {
 
 		JavaClass obj = new JavaClass(this.getName(), this.isInner);
 
+		obj.place = this.place;
 		obj.access_flags = this.access_flags;
 		obj.packageName = this.packageName;
 		obj.lineCount = this.lineCount;

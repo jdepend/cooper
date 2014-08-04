@@ -15,7 +15,6 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassPlace;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
@@ -79,13 +78,12 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 		InputStream is = null;
 		for (String place : classes.keySet()) {
-			JavaClassPlace javaClassPlace = new JavaClassPlace(place);
 			for (TargetFileInfo classData : classes.get(place)) {
 
 				try {
 					is = new ByteArrayInputStream(classData.getContent());
 					JavaClass javaClass = this.parser.parse(is);
-					javaClass.setPlace(javaClassPlace);
+					javaClass.setPlace(place);
 					if (this.parser.getFilter().accept(javaClass.getPackageName())) {
 						if (!this.javaClassesForName.containsKey(javaClass.getName())) {
 							javaClassesForName.put(javaClass.getName(), javaClass);
