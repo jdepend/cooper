@@ -27,19 +27,19 @@ public class DIPPrinciple extends AbstractAnalyzer {
 	private transient List<DIPInfo> dipInfos;
 
 	public DIPPrinciple() {
-		super("DIP检查", Analyzer.Attention, "依赖倒置原则");
+		super("DIP检查", Analyzer.Attention, "识别违反依赖倒置原则的地方");
 	}
 
 	protected void doSearch(AnalysisResult result) throws JDependException {
-		Collection<Component> units = result.getComponents();
-		this.printDIPs(units);
+		Collection<Component> components = result.getComponents();
+		this.printDIPs(components);
 	}
 
-	private void printDIPs(Collection<Component> packages) {
+	private void printDIPs(Collection<Component> components) {
 
 		this.dipInfos = new ArrayList<DIPInfo>();
 
-		Iterator<Component> i = packages.iterator();
+		Iterator<Component> i = components.iterator();
 		while (i.hasNext()) {
 			collectDIP(i.next());
 		}
@@ -95,6 +95,16 @@ public class DIPPrinciple extends AbstractAnalyzer {
 			}
 		}
 
+	}
+	
+	
+
+	@Override
+	public String getExplain() {
+		StringBuilder explain = new StringBuilder();
+		explain.append("识别组件间的依赖【属性和参数】关系中，被依赖的类存在接口而依赖了具体类的情况。<br>");
+		explain.append("注：建议将该接口进行精化设计（从使用者角度命名），并打包在使用者所在的组件中。<br>");
+		return explain.toString();
 	}
 
 	private String getSuperNames(Collection<JavaClass> source) {

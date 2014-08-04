@@ -24,6 +24,7 @@ import jdepend.util.analyzer.element.JavaClassBalanceSort;
 import jdepend.util.analyzer.element.JavaClassRelationView;
 import jdepend.util.analyzer.element.JavaClassView;
 import jdepend.util.analyzer.element.KeywordSearch;
+import jdepend.util.analyzer.element.LSPPrinciple;
 import jdepend.util.analyzer.element.OverrideCheck;
 import jdepend.util.analyzer.element.PackagesViewer;
 import jdepend.util.analyzer.element.RepeatClassAnalyzer;
@@ -49,6 +50,7 @@ public class Analyzers {
 		allAnalyzers.add(new DAOCallService());
 		allAnalyzers.add(new DesignPatternIdentifyer());
 		allAnalyzers.add(new DIPPrinciple());
+		allAnalyzers.add(new LSPPrinciple());
 		allAnalyzers.add(new FieldTreeAnalyse());
 		allAnalyzers.add(new IdentifyWillMoveJavaClass());
 		allAnalyzers.add(new IdentifyWillMoveMethod());

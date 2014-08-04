@@ -1,7 +1,9 @@
 package jdepend.parse.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -328,21 +330,29 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	}
 
 	private int calLineCount(org.apache.bcel.classfile.Method method) {
-		LineNumberTable lt = method.getLineNumberTable();
-		if (lt != null) {
-			if (lt.getTableLength() == 1) {
-				return 1;
-			} else {
-				int length = lt.getLineNumberTable().length;
-				if (length > 1) {
-					return lt.getLineNumberTable()[length - 1].getLineNumber()
-							- lt.getLineNumberTable()[0].getLineNumber();
-				} else {
-					return 0;
-				}
-			}
-		} else {
+		if (method.getCode() != null && method.getCode().getCode().length == 1) {
 			return 0;
+		} else {
+			LineNumberTable lt = method.getLineNumberTable();
+			if (lt != null) {
+				if (lt.getTableLength() == 1) {
+					return 1;
+				} else {
+					int length = lt.getLineNumberTable().length;
+					if (length > 1) {
+						List<Integer> lineNumbers = new ArrayList<Integer>(lt.getLineNumberTable().length);
+						for (LineNumber lineNumber : lt.getLineNumberTable()) {
+							lineNumbers.add(lineNumber.getLineNumber());
+						}
+						Collections.sort(lineNumbers);
+						return lineNumbers.get(lineNumbers.size() - 1) - lineNumbers.get(0);
+					} else {
+						return 0;
+					}
+				}
+			} else {
+				return 0;
+			}
 		}
 	}
 
