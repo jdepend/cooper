@@ -53,7 +53,7 @@ public class JavaClassUtil {
 	}
 
 	public static Collection<JavaClass> getClasses(Collection<Component> units) {
-		Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
+		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 		for (JDependUnit unit : units) {
 			javaClasses.addAll(unit.getClasses());
 		}

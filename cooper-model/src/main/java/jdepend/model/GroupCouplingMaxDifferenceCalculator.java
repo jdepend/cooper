@@ -34,7 +34,12 @@ public final class GroupCouplingMaxDifferenceCalculator {
 		}
 		// 计算分组耦合值
 		for (JDependUnit unit : relationUnits) {
-			GroupCouplingItem info = new GroupCouplingItem(unit.getName(), self.coupling(unit));
+			GroupCouplingItem info = null;
+			try{
+			info = new GroupCouplingItem(unit.getName(), self.coupling(unit));
+			}catch(Exception e){
+				System.out.print("");
+			}
 			if (info.coupling > 0F) {
 				info.addDetail(self.caCouplingDetail(unit));
 				info.addDetail(self.ceCouplingDetail(unit));
