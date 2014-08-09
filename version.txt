@@ -1,10 +1,12 @@
-﻿1.2.3_02
+﻿1.2.3_02 2014-08-09
 
 a）增加分析器执行进度跟踪
 
 b）修正JavaClass.clone bug（将place数据类型简化）
 
 c）完善Method.selfLineCount的计算算法
+
+d）修正Component.list bug
 
 1.2.3_01 2014-07-31
 
