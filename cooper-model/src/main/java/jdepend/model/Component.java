@@ -126,10 +126,10 @@ public abstract class Component extends AbstractJDependUnit {
 	/**
 	 * 过滤掉不被组件包含的JavaClassRelationItems
 	 * 
-	 * @param units
+	 * @param components
 	 */
-	protected void filterExternalJavaClassRelationItems(Collection<Component> units) {
-		Collection<JavaClass> javaClasses = JavaClassUtil.getClasses(units);
+	protected void filterExternalJavaClassRelationItems(Collection<Component> components) {
+		Collection<JavaClass> javaClasses = JavaClassUtil.getClasses(components);
 		Iterator<JavaClassRelationItem> it;
 		for (JavaClass javaClass : javaClasses) {
 			it = javaClass.getCaItems().iterator();
@@ -145,7 +145,6 @@ public abstract class Component extends AbstractJDependUnit {
 				}
 			}
 		}
-
 	}
 
 	/**

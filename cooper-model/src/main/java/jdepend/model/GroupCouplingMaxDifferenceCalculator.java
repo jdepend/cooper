@@ -20,29 +20,24 @@ public final class GroupCouplingMaxDifferenceCalculator {
 
 	public GroupCouplingMaxDifferenceCalculator(JavaClass self) {
 		// 收集有关系的分析单元
-		List<JDependUnit> relationUnits = new ArrayList<JDependUnit>();
+		List<Component> relationComponents = new ArrayList<Component>();
 		for (JavaClass javaClass : self.getEfferents()) {
-			if (!self.getComponent().containsClass(javaClass) && !relationUnits.contains(javaClass.getComponent())) {
-				relationUnits.add(javaClass.getComponent());
+			if (!self.getComponent().containsClass(javaClass) && !relationComponents.contains(javaClass.getComponent())) {
+				relationComponents.add(javaClass.getComponent());
 
 			}
 		}
 		for (JavaClass javaClass : self.getAfferents()) {
-			if (!self.getComponent().containsClass(javaClass) && !relationUnits.contains(javaClass.getComponent())) {
-				relationUnits.add(javaClass.getComponent());
+			if (!self.getComponent().containsClass(javaClass) && !relationComponents.contains(javaClass.getComponent())) {
+				relationComponents.add(javaClass.getComponent());
 			}
 		}
 		// 计算分组耦合值
-		for (JDependUnit unit : relationUnits) {
-			GroupCouplingItem info = null;
-			try{
-			info = new GroupCouplingItem(unit.getName(), self.coupling(unit));
-			}catch(Exception e){
-				System.out.print("");
-			}
+		for (Component component : relationComponents) {
+			GroupCouplingItem info = new GroupCouplingItem(component.getName(), self.coupling(component));
 			if (info.coupling > 0F) {
-				info.addDetail(self.caCouplingDetail(unit));
-				info.addDetail(self.ceCouplingDetail(unit));
+				info.addDetail(self.caCouplingDetail(component));
+				info.addDetail(self.ceCouplingDetail(component));
 			}
 			groupCouplingInfos.add(info);
 		}
