@@ -8,6 +8,8 @@ c）完善Method.selfLineCount的计算算法
 
 d）修正Component.list bug
 
+e）增加LSP检测分析器
+
 1.2.3_01 2014-07-31
 
 a）改进底层文件收集的数据结构
