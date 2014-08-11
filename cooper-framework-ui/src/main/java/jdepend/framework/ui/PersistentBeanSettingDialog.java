@@ -59,7 +59,7 @@ public class PersistentBeanSettingDialog extends JDialog {
 		JPanel item;
 		for (Method method : methods) {
 			if (method.getName().startsWith("set") && method.getAnnotation(notPersistent.class) == null) {
-				Type[] types = method.getGenericParameterTypes();
+				java.lang.reflect.Type[] types = method.getGenericParameterTypes();
 				if (types.length > 0) {
 					item = new JPanel(new BorderLayout());
 					item.add(BorderLayout.NORTH, new JLabel(method.getName().substring(3)));
