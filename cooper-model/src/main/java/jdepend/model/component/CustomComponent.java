@@ -49,7 +49,7 @@ public final class CustomComponent extends Component {
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
 
 		if (componentModelConf == null || componentModelConf.size() == 0) {
-			return (new JavaPackageComponent()).list(javaPackages);
+			throw new JDependException("没有定义组件信息！");
 		}
 
 		List<Component> components = new ArrayList<Component>();
