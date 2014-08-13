@@ -375,7 +375,7 @@ public abstract class Component extends AbstractJDependUnit {
 		return this.ceCoupling;
 	}
 
-	public void addRelation(Relation relation) {
+	public synchronized void addRelation(Relation relation) {
 		if (!this.relations.contains(relation)) {
 			this.relations.add(relation);
 		}

@@ -2,8 +2,11 @@ package jdepend.model.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import jdepend.model.Component;
 import jdepend.model.Element;
@@ -17,34 +20,48 @@ import jdepend.model.Relation;
  */
 public class RelationCreator {
 
-	private Map<String, Element> elements = new HashMap<String, Element>();
+	private Map<String, Element> elements = new Hashtable<String, Element>();
 
-	public Collection<Relation> create(Collection<Component> components) {
+	public Collection<Relation> create(final Collection<Component> components) {
 
 		this.init();
 
-		Collection<Relation> relations = new ArrayList<Relation>();
-		Relation r;
-		float intensity = 0;
+		final Collection<Relation> relations = new Vector<Relation>();
 
-		for (Component left : components) {
-			for (Component right : components) {
-				intensity = left.calCeCoupling(right);
-				if (intensity != 0) {
-					r = new Relation();
-					r.setCurrent(this.createElement(left));
-					r.setDepend(this.createElement(right));
-					r.setIntensity(intensity);
-					relations.add(r);
+		ExecutorService pool = Executors.newFixedThreadPool(4);
+
+		for (final Component left : components) {
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
+					Relation r;
+					float intensity = 0;
+					for (Component right : components) {
+						intensity = left.calCeCoupling(right);
+						if (intensity != 0) {
+							r = new Relation();
+							r.setCurrent(createElement(left));
+							r.setDepend(createElement(right));
+							r.setIntensity(intensity);
+							relations.add(r);
+						}
+					}
 				}
-			}
+			});
 		}
 
-		return relations;
+		pool.shutdown();
+
+		boolean loop = true;
+		do { // 等待所有任务完成
+			loop = !pool.isTerminated();
+		} while (loop);
+
+		return new ArrayList<Relation>(relations);
 	}
 
 	private void init() {
-		elements = new HashMap<String, Element>();
+		elements = new Hashtable<String, Element>();
 	}
 
 	private Element createElement(Component unit) {

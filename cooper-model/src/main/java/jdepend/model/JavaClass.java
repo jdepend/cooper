@@ -474,7 +474,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		return this.relationList;
 	}
 
-	public void addCaItems(JavaClassRelationItem caItem) {
+	public synchronized void addCaItems(JavaClassRelationItem caItem) {
 		if (!this.caItems.contains(caItem)) {
 			this.caItems.add(caItem);
 		}
@@ -497,7 +497,7 @@ public final class JavaClass extends AbstractJDependUnit {
 		return this.ceList;
 	}
 
-	public void addCeItems(JavaClassRelationItem ceItem) {
+	public synchronized void addCeItems(JavaClassRelationItem ceItem) {
 		if (!this.ceItems.contains(ceItem)) {
 			this.ceItems.add(ceItem);
 		}
