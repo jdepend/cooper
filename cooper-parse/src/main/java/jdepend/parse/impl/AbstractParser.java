@@ -3,7 +3,6 @@ package jdepend.parse.impl;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Map;
 
 import jdepend.model.JavaClass;
 import jdepend.parse.ParseConfigurator;
@@ -39,8 +38,6 @@ public abstract class AbstractParser {
 	private PrintWriter writer = new PrintWriter(System.err);
 
 	private ParseConfigurator conf;
-
-	private Map<String, String> places;
 
 	/**
 	 * 设置日志输出的对象
@@ -82,8 +79,6 @@ public abstract class AbstractParser {
 
 	protected abstract JavaClass doParse(InputStream is) throws ParseJDependException;
 
-	public abstract Constant[] getConstantPool();
-
 	/**
 	 * Informs registered parser listeners that the specified
 	 * <code>JavaClass</code> was parsed.
@@ -111,14 +106,6 @@ public abstract class AbstractParser {
 
 	public void setConf(ParseConfigurator conf) {
 		this.conf = conf;
-	}
-
-	public Map<String, String> getPlaces() {
-		return places;
-	}
-
-	public void setPlaces(Map<String, String> places) {
-		this.places = places;
 	}
 
 	protected void debug(String message) {

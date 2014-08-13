@@ -79,7 +79,6 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 		InputStream is = null;
 		for (String place : classes.keySet()) {
 			for (TargetFileInfo classData : classes.get(place)) {
-
 				try {
 					is = new ByteArrayInputStream(classData.getContent());
 					JavaClass javaClass = this.parser.parse(is);
