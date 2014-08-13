@@ -1,14 +1,12 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;

@@ -222,13 +222,10 @@ public class TargetFileManager extends FileReader {
 
 		void collectFiles(final String rootDir, File directory) {
 
-			if (acceptFile(directory)) {
-				files.addFile(rootDir, directory);// 将文件计入结果
-			} else {
+			if (directory.isDirectory()) {
 				String[] directoryFiles = directory.list();
 				// 搜索文件夹下的文件或文件夹
 				for (int i = 0; i < directoryFiles.length; i++) {
-
 					final File file = new File(directory, directoryFiles[i]);
 					if (acceptFile(file)) {
 						files.addFile(rootDir, file);// 将文件计入结果
@@ -257,6 +254,8 @@ public class TargetFileManager extends FileReader {
 						}
 					}
 				}
+			} else if (acceptFile(directory)) {
+				files.addFile(rootDir, directory);// 将文件计入结果
 			}
 		}
 	}

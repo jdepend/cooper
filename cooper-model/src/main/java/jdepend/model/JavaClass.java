@@ -922,7 +922,9 @@ public final class JavaClass extends AbstractJDependUnit {
 			newItem.setCurrentJavaClass(item.getCurrent().getName());
 			newItem.setDependJavaClass(item.getDepend().getName());
 
-			obj.addCaItems(newItem);
+			if (!obj.caItems.contains(newItem)) {
+				obj.caItems.add(newItem);
+			}
 		}
 
 		for (JavaClassRelationItem item : this.getCeItems()) {
@@ -934,7 +936,9 @@ public final class JavaClass extends AbstractJDependUnit {
 			newItem.setCurrentJavaClass(item.getCurrent().getName());
 			newItem.setDependJavaClass(item.getDepend().getName());
 
-			obj.addCeItems(newItem);
+			if (!obj.ceItems.contains(newItem)) {
+				obj.ceItems.add(newItem);
+			}
 		}
 
 		return obj;
