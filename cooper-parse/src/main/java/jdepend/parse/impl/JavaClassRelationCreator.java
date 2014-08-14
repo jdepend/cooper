@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import jdepend.framework.config.CooperConstant;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
@@ -78,7 +79,7 @@ public class JavaClassRelationCreator {
 		final JavaClassRelationTypeMgr mgr = JavaClassRelationTypeMgr.getInstance();
 		final Collection<String> createRelationTypes = this.conf.getCreateRelationTypes();
 
-		ExecutorService pool = Executors.newFixedThreadPool(10);
+		ExecutorService pool = Executors.newFixedThreadPool(CooperConstant.ThreadCount);
 
 		for (final JavaClass javaClass : javaClasses) {
 			pool.execute(new Runnable() {
@@ -176,7 +177,7 @@ public class JavaClassRelationCreator {
 		try {
 			boolean loop = true;
 			do { // 等待所有任务完成
-				loop = !pool.awaitTermination(500, TimeUnit.MILLISECONDS);
+				loop = !pool.awaitTermination(CooperConstant.awaitTerminationTimeOut, TimeUnit.MILLISECONDS);
 			} while (loop);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
