@@ -78,20 +78,16 @@ public class JavaClassUtil {
 		return javaClasses;
 	}
 
-	public static void supplyJavaClassRelationItem(Collection<JavaClass> javaClasses) {
+	public static void supplyJavaClassRelationItem(JavaClassCollection javaClasses) {
 
-		Map<String, JavaClass> classes = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : javaClasses) {
-			classes.put(javaClass.getName(), javaClass);
-		}
 		Iterator<JavaClassRelationItem> it;
 		JavaClassRelationItem relationItem;
 		JavaClass dependClass;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
 			it = javaClass.getCaItems().iterator();
 			while (it.hasNext()) {
 				relationItem = it.next();
-				dependClass = classes.get(relationItem.getDependJavaClass());
+				dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
 				if (dependClass != null) {
 					relationItem.setDepend(dependClass);
 					relationItem.setCurrent(javaClass);
@@ -102,7 +98,7 @@ public class JavaClassUtil {
 			it = javaClass.getCeItems().iterator();
 			while (it.hasNext()) {
 				relationItem = it.next();
-				dependClass = classes.get(relationItem.getDependJavaClass());
+				dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
 				if (dependClass != null) {
 					relationItem.setDepend(dependClass);
 					relationItem.setCurrent(javaClass);
@@ -118,12 +114,7 @@ public class JavaClassUtil {
 	 * 
 	 * @param javaClasses
 	 */
-	public static void supplyJavaClassDetail(Collection<JavaClass> javaClasses) {
-
-		Map<String, JavaClass> javaClassesForName = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : javaClasses) {
-			javaClassesForName.put(javaClass.getName(), javaClass);
-		}
+	public static void supplyJavaClassDetail(JavaClassCollection javaClasses) {
 
 		Iterator<InvokeItem> it;
 		InvokeItem invokeItem;
@@ -137,9 +128,9 @@ public class JavaClassUtil {
 		Collection<JavaClass> returnTypes;
 		JavaClass returnTypeClass;
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
 			// 填充superClass和interfaces
-			JavaClass superClass = javaClassesForName.get(javaClass.getDetail().getSuperClassName());
+			JavaClass superClass = javaClasses.getTheClassByName(javaClass.getDetail().getSuperClassName());
 			if (superClass != null) {
 				javaClass.getDetail().setSuperClass(superClass);
 			} else {
@@ -148,7 +139,7 @@ public class JavaClassUtil {
 			Collection<JavaClass> interfaces = new HashSet<JavaClass>();
 			Collection<String> interfaceNames = new ArrayList<String>();
 			for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
-				JavaClass interfaceClass = javaClassesForName.get(interfaceName);
+				JavaClass interfaceClass = javaClasses.getTheClassByName(interfaceName);
 				if (interfaceClass != null) {
 					interfaces.add(interfaceClass);
 					interfaceNames.add(interfaceName);
@@ -161,7 +152,7 @@ public class JavaClassUtil {
 			for (Attribute attribute : javaClass.getAttributes()) {
 				attributeTypes = new HashSet<JavaClass>();
 				for (String type : attribute.getTypes()) {
-					attributeTypeClass = javaClassesForName.get(type);
+					attributeTypeClass = javaClasses.getTheClassByName(type);
 					if (attributeTypeClass != null) {
 						attributeTypes.add(attributeTypeClass);
 					}
@@ -174,7 +165,7 @@ public class JavaClassUtil {
 				// 填充参数
 				argumentTypes = new HashSet<JavaClass>();
 				for (String type : method.getArgumentTypes()) {
-					argumentTypeClass = javaClassesForName.get(type);
+					argumentTypeClass = javaClasses.getTheClassByName(type);
 					if (argumentTypeClass != null) {
 						argumentTypes.add(argumentTypeClass);
 					}
@@ -183,7 +174,7 @@ public class JavaClassUtil {
 				// 填充返回值
 				returnTypes = new HashSet<JavaClass>();
 				for (String type : method.getReturnTypes()) {
-					returnTypeClass = javaClassesForName.get(type);
+					returnTypeClass = javaClasses.getTheClassByName(type);
 					if (returnTypeClass != null) {
 						returnTypes.add(returnTypeClass);
 					}
@@ -193,12 +184,12 @@ public class JavaClassUtil {
 		}
 
 		// 填充Method中的InvokeItem中的Method
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
 			for (Method method : javaClass.getSelfMethods()) {
 				it = method.getInvokeItems().iterator();
 				while (it.hasNext()) {
 					invokeItem = it.next();
-					if (!invokeItem.supplyMethod(javaClassesForName)) {
+					if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForName())) {
 						it.remove();
 					}
 				}

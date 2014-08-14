@@ -1,7 +1,6 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ public final class CopyUtil {
 				}
 			}
 		}
-		Collection<JavaClass> jClasses = javaClasses.values();
+		JavaClassCollection jClasses = new JavaClassCollection(javaClasses.values());
 		// 补充JavaClassRelationItem的Current和Depend
 		JavaClassUtil.supplyJavaClassRelationItem(jClasses);
 		// 将JavaClassDetail中的字符串信息填充为对象引用
@@ -44,7 +43,7 @@ public final class CopyUtil {
 
 		// 关联JavaClass和JavaPackage
 		JavaPackage javaPackage;
-		for (JavaClass javaClass : jClasses) {
+		for (JavaClass javaClass : jClasses.getJavaClasses()) {
 			javaPackage = javaPackages.get(javaClass.getPackageName());
 			javaClass.setJavaPackage(javaPackage);
 			javaPackage.addClass(javaClass);

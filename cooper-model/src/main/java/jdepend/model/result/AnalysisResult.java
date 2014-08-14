@@ -34,6 +34,7 @@ import jdepend.model.component.MemoryComponent;
 import jdepend.model.tree.JavaPackageNode;
 import jdepend.model.tree.JavaPackageTreeCreator;
 import jdepend.model.util.CopyUtil;
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.model.util.RelationCreator;
 
@@ -68,12 +69,12 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private transient JavaPackageNode javaPackageTree;
 
 	private transient Collection<Method> methods;
-	
+
 	public static final String Metrics_D = "Result_Metrics_D";
 	public static final String Metrics_Balance = "Result_Metrics_Balance";
 	public static final String Metrics_RelationRationality = "Result_Metrics_RelationRationality";
 	public static final String Metrics_Encapsulation = "Result_Metrics_Encapsulation";
-	
+
 	public static final String Metrics_OO = "Result_Metrics_OO";
 	public static final String Metrics_TotalScore = "Result_Metrics_TotalScore";
 
@@ -541,10 +542,11 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public void unSequence() {
+		JavaClassCollection javaClasses = new JavaClassCollection(getClasses());
 		// 填充JavaClassRelationItem
-		JavaClassUtil.supplyJavaClassRelationItem(getClasses());
+		JavaClassUtil.supplyJavaClassRelationItem(javaClasses);
 		// 填充Method中的InvokeItem中的Method
-		JavaClassUtil.supplyJavaClassDetail(getClasses());
+		JavaClassUtil.supplyJavaClassDetail(javaClasses);
 		// 填充Result
 		for (Component component : this.components) {
 			component.setResult(this);

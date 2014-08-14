@@ -234,12 +234,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		try {
-			return this.getJavaClassesForName().containsKey(javaClass.getName());
-		} catch (java.lang.NullPointerException e) {
-			System.out.print("");
-			return false;
-		}
+		return this.getJavaClassesForName().containsKey(javaClass.getName());
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
@@ -47,7 +48,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 			// 解析JavaClasses
 			this.parseClasses(data.getClasses());
 			// 补充JavaClassDetail信息
-			JavaClassUtil.supplyJavaClassDetail(this.getJavaClasses());
+			JavaClassUtil.supplyJavaClassDetail(new JavaClassCollection(this.javaClasses));
 			// 添加外部classes
 			this.appendExtClasses();
 			// 建立Class的关系
