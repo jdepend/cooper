@@ -77,7 +77,7 @@ public final class SearchUtil {
 	private void analyse() throws JDependException {
 
 		this.javaPackages = new ArrayList<JavaPackage>(this.jdepend.execute());
-
+		
 		this.javaClasses = new ArrayList<JavaClass>();
 		for (JavaPackage javaPackage : javaPackages) {
 			javaClasses.addAll(javaPackage.getClasses());

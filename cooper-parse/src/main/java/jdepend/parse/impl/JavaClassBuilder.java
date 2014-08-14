@@ -13,11 +13,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import jdepend.framework.config.CooperConstant;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
+import jdepend.framework.util.ThreadPool;
 import jdepend.model.JavaClass;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.JavaClassUtil;
@@ -78,7 +78,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 
-		ExecutorService pool = Executors.newFixedThreadPool(CooperConstant.ThreadCount);
+		ExecutorService pool = ThreadPool.getPool();
 
 		for (final String place : classes.keySet()) {
 			for (final TargetFileInfo classData : classes.get(place)) {
@@ -114,16 +114,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 			}
 		}
 
-		pool.shutdown();
-
-		try {
-			boolean loop = true;
-			do { // 等待所有任务完成
-				loop = !pool.awaitTermination(CooperConstant.awaitTerminationTimeOut, TimeUnit.MILLISECONDS);
-			} while (loop);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		ThreadPool.awaitTermination(pool);
 	}
 
 	private void appendExtClasses() {

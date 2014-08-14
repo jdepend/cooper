@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import jdepend.framework.config.CooperConstant;
+import jdepend.framework.util.ThreadPool;
 import jdepend.model.Component;
 import jdepend.model.Element;
 import jdepend.model.Relation;
@@ -30,7 +30,7 @@ public class RelationCreator {
 
 		final Collection<Relation> relations = new Vector<Relation>();
 
-		ExecutorService pool = Executors.newFixedThreadPool(CooperConstant.ThreadCount);
+		ExecutorService pool = ThreadPool.getPool();
 
 		for (final Component left : components) {
 			pool.execute(new Runnable() {
@@ -52,17 +52,7 @@ public class RelationCreator {
 			});
 		}
 
-		pool.shutdown();
-
-		try {
-			boolean loop = true;
-			do { // 等待所有任务完成
-				loop = !pool.awaitTermination(CooperConstant.awaitTerminationTimeOut, TimeUnit.MILLISECONDS);
-			} while (loop);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+		ThreadPool.awaitTermination(pool);
 		return new ArrayList<Relation>(relations);
 	}
 
