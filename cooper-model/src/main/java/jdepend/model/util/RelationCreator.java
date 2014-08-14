@@ -2,7 +2,7 @@ package jdepend.model.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
@@ -21,7 +21,7 @@ import jdepend.model.Relation;
  */
 public class RelationCreator {
 
-	private Map<String, Element> elements = new Hashtable<String, Element>();
+	private Map<String, Element> elements;
 
 	public Collection<Relation> create(final Collection<Component> components) {
 
@@ -66,15 +66,17 @@ public class RelationCreator {
 	}
 
 	private void init() {
-		elements = new Hashtable<String, Element>();
+		elements = new HashMap<String, Element>();
 	}
 
 	private Element createElement(Component unit) {
-		Element element = elements.get(unit.getName());
-		if (element == null) {
-			element = new Element(unit);
-			elements.put(unit.getName(), element);
+		synchronized (elements) {
+			Element element = elements.get(unit.getName());
+			if (element == null) {
+				element = new Element(unit);
+				elements.put(unit.getName(), element);
+			}
+			return element;
 		}
-		return element;
 	}
 }

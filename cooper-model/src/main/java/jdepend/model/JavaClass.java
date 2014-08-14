@@ -483,9 +483,11 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.relationList;
 	}
 
-	public synchronized void addCaItems(JavaClassRelationItem caItem) {
-		if (!this.caItems.contains(caItem)) {
-			this.caItems.add(caItem);
+	public void addCaItems(JavaClassRelationItem caItem) {
+		synchronized (this.caItems) {
+			if (!this.caItems.contains(caItem)) {
+				this.caItems.add(caItem);
+			}
 		}
 	}
 
@@ -506,9 +508,11 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.ceList;
 	}
 
-	public synchronized void addCeItems(JavaClassRelationItem ceItem) {
-		if (!this.ceItems.contains(ceItem)) {
-			this.ceItems.add(ceItem);
+	public void addCeItems(JavaClassRelationItem ceItem) {
+		synchronized (this.ceItems) {
+			if (!this.ceItems.contains(ceItem)) {
+				this.ceItems.add(ceItem);
+			}
 		}
 	}
 

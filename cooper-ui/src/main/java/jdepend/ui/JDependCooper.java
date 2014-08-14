@@ -544,7 +544,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
-	public void onParsedJavaClass(JavaClass jClass, int process) {
+	public synchronized void onParsedJavaClass(JavaClass jClass, int process) {
 		this.progress(process);
 	}
 

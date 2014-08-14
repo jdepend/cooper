@@ -8,6 +8,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
@@ -73,34 +77,52 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 
+		ExecutorService pool = Executors.newFixedThreadPool(4);
+
 		for (final String place : classes.keySet()) {
 			for (final TargetFileInfo classData : classes.get(place)) {
-				InputStream is = null;
-				try {
-					is = new ByteArrayInputStream(classData.getContent());
-					JavaClass javaClass = parser.parse(is);
-					javaClass.setPlace(place);
-					javaClass.calImportedPackages();
-					if (parser.getFilter().accept(javaClass.getPackageName())) {
-						if (!javaClasses.contains(javaClass)) {
-							javaClasses.add(javaClass);
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					if (is != null) {
+				pool.execute(new Runnable() {
+					@Override
+					public void run() {
+						InputStream is = null;
 						try {
-							is.close();
-						} catch (IOException e) {
+							is = new ByteArrayInputStream(classData.getContent());
+							JavaClass javaClass = parser.parse(is);
+							javaClass.setPlace(place);
+							javaClass.calImportedPackages();
+							if (parser.getFilter().accept(javaClass.getPackageName())) {
+								synchronized (javaClasses) {
+									if (!javaClasses.contains(javaClass)) {
+										javaClasses.add(javaClass);
+									}
+								}
+							}
+						} catch (Exception e) {
 							e.printStackTrace();
+						} finally {
+							if (is != null) {
+								try {
+									is.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
 						}
 					}
-				}
-
+				});
 			}
 		}
 
+		pool.shutdown();
+
+		try {
+			boolean loop = true;
+			do { // 等待所有任务完成
+				loop = !pool.awaitTermination(500, TimeUnit.MILLISECONDS);
+			} while (loop);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void appendExtClasses() {

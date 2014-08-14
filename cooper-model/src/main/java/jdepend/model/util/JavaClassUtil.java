@@ -180,12 +180,7 @@ public class JavaClassUtil {
 					}
 				}
 				method.setReturnClassTypes(returnTypes);
-			}
-		}
-
-		// 填充Method中的InvokeItem中的Method
-		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
-			for (Method method : javaClass.getSelfMethods()) {
+				// 填充InvokeItem中的Method
 				it = method.getInvokeItems().iterator();
 				while (it.hasNext()) {
 					invokeItem = it.next();

@@ -42,40 +42,43 @@ public class PackageFilter {
 		if (packageName == null) {
 			return false;
 		}
-		if (histroy.containsKey(packageName)) {
-			return histroy.get(packageName);
-		}
-		for (String nameNotFilter : this.notFiltered) {
-			if (nameNotFilter.endsWith("*")) {
-				nameNotFilter = nameNotFilter.substring(0, nameNotFilter.length() - 2);
-				if (packageName.startsWith(nameNotFilter)) {
-					histroy.put(packageName, true);
-					return true;
-				}
-			} else {
-				if (packageName.equals(nameNotFilter)) {
-					histroy.put(packageName, true);
-					return true;
+		synchronized (histroy) {
+			if (histroy.containsKey(packageName)) {
+				return histroy.get(packageName);
+			}
+			for (String nameNotFilter : this.notFiltered) {
+				if (nameNotFilter.endsWith("*")) {
+					nameNotFilter = nameNotFilter.substring(0, nameNotFilter.length() - 2);
+					if (packageName.startsWith(nameNotFilter)) {
+						histroy.put(packageName, true);
+						return true;
+					}
+				} else {
+					if (packageName.equals(nameNotFilter)) {
+						histroy.put(packageName, true);
+						return true;
+					}
 				}
 			}
-		}
-		for (String nameToFilter : this.filtered) {
-			if (nameToFilter.endsWith("*")) {
-				nameToFilter = nameToFilter.substring(0, nameToFilter.length() - 2);
-				if (packageName.startsWith(nameToFilter)) {
-					histroy.put(packageName, false);
-					return false;
-				}
-			} else {
-				if (packageName.equals(nameToFilter)) {
-					histroy.put(packageName, false);
-					return false;
+			for (String nameToFilter : this.filtered) {
+				if (nameToFilter.endsWith("*")) {
+					nameToFilter = nameToFilter.substring(0, nameToFilter.length() - 2);
+					if (packageName.startsWith(nameToFilter)) {
+						histroy.put(packageName, false);
+						return false;
+					}
+				} else {
+					if (packageName.equals(nameToFilter)) {
+						histroy.put(packageName, false);
+						return false;
+					}
 				}
 			}
+
+			histroy.put(packageName, true);
+			return true;
 		}
 
-		histroy.put(packageName, true);
-		return true;
 	}
 
 	public void addFilters(Collection<String> filteredPackages) {

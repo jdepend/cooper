@@ -44,7 +44,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
 
-	private transient Map<String, JavaClass> javaClassesForName = null;// 缓存
+	private transient Map<String, JavaClass> javaClassesForName = new HashMap<String, JavaClass>();// 缓存
 
 	protected transient Collection<Component> afferents = null;// 缓存
 
@@ -172,7 +172,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	public JavaClass getTheClass(String current) {
-		return this.getJavaClassesForName().get(current);
+		return this.javaClassesForName.get(current);
 	}
 
 	@Override
@@ -214,18 +214,14 @@ public abstract class Component extends AbstractJDependUnit {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
-			if (this.javaClassesForName != null) {
-				this.javaClassesForName.put(javaClass.getName(), javaClass);
-			}
+			this.javaClassesForName.put(javaClass.getName(), javaClass);
 		}
 	}
 
 	public boolean removeJavaClass(JavaClass javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
 			javaClass.setComponent(null);
-			if (this.javaClassesForName != null) {
-				this.javaClassesForName.remove(javaClass.getName());
-			}
+			this.javaClassesForName.remove(javaClass.getName());
 			return true;
 		} else {
 			return false;
@@ -234,7 +230,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		return this.getJavaClassesForName().containsKey(javaClass.getName());
+		return this.javaClassesForName.containsKey(javaClass.getName());
 	}
 
 	@Override
@@ -465,7 +461,6 @@ public abstract class Component extends AbstractJDependUnit {
 		this.ceCoupling = null;
 		this.relations = new ArrayList<Relation>();
 
-		this.javaClassesForName = null;
 		this.areaComponent = null;
 		this.steadyType = null;
 	}
@@ -582,16 +577,6 @@ public abstract class Component extends AbstractJDependUnit {
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		this.relations = new ArrayList<Relation>();
-	}
-
-	private synchronized Map<String, JavaClass> getJavaClassesForName() {
-		if (this.javaClassesForName == null) {
-			this.javaClassesForName = new HashMap<String, JavaClass>();
-			for (JavaClass javaClass : this.javaClasses) {
-				this.javaClassesForName.put(javaClass.getName(), javaClass);
-			}
-		}
-		return this.javaClassesForName;
 	}
 
 	@Override
