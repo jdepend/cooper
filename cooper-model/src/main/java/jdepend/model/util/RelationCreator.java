@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import jdepend.model.Component;
 import jdepend.model.Element;
@@ -52,10 +53,14 @@ public class RelationCreator {
 
 		pool.shutdown();
 
-		boolean loop = true;
-		do { // 等待所有任务完成
-			loop = !pool.isTerminated();
-		} while (loop);
+		try {
+			boolean loop = true;
+			do { // 等待所有任务完成
+				loop = !pool.awaitTermination(500, TimeUnit.MILLISECONDS);
+			} while (loop);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		return new ArrayList<Relation>(relations);
 	}

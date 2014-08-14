@@ -23,7 +23,7 @@ import org.apache.bcel.Constants;
  * 
  */
 
-public final class JavaClass extends AbstractJDependUnit {
+public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 
 	/**
 	 * 
@@ -125,6 +125,15 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+
+	@Override
+	public String getId() {
+		if (this.place == null) {
+			return this.getName();
+		} else {
+			return this.place + this.getName();
+		}
 	}
 
 	/**
@@ -946,15 +955,14 @@ public final class JavaClass extends AbstractJDependUnit {
 
 	@Override
 	public int compareTo(JDependUnit o) {
-		return this.getName().compareTo(o.getName());
+		return this.getId().compareTo(((JavaClass) o).getId());
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 32;
 		int result = 1;
-		result = prime * result + ((this.getName() == null) ? 0 : this.getName().hashCode());
-		result = prime * result + ((place == null) ? 0 : place.hashCode());
+		result = prime * result + ((this.getId() == null) ? 0 : this.getId().hashCode());
 		return result;
 	}
 
@@ -967,16 +975,12 @@ public final class JavaClass extends AbstractJDependUnit {
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClass other = (JavaClass) obj;
-		if (place == null) {
-			if (other.place != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!place.equals(other.place))
+		} else if (!getId().equals(other.getId()))
 			return false;
-		if (this.getName() == null) {
-			if (other.getName() != null)
-				return false;
-		} else if (!this.getName().equals(other.getName()))
-			return false;
+
 		return true;
 	}
 

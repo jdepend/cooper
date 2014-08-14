@@ -1,6 +1,7 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,20 +22,21 @@ public final class CopyUtil {
 		// 创建JavaClass
 		for (Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				if (javaClasses.get(javaClass.getName()) == null) {
+				if (javaClasses.get(javaClass.getId()) == null) {
 					newJavaClass(javaClass);
 				}
 			}
 		}
+		Collection<JavaClass> jClasses = javaClasses.values();
 		// 补充JavaClassRelationItem的Current和Depend
-		JavaClassUtil.supplyJavaClassRelationItem(javaClasses);
+		JavaClassUtil.supplyJavaClassRelationItem(jClasses);
 		// 将JavaClassDetail中的字符串信息填充为对象引用
-		JavaClassUtil.supplyJavaClassDetail(javaClasses);
+		JavaClassUtil.supplyJavaClassDetail(jClasses);
 
 		// 创建JavaPackage
 		for (Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				if (javaPackages.get(javaClass.getJavaPackage().getName()) == null) {
+				if (javaPackages.get(javaClass.getJavaPackage().getId()) == null) {
 					newJavaPackage(javaClass.getJavaPackage());
 				}
 			}
@@ -42,7 +44,7 @@ public final class CopyUtil {
 
 		// 关联JavaClass和JavaPackage
 		JavaPackage javaPackage;
-		for (JavaClass javaClass : javaClasses.values()) {
+		for (JavaClass javaClass : jClasses) {
 			javaPackage = javaPackages.get(javaClass.getPackageName());
 			javaClass.setJavaPackage(javaPackage);
 			javaPackage.addClass(javaClass);
@@ -62,20 +64,20 @@ public final class CopyUtil {
 
 	private JavaPackage newJavaPackage(JavaPackage javaPackage) {
 
-		JavaPackage newjavaPackage = javaPackages.get(javaPackage.getName());
+		JavaPackage newjavaPackage = javaPackages.get(javaPackage.getId());
 		if (newjavaPackage == null) {
 			newjavaPackage = new JavaPackage(javaPackage.getName());
-			javaPackages.put(newjavaPackage.getName(), newjavaPackage);
+			javaPackages.put(newjavaPackage.getId(), newjavaPackage);
 		}
 		return newjavaPackage;
 	}
 
 	private JavaClass newJavaClass(JavaClass javaClass) {
-		JavaClass newJavaClass = javaClasses.get(javaClass.getName());
+		JavaClass newJavaClass = javaClasses.get(javaClass.getId());
 
 		if (newJavaClass == null) {
 			newJavaClass = javaClass.clone();
-			javaClasses.put(newJavaClass.getName(), newJavaClass);
+			javaClasses.put(newJavaClass.getId(), newJavaClass);
 
 			for (Method name : javaClass.getSelfMethods()) {
 				newJavaClass.addSelfMethod(newMethod(name));

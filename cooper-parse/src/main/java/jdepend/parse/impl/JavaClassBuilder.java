@@ -4,9 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +32,6 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	private Collection<JavaClass> javaClasses;
 
-	private Map<String, JavaClass> javaClassesForName;
-
 	public JavaClassBuilder(ParseConfigurator conf) {
 		this.setConf(conf);
 
@@ -43,23 +40,21 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	@Override
 	public Collection<JavaClass> build(AnalyzeData data) {
-		if (this.javaClassesForName == null || this.getConf().getEveryClassBuild()) {
-			javaClassesForName = new HashMap<String, JavaClass>();
+		if (this.javaClasses == null || this.getConf().getEveryClassBuild()) {
+			javaClasses = new HashSet<JavaClass>();
 			// 解析Config
 			this.parseConfigs(data.getConfigs());
 			// 解析JavaClasses
 			this.parseClasses(data.getClasses());
 			// 补充JavaClassDetail信息
-			JavaClassUtil.supplyJavaClassDetail(this.javaClassesForName);
-			// 补充 ImportedPackage
-			this.calImportedPackages();
+			JavaClassUtil.supplyJavaClassDetail(this.getJavaClasses());
 			// 添加外部classes
 			this.appendExtClasses();
 			// 建立Class的关系
 			if (this.isBuildClassRelation()) {
 				LogUtil.getInstance(JavaClassBuilder.class).systemLog(
 						"开始建立Class的关系，Class的个数为：" + this.getJavaClasses().size());
-				(new JavaClassRelationCreator(this.getConf())).create(this.javaClassesForName);
+				(new JavaClassRelationCreator(this.getConf())).create(this.javaClasses);
 			}
 			// 发出事件
 			this.onClassBuild(this.getJavaClasses());
@@ -76,18 +71,18 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	}
 
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
-		InputStream is = null;
-		for (String place : classes.keySet()) {
-			for (TargetFileInfo classData : classes.get(place)) {
+
+		for (final String place : classes.keySet()) {
+			for (final TargetFileInfo classData : classes.get(place)) {
+				InputStream is = null;
 				try {
 					is = new ByteArrayInputStream(classData.getContent());
-					JavaClass javaClass = this.parser.parse(is);
+					JavaClass javaClass = parser.parse(is);
 					javaClass.setPlace(place);
-					if (this.parser.getFilter().accept(javaClass.getPackageName())) {
-						if (!this.javaClassesForName.containsKey(javaClass.getName())) {
-							javaClassesForName.put(javaClass.getName(), javaClass);
-						} else {
-							javaClassesForName.put("R_" + javaClass.getName(), javaClass);
+					javaClass.calImportedPackages();
+					if (parser.getFilter().accept(javaClass.getPackageName())) {
+						if (!javaClasses.contains(javaClass)) {
+							javaClasses.add(javaClass);
 						}
 					}
 				} catch (Exception e) {
@@ -101,20 +96,16 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 						}
 					}
 				}
+
 			}
 		}
-	}
 
-	private void calImportedPackages() {
-		for (JavaClass javaClass : this.javaClassesForName.values()) {
-			javaClass.calImportedPackages();
-		}
 	}
 
 	private void appendExtClasses() {
-		Map<String, JavaClass> extClasses = new IdentifyExtClassesUtil(this.parser.getFilter())
-				.identify(this.javaClassesForName);
-		this.javaClassesForName.putAll(extClasses);
+		Collection<JavaClass> extClasses = new IdentifyExtClassesUtil(this.parser.getFilter())
+				.identify(this.javaClasses);
+		this.javaClasses.addAll(extClasses);
 	}
 
 	@Override
@@ -135,12 +126,6 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	}
 
 	private Collection<JavaClass> getJavaClasses() {
-		if (this.javaClasses == null) {
-			javaClasses = new ArrayList<JavaClass>();
-			for (String name : this.javaClassesForName.keySet()) {
-				this.javaClasses.add(this.javaClassesForName.get(name));
-			}
-		}
 		return this.javaClasses;
 	}
 }

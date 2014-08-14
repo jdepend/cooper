@@ -117,8 +117,8 @@ public class JavaClassRelationItem implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((current == null) ? currentJavaClass.hashCode() : current.hashCode());
-		result = prime * result + ((depend == null) ? dependJavaClass.hashCode() : depend.hashCode());
+		result = prime * result + ((current == null) ? currentJavaClass.hashCode() : current.getName().hashCode());
+		result = prime * result + ((depend == null) ? dependJavaClass.hashCode() : depend.getName().hashCode());
 		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -146,12 +146,12 @@ public class JavaClassRelationItem implements Serializable {
 		if (current == null) {
 			if (other.current != null)
 				return false;
-		} else if (!current.equals(other.current))
+		} else if (!current.getName().equals(other.current.getName()))
 			return false;
 		if (depend == null) {
 			if (other.depend != null)
 				return false;
-		} else if (!depend.equals(other.depend))
+		} else if (!depend.getName().equals(other.depend.getName()))
 			return false;
 		if (direction == null) {
 			if (other.direction != null)

@@ -1,5 +1,6 @@
 package jdepend.parse.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,20 +20,23 @@ class IdentifyExtClassesUtil {
 		super();
 		this.filter = filter;
 	}
-	
+
 	/**
 	 * 识别外部Classes
 	 * 
 	 * @param parsedClasses
 	 * @return
 	 */
-	public Map<String, JavaClass> identify(Map<String, JavaClass> parsedClasses) {
+	public Collection<JavaClass> identify(Collection<JavaClass> javaClasses) {
 
 		this.extendJavaClasses = new HashMap<String, JavaClass>();
-		this.parsedClasses = parsedClasses;
+		this.parsedClasses = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			this.parsedClasses.put(javaClass.getName(), javaClass);
+		}
 
 		JavaClassDetail info = null;
-		for (JavaClass javaClass : parsedClasses.values()) {
+		for (JavaClass javaClass : javaClasses) {
 			if (javaClass.isInner()) {
 				info = javaClass.getDetail();
 				// 处理父类
@@ -62,7 +66,7 @@ class IdentifyExtClassesUtil {
 			}
 		}
 
-		return this.extendJavaClasses;
+		return this.extendJavaClasses.values();
 	}
 
 	private void appendExtJavaClass(String javaClassName) {

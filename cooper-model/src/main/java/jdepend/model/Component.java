@@ -234,7 +234,12 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		return this.getJavaClassesForName().containsKey(javaClass.getName());
+		try {
+			return this.getJavaClassesForName().containsKey(javaClass.getName());
+		} catch (java.lang.NullPointerException e) {
+			System.out.print("");
+			return false;
+		}
 	}
 
 	@Override
@@ -497,7 +502,7 @@ public abstract class Component extends AbstractJDependUnit {
 			obj.setAreaComponent(this.getAreaComponent());
 
 			for (JavaClass javaClass : this.javaClasses) {
-				obj.addJavaClass(javaClasses.get(javaClass.getName()));
+				obj.addJavaClass(javaClasses.get(javaClass.getId()));
 			}
 			return obj;
 		} catch (Exception e) {
@@ -584,7 +589,7 @@ public abstract class Component extends AbstractJDependUnit {
 		this.relations = new ArrayList<Relation>();
 	}
 
-	private Map<String, JavaClass> getJavaClassesForName() {
+	private synchronized Map<String, JavaClass> getJavaClassesForName() {
 		if (this.javaClassesForName == null) {
 			this.javaClassesForName = new HashMap<String, JavaClass>();
 			for (JavaClass javaClass : this.javaClasses) {

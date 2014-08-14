@@ -13,7 +13,7 @@ import jdepend.framework.exception.JDependException;
  * 
  */
 
-public final class JavaPackage implements Serializable, Named, Comparable<JavaPackage> {
+public final class JavaPackage implements Serializable, Named, Identifyer, Comparable<JavaPackage> {
 
 	/**
 	 * 
@@ -80,6 +80,11 @@ public final class JavaPackage implements Serializable, Named, Comparable<JavaPa
 	}
 
 	@Override
+	public String getId() {
+		return this.name;
+	}
+
+	@Override
 	public String toString() {
 		return "JavaPackage [classes.size()=" + classes.size() + ", name=" + name + "]";
 	}
@@ -88,7 +93,7 @@ public final class JavaPackage implements Serializable, Named, Comparable<JavaPa
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
@@ -101,16 +106,16 @@ public final class JavaPackage implements Serializable, Named, Comparable<JavaPa
 		if (getClass() != obj.getClass())
 			return false;
 		JavaPackage other = (JavaPackage) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
 	}
 
 	@Override
 	public int compareTo(JavaPackage o) {
-		return this.name.compareTo(o.name);
+		return this.getId().compareTo(o.getId());
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
@@ -32,10 +33,13 @@ public class JavaClassRelationCreator {
 		this.conf = conf;
 	}
 
-	private void init(Map<String, JavaClass> javaClassesForName) {
+	private void init(Collection<JavaClass> javaClasses) {
 
-		this.parsedClasses = javaClassesForName;
-		this.javaClasses = javaClassesForName.values();
+		this.parsedClasses = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			this.parsedClasses.put(javaClass.getName(), javaClass);
+		}
+		this.javaClasses = javaClasses;
 
 		Map<String, String> entryMapTableName = new HashMap<String, String>();
 		String littleClassName;
@@ -67,14 +71,14 @@ public class JavaClassRelationCreator {
 
 	}
 
-	public void create(Map<String, JavaClass> javaClassesForName) {
+	public void create(Collection<JavaClass> javaClasses) {
 
-		this.init(javaClassesForName);
+		this.init(javaClasses);
 
 		final JavaClassRelationTypeMgr mgr = JavaClassRelationTypeMgr.getInstance();
 		final Collection<String> createRelationTypes = this.conf.getCreateRelationTypes();
 
-		ExecutorService pool = Executors.newFixedThreadPool(4);
+		ExecutorService pool = Executors.newFixedThreadPool(10);
 
 		for (final JavaClass javaClass : javaClasses) {
 			pool.execute(new Runnable() {
@@ -169,10 +173,14 @@ public class JavaClassRelationCreator {
 
 		pool.shutdown();
 
-		boolean loop = true;
-		do { // 等待所有任务完成
-			loop = !pool.isTerminated();
-		} while (loop);
+		try {
+			boolean loop = true;
+			do { // 等待所有任务完成
+				loop = !pool.awaitTermination(500, TimeUnit.MILLISECONDS);
+			} while (loop);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 

@@ -78,12 +78,16 @@ public class JavaClassUtil {
 		return javaClasses;
 	}
 
-	public static void supplyJavaClassRelationItem(Map<String, JavaClass> classes) {
+	public static void supplyJavaClassRelationItem(Collection<JavaClass> javaClasses) {
 
+		Map<String, JavaClass> classes = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			classes.put(javaClass.getName(), javaClass);
+		}
 		Iterator<JavaClassRelationItem> it;
 		JavaClassRelationItem relationItem;
 		JavaClass dependClass;
-		for (JavaClass javaClass : classes.values()) {
+		for (JavaClass javaClass : javaClasses) {
 			it = javaClass.getCaItems().iterator();
 			while (it.hasNext()) {
 				relationItem = it.next();
@@ -107,15 +111,6 @@ public class JavaClassUtil {
 				}
 			}
 		}
-
-	}
-
-	public static void supplyJavaClassRelationItem(Collection<JavaClass> javaClasses) {
-		Map<String, JavaClass> classes = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : javaClasses) {
-			classes.put(javaClass.getName(), javaClass);
-		}
-		supplyJavaClassRelationItem(classes);
 	}
 
 	/**
@@ -123,7 +118,12 @@ public class JavaClassUtil {
 	 * 
 	 * @param javaClasses
 	 */
-	public static void supplyJavaClassDetail(Map<String, JavaClass> javaClasses) {
+	public static void supplyJavaClassDetail(Collection<JavaClass> javaClasses) {
+
+		Map<String, JavaClass> javaClassesForName = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			javaClassesForName.put(javaClass.getName(), javaClass);
+		}
 
 		Iterator<InvokeItem> it;
 		InvokeItem invokeItem;
@@ -137,11 +137,9 @@ public class JavaClassUtil {
 		Collection<JavaClass> returnTypes;
 		JavaClass returnTypeClass;
 
-		Collection<JavaClass> classes = javaClasses.values();
-
-		for (JavaClass javaClass : classes) {
+		for (JavaClass javaClass : javaClasses) {
 			// 填充superClass和interfaces
-			JavaClass superClass = javaClasses.get(javaClass.getDetail().getSuperClassName());
+			JavaClass superClass = javaClassesForName.get(javaClass.getDetail().getSuperClassName());
 			if (superClass != null) {
 				javaClass.getDetail().setSuperClass(superClass);
 			} else {
@@ -150,7 +148,7 @@ public class JavaClassUtil {
 			Collection<JavaClass> interfaces = new HashSet<JavaClass>();
 			Collection<String> interfaceNames = new ArrayList<String>();
 			for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
-				JavaClass interfaceClass = javaClasses.get(interfaceName);
+				JavaClass interfaceClass = javaClassesForName.get(interfaceName);
 				if (interfaceClass != null) {
 					interfaces.add(interfaceClass);
 					interfaceNames.add(interfaceName);
@@ -163,7 +161,7 @@ public class JavaClassUtil {
 			for (Attribute attribute : javaClass.getAttributes()) {
 				attributeTypes = new HashSet<JavaClass>();
 				for (String type : attribute.getTypes()) {
-					attributeTypeClass = javaClasses.get(type);
+					attributeTypeClass = javaClassesForName.get(type);
 					if (attributeTypeClass != null) {
 						attributeTypes.add(attributeTypeClass);
 					}
@@ -176,7 +174,7 @@ public class JavaClassUtil {
 				// 填充参数
 				argumentTypes = new HashSet<JavaClass>();
 				for (String type : method.getArgumentTypes()) {
-					argumentTypeClass = javaClasses.get(type);
+					argumentTypeClass = javaClassesForName.get(type);
 					if (argumentTypeClass != null) {
 						argumentTypes.add(argumentTypeClass);
 					}
@@ -185,7 +183,7 @@ public class JavaClassUtil {
 				// 填充返回值
 				returnTypes = new HashSet<JavaClass>();
 				for (String type : method.getReturnTypes()) {
-					returnTypeClass = javaClasses.get(type);
+					returnTypeClass = javaClassesForName.get(type);
 					if (returnTypeClass != null) {
 						returnTypes.add(returnTypeClass);
 					}
@@ -195,29 +193,16 @@ public class JavaClassUtil {
 		}
 
 		// 填充Method中的InvokeItem中的Method
-		for (JavaClass javaClass : classes) {
+		for (JavaClass javaClass : javaClasses) {
 			for (Method method : javaClass.getSelfMethods()) {
 				it = method.getInvokeItems().iterator();
 				while (it.hasNext()) {
 					invokeItem = it.next();
-					if (!invokeItem.supplyMethod(javaClasses)) {
+					if (!invokeItem.supplyMethod(javaClassesForName)) {
 						it.remove();
 					}
 				}
 			}
 		}
-	}
-
-	/**
-	 * 将JavaClassDetail中的字符串信息填充为对象引用
-	 * 
-	 * @param javaClasses
-	 */
-	public static void supplyJavaClassDetail(Collection<JavaClass> javaClasses) {
-		Map<String, JavaClass> javaClassesForName = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : javaClasses) {
-			javaClassesForName.put(javaClass.getName(), javaClass);
-		}
-		supplyJavaClassDetail(javaClassesForName);
 	}
 }
