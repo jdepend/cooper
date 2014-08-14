@@ -40,7 +40,7 @@ public final class CompositeIdentifyer extends AbstractPatternIdentifyer {
 				// 搜索其他子类
 				if (compositeAttribute != null) {
 					L: for (JavaClass superClass : superClasses) {
-						if (!superClass.getSubClasses().equals(javaClass)) {
+						if (!superClass.getSubClasses().contains(javaClass)) {
 							rtn.add(new PatternInfo(javaClass, javaClass.getName() + "[" + compositeAttribute.getName()
 									+ "]"));
 							break L;

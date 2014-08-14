@@ -33,7 +33,7 @@ public final class DecoratorIdentifyer extends AbstractPatternIdentifyer {
 				// 存在其他子类
 				otherSubClass = false;
 				M: for (JavaClass superClass : superClasses) {
-					if (!superClass.getSubClasses().equals(javaClass)) {
+					if (!superClass.getSubClasses().contains(javaClass)) {
 						otherSubClass = true;
 						break M;
 					}

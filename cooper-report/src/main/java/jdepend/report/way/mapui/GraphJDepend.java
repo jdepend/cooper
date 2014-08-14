@@ -230,23 +230,22 @@ public class GraphJDepend extends Display {
 		PrefixSearchTupleSet search = new PrefixSearchTupleSet() {
 			@Override
 			public void index(Tuple t, String field) {
-				String s;
-				if (field == null || t == null || (s = t.getString(field)) == null)
-					return;
-				StringTokenizer st = new StringTokenizer(s, "\\.");
-				while (st.hasMoreTokens()) {
-					String tok = st.nextToken();
-					try {
-						Method m = Class.forName(
-								"prefuse.data.search.PrefixSearchTupleSet")
-								.getDeclaredMethod("addString", String.class,
-										Tuple.class);
-						m.setAccessible(true); 
+				try {
+					String s;
+					if (field == null || t == null || (s = t.getString(field)) == null)
+						return;
+					StringTokenizer st = new StringTokenizer(s, "\\.");
+					while (st.hasMoreTokens()) {
+						String tok = st.nextToken();
+
+						Method m = Class.forName("prefuse.data.search.PrefixSearchTupleSet").getDeclaredMethod(
+								"addString", String.class, Tuple.class);
+						m.setAccessible(true);
 						m.invoke(this, tok + s.substring(s.indexOf(tok) + tok.length()), t);
-					} catch (Exception e) {
-						e.printStackTrace();
-					} 
-					
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		};

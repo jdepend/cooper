@@ -85,11 +85,13 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog(components.size() + " components is created!");
 		// 创建返回结果
 		final AnalysisResult result = new AnalysisResult(components, context);
+		
+		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("analysisResult is created!");
 		// 调用分析监听器
 		this.onAnalyse(result);
 		// 设置End时间
 		AnalyseContextMgr.getContext().setExecuteEndTime(System.currentTimeMillis());
-
+		
 		return result;
 	}
 
