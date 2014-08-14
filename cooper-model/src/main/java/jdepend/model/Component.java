@@ -577,6 +577,11 @@ public abstract class Component extends AbstractJDependUnit {
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		this.relations = new ArrayList<Relation>();
+		
+		this.javaClassesForName = new HashMap<String, JavaClass>();
+		for(JavaClass javaClass : this.javaClasses){
+			this.javaClassesForName.put(javaClass.getName(), javaClass);
+		}
 	}
 
 	@Override

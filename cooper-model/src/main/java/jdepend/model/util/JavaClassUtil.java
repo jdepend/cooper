@@ -7,7 +7,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+import jdepend.framework.config.CooperConstant;
 import jdepend.model.Attribute;
 import jdepend.model.Component;
 import jdepend.model.InvokeItem;
@@ -78,34 +82,53 @@ public class JavaClassUtil {
 		return javaClasses;
 	}
 
-	public static void supplyJavaClassRelationItem(JavaClassCollection javaClasses) {
+	public static void supplyJavaClassRelationItem(final JavaClassCollection javaClasses) {
 
-		Iterator<JavaClassRelationItem> it;
-		JavaClassRelationItem relationItem;
-		JavaClass dependClass;
-		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
-			it = javaClass.getCaItems().iterator();
-			while (it.hasNext()) {
-				relationItem = it.next();
-				dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
-				if (dependClass != null) {
-					relationItem.setDepend(dependClass);
-					relationItem.setCurrent(javaClass);
-				} else {
-					it.remove();
+		ExecutorService pool = Executors.newFixedThreadPool(CooperConstant.ThreadCount);
+
+		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
+					Iterator<JavaClassRelationItem> it;
+					JavaClassRelationItem relationItem;
+					JavaClass dependClass;
+
+					it = javaClass.getCaItems().iterator();
+					while (it.hasNext()) {
+						relationItem = it.next();
+						dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
+						if (dependClass != null) {
+							relationItem.setDepend(dependClass);
+							relationItem.setCurrent(javaClass);
+						} else {
+							it.remove();
+						}
+					}
+					it = javaClass.getCeItems().iterator();
+					while (it.hasNext()) {
+						relationItem = it.next();
+						dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
+						if (dependClass != null) {
+							relationItem.setDepend(dependClass);
+							relationItem.setCurrent(javaClass);
+						} else {
+							it.remove();
+						}
+					}
 				}
-			}
-			it = javaClass.getCeItems().iterator();
-			while (it.hasNext()) {
-				relationItem = it.next();
-				dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
-				if (dependClass != null) {
-					relationItem.setDepend(dependClass);
-					relationItem.setCurrent(javaClass);
-				} else {
-					it.remove();
-				}
-			}
+			});
+		}
+
+		pool.shutdown();
+
+		try {
+			boolean loop = true;
+			do { // 等待所有任务完成
+				loop = !pool.awaitTermination(CooperConstant.awaitTerminationTimeOut, TimeUnit.MILLISECONDS);
+			} while (loop);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -114,81 +137,99 @@ public class JavaClassUtil {
 	 * 
 	 * @param javaClasses
 	 */
-	public static void supplyJavaClassDetail(JavaClassCollection javaClasses) {
+	public static void supplyJavaClassDetail(final JavaClassCollection javaClasses) {
 
-		Iterator<InvokeItem> it;
-		InvokeItem invokeItem;
+		ExecutorService pool = Executors.newFixedThreadPool(CooperConstant.ThreadCount);
 
-		Collection<JavaClass> attributeTypes;
-		JavaClass attributeTypeClass;
+		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
 
-		Collection<JavaClass> argumentTypes;
-		JavaClass argumentTypeClass;
+					Iterator<InvokeItem> it;
+					InvokeItem invokeItem;
 
-		Collection<JavaClass> returnTypes;
-		JavaClass returnTypeClass;
+					Collection<JavaClass> attributeTypes;
+					JavaClass attributeTypeClass;
 
-		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
-			// 填充superClass和interfaces
-			JavaClass superClass = javaClasses.getTheClassByName(javaClass.getDetail().getSuperClassName());
-			if (superClass != null) {
-				javaClass.getDetail().setSuperClass(superClass);
-			} else {
-				javaClass.getDetail().setSuperClassName(null);
-			}
-			Collection<JavaClass> interfaces = new HashSet<JavaClass>();
-			Collection<String> interfaceNames = new ArrayList<String>();
-			for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
-				JavaClass interfaceClass = javaClasses.getTheClassByName(interfaceName);
-				if (interfaceClass != null) {
-					interfaces.add(interfaceClass);
-					interfaceNames.add(interfaceName);
-				}
-			}
-			javaClass.getDetail().setInterfaces(interfaces);
-			javaClass.getDetail().setInterfaceNames(interfaceNames);
+					Collection<JavaClass> argumentTypes;
+					JavaClass argumentTypeClass;
 
-			// 填充Attribute中的JavaClass
-			for (Attribute attribute : javaClass.getAttributes()) {
-				attributeTypes = new HashSet<JavaClass>();
-				for (String type : attribute.getTypes()) {
-					attributeTypeClass = javaClasses.getTheClassByName(type);
-					if (attributeTypeClass != null) {
-						attributeTypes.add(attributeTypeClass);
+					Collection<JavaClass> returnTypes;
+					JavaClass returnTypeClass;
+					// 填充superClass和interfaces
+					JavaClass superClass = javaClasses.getTheClassByName(javaClass.getDetail().getSuperClassName());
+					if (superClass != null) {
+						javaClass.getDetail().setSuperClass(superClass);
+					} else {
+						javaClass.getDetail().setSuperClassName(null);
+					}
+					Collection<JavaClass> interfaces = new HashSet<JavaClass>();
+					Collection<String> interfaceNames = new ArrayList<String>();
+					for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
+						JavaClass interfaceClass = javaClasses.getTheClassByName(interfaceName);
+						if (interfaceClass != null) {
+							interfaces.add(interfaceClass);
+							interfaceNames.add(interfaceName);
+						}
+					}
+					javaClass.getDetail().setInterfaces(interfaces);
+					javaClass.getDetail().setInterfaceNames(interfaceNames);
+
+					// 填充Attribute中的JavaClass
+					for (Attribute attribute : javaClass.getAttributes()) {
+						attributeTypes = new HashSet<JavaClass>();
+						for (String type : attribute.getTypes()) {
+							attributeTypeClass = javaClasses.getTheClassByName(type);
+							if (attributeTypeClass != null) {
+								attributeTypes.add(attributeTypeClass);
+							}
+						}
+						attribute.setTypeClasses(attributeTypes);
+					}
+
+					// 填充Method中的JavaClass
+					for (Method method : javaClass.getSelfMethods()) {
+						// 填充参数
+						argumentTypes = new HashSet<JavaClass>();
+						for (String type : method.getArgumentTypes()) {
+							argumentTypeClass = javaClasses.getTheClassByName(type);
+							if (argumentTypeClass != null) {
+								argumentTypes.add(argumentTypeClass);
+							}
+						}
+						method.setArgClassTypes(argumentTypes);
+						// 填充返回值
+						returnTypes = new HashSet<JavaClass>();
+						for (String type : method.getReturnTypes()) {
+							returnTypeClass = javaClasses.getTheClassByName(type);
+							if (returnTypeClass != null) {
+								returnTypes.add(returnTypeClass);
+							}
+						}
+						method.setReturnClassTypes(returnTypes);
+						// 填充InvokeItem中的Method
+						it = method.getInvokeItems().iterator();
+						while (it.hasNext()) {
+							invokeItem = it.next();
+							if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForName())) {
+								it.remove();
+							}
+						}
 					}
 				}
-				attribute.setTypeClasses(attributeTypes);
-			}
+			});
+		}
 
-			// 填充Method中的JavaClass
-			for (Method method : javaClass.getSelfMethods()) {
-				// 填充参数
-				argumentTypes = new HashSet<JavaClass>();
-				for (String type : method.getArgumentTypes()) {
-					argumentTypeClass = javaClasses.getTheClassByName(type);
-					if (argumentTypeClass != null) {
-						argumentTypes.add(argumentTypeClass);
-					}
-				}
-				method.setArgClassTypes(argumentTypes);
-				// 填充返回值
-				returnTypes = new HashSet<JavaClass>();
-				for (String type : method.getReturnTypes()) {
-					returnTypeClass = javaClasses.getTheClassByName(type);
-					if (returnTypeClass != null) {
-						returnTypes.add(returnTypeClass);
-					}
-				}
-				method.setReturnClassTypes(returnTypes);
-				// 填充InvokeItem中的Method
-				it = method.getInvokeItems().iterator();
-				while (it.hasNext()) {
-					invokeItem = it.next();
-					if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForName())) {
-						it.remove();
-					}
-				}
-			}
+		pool.shutdown();
+
+		try {
+			boolean loop = true;
+			do { // 等待所有任务完成
+				loop = !pool.awaitTermination(CooperConstant.awaitTerminationTimeOut, TimeUnit.MILLISECONDS);
+			} while (loop);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
