@@ -89,6 +89,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("analysisResult is created!");
 		// 调用分析监听器
 		this.onAnalyse(result);
+		
+		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("onAnalyse is finished!");
 		// 设置End时间
 		AnalyseContextMgr.getContext().setExecuteEndTime(System.currentTimeMillis());
 		

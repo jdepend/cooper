@@ -144,28 +144,28 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.runningContext = runningContext;
 	}
 
-	public Collection<JavaClass> getClasses() {
+	public synchronized Collection<JavaClass> getClasses() {
 		if (javaClasses == null) {
 			javaClasses = JavaClassUtil.getClasses(components);
 		}
 		return javaClasses;
 	}
 
-	public Collection<JavaPackage> getJavaPackages() {
+	public synchronized Collection<JavaPackage> getJavaPackages() {
 		if (javaPackages == null) {
 			javaPackages = JavaClassUtil.getJavaPackages(components);
 		}
 		return javaPackages;
 	}
 
-	public JavaPackageNode getJavaPackageTree() {
+	public synchronized JavaPackageNode getJavaPackageTree() {
 		if (this.javaPackageTree == null) {
 			this.javaPackageTree = (new JavaPackageTreeCreator()).createTree(getJavaPackages());
 		}
 		return javaPackageTree;
 	}
 
-	public JavaClass getTheClass(String name) {
+	public synchronized JavaClass getTheClass(String name) {
 		if (javaClassForNames == null) {
 			javaClassForNames = new HashMap<String, JavaClass>();
 			for (JavaClass javaClass : getClasses()) {
@@ -175,7 +175,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return javaClassForNames.get(name);
 	}
 
-	public Collection<Method> getMethods() {
+	public synchronized Collection<Method> getMethods() {
 		if (this.methods == null) {
 			this.methods = new HashSet<Method>();
 			for (JavaClass javaClass : this.getClasses()) {
@@ -199,7 +199,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return this.getComponentForNames().get(componentName);
 	}
 
-	public Component deleteTheComponent(String name) {
+	public synchronized Component deleteTheComponent(String name) {
 		Component deleteComponent = null;
 		for (Component component : this.components) {
 			if (component.getName().equals(name)) {
@@ -237,7 +237,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return deleteComponent;
 	}
 
-	public void addComponent(String componentName, int componentLayer) {
+	public synchronized void addComponent(String componentName, int componentLayer) {
 		MemoryComponent newComponent = new MemoryComponent(componentName);
 		newComponent.setLayer(componentLayer);
 		this.components.add(newComponent);
@@ -247,7 +247,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	}
 
-	public AnalysisResultSummary getSummary() {
+	public synchronized AnalysisResultSummary getSummary() {
 
 		if (this.summary == null) {
 			this.summary = AnalysisResultSummary.calSummary(this);
@@ -319,7 +319,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 * 
 	 * @return
 	 */
-	public float calTableRelationScale() {
+	public synchronized float calTableRelationScale() {
 		if (this.tableRelationScale == null) {
 			this.tableRelationScale = MetricsFormat.toFormattedMetrics(CalculateMetricsTool
 					.tableRelationScale(getClasses()));
@@ -359,14 +359,14 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		}
 	}
 
-	public Collection<Relation> getRelations() {
+	public synchronized Collection<Relation> getRelations() {
 		if (this.relations == null) {
 			this.calRelations();
 		}
 		return this.relations;
 	}
 
-	public List<AreaComponent> getAreaComponents() {
+	public synchronized List<AreaComponent> getAreaComponents() {
 		if (this.areaComponents == null) {
 			this.calAreaComponents();
 		}
@@ -390,7 +390,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return null;
 	}
 
-	public Map<String, Component> getComponentForNames() {
+	public synchronized Map<String, Component> getComponentForNames() {
 		if (this.componentForNames == null) {
 			this.componentForNames = new HashMap<String, Component>();
 			for (Component unit : this.components) {

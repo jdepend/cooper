@@ -176,7 +176,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public Collection<JavaPackage> getJavaPackages() {
+	public synchronized Collection<JavaPackage> getJavaPackages() {
 		if (this.javaPackages == null) {
 			this.javaPackages = new ArrayList<JavaPackage>();
 			for (JavaClass javaClass : this.javaClasses) {
@@ -189,7 +189,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public String getPath() {
+	public synchronized String getPath() {
 		if (path == null) {
 			// 获得指定单元的包列表
 			List<String> javaPackageNames = new ArrayList<String>();
@@ -210,7 +210,7 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
-	public void addJavaClass(JavaClass javaClass) {
+	public synchronized void addJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
@@ -218,14 +218,14 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
-	public void joinJavaClass(JavaClass javaClass) {
+	public synchronized void joinJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
 			this.javaClassesForName.put(javaClass.getName(), javaClass);
 		}
 	}
 
-	public boolean removeJavaClass(JavaClass javaClass) {
+	public synchronized boolean removeJavaClass(JavaClass javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
 			javaClass.setComponent(null);
 			this.javaClassesForName.remove(javaClass.getName());
@@ -263,7 +263,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public Collection<Component> getAfferents() {
+	public synchronized Collection<Component> getAfferents() {
 
 		if (this.afferents == null) {
 			this.afferents = new ArrayList<Component>();
@@ -277,7 +277,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public Collection<Component> getEfferents() {
+	public synchronized Collection<Component> getEfferents() {
 
 		if (this.efferents == null) {
 			this.efferents = new ArrayList<Component>();
@@ -351,7 +351,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float caCoupling() {
+	public synchronized float caCoupling() {
 		if (caCoupling == null) {
 			float intensity = 0;
 			for (Relation relation : this.relations) {
@@ -365,7 +365,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float ceCoupling() {
+	public synchronized float ceCoupling() {
 		if (ceCoupling == null) {
 			float intensity = 0;
 			for (Relation relation : this.relations) {
@@ -378,11 +378,9 @@ public abstract class Component extends AbstractJDependUnit {
 		return this.ceCoupling;
 	}
 
-	public void addRelation(Relation relation) {
-		synchronized (this.relations) {
-			if (!this.relations.contains(relation)) {
-				this.relations.add(relation);
-			}
+	public synchronized void addRelation(Relation relation) {
+		if (!this.relations.contains(relation)) {
+			this.relations.add(relation);
 		}
 	}
 

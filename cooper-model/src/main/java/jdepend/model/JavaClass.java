@@ -235,7 +235,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	 * 
 	 * @return
 	 */
-	public Map<Method, Collection<Method>> calOverrideMethods() {
+	public synchronized Map<Method, Collection<Method>> calOverrideMethods() {
 		if (this.overrideMethods == null) {
 			this.overrideMethods = new HashMap<Method, Collection<Method>>();
 			for (JavaClass superClass : this.getSupers()) {
@@ -300,7 +300,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	 * 
 	 * @return
 	 */
-	public Map<Method, Collection<Method>> calSubOverrideMethods() {
+	public synchronized Map<Method, Collection<Method>> calSubOverrideMethods() {
 		if (this.subOverrideMethods == null) {
 			this.subOverrideMethods = new HashMap<Method, Collection<Method>>();
 			for (JavaClass subClass : this.getSubClasses()) {
@@ -365,7 +365,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	 * 
 	 * @return
 	 */
-	public Collection<Method> getMethods() {
+	public synchronized Collection<Method> getMethods() {
 		if (this.methods == null) {
 			boolean isOverride;
 			this.methods = new ArrayList<Method>();
@@ -403,7 +403,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	 * 
 	 * @return
 	 */
-	public Collection<JavaClass> getSupers() {
+	public synchronized Collection<JavaClass> getSupers() {
 		if (this.supers == null) {
 			this.supers = new HashSet<JavaClass>();
 			JavaClass superClass = this.getSuperClass();
@@ -439,7 +439,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.detail.getSuperClass();
 	}
 
-	public Collection<JavaClass> getSubClasses() {
+	public synchronized Collection<JavaClass> getSubClasses() {
 		if (this.subClasses == null) {
 			this.subClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : this.getCaItems()) {
@@ -456,7 +456,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return caItems;
 	}
 
-	public Collection<JavaClass> getCaList() {
+	public synchronized Collection<JavaClass> getCaList() {
 		if (this.caList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCaItems()) {
@@ -467,7 +467,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.caList;
 	}
 
-	public Collection<JavaClass> getRelationList() {
+	public synchronized Collection<JavaClass> getRelationList() {
 		if (this.relationList == null) {
 			Collection<JavaClass> javaClasses = this.getCaList();
 			for (JavaClass javaClass : this.getCeList()) {
@@ -480,17 +480,15 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.relationList;
 	}
 
-	public void addCaItems(JavaClassRelationItem caItem) {
-		synchronized (this.caItems) {
-			this.caItems.add(caItem);
-		}
+	public synchronized void addCaItems(JavaClassRelationItem caItem) {
+		this.caItems.add(caItem);
 	}
 
 	public Collection<JavaClassRelationItem> getCeItems() {
 		return ceItems;
 	}
 
-	public Collection<JavaClass> getCeList() {
+	public synchronized Collection<JavaClass> getCeList() {
 		if (this.ceList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCeItems()) {
@@ -501,10 +499,8 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.ceList;
 	}
 
-	public void addCeItems(JavaClassRelationItem ceItem) {
-		synchronized (this.ceItems) {
-			this.ceItems.add(ceItem);
-		}
+	public synchronized void addCeItems(JavaClassRelationItem ceItem) {
+		this.ceItems.add(ceItem);
 	}
 
 	public int getAbstractClassCount() {
@@ -544,7 +540,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	}
 
 	@Override
-	public Collection<JavaClass> getAfferents() {
+	public synchronized Collection<JavaClass> getAfferents() {
 		if (this.afferents == null) {
 			Collection<JavaClass> afferents = new HashSet<JavaClass>();
 
@@ -559,7 +555,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	}
 
 	@Override
-	public Collection<JavaClass> getEfferents() {
+	public synchronized Collection<JavaClass> getEfferents() {
 		if (this.efferents == null) {
 			Collection<JavaClass> efferents = new HashSet<JavaClass>();
 
@@ -666,7 +662,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	 * @return
 	 */
 	@Override
-	public float getCohesion() {
+	public synchronized float getCohesion() {
 		if (this.cohesion == null) {
 			float intensity = 0;
 			for (JavaClassRelationItem relationItem : this.getCeItems()) {
@@ -686,7 +682,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	}
 
 	@Override
-	public float getBalance() {
+	public synchronized float getBalance() {
 		if (this.balance == null) {
 			float numerator = this.getCohesion();
 			float denominatorPart = this.getGroupCouplingInfo().getMaxDifference();
@@ -703,7 +699,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return this.balance;
 	}
 
-	public GroupCouplingInfo getGroupCouplingInfo() {
+	public synchronized GroupCouplingInfo getGroupCouplingInfo() {
 		if (this.groupCouplingInfo == null) {
 			GroupCouplingMaxDifferenceCalculator calculator = new GroupCouplingMaxDifferenceCalculator(this);
 			GroupCouplingInfo info = new GroupCouplingInfo();
@@ -717,7 +713,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	}
 
 	@Override
-	public float getObjectOriented() {
+	public synchronized float getObjectOriented() {
 		if (this.objectOriented == null) {
 			int attributeCount = this.countAttributes();
 			int methodCount = this.countMethods();
@@ -803,7 +799,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return NoCycle;// 不存在循环依赖
 	}
 
-	public boolean isState() {
+	public synchronized boolean isState() {
 		if (this.haveState == UnCalculate) {
 			this.haveState = this.searchState();
 		}
@@ -1054,7 +1050,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		return false;
 	}
 
-	public Collection<JavaClass> getInvokeClasses() {
+	public synchronized Collection<JavaClass> getInvokeClasses() {
 		if (this.invokeClasses == null) {
 			this.invokeClasses = new HashSet<JavaClass>();
 			this.collectInvokeClasses(this, invokeClasses);
@@ -1063,7 +1059,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 
 	}
 
-	public void calImportedPackages() {
+	public synchronized void calImportedPackages() {
 		String packageName;
 
 		if (this.detail.getSuperClassName() != null) {

@@ -1,6 +1,10 @@
 ﻿1.2.3_03
 
-a）将RelationCreator（建立组件之间的关系）和JavaClassRelationCreator（建立类之间的关系）的算法多线程执行
+a）将RelationCreator（建立组件之间的关系）和JavaClassRelationCreator（建立类之间的关系）的算法改造成多线程执行
+
+b）将JavaClassUtil、JavaClassAvertCheat等的算法改造成多线程执行
+
+
 
 1.2.3_02 2014-08-09
 
