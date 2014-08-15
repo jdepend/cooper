@@ -129,19 +129,19 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 			Component dependComponent = relation.getDepend().getComponent();
 			// 计算需要分析的组件
 			for (JavaClassRelationItem item : relation.getItems()) {
-				current.addJavaClass(item.getCurrent());
-				depend.addJavaClass(item.getDepend());
+				current.joinJavaClass(item.getCurrent());
+				depend.joinJavaClass(item.getDepend());
 			}
 
 			for (JavaClass javaClass : currentComponent.getClasses()) {
 				if (!current.containsClass(javaClass)) {
-					currentOther.addJavaClass(javaClass);
+					currentOther.joinJavaClass(javaClass);
 				}
 			}
 
 			for (JavaClass javaClass : dependComponent.getClasses()) {
 				if (!depend.containsClass(javaClass)) {
-					dependOther.addJavaClass(javaClass);
+					dependOther.joinJavaClass(javaClass);
 				}
 			}
 			// 计算组件间的耦合值

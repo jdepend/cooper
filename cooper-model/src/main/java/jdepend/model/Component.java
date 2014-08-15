@@ -218,6 +218,13 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
+	public void joinJavaClass(JavaClass javaClass) {
+		if (!this.javaClasses.contains(javaClass)) {
+			this.javaClasses.add(javaClass);
+			this.javaClassesForName.put(javaClass.getName(), javaClass);
+		}
+	}
+
 	public boolean removeJavaClass(JavaClass javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
 			javaClass.setComponent(null);
