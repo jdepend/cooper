@@ -9,7 +9,6 @@ import java.util.Map;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
-import jdepend.framework.exception.JDependException;
 import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.util.ParseUtil;
@@ -461,9 +460,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		if (this.caList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCaItems()) {
-				if (!javaClasses.contains(item.getDepend())) {
-					javaClasses.add(item.getDepend());
-				}
+				javaClasses.add(item.getDepend());
 			}
 			this.caList = javaClasses;
 		}
@@ -485,9 +482,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 
 	public void addCaItems(JavaClassRelationItem caItem) {
 		synchronized (this.caItems) {
-			if (!this.caItems.contains(caItem)) {
-				this.caItems.add(caItem);
-			}
+			this.caItems.add(caItem);
 		}
 	}
 
@@ -499,9 +494,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		if (this.ceList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCeItems()) {
-				if (!javaClasses.contains(item.getDepend())) {
-					javaClasses.add(item.getDepend());
-				}
+				javaClasses.add(item.getDepend());
 			}
 			this.ceList = javaClasses;
 		}
@@ -510,9 +503,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 
 	public void addCeItems(JavaClassRelationItem ceItem) {
 		synchronized (this.ceItems) {
-			if (!this.ceItems.contains(ceItem)) {
-				this.ceItems.add(ceItem);
-			}
+			this.ceItems.add(ceItem);
 		}
 	}
 
@@ -558,7 +549,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 			Collection<JavaClass> afferents = new HashSet<JavaClass>();
 
 			for (JavaClass javaClass : this.getCaList()) {
-				if (!this.component.containsClass(javaClass) && !afferents.contains(javaClass)) {
+				if (!this.component.containsClass(javaClass)) {
 					afferents.add(javaClass);
 				}
 			}
@@ -573,7 +564,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 			Collection<JavaClass> efferents = new HashSet<JavaClass>();
 
 			for (JavaClass javaClass : this.getCeList()) {
-				if (!this.component.containsClass(javaClass) && !efferents.contains(javaClass)) {
+				if (!this.component.containsClass(javaClass)) {
 					efferents.add(javaClass);
 				}
 			}

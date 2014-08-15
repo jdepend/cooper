@@ -43,9 +43,7 @@ public class JavaClassDetail implements Serializable {
 			this.attributeTypes = new HashSet<String>();
 			for (Attribute attribute : this.attributes) {
 				for (String type : attribute.getTypes()) {
-					if (!this.attributeTypes.contains(type)) {
-						this.attributeTypes.add(type);
-					}
+					this.attributeTypes.add(type);
 				}
 			}
 		}
@@ -67,14 +65,10 @@ public class JavaClassDetail implements Serializable {
 			this.paramTypes = new HashSet<String>();
 			for (Method method : this.methods) {
 				for (String type : method.getArgumentTypes()) {
-					if (!this.paramTypes.contains(type)) {
-						this.paramTypes.add(type);
-					}
+					this.paramTypes.add(type);
 				}
 				for (String type : method.getReturnTypes()) {
-					if (!this.paramTypes.contains(type)) {
-						this.paramTypes.add(type);
-					}
+					this.paramTypes.add(type);
 				}
 			}
 		}

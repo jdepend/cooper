@@ -371,9 +371,11 @@ public abstract class Component extends AbstractJDependUnit {
 		return this.ceCoupling;
 	}
 
-	public synchronized void addRelation(Relation relation) {
-		if (!this.relations.contains(relation)) {
-			this.relations.add(relation);
+	public void addRelation(Relation relation) {
+		synchronized (this.relations) {
+			if (!this.relations.contains(relation)) {
+				this.relations.add(relation);
+			}
 		}
 	}
 
@@ -577,9 +579,9 @@ public abstract class Component extends AbstractJDependUnit {
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		this.relations = new ArrayList<Relation>();
-		
+
 		this.javaClassesForName = new HashMap<String, JavaClass>();
-		for(JavaClass javaClass : this.javaClasses){
+		for (JavaClass javaClass : this.javaClasses) {
 			this.javaClassesForName.put(javaClass.getName(), javaClass);
 		}
 	}
