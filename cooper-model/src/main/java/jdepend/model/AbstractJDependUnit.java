@@ -30,8 +30,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	private transient Float coupling = null;
 	private transient Float encapsulation = null;
 
-	private transient AnalysisResult result;
-
 	public AbstractJDependUnit() {
 
 	}
@@ -59,14 +57,8 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	public void setType(JDependUnitType type) {
 		this.type = type;
 	}
-
-	public AnalysisResult getResult() {
-		return result;
-	}
-
-	public void setResult(AnalysisResult result) {
-		this.result = result;
-	}
+	
+	public abstract AnalysisResult getResult();
 
 	/**
 	 * @return Instability (0-1).

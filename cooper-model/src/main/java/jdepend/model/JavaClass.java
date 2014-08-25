@@ -11,6 +11,7 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ParseUtil;
 
 import org.apache.bcel.Constants;
@@ -207,6 +208,11 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public AnalysisResult getResult() {
+		return this.getComponent().getResult();
 	}
 
 	public JavaClassDetail getDetail() {

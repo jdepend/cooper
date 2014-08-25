@@ -40,6 +40,8 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private List<JavaClass> javaClasses = new ArrayList<JavaClass>();
 
+	private transient AnalysisResult result;
+
 	private transient AreaComponent areaComponent;// 所属组件区域，由识别设计动机模块计算得到
 
 	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
@@ -564,12 +566,13 @@ public abstract class Component extends AbstractJDependUnit {
 		this.steadyType = steadyType;
 	}
 
-	@Override
 	public void setResult(AnalysisResult result) {
-		super.setResult(result);
-		for (JavaClass javaClass : this.javaClasses) {
-			javaClass.setResult(result);
-		}
+		this.result = result;
+	}
+
+	@Override
+	public AnalysisResult getResult() {
+		return this.result;
 	}
 
 	@Override
