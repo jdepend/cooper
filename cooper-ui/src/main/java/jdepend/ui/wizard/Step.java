@@ -105,6 +105,9 @@ public abstract class Step extends JPanel {
 		return button;
 	}
 
+	public void refresh() {
+	}
+
 	public final void work() throws JDependException {
 		this.validateData();
 		if (this.doWork() == DO_NEXT_STEP) {
@@ -164,5 +167,4 @@ public abstract class Step extends JPanel {
 			return false;
 		return true;
 	}
-
 }

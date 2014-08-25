@@ -85,11 +85,8 @@ public class ComponentModelPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 
 		JPanel componentGroupPanel = new JPanel(new BorderLayout());
-		componentGroupPanel.add(
-				BorderLayout.WEST,
-				new JLabel(BundleUtil
-						.getString(BundleUtil.ClientWin_ComponentModel_Name)
-						+ ":"));
+		componentGroupPanel.add(BorderLayout.WEST,
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_Name) + ":"));
 
 		JPanel contentPanel = new JPanel(new GridLayout(1, 2));
 		componentModelField = new JTextField();
@@ -100,9 +97,7 @@ public class ComponentModelPanel extends JPanel {
 			}
 		});
 		contentPanel.add(componentModelField);
-		filterExt = new JCheckBox(
-				BundleUtil
-						.getString(BundleUtil.ClientWin_ComponentModel_FilterExt));
+		filterExt = new JCheckBox(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_FilterExt));
 		filterExt.setSelected(true);
 		filterExt.addChangeListener(new ChangeListener() {
 			@Override
@@ -114,12 +109,8 @@ public class ComponentModelPanel extends JPanel {
 		componentGroupPanel.add(BorderLayout.CENTER, contentPanel);
 
 		JPanel layoutPanel = new JPanel(new BorderLayout());
-		layoutPanel
-				.add(BorderLayout.WEST,
-						new JLabel(
-								BundleUtil
-										.getString(BundleUtil.ClientWin_ComponentModel_PackageListFilter)
-										+ ":"));
+		layoutPanel.add(BorderLayout.WEST,
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageListFilter) + ":"));
 		packageListFilter = new JTextField();
 		packageListFilter.setPreferredSize(new Dimension(150, 20));
 		packageListFilter.addKeyListener(new KeyAdapter() {
@@ -143,14 +134,12 @@ public class ComponentModelPanel extends JPanel {
 
 		JList packageList = createPackageList();
 
-		JSplitPane componentSplitPane = new JSplitPane(
-				JSplitPane.HORIZONTAL_SPLIT, false, new JScrollPane(
-						componentList), new JScrollPane(packageList));
+		JSplitPane componentSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, new JScrollPane(
+				componentList), new JScrollPane(packageList));
 
 		componentPanel.add(componentSplitPane);
 
-		final JSplitPane packageComponentSplitPane = new JSplitPane(
-				JSplitPane.VERTICAL_SPLIT, false, javaPackageList,
+		final JSplitPane packageComponentSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, javaPackageList,
 				componentPanel);
 
 		packageComponentSplitPane.setDividerLocation(NormalHeight);
@@ -163,8 +152,7 @@ public class ComponentModelPanel extends JPanel {
 						packageComponentSplitPane.setDividerLocation(Height);
 						javaPackageListNormal = false;
 					} else {
-						packageComponentSplitPane
-								.setDividerLocation(NormalHeight);
+						packageComponentSplitPane.setDividerLocation(NormalHeight);
 						javaPackageListNormal = true;
 					}
 				}
@@ -186,8 +174,7 @@ public class ComponentModelPanel extends JPanel {
 	 * @param groupName
 	 * @param componentModelName
 	 */
-	public ComponentModelPanel(JDependCooper frame, String path,
-			String groupName, String componentModelName) {
+	public ComponentModelPanel(JDependCooper frame, String path, String groupName, String componentModelName) {
 		this(frame, path, groupName);
 
 		componentModelField.setText(componentModelName);
@@ -196,8 +183,7 @@ public class ComponentModelPanel extends JPanel {
 		componentModelConf = ComponentModelConfMgr.getInstance()
 				.getTheComponentModelConf(groupName, componentModelName);
 		// 更新componentListModel和packageListModel
-		for (ComponentConf componentConf : componentModelConf
-				.getComponentConfs()) {
+		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			componentListModel.addElement(componentConf.getName());
 			for (String packageName : componentConf.getPackages()) {
 				if (componentListModel.size() == 1) {
@@ -207,8 +193,7 @@ public class ComponentModelPanel extends JPanel {
 		}
 
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeThePackageList(componentModelConf
-				.getContainPackages());
+		packageTable.removeThePackageList(componentModelConf.getContainPackages());
 
 		// 设置默认组件
 		if (this.currentComponent == null && componentListModel.size() > 0) {
@@ -231,49 +216,30 @@ public class ComponentModelPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == 3) {
 					JPopupMenu menu = new JPopupMenu();
-					JMenuItem gobalIgnoreItem = new JMenuItem(
-							BundleUtil
-									.getString(BundleUtil.Command_ViewGobalIgnorePackages));
+					JMenuItem gobalIgnoreItem = new JMenuItem(BundleUtil
+							.getString(BundleUtil.Command_ViewGobalIgnorePackages));
 					gobalIgnoreItem.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
 								gobalIgnore();
 							} catch (Exception ex) {
 								ex.printStackTrace();
-								JOptionPane.showMessageDialog(
-										ComponentModelPanel.this,
-										ex.getMessage(), "alert",
+								JOptionPane.showMessageDialog(ComponentModelPanel.this, ex.getMessage(), "alert",
 										JOptionPane.ERROR_MESSAGE);
 							}
 						}
 
 						private void gobalIgnore() {
-							IgnoreSettingDialog d = new IgnoreSettingDialog(
-									frame);
+							IgnoreSettingDialog d = new IgnoreSettingDialog(frame);
 							d.setModal(true);
 							d.setVisible(true);
 						}
 					});
 					menu.add(gobalIgnoreItem);
-					JMenuItem refreshItem = new JMenuItem(BundleUtil
-							.getString(BundleUtil.Command_Refresh));
+					JMenuItem refreshItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
 					refreshItem.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							try {
-								packageTable.loadPackageList();
-								// 删除已经包含在组件模型中的packages
-								packageTable
-										.removeThePackageList(componentModelConf
-												.getContainPackages());
-								//进行关键字过滤
-								packageTable.filterPackageList();
-							} catch (Exception ex) {
-								ex.printStackTrace();
-								JOptionPane.showMessageDialog(
-										ComponentModelPanel.this,
-										ex.getMessage(), "alert",
-										JOptionPane.ERROR_MESSAGE);
-							}
+							refresh();
 						}
 					});
 					menu.add(refreshItem);
@@ -283,6 +249,18 @@ public class ComponentModelPanel extends JPanel {
 		});
 		return pane;
 
+	}
+
+	public void refresh() {
+		packageTable.loadPackageList();
+		// 删除已经包含在组件模型中的packages
+		packageTable.removeThePackageList(componentModelConf.getContainPackages());
+		// 进行关键字过滤
+		packageTable.filterPackageList();
+	}
+
+	public void setPath(String path) {
+		packageTable.setPath(path);
 	}
 
 	protected void createComponent() throws JDependException {
@@ -295,8 +273,7 @@ public class ComponentModelPanel extends JPanel {
 			selectedPackages.add((String) packageTable.getValueAt(rows[i], 0));
 		}
 
-		CreateCustomComponentConfDialog d = new CreateCustomComponentConfDialog(
-				selectedPackages);
+		CreateCustomComponentConfDialog d = new CreateCustomComponentConfDialog(selectedPackages);
 		d.setModal(true);
 		d.setVisible(true);
 	}
@@ -315,9 +292,7 @@ public class ComponentModelPanel extends JPanel {
 		for (String unit : selectedPackages) {
 			packageList = new ArrayList<String>();
 			packageList.add(unit);
-			componentModelConf.addComponentConf(unit,
-					jdepend.model.Component.UndefinedComponentLevel,
-					packageList);
+			componentModelConf.addComponentConf(unit, jdepend.model.Component.UndefinedComponentLevel, packageList);
 		}
 		packageTable.removeThePackageList(selectedPackages);
 		refreshComponentList();
@@ -333,8 +308,7 @@ public class ComponentModelPanel extends JPanel {
 			selectedPackages.add((String) packageTable.getValueAt(rows[i], 0));
 		}
 
-		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(
-				selectedPackages, componentModelConf) {
+		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages, componentModelConf) {
 			@Override
 			protected void doService() {
 				packageTable.removeThePackageList(joinPackages);
@@ -351,8 +325,7 @@ public class ComponentModelPanel extends JPanel {
 		componentListUI = new JList(componentListModel);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem deleteItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_DeleteComponent));
+		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_DeleteComponent));
 		deleteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteComponent();
@@ -383,32 +356,27 @@ public class ComponentModelPanel extends JPanel {
 
 	private JList createPackageList() {
 		final JList packageList = new JList(packageListModel);
-		packageList
-				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		packageList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem removeItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_MoveToOtherComponent));
+		JMenuItem removeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_MoveToOtherComponent));
 		removeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (packageList.getSelectedValues() == null
-						|| packageList.getSelectedValues().length == 0) {
-					JOptionPane.showMessageDialog((Component) e.getSource(),
-							"请选择至少一个包", "alert", JOptionPane.ERROR_MESSAGE);
+				if (packageList.getSelectedValues() == null || packageList.getSelectedValues().length == 0) {
+					JOptionPane.showMessageDialog((Component) e.getSource(), "请选择至少一个包", "alert",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				List<String> selectedPackages = new ArrayList<String>();
 				for (Object value : packageList.getSelectedValues()) {
 					selectedPackages.add((String) value);
 				}
-				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(
-						selectedPackages, componentModelConf) {
+				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages,
+						componentModelConf) {
 					@Override
 					protected void doService() {
-						componentModelConf
-								.getTheComponentConf(currentComponent)
-								.deletePackages(joinPackages);
+						componentModelConf.getTheComponentConf(currentComponent).deletePackages(joinPackages);
 						refreshComponentList();
 					}
 				};
@@ -418,15 +386,13 @@ public class ComponentModelPanel extends JPanel {
 		});
 		popupMenu.add(removeItem);
 
-		JMenuItem deleteItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_Delete));
+		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
 		deleteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (packageList.getSelectedValues() == null
-						|| packageList.getSelectedValues().length == 0) {
-					JOptionPane.showMessageDialog((Component) e.getSource(),
-							"请选择至少一个包", "alert", JOptionPane.ERROR_MESSAGE);
+				if (packageList.getSelectedValues() == null || packageList.getSelectedValues().length == 0) {
+					JOptionPane.showMessageDialog((Component) e.getSource(), "请选择至少一个包", "alert",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				List<String> selectedPackages = new ArrayList<String>();
@@ -434,8 +400,7 @@ public class ComponentModelPanel extends JPanel {
 					selectedPackages.add((String) value);
 				}
 
-				componentModelConf.getTheComponentConf(currentComponent)
-						.deletePackages(selectedPackages);
+				componentModelConf.getTheComponentConf(currentComponent).deletePackages(selectedPackages);
 				packageTable.addThePackageList(selectedPackages);
 				refreshComponentList();
 			}
@@ -456,8 +421,7 @@ public class ComponentModelPanel extends JPanel {
 
 	private void deleteComponent() {
 		String componentName = (String) componentListUI.getSelectedValue();
-		packageTable.addThePackageList(componentModelConf.getTheComponentConf(
-				componentName).getPackages());
+		packageTable.addThePackageList(componentModelConf.getTheComponentConf(componentName).getPackages());
 		componentModelConf.deleteComponentConf(componentName);
 	}
 
@@ -472,8 +436,7 @@ public class ComponentModelPanel extends JPanel {
 	private void refreshPackageList() {
 		packageListModel.removeAllElements();
 		if (currentComponent != null) {
-			for (String packageName : componentModelConf.getTheComponentConf(
-					currentComponent).getPackages())
+			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getPackages())
 				packageListModel.addElement(packageName);
 		}
 	}
@@ -485,8 +448,7 @@ public class ComponentModelPanel extends JPanel {
 		}
 
 		protected void doService(ActionEvent e) throws JDependException {
-			componentModelConf.addComponentConf(componentname.getText(),
-					this.getComponentLayer(), units);
+			componentModelConf.addComponentConf(componentname.getText(), this.getComponentLayer(), units);
 			packageTable.removeThePackageList(units);
 			refreshComponentList();
 		}
@@ -496,12 +458,10 @@ public class ComponentModelPanel extends JPanel {
 
 		this.componentModelConf.validateData();
 
-		List<String> ignorePackages = this.componentModelConf
-				.calIgnorePackages(packageTable.getPackages());
+		List<String> ignorePackages = this.componentModelConf.calIgnorePackages(packageTable.getPackages());
 		if (ignorePackages != null && ignorePackages.size() > 0) {
-			if (JOptionPane.showConfirmDialog(this,
-					"包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
-							+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
+			if (JOptionPane.showConfirmDialog(this, "包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
+					+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
 				throw new JDependException();
 			}
 		}
@@ -514,7 +474,6 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	public List<String> calIgnorePackages() {
-		return this.componentModelConf.calIgnorePackages(packageTable
-				.getPackages());
+		return this.componentModelConf.calIgnorePackages(packageTable.getPackages());
 	}
 }

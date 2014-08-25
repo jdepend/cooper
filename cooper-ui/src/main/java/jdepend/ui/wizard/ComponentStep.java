@@ -34,8 +34,8 @@ public class ComponentStep extends Step {
 
 		this.setLayout(new BorderLayout());
 
-		this.componentPanel = new ComponentModelPanel(wizard.getFrame(), wizard
-				.getWorker().getPath(), wizard.getWorker().getGroupName());
+		this.componentPanel = new ComponentModelPanel(wizard.getFrame(), wizard.getWorker().getPath(), wizard
+				.getWorker().getGroupName());
 
 		JPanel buttonBar = new JPanel(new FlowLayout());
 		buttonBar.add(createPriorButton());
@@ -50,37 +50,37 @@ public class ComponentStep extends Step {
 	}
 
 	@Override
+	public void refresh() {
+		this.componentPanel.setPath(this.getWizard().getWorker().getPath());
+		this.componentPanel.refresh();
+	}
+
+	@Override
 	protected Step createNextStep() {
 		return new CommandStep(this.getWizard());
 	}
 
 	@Override
 	protected int doWork() throws JDependException {
-		ComponentModelConf componentModel = componentPanel
-				.getComponentModelConf();
+		ComponentModelConf componentModel = componentPanel.getComponentModelConf();
 
 		if (componentModel.size() == 0) {
-			if (JOptionPane.showConfirmDialog(this,
-					"您没有设置组件，之后的分析将以包为单位，你是否确认继续？") != JOptionPane.OK_OPTION) {
+			if (JOptionPane.showConfirmDialog(this, "您没有设置组件，之后的分析将以包为单位，你是否确认继续？") != JOptionPane.OK_OPTION) {
 				return CANCEL_NEXT_STEP;
 			}
 		}
 		if (componentModel.size() > 0) {
-			List<String> ignorePackages = this.componentPanel
-					.calIgnorePackages();
+			List<String> ignorePackages = this.componentPanel.calIgnorePackages();
 			if (ignorePackages != null && ignorePackages.size() > 0) {
-				if (JOptionPane
-						.showConfirmDialog(this, "包[" + ignorePackages.get(0)
-								+ "]等" + ignorePackages.size()
-								+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
+				if (JOptionPane.showConfirmDialog(this, "包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
+						+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
 					return CANCEL_NEXT_STEP;
 				}
 			}
 			// 设置未包含的packages
 			componentModel.setIgnorePackages(ignorePackages);
 		}
-		if (componentModel.getName() == null
-				|| componentModel.getName().length() == 0) {
+		if (componentModel.getName() == null || componentModel.getName().length() == 0) {
 			if (this.componentPanel.getComponentModelConf().size() != 0) {
 				JOptionPane.showMessageDialog(this, "未指定组件组名称！");
 				return CANCEL_NEXT_STEP;
@@ -89,13 +89,11 @@ public class ComponentStep extends Step {
 
 		if (this.create) {
 			// 重复设计组件模型时，判断名称是否重复
-			if (this.getWorker().getComponentModels()
-					.contains(componentModel.getName())) {
+			if (this.getWorker().getComponentModels().contains(componentModel.getName())) {
 				JOptionPane.showMessageDialog(this, "组件组名称已经存在！");
 				return CANCEL_NEXT_STEP;
 			}
-			if (componentModel.getName() != null
-					&& componentModel.getName().length() != 0) {
+			if (componentModel.getName() != null && componentModel.getName().length() != 0) {
 				this.getWorker().addComponentModel(componentModel);
 
 			}

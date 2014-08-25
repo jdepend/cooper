@@ -50,8 +50,7 @@ public class JavaPackageListTable extends JTable {
 
 	private String path;
 
-	public JavaPackageListTable(ComponentModelPanel componentModelPanel1,
-			String path, String currentGroup) {
+	public JavaPackageListTable(ComponentModelPanel componentModelPanel1, String path, String currentGroup) {
 
 		this.componentModelPanel = componentModelPanel1;
 		this.path = path;
@@ -68,31 +67,26 @@ public class JavaPackageListTable extends JTable {
 		TableSorter sorter = new TableSorter(packageTableModel);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem createItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_CreateComponent));
+		JMenuItem createItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_CreateComponent));
 		createItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					componentModelPanel.createComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		popupMenu.add(createItem);
-		JMenuItem create1Item = new JMenuItem(
-				BundleUtil
-						.getString(BundleUtil.Command_CreateComponentWithPackages));
+		JMenuItem create1Item = new JMenuItem(BundleUtil.getString(BundleUtil.Command_CreateComponentWithPackages));
 		create1Item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					componentModelPanel.batchCreateComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -100,16 +94,14 @@ public class JavaPackageListTable extends JTable {
 
 		popupMenu.addSeparator();
 
-		JMenuItem joinItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_JoinComponent));
+		JMenuItem joinItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_JoinComponent));
 		joinItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					componentModelPanel.joinComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -117,16 +109,14 @@ public class JavaPackageListTable extends JTable {
 
 		popupMenu.addSeparator();
 
-		JMenuItem viewClassItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_ViewClassList));
+		JMenuItem viewClassItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewClassList));
 		viewClassItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					viewClassList();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, ex.getMessage(),
-							"alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -143,10 +133,8 @@ public class JavaPackageListTable extends JTable {
 
 		sorter.setTableHeader(this.getTableHeader());
 
-		packageTableModel.addColumn(BundleUtil
-				.getString(BundleUtil.TableHead_PackageName));
-		packageTableModel.addColumn(BundleUtil
-				.getString(BundleUtil.TableHead_ClassCount));
+		packageTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_PackageName));
+		packageTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_ClassCount));
 
 		sorter.setSortingStatus(0, TableSorter.ASCENDING);
 
@@ -172,8 +160,7 @@ public class JavaPackageListTable extends JTable {
 		Object[] row;
 		int ClassCount;
 		for (JavaPackage javaPackage : packages) {
-			if (this.componentModelPanel.filterExt.isSelected()
-					&& javaPackage.isInner()
+			if (this.componentModelPanel.filterExt.isSelected() && javaPackage.isInner()
 					|| !this.componentModelPanel.filterExt.isSelected()) {
 				row = new Object[2];
 				row[0] = javaPackage.getName();
@@ -197,20 +184,17 @@ public class JavaPackageListTable extends JTable {
 		if (column == 1) {
 			return new TableCellRenderer() {
 				@Override
-				public Component getTableCellRendererComponent(JTable table,
-						Object value, boolean isSelected, boolean hasFocus,
-						int row, int column) {
+				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+						boolean hasFocus, int row, int column) {
 					JProgressBar progressBar = new JProgressBar();
 					progressBar.setMinimum(0);
 					progressBar.setMaximum(maxClassCount);
 					if (value != null) {
 						progressBar.setValue((Integer) value);
-						progressBar.setToolTipText(Integer
-								.toString((Integer) value));
+						progressBar.setToolTipText(Integer.toString((Integer) value));
 					}
 					if (isSelected) {
-						progressBar.setBackground(table
-								.getSelectionBackground());
+						progressBar.setBackground(table.getSelectionBackground());
 					} else {
 						progressBar.setBackground(table.getBackground());
 					}
@@ -223,6 +207,10 @@ public class JavaPackageListTable extends JTable {
 		}
 	}
 
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	private void viewClassList() throws JDependException {
 		int[] rows = this.getSelectedRows();
 		if (rows == null || rows.length != 1)
@@ -230,8 +218,7 @@ public class JavaPackageListTable extends JTable {
 
 		String javaPackageName = (String) this.getValueAt(rows[0], 0);
 		JavaPackage javaPackage = this.packageForNames.get(javaPackageName);
-		ClassListInThePackageDialog d = new ClassListInThePackageDialog(
-				javaPackage);
+		ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
 		d.setModal(true);
 		d.setVisible(true);
 	}
@@ -262,17 +249,14 @@ public class JavaPackageListTable extends JTable {
 	protected void filterPackageList() {
 
 		String filter = this.componentModelPanel.packageListFilter.getText();
-		boolean filterExtSetting = this.componentModelPanel.filterExt
-				.isSelected();
+		boolean filterExtSetting = this.componentModelPanel.filterExt.isSelected();
 		boolean filterString;
 		boolean filterExtResult;
 		List<String> matchPackageList = new ArrayList<String>();
 
 		for (String packageName : this.currentPackageList) {
-			filterString = filter == null || filter.length() == 0
-					|| packageName.indexOf(filter) != -1;
-			filterExtResult = filterExtSetting ? this.packageForNames.get(
-					packageName).isInner() ? true : false : true;
+			filterString = filter == null || filter.length() == 0 || packageName.indexOf(filter) != -1;
+			filterExtResult = filterExtSetting ? this.packageForNames.get(packageName).isInner() ? true : false : true;
 			if (filterString && filterExtResult) {
 				matchPackageList.add(packageName);
 			}
@@ -305,8 +289,7 @@ public class JavaPackageListTable extends JTable {
 
 		try {
 			// 设置当前命令组配置的FilteredPackages
-			GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(
-					this.currentGroup);
+			GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(this.currentGroup);
 			if (groupConf != null) {
 				searchUtil.addFilters(groupConf.getFilteredPackages());
 			}

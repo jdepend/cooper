@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 
 import jdepend.core.config.CommandConf;
 import jdepend.core.config.CommandConfMgr;
-import jdepend.framework.context.JDependContext;
-import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.util.FileUtil;

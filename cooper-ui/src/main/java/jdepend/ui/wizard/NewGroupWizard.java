@@ -48,6 +48,7 @@ public final class NewGroupWizard extends JDialog {
 		if (next != null) {
 			// 维护StepList
 			next = this.doNextStep(next);
+			next.refresh();
 
 			getContentPane().removeAll();
 			getContentPane().add(BorderLayout.CENTER, next);
