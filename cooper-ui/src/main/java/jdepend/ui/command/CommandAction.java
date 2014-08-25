@@ -19,6 +19,7 @@ import jdepend.report.ReportCreatorFactory;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.result.JDependReport;
 import jdepend.ui.result.JDependReportAdapterFactory;
+import jdepend.ui.result.ResultPanel;
 
 public final class CommandAction extends AsynAction {
 
@@ -56,13 +57,11 @@ public final class CommandAction extends AsynAction {
 
 		// 输出其他报告
 		Map<String, JComponent> otherReport = this.reportRender.createOtherReport(result);
-		for (String otherName : otherReport.keySet()) {
-			frame.getResultPanel().appendResult(otherName, otherReport.get(otherName));
-		}
 		// 输出日志
 		if (adapter.getLog() != null && adapter.getLog().length() != 0) {
-			frame.getResultPanel().appendResult("log", adapter.getLog());
+			otherReport.put("log", ResultPanel.createTextViewer(adapter.getLog()));
 		}
+		frame.getResultPanel().appendResult(otherReport);
 
 		// 刷新TODOList
 		frame.getPropertyPanel().showTODOList();

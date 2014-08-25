@@ -1,6 +1,9 @@
 package jdepend.ui.result;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JScrollPane;
@@ -22,8 +25,11 @@ public final class DesignPatternPanel extends SubResultTabPanel {
 				.getPatternList();
 
 		TableData tableData = new TableData();
+		
+		List<String> patternNames = new ArrayList<String>(patternList.keySet());
+		Collections.sort(patternNames);
 
-		for (String patternName : patternList.keySet()) {
+		for (String patternName : patternNames) {
 			if (patternList.get(patternName) != null
 					&& patternList.get(patternName).size() != 0) {
 				for (PatternInfo className : patternList.get(patternName)) {

@@ -64,7 +64,7 @@ public class Parse {
 
 		LogUtil.getInstance(Parse.class).systemLog("开始建立Package");
 		for (JavaClass javaClass : javaClasses) {
-			analyzeClass(javaClass);
+			createPackage(javaClass);
 		}
 
 		return packages.values();
@@ -231,7 +231,7 @@ public class Parse {
 		return pkg;
 	}
 
-	private void analyzeClass(JavaClass clazz) {
+	private void createPackage(JavaClass clazz) {
 
 		String packageName = clazz.getPackageName();
 

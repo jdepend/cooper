@@ -25,8 +25,6 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
-import jdepend.util.refactor.AdjustHistory;
-import jdepend.util.refactor.Memento;
 
 public class ResultPanel extends TabsPanel {
 
@@ -143,12 +141,15 @@ public class ResultPanel extends TabsPanel {
 		this.show(label, component);
 	}
 
-	public void appendResult(String label, JComponent component) {
-		addTab(label, component);
-	}
+	public void appendResult(Map<String, JComponent> components) {
 
-	public void appendResult(String label, StringBuilder result) {
-		appendResult(label, createTextViewer(result));
+		this.setVisible(false);
+
+		for (String label : components.keySet()) {
+			this.addTab(label, components.get(label));
+		}
+
+		this.setVisible(true);
 	}
 
 	public static JComponent createTextViewer(StringBuilder result) {
@@ -218,19 +219,16 @@ public class ResultPanel extends TabsPanel {
 			// 显示结果
 			this.showResults(results, false);
 			// 输出其他报告
-			Map<String, JComponent> otherReport = jdependReport.createOtherReport(result);
-			for (String otherName : otherReport.keySet()) {
-				this.appendResult(otherName, otherReport.get(otherName));
-			}
+			this.appendResult(jdependReport.createOtherReport(result));
 			// 添加差异页
-//			Memento memento = AdjustHistory.getInstance().getCompared();
-//			if (memento != null) {
-//				AnalysisResult result1 = memento.getResult();
-//				StringBuilder diff = result.equals(result1);
-//				if (diff != null) {
-//					this.appendResult("差异", diff);
-//				}
-//			}
+			// Memento memento = AdjustHistory.getInstance().getCompared();
+			// if (memento != null) {
+			// AnalysisResult result1 = memento.getResult();
+			// StringBuilder diff = result.equals(result1);
+			// if (diff != null) {
+			// this.appendResult("差异", diff);
+			// }
+			// }
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			this.showError(ex);

@@ -1,9 +1,12 @@
 package jdepend.knowledge.pattern.impl1;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
+import jdepend.framework.util.ThreadPool;
 import jdepend.knowledge.pattern.AbstractPatternIdentifyerMgr;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.JavaClass;
@@ -18,22 +21,31 @@ public final class PatternIdentifyerMgrImpl extends AbstractPatternIdentifyerMgr
 	}
 
 	protected Map<String, Collection<PatternInfo>> doIdentify(AnalysisResult result) {
-		Collection<JavaClass> javaClasses = result.getClasses();
-		Map<String, Collection<PatternInfo>> rtn = new LinkedHashMap<String, Collection<PatternInfo>>();
-		Collection<PatternInfo> items;
-		PatternIdentifyer identifyer;
-		for (String identifyerName : identifyers.keySet()) {
-			identifyer = identifyers.get(identifyerName);
+		final Collection<JavaClass> javaClasses = result.getClasses();
+		final Map<String, Collection<PatternInfo>> rtn = new HashMap<String, Collection<PatternInfo>>();
+
+		ExecutorService pool = ThreadPool.getPool();
+
+		for (final String identifyerName : identifyers.keySet()) {
+			final PatternIdentifyer identifyer = identifyers.get(identifyerName);
 			if (identifyer instanceof AbstractPatternIdentifyer) {
 				((AbstractPatternIdentifyer) identifyer).setResult(result);
 			}
-			items = identifyer.identify(javaClasses);
-			if (items != null && items.size() > 0) {
-				rtn.put(identifyerName, items);
-			} else {
-				rtn.put(identifyerName, null);
-			}
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
+					Collection<PatternInfo> items = identifyer.identify(javaClasses);
+					synchronized (rtn) {
+						if (items != null && items.size() > 0) {
+							rtn.put(identifyerName, items);
+						} else {
+							rtn.put(identifyerName, null);
+						}
+					}
+				}
+			});
 		}
+		ThreadPool.awaitTermination(pool);
 		return rtn;
 	}
 

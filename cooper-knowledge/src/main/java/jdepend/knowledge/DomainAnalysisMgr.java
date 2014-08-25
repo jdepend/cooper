@@ -55,11 +55,7 @@ public final class DomainAnalysisMgr {
 							domainAnalysises.add(analyzer);
 						}
 					}
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
