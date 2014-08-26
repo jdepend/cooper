@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
@@ -51,66 +52,63 @@ public final class JDependPrinter extends Printer {
 
 	}
 
-	public void print(AnalysisResult inputData) {
+	public void print(AnalysisResult result, Set<String> items) {
 
 		LogUtil.getInstance(JDependPrinter.class).systemLog("create text report start!");
 
-		printSplit(ReportConstant.SummaryText);
+		if (items.contains(ReportConstant.SummaryText)) {
+			printSplit(ReportConstant.SummaryText);
+			printTextBasic(result);
+			LogUtil.getInstance(JDependPrinter.class).systemLog("SummaryText report finish!");
+		}
 
-		printTextBasic(inputData);
+		if (items.contains(ReportConstant.SummaryXML)) {
+			printSplit(ReportConstant.SummaryXML);
+			printXMLBasic(result);
+			LogUtil.getInstance(JDependPrinter.class).systemLog("SummaryXML report finish!");
+		}
 
-		LogUtil.getInstance(JDependPrinter.class).systemLog("SummaryText report finish!");
+		if (items.contains(ReportConstant.RelationText)) {
+			printSplit(ReportConstant.RelationText);
+			printRelations(result.getRelations());
+			LogUtil.getInstance(JDependPrinter.class).systemLog("RelationText report finish!");
+		}
 
-		printSplit(ReportConstant.SummaryXML);
-
-		printXMLBasic(inputData);
-
-		LogUtil.getInstance(JDependPrinter.class).systemLog("SummaryXML report finish!");
-
-		printSplit(ReportConstant.RelationText);
-
-		printRelations(inputData.getRelations());
-
-		LogUtil.getInstance(JDependPrinter.class).systemLog("RelationText report finish!");
-
-		printSplit(ReportConstant.CouplingText);
-
-		printCouplings(inputData.getComponents());
-
-		LogUtil.getInstance(JDependPrinter.class).systemLog("CouplingText report finish!");
-
-		printSplit(ReportConstant.CohesionText);
-
-		printCohesions(inputData.getComponents());
-
-		LogUtil.getInstance(JDependPrinter.class).systemLog("CohesionText report finish!");
-
-		printSplit(ReportConstant.NoticesText);
-
-		printNotices();
-
-		LogUtil.getInstance(JDependPrinter.class).systemLog("NoticesText report finish!");
-
+		if (items.contains(ReportConstant.CouplingText)) {
+			printSplit(ReportConstant.CouplingText);
+			printCouplings(result.getComponents());
+			LogUtil.getInstance(JDependPrinter.class).systemLog("CouplingText report finish!");
+		}
+		if (items.contains(ReportConstant.CohesionText)) {
+			printSplit(ReportConstant.CohesionText);
+			printCohesions(result.getComponents());
+			LogUtil.getInstance(JDependPrinter.class).systemLog("CohesionText report finish!");
+		}
+		if (items.contains(ReportConstant.NoticesText)) {
+			printSplit(ReportConstant.NoticesText);
+			printNotices();
+			LogUtil.getInstance(JDependPrinter.class).systemLog("NoticesText report finish!");
+		}
 		getWriter().flush();
 
 		LogUtil.getInstance(JDependPrinter.class).systemLog("create text report finish!");
 	}
 
-	protected void printTextBasic(AnalysisResult inputData) {
+	protected void printTextBasic(AnalysisResult result) {
 
 		TextSummaryPrinter textSummaryPrinter = new TextSummaryPrinter();
 		textSummaryPrinter.setStream(getStream());
 
-		textSummaryPrinter.printBasic(inputData);
+		textSummaryPrinter.printBasic(result);
 
 	}
 
-	protected void printXMLBasic(AnalysisResult inputData) {
+	protected void printXMLBasic(AnalysisResult result) {
 
 		XMLSummaryPrinter xmlSummaryPrinter = new XMLSummaryPrinter();
 		xmlSummaryPrinter.setStream(getStream());
 
-		xmlSummaryPrinter.printBasic(inputData);
+		xmlSummaryPrinter.printBasic(result);
 	}
 
 	protected void printCouplings(Collection<Component> units1) {

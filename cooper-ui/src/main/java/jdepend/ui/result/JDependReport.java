@@ -13,8 +13,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -61,7 +63,6 @@ public class JDependReport extends ReportCreator {
 
 	public final static boolean printTDC = false;
 	public final static boolean printTableTree = false;
-	public final static boolean printTableXML = false;
 	public final static boolean printSummaryXML = false;
 	public final static boolean printTable = true;
 
@@ -73,20 +74,13 @@ public class JDependReport extends ReportCreator {
 	public final static boolean printCapacity = true;
 	public final static boolean printPattern = true;
 
-	public final static String SummaryTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Summary);
-	public final static String RelationTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Relation);
-	public final static String CouplingTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Coupling);
-	public final static String CohesionTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Cohesion);
-	public final static String PatternTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Pattern);
-	public final static String CapacityTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Capacity);
-	public final static String NoticeTabName = BundleUtil
-			.getString(BundleUtil.ClientWin_Result_Notice);
+	public final static String SummaryTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Summary);
+	public final static String RelationTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Relation);
+	public final static String CouplingTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Coupling);
+	public final static String CohesionTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Cohesion);
+	public final static String PatternTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Pattern);
+	public final static String CapacityTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Capacity);
+	public final static String NoticeTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Notice);
 
 	// 用于临时保存报告文本信息
 	private transient Map<String, StringBuilder> reportTexts;
@@ -112,8 +106,7 @@ public class JDependReport extends ReportCreator {
 
 	public Map<String, JComponent> createMainReport(AnalysisResult result) {
 
-		LogUtil.getInstance(JDependReport.class).systemLog(
-				"create main graph report start!");
+		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report start!");
 
 		this.calReportTexts(result);
 
@@ -128,23 +121,16 @@ public class JDependReport extends ReportCreator {
 			groupComponents.put("TableTree", new SubResultTabPanel() {
 				@Override
 				protected void init(AnalysisResult result) {
-					this.add((new jdepend.report.way.swingui.SwingJDepend())
-							.getResult(result.getComponents()));
+					this.add((new jdepend.report.way.swingui.SwingJDepend()).getResult(result.getComponents()));
 				}
 			});
-		}
-		if (printTableXML) {
-			groupComponents.put("TableXML", this.createXML(this.reportTexts
-					.get(ReportConstant.SummaryXML)));
 		}
 		if (printTable) {
 			groupComponents.put("Table", new TablePanel());
 		}
-		groupComponents.put("Text",
-				this.createTextReport(ReportConstant.SummaryText));
+		groupComponents.put("Text", this.createTextReport(ReportConstant.SummaryText));
 		if (printSummaryXML) {
-			groupComponents.put("XML",
-					this.createTextReport(ReportConstant.SummaryXML));
+			groupComponents.put("XML", this.createTextReport(ReportConstant.SummaryXML));
 		}
 		if (printTDC) {
 			groupComponents.put("TDC", new TwoDimensionCell());
@@ -153,50 +139,40 @@ public class JDependReport extends ReportCreator {
 
 		if (result.getRelations() != null) {
 			groupComponents = new LinkedHashMap<String, JComponent>();
-			groupComponents.put("Graph2D",
-					this.createGraph(result.getRelations()));
+			groupComponents.put("Graph2D", this.createGraph(result.getRelations()));
 			groupComponents.put("Table", new RelationPanel());
 			if (printRelationText) {
-				groupComponents.put("Text",
-						this.createTextReport(ReportConstant.RelationText));
+				groupComponents.put("Text", this.createTextReport(ReportConstant.RelationText));
 			}
 			rtn.put(RelationTabName, this.compositeComponent(groupComponents));
 		}
 		if (printCoupling) {
-			StringBuilder CouplingText = this.reportTexts
-					.get(ReportConstant.CouplingText);
+			StringBuilder CouplingText = this.reportTexts.get(ReportConstant.CouplingText);
 			if (CouplingText != null) {
 				groupComponents = new LinkedHashMap<String, JComponent>();
 				groupComponents.put("Table", this.createXML(CouplingText));
-				groupComponents.put("Text",
-						this.createTextReport(ReportConstant.CouplingText));
-				rtn.put(CouplingTabName,
-						this.compositeComponent(groupComponents));
+				groupComponents.put("Text", this.createTextReport(ReportConstant.CouplingText));
+				rtn.put(CouplingTabName, this.compositeComponent(groupComponents));
 			}
 		}
 		if (printCohesion) {
-			StringBuilder CohesionText = this.reportTexts
-					.get(ReportConstant.CohesionText);
+			StringBuilder CohesionText = this.reportTexts.get(ReportConstant.CohesionText);
 			if (CohesionText != null) {
 				groupComponents = new LinkedHashMap<String, JComponent>();
 				groupComponents.put("Table", this.createXML(CohesionText));
-				groupComponents.put("Text",
-						this.createTextReport(ReportConstant.CohesionText));
-				rtn.put(CohesionTabName,
-						this.compositeComponent(groupComponents));
+				groupComponents.put("Text", this.createTextReport(ReportConstant.CohesionText));
+				rtn.put(CohesionTabName, this.compositeComponent(groupComponents));
 			}
 		}
 
-		LogUtil.getInstance(JDependReport.class).systemLog(
-				"create main graph report finish!");
+		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report finish!");
 
 		return rtn;
 	}
 
 	public Map<String, JComponent> createOtherReport(AnalysisResult result) {
 
-		LogUtil.getInstance(JDependReport.class).systemLog(
-				"create other graph report start!");
+		LogUtil.getInstance(JDependReport.class).systemLog("create other graph report start!");
 
 		Map<String, JComponent> rtn = new LinkedHashMap<String, JComponent>();
 
@@ -215,17 +191,14 @@ public class JDependReport extends ReportCreator {
 			rtn.put(CapacityTabName, this.compositeComponent(groupComponents));
 		}
 
-		StringBuilder NoticesText = this.reportTexts
-				.get(ReportConstant.NoticesText);
+		StringBuilder NoticesText = this.reportTexts.get(ReportConstant.NoticesText);
 		if (NoticesText != null) {
 			groupComponents = new LinkedHashMap<String, JComponent>();
-			groupComponents.put("Text",
-					this.createTextReport(ReportConstant.NoticesText));
+			groupComponents.put("Text", this.createTextReport(ReportConstant.NoticesText));
 			rtn.put(NoticeTabName, this.compositeComponent(groupComponents));
 		}
 
-		LogUtil.getInstance(JDependReport.class).systemLog(
-				"create other graph report finish!");
+		LogUtil.getInstance(JDependReport.class).systemLog("create other graph report finish!");
 
 		return rtn;
 	}
@@ -236,7 +209,23 @@ public class JDependReport extends ReportCreator {
 		JDependPrinter printer = new JDependPrinter();
 		printer.setStream(resultStream);
 
-		printer.print(result);
+		Set<String> items = new HashSet<String>();
+		items.add(ReportConstant.SummaryText);
+		if (printSummaryXML) {
+			items.add(ReportConstant.SummaryXML);
+		}
+		if (printRelationText) {
+			items.add(ReportConstant.RelationText);
+		}
+		if (printCoupling) {
+			items.add(ReportConstant.CouplingText);
+		}
+		if (printCohesion) {
+			items.add(ReportConstant.CohesionText);
+		}
+		items.add(ReportConstant.NoticesText);
+
+		printer.print(result, items);
 
 		String[] texts = resultStream.toString().split(JDependPrinter.Split);
 
@@ -303,16 +292,14 @@ public class JDependReport extends ReportCreator {
 	}
 
 	private JComponent createGraph(Collection<Relation> relations) {
-		int maxRelations = UIPropertyConfigurator.getInstance()
-				.getMaxRelations();
+		int maxRelations = UIPropertyConfigurator.getInstance().getMaxRelations();
 		if (relations.size() == 0) {
 			return new TextViewer();
 		} else if (maxRelations == -1 || relations.size() < maxRelations) {
 			return new SubResultTabPanel() {
 				@Override
 				protected void init(AnalysisResult result) {
-					this.add(GraphPrinter.getIntance().print(
-							result.getRelations(), result.getJavaPackageTree()));
+					this.add(GraphPrinter.getIntance().print(result.getRelations(), result.getJavaPackageTree()));
 				}
 			};
 		} else {
@@ -327,8 +314,7 @@ public class JDependReport extends ReportCreator {
 		final TextViewer resultViewer = new TextViewer();
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem saveItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_Save));
+		JMenuItem saveItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Save));
 		saveItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ReportHistorySaveDialog d = new ReportHistorySaveDialog(title);
@@ -339,16 +325,14 @@ public class JDependReport extends ReportCreator {
 		});
 		popupMenu.add(saveItem);
 
-		JMenuItem saveasItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_SaveAs));
+		JMenuItem saveasItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveasItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					saveAs(new StringBuilder(resultViewer.getText()));
 				} catch (JDependException e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "报告[" + command
-							+ "]保存失败！", "alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "报告[" + command + "]保存失败！", "alert", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -367,14 +351,12 @@ public class JDependReport extends ReportCreator {
 	}
 
 	private void saveAs(StringBuilder content) throws JDependException {
-		JFileChooser jFileChooser = new JFileChooser(
-				System.getProperty("user.home"));
+		JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
 		int result = jFileChooser.showSaveDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File f = jFileChooser.getSelectedFile();
 			FileUtil.saveFileContent(f.getAbsolutePath(), content);
-			JOptionPane.showMessageDialog(null, "报告[" + command + "]保存成功。",
-					"alert", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "报告[" + command + "]保存成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -424,8 +406,7 @@ public class JDependReport extends ReportCreator {
 
 		private JButton createCloseButton() {
 
-			JButton button = new JButton(
-					BundleUtil.getString(BundleUtil.Command_Close));
+			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
 			button.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -438,8 +419,7 @@ public class JDependReport extends ReportCreator {
 
 		private JButton createSaveButton() {
 
-			JButton button = new JButton(
-					BundleUtil.getString(BundleUtil.Command_Save));
+			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Save));
 			button.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -448,18 +428,14 @@ public class JDependReport extends ReportCreator {
 						rh.save(command, reportTexts.get(title), tip.getText());
 						JDependReport.this.onReportHistorySave(group, command);
 						// 记录日志
-						BusiLogUtil.getInstance().businessLog(
-								Operation.saveTextReport);
-						JOptionPane.showMessageDialog(
-								(java.awt.Component) e.getSource(), "保存成功",
-								"alert", JOptionPane.INFORMATION_MESSAGE);
+						BusiLogUtil.getInstance().businessLog(Operation.saveTextReport);
+						JOptionPane.showMessageDialog((java.awt.Component) e.getSource(), "保存成功", "alert",
+								JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					} catch (Exception ex) {
 						ex.printStackTrace();
-						java.awt.Component source = (java.awt.Component) e
-								.getSource();
-						JOptionPane.showMessageDialog(source, ex.getMessage(),
-								"alert", JOptionPane.ERROR_MESSAGE);
+						java.awt.Component source = (java.awt.Component) e.getSource();
+						JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
