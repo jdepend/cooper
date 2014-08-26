@@ -1,4 +1,4 @@
-﻿1.2.3_03
+﻿1.2.3_03 2014-08-26
 
 a）将RelationCreator（建立组件之间的关系）和JavaClassRelationCreator（建立类之间的关系）的算法改造成多线程执行
 
@@ -6,9 +6,11 @@ b）将JavaClassUtil、JavaClassAvertCheat等的算法改造成多线程执行
 
 c）将PatternIdentifyerMgrImpl识别设计模式的算法改造成多线程执行
 
-d）优化显示性能
+d）优化显示性能（lazy calculate）
 
 e）修正在创建命令组时修改分析路径不马上有效的缺陷（向Step增加refresh方法）
+
+
 
 1.2.3_02 2014-08-09
 
