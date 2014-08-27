@@ -10,10 +10,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
-import jdepend.core.command.Command;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.FileUtil;
 

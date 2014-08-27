@@ -458,7 +458,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
 		// 初始化ClassList
-		initClassList(welcomeDialog);
+//		initClassList(welcomeDialog);
 		// 启动主窗口
 		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
 		// 显示

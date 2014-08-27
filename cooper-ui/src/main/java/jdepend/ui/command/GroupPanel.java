@@ -185,6 +185,7 @@ public class GroupPanel extends JPanel {
 
 	public void refreshPanel() throws JDependException {
 
+		tabPane.setVisible(false);
 		tabPane.removeAll();
 
 		if (CommandConfMgr.getInstance().getGroupNames().size() > 0) {
@@ -234,6 +235,7 @@ public class GroupPanel extends JPanel {
 			CommandAdapterMgr.setCurrentGroup(null);
 			CommandAdapterMgr.setCurrentCommand(null);
 		}
+		tabPane.setVisible(true);
 	}
 
 	public void viewGroup() {
