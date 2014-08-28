@@ -3,6 +3,8 @@ package jdepend.model.component.modelconf;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdepend.framework.exception.JDependException;
+
 /**
  * 
  * 组件模型配置信息管理器
@@ -63,5 +65,18 @@ public class ComponentModelConfMgr {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 删除指定组下的组件模型
+	 * 
+	 * @param group
+	 * @throws JDependException
+	 */
+	public void deleteGroupComponentModelConf(String group) throws JDependException {
+		GroupComponentModelConf conf = this.getTheGroupComponentModelConf(group);
+		conf.setComponentModelConfs(null);
+		conf.save();
+		groupComponentModelConfs.remove(conf);
 	}
 }

@@ -96,22 +96,6 @@ public class GroupConf implements Cloneable {
 		return groupCommands;
 	}
 
-	static List<GroupConf> getGroupCommands() throws CommandConfException {
-		if (groupCommands == null) {
-			return init();
-		}
-		return groupCommands;
-	}
-
-	static GroupConf getGroupCommand(String name) throws CommandConfException {
-		for (GroupConf group : getGroupCommands()) {
-			if (group.name.equals(name)) {
-				return group;
-			}
-		}
-		return null;
-	}
-
 	void insert() throws CommandConfException {
 
 		GroupConfRepository conf = new GroupConfRepository();
@@ -135,6 +119,12 @@ public class GroupConf implements Cloneable {
 	}
 
 	void delete() throws CommandConfException {
+		// 删除组件模型
+		try {
+			ComponentModelConfMgr.getInstance().deleteGroupComponentModelConf(name);
+		} catch (JDependException e) {
+			throw new CommandConfException(e);
+		}
 		// 删除命令组下的命令
 		CommandConfRepository cconf = new CommandConfRepository(this);
 
@@ -283,7 +273,7 @@ public class GroupConf implements Cloneable {
 		insertComponentGroups();
 		BusiLogUtil.getInstance().businessLog(Operation.deleteComponentModel);
 	}
-	
+
 	public GroupComponentModelConf getGroupComponentModelConf() {
 		return groupComponentModelConf;
 	}

@@ -22,7 +22,6 @@ import jdepend.core.config.CommandConf;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.framework.util.FileUtil;
 import jdepend.ui.JDependCooper;
 
 public class CommandPanel extends JPanel {
