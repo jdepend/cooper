@@ -22,6 +22,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import jdepend.core.command.CommandAdapter;
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.score.ScoreInfo;
 import jdepend.core.score.ScoreRepository;
@@ -45,20 +46,16 @@ public final class ScoreListDialog extends CooperDialog {
 			protected JScrollPane initTable() throws JDependException {
 				JScrollPane pane = super.initTable();
 				final JPopupMenu popupMenu = new JPopupMenu();
-				JMenuItem deleteItem = new JMenuItem(BundleUtil
-						.getString(BundleUtil.Command_Delete));
+				JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
 				deleteItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (JOptionPane.showConfirmDialog(
-								ScoreListDialog.this, "您是否确认删除？", "提示",
+						if (JOptionPane.showConfirmDialog(ScoreListDialog.this, "您是否确认删除？", "提示",
 								JOptionPane.YES_NO_OPTION) == 0) {
 							try {
 								delete();
 								refresh();
 							} catch (Exception ex) {
-								JOptionPane.showMessageDialog(
-										ScoreListDialog.this,
-										ex.getMessage(), "alert",
+								JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
 										JOptionPane.ERROR_MESSAGE);
 							}
 						}
@@ -66,16 +63,13 @@ public final class ScoreListDialog extends CooperDialog {
 				});
 				popupMenu.add(deleteItem);
 
-				JMenuItem viewResultItem = new JMenuItem(BundleUtil
-						.getString(BundleUtil.Command_ViewResult));
+				JMenuItem viewResultItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewResult));
 				viewResultItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							viewResult();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(
-									ScoreListDialog.this, ex.getMessage(),
-									"alert",
+							JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
@@ -83,48 +77,40 @@ public final class ScoreListDialog extends CooperDialog {
 				popupMenu.add(viewResultItem);
 				popupMenu.addSeparator();
 
-				JMenuItem exportTXTItem = new JMenuItem(BundleUtil
-						.getString(BundleUtil.Command_SaveAsTxt));
+				JMenuItem exportTXTItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAsTxt));
 				exportTXTItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							exportTXT();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(
-									ScoreListDialog.this, ex.getMessage(),
-									"alert",
+							JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
 				popupMenu.add(exportTXTItem);
 
-				JMenuItem exportHTMLItem = new JMenuItem(BundleUtil
-						.getString(BundleUtil.Command_SaveAsHTML));
+				JMenuItem exportHTMLItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAsHTML));
 				exportHTMLItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							exportHTML();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(
-									ScoreListDialog.this, ex.getMessage(),
-									"alert",
+							JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});
 				popupMenu.add(exportHTMLItem);
 
-				JMenuItem exportItem = new JMenuItem(BundleUtil
-						.getString(BundleUtil.Command_ExportList));
+				JMenuItem exportItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ExportList));
 				exportItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							export();
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(
-									ScoreListDialog.this, ex.getMessage(),
-									"alert", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});
@@ -153,8 +139,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				final AnalysisResult result = ScoreRepository
-						.getTheResult(this.getId());
+				final AnalysisResult result = ScoreRepository.getTheResult(this.getId());
 				if (result != null) {
 					new Thread() {
 						@Override
@@ -163,16 +148,12 @@ public final class ScoreListDialog extends CooperDialog {
 								// 清空历史
 								frame.clearPriorResult();
 								// 显示结果
-								JDependUnitMgr.getInstance().setResult(
-										result);
-								CommandAdapterMgr.setCurrentGroup(result
-										.getRunningContext().getGroup());
-								CommandAdapterMgr.setCurrentCommand(result
-										.getRunningContext().getCommand());
+								JDependUnitMgr.getInstance().setResult(result);
+								CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
+								CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
 								frame.getResultPanel().showResults();
 								// 刷新TODOList
-								frame.getPropertyPanel().getToDoListPanel()
-										.refresh();
+								frame.getPropertyPanel().getToDoListPanel().refresh();
 							} catch (JDependException e) {
 								e.printStackTrace();
 								frame.showStatusError(e.getMessage());
@@ -189,8 +170,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				JFileChooser jFileChooser = new JFileChooser(System
-						.getProperty("user.home"));
+				JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
 				int rtn = jFileChooser.showSaveDialog(null);
 				if (rtn == JFileChooser.APPROVE_OPTION) {
 					File f = jFileChooser.getSelectedFile();
@@ -198,15 +178,13 @@ public final class ScoreListDialog extends CooperDialog {
 					OutputStream stream = null;
 					try {
 						// 获取结果
-						AnalysisResult result = ScoreRepository
-								.getTheResult(this.getId());
+						AnalysisResult result = ScoreRepository.getTheResult(this.getId());
 						// 生成报告
 						TextSummaryPrinter printer = new TextSummaryPrinter();
 						stream = new ByteArrayOutputStream();
 						printer.setStream(stream);
 						printer.printBasic(result);
-						StringBuilder detailText = new StringBuilder(stream
-								.toString());
+						StringBuilder detailText = new StringBuilder(stream.toString());
 						stream.close();
 						// 创建TXT文件
 						String targetFile = null;
@@ -235,13 +213,11 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				JFileChooser jFileChooser = new JFileChooser(System
-						.getProperty("user.home"));
+				JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
 				int rtn = jFileChooser.showSaveDialog(null);
 				if (rtn == JFileChooser.APPROVE_OPTION) {
 					// 获取结果
-					AnalysisResult result = ScoreRepository
-							.getTheResult(this.getId());
+					AnalysisResult result = ScoreRepository.getTheResult(this.getId());
 					File f = jFileChooser.getSelectedFile();
 					// 创建HTML文件
 					String targetFile = null;
@@ -250,18 +226,13 @@ public final class ScoreListDialog extends CooperDialog {
 					} else {
 						targetFile = f.getAbsolutePath() + ".html";
 					}
-					FileUtil.saveFileContent(targetFile,
-							ExportHTML.export(result));
+					FileUtil.saveFileContent(targetFile, ExportHTML.export(result));
 					// copy CSS
-					String fileFromPath = System.getProperty("user.dir")
-							+ File.separator + ExportHTML.getCSSFileName();
-					String fileToPath = f.getParent()
-							+ File.separator
-							+ FileUtil.getFileName(ExportHTML
-									.getCSSFileName());
+					String fileFromPath = System.getProperty("user.dir") + File.separator + ExportHTML.getCSSFileName();
+					String fileToPath = f.getParent() + File.separator
+							+ FileUtil.getFileName(ExportHTML.getCSSFileName());
 					FileUtil.copyFile(fileFromPath, fileToPath);
-					JOptionPane.showMessageDialog(null, "保存成功。", "alert",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "保存成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 
@@ -286,38 +257,65 @@ public final class ScoreListDialog extends CooperDialog {
 					contentList.append(scoreInfo.relation);
 					contentList.append("	");
 					contentList.append(scoreInfo.score);
-//					contentList.append("	");
-//					contentList.append(scoreInfo.oo);
+					// contentList.append("	");
+					// contentList.append(scoreInfo.oo);
 					contentList.append("	");
 					contentList.append(scoreInfo.getCreateDate());
 					contentList.append("\n");
 				}
 
-				JFileChooser jFileChooser = new JFileChooser(System
-						.getProperty("user.home"));
+				JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
 
 				int result = jFileChooser.showSaveDialog(null);
 
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File f = jFileChooser.getSelectedFile();
-					FileUtil.saveFileContent(f.getAbsolutePath(),
-							contentList, "GBK");
-					JOptionPane.showMessageDialog(null, "导出分数列表成功。",
-							"alert", JOptionPane.INFORMATION_MESSAGE);
+					FileUtil.saveFileContent(f.getAbsolutePath(), contentList, "GBK");
+					JOptionPane.showMessageDialog(null, "导出分数列表成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 
 		});
 
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(this.createReCalculateButton());
 		buttonPanel.add(this.createCloseButton());
 		this.add(BorderLayout.SOUTH, buttonPanel);
 
 	}
 
+	public void reCalculate() throws JDependException {
+		List<ScoreInfo> scoreList = ScoreRepository.getScoreList();
+		for (ScoreInfo scoreInfo : scoreList) {
+			try {
+				CommandAdapter adapter = CommandAdapterMgr.getInstance().getTheCommandAdapter(scoreInfo.group,
+						scoreInfo.command);
+				adapter.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private Component createReCalculateButton() {
+		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_ReCalculate));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					reCalculate();
+				} catch (JDependException ex) {
+					ex.printStackTrace();
+					Component source = (Component) e.getSource();
+					JOptionPane.showMessageDialog(source, "重新计算失败", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		return button;
+	}
+
 	private Component createCloseButton() {
-		JButton button = new JButton(
-				BundleUtil.getString(BundleUtil.Command_Close));
+		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScoreListDialog.this.dispose();

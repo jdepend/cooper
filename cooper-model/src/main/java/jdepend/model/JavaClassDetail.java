@@ -1,8 +1,11 @@
 package jdepend.model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class JavaClassDetail implements Serializable {
@@ -16,16 +19,8 @@ public class JavaClassDetail implements Serializable {
 
 	private String superClassName;
 
-	private transient JavaClass superClass;
-
 	private Collection<String> interfaceNames = new ArrayList<String>();
-
-	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
-
-	private transient Collection<String> attributeTypes;
-
-	private transient Collection<String> paramTypes;
-
+	
 	private final Collection<String> variableTypes = new ArrayList<String>();
 
 	private final Collection<Attribute> attributes = new ArrayList<Attribute>();
@@ -33,6 +28,14 @@ public class JavaClassDetail implements Serializable {
 	private final Collection<Method> methods = new ArrayList<Method>();
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
+	
+	private transient JavaClass superClass;
+
+	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
+
+	private transient Collection<String> attributeTypes;
+
+	private transient Collection<String> paramTypes;
 
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
@@ -156,6 +159,12 @@ public class JavaClassDetail implements Serializable {
 	public Collection<JavaClass> getInterfaces() {
 		return interfaces;
 	}
+	
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		ois.defaultReadObject();
+		this.interfaces = new HashSet<JavaClass>();
+	}
+
 
 	@Override
 	public String toString() {

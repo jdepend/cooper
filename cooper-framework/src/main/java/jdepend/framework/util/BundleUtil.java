@@ -149,6 +149,7 @@ public class BundleUtil {
 	public static final String Command_Disable = "Command_Disable";
 	public static final String Command_Enable = "Command_Enable";
 	public static final String Command_Copy = "Command_Copy";
+	public static final String Command_ReCalculate = "Command_ReCalculate";// 重新计算
 	
 	public static final String RunningModel_Local = "RunningModel_Local";// 单机模式
 	public static final String RunningModel_Remote = "RunningModel_Remote";// 联机模式

@@ -128,7 +128,7 @@ public final class StaticsFrame extends JDependFrame {
 
 	public static void main(String args[]) throws JDependException {
 		initEnv(args);
-		initClassList();
+//		initClassList();
 		StaticsFrame statics = new StaticsFrame();
 		statics.display();
 	}

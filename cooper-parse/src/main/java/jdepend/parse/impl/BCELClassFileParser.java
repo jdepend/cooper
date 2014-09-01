@@ -32,6 +32,8 @@ public class BCELClassFileParser extends AbstractParser {
 			DescendingVisitor dvisitor = new DescendingVisitor(javaClass, visitor);
 
 			dvisitor.visit();
+			
+			jClass.calImportedPackages();
 
 			this.debug("");
 

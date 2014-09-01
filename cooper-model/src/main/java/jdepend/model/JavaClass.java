@@ -1065,7 +1065,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 
 	}
 
-	public synchronized void calImportedPackages() {
+	public void calImportedPackages() {
 		String packageName;
 
 		if (this.detail.getSuperClassName() != null) {
@@ -1201,13 +1201,9 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 	}
 
 	private boolean addImportedPackage(String jPackage) {
-		if (jPackage != null) {
-			if (!jPackage.equals(packageName) && !imports.contains(jPackage)) {
-				imports.add(jPackage);
-				return true;
-			} else {
-				return false;
-			}
+		if (!jPackage.equals(packageName) && !imports.contains(jPackage)) {
+			imports.add(jPackage);
+			return true;
 		} else {
 			return false;
 		}

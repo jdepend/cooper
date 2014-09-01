@@ -87,7 +87,6 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 							is = new ByteArrayInputStream(classData.getContent());
 							JavaClass javaClass = parser.parse(is);
 							javaClass.setPlace(place);
-							javaClass.calImportedPackages();
 							if (parser.getFilter().accept(javaClass.getPackageName())) {
 								synchronized (javaClasses) {
 									if (!javaClasses.contains(javaClass)) {
