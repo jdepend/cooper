@@ -24,6 +24,7 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
@@ -32,8 +33,6 @@ import jdepend.report.util.ReportConstant;
 public class ClassListPanel extends JPanel {
 
 	private DefaultTableModel classListModel;
-
-	private jdepend.model.Component component;
 
 	protected JTable classListTable;
 
@@ -59,7 +58,19 @@ public class ClassListPanel extends JPanel {
 
 	public void showClassList(jdepend.model.Component component) {
 		clearClassList();
-		this.loadClassList(component);
+
+		List<jdepend.model.Component> componnents = new ArrayList<jdepend.model.Component>();
+		componnents.add(component);
+		this.loadClassList(componnents);
+
+		List<String> fitColNames = new ArrayList<String>();
+		fitColNames.add(ReportConstant.Name);
+		JTableUtil.fitTableColumns(classListTable, fitColNames);
+	}
+
+	public void showAllClassList() {
+		clearClassList();
+		this.loadClassList(JDependUnitMgr.getInstance().getComponents());
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
@@ -71,22 +82,22 @@ public class ClassListPanel extends JPanel {
 		this.extendUnits = new ArrayList<String>();
 	}
 
-	private void loadClassList(jdepend.model.Component component) {
+	private void loadClassList(List<jdepend.model.Component> components) {
 
 		Object[] row;
 
-		this.component = component;
-
 		String metrics = null;
-		for (JavaClass javaClass : this.component.getClasses()) {
-			row = new Object[classListTable.getColumnCount()];
-			for (int i = 0; i < classListTable.getColumnCount(); i++) {
-				metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
-				row[i] = javaClass.getValue(metrics);
-			}
-			classListModel.addRow(row);
-			if (!javaClass.isInner()) {
-				this.extendUnits.add(javaClass.getName());
+		for (jdepend.model.Component component : components) {
+			for (JavaClass javaClass : component.getClasses()) {
+				row = new Object[classListTable.getColumnCount()];
+				for (int i = 0; i < classListTable.getColumnCount(); i++) {
+					metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+					row[i] = javaClass.getValue(metrics);
+				}
+				classListModel.addRow(row);
+				if (!javaClass.isInner()) {
+					this.extendUnits.add(javaClass.getName());
+				}
 			}
 		}
 
@@ -138,10 +149,11 @@ public class ClassListPanel extends JPanel {
 						String preValue = value.substring(0, pos);
 						int width = x + comp.getFontMetrics(comp.getFont()).stringWidth(preValue);
 						DetailDialog d;
+						JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 						if (p.x > x && p.x < width) {
-							d = new DetailDialog(component.getTheClass(current), currentCol, false);
+							d = new DetailDialog(currentClass, currentCol, false);
 						} else {
-							d = new DetailDialog(component.getTheClass(current), currentCol, true);
+							d = new DetailDialog(currentClass, currentCol, true);
 						}
 						d.setModal(true);
 						d.setVisible(true);
@@ -191,7 +203,7 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.Coupling);
 		classListModel.addColumn(ReportConstant.Cohesion);
 		classListModel.addColumn(ReportConstant.Balance);
-//		classListModel.addColumn(ReportConstant.OO);
+		// classListModel.addColumn(ReportConstant.OO);
 		classListModel.addColumn(ReportConstant.Cycle);
 		classListModel.addColumn(ReportConstant.JavaClass_State);
 		classListModel.addColumn(ReportConstant.JavaClass_Stable);
@@ -275,7 +287,7 @@ public class ClassListPanel extends JPanel {
 			boolean isInner;
 			String metrics1 = null;
 			for (JavaClassRelationItem item : items) {
-				isInner = ClassListPanel.this.component.containsClass(item.getDepend());
+				isInner = javaClass.getComponent().containsClass(item.getDepend());
 				// 判断是否是环境外的
 				if (includeInner || !isInner) {
 					row = new Object[listTable.getColumnCount()];
@@ -324,7 +336,7 @@ public class ClassListPanel extends JPanel {
 			listModel.addColumn(ReportConstant.Coupling);
 			listModel.addColumn(ReportConstant.Cohesion);
 			listModel.addColumn(ReportConstant.Balance);
-//			listModel.addColumn(ReportConstant.OO);
+			// listModel.addColumn(ReportConstant.OO);
 			listModel.addColumn(ReportConstant.Cycle);
 			listModel.addColumn(ReportConstant.JavaClass_State);
 			listModel.addColumn(ReportConstant.JavaClass_Stable);

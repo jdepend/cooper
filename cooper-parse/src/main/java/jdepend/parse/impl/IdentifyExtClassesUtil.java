@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
 import jdepend.model.util.ParseUtil;
@@ -66,7 +67,12 @@ class IdentifyExtClassesUtil {
 			}
 		}
 
-		return this.extendJavaClasses.values();
+		Collection<JavaClass> extJavaClasses = this.extendJavaClasses.values();
+
+		LogUtil.getInstance(IdentifyExtClassesUtil.class).systemLog(
+				"Identify Ext " + extJavaClasses.size() + " Classes.");
+
+		return extJavaClasses;
 	}
 
 	private void appendExtJavaClass(String javaClassName) {

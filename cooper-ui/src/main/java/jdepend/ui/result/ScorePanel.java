@@ -44,6 +44,7 @@ import jdepend.report.ui.ClassListDialog;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.ScoreListDialog;
 import jdepend.ui.componentconf.ChangedPackageListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
@@ -361,6 +362,10 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		}
 	}
 
+	/**
+	 * 左侧分数面板
+	 * @return
+	 */
 	private JComponent createScorePanel() {
 
 		JPanel scorePanel = new JPanel(new BorderLayout());
@@ -388,7 +393,16 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_CN) + ":"));
-		panel.add(new JLabel("" + result.getSummary().getClassCount()));
+		valuePanel = new JLabel("" + result.getSummary().getClassCount());
+		JDependUIUtil.addClickTipEffect(valuePanel);
+		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				ClassListDialog d = new ClassListDialog(frame);
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		panel.add(valuePanel);
 		itemCompareLabel = this.getComparedLabel(result.getSummary().getClassCount(), AnalysisResult.Metrics_CN);
 		if (itemCompareLabel != null) {
 			panel.add(itemCompareLabel);

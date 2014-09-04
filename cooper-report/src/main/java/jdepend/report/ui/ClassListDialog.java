@@ -5,20 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaClass;
 
 public class ClassListDialog extends CooperDialog {
 
 	public ClassListDialog(jdepend.model.Component component) {
-		super();
+		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
 
 		final ClassListPanel classListPanel = new ClassListPanel();
@@ -43,6 +42,10 @@ public class ClassListDialog extends CooperDialog {
 				}
 			}
 		});
+	}
+
+	public ClassListDialog(JDependFrame frame) {
+		super("类列表");
 	}
 
 }

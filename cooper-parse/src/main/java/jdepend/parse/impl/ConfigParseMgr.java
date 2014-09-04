@@ -57,6 +57,7 @@ public final class ConfigParseMgr {
 			DocumentBuilder builder = getDocumentBuilder();
 			InputStream is = null;
 			Document doc = null;
+			int configCount = 0;
 			for (String place : configs.keySet()) {
 				for (TargetFileInfo config : configs.get(place)) {
 					try {
@@ -67,6 +68,7 @@ public final class ConfigParseMgr {
 						} else if (currentXMLType != null && this.parses.get(currentXMLType) == null) {
 							LogUtil.getInstance(ConfigParseMgr.class).systemWarning("未配置" + currentXMLType + "XML解析器。");
 						}
+						configCount++;
 					} catch (Exception e) {
 						e.printStackTrace();
 					} finally {
@@ -80,6 +82,7 @@ public final class ConfigParseMgr {
 					}
 				}
 			}
+			LogUtil.getInstance(ConfigParseMgr.class).systemWarning("分析了" + configCount + "个XML文件。");
 
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
