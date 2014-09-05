@@ -30,6 +30,11 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	private transient Float coupling = null;
 	private transient Float encapsulation = null;
 
+	private transient Float abstractness = null;
+	private transient Float stability = null;
+	private transient Float distance = null;
+	private transient Float volatility = null;
+
 	public AbstractJDependUnit() {
 
 	}
@@ -57,21 +62,27 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	public void setType(JDependUnitType type) {
 		this.type = type;
 	}
-	
+
 	public abstract AnalysisResult getResult();
 
 	/**
 	 * @return Instability (0-1).
 	 */
 	public float getStability() {
-		return new CalculateMetricsTool(this).stability();
+		if (stability == null) {
+			stability = new CalculateMetricsTool(this).stability();
+		}
+		return stability;
 	}
 
 	/**
 	 * @return The package's abstractness (0-1).
 	 */
 	public float getAbstractness() {
-		return new CalculateMetricsTool(this).abstractness();
+		if (abstractness == null) {
+			abstractness = new CalculateMetricsTool(this).abstractness();
+		}
+		return abstractness;
 	}
 
 	public int getAfferentCoupling() {
@@ -86,12 +97,18 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	 * @return The package's distance from the main sequence (D).
 	 */
 	public float getDistance() {
-		return new CalculateMetricsTool(this).distance();
+		if (distance == null) {
+			distance = new CalculateMetricsTool(this).distance();
+		}
+		return distance;
 	}
 
 	@Override
 	public float getVolatility() {
-		return new CalculateMetricsTool(this).volatility();
+		if (volatility == null) {
+			volatility = new CalculateMetricsTool(this).volatility();
+		}
+		return volatility;
 	}
 
 	/**
@@ -210,6 +227,11 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		this.cohesion = null;
 		this.coupling = null;
 		this.encapsulation = null;
+
+		this.abstractness = null;
+		this.distance = null;
+		this.stability = null;
+		this.volatility = null;
 	}
 
 	@Override

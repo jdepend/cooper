@@ -74,6 +74,7 @@ public class ClassListDialog extends CooperDialog {
 	}
 
 	private JPanel createSearchPanel() {
+
 		JPanel searchPanel = new JPanel();
 		searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -85,7 +86,8 @@ public class ClassListDialog extends CooperDialog {
 		nameFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				classListPanel.filterName(((JTextField)e.getSource()).getText());
+				classListPanel.filterName(((JTextField) e.getSource()).getText());
+				classListPanel.reLoadClassList();
 			}
 		});
 		searchPanel.add(nameFilter);

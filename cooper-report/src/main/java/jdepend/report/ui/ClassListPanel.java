@@ -24,6 +24,7 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
+import jdepend.framework.util.StringUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
@@ -43,6 +44,10 @@ public class ClassListPanel extends JPanel {
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
 
+	private String nameFilter;
+
+	private List<jdepend.model.Component> components;
+
 	public ClassListPanel() {
 		super();
 
@@ -59,9 +64,9 @@ public class ClassListPanel extends JPanel {
 	public void showClassList(jdepend.model.Component component) {
 		clearClassList();
 
-		List<jdepend.model.Component> componnents = new ArrayList<jdepend.model.Component>();
-		componnents.add(component);
-		this.loadClassList(componnents);
+		components = new ArrayList<jdepend.model.Component>();
+		components.add(component);
+		this.loadClassList();
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
@@ -70,7 +75,17 @@ public class ClassListPanel extends JPanel {
 
 	public void showAllClassList() {
 		clearClassList();
-		this.loadClassList(JDependUnitMgr.getInstance().getComponents());
+		components = JDependUnitMgr.getInstance().getComponents();
+		this.loadClassList();
+
+		List<String> fitColNames = new ArrayList<String>();
+		fitColNames.add(ReportConstant.Name);
+		JTableUtil.fitTableColumns(classListTable, fitColNames);
+	}
+
+	public void reLoadClassList() {
+		clearClassList();
+		this.loadClassList();
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
@@ -82,25 +97,26 @@ public class ClassListPanel extends JPanel {
 		this.extendUnits = new ArrayList<String>();
 	}
 
-	private void loadClassList(List<jdepend.model.Component> components) {
+	private void loadClassList() {
 
 		Object[] row;
 
 		String metrics = null;
 		for (jdepend.model.Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				row = new Object[classListTable.getColumnCount()];
-				for (int i = 0; i < classListTable.getColumnCount(); i++) {
-					metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
-					row[i] = javaClass.getValue(metrics);
-				}
-				classListModel.addRow(row);
-				if (!javaClass.isInner()) {
-					this.extendUnits.add(javaClass.getName());
+				if (nameFilter == null || StringUtil.match(nameFilter, javaClass.getName())) {
+					row = new Object[classListTable.getColumnCount()];
+					for (int i = 0; i < classListTable.getColumnCount(); i++) {
+						metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+						row[i] = javaClass.getValue(metrics);
+					}
+					classListModel.addRow(row);
+					if (!javaClass.isInner()) {
+						this.extendUnits.add(javaClass.getName());
+					}
 				}
 			}
 		}
-
 	}
 
 	protected void initClassList() {
@@ -407,7 +423,6 @@ public class ClassListPanel extends JPanel {
 	}
 
 	public void filterName(String name) {
-		// TODO Auto-generated method stub
-
+		this.nameFilter = name;
 	}
 }
