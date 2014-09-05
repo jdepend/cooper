@@ -94,10 +94,8 @@ public final class StaticsFrame extends JDependFrame {
 		});
 	}
 
-	private void display() {
+	protected void doDisplay() {
 		this.createUI();
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setVisible(true);
 	}
 
 	private void createUI() {

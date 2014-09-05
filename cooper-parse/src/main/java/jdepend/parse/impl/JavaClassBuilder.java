@@ -46,17 +46,22 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 		if (this.javaClasses == null || this.getConf().getEveryClassBuild()) {
 			javaClasses = new HashSet<JavaClass>();
 			// 解析Config
-			this.parseConfigs(data.getConfigs());
+			if (this.isParseConfigs()) {
+				this.parseConfigs(data.getConfigs());
+			}
 			// 解析JavaClasses
 			this.parseClasses(data.getClasses());
 			// 补充JavaClassDetail信息
-			JavaClassUtil.supplyJavaClassDetail(new JavaClassCollection(this.javaClasses));
+			if (this.isSupplyJavaClassDetail()) {
+				LogUtil.getInstance(JavaClassBuilder.class).systemLog(
+						"开始填充Class细节，Class的个数为：" + this.getJavaClasses().size());
+				JavaClassUtil.supplyJavaClassDetail(new JavaClassCollection(this.javaClasses));
+			}
 			// 添加外部classes
 			this.appendExtClasses();
 			// 建立Class的关系
 			if (this.isBuildClassRelation()) {
-				LogUtil.getInstance(JavaClassBuilder.class).systemLog(
-						"开始建立Class的关系，Class的个数为：" + this.getJavaClasses().size());
+				LogUtil.getInstance(JavaClassBuilder.class).systemLog("开始建立Class的关系");
 				(new JavaClassRelationCreator(this.getConf())).create(this.javaClasses);
 			}
 			// 发出事件

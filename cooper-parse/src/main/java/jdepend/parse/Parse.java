@@ -50,6 +50,14 @@ public class Parse {
 		this.getClassBuilder().setBuildClassRelation(isBuildClassRelation);
 	}
 
+	public void setSupplyJavaClassDetail(boolean isSupplyJavaClassDetail) {
+		this.getClassBuilder().setSupplyJavaClassDetail(isSupplyJavaClassDetail);
+	}
+
+	public void setParseConfigs(boolean isParseConfigs) {
+		this.getClassBuilder().setParseConfigs(isParseConfigs);
+	}
+
 	/**
 	 * 解析目标对象
 	 * 

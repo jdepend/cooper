@@ -405,4 +405,9 @@ public class ClassListPanel extends JPanel {
 		}
 
 	}
+
+	public void filterName(String name) {
+		// TODO Auto-generated method stub
+
+	}
 }

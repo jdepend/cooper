@@ -212,15 +212,9 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		});
 	}
 
-	protected void display() {
+	protected void doDisplay() {
 		createUI();
-
 		this.defaultLayout();
-
-		this.pack();
-		this.setVisible(true);
-
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	private void defaultLayout() {
@@ -458,7 +452,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
 		// 初始化ClassList
-//		initClassList(welcomeDialog);
+		// initClassList(welcomeDialog);
 		// 启动主窗口
 		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
 		// 显示

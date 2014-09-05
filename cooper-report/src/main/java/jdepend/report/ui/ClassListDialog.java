@@ -1,13 +1,20 @@
 package jdepend.report.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
@@ -16,13 +23,35 @@ import jdepend.framework.util.BundleUtil;
 
 public class ClassListDialog extends CooperDialog {
 
+	private ClassListPanel classListPanel;
+
 	public ClassListDialog(jdepend.model.Component component) {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
 
-		final ClassListPanel classListPanel = new ClassListPanel();
+		classListPanel = new ClassListPanel();
 		this.add(classListPanel);
 		classListPanel.showClassList(component);
+
+		this.initPopupMenu();
+	}
+
+	public ClassListDialog(JDependFrame frame) {
+		super("类列表");
+		this.setSize(frame.getScrSize().width, frame.getScrSize().height);
+		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
+		getContentPane().setLayout(new BorderLayout());
+
+		this.add(BorderLayout.NORTH, this.createSearchPanel());
+
+		classListPanel = new ClassListPanel();
+		this.add(classListPanel);
+		classListPanel.showAllClassList();
+
+		this.initPopupMenu();
+	}
+
+	private void initPopupMenu() {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
@@ -44,8 +73,24 @@ public class ClassListDialog extends CooperDialog {
 		});
 	}
 
-	public ClassListDialog(JDependFrame frame) {
-		super("类列表");
+	private JPanel createSearchPanel() {
+		JPanel searchPanel = new JPanel();
+		searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		JLabel titleLabel = new JLabel(BundleUtil.getString(BundleUtil.Metrics_Name) + ":");
+		searchPanel.add(titleLabel);
+
+		JTextField nameFilter = new JTextField();
+		nameFilter.setPreferredSize(new Dimension(250, 20));
+		nameFilter.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				classListPanel.filterName(((JTextField)e.getSource()).getText());
+			}
+		});
+		searchPanel.add(nameFilter);
+
+		return searchPanel;
 	}
 
 }

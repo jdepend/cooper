@@ -6,8 +6,8 @@ import javax.swing.JDialog;
 
 public abstract class CooperDialog extends JDialog {
 
-	private static final int ResultPopDialogWidth = 750;
-	private static final int ResultPopDialogHeight = 550;
+	protected static final int ResultPopDialogWidth = 750;
+	protected static final int ResultPopDialogHeight = 550;
 
 	public CooperDialog() {
 		this(null);

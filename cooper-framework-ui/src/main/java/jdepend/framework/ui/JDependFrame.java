@@ -1,7 +1,9 @@
 package jdepend.framework.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
@@ -33,8 +35,20 @@ public abstract class JDependFrame extends JFrame {
 
 	private static Font BOLD_FONT = new Font("dialog", Font.BOLD, 12);
 
+	protected Dimension scrSize;
+
 	public JDependFrame(String name) {
 		super(name);
+	}
+
+	public void display() {
+		this.doDisplay();
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setVisible(true);
+		scrSize = this.getSize();
+	}
+
+	protected void doDisplay() {
 	}
 
 	protected StatusPanel getStatusPanel() {
@@ -131,6 +145,10 @@ public abstract class JDependFrame extends JFrame {
 	}
 
 	public abstract void refresh() throws JDependException;
+
+	public Dimension getScrSize() {
+		return scrSize;
+	}
 
 	protected JMenuBar createMenubar() {
 

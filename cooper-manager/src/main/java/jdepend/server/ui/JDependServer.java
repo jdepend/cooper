@@ -69,7 +69,7 @@ public class JDependServer extends JDependFrame {
 		});
 	}
 
-	private void display() {
+	protected void doDisplay() {
 
 		this.getContentPane().setLayout(new BorderLayout());
 
@@ -101,11 +101,6 @@ public class JDependServer extends JDependFrame {
 
 		StatusPanel statusPanel = getStatusPanel();
 		this.getContentPane().add(BorderLayout.SOUTH, statusPanel);
-
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-		this.setVisible(true);
-
 	}
 
 	private void startSessionService() throws JDependException {

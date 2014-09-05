@@ -285,6 +285,8 @@ public class JavaPackageListTable extends JTable {
 		paths.add(path);
 
 		SearchUtil searchUtil = new SearchUtil(paths);
+		searchUtil.setParseConfigs(false);
+		searchUtil.setSupplyJavaClassDetail(false);
 		searchUtil.setBuildClassRelation(false);
 
 		try {

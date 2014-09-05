@@ -77,7 +77,7 @@ public final class SearchUtil {
 	private void analyse() throws JDependException {
 
 		this.javaPackages = new ArrayList<JavaPackage>(this.jdepend.execute());
-		
+
 		this.javaClasses = new ArrayList<JavaClass>();
 		for (JavaPackage javaPackage : javaPackages) {
 			javaClasses.addAll(javaPackage.getClasses());
@@ -98,6 +98,14 @@ public final class SearchUtil {
 
 	public void setBuildClassRelation(boolean isBuildClassRelation) {
 		this.jdepend.setBuildClassRelation(isBuildClassRelation);
+	}
+
+	public void setSupplyJavaClassDetail(boolean isSupplyJavaClassDetail) {
+		this.jdepend.setSupplyJavaClassDetail(isSupplyJavaClassDetail);
+	}
+
+	public void setParseConfigs(boolean isParseConfigs) {
+		this.jdepend.setParseConfigs(isParseConfigs);
 	}
 
 	public void addParseListener(ParseListener listener) {
