@@ -27,6 +27,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
+import jdepend.framework.util.StringUtil;
 import jdepend.model.JavaPackage;
 import jdepend.parse.util.SearchUtil;
 
@@ -255,7 +256,7 @@ public class JavaPackageListTable extends JTable {
 		List<String> matchPackageList = new ArrayList<String>();
 
 		for (String packageName : this.currentPackageList) {
-			filterString = filter == null || filter.length() == 0 || packageName.indexOf(filter) != -1;
+			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, packageName);
 			filterExtResult = filterExtSetting ? this.packageForNames.get(packageName).isInner() ? true : false : true;
 			if (filterString && filterExtResult) {
 				matchPackageList.add(packageName);
