@@ -25,6 +25,8 @@ public class ClassListDialog extends CooperDialog {
 
 	private ClassListPanel classListPanel;
 
+	private JLabel tipLabel;
+
 	public ClassListDialog(jdepend.model.Component component) {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
@@ -46,7 +48,8 @@ public class ClassListDialog extends CooperDialog {
 
 		classListPanel = new ClassListPanel();
 		this.add(classListPanel);
-		classListPanel.showAllClassList();
+		int classCount = classListPanel.showAllClassList();
+		tipLabel.setText("共" + classCount + "个类");
 
 		this.initPopupMenu();
 	}
@@ -87,10 +90,14 @@ public class ClassListDialog extends CooperDialog {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				classListPanel.filterName(((JTextField) e.getSource()).getText());
-				classListPanel.reLoadClassList();
+				int classCount = classListPanel.reLoadClassList();
+				tipLabel.setText("共" + classCount + "个类");
 			}
 		});
 		searchPanel.add(nameFilter);
+
+		tipLabel = new JLabel();
+		searchPanel.add(tipLabel);
 
 		return searchPanel;
 	}

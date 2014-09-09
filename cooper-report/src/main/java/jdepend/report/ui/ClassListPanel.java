@@ -61,7 +61,7 @@ public class ClassListPanel extends JPanel {
 		this.add(pane);
 	}
 
-	public void showClassList(jdepend.model.Component component) {
+	public int showClassList(jdepend.model.Component component) {
 		clearClassList();
 
 		components = new ArrayList<jdepend.model.Component>();
@@ -71,9 +71,11 @@ public class ClassListPanel extends JPanel {
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
 		JTableUtil.fitTableColumns(classListTable, fitColNames);
+
+		return classListModel.getRowCount();
 	}
 
-	public void showAllClassList() {
+	public int showAllClassList() {
 		clearClassList();
 		components = JDependUnitMgr.getInstance().getComponents();
 		this.loadClassList();
@@ -81,15 +83,19 @@ public class ClassListPanel extends JPanel {
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
 		JTableUtil.fitTableColumns(classListTable, fitColNames);
+
+		return classListModel.getRowCount();
 	}
 
-	public void reLoadClassList() {
+	public int reLoadClassList() {
 		clearClassList();
 		this.loadClassList();
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
 		JTableUtil.fitTableColumns(classListTable, fitColNames);
+
+		return classListModel.getRowCount();
 	}
 
 	public void clearClassList() {
