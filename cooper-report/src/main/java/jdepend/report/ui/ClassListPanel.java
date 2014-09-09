@@ -110,7 +110,7 @@ public class ClassListPanel extends JPanel {
 		String metrics = null;
 		for (jdepend.model.Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				if (nameFilter == null || StringUtil.match(nameFilter, javaClass.getName())) {
+				if (nameFilter == null || nameFilter.length() == 0 || StringUtil.match(nameFilter, javaClass.getName())) {
 					row = new Object[classListTable.getColumnCount()];
 					for (int i = 0; i < classListTable.getColumnCount(); i++) {
 						metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
