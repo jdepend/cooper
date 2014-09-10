@@ -42,6 +42,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
 import jdepend.report.ui.ClassListDialog;
 import jdepend.report.ui.CohesionDialog;
+import jdepend.report.ui.CouplingDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.ScoreListDialog;
@@ -364,6 +365,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 	/**
 	 * 左侧分数面板
+	 * 
 	 * @return
 	 */
 	private JComponent createScorePanel() {
@@ -457,7 +459,16 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Coupling) + ":"));
-		panel.add(new JLabel("" + result.getSummary().getCoupling()));
+		valuePanel = new JLabel("" + result.getSummary().getCoupling());
+		JDependUIUtil.addClickTipEffect(valuePanel);
+		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				CouplingDialog d = new CouplingDialog();
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		panel.add(valuePanel);
 		itemCompareLabel = this.getComparedLabel(result.getSummary().getCoupling(), AnalysisResult.Metrics_Coupling);
 		if (itemCompareLabel != null) {
 			panel.add(itemCompareLabel);
@@ -467,7 +478,16 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Cohesion) + ":"));
-		panel.add(new JLabel("" + result.getSummary().getCohesion()));
+		valuePanel = new JLabel("" + result.getSummary().getCohesion());
+		JDependUIUtil.addClickTipEffect(valuePanel);
+		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				CohesionDialog d = new CohesionDialog();
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		panel.add(valuePanel);
 		itemCompareLabel = this.getComparedLabel(result.getSummary().getCohesion(), AnalysisResult.Metrics_Cohesion);
 		if (itemCompareLabel != null) {
 			panel.add(itemCompareLabel);

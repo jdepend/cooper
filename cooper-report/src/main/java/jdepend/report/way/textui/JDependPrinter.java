@@ -111,7 +111,7 @@ public final class JDependPrinter extends Printer {
 		xmlSummaryPrinter.printBasic(result);
 	}
 
-	protected void printCouplings(Collection<Component> units1) {
+	public void printCouplings(Collection<? extends JDependUnit> units1) {
 
 		getWriter().println("<?xml version=\"1.0\"?>");
 		getWriter().println("<Components>");
@@ -126,7 +126,7 @@ public final class JDependPrinter extends Printer {
 		getWriter().println("</Components>");
 	}
 
-	public void printCoupling(JDependUnit unit) {
+	private void printCoupling(JDependUnit unit) {
 
 		Float ceCoupling = 0F;
 		Float caCoupling = 0F;
@@ -257,7 +257,7 @@ public final class JDependPrinter extends Printer {
 		}
 	}
 
-	protected void printCohesions(Collection<Component> units1) {
+	public void printCohesions(Collection<? extends JDependUnit> units1) {
 
 		getWriter().println("<?xml version=\"1.0\"?>");
 		getWriter().println("<Components>");

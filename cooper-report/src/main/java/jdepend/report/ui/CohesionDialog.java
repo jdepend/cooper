@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JScrollPane;
 
@@ -23,13 +25,25 @@ public class CohesionDialog extends CooperDialog {
 		getContentPane().setLayout(new BorderLayout());
 
 		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
+		Collection<JDependUnit> units = new ArrayList<JDependUnit>();
+		units.add(unit);
 
-		printCohesion(unit);
+		printCohesion(units);
 
 		this.add(new JScrollPane((new XMLJDependUtil()).createResult(cohesionText)));
 	}
 
-	private void printCohesion(JDependUnit unit) {
+	public CohesionDialog() {
+
+		super("内聚值（正序）");
+
+		getContentPane().setLayout(new BorderLayout());
+		printCohesion(JDependUnitMgr.getInstance().getComponents());
+
+		this.add(new JScrollPane((new XMLJDependUtil()).createResult(cohesionText)));
+	}
+
+	private void printCohesion(Collection<? extends JDependUnit> units) {
 
 		OutputStream info = new ByteArrayOutputStream();
 
@@ -37,7 +51,7 @@ public class CohesionDialog extends CooperDialog {
 
 		printer.setStream(info);
 
-		printer.printCohesion(unit);
+		printer.printCohesions(units);
 
 		printer.getWriter().flush();
 

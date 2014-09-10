@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JScrollPane;
 
@@ -23,13 +25,26 @@ public class CouplingDialog extends CooperDialog {
 		getContentPane().setLayout(new BorderLayout());
 
 		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
+		Collection<JDependUnit> units = new ArrayList<JDependUnit>();
+		units.add(unit);
 
-		printCoupling(unit);
+		printCoupling(units);
 
 		this.add(new JScrollPane((new XMLJDependUtil()).createResult(couplingText)));
 	}
 
-	private void printCoupling(JDependUnit unit) {
+	public CouplingDialog() {
+
+		super("耦合值（倒序）");
+
+		getContentPane().setLayout(new BorderLayout());
+
+		printCoupling(JDependUnitMgr.getInstance().getComponents());
+
+		this.add(new JScrollPane((new XMLJDependUtil()).createResult(couplingText)));
+	}
+
+	private void printCoupling(Collection<? extends JDependUnit> units) {
 
 		OutputStream info = new ByteArrayOutputStream();
 
@@ -37,7 +52,7 @@ public class CouplingDialog extends CooperDialog {
 
 		printer.setStream(info);
 
-		printer.printCoupling(unit);
+		printer.printCouplings(units);
 
 		printer.getWriter().flush();
 
