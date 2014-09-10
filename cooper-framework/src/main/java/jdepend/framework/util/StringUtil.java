@@ -56,6 +56,16 @@ public final class StringUtil {
 		if (pattern == null || str == null)
 			return false;
 
+		for (String item : pattern.split("\\|")) {
+			if (item.trim().length() != 0 && matchItem(item.trim(), str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean matchItem(String pattern, String str) {
+
 		boolean result = false;
 		char c; // 当前要匹配的字符串
 		boolean beforeStar = false; // 是否遇到通配符*
