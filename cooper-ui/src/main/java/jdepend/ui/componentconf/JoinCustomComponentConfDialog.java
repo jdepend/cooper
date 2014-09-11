@@ -20,6 +20,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 
 abstract class JoinCustomComponentConfDialog extends JDialog {
 
@@ -29,9 +30,9 @@ abstract class JoinCustomComponentConfDialog extends JDialog {
 
 	private JTable componentListTable;
 
-	private ComponentModelConf componentModelConf;
+	private JavaPackageComponentModelConf componentModelConf;
 
-	public JoinCustomComponentConfDialog(List<String> packages, ComponentModelConf componentModelConf) {
+	public JoinCustomComponentConfDialog(List<String> packages, JavaPackageComponentModelConf componentModelConf) {
 		this.joinPackages = packages;
 		this.componentModelConf = componentModelConf;
 

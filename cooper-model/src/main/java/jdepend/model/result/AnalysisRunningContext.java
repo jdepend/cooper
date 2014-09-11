@@ -15,6 +15,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.util.JavaClassUtil;
 
 /**
@@ -62,7 +63,7 @@ public final class AnalysisRunningContext implements Serializable {
 	private transient Map<String, String> diffPackages;
 
 	private transient Collection<JavaClass> javaClasses;
-	
+
 	private transient Map<String, JavaPackage> javaPackageForNames;
 
 	public AnalysisRunningContext() {
@@ -162,7 +163,7 @@ public final class AnalysisRunningContext implements Serializable {
 	public void setJavaPackages(List<JavaPackage> packages) {
 		this.javaPackages = packages;
 	}
-	
+
 	public JavaPackage getThePackage(String name) {
 
 		if (javaPackageForNames == null) {
@@ -192,27 +193,31 @@ public final class AnalysisRunningContext implements Serializable {
 			diffPackages = new HashMap<String, String>();
 			if (this.component instanceof CustomComponent) {
 				ComponentModelConf componentModelConf = ((CustomComponent) this.component).getComponentModelConf();
-				Collection<String> containPackages = componentModelConf.getContainPackages();
-				Collection<String> ignorePackages = componentModelConf.getIgnorePackages();
-				Collection<String> runPackages = new HashSet<String>();
-				Map<String, JavaPackage> javaPackageForName = new HashMap<String, JavaPackage>();
+				if (componentModelConf instanceof JavaPackageComponentModelConf) {
+					Collection<String> containPackages = ((JavaPackageComponentModelConf) componentModelConf)
+							.getContainPackages();
+					Collection<String> ignorePackages = ((JavaPackageComponentModelConf) componentModelConf)
+							.getIgnorePackages();
+					Collection<String> runPackages = new HashSet<String>();
+					Map<String, JavaPackage> javaPackageForName = new HashMap<String, JavaPackage>();
 
-				if (this.javaPackages != null) {
-					for (JavaPackage javaPackage : this.javaPackages) {
-						runPackages.add(javaPackage.getName());
-						javaPackageForName.put(javaPackage.getName(), javaPackage);
-					}
-				}
-				for (String runPackage : runPackages) {
-					if (!containPackages.contains(runPackage) && !ignorePackages.contains(runPackage)) {
-						if (javaPackageForName.get(runPackage).isInner()) {
-							diffPackages.put(runPackage, "ADD");
+					if (this.javaPackages != null) {
+						for (JavaPackage javaPackage : this.javaPackages) {
+							runPackages.add(javaPackage.getName());
+							javaPackageForName.put(javaPackage.getName(), javaPackage);
 						}
 					}
-				}
-				for (String containPackage : containPackages) {
-					if (!runPackages.contains(containPackage)) {
-						diffPackages.put(containPackage, "DELETE");
+					for (String runPackage : runPackages) {
+						if (!containPackages.contains(runPackage) && !ignorePackages.contains(runPackage)) {
+							if (javaPackageForName.get(runPackage).isInner()) {
+								diffPackages.put(runPackage, "ADD");
+							}
+						}
+					}
+					for (String containPackage : containPackages) {
+						if (!runPackages.contains(containPackage)) {
+							diffPackages.put(containPackage, "DELETE");
+						}
 					}
 				}
 			}

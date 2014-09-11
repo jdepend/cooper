@@ -13,6 +13,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
@@ -91,7 +92,7 @@ public class AnalyseController {
 	public String execute(@ModelAttribute("componentModel") String componentModel, Model model,
 			HttpServletRequest request) throws JDependException {
 
-		ComponentModelConf componentModelConf = new ComponentModelConf();
+		JavaPackageComponentModelConf componentModelConf = new JavaPackageComponentModelConf();
 		JSONObject componentModelObject = new JSONObject(componentModel);
 		for (Object componentName : componentModelObject.keySet()) {
 			JSONArray packageList = (JSONArray) componentModelObject.get((String) componentName);

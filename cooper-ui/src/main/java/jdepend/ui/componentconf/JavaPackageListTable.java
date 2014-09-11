@@ -237,7 +237,7 @@ public class JavaPackageListTable extends JTable {
 		}
 	}
 
-	protected void addThePackageList(List<String> packageNames) {
+	protected void addThePackageList(Collection<String> packageNames) {
 		for (JavaPackage javaPackage : packages) {
 			if (packageNames.contains(javaPackage.getName())
 					&& !this.currentPackageList.contains(javaPackage.getName())) {

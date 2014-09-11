@@ -33,6 +33,8 @@ import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 
@@ -101,8 +103,9 @@ public final class ChangedPackageListDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				final GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 						.getTheGroupComponentModelConf(group);
-				ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
+				ComponentModelConf componentModelConf1 = groupComponentModelConf.getComponentModelConfs().get(
 						componentModelConfName);
+				JavaPackageComponentModelConf componentModelConf = (JavaPackageComponentModelConf) componentModelConf1;
 				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages.get("新增"),
 						componentModelConf) {
 					@Override
@@ -127,7 +130,8 @@ public final class ChangedPackageListDialog extends JDialog {
 								.getTheGroupComponentModelConf(group);
 						ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 								componentModelConfName);
-						componentModelConf.addComponentConf(componentname.getText(), getComponentLayer(), units);
+						((JavaPackageComponentModelConf) componentModelConf).addComponentConf(componentname.getText(),
+								getComponentLayer(), units);
 						groupComponentModelConf.save();
 						deleteSelectedPackages();
 					}
@@ -227,12 +231,12 @@ public final class ChangedPackageListDialog extends JDialog {
 	private void deletePackagesFromConf() throws JDependException {
 		GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 				.getTheGroupComponentModelConf(group);
-		ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
+		ComponentModelConf<ComponentConf> componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 				componentModelConfName);
 
 		ArrayList<String> deletePackages = this.selectedPackages.get("已删除");
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
-			Iterator<String> it = componentConf.getPackages().iterator();
+			Iterator<String> it = ((JavaPackageComponentConf) componentConf).getPackages().iterator();
 			while (it.hasNext()) {
 				if (deletePackages.contains(it.next())) {
 					it.remove();

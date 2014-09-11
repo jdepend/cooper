@@ -9,6 +9,7 @@ import java.util.Map;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
+import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
 /**
@@ -80,7 +81,7 @@ public final class CommandConfMgr {
 	}
 
 	public void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute,
-			List<CommandConf> commandInfos, Map<String, ComponentModelConf> componentModels) throws JDependException {
+			List<CommandConf> commandInfos, Map<String, ComponentModelConf<ComponentConf>> componentModels) throws JDependException {
 		GroupConf group = new GroupConf(name);
 		group.setPath(path);
 		group.setSrcPath(srcPath);

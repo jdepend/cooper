@@ -8,6 +8,7 @@ import java.util.Map;
 import jdepend.core.config.CommandConf;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
+import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
 public final class DefaultNewGroupWorker implements NewGroupWorker {
@@ -22,7 +23,7 @@ public final class DefaultNewGroupWorker implements NewGroupWorker {
 
 	private String attribute;
 
-	private Map<String, ComponentModelConf> componentModels = new LinkedHashMap<String, ComponentModelConf>();
+	private Map<String, ComponentModelConf<ComponentConf>> componentModels = new LinkedHashMap<String, ComponentModelConf<ComponentConf>>();
 
 	private List<CommandConf> commandInfos = new ArrayList<CommandConf>();
 

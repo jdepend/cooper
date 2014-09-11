@@ -34,6 +34,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.ui.JDependCooper;
 
 public final class ComponentModelMgrDialog extends JDialog {
@@ -101,27 +102,24 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		JPanel componentGroup = new JPanel(new BorderLayout());
 
-		componentGroup.add(BorderLayout.NORTH, new JLabel(BundleUtil
-				.getString(BundleUtil.ClientWin_ComponentModel_Name)
-				+ ":"));
+		componentGroup.add(BorderLayout.NORTH,
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_Name) + ":"));
 		componentGroup.add(BorderLayout.CENTER, this.createComponentGroupList());
 
 		content.add(componentGroup);
 
 		JPanel componentList = new JPanel(new BorderLayout());
 
-		componentList.add(BorderLayout.NORTH, new JLabel(BundleUtil
-				.getString(BundleUtil.ClientWin_ComponentModel_ComponentList)
-				+ ":"));
+		componentList.add(BorderLayout.NORTH,
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_ComponentList) + ":"));
 		componentList.add(BorderLayout.CENTER, this.createComponentList());
 
 		content.add(componentList);
 
 		JPanel packageList = new JPanel(new BorderLayout());
 
-		packageList.add(BorderLayout.NORTH, new JLabel(BundleUtil
-				.getString(BundleUtil.ClientWin_ComponentModel_PackageList)
-				+ ":"));
+		packageList.add(BorderLayout.NORTH,
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageList) + ":"));
 		packageList.add(BorderLayout.CENTER, this.createPackageList());
 
 		content.add(packageList);
@@ -296,8 +294,8 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		addingPanel.setLayout(new BorderLayout());
 
-		ComponentModelPanel componentPanel = new ComponentModelPanel(frame, this.groupInfo.getPath(), this.groupInfo
-				.getName());
+		ComponentModelPanel componentPanel = new ComponentModelPanel(frame, this.groupInfo.getPath(),
+				this.groupInfo.getName());
 
 		JPanel buttonBar = new JPanel(new FlowLayout());
 		buttonBar.add(createOKButton(componentPanel, "Add"));
@@ -315,8 +313,8 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		addingPanel.setLayout(new BorderLayout());
 
-		ComponentModelPanel componentPanel = new ComponentModelPanel(frame, this.groupInfo.getPath(), this.groupInfo
-				.getName(), componentModelName);
+		ComponentModelPanel componentPanel = new ComponentModelPanel(frame, this.groupInfo.getPath(),
+				this.groupInfo.getName(), componentModelName);
 
 		JPanel buttonBar = new JPanel(new FlowLayout());
 		buttonBar.add(createOKButton(componentPanel, "Update"));
@@ -484,7 +482,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		componentListModel.removeAllElements();
 
-		ComponentModelConf componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
+		ComponentModelConf<ComponentConf> componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
 
 		for (String componentName : componentGroup.getComponentConfNames()) {
 			componentListModel.addElement(componentName);
@@ -502,7 +500,8 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		ComponentModelConf componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
 
-		for (String packageName : componentGroup.getTheComponentConf(currentComponent).getPackages())
+		for (String packageName : ((JavaPackageComponentConf) componentGroup.getTheComponentConf(currentComponent))
+				.getPackages())
 			packageListModel.addElement(packageName);
 
 	}

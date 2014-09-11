@@ -15,6 +15,7 @@ import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.util.FileUtil;
+import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
@@ -50,7 +51,8 @@ public class GroupConf implements Cloneable {
 	GroupConf(String name) {
 		super();
 		this.name = name;
-		this.groupComponentModelConf = new GroupComponentModelConf(this.name, new HashMap<String, ComponentModelConf>());
+		this.groupComponentModelConf = new GroupComponentModelConf(this.name,
+				new HashMap<String, ComponentModelConf<ComponentConf>>());
 	}
 
 	GroupConf(String name, String path, String srcPath, List<String> filteredPackages, String attribute) {
@@ -61,7 +63,8 @@ public class GroupConf implements Cloneable {
 		this.filteredPackages = filteredPackages;
 		this.attribute = attribute;
 
-		this.groupComponentModelConf = new GroupComponentModelConf(this.name, new HashMap<String, ComponentModelConf>());
+		this.groupComponentModelConf = new GroupComponentModelConf(this.name,
+				new HashMap<String, ComponentModelConf<ComponentConf>>());
 	}
 
 	/**
@@ -204,9 +207,11 @@ public class GroupConf implements Cloneable {
 	public CommandConf getCommandInfoByComponentGroup(String componentGroup) {
 
 		for (CommandConf command : commandInfos) {
-			for (String arg : command.args) {
-				if (arg.equals(componentGroup)) {
-					return command;
+			if (command.args != null) {
+				for (String arg : command.args) {
+					if (arg.equals(componentGroup)) {
+						return command;
+					}
 				}
 			}
 		}
@@ -250,7 +255,7 @@ public class GroupConf implements Cloneable {
 		this.groupComponentModelConf.save();
 	}
 
-	public ComponentModelConf getTheComponentModelConf(String name) {
+	public ComponentModelConf<ComponentConf> getTheComponentModelConf(String name) {
 		return this.groupComponentModelConf.getComponentModelConfs().get(name);
 	}
 
@@ -258,11 +263,11 @@ public class GroupConf implements Cloneable {
 		return this.groupComponentModelConf.getComponentModelConfs().keySet();
 	}
 
-	public void setComponentModelConfs(Map<String, ComponentModelConf> components) {
+	public void setComponentModelConfs(Map<String, ComponentModelConf<ComponentConf>> components) {
 		this.groupComponentModelConf.setComponentModelConfs(components);
 	}
 
-	public void addComponentModel(ComponentModelConf componentGroup) throws JDependException {
+	public void addComponentModel(ComponentModelConf<ComponentConf> componentGroup) throws JDependException {
 		this.groupComponentModelConf.addComponentModelConf(componentGroup);
 		insertComponentGroups();
 		BusiLogUtil.getInstance().businessLog(Operation.createComponentModel);

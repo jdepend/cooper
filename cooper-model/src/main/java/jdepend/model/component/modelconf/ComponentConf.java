@@ -1,9 +1,8 @@
 package jdepend.model.component.modelconf;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
+import jdepend.model.JavaClass;
 
 /**
  * 组件模型下一个组件的配置信息
@@ -11,57 +10,20 @@ import java.util.List;
  * @author wangdg
  * 
  */
-public final class ComponentConf implements Serializable, Cloneable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7000463243306131779L;
+public abstract class ComponentConf implements Serializable, Cloneable {
 
 	private String name;
-
 	private int layer;
-
-	private List<String> packages = new ArrayList<String>();
 
 	public ComponentConf(String name) {
 		super();
 		this.name = name;
 	}
 
-	public ComponentConf(String name, List<String> packages) {
+	public ComponentConf(String name, int layer) {
 		super();
 		this.name = name;
-		this.packages = packages;
-	}
-
-	public List<String> getPackages() {
-		return packages;
-	}
-
-	public void addPackages(List<String> joinPackages) {
-		for (String packageName : joinPackages) {
-			this.addPackage(packageName);
-		}
-	}
-
-	public void addPackage(String joinPackage) {
-		if (!packages.contains(joinPackage)) {
-			packages.add(joinPackage);
-		}
-	}
-
-	public void deletePackages(List<String> deletePackages) {
-		Iterator<String> iterator = this.packages.iterator();
-		while (iterator.hasNext()) {
-			if (deletePackages.contains(iterator.next())) {
-				iterator.remove();
-			}
-		}
-	}
-
-	public void deletePackage(String deletePackage) {
-		this.packages.remove(deletePackage);
+		this.layer = layer;
 	}
 
 	public String getName() {
@@ -75,35 +37,10 @@ public final class ComponentConf implements Serializable, Cloneable {
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
+	
+	public abstract boolean isMember(JavaClass javaClass); 
 
-	@Override
-	public ComponentConf clone() throws CloneNotSupportedException {
-		ComponentConf conf = new ComponentConf(this.name);
-		conf.layer = this.layer;
-		conf.packages = new ArrayList<String>();
-		for (String packageName : this.packages) {
-			conf.packages.add(packageName);
-		}
-		return conf;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder content = new StringBuilder();
-		content.append("组件名称：");
-		content.append(this.name);
-		content.append("\n");
-		content.append("包含的包：");
-
-		for (String packageName : this.packages) {
-			content.append(packageName);
-			content.append("、");
-		}
-		content.delete(content.length() - 1, content.length());
-		content.append("\n");
-
-		return content.toString();
-	}
+	public abstract ComponentConf clone() throws CloneNotSupportedException;
 
 	@Override
 	public int hashCode() {

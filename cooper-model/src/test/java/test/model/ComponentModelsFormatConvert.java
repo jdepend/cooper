@@ -17,7 +17,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.Component;
 import jdepend.model.component.modelconf.ComponentConf;
-import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,10 +45,10 @@ public class ComponentModelsFormatConvert {
 
 	}
 
-	private static Map<String, ComponentModelConf> loadComponentModelConfs(String fileName) throws JDependException {
+	private static Map<String, JavaPackageComponentModelConf> loadComponentModelConfs(String fileName) throws JDependException {
 
-		Map<String, ComponentModelConf> componentModelConfs = new LinkedHashMap<String, ComponentModelConf>();
-		ComponentModelConf componentModelConf;
+		Map<String, JavaPackageComponentModelConf> componentModelConfs = new LinkedHashMap<String, JavaPackageComponentModelConf>();
+		JavaPackageComponentModelConf componentModelConf;
 
 		Properties componentsInfo = new Properties();
 		FileUtil.readFileContentXML(fileName, componentsInfo);
@@ -83,7 +84,7 @@ public class ComponentModelsFormatConvert {
 			}
 
 			if (!componentModelConfs.containsKey(componentModelName)) {
-				componentModelConf = new ComponentModelConf(componentModelName);
+				componentModelConf = new JavaPackageComponentModelConf(componentModelName);
 				componentModelConf.addComponentConf(componentName, layer, packageInfo);
 				componentModelConfs.put(componentModelName, componentModelConf);
 			} else {
@@ -93,7 +94,7 @@ public class ComponentModelsFormatConvert {
 		return componentModelConfs;
 	}
 
-	public static void save(Map<String, ComponentModelConf> componentModelConfs, String fileName)
+	public static void save(Map<String, JavaPackageComponentModelConf> componentModelConfs, String fileName)
 			throws JDependException {
 
 		if (componentModelConfs != null && componentModelConfs.size() > 0) {
@@ -112,7 +113,7 @@ public class ComponentModelsFormatConvert {
 						Element selement = document.createElement("component");// 组件节点
 						selement.setAttribute("name", componentConf.getName());
 						selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-						for (String packageName : componentConf.getPackages()) {
+						for (String packageName : ((JavaPackageComponentConf)componentConf).getPackages()) {
 							Element eelement = document.createElement("package");
 							eelement.setTextContent(packageName);
 							selement.appendChild(eelement);

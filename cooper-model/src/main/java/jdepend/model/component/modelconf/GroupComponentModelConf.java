@@ -38,7 +38,7 @@ public final class GroupComponentModelConf {
 
 	private String group;
 
-	private Map<String, ComponentModelConf> componentModelConfs;
+	private Map<String, ComponentModelConf<ComponentConf>> componentModelConfs;
 
 	public static final String DEFAULT_PROPERTY_DIR = "conf\\componentconf";
 
@@ -47,15 +47,15 @@ public final class GroupComponentModelConf {
 		this.componentModelConfs = this.loadComponentModelConfs();
 	}
 
-	public GroupComponentModelConf(String group, Map<String, ComponentModelConf> componentModelConfs) {
+	public GroupComponentModelConf(String group, Map<String, ComponentModelConf<ComponentConf>> componentModelConfs) {
 		super();
 		this.group = group;
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	private Map<String, ComponentModelConf> loadComponentModelConfs() throws JDependException {
-		Map<String, ComponentModelConf> componentModelConfs = new LinkedHashMap<String, ComponentModelConf>();
-		ComponentModelConf componentModelConf;
+	private Map<String, ComponentModelConf<ComponentConf>> loadComponentModelConfs() throws JDependException {
+		Map<String, ComponentModelConf<ComponentConf>> componentModelConfs = new LinkedHashMap<String, ComponentModelConf<ComponentConf>>();
+		JavaPackageComponentModelConf componentModelConf;
 
 		if (!(new File(getComponentFilePath(group))).exists())
 			return componentModelConfs;
@@ -71,7 +71,7 @@ public final class GroupComponentModelConf {
 					Node componentModel = componentModels.item(i);
 					if (componentModel.getNodeType() == Node.ELEMENT_NODE) {
 						String componentModelName = componentModel.getAttributes().getNamedItem("name").getNodeValue();
-						componentModelConf = new ComponentModelConf(componentModelName);
+						componentModelConf = new JavaPackageComponentModelConf(componentModelName);
 
 						for (Node node = componentModel.getFirstChild(); node != null; node = node.getNextSibling()) {
 							if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -99,7 +99,7 @@ public final class GroupComponentModelConf {
 								}
 							}
 						}
-						componentModelConfs.put(componentModelConf.getName(), componentModelConf);
+						componentModelConfs.put(componentModelConf.getName(), (ComponentModelConf) componentModelConf);
 					}
 				}
 			}
@@ -132,7 +132,7 @@ public final class GroupComponentModelConf {
 						Element selement = document.createElement("component");// 组件节点
 						selement.setAttribute("name", componentConf.getName());
 						selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-						for (String packageName : componentConf.getPackages()) {
+						for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
 							Element eelement = document.createElement("package");
 							eelement.setTextContent(packageName);
 							selement.appendChild(eelement);
@@ -140,7 +140,9 @@ public final class GroupComponentModelConf {
 						nelement.appendChild(selement);
 					}
 					// 添加未包含的packages
-					List<String> ignorePackages = componentModelConfs.get(componentModelName).getIgnorePackages();
+					ComponentModelConf componentModelConf = componentModelConfs.get(componentModelName);
+					List<String> ignorePackages = ((JavaPackageComponentModelConf) componentModelConf)
+							.getIgnorePackages();
 					if (ignorePackages != null && ignorePackages.size() > 0) {
 						Element ielements = document.createElement("ignorePackages");
 						for (String ignorePackage : ignorePackages) {
@@ -185,15 +187,15 @@ public final class GroupComponentModelConf {
 		return group;
 	}
 
-	public Map<String, ComponentModelConf> getComponentModelConfs() {
+	public Map<String, ComponentModelConf<ComponentConf>> getComponentModelConfs() {
 		return componentModelConfs;
 	}
 
-	public void setComponentModelConfs(Map<String, ComponentModelConf> componentModelConfs) {
+	public void setComponentModelConfs(Map<String, ComponentModelConf<ComponentConf>> componentModelConfs) {
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	public void addComponentModelConf(ComponentModelConf componentModelConf) throws JDependException {
+	public void addComponentModelConf(ComponentModelConf<ComponentConf> componentModelConf) throws JDependException {
 		if (this.componentModelConfs.containsKey(componentModelConf.getName())) {
 			throw new JDependException("组件模型[" + componentModelConf.getName() + "]重复");
 		}

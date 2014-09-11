@@ -327,14 +327,15 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 			}
 		}
 		for (int col = 0; col < metricsSummaryInfos.length; col++) {
-			if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
-				if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-					summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
-				} else {
-					summry[col] = ((Float) summry[col]) / calComponents[col];
+			if (calComponents[col] != 0) {
+				if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
+					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+						summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
+					} else {
+						summry[col] = ((Float) summry[col]) / calComponents[col];
+					}
 				}
-
-			} 
+			}
 		}
 
 		resultSummry.setJavaPackageCount(result.getJavaPackages().size());

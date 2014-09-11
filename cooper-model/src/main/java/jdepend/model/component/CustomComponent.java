@@ -10,6 +10,7 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 
@@ -26,7 +27,7 @@ public final class CustomComponent extends Component {
 	 */
 	private static final long serialVersionUID = 4611204363465134237L;
 
-	private ComponentModelConf componentModelConf;
+	private ComponentModelConf<ComponentConf> componentModelConf;
 
 	public CustomComponent() {
 	}
@@ -59,16 +60,15 @@ public final class CustomComponent extends Component {
 			component = new CustomComponent(componentConf.getName());
 			// 设置Layer
 			component.setLayer(componentConf.getLayer());
-			for (String packageName : componentConf.getPackages()) {
-				for (JavaPackage javaPackage : javaPackages) {
-					if (javaPackage.getName().equals(packageName)) {
-						for (JavaClass javaClass : javaPackage.getClasses()) {
-							component.addJavaClass(javaClass);
-						}
-						break;
+
+			for (JavaPackage javaPackage : javaPackages) {
+				for (JavaClass javaClass : javaPackage.getClasses()) {
+					if (componentConf.isMember(javaClass)) {
+						component.addJavaClass(javaClass);
 					}
 				}
 			}
+
 			components.add(component);
 		}
 		return components;

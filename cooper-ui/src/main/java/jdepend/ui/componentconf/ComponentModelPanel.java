@@ -33,8 +33,10 @@ import javax.swing.event.ChangeListener;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.wizard.IgnoreSettingDialog;
 
@@ -52,7 +54,7 @@ public class ComponentModelPanel extends JPanel {
 	private boolean javaPackageListNormal = true;
 
 	// 组件结果
-	private ComponentModelConf componentModelConf = new ComponentModelConf();
+	private JavaPackageComponentModelConf componentModelConf = new JavaPackageComponentModelConf();
 
 	// 已创建的组件
 	private JList componentListUI;
@@ -180,12 +182,13 @@ public class ComponentModelPanel extends JPanel {
 		componentModelField.setText(componentModelName);
 		this.setReadOnlyName();
 
-		componentModelConf = ComponentModelConfMgr.getInstance()
-				.getTheComponentModelConf(groupName, componentModelName);
+		ComponentModelConf componentModelConf1 = ComponentModelConfMgr.getInstance().getTheComponentModelConf(
+				groupName, componentModelName);
+		componentModelConf = (JavaPackageComponentModelConf) componentModelConf1;
 		// 更新componentListModel和packageListModel
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			componentListModel.addElement(componentConf.getName());
-			for (String packageName : componentConf.getPackages()) {
+			for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
 				if (componentListModel.size() == 1) {
 					packageListModel.addElement(packageName);
 				}
@@ -469,7 +472,7 @@ public class ComponentModelPanel extends JPanel {
 		this.componentModelConf.setIgnorePackages(ignorePackages);
 	}
 
-	public ComponentModelConf getComponentModelConf() {
+	public JavaPackageComponentModelConf getComponentModelConf() {
 		return this.componentModelConf;
 	}
 

@@ -17,6 +17,7 @@ import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.LayerComponentJudge;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import junit.framework.TestCase;
 
 public class JDependTest extends TestCase {
@@ -78,7 +79,7 @@ public class JDependTest extends TestCase {
 	public void testParse3() throws IOException, JDependException {
 
 		CustomComponent component = new CustomComponent();
-		ComponentModelConf conf = new ComponentModelConf();
+		JavaPackageComponentModelConf conf = new JavaPackageComponentModelConf();
 		conf.setName("big");
 
 		List<String> packages = new ArrayList<String>();
