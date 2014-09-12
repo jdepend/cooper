@@ -30,9 +30,9 @@ abstract class JoinCustomComponentConfDialog extends JDialog {
 
 	private JTable componentListTable;
 
-	private JavaPackageComponentModelConf componentModelConf;
+	private ComponentModelConf<ComponentConf> componentModelConf;
 
-	public JoinCustomComponentConfDialog(List<String> packages, JavaPackageComponentModelConf componentModelConf) {
+	public JoinCustomComponentConfDialog(List<String> packages, ComponentModelConf<ComponentConf> componentModelConf) {
 		this.joinPackages = packages;
 		this.componentModelConf = componentModelConf;
 

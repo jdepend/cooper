@@ -17,7 +17,7 @@ public class JavaClassComponentModelConfRepo {
 		nelement.setAttribute("name", componentModelConf.getName());// 添加name属性
 		nelement.setAttribute("type", ComponentModelConf.ComponentModelType_Class);// 添加type属性
 		// 添加组件信息
-		for (JavaClassComponentConf componentConf : componentModelConf.getComponentConfs()) {
+		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			Element selement = document.createElement("component");// 组件节点
 			selement.setAttribute("name", componentConf.getName());
 			selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));

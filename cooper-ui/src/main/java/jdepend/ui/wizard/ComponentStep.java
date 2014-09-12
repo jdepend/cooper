@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
+import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.ui.componentconf.ComponentModelPanel;
 
 public class ComponentStep extends Step {
@@ -62,7 +62,7 @@ public class ComponentStep extends Step {
 
 	@Override
 	protected int doWork() throws JDependException {
-		JavaPackageComponentModelConf componentModel = componentPanel.getComponentModelConf();
+		ComponentModelConf componentModel = componentPanel.getComponentModelConf();
 
 		if (componentModel.size() == 0) {
 			if (JOptionPane.showConfirmDialog(this, "您没有设置组件，之后的分析将以包为单位，你是否确认继续？") != JOptionPane.OK_OPTION) {

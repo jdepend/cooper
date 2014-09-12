@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -32,6 +33,7 @@ import javax.swing.event.ChangeListener;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -54,7 +56,7 @@ public class ComponentModelPanel extends JPanel {
 	private boolean itemListNormal = true;
 
 	// 组件结果
-	private JavaPackageComponentModelConf componentModelConf = new JavaPackageComponentModelConf();
+	private ComponentModelConf<ComponentConf> componentModelConf = new JavaPackageComponentModelConf();
 
 	// 已创建的组件
 	private JList componentListUI;
@@ -461,7 +463,7 @@ public class ComponentModelPanel extends JPanel {
 
 		this.componentModelConf.validateData();
 
-		List<String> ignorePackages = this.componentModelConf.calIgnorePackages(packageTable.getPackages());
+		List<String> ignorePackages = this.calIgnorePackages();
 		if (ignorePackages != null && ignorePackages.size() > 0) {
 			if (JOptionPane.showConfirmDialog(this, "包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
 					+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
@@ -472,11 +474,19 @@ public class ComponentModelPanel extends JPanel {
 		this.componentModelConf.setIgnoreItems(ignorePackages);
 	}
 
-	public JavaPackageComponentModelConf getComponentModelConf() {
+	public ComponentModelConf<ComponentConf> getComponentModelConf() {
 		return this.componentModelConf;
 	}
 
 	public List<String> calIgnorePackages() {
-		return this.componentModelConf.calIgnorePackages(packageTable.getPackages());
+		Collection<String> containPackages = this.componentModelConf.getContainItems();
+
+		List<String> ignorePackages = new ArrayList<String>();
+		for (JavaPackage javaPackage : packageTable.getPackages()) {
+			if (!containPackages.contains(javaPackage.getName()) && javaPackage.isInner()) {
+				ignorePackages.add(javaPackage.getName());
+			}
+		}
+		return ignorePackages;
 	}
 }

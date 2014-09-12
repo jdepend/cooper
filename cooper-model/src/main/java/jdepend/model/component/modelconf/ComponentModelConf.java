@@ -45,6 +45,8 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 		this.name = name;
 	}
 
+	public abstract void addComponentConf(String name, int layer, List<String> packageNames) throws JDependException;
+
 	protected void addComponentConf(T componentConf) {
 		if (!componentConfs.contains(componentConf)) {
 			componentConfs.add(componentConf);
