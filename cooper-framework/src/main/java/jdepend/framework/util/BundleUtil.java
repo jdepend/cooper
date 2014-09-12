@@ -73,6 +73,7 @@ public class BundleUtil {
 	public static final String ClientWin_Group_Attribute = "ClientWin_Group_Attribute";
 
 	public static final String ClientWin_ComponentModel_Name = "ClientWin_ComponentModel_Name";
+	public static final String ClientWin_ComponentModel_PackageModel = "ClientWin_ComponentModel_PackageModel";
 	public static final String ClientWin_ComponentModel_FilterExt = "ClientWin_ComponentModel_FilterExt";
 	public static final String ClientWin_ComponentModel_PackageListFilter = "ClientWin_ComponentModel_PackageListFilter";
 	public static final String ClientWin_ComponentModel_ComponentList = "ClientWin_ComponentModel_ComponentList";
@@ -228,6 +229,7 @@ public class BundleUtil {
 	public static final String TableHead_ClassName = "TableHead_ClassName";
 	public static final String TableHead_PackageName = "TableHead_PackageName";
 	public static final String TableHead_ClassCount = "TableHead_ClassCount";
+	public static final String TableHead_Scale = "TableHead_Scale";
 	public static final String TableHead_CreateTime = "TableHead_CreateTime";
 	public static final String TableHead_ActionList = "TableHead_ActionList";
 	public static final String TableHead_GroupName = "TableHead_GroupName";

@@ -28,8 +28,10 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
+import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateComparator;
+import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.util.SearchUtil;
 
 public class CandidateListTable extends JTable {
@@ -39,18 +41,21 @@ public class CandidateListTable extends JTable {
 	// 候选中最大size
 	private int maxSize;
 	// 候选集合
-	private DefaultTableModel packageTableModel;
+	private DefaultTableModel candidateTableModel;
 
 	// 候选集合
-	private List<Candidate> packages;
-	private Map<String, Candidate> packageForNames;
+	private List<Candidate> candidates;
+	private Map<String, Candidate> candidateForNames;
 	// 当前候选集合
-	private List<String> currentPackageList;
+	private List<String> currentCandidateList;
 
 	// 正在操作的命令组名称
 	private String currentGroup;
 
 	private String path;
+
+	// 缓存
+	private Collection<JavaPackage> packages;
 
 	public CandidateListTable(ComponentModelPanel componentModelPanel, String path, String currentGroup) {
 
@@ -58,7 +63,7 @@ public class CandidateListTable extends JTable {
 		this.path = path;
 		this.currentGroup = currentGroup;
 
-		packageTableModel = new DefaultTableModel() {
+		candidateTableModel = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -66,7 +71,7 @@ public class CandidateListTable extends JTable {
 
 		};
 
-		TableSorter sorter = new TableSorter(packageTableModel);
+		TableSorter sorter = new TableSorter(candidateTableModel);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem createItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_CreateComponent));
@@ -135,8 +140,8 @@ public class CandidateListTable extends JTable {
 
 		sorter.setTableHeader(this.getTableHeader());
 
-		packageTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_PackageName));
-		packageTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_ClassCount));
+		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_PackageName));
+		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Scale));
 
 		sorter.setSortingStatus(0, TableSorter.ASCENDING);
 
@@ -144,41 +149,47 @@ public class CandidateListTable extends JTable {
 
 	}
 
-	protected void loadPackageList() {
+	protected void loadCandidateList() {
 
-		packageTableModel.setRowCount(0);
+		candidateTableModel.setRowCount(0);
 
-		currentPackageList = new ArrayList<String>();
+		currentCandidateList = new ArrayList<String>();
 
-		packages = new ArrayList<Candidate>(this.getCandidates(this.path));
+		candidates = new ArrayList<Candidate>(this.getCandidates(this.path));
 
-		Collections.sort(packages, new CandidateComparator());
+		Collections.sort(candidates, new CandidateComparator());
 
-		this.packageForNames = new HashMap<String, Candidate>();
-		for (Candidate javaPackage : packages) {
-			this.packageForNames.put(javaPackage.getName(), javaPackage);
+		this.candidateForNames = new HashMap<String, Candidate>();
+		for (Candidate candidate : candidates) {
+			this.candidateForNames.put(candidate.getName(), candidate);
 		}
+		maxSize = 0;
 
 		Object[] row;
 		int size;
-		for (Candidate javaPackage : packages) {
-			if (this.componentModelPanel.filterExt.isSelected() && javaPackage.isInner()
+		for (Candidate candidate : candidates) {
+			if (this.componentModelPanel.filterExt.isSelected() && candidate.isInner()
 					|| !this.componentModelPanel.filterExt.isSelected()) {
 				row = new Object[2];
-				row[0] = javaPackage.getName();
-				size = javaPackage.size();
+				row[0] = candidate.getName();
+				size = candidate.size();
 				row[1] = size;
 				if (maxSize < size) {
 					maxSize = size;
 				}
-				packageTableModel.addRow(row);
+				candidateTableModel.addRow(row);
 			}
-			currentPackageList.add(javaPackage.getName());
+			currentCandidateList.add(candidate.getName());
 		}
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(BundleUtil.getString(BundleUtil.TableHead_PackageName));
 		JTableUtil.fitTableColumns(this, fitColNames);
+	}
+	
+	protected void reLoadCandidateList() {
+		this.clear();
+		this.loadCandidateList();
 	}
 
 	@Override
@@ -219,36 +230,36 @@ public class CandidateListTable extends JTable {
 			throw new JDependException("请选择一个包！");
 
 		String javaPackageName = (String) this.getValueAt(rows[0], 0);
-		Candidate javaPackage = this.packageForNames.get(javaPackageName);
+		Candidate javaPackage = this.candidateForNames.get(javaPackageName);
 		ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
 		d.setModal(true);
 		d.setVisible(true);
 	}
 
-	protected void removeThePackageList(Collection<String> packageNames) {
-		for (int row = packageTableModel.getRowCount() - 1; row >= 0; row--) {
-			if (packageNames.contains(packageTableModel.getValueAt(row, 0))) {
-				packageTableModel.removeRow(row);
+	protected void removeTheCandidateList(Collection<String> packageNames) {
+		for (int row = candidateTableModel.getRowCount() - 1; row >= 0; row--) {
+			if (packageNames.contains(candidateTableModel.getValueAt(row, 0))) {
+				candidateTableModel.removeRow(row);
 			}
 		}
-		for (int row = this.currentPackageList.size() - 1; row >= 0; row--) {
-			if (packageNames.contains(currentPackageList.get(row))) {
-				currentPackageList.remove(row);
+		for (int row = this.currentCandidateList.size() - 1; row >= 0; row--) {
+			if (packageNames.contains(currentCandidateList.get(row))) {
+				currentCandidateList.remove(row);
 			}
 		}
 	}
 
-	protected void addThePackageList(Collection<String> packageNames) {
-		for (Candidate javaPackage : packages) {
-			if (packageNames.contains(javaPackage.getName())
-					&& !this.currentPackageList.contains(javaPackage.getName())) {
-				this.currentPackageList.add(javaPackage.getName());
+	protected void addTheCandidateList(Collection<String> candidateNames) {
+		for (Candidate candidate : candidates) {
+			if (candidateNames.contains(candidate.getName())
+					&& !this.currentCandidateList.contains(candidate.getName())) {
+				this.currentCandidateList.add(candidate.getName());
 			}
 		}
-		filterPackageList();
+		filterCandidateList();
 	}
 
-	protected void filterPackageList() {
+	protected void filterCandidateList() {
 
 		String filter = this.componentModelPanel.itemListFilter.getText();
 		boolean filterExtSetting = this.componentModelPanel.filterExt.isSelected();
@@ -256,60 +267,67 @@ public class CandidateListTable extends JTable {
 		boolean filterExtResult;
 		List<String> matchPackageList = new ArrayList<String>();
 
-		for (String packageName : this.currentPackageList) {
+		for (String packageName : this.currentCandidateList) {
 			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, packageName);
-			filterExtResult = filterExtSetting ? this.packageForNames.get(packageName).isInner() ? true : false : true;
+			filterExtResult = filterExtSetting ? this.candidateForNames.get(packageName).isInner() ? true : false
+					: true;
 			if (filterString && filterExtResult) {
 				matchPackageList.add(packageName);
 			}
 		}
 
-		packageTableModel.setRowCount(0);
+		candidateTableModel.setRowCount(0);
 		Object[] row;
 		for (String packageName : matchPackageList) {
 			row = new Object[2];
 			row[0] = packageName;
-			for (Candidate javaPackage : packages) {
+			for (Candidate javaPackage : candidates) {
 				if (javaPackage.getName().equals(packageName)) {
 					row[1] = javaPackage.size();
 				}
 			}
-			packageTableModel.addRow(row);
+			candidateTableModel.addRow(row);
 		}
-		packageTableModel.fireTableDataChanged();
+		candidateTableModel.fireTableDataChanged();
 	}
 
 	private Collection<? extends Candidate> getCandidates(String path) {
-		// 转换
-		path = CommandConf.covertDefaultClassesPath(path);
+		if (this.packages == null) {
+			// 转换
+			path = CommandConf.covertDefaultClassesPath(path);
 
-		List<String> paths = new ArrayList<String>();
-		paths.add(path);
+			List<String> paths = new ArrayList<String>();
+			paths.add(path);
 
-		SearchUtil searchUtil = new SearchUtil(paths);
-		searchUtil.setParseConfigs(false);
-		searchUtil.setSupplyJavaClassDetail(false);
-		searchUtil.setBuildClassRelation(false);
+			SearchUtil searchUtil = new SearchUtil(paths);
+			searchUtil.setParseConfigs(false);
+			searchUtil.setSupplyJavaClassDetail(false);
+			searchUtil.setBuildClassRelation(false);
 
-		try {
-			// 设置当前命令组配置的FilteredPackages
-			GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(this.currentGroup);
-			if (groupConf != null) {
-				searchUtil.addFilters(groupConf.getFilteredPackages());
+			try {
+				// 设置当前命令组配置的FilteredPackages
+				GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(this.currentGroup);
+				if (groupConf != null) {
+					searchUtil.addFilters(groupConf.getFilteredPackages());
+				}
+			} catch (JDependException e) {
+				e.printStackTrace();
 			}
-		} catch (JDependException e) {
-			e.printStackTrace();
+			packages = searchUtil.getPackages();
 		}
 
 		if (componentModelPanel.isPackageCandidate()) {
-			return searchUtil.getPackages();
+			return packages;
 		} else {
-			return searchUtil.getClasses();
+			return JavaClassUtil.getClassesForJavaPackages(packages);
 		}
 	}
 
-	protected List<Candidate> getPackages() {
-		return packages;
+	protected List<Candidate> getCandidates() {
+		return candidates;
 	}
 
+	private void clear() {
+		this.packages = null;
+	}
 }

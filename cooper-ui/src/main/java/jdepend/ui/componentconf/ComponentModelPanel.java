@@ -37,6 +37,7 @@ import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
+import jdepend.model.component.modelconf.JavaClassComponentModelConf;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.wizard.IgnoreSettingDialog;
@@ -91,7 +92,7 @@ public class ComponentModelPanel extends JPanel {
 		componentGroupPanel.add(BorderLayout.WEST,
 				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_Name) + ":"));
 
-		JPanel contentPanel = new JPanel(new GridLayout(1, 2));
+		JPanel contentPanel = new JPanel(new GridLayout(1, 3));
 		componentModelField = new JTextField();
 		componentModelField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -100,15 +101,33 @@ public class ComponentModelPanel extends JPanel {
 			}
 		});
 		contentPanel.add(componentModelField);
+
+		JCheckBox candidateType = new JCheckBox(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageModel));
+		candidateType.setSelected(true);
+		candidateType.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent event) {
+				if (((JCheckBox) event.getSource()).isSelected()) {
+					componentModelConf = new JavaPackageComponentModelConf();
+				} else {
+					componentModelConf = new JavaClassComponentModelConf();
+				}
+				packageTable.loadCandidateList();
+				refreshComponentList();
+			}
+		});
+		contentPanel.add(candidateType);
+
 		filterExt = new JCheckBox(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_FilterExt));
 		filterExt.setSelected(true);
 		filterExt.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				packageTable.filterPackageList();
+				packageTable.filterCandidateList();
 			}
 		});
 		contentPanel.add(filterExt);
+
 		componentGroupPanel.add(BorderLayout.CENTER, contentPanel);
 
 		JPanel layoutPanel = new JPanel(new BorderLayout());
@@ -119,7 +138,7 @@ public class ComponentModelPanel extends JPanel {
 		itemListFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				packageTable.filterPackageList();
+				packageTable.filterCandidateList();
 			}
 		});
 
@@ -166,7 +185,7 @@ public class ComponentModelPanel extends JPanel {
 
 		this.add(BorderLayout.CENTER, packageComponentPanel);
 
-		packageTable.loadPackageList();
+		packageTable.loadCandidateList();
 	}
 
 	/**
@@ -197,7 +216,7 @@ public class ComponentModelPanel extends JPanel {
 		}
 
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeThePackageList(componentModelConf.getContainItems());
+		packageTable.removeTheCandidateList(componentModelConf.getContainItems());
 
 		// 设置默认组件
 		if (this.currentComponent == null && componentListModel.size() > 0) {
@@ -260,11 +279,11 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	public void refresh() {
-		packageTable.loadPackageList();
+		packageTable.reLoadCandidateList();
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeThePackageList(componentModelConf.getContainItems());
+		packageTable.removeTheCandidateList(componentModelConf.getContainItems());
 		// 进行关键字过滤
-		packageTable.filterPackageList();
+		packageTable.filterCandidateList();
 	}
 
 	public void setPath(String path) {
@@ -302,7 +321,7 @@ public class ComponentModelPanel extends JPanel {
 			packageList.add(unit);
 			componentModelConf.addComponentConf(unit, jdepend.model.Component.UndefinedComponentLevel, packageList);
 		}
-		packageTable.removeThePackageList(selectedPackages);
+		packageTable.removeTheCandidateList(selectedPackages);
 		refreshComponentList();
 	}
 
@@ -319,7 +338,7 @@ public class ComponentModelPanel extends JPanel {
 		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages, componentModelConf) {
 			@Override
 			protected void doService() {
-				packageTable.removeThePackageList(joinPackages);
+				packageTable.removeTheCandidateList(joinPackages);
 				refreshComponentList();
 			}
 		};
@@ -409,7 +428,7 @@ public class ComponentModelPanel extends JPanel {
 				}
 
 				componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(selectedPackages);
-				packageTable.addThePackageList(selectedPackages);
+				packageTable.addTheCandidateList(selectedPackages);
 				refreshComponentList();
 			}
 		});
@@ -429,7 +448,7 @@ public class ComponentModelPanel extends JPanel {
 
 	private void deleteComponent() {
 		String componentName = (String) componentListUI.getSelectedValue();
-		packageTable.addThePackageList(componentModelConf.getTheComponentConf(componentName).getItemNames());
+		packageTable.addTheCandidateList(componentModelConf.getTheComponentConf(componentName).getItemNames());
 		componentModelConf.deleteComponentConf(componentName);
 	}
 
@@ -457,7 +476,7 @@ public class ComponentModelPanel extends JPanel {
 
 		protected void doService(ActionEvent e) throws JDependException {
 			componentModelConf.addComponentConf(componentname.getText(), this.getComponentLayer(), units);
-			packageTable.removeThePackageList(units);
+			packageTable.removeTheCandidateList(units);
 			refreshComponentList();
 		}
 	}
@@ -485,7 +504,7 @@ public class ComponentModelPanel extends JPanel {
 		Collection<String> containItems = this.componentModelConf.getContainItems();
 
 		List<String> ignorePackages = new ArrayList<String>();
-		for (Candidate javaPackage : packageTable.getPackages()) {
+		for (Candidate javaPackage : packageTable.getCandidates()) {
 			if (!containItems.contains(javaPackage.getName()) && javaPackage.isInner()) {
 				ignorePackages.add(javaPackage.getName());
 			}
