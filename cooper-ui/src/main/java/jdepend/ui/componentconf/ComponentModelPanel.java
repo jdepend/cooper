@@ -33,10 +33,8 @@ import javax.swing.event.ChangeListener;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.ComponentConf;
-import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
@@ -210,6 +208,10 @@ public class ComponentModelPanel extends JPanel {
 
 	public void setReadOnlyName() {
 		componentModelField.setEditable(false);
+	}
+
+	public boolean isPackageCandidate() {
+		return this.componentModelConf instanceof JavaPackageComponentModelConf;
 	}
 
 	public JComponent createListJavaPackages(String path, String group) {

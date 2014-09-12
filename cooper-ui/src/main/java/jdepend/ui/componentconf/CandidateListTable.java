@@ -28,7 +28,6 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
-import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateComparator;
 import jdepend.parse.util.SearchUtil;
@@ -37,15 +36,15 @@ public class CandidateListTable extends JTable {
 
 	private ComponentModelPanel componentModelPanel;
 
-	// 包中最大类个数
+	// 候选中最大size
 	private int maxSize;
-	// 包集合
+	// 候选集合
 	private DefaultTableModel packageTableModel;
 
-	// 包集合
+	// 候选集合
 	private List<Candidate> packages;
 	private Map<String, Candidate> packageForNames;
-	// 当前包集合
+	// 当前候选集合
 	private List<String> currentPackageList;
 
 	// 正在操作的命令组名称
@@ -53,9 +52,9 @@ public class CandidateListTable extends JTable {
 
 	private String path;
 
-	public CandidateListTable(ComponentModelPanel componentModelPanel1, String path, String currentGroup) {
+	public CandidateListTable(ComponentModelPanel componentModelPanel, String path, String currentGroup) {
 
-		this.componentModelPanel = componentModelPanel1;
+		this.componentModelPanel = componentModelPanel;
 		this.path = path;
 		this.currentGroup = currentGroup;
 
@@ -74,7 +73,7 @@ public class CandidateListTable extends JTable {
 		createItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					componentModelPanel.createComponent();
+					CandidateListTable.this.componentModelPanel.createComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
@@ -86,7 +85,7 @@ public class CandidateListTable extends JTable {
 		create1Item.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					componentModelPanel.batchCreateComponent();
+					CandidateListTable.this.componentModelPanel.batchCreateComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
@@ -101,7 +100,7 @@ public class CandidateListTable extends JTable {
 		joinItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					componentModelPanel.joinComponent();
+					CandidateListTable.this.componentModelPanel.joinComponent();
 				} catch (JDependException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
@@ -151,7 +150,7 @@ public class CandidateListTable extends JTable {
 
 		currentPackageList = new ArrayList<String>();
 
-		packages = new ArrayList<Candidate>(this.getPackages(this.path));
+		packages = new ArrayList<Candidate>(this.getCandidates(this.path));
 
 		Collections.sort(packages, new CandidateComparator());
 
@@ -280,7 +279,7 @@ public class CandidateListTable extends JTable {
 		packageTableModel.fireTableDataChanged();
 	}
 
-	private Collection<JavaPackage> getPackages(String path) {
+	private Collection<? extends Candidate> getCandidates(String path) {
 		// 转换
 		path = CommandConf.covertDefaultClassesPath(path);
 
@@ -302,7 +301,11 @@ public class CandidateListTable extends JTable {
 			e.printStackTrace();
 		}
 
-		return searchUtil.getPackages();
+		if (componentModelPanel.isPackageCandidate()) {
+			return searchUtil.getPackages();
+		} else {
+			return searchUtil.getClasses();
+		}
 	}
 
 	protected List<Candidate> getPackages() {
