@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.ui.componentconf.ComponentModelPanel;
 

@@ -249,7 +249,7 @@ public class JavaPackageListTable extends JTable {
 
 	protected void filterPackageList() {
 
-		String filter = this.componentModelPanel.packageListFilter.getText();
+		String filter = this.componentModelPanel.itemListFilter.getText();
 		boolean filterExtSetting = this.componentModelPanel.filterExt.isSelected();
 		boolean filterString;
 		boolean filterExtResult;

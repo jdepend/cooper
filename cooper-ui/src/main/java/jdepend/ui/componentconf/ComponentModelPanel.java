@@ -46,12 +46,12 @@ public class ComponentModelPanel extends JPanel {
 
 	// 包集合
 	private JavaPackageListTable packageTable;
-	// 包过滤器
-	protected JTextField packageListFilter;
-	// 是否包含外部包
+	// 过滤器
+	protected JTextField itemListFilter;
+	// 是否包含外部项目
 	protected JCheckBox filterExt;
-	// 包列表所占区域
-	private boolean javaPackageListNormal = true;
+	// 列表所占区域
+	private boolean itemListNormal = true;
 
 	// 组件结果
 	private JavaPackageComponentModelConf componentModelConf = new JavaPackageComponentModelConf();
@@ -63,8 +63,8 @@ public class ComponentModelPanel extends JPanel {
 
 	private String currentComponent;
 
-	// 组件关联的包
-	private DefaultListModel packageListModel = new DefaultListModel();
+	// 组件关联的元素
+	private DefaultListModel elementListModel = new DefaultListModel();
 
 	public static final int Width = 650;
 	public static final int Height = 580;
@@ -113,16 +113,16 @@ public class ComponentModelPanel extends JPanel {
 		JPanel layoutPanel = new JPanel(new BorderLayout());
 		layoutPanel.add(BorderLayout.WEST,
 				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageListFilter) + ":"));
-		packageListFilter = new JTextField();
-		packageListFilter.setPreferredSize(new Dimension(150, 20));
-		packageListFilter.addKeyListener(new KeyAdapter() {
+		itemListFilter = new JTextField();
+		itemListFilter.setPreferredSize(new Dimension(150, 20));
+		itemListFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				packageTable.filterPackageList();
 			}
 		});
 
-		layoutPanel.add(BorderLayout.CENTER, packageListFilter);
+		layoutPanel.add(BorderLayout.CENTER, itemListFilter);
 
 		componentGroupPanel.add(BorderLayout.EAST, layoutPanel);
 
@@ -150,12 +150,12 @@ public class ComponentModelPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					if (javaPackageListNormal) {
+					if (itemListNormal) {
 						packageComponentSplitPane.setDividerLocation(Height);
-						javaPackageListNormal = false;
+						itemListNormal = false;
 					} else {
 						packageComponentSplitPane.setDividerLocation(NormalHeight);
-						javaPackageListNormal = true;
+						itemListNormal = true;
 					}
 				}
 			}
@@ -190,7 +190,7 @@ public class ComponentModelPanel extends JPanel {
 			componentListModel.addElement(componentConf.getName());
 			for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
 				if (componentListModel.size() == 1) {
-					packageListModel.addElement(packageName);
+					elementListModel.addElement(packageName);
 				}
 			}
 		}
@@ -358,7 +358,7 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	private JList createPackageList() {
-		final JList packageList = new JList(packageListModel);
+		final JList packageList = new JList(elementListModel);
 		packageList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
@@ -437,10 +437,10 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	private void refreshPackageList() {
-		packageListModel.removeAllElements();
+		elementListModel.removeAllElements();
 		if (currentComponent != null) {
 			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getPackages())
-				packageListModel.addElement(packageName);
+				elementListModel.addElement(packageName);
 		}
 	}
 
