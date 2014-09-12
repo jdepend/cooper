@@ -236,7 +236,7 @@ public final class ChangedPackageListDialog extends JDialog {
 
 		ArrayList<String> deletePackages = this.selectedPackages.get("已删除");
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
-			Iterator<String> it = ((JavaPackageComponentConf) componentConf).getPackages().iterator();
+			Iterator<String> it = componentConf.getItemNames().iterator();
 			while (it.hasNext()) {
 				if (deletePackages.contains(it.next())) {
 					it.remove();

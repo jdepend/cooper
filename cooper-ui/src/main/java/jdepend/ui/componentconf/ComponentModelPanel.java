@@ -188,7 +188,7 @@ public class ComponentModelPanel extends JPanel {
 		// 更新componentListModel和packageListModel
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			componentListModel.addElement(componentConf.getName());
-			for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
+			for (String packageName : componentConf.getItemNames()) {
 				if (componentListModel.size() == 1) {
 					elementListModel.addElement(packageName);
 				}
@@ -196,7 +196,7 @@ public class ComponentModelPanel extends JPanel {
 		}
 
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeThePackageList(componentModelConf.getContainPackages());
+		packageTable.removeThePackageList(componentModelConf.getContainItems());
 
 		// 设置默认组件
 		if (this.currentComponent == null && componentListModel.size() > 0) {
@@ -257,7 +257,7 @@ public class ComponentModelPanel extends JPanel {
 	public void refresh() {
 		packageTable.loadPackageList();
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeThePackageList(componentModelConf.getContainPackages());
+		packageTable.removeThePackageList(componentModelConf.getContainItems());
 		// 进行关键字过滤
 		packageTable.filterPackageList();
 	}
@@ -379,7 +379,7 @@ public class ComponentModelPanel extends JPanel {
 						componentModelConf) {
 					@Override
 					protected void doService() {
-						componentModelConf.getTheComponentConf(currentComponent).deletePackages(joinPackages);
+						componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(joinPackages);
 						refreshComponentList();
 					}
 				};
@@ -403,7 +403,7 @@ public class ComponentModelPanel extends JPanel {
 					selectedPackages.add((String) value);
 				}
 
-				componentModelConf.getTheComponentConf(currentComponent).deletePackages(selectedPackages);
+				componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(selectedPackages);
 				packageTable.addThePackageList(selectedPackages);
 				refreshComponentList();
 			}
@@ -424,7 +424,7 @@ public class ComponentModelPanel extends JPanel {
 
 	private void deleteComponent() {
 		String componentName = (String) componentListUI.getSelectedValue();
-		packageTable.addThePackageList(componentModelConf.getTheComponentConf(componentName).getPackages());
+		packageTable.addThePackageList(componentModelConf.getTheComponentConf(componentName).getItemNames());
 		componentModelConf.deleteComponentConf(componentName);
 	}
 
@@ -439,7 +439,7 @@ public class ComponentModelPanel extends JPanel {
 	private void refreshPackageList() {
 		elementListModel.removeAllElements();
 		if (currentComponent != null) {
-			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getPackages())
+			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getItemNames())
 				elementListModel.addElement(packageName);
 		}
 	}
@@ -469,7 +469,7 @@ public class ComponentModelPanel extends JPanel {
 			}
 		}
 		// 设置未包含的packages
-		this.componentModelConf.setIgnorePackages(ignorePackages);
+		this.componentModelConf.setIgnoreItems(ignorePackages);
 	}
 
 	public JavaPackageComponentModelConf getComponentModelConf() {

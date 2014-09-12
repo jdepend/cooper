@@ -2,6 +2,8 @@ package jdepend.model.component.modelconf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -21,6 +23,8 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 	private String name;
 
 	private List<T> componentConfs = new ArrayList<T>();
+
+	private List<String> ignoreItems = new ArrayList<String>();
 
 	public final static String ComponentModelType_Package = "package";
 	public final static String ComponentModelType_Class = "class";
@@ -101,6 +105,40 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 
 	public List<T> getComponentConfs() {
 		return this.componentConfs;
+	}
+
+	/**
+	 * 得到在创建该组件模型时未被包含的javaPackages
+	 * 
+	 * @return
+	 */
+	public List<String> getIgnoreItems() {
+		return ignoreItems;
+	}
+
+	public void setIgnoreItems(List<String> ignoreItems) {
+		this.ignoreItems = ignoreItems;
+	}
+
+	protected void addIgnoreItem(String ignoreItem) {
+		if (!this.ignoreItems.contains(ignoreItem)) {
+			this.ignoreItems.add(ignoreItem);
+		}
+	}
+
+	/**
+	 * 得到该组件模型包含的javaPackages
+	 * 
+	 * @return
+	 */
+	public Collection<String> getContainItems() {
+		Collection<String> containItems = new HashSet<String>();
+		for (ComponentConf componentConf : this.getComponentConfs()) {
+			for (String itemName : componentConf.getItemNames()) {
+				containItems.add(itemName);
+			}
+		}
+		return containItems;
 	}
 
 	public void validateData() throws JDependException {

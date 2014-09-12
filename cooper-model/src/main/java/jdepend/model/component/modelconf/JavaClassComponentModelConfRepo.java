@@ -21,7 +21,7 @@ public class JavaClassComponentModelConfRepo {
 			Element selement = document.createElement("component");// 组件节点
 			selement.setAttribute("name", componentConf.getName());
 			selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-			for (String className : componentConf.getClassNames()) {
+			for (String className : componentConf.getItemNames()) {
 				Element eelement = document.createElement("class");
 				eelement.setTextContent(className);
 				selement.appendChild(eelement);
@@ -29,7 +29,7 @@ public class JavaClassComponentModelConfRepo {
 			nelement.appendChild(selement);
 		}
 		// 添加未包含的classes
-		List<String> ignoreClasses = componentModelConf.getIgnoreClasses();
+		List<String> ignoreClasses = componentModelConf.getIgnoreItems();
 		if (ignoreClasses != null && ignoreClasses.size() > 0) {
 			Element ielements = document.createElement("ignoreClasses");
 			for (String ignoreClass : ignoreClasses) {
@@ -69,7 +69,7 @@ public class JavaClassComponentModelConfRepo {
 							ignoreClasses.add(Class.getTextContent());
 						}
 					}
-					componentModelConf.setIgnoreClasses(ignoreClasses);
+					componentModelConf.setIgnoreItems(ignoreClasses);
 				}
 			}
 		}

@@ -16,8 +16,6 @@ public class JavaClassComponentModelConf extends ComponentModelConf<JavaClassCom
 
 	private static final long serialVersionUID = 1785215322819969052L;
 
-	private List<String> ignoreClasses = new ArrayList<String>();
-
 	private transient JavaClassComponentModelConfRepo repo = new JavaClassComponentModelConfRepo();
 
 	public JavaClassComponentModelConf() {
@@ -45,7 +43,7 @@ public class JavaClassComponentModelConf extends ComponentModelConf<JavaClassCom
 
 		for (JavaClassComponentConf componentConf : this.getComponentConfs()) {
 			for (String className : classNames) {
-				if (componentConf.getClassNames().contains(className)) {
+				if (componentConf.getItemNames().contains(className)) {
 					throw new JDependException("该组件名选择的类[" + className + "]已经在组件[" + componentConf.getName() + "]中包含！");
 				}
 			}
@@ -65,7 +63,7 @@ public class JavaClassComponentModelConf extends ComponentModelConf<JavaClassCom
 	 */
 	public List<String> calIgnoreClasses(List<JavaClass> classes) {
 
-		Collection<String> containClasses = this.getContainClasses();
+		Collection<String> containClasses = this.getContainItems();
 
 		List<String> ignoreClasses = new ArrayList<String>();
 		for (JavaClass javaClass : classes) {
@@ -76,40 +74,11 @@ public class JavaClassComponentModelConf extends ComponentModelConf<JavaClassCom
 		return ignoreClasses;
 	}
 
-	/**
-	 * 得到在创建该组件模型时未被包含的javaClasses
-	 * 
-	 * @return
-	 */
-	public List<String> getIgnoreClasses() {
-		return ignoreClasses;
-	}
-
-	public void setIgnoreClasses(List<String> ignoreClasses) {
-		this.ignoreClasses = ignoreClasses;
-	}
-
-	/**
-	 * 得到该组件模型包含的javaClasses
-	 * 
-	 * @return
-	 */
-	public Collection<String> getContainClasses() {
-		Collection<String> containClasses = new HashSet<String>();
-		for (JavaClassComponentConf componentConf : this.getComponentConfs()) {
-			for (String className : componentConf.getClassNames()) {
-				containClasses.add(className);
-			}
-		}
-		return containClasses;
-	}
-
 	@Override
 	public JavaClassComponentModelConf clone() throws CloneNotSupportedException {
 		JavaClassComponentModelConf conf = new JavaClassComponentModelConf(this.getName());
-		conf.ignoreClasses = new ArrayList<String>();
-		for (String ignorePackage : this.ignoreClasses) {
-			conf.ignoreClasses.add(ignorePackage);
+		for (String ignoreItem : this.getIgnoreItems()) {
+			conf.addIgnoreItem(ignoreItem);
 		}
 		for (JavaClassComponentConf componentConf : this.getComponentConfs()) {
 			conf.addComponentConf(componentConf.clone());

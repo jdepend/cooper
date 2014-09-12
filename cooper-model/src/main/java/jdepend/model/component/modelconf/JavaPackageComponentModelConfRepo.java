@@ -21,7 +21,7 @@ public class JavaPackageComponentModelConfRepo {
 			Element selement = document.createElement("component");// 组件节点
 			selement.setAttribute("name", componentConf.getName());
 			selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-			for (String packageName : componentConf.getPackages()) {
+			for (String packageName : componentConf.getItemNames()) {
 				Element eelement = document.createElement("package");
 				eelement.setTextContent(packageName);
 				selement.appendChild(eelement);
@@ -29,7 +29,7 @@ public class JavaPackageComponentModelConfRepo {
 			nelement.appendChild(selement);
 		}
 		// 添加未包含的packages
-		List<String> ignorePackages = componentModelConf.getIgnorePackages();
+		List<String> ignorePackages = componentModelConf.getIgnoreItems();
 		if (ignorePackages != null && ignorePackages.size() > 0) {
 			Element ielements = document.createElement("ignorePackages");
 			for (String ignorePackage : ignorePackages) {
@@ -69,7 +69,7 @@ public class JavaPackageComponentModelConfRepo {
 							ignorePackages.add(Package.getTextContent());
 						}
 					}
-					componentModelConf.setIgnorePackages(ignorePackages);
+					componentModelConf.setIgnoreItems(ignorePackages);
 				}
 			}
 		}

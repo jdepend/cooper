@@ -482,7 +482,8 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		componentListModel.removeAllElements();
 
-		ComponentModelConf<ComponentConf> componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
+		ComponentModelConf<ComponentConf> componentGroup = this.groupInfo
+				.getTheComponentModelConf(currentComponentModelName);
 
 		for (String componentName : componentGroup.getComponentConfNames()) {
 			componentListModel.addElement(componentName);
@@ -500,9 +501,9 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		ComponentModelConf componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
 
-		for (String packageName : ((JavaPackageComponentConf) componentGroup.getTheComponentConf(currentComponent))
-				.getPackages())
+		for (String packageName : componentGroup.getTheComponentConf(currentComponent).getItemNames()) {
 			packageListModel.addElement(packageName);
+		}
 
 	}
 

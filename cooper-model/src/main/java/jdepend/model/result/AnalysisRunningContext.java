@@ -194,10 +194,8 @@ public final class AnalysisRunningContext implements Serializable {
 			if (this.component instanceof CustomComponent) {
 				ComponentModelConf componentModelConf = ((CustomComponent) this.component).getComponentModelConf();
 				if (componentModelConf instanceof JavaPackageComponentModelConf) {
-					Collection<String> containPackages = ((JavaPackageComponentModelConf) componentModelConf)
-							.getContainPackages();
-					Collection<String> ignorePackages = ((JavaPackageComponentModelConf) componentModelConf)
-							.getIgnorePackages();
+					Collection<String> containPackages = componentModelConf.getContainItems();
+					Collection<String> ignorePackages = componentModelConf.getIgnoreItems();
 					Collection<String> runPackages = new HashSet<String>();
 					Map<String, JavaPackage> javaPackageForName = new HashMap<String, JavaPackage>();
 

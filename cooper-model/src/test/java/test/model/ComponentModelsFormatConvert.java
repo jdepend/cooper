@@ -113,7 +113,7 @@ public class ComponentModelsFormatConvert {
 						Element selement = document.createElement("component");// 组件节点
 						selement.setAttribute("name", componentConf.getName());
 						selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-						for (String packageName : ((JavaPackageComponentConf)componentConf).getPackages()) {
+						for (String packageName : componentConf.getItemNames()) {
 							Element eelement = document.createElement("package");
 							eelement.setTextContent(packageName);
 							selement.appendChild(eelement);
@@ -121,7 +121,7 @@ public class ComponentModelsFormatConvert {
 						nelement.appendChild(selement);
 					}
 					// 添加未包含的packages
-					List<String> ignorePackages = componentModelConfs.get(componentModelName).getIgnorePackages();
+					List<String> ignorePackages = componentModelConfs.get(componentModelName).getIgnoreItems();
 					if (ignorePackages != null && ignorePackages.size() > 0) {
 						Element ielements = document.createElement("ignorePackages");
 						for (String ignorePackage : ignorePackages) {

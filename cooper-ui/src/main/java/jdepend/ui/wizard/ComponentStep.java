@@ -78,7 +78,7 @@ public class ComponentStep extends Step {
 				}
 			}
 			// 设置未包含的packages
-			componentModel.setIgnorePackages(ignorePackages);
+			componentModel.setIgnoreItems(ignorePackages);
 		}
 		if (componentModel.getName() == null || componentModel.getName().length() == 0) {
 			if (this.componentPanel.getComponentModelConf().size() != 0) {

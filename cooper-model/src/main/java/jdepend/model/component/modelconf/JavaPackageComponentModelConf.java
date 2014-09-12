@@ -16,8 +16,6 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 
 	private static final long serialVersionUID = 5051041678062375195L;
 
-	private List<String> ignorePackages = new ArrayList<String>();
-
 	private transient JavaPackageComponentModelConfRepo repo = new JavaPackageComponentModelConfRepo();
 
 	public JavaPackageComponentModelConf() {
@@ -45,7 +43,7 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 
 		for (JavaPackageComponentConf componentConf : this.getComponentConfs()) {
 			for (String packageName : packageNames) {
-				if (componentConf.getPackages().contains(packageName)) {
+				if (componentConf.getItemNames().contains(packageName)) {
 					throw new JDependException("该组件名选择的包[" + packageName + "]已经在组件[" + componentConf.getName()
 							+ "]中包含！");
 				}
@@ -66,7 +64,7 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 	 */
 	public List<String> calIgnorePackages(List<JavaPackage> packages) {
 
-		Collection<String> containPackages = this.getContainPackages();
+		Collection<String> containPackages = this.getContainItems();
 
 		List<String> ignorePackages = new ArrayList<String>();
 		for (JavaPackage javaPackage : packages) {
@@ -77,40 +75,11 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 		return ignorePackages;
 	}
 
-	/**
-	 * 得到在创建该组件模型时未被包含的javaPackages
-	 * 
-	 * @return
-	 */
-	public List<String> getIgnorePackages() {
-		return ignorePackages;
-	}
-
-	public void setIgnorePackages(List<String> ignorePackages) {
-		this.ignorePackages = ignorePackages;
-	}
-
-	/**
-	 * 得到该组件模型包含的javaPackages
-	 * 
-	 * @return
-	 */
-	public Collection<String> getContainPackages() {
-		Collection<String> containPackages = new HashSet<String>();
-		for (JavaPackageComponentConf componentConf : this.getComponentConfs()) {
-			for (String packageName : componentConf.getPackages()) {
-				containPackages.add(packageName);
-			}
-		}
-		return containPackages;
-	}
-
 	@Override
 	public JavaPackageComponentModelConf clone() throws CloneNotSupportedException {
 		JavaPackageComponentModelConf conf = new JavaPackageComponentModelConf(this.getName());
-		conf.ignorePackages = new ArrayList<String>();
-		for (String ignorePackage : this.ignorePackages) {
-			conf.ignorePackages.add(ignorePackage);
+		for (String ignoreItem : this.getIgnoreItems()) {
+			conf.addIgnoreItem(ignoreItem);
 		}
 		for (JavaPackageComponentConf componentConf : this.getComponentConfs()) {
 			conf.addComponentConf(componentConf.clone());
