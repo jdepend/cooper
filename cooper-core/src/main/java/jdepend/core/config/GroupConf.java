@@ -51,8 +51,7 @@ public class GroupConf implements Cloneable {
 	GroupConf(String name) {
 		super();
 		this.name = name;
-		this.groupComponentModelConf = new GroupComponentModelConf(this.name,
-				new HashMap<String, ComponentModelConf<ComponentConf>>());
+		this.groupComponentModelConf = new GroupComponentModelConf(this.name, new HashMap<String, ComponentModelConf>());
 	}
 
 	GroupConf(String name, String path, String srcPath, List<String> filteredPackages, String attribute) {
@@ -63,8 +62,7 @@ public class GroupConf implements Cloneable {
 		this.filteredPackages = filteredPackages;
 		this.attribute = attribute;
 
-		this.groupComponentModelConf = new GroupComponentModelConf(this.name,
-				new HashMap<String, ComponentModelConf<ComponentConf>>());
+		this.groupComponentModelConf = new GroupComponentModelConf(this.name, new HashMap<String, ComponentModelConf>());
 	}
 
 	/**
@@ -255,7 +253,7 @@ public class GroupConf implements Cloneable {
 		this.groupComponentModelConf.save();
 	}
 
-	public ComponentModelConf<ComponentConf> getTheComponentModelConf(String name) {
+	public ComponentModelConf getTheComponentModelConf(String name) {
 		return this.groupComponentModelConf.getComponentModelConfs().get(name);
 	}
 
@@ -263,11 +261,11 @@ public class GroupConf implements Cloneable {
 		return this.groupComponentModelConf.getComponentModelConfs().keySet();
 	}
 
-	public void setComponentModelConfs(Map<String, ComponentModelConf<ComponentConf>> components) {
+	public void setComponentModelConfs(Map<String, ComponentModelConf> components) {
 		this.groupComponentModelConf.setComponentModelConfs(components);
 	}
 
-	public void addComponentModel(ComponentModelConf<ComponentConf> componentGroup) throws JDependException {
+	public void addComponentModel(ComponentModelConf componentGroup) throws JDependException {
 		this.groupComponentModelConf.addComponentModelConf(componentGroup);
 		insertComponentGroups();
 		BusiLogUtil.getInstance().businessLog(Operation.createComponentModel);

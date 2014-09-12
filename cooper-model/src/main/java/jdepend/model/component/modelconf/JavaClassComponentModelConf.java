@@ -1,17 +1,14 @@
 package jdepend.model.component.modelconf;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class JavaClassComponentModelConf extends ComponentModelConf<ComponentConf> {
+public class JavaClassComponentModelConf extends ComponentModelConf {
 
 	private static final long serialVersionUID = 1785215322819969052L;
 

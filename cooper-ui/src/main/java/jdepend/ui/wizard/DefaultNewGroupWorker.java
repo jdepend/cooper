@@ -23,7 +23,7 @@ public final class DefaultNewGroupWorker implements NewGroupWorker {
 
 	private String attribute;
 
-	private Map<String, ComponentModelConf<ComponentConf>> componentModels = new LinkedHashMap<String, ComponentModelConf<ComponentConf>>();
+	private Map<String, ComponentModelConf> componentModels = new LinkedHashMap<String, ComponentModelConf>();
 
 	private List<CommandConf> commandInfos = new ArrayList<CommandConf>();
 

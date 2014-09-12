@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class JavaPackageComponentModelConf extends ComponentModelConf<ComponentConf> {
+public class JavaPackageComponentModelConf extends ComponentModelConf {
 
 	private static final long serialVersionUID = 5051041678062375195L;
 

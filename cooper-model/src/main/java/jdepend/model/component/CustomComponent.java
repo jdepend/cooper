@@ -10,7 +10,6 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
-import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 
@@ -27,7 +26,7 @@ public final class CustomComponent extends Component {
 	 */
 	private static final long serialVersionUID = 4611204363465134237L;
 
-	private ComponentModelConf<ComponentConf> componentModelConf;
+	private ComponentModelConf componentModelConf;
 
 	public CustomComponent() {
 	}

@@ -482,7 +482,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		componentListModel.removeAllElements();
 
-		ComponentModelConf<ComponentConf> componentGroup = this.groupInfo
+		ComponentModelConf componentGroup = this.groupInfo
 				.getTheComponentModelConf(currentComponentModelName);
 
 		for (String componentName : componentGroup.getComponentConfNames()) {

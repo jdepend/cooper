@@ -231,7 +231,7 @@ public final class ChangedPackageListDialog extends JDialog {
 	private void deletePackagesFromConf() throws JDependException {
 		GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 				.getTheGroupComponentModelConf(group);
-		ComponentModelConf<ComponentConf> componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
+		ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 				componentModelConfName);
 
 		ArrayList<String> deletePackages = this.selectedPackages.get("已删除");

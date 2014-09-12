@@ -56,7 +56,7 @@ public class ComponentModelPanel extends JPanel {
 	private boolean itemListNormal = true;
 
 	// 组件结果
-	private ComponentModelConf<ComponentConf> componentModelConf = new JavaPackageComponentModelConf();
+	private ComponentModelConf componentModelConf = new JavaPackageComponentModelConf();
 
 	// 已创建的组件
 	private JList componentListUI;
@@ -474,7 +474,7 @@ public class ComponentModelPanel extends JPanel {
 		this.componentModelConf.setIgnoreItems(ignorePackages);
 	}
 
-	public ComponentModelConf<ComponentConf> getComponentModelConf() {
+	public ComponentModelConf getComponentModelConf() {
 		return this.componentModelConf;
 	}
 

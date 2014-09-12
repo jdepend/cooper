@@ -36,7 +36,7 @@ public final class GroupComponentModelConf {
 
 	private String group;
 
-	private Map<String, ComponentModelConf<ComponentConf>> componentModelConfs;
+	private Map<String, ComponentModelConf> componentModelConfs;
 
 	public static final String DEFAULT_PROPERTY_DIR = "conf\\componentconf";
 
@@ -45,14 +45,14 @@ public final class GroupComponentModelConf {
 		this.componentModelConfs = this.loadComponentModelConfs();
 	}
 
-	public GroupComponentModelConf(String group, Map<String, ComponentModelConf<ComponentConf>> componentModelConfs) {
+	public GroupComponentModelConf(String group, Map<String, ComponentModelConf> componentModelConfs) {
 		super();
 		this.group = group;
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	private Map<String, ComponentModelConf<ComponentConf>> loadComponentModelConfs() throws JDependException {
-		Map<String, ComponentModelConf<ComponentConf>> componentModelConfs = new LinkedHashMap<String, ComponentModelConf<ComponentConf>>();
+	private Map<String, ComponentModelConf> loadComponentModelConfs() throws JDependException {
+		Map<String, ComponentModelConf> componentModelConfs = new LinkedHashMap<String, ComponentModelConf>();
 		ComponentModelConf componentModelConf;
 
 		if (!(new File(getComponentFilePath(group))).exists())
@@ -137,15 +137,15 @@ public final class GroupComponentModelConf {
 		return group;
 	}
 
-	public Map<String, ComponentModelConf<ComponentConf>> getComponentModelConfs() {
+	public Map<String, ComponentModelConf> getComponentModelConfs() {
 		return componentModelConfs;
 	}
 
-	public void setComponentModelConfs(Map<String, ComponentModelConf<ComponentConf>> componentModelConfs) {
+	public void setComponentModelConfs(Map<String, ComponentModelConf> componentModelConfs) {
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	public void addComponentModelConf(ComponentModelConf<ComponentConf> componentModelConf) throws JDependException {
+	public void addComponentModelConf(ComponentModelConf componentModelConf) throws JDependException {
 		if (this.componentModelConfs.containsKey(componentModelConf.getName())) {
 			throw new JDependException("组件模型[" + componentModelConf.getName() + "]重复");
 		}

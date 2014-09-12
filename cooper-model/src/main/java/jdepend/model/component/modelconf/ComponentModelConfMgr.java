@@ -42,7 +42,7 @@ public class ComponentModelConfMgr {
 	 * @param name
 	 * @return
 	 */
-	public ComponentModelConf<ComponentConf> getTheComponentModelConf(String group, String modelName) {
+	public ComponentModelConf getTheComponentModelConf(String group, String modelName) {
 		for (GroupComponentModelConf groupComponent : groupComponentModelConfs) {
 			if (groupComponent.getGroup().equals(group)) {
 				return groupComponent.getComponentModelConfs().get(modelName);

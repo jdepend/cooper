@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import jdepend.framework.exception.JDependException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import jdepend.framework.exception.JDependException;
 
 /**
  * 组件模型配置信息类
@@ -18,11 +18,11 @@ import jdepend.framework.exception.JDependException;
  * @author <b>Abner</b>
  * 
  */
-public abstract class ComponentModelConf<T extends ComponentConf> implements Serializable, Cloneable {
+public abstract class ComponentModelConf implements Serializable, Cloneable {
 
 	private String name;
 
-	private List<T> componentConfs = new ArrayList<T>();
+	private List<ComponentConf> componentConfs = new ArrayList<ComponentConf>();
 
 	private List<String> ignoreItems = new ArrayList<String>();
 
@@ -47,7 +47,7 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 
 	public abstract void addComponentConf(String name, int layer, List<String> packageNames) throws JDependException;
 
-	protected void addComponentConf(T componentConf) {
+	protected void addComponentConf(ComponentConf componentConf) {
 		if (!componentConfs.contains(componentConf)) {
 			componentConfs.add(componentConf);
 		}
@@ -59,7 +59,7 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 	 * @param name
 	 */
 	public void deleteComponentConf(String name) {
-		T componentConf = this.getTheComponentConf(name);
+		ComponentConf componentConf = this.getTheComponentConf(name);
 		if (componentConf != null) {
 			componentConfs.remove(componentConf);
 		}
@@ -82,7 +82,7 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 
 		List<String> names = new ArrayList<String>();
 
-		for (T componentConf : componentConfs) {
+		for (ComponentConf componentConf : componentConfs) {
 			names.add(componentConf.getName());
 		}
 
@@ -95,9 +95,9 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 	 * @param name
 	 * @return
 	 */
-	public T getTheComponentConf(String name) {
+	public ComponentConf getTheComponentConf(String name) {
 
-		for (T componentConf : componentConfs) {
+		for (ComponentConf componentConf : componentConfs) {
 			if (componentConf.getName().equals(name)) {
 				return componentConf;
 			}
@@ -105,7 +105,7 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 		return null;
 	}
 
-	public List<T> getComponentConfs() {
+	public List<ComponentConf> getComponentConfs() {
 		return this.componentConfs;
 	}
 
@@ -152,11 +152,11 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 		}
 	}
 
-	public abstract ComponentModelConf<T> clone() throws CloneNotSupportedException;
+	public abstract ComponentModelConf clone() throws CloneNotSupportedException;
 
 	public abstract Element save(Document document);
 
-	public abstract ComponentModelConf<T> load(Node componentModel) throws JDependException;
+	public abstract ComponentModelConf load(Node componentModel) throws JDependException;
 
 	@Override
 	public String toString() {
