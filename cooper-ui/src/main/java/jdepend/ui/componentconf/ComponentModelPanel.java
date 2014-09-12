@@ -48,7 +48,7 @@ public class ComponentModelPanel extends JPanel {
 	private JTextField componentModelField;
 
 	// 包集合
-	private JavaPackageListTable packageTable;
+	private CandidateListTable packageTable;
 	// 过滤器
 	protected JTextField itemListFilter;
 	// 是否包含外部项目
@@ -214,7 +214,7 @@ public class ComponentModelPanel extends JPanel {
 
 	public JComponent createListJavaPackages(String path, String group) {
 
-		packageTable = new JavaPackageListTable(this, path, group);
+		packageTable = new CandidateListTable(this, path, group);
 
 		JScrollPane pane = new JScrollPane(packageTable);
 		pane.addMouseListener(new MouseAdapter() {
