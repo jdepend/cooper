@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaPackage;
+import jdepend.model.component.modelconf.Candidate;
 
 /**
  * 显示执行Package下的类列表
@@ -26,8 +26,8 @@ import jdepend.model.JavaPackage;
  */
 public class ClassListInThePackageDialog extends JDialog {
 
-	public ClassListInThePackageDialog(JavaPackage javaPackage) {
-		this.setTitle(javaPackage.getName() + "包类列表");
+	public ClassListInThePackageDialog(Candidate javaPackage) {
+		this.setTitle(javaPackage.getName() + " 类列表");
 		this.setLayout(new BorderLayout());
 		setSize(400, 250);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
@@ -44,7 +44,7 @@ public class ClassListInThePackageDialog extends JDialog {
 		this.add(BorderLayout.SOUTH, buttonBar);
 	}
 
-	private JTable createClassList(JavaPackage javaPackage) {
+	private JTable createClassList(Candidate javaPackage) {
 		DefaultTableModel listModel = new DefaultTableModel();
 
 		TableSorter sorter = new TableSorter(listModel);

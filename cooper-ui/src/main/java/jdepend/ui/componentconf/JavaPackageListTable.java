@@ -29,6 +29,8 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
 import jdepend.model.JavaPackage;
+import jdepend.model.component.modelconf.Candidate;
+import jdepend.model.component.modelconf.CandidateComparator;
 import jdepend.parse.util.SearchUtil;
 
 public class JavaPackageListTable extends JTable {
@@ -36,13 +38,13 @@ public class JavaPackageListTable extends JTable {
 	private ComponentModelPanel componentModelPanel;
 
 	// 包中最大类个数
-	private int maxClassCount;
+	private int maxSize;
 	// 包集合
 	private DefaultTableModel packageTableModel;
 
 	// 包集合
-	private List<JavaPackage> packages;
-	private Map<String, JavaPackage> packageForNames;
+	private List<Candidate> packages;
+	private Map<String, Candidate> packageForNames;
 	// 当前包集合
 	private List<String> currentPackageList;
 
@@ -149,26 +151,26 @@ public class JavaPackageListTable extends JTable {
 
 		currentPackageList = new ArrayList<String>();
 
-		packages = new ArrayList<JavaPackage>(this.getPackages(this.path));
+		packages = new ArrayList<Candidate>(this.getPackages(this.path));
 
-		Collections.sort(packages);
+		Collections.sort(packages, new CandidateComparator());
 
-		this.packageForNames = new HashMap<String, JavaPackage>();
-		for (JavaPackage javaPackage : packages) {
+		this.packageForNames = new HashMap<String, Candidate>();
+		for (Candidate javaPackage : packages) {
 			this.packageForNames.put(javaPackage.getName(), javaPackage);
 		}
 
 		Object[] row;
-		int ClassCount;
-		for (JavaPackage javaPackage : packages) {
+		int size;
+		for (Candidate javaPackage : packages) {
 			if (this.componentModelPanel.filterExt.isSelected() && javaPackage.isInner()
 					|| !this.componentModelPanel.filterExt.isSelected()) {
 				row = new Object[2];
 				row[0] = javaPackage.getName();
-				ClassCount = javaPackage.getClassCount();
-				row[1] = ClassCount;
-				if (maxClassCount < ClassCount) {
-					maxClassCount = ClassCount;
+				size = javaPackage.size();
+				row[1] = size;
+				if (maxSize < size) {
+					maxSize = size;
 				}
 				packageTableModel.addRow(row);
 			}
@@ -189,7 +191,7 @@ public class JavaPackageListTable extends JTable {
 						boolean hasFocus, int row, int column) {
 					JProgressBar progressBar = new JProgressBar();
 					progressBar.setMinimum(0);
-					progressBar.setMaximum(maxClassCount);
+					progressBar.setMaximum(maxSize);
 					if (value != null) {
 						progressBar.setValue((Integer) value);
 						progressBar.setToolTipText(Integer.toString((Integer) value));
@@ -218,7 +220,7 @@ public class JavaPackageListTable extends JTable {
 			throw new JDependException("请选择一个包！");
 
 		String javaPackageName = (String) this.getValueAt(rows[0], 0);
-		JavaPackage javaPackage = this.packageForNames.get(javaPackageName);
+		Candidate javaPackage = this.packageForNames.get(javaPackageName);
 		ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
 		d.setModal(true);
 		d.setVisible(true);
@@ -238,7 +240,7 @@ public class JavaPackageListTable extends JTable {
 	}
 
 	protected void addThePackageList(Collection<String> packageNames) {
-		for (JavaPackage javaPackage : packages) {
+		for (Candidate javaPackage : packages) {
 			if (packageNames.contains(javaPackage.getName())
 					&& !this.currentPackageList.contains(javaPackage.getName())) {
 				this.currentPackageList.add(javaPackage.getName());
@@ -268,9 +270,9 @@ public class JavaPackageListTable extends JTable {
 		for (String packageName : matchPackageList) {
 			row = new Object[2];
 			row[0] = packageName;
-			for (JavaPackage javaPackage : packages) {
+			for (Candidate javaPackage : packages) {
 				if (javaPackage.getName().equals(packageName)) {
-					row[1] = javaPackage.getClassCount();
+					row[1] = javaPackage.size();
 				}
 			}
 			packageTableModel.addRow(row);
@@ -303,7 +305,7 @@ public class JavaPackageListTable extends JTable {
 		return searchUtil.getPackages();
 	}
 
-	protected List<JavaPackage> getPackages() {
+	protected List<Candidate> getPackages() {
 		return packages;
 	}
 

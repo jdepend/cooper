@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.component.modelconf.Candidate;
 
 /**
  * The <code>JavaPackage</code> class represents a Java package.
@@ -13,7 +14,8 @@ import jdepend.framework.exception.JDependException;
  * 
  */
 
-public final class JavaPackage implements Serializable, Named, Identifyer, Comparable<JavaPackage> {
+public final class JavaPackage implements Serializable, Named, Candidate, Identifyer,
+		Comparable<JavaPackage> {
 
 	/**
 	 * 
@@ -82,6 +84,11 @@ public final class JavaPackage implements Serializable, Named, Identifyer, Compa
 	@Override
 	public String getId() {
 		return this.name;
+	}
+	
+	@Override
+	public int size() {
+		return this.getClassCount();
 	}
 
 	@Override

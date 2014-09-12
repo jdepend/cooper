@@ -70,15 +70,15 @@ public class ComponentStep extends Step {
 			}
 		}
 		if (componentModel.size() > 0) {
-			List<String> ignorePackages = this.componentPanel.calIgnorePackages();
-			if (ignorePackages != null && ignorePackages.size() > 0) {
-				if (JOptionPane.showConfirmDialog(this, "包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
+			List<String> ignoreItems = this.componentPanel.calIgnoreItems();
+			if (ignoreItems != null && ignoreItems.size() > 0) {
+				if (JOptionPane.showConfirmDialog(this, "[" + ignoreItems.get(0) + "]等" + ignoreItems.size()
 						+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
 					return CANCEL_NEXT_STEP;
 				}
 			}
 			// 设置未包含的packages
-			componentModel.setIgnoreItems(ignorePackages);
+			componentModel.setIgnoreItems(ignoreItems);
 		}
 		if (componentModel.getName() == null || componentModel.getName().length() == 0) {
 			if (this.componentPanel.getComponentModelConf().size() != 0) {

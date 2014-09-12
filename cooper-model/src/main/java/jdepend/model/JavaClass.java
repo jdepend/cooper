@@ -9,6 +9,7 @@ import java.util.Map;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
+import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
@@ -23,7 +24,7 @@ import org.apache.bcel.Constants;
  * 
  */
 
-public final class JavaClass extends AbstractJDependUnit implements Identifyer {
+public final class JavaClass extends AbstractJDependUnit implements Identifyer, Candidate {
 
 	/**
 	 * 
@@ -1121,6 +1122,11 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer {
 		} else {
 			return super.getValue(metrics);
 		}
+	}
+
+	@Override
+	public int size() {
+		return this.getLineCount();
 	}
 
 	private void collectInvokeClasses(JavaClass javaClass, Collection<JavaClass> invokeClasses) {
