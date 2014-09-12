@@ -6,9 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -55,7 +53,7 @@ public final class GroupComponentModelConf {
 
 	private Map<String, ComponentModelConf<ComponentConf>> loadComponentModelConfs() throws JDependException {
 		Map<String, ComponentModelConf<ComponentConf>> componentModelConfs = new LinkedHashMap<String, ComponentModelConf<ComponentConf>>();
-		JavaPackageComponentModelConf componentModelConf;
+		ComponentModelConf componentModelConf;
 
 		if (!(new File(getComponentFilePath(group))).exists())
 			return componentModelConfs;
@@ -70,36 +68,15 @@ public final class GroupComponentModelConf {
 				for (int i = 0; i < componentModels.getLength(); i++) {
 					Node componentModel = componentModels.item(i);
 					if (componentModel.getNodeType() == Node.ELEMENT_NODE) {
-						String componentModelName = componentModel.getAttributes().getNamedItem("name").getNodeValue();
-						componentModelConf = new JavaPackageComponentModelConf(componentModelName);
-
-						for (Node node = componentModel.getFirstChild(); node != null; node = node.getNextSibling()) {
-							if (node.getNodeType() == Node.ELEMENT_NODE) {
-								if (node.getNodeName().equals("component")) {
-									String componentName = node.getAttributes().getNamedItem("name").getNodeValue();
-									int layer = Integer.parseInt(node.getAttributes().getNamedItem("layer")
-											.getNodeValue());
-									List<String> packages = new ArrayList<String>();
-									for (int k = 0; k < node.getChildNodes().getLength(); k++) {
-										Node Package = node.getChildNodes().item(k);
-										if (Package.getNodeType() == Node.ELEMENT_NODE) {
-											packages.add(Package.getTextContent());
-										}
-									}
-									componentModelConf.addComponentConf(componentName, layer, packages);
-								} else if (node.getNodeName().equals("ignorePackages")) {
-									List<String> ignorePackages = new ArrayList<String>();
-									for (int k = 0; k < node.getChildNodes().getLength(); k++) {
-										Node Package = node.getChildNodes().item(k);
-										if (Package.getNodeType() == Node.ELEMENT_NODE) {
-											ignorePackages.add(Package.getTextContent());
-										}
-									}
-									componentModelConf.setIgnorePackages(ignorePackages);
-								}
-							}
+						Node componentModelType = componentModel.getAttributes().getNamedItem("type");
+						if (componentModelType == null
+								|| componentModelType.getNodeValue().equals(
+										ComponentModelConf.ComponentModelType_Package)) {
+							componentModelConf = new JavaPackageComponentModelConf().load(componentModel);
+						} else {
+							componentModelConf = new JavaClassComponentModelConf().load(componentModel);
 						}
-						componentModelConfs.put(componentModelConf.getName(), (ComponentModelConf) componentModelConf);
+						componentModelConfs.put(componentModelConf.getName(), componentModelConf);
 					}
 				}
 			}
@@ -125,34 +102,7 @@ public final class GroupComponentModelConf {
 				root.setAttribute("group", group);// 添加group属性
 
 				for (String componentModelName : componentModelConfs.keySet()) {
-					Element nelement = document.createElement("componentModel");// 组件模型节点
-					nelement.setAttribute("name", componentModelName);// 添加name属性
-					// 添加组件信息
-					for (ComponentConf componentConf : componentModelConfs.get(componentModelName).getComponentConfs()) {
-						Element selement = document.createElement("component");// 组件节点
-						selement.setAttribute("name", componentConf.getName());
-						selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-						for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
-							Element eelement = document.createElement("package");
-							eelement.setTextContent(packageName);
-							selement.appendChild(eelement);
-						}
-						nelement.appendChild(selement);
-					}
-					// 添加未包含的packages
-					ComponentModelConf componentModelConf = componentModelConfs.get(componentModelName);
-					List<String> ignorePackages = ((JavaPackageComponentModelConf) componentModelConf)
-							.getIgnorePackages();
-					if (ignorePackages != null && ignorePackages.size() > 0) {
-						Element ielements = document.createElement("ignorePackages");
-						for (String ignorePackage : ignorePackages) {
-							Element ielement = document.createElement("package");
-							ielement.setTextContent(ignorePackage);
-							ielements.appendChild(ielement);
-						}
-						nelement.appendChild(ielements);
-					}
-					root.appendChild(nelement);
+					root.appendChild(componentModelConfs.get(componentModelName).save(document));
 				}
 				output(root, getComponentFilePath(group));
 			} catch (ParserConfigurationException e) {

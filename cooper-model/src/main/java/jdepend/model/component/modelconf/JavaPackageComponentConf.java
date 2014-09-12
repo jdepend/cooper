@@ -1,6 +1,5 @@
 package jdepend.model.component.modelconf;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -64,7 +63,7 @@ public final class JavaPackageComponentConf extends ComponentConf {
 	@Override
 	public JavaPackageComponentConf clone() throws CloneNotSupportedException {
 		JavaPackageComponentConf conf = new JavaPackageComponentConf(this.getName(), this.getLayer());
-		conf.packages = new ArrayList<String>();
+		conf.packages = new HashSet<String>();
 		for (String packageName : this.packages) {
 			conf.packages.add(packageName);
 		}

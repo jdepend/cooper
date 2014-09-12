@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import jdepend.framework.exception.JDependException;
 
 /**
@@ -17,6 +21,9 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 	private String name;
 
 	private List<T> componentConfs = new ArrayList<T>();
+
+	public final static String ComponentModelType_Package = "package";
+	public final static String ComponentModelType_Class = "class";
 
 	public ComponentModelConf() {
 
@@ -106,6 +113,10 @@ public abstract class ComponentModelConf<T extends ComponentConf> implements Ser
 	}
 
 	public abstract ComponentModelConf<T> clone() throws CloneNotSupportedException;
+
+	public abstract Element save(Document document);
+
+	public abstract ComponentModelConf<T> load(Node componentModel) throws JDependException;
 
 	@Override
 	public String toString() {

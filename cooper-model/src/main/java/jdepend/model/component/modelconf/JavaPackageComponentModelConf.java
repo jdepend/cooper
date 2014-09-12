@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaPackage;
 
@@ -13,6 +17,8 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 	private static final long serialVersionUID = 5051041678062375195L;
 
 	private List<String> ignorePackages = new ArrayList<String>();
+
+	private transient JavaPackageComponentModelConfRepo repo = new JavaPackageComponentModelConfRepo();
 
 	public JavaPackageComponentModelConf() {
 
@@ -91,8 +97,8 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 	 */
 	public Collection<String> getContainPackages() {
 		Collection<String> containPackages = new HashSet<String>();
-		for (ComponentConf componentConf : this.getComponentConfs()) {
-			for (String packageName : ((JavaPackageComponentConf) componentConf).getPackages()) {
+		for (JavaPackageComponentConf componentConf : this.getComponentConfs()) {
+			for (String packageName : componentConf.getPackages()) {
 				containPackages.add(packageName);
 			}
 		}
@@ -110,5 +116,15 @@ public class JavaPackageComponentModelConf extends ComponentModelConf<JavaPackag
 			conf.addComponentConf(componentConf.clone());
 		}
 		return conf;
+	}
+
+	@Override
+	public Element save(Document document) {
+		return this.repo.save(document, this);
+	}
+
+	@Override
+	public JavaPackageComponentModelConf load(Node componentModel) throws JDependException {
+		return this.repo.load(componentModel);
 	}
 }
