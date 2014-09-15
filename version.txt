@@ -6,6 +6,8 @@ b）修改填充类方法逻辑缺欠
 
 c）改进组件模型配置信息数据结构（抽象化ComponentModelConf）
 
+d）支持以类为单位创建组件
+
 1.2.3_03 2014-08-26
 
 a）将RelationCreator（建立组件之间的关系）和JavaClassRelationCreator（建立类之间的关系）的算法改造成多线程执行

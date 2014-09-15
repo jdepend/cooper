@@ -207,7 +207,7 @@ public class ComponentModelPanel extends JPanel {
 
 		JList componentList = createComponentList();
 
-		JList packageList = createPackageList();
+		JList packageList = createElementList();
 
 		JSplitPane componentSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, new JScrollPane(
 				componentList), new JScrollPane(packageList));
@@ -385,7 +385,7 @@ public class ComponentModelPanel extends JPanel {
 				if (index >= 0) {
 					currentComponent = (String) model.getElementAt(index);
 					theList.setSelectedIndex(index);
-					refreshPackageList();
+					refreshElementList();
 				}
 				if (e.getButton() == 3)
 					popupMenu.show(theList, e.getX(), e.getY());
@@ -395,7 +395,7 @@ public class ComponentModelPanel extends JPanel {
 		return componentListUI;
 	}
 
-	private JList createPackageList() {
+	private JList createElementList() {
 		final JList packageList = new JList(elementListModel);
 		packageList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -471,10 +471,10 @@ public class ComponentModelPanel extends JPanel {
 		for (String componentName : componentModelConf.getComponentConfNames()) {
 			componentListModel.addElement(componentName);
 		}
-		this.refreshPackageList();
+		this.refreshElementList();
 	}
 
-	private void refreshPackageList() {
+	private void refreshElementList() {
 		elementListModel.removeAllElements();
 		if (currentComponent != null) {
 			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getItemNames())
@@ -501,7 +501,7 @@ public class ComponentModelPanel extends JPanel {
 
 		List<String> ignorePackages = this.calIgnoreItems();
 		if (ignorePackages != null && ignorePackages.size() > 0) {
-			if (JOptionPane.showConfirmDialog(this, "包[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
+			if (JOptionPane.showConfirmDialog(this, "[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
 					+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
 				throw new JDependException();
 			}
