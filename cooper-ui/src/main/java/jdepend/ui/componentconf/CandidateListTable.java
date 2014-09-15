@@ -140,7 +140,7 @@ public class CandidateListTable extends JTable {
 
 		sorter.setTableHeader(this.getTableHeader());
 
-		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_PackageName));
+		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Name));
 		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Scale));
 
 		sorter.setSortingStatus(0, TableSorter.ASCENDING);
