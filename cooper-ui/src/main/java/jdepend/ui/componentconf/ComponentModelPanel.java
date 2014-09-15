@@ -124,7 +124,7 @@ public class ComponentModelPanel extends JPanel {
 			componentListUI.setSelectedIndex(0);
 		}
 	}
-	
+
 	/**
 	 * 初始化页面控件
 	 * 
@@ -161,6 +161,9 @@ public class ComponentModelPanel extends JPanel {
 					componentModelConf = new JavaPackageComponentModelConf();
 				} else {
 					componentModelConf = new JavaClassComponentModelConf();
+				}
+				if (componentModelField.getText() != null && componentModelField.getText().length() > 0) {
+					componentModelConf.setName(componentModelField.getText());
 				}
 				candidateTable.loadCandidateList();
 				refreshComponentList();
