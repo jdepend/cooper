@@ -47,7 +47,7 @@ public class ComponentModelPanel extends JPanel {
 	private JTextField componentModelField;
 
 	// 包集合
-	private CandidateListTable packageTable;
+	private CandidateListTable candidateTable;
 	// 过滤器
 	protected JTextField itemListFilter;
 	// 是否包含外部项目
@@ -83,6 +83,56 @@ public class ComponentModelPanel extends JPanel {
 	 * @param group
 	 */
 	public ComponentModelPanel(JDependCooper frame, String path, String group) {
+		this.init(frame, path, group);
+		candidateTable.loadCandidateList();
+	}
+
+	/**
+	 * 修改组件模型窗口
+	 * 
+	 * @param frame
+	 * @param path
+	 * @param groupName
+	 * @param componentModelName
+	 */
+	public ComponentModelPanel(JDependCooper frame, String path, String groupName, String componentModelName) {
+		this.init(frame, path, groupName);
+
+		componentModelField.setText(componentModelName);
+		this.setReadOnlyName();
+
+		componentModelConf = ComponentModelConfMgr.getInstance()
+				.getTheComponentModelConf(groupName, componentModelName);
+
+		candidateTable.loadCandidateList();
+		// 更新componentListModel和packageListModel
+		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
+			componentListModel.addElement(componentConf.getName());
+			for (String packageName : componentConf.getItemNames()) {
+				if (componentListModel.size() == 1) {
+					elementListModel.addElement(packageName);
+				}
+			}
+		}
+
+		// 删除已经包含在组件模型中的packages
+		candidateTable.removeTheCandidateList(componentModelConf.getContainItems());
+
+		// 设置默认组件
+		if (this.currentComponent == null && componentListModel.size() > 0) {
+			currentComponent = (String) componentListModel.getElementAt(0);
+			componentListUI.setSelectedIndex(0);
+		}
+	}
+	
+	/**
+	 * 初始化页面控件
+	 * 
+	 * @param frame
+	 * @param path
+	 * @param group
+	 */
+	private void init(JDependCooper frame, String path, String group) {
 
 		this.frame = frame;
 
@@ -112,7 +162,7 @@ public class ComponentModelPanel extends JPanel {
 				} else {
 					componentModelConf = new JavaClassComponentModelConf();
 				}
-				packageTable.loadCandidateList();
+				candidateTable.loadCandidateList();
 				refreshComponentList();
 			}
 		});
@@ -123,7 +173,7 @@ public class ComponentModelPanel extends JPanel {
 		filterExt.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				packageTable.filterCandidateList();
+				candidateTable.filterCandidateList();
 			}
 		});
 		contentPanel.add(filterExt);
@@ -138,7 +188,7 @@ public class ComponentModelPanel extends JPanel {
 		itemListFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				packageTable.filterCandidateList();
+				candidateTable.filterCandidateList();
 			}
 		});
 
@@ -149,7 +199,7 @@ public class ComponentModelPanel extends JPanel {
 		this.add(BorderLayout.NORTH, componentGroupPanel);
 
 		JPanel packageComponentPanel = new JPanel(new BorderLayout());
-		JComponent javaPackageList = this.createListJavaPackages(path, group);
+		JComponent javaPackageList = this.createCandidateList(path, group);
 		JPanel componentPanel = new JPanel(new BorderLayout());
 
 		JList componentList = createComponentList();
@@ -166,7 +216,7 @@ public class ComponentModelPanel extends JPanel {
 
 		packageComponentSplitPane.setDividerLocation(NormalHeight);
 
-		packageTable.addMouseListener(new MouseAdapter() {
+		candidateTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
@@ -184,45 +234,6 @@ public class ComponentModelPanel extends JPanel {
 		packageComponentPanel.add(packageComponentSplitPane);
 
 		this.add(BorderLayout.CENTER, packageComponentPanel);
-
-		packageTable.loadCandidateList();
-	}
-
-	/**
-	 * 修改组件模型窗口
-	 * 
-	 * @param frame
-	 * @param path
-	 * @param groupName
-	 * @param componentModelName
-	 */
-	public ComponentModelPanel(JDependCooper frame, String path, String groupName, String componentModelName) {
-		this(frame, path, groupName);
-
-		componentModelField.setText(componentModelName);
-		this.setReadOnlyName();
-
-		ComponentModelConf componentModelConf1 = ComponentModelConfMgr.getInstance().getTheComponentModelConf(
-				groupName, componentModelName);
-		componentModelConf = (JavaPackageComponentModelConf) componentModelConf1;
-		// 更新componentListModel和packageListModel
-		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
-			componentListModel.addElement(componentConf.getName());
-			for (String packageName : componentConf.getItemNames()) {
-				if (componentListModel.size() == 1) {
-					elementListModel.addElement(packageName);
-				}
-			}
-		}
-
-		// 删除已经包含在组件模型中的packages
-		packageTable.removeTheCandidateList(componentModelConf.getContainItems());
-
-		// 设置默认组件
-		if (this.currentComponent == null && componentListModel.size() > 0) {
-			currentComponent = (String) componentListModel.getElementAt(0);
-			componentListUI.setSelectedIndex(0);
-		}
 	}
 
 	public void setReadOnlyName() {
@@ -233,11 +244,11 @@ public class ComponentModelPanel extends JPanel {
 		return this.componentModelConf instanceof JavaPackageComponentModelConf;
 	}
 
-	public JComponent createListJavaPackages(String path, String group) {
+	public JComponent createCandidateList(String path, String group) {
 
-		packageTable = new CandidateListTable(this, path, group);
+		candidateTable = new CandidateListTable(this, path, group);
 
-		JScrollPane pane = new JScrollPane(packageTable);
+		JScrollPane pane = new JScrollPane(candidateTable);
 		pane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -279,25 +290,25 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	public void refresh() {
-		packageTable.reLoadCandidateList();
+		candidateTable.reLoadCandidateList();
 		// 删除已经包含在组件模型中的packages
-		packageTable.removeTheCandidateList(componentModelConf.getContainItems());
+		candidateTable.removeTheCandidateList(componentModelConf.getContainItems());
 		// 进行关键字过滤
-		packageTable.filterCandidateList();
+		candidateTable.filterCandidateList();
 	}
 
 	public void setPath(String path) {
-		packageTable.setPath(path);
+		candidateTable.setPath(path);
 	}
 
 	protected void createComponent() throws JDependException {
-		int[] rows = packageTable.getSelectedRows();
+		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
 		ArrayList<String> selectedPackages = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) packageTable.getValueAt(rows[i], 0));
+			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
 		}
 
 		CreateCustomComponentConfDialog d = new CreateCustomComponentConfDialog(selectedPackages);
@@ -306,13 +317,13 @@ public class ComponentModelPanel extends JPanel {
 	}
 
 	protected void batchCreateComponent() throws JDependException {
-		int[] rows = packageTable.getSelectedRows();
+		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
 		ArrayList<String> selectedPackages = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) packageTable.getValueAt(rows[i], 0));
+			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
 		}
 
 		ArrayList<String> packageList;
@@ -321,24 +332,24 @@ public class ComponentModelPanel extends JPanel {
 			packageList.add(unit);
 			componentModelConf.addComponentConf(unit, jdepend.model.Component.UndefinedComponentLevel, packageList);
 		}
-		packageTable.removeTheCandidateList(selectedPackages);
+		candidateTable.removeTheCandidateList(selectedPackages);
 		refreshComponentList();
 	}
 
 	protected void joinComponent() throws JDependException {
-		int[] rows = packageTable.getSelectedRows();
+		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
 		ArrayList<String> selectedPackages = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) packageTable.getValueAt(rows[i], 0));
+			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
 		}
 
 		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages, componentModelConf) {
 			@Override
 			protected void doService() {
-				packageTable.removeTheCandidateList(joinPackages);
+				candidateTable.removeTheCandidateList(joinPackages);
 				refreshComponentList();
 			}
 		};
@@ -428,7 +439,7 @@ public class ComponentModelPanel extends JPanel {
 				}
 
 				componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(selectedPackages);
-				packageTable.addTheCandidateList(selectedPackages);
+				candidateTable.addTheCandidateList(selectedPackages);
 				refreshComponentList();
 			}
 		});
@@ -448,7 +459,7 @@ public class ComponentModelPanel extends JPanel {
 
 	private void deleteComponent() {
 		String componentName = (String) componentListUI.getSelectedValue();
-		packageTable.addTheCandidateList(componentModelConf.getTheComponentConf(componentName).getItemNames());
+		candidateTable.addTheCandidateList(componentModelConf.getTheComponentConf(componentName).getItemNames());
 		componentModelConf.deleteComponentConf(componentName);
 	}
 
@@ -476,7 +487,7 @@ public class ComponentModelPanel extends JPanel {
 
 		protected void doService(ActionEvent e) throws JDependException {
 			componentModelConf.addComponentConf(componentname.getText(), this.getComponentLayer(), units);
-			packageTable.removeTheCandidateList(units);
+			candidateTable.removeTheCandidateList(units);
 			refreshComponentList();
 		}
 	}
@@ -504,7 +515,7 @@ public class ComponentModelPanel extends JPanel {
 		Collection<String> containItems = this.componentModelConf.getContainItems();
 
 		List<String> ignorePackages = new ArrayList<String>();
-		for (Candidate javaPackage : packageTable.getCandidates()) {
+		for (Candidate javaPackage : candidateTable.getCandidates()) {
 			if (!containItems.contains(javaPackage.getName()) && javaPackage.isInner()) {
 				ignorePackages.add(javaPackage.getName());
 			}
