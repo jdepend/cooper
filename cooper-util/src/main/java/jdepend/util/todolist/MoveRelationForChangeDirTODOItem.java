@@ -11,33 +11,36 @@ public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem
 	}
 
 	protected boolean decision() throws JDependException {
-		if (relation.getAttentionType() != Relation.ComponentLayerAttentionType
-				&& relation.getAttentionType() != Relation.SDPAttentionType
-				&& relation.getAttentionType() != Relation.CycleDependAttentionType) {
+		if (this.getRelationData().getRelation().getAttentionType() != Relation.ComponentLayerAttentionType
+				&& this.getRelationData().getRelation().getAttentionType() != Relation.SDPAttentionType
+				&& this.getRelationData().getRelation().getAttentionType() != Relation.CycleDependAttentionType) {
 			throw new JDependException("该关系不是下层组件依赖了上层组件或者稳定的组件依赖不稳定的组件或者循环依赖");
 		}
 		// 根据耦合值判断需要移动Relation
-		if (MathUtil.isZero(getCollectData().currentCaIntensity) || MathUtil.isZero(getCollectData().dependCeIntensity)) {
-			if (getCollectData().currentCeIntensity > getCollectData().dependCaIntensity) {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+		if (MathUtil.isZero(getRelationData().currentCaIntensity)
+				|| MathUtil.isZero(getRelationData().dependCeIntensity)) {
+			if (getRelationData().currentCeIntensity > getRelationData().dependCaIntensity) {
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
+						.getComponent());
 			} else {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
+						.getComponent());
 			}
 			this.moveRelationInfo.setChangeDir(true);
 
 			return true;
-		} else if (MathUtil.isZero(getCollectData().currentCeIntensity)
-				&& getCollectData().currentCaIntensity < this.relation.getIntensity()) {
-			this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
-			this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+		} else if (MathUtil.isZero(getRelationData().currentCeIntensity)
+				&& getRelationData().currentCaIntensity < this.getRelationData().getRelation().getIntensity()) {
+			this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
+			this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend().getComponent());
 			this.moveRelationInfo.setChangeDir(false);
 			return true;
-		} else if (MathUtil.isZero(getCollectData().dependCaIntensity)
-				&& getCollectData().dependCeIntensity < this.relation.getIntensity()) {
-			this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
-			this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+		} else if (MathUtil.isZero(getRelationData().dependCaIntensity)
+				&& getRelationData().dependCeIntensity < this.getRelationData().getRelation().getIntensity()) {
+			this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
+			this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent().getComponent());
 			this.moveRelationInfo.setChangeDir(false);
 			return true;
 		} else {
@@ -47,12 +50,14 @@ public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem
 
 	@Override
 	public String getAccording() {
-		return relation.getAttentionType() == Relation.ComponentLayerAttentionType ? "下层组件依赖了上层组件" : (relation
-				.getAttentionType() == Relation.SDPAttentionType ? "违反稳定依赖原则" : "该关系在循环依赖链上表现为最弱的关系");
+		return this.getRelationData().getRelation().getAttentionType() == Relation.ComponentLayerAttentionType ? "下层组件依赖了上层组件"
+				: (this.getRelationData().getRelation().getAttentionType() == Relation.SDPAttentionType ? "违反稳定依赖原则"
+						: "该关系在循环依赖链上表现为最弱的关系");
 	}
 
 	@Override
 	public String getContent() {
-		return relation.getCurrent().getName() + " 依赖了 " + relation.getDepend().getName();
+		return this.getRelationData().getRelation().getCurrent().getName() + " 依赖了 "
+				+ this.getRelationData().getRelation().getDepend().getName();
 	}
 }

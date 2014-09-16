@@ -11,28 +11,32 @@ public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOI
 	}
 
 	protected boolean decision() throws JDependException {
-		if (relation.getAttentionType() != Relation.MutualDependAttentionType) {
+		if (this.getRelationData().getRelation().getAttentionType() != Relation.MutualDependAttentionType) {
 			throw new JDependException("该关系不是彼此依赖");
 		}
 		// 根据耦合值判断需要移动Relation
-		if (MathUtil.isZero(getCollectData().currentCaIntensity) || MathUtil.isZero(getCollectData().dependCeIntensity)) {
-			if (getCollectData().currentCeIntensity > getCollectData().dependCaIntensity) {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+		if (MathUtil.isZero(getRelationData().currentCaIntensity) || MathUtil.isZero(getRelationData().dependCeIntensity)) {
+			if (getRelationData().currentCeIntensity > getRelationData().dependCaIntensity) {
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
+						.getComponent());
 			} else {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
+						.getComponent());
 			}
 			this.moveRelationInfo.setChangeDir(true);
 		} else {
-			Float currentIntensity = getCollectData().currentCaIntensity + getCollectData().currentCeIntensity;
-			Float dependIntensity = getCollectData().dependCaIntensity + getCollectData().dependCeIntensity;
+			Float currentIntensity = getRelationData().currentCaIntensity + getRelationData().currentCeIntensity;
+			Float dependIntensity = getRelationData().dependCaIntensity + getRelationData().dependCeIntensity;
 			if (currentIntensity > dependIntensity) {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().depend, getCollectData().dependOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getCurrent().getComponent());
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
+						.getComponent());
 			} else {
-				this.moveRelationInfo = new MoveRelationInfo(getCollectData().current, getCollectData().currentOther);
-				this.moveRelationInfo.setTargetComponent(this.relation.getDepend().getComponent());
+				this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
+				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
+						.getComponent());
 			}
 			this.moveRelationInfo.setChangeDir(false);
 		}
@@ -46,6 +50,7 @@ public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOI
 
 	@Override
 	public String getContent() {
-		return relation.getCurrent().getName() + " 与 " + relation.getDepend().getName() + " 存在彼此依赖，并且前者对后者的依赖较少，请解决该依赖";
+		return this.getRelationData().getRelation().getCurrent().getName() + " 与 "
+				+ this.getRelationData().getRelation().getDepend().getName() + " 存在彼此依赖，并且前者对后者的依赖较少，请解决该依赖";
 	}
 }
