@@ -1,5 +1,6 @@
 package jdepend.util.todolist;
 
+import java.util.List;
 import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
@@ -47,10 +48,10 @@ public abstract class TODOItem implements Comparable<TODOItem> {
 		this.order = order;
 	}
 
-	public abstract StringBuilder execute() throws JDependException;
+	public abstract List<Object> execute() throws JDependException;
 	
-	public abstract StringBuilder getInfo();
-
+	public abstract List<Object> getInfo();
+	
 	@Override
 	public int compareTo(TODOItem o) {
 		return o.order.compareTo(this.order);

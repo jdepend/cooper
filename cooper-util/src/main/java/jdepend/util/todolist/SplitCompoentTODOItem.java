@@ -3,6 +3,7 @@ package jdepend.util.todolist;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
@@ -44,7 +45,7 @@ public final class SplitCompoentTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder execute() throws JDependException {
+	public List<Object> execute() throws JDependException {
 		// 移动“寄养”JavaClass到自己的“亲父母”那里
 		for (String target : moveInfos.keySet()) {
 			RefactorToolFactory.createTool().moveClass(moveInfos.get(target),
@@ -55,7 +56,7 @@ public final class SplitCompoentTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder getInfo() {
+	public List<Object> getInfo() {
 		if (this.moveInfos != null && this.moveInfos.size() > 0) {
 			StringBuilder info = new StringBuilder();
 			for (String target : moveInfos.keySet()) {
@@ -68,7 +69,9 @@ public final class SplitCompoentTODOItem extends TODOItem {
 					info.append("\n");
 				}
 			}
-			return info;
+			List<Object> infos = new ArrayList<Object>();
+			infos.add(info);
+			return infos;
 		} else {
 			return null;
 		}

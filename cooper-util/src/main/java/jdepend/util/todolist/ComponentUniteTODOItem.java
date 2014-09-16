@@ -20,7 +20,7 @@ public final class ComponentUniteTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder execute() throws JDependException {
+	public List<Object> execute() throws JDependException {
 
 		List<String> components = new ArrayList<String>();
 		components.add(relation.getCurrent().getName());
@@ -43,7 +43,7 @@ public final class ComponentUniteTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder getInfo() {
+	public List<Object> getInfo() {
 		StringBuilder info = new StringBuilder();
 
 		info.append("组件[");
@@ -53,7 +53,10 @@ public final class ComponentUniteTODOItem extends TODOItem {
 		info.append("]合并，其关系耦合值为：");
 		info.append(MetricsFormat.toFormattedMetrics(this.relation.getIntensity()));
 		info.append("\n");
-		return info;
+
+		List<Object> infos = new ArrayList<Object>();
+		infos.add(info);
+		return infos;
 	}
 
 }

@@ -1,6 +1,8 @@
 package jdepend.util.todolist;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
@@ -22,7 +24,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder execute() throws JDependException {
+	public List<Object> execute() throws JDependException {
 
 		if (moveRelationInfo.getMoveClasses() != null && moveRelationInfo.getTargetComponent() != null) {
 			// 将依赖的Class移入到被依赖的Class所在的组件中
@@ -50,7 +52,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder getInfo() {
+	public List<Object> getInfo() {
 		if (moveRelationInfo.getMoveClasses() != null && moveRelationInfo.getMoveClasses().size() > 0) {
 			StringBuilder info = new StringBuilder();
 
@@ -71,7 +73,9 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 					info.append("\n");
 				}
 			}
-			return info;
+			List<Object> infos = new ArrayList<Object>();
+			infos.add(info);
+			return infos;
 		} else {
 			return null;
 		}

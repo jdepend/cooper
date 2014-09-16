@@ -26,7 +26,7 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 	}
 
 	@Override
-	public StringBuilder execute() throws JDependException {
+	public List<Object> execute() throws JDependException {
 		StringBuilder info = new StringBuilder();
 		if (unit.getStability() < 0.5) {
 			Collection<JavaClass> abstractnessClasses = new ArrayList<JavaClass>();
@@ -60,12 +60,14 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 		} else {
 			info.append("不必设计过多的接口或抽象类\n");
 		}
-		return info;
+		List<Object> infos = new ArrayList<Object>();
+		infos.add(info);
+		return infos;
 
 	}
 
 	@Override
-	public StringBuilder getInfo() {
+	public List<Object> getInfo() {
 		try {
 			return this.execute();
 		} catch (JDependException e) {

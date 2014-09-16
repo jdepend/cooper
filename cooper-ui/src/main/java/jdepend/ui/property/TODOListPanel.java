@@ -58,22 +58,19 @@ public final class TODOListPanel extends JPanel {
 
 		listModel.addColumn("ID");
 		listModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Desc));
-		listModel.addColumn(BundleUtil
-				.getString(BundleUtil.TableHead_According));
+		listModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_According));
 
 		this.listTable = new JTable(listModel);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem viewItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_View));
+		JMenuItem viewItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_View));
 		viewItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view();
 			}
 		});
 		popupMenu.add(viewItem);
-		JMenuItem executeItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_VirtualExecute));
+		JMenuItem executeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_VirtualExecute));
 		executeItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -88,8 +85,7 @@ public final class TODOListPanel extends JPanel {
 
 		popupMenu.addSeparator();
 
-		JMenuItem saveAsItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_SaveAs));
+		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTableUtil.exportTableToExcel(listTable);
@@ -101,8 +97,7 @@ public final class TODOListPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				JTable table = (JTable) e.getSource();
-				current = (String) table.getValueAt(
-						table.rowAtPoint(e.getPoint()), 0);
+				current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 				selectedTODOItems = new ArrayList<String>();
 				for (int row : table.getSelectedRows()) {
 					selectedTODOItems.add((String) table.getValueAt(row, 0));
@@ -137,31 +132,32 @@ public final class TODOListPanel extends JPanel {
 
 	private void view() {
 		TODOItem item = this.getCurrent();
-		this.frame.getResultPanel().addResult(item.getAccording(),
-				item.getInfo());
+		for (Object info : item.getInfo()) {
+			this.frame.getResultPanel().addResult(item.getAccording(),
+					TODOItemRenderMgr.getInstance().getItemRender(info).render(info));
+		}
 	}
 
 	private void execute() throws JDependException {
-		if (this.selectedTODOItems == null
-				|| this.selectedTODOItems.size() == 0) {
+		if (this.selectedTODOItems == null || this.selectedTODOItems.size() == 0) {
 			throw new JDependException("请选择需要执行的待做事项");
 		}
-		List<StringBuilder> infos = new ArrayList<StringBuilder>();
+		List<Object> infos = new ArrayList<Object>();
 		for (TODOItem item : this.getCurrents()) {
-			StringBuilder info = null;
+			List<Object> info = null;
 			try {
 				info = item.execute();
 			} catch (JDependException e) {
 				e.printStackTrace();
 				frame.showStatusError(e.getMessage());
 			}
-			if (info != null && info.length() > 0) {
-				infos.add(info);
+			if (info != null && info.size() > 0) {
+				infos.addAll(info);
 			}
 		}
 		frame.onRefactoring();
-		for (StringBuilder info : infos) {
-			frame.getResultPanel().addResult("待办建议", info);
+		for (Object info : infos) {
+			frame.getResultPanel().addResult("待办建议", TODOItemRenderMgr.getInstance().getItemRender(info).render(info));
 		}
 	}
 
