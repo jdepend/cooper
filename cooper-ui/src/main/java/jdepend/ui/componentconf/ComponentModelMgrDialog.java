@@ -119,7 +119,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 		JPanel packageList = new JPanel(new BorderLayout());
 
 		packageList.add(BorderLayout.NORTH,
-				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageList) + ":"));
+				new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_ElementList) + ":"));
 		packageList.add(BorderLayout.CENTER, this.createPackageList());
 
 		content.add(packageList);
