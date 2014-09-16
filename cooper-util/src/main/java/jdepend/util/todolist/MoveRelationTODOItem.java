@@ -45,12 +45,8 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		return moveRelationInfo.isChangeDir();
 	}
 
-	protected RelationData getRelationData() {
+	public RelationData getRelationData() {
 		return relationData;
-	}
-
-	protected MoveRelationInfo getMoveRelationInfo() {
-		return moveRelationInfo;
 	}
 
 	@Override
