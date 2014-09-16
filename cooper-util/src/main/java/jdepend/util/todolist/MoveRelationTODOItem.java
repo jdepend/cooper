@@ -16,9 +16,9 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 
 	protected MoveRelationInfo moveRelationInfo;
 
-	public MoveRelationTODOItem(Relation relation) {
+	public MoveRelationTODOItem(RelationData relationData) {
 		super();
-		this.relationData = new RelationData(relation);
+		this.relationData = relationData;
 	}
 
 	@Override

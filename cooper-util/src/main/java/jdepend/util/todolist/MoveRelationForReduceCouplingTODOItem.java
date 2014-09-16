@@ -8,8 +8,8 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 
 	private boolean deleteRelation = false;
 
-	public MoveRelationForReduceCouplingTODOItem(Relation relation) {
-		super(relation);
+	public MoveRelationForReduceCouplingTODOItem(RelationData relationData) {
+		super(relationData);
 	}
 
 	protected boolean decision() throws JDependException {

@@ -6,8 +6,8 @@ import jdepend.model.Relation;
 
 public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOItem {
 
-	public MoveRelationForMutualDependTODOItem(Relation relation) {
-		super(relation);
+	public MoveRelationForMutualDependTODOItem(RelationData relationData) {
+		super(relationData);
 	}
 
 	protected boolean decision() throws JDependException {

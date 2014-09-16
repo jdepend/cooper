@@ -6,8 +6,8 @@ import jdepend.model.Relation;
 
 public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem {
 
-	public MoveRelationForChangeDirTODOItem(Relation relation) {
-		super(relation);
+	public MoveRelationForChangeDirTODOItem(RelationData relationData) {
+		super(relationData);
 	}
 
 	protected boolean decision() throws JDependException {

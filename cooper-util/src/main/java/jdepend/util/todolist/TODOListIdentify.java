@@ -43,15 +43,16 @@ public class TODOListIdentify {
 		Collection<Relation> relations = this.result.getRelations();
 		Float attentionLevel = null;
 		MoveRelationTODOItem item = null;
-		Relation cycleDepend = null;
+		RelationData cycleDepend = null;
 		for (Relation relation : relations) {
 			try {
+				RelationData relationData = new RelationData(relation);
 				if (relation.isAttention()) {
 					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
 						attentionLevel = relation.getAttentionLevel();
 						// 寻找循环依赖中“细”的那条依赖关系
 						if (attentionLevel - Relation.MutualDependAttentionType > 0.8) {
-							item = new MoveRelationForMutualDependTODOItem(relation);
+							item = new MoveRelationForMutualDependTODOItem(relationData);
 							if (item.isMove()) {
 								item.setOrder(MoveJavaClassTODOItemOrder + attentionLevel);
 								this.list.add(item);
@@ -59,12 +60,12 @@ public class TODOListIdentify {
 						}
 					} else if (relation.getAttentionType() == Relation.CycleDependAttentionType) {
 						// 记录循环依赖链上关系最弱的
-						if (cycleDepend == null || cycleDepend.getIntensity() > relation.getIntensity()) {
-							cycleDepend = relation;
+						if (cycleDepend == null || cycleDepend.getRelation().getIntensity() > relation.getIntensity()) {
+							cycleDepend = relationData;
 						}
 
 					} else if (relation.getAttentionType() == Relation.ComponentLayerAttentionType) {
-						item = new MoveRelationForChangeDirTODOItem(relation);
+						item = new MoveRelationForChangeDirTODOItem(relationData);
 						if (item.isMove()) {
 							item.setOrder(MoveJavaClassTODOItemOrder + relation.getAttentionLevel());
 							this.list.add(item);
@@ -72,7 +73,7 @@ public class TODOListIdentify {
 					} else if (relation.getAttentionType() == Relation.SDPAttentionType) {
 						attentionLevel = relation.getAttentionLevel();
 						if (attentionLevel - Relation.SDPAttentionType > 0.4) {
-							item = new MoveRelationForChangeDirTODOItem(relation);
+							item = new MoveRelationForChangeDirTODOItem(relationData);
 							if (item.isMove()) {
 								item.setOrder(MoveJavaClassTODOItemOrder + attentionLevel);
 								this.list.add(item);
@@ -80,7 +81,7 @@ public class TODOListIdentify {
 						}
 					}
 				} else {
-					item = new MoveRelationForReduceCouplingTODOItem(relation);
+					item = new MoveRelationForReduceCouplingTODOItem(relationData);
 					if (item.isMove()) {
 						Float order = MoveRelationTODOItemOrder;
 						if (!item.isChangeDir()) {
