@@ -133,8 +133,10 @@ public final class TODOListPanel extends JPanel {
 	private void view() {
 		TODOItem item = this.getCurrent();
 		for (Object info : item.getInfo()) {
-			this.frame.getResultPanel().addResult(item.getAccording(),
-					TODOItemRenderMgr.getInstance().getItemRender(info).render(info));
+			TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
+			if (render != null) {
+				this.frame.getResultPanel().addResult(item.getAccording(), render.render(info));
+			}
 		}
 	}
 
@@ -157,7 +159,10 @@ public final class TODOListPanel extends JPanel {
 		}
 		frame.onRefactoring();
 		for (Object info : infos) {
-			frame.getResultPanel().addResult("待办建议", TODOItemRenderMgr.getInstance().getItemRender(info).render(info));
+			TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
+			if (render != null) {
+				frame.getResultPanel().addResult("待办建议", render.render(info));
+			}
 		}
 	}
 
