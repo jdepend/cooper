@@ -26,6 +26,8 @@ public class RelationData {
 	VirtualComponent currentOther;
 	VirtualComponent dependOther;
 
+	private Collection<Relation> relations;
+
 	private boolean inited = false;
 
 	public RelationData(Relation relation) {
@@ -66,7 +68,7 @@ public class RelationData {
 			components.add(currentOther);
 			components.add(dependOther);
 
-			new RelationCreator().create(components);
+			relations = new RelationCreator().create(components);
 
 			this.currentCeIntensity = current.ceCoupling(currentOther);
 			this.currentCaIntensity = current.caCoupling(currentOther);
@@ -80,6 +82,10 @@ public class RelationData {
 
 	public Relation getRelation() {
 		return relation;
+	}
+
+	public Collection<Relation> getRelations() {
+		return relations;
 	}
 
 	public float getCurrentCeIntensity() {

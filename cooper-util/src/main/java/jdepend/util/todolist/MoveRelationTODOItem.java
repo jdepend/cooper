@@ -75,6 +75,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 			}
 			List<Object> infos = new ArrayList<Object>();
 			infos.add(info);
+			infos.add(relationData);
 			return infos;
 		} else {
 			return null;
