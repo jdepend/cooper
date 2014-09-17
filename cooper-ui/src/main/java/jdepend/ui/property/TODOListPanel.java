@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -14,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,6 +25,9 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.result.ArchitectPatternPanel;
+import jdepend.ui.result.DesignPatternPanel;
+import jdepend.ui.result.SubResultTab;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
 
@@ -132,19 +138,24 @@ public final class TODOListPanel extends JPanel {
 
 	private void view() {
 		TODOItem item = this.getCurrent();
+		Map<String, JComponent> groupComponents = new LinkedHashMap<String, JComponent>();
+		int index = 0;
 		for (Object info : item.getInfo()) {
 			TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
 			if (render != null) {
-				this.frame.getResultPanel().addResult(item.getAccording(), render.render(info));
+				index++;
+				groupComponents.put(item.getAccording() + index, render.render(info));
+
 			}
 		}
+		this.frame.getResultPanel().addResult(item.getAccording(), this.compositeComponent(groupComponents));
 	}
 
 	private void execute() throws JDependException {
 		if (this.selectedTODOItems == null || this.selectedTODOItems.size() == 0) {
 			throw new JDependException("请选择需要执行的待做事项");
 		}
-		List<Object> infos = new ArrayList<Object>();
+		Map<TODOItem, List<Object>> infos = new LinkedHashMap<TODOItem, List<Object>>();
 		for (TODOItem item : this.getCurrents()) {
 			List<Object> info = null;
 			try {
@@ -154,16 +165,31 @@ public final class TODOListPanel extends JPanel {
 				frame.showStatusError(e.getMessage());
 			}
 			if (info != null && info.size() > 0) {
-				infos.addAll(info);
+				infos.put(item, info);
 			}
 		}
+		
 		frame.onRefactoring();
-		for (Object info : infos) {
-			TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
-			if (render != null) {
-				frame.getResultPanel().addResult("待办建议", render.render(info));
+		
+		int index;
+		for (TODOItem item : infos.keySet()) {
+			index = 0;
+			for (Object info : infos.get(item)) {
+				TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
+				if (render != null) {
+					index++;
+					frame.getResultPanel().addResult(item.getAccording() + index, render.render(info));
+				}
 			}
 		}
+	}
+
+	private JComponent compositeComponent(Map<String, JComponent> components) {
+		JTabbedPane tabPane = new JTabbedPane();
+		for (String title : components.keySet()) {
+			tabPane.add(title, components.get(title));
+		}
+		return tabPane;
 	}
 
 	private TODOItem getCurrent() {
