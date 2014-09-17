@@ -186,6 +186,7 @@ public final class TODOListPanel extends JPanel {
 
 	private JComponent compositeComponent(Map<String, JComponent> components) {
 		JTabbedPane tabPane = new JTabbedPane();
+		tabPane.setTabPlacement(JTabbedPane.BOTTOM);
 		for (String title : components.keySet()) {
 			tabPane.add(title, components.get(title));
 		}
