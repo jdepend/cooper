@@ -36,7 +36,7 @@ import jdepend.model.component.modelconf.GroupComponentModelConf;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 
-public final class ChangedPackageListDialog extends JDialog {
+public final class ChangedElementListDialog extends JDialog {
 
 	private String group;
 
@@ -46,11 +46,11 @@ public final class ChangedPackageListDialog extends JDialog {
 
 	private DefaultTableModel listModel;
 
-	private Map<String, ArrayList<String>> selectedPackages;
+	private Map<String, ArrayList<String>> selectedElements;
 
-	public ChangedPackageListDialog(JDependCooper frame) {
+	public ChangedElementListDialog(JDependCooper frame) {
 
-		this.setTitle("包变动列表");
+		this.setTitle("元素变动列表");
 		this.setLayout(new BorderLayout());
 		setSize(ComponentModelPanel.Width, ComponentModelPanel.Height);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
@@ -73,7 +73,7 @@ public final class ChangedPackageListDialog extends JDialog {
 
 		sorter.setTableHeader(listTable.getTableHeader());
 
-		listModel.addColumn("包名");
+		listModel.addColumn("元素名");
 		listModel.addColumn("变动");
 
 		final JPopupMenu addPopupMenu = new JPopupMenu();
@@ -81,11 +81,11 @@ public final class ChangedPackageListDialog extends JDialog {
 		JMenuItem viewClassItem = new JMenuItem("查看类列表");
 		viewClassItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedPackages.size() != 1 && selectedPackages.get("新增").size() != 1) {
+				if (selectedElements.size() != 1 && selectedElements.get("新增").size() != 1) {
 					JOptionPane.showMessageDialog(null, "请选择一个包", "alert", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else {
-					String javaPackageName = selectedPackages.get("新增").get(0);
+					String javaPackageName = selectedElements.get("新增").get(0);
 					JavaPackage javaPackage = JDependUnitMgr.getInstance().getResult().getRunningContext()
 							.getThePackage(javaPackageName);
 					ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
@@ -103,12 +103,12 @@ public final class ChangedPackageListDialog extends JDialog {
 						.getTheGroupComponentModelConf(group);
 				ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 						componentModelConfName);
-				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages.get("新增"),
+				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedElements.get("新增"),
 						componentModelConf) {
 					@Override
 					protected void doService() throws JDependException {
 						groupComponentModelConf.save();
-						deleteSelectedPackages();
+						deleteSelectedElements();
 					}
 				};
 				d.setModal(true);
@@ -120,7 +120,7 @@ public final class ChangedPackageListDialog extends JDialog {
 		JMenuItem createItem = new JMenuItem("创建新组件");
 		createItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateComponentConfDialog d = new CreateComponentConfDialog(selectedPackages.get("新增"), false) {
+				CreateComponentConfDialog d = new CreateComponentConfDialog(selectedElements.get("新增"), false) {
 					@Override
 					protected void doService(ActionEvent e) throws JDependException {
 						GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
@@ -130,7 +130,7 @@ public final class ChangedPackageListDialog extends JDialog {
 						componentModelConf.addComponentConf(componentname.getText(),
 								getComponentLayer(), units);
 						groupComponentModelConf.save();
-						deleteSelectedPackages();
+						deleteSelectedElements();
 					}
 				};
 				d.setModal(true);
@@ -145,7 +145,7 @@ public final class ChangedPackageListDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(listTable, "您是否确认？") == JOptionPane.OK_OPTION) {
 					try {
-						deletePackagesFromConf();
+						deleteElementsFromConf();
 					} catch (JDependException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
@@ -159,9 +159,9 @@ public final class ChangedPackageListDialog extends JDialog {
 				JTable table = (JTable) e.getSource();
 				if (e.getButton() == 3) {
 					try {
-						selectedPackages = collect();
-						if (selectedPackages.size() > 0) {
-							if (selectedPackages.containsKey("新增")) {
+						selectedElements = collect();
+						if (selectedElements.size() > 0) {
+							if (selectedElements.containsKey("新增")) {
 								addPopupMenu.show(table, e.getX(), e.getY());
 							} else {
 								deletePopupMenu.show(table, e.getX(), e.getY());
@@ -177,12 +177,12 @@ public final class ChangedPackageListDialog extends JDialog {
 
 		Object[] row;
 
-		Map<String, String> diffPackages = JDependUnitMgr.getInstance().getResult().getDiffElements();
+		Map<String, String> diffElements = JDependUnitMgr.getInstance().getResult().getDiffElements();
 
-		for (String packageName : diffPackages.keySet()) {
+		for (String elementName : diffElements.keySet()) {
 			row = new Object[2];
-			row[0] = packageName;
-			row[1] = diffPackages.get(packageName).equals("ADD") ? "新增" : "已删除";
+			row[0] = elementName;
+			row[1] = diffElements.get(elementName).equals("ADD") ? "新增" : "已删除";
 			listModel.addRow(row);
 		}
 
@@ -201,37 +201,37 @@ public final class ChangedPackageListDialog extends JDialog {
 
 	private Map<String, ArrayList<String>> collect() throws JDependException {
 
-		Map<String, ArrayList<String>> selectedPackages = new HashMap<String, ArrayList<String>>();
+		Map<String, ArrayList<String>> selectedElements = new HashMap<String, ArrayList<String>>();
 
 		int[] rows = listTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
-			return selectedPackages;
+			return selectedElements;
 
 		String operation = null;
-		String javaPackageName = null;
+		String elementName = null;
 
 		for (int i = 0; i < rows.length; i++) {
-			javaPackageName = (String) listTable.getValueAt(rows[i], 0);
+			elementName = (String) listTable.getValueAt(rows[i], 0);
 			operation = (String) listTable.getValueAt(rows[i], 1);
-			if (!selectedPackages.containsKey(operation)) {
-				selectedPackages.put(operation, new ArrayList<String>());
+			if (!selectedElements.containsKey(operation)) {
+				selectedElements.put(operation, new ArrayList<String>());
 			}
-			selectedPackages.get(operation).add(javaPackageName);
+			selectedElements.get(operation).add(elementName);
 		}
-		if (selectedPackages.size() > 1) {
-			throw new JDependException("不能够包含新增和已删除两类包！");
+		if (selectedElements.size() > 1) {
+			throw new JDependException("不能够包含新增和已删除两类元素！");
 		}
-		return selectedPackages;
+		return selectedElements;
 
 	}
 
-	private void deletePackagesFromConf() throws JDependException {
+	private void deleteElementsFromConf() throws JDependException {
 		GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 				.getTheGroupComponentModelConf(group);
 		ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 				componentModelConfName);
 
-		ArrayList<String> deletePackages = this.selectedPackages.get("已删除");
+		ArrayList<String> deletePackages = this.selectedElements.get("已删除");
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			Iterator<String> it = componentConf.getItemNames().iterator();
 			while (it.hasNext()) {
@@ -242,29 +242,29 @@ public final class ChangedPackageListDialog extends JDialog {
 		}
 
 		groupComponentModelConf.save();
-		deleteSelectedPackages();
+		deleteSelectedElements();
 	}
 
-	private void deleteSelectedPackages() {
-		List<String> packages;
-		if (this.selectedPackages.containsKey("新增")) {
-			packages = this.selectedPackages.get("新增");
+	private void deleteSelectedElements() {
+		List<String> elements;
+		if (this.selectedElements.containsKey("新增")) {
+			elements = this.selectedElements.get("新增");
 		} else {
-			packages = this.selectedPackages.get("已删除");
+			elements = this.selectedElements.get("已删除");
 		}
 		for (int row = listModel.getRowCount() - 1; row >= 0; row--) {
-			if (packages.contains(listModel.getValueAt(row, 0))) {
+			if (elements.contains(listModel.getValueAt(row, 0))) {
 				listModel.removeRow(row);
 			}
 		}
-		this.selectedPackages = new HashMap<String, ArrayList<String>>();
+		this.selectedElements = new HashMap<String, ArrayList<String>>();
 	}
 
 	private Component createCloseButton() {
 		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChangedPackageListDialog.this.dispose();
+				ChangedElementListDialog.this.dispose();
 			}
 		});
 

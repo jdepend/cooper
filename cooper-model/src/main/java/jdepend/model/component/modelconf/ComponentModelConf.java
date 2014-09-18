@@ -170,8 +170,8 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		Collection<String> containItems = this.getContainItems();
 		Collection<String> ignoreItems = this.getIgnoreItems();
 		Collection<String> runItems = new HashSet<String>();
+		
 		Map<String, Candidate> candidateForName = new HashMap<String, Candidate>();
-
 		for (Candidate candidate : this.getCandidates(packages)) {
 			runItems.add(candidate.getName());
 			candidateForName.put(candidate.getName(), candidate);

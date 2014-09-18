@@ -26,15 +26,15 @@ import jdepend.model.component.modelconf.Candidate;
  */
 public class ClassListInThePackageDialog extends JDialog {
 
-	public ClassListInThePackageDialog(Candidate javaPackage) {
-		this.setTitle(javaPackage.getName() + " 类列表");
+	public ClassListInThePackageDialog(Candidate candidate) {
+		this.setTitle(candidate.getName() + " 类列表");
 		this.setLayout(new BorderLayout());
 		setSize(400, 250);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		JPanel content = new JPanel(new BorderLayout());
 
-		content.add(BorderLayout.CENTER, new JScrollPane(this.createClassList(javaPackage)));
+		content.add(BorderLayout.CENTER, new JScrollPane(this.createClassList(candidate)));
 
 		JPanel buttonBar = new JPanel(new FlowLayout());
 		buttonBar.add(createCloseButton());
@@ -44,7 +44,7 @@ public class ClassListInThePackageDialog extends JDialog {
 		this.add(BorderLayout.SOUTH, buttonBar);
 	}
 
-	private JTable createClassList(Candidate javaPackage) {
+	private JTable createClassList(Candidate candidate) {
 		DefaultTableModel listModel = new DefaultTableModel();
 
 		TableSorter sorter = new TableSorter(listModel);
@@ -56,7 +56,7 @@ public class ClassListInThePackageDialog extends JDialog {
 		listModel.addColumn("类名");
 		Object[] row;
 
-		for (JavaClass javaClass : javaPackage.getClasses()) {
+		for (JavaClass javaClass : candidate.getClasses()) {
 			row = new Object[1];
 			row[0] = javaClass.getName();
 			listModel.addRow(row);

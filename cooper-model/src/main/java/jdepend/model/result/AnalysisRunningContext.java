@@ -182,7 +182,7 @@ public final class AnalysisRunningContext implements Serializable {
 	}
 
 	/**
-	 * 得到与配置信息存在差异的packages
+	 * 得到与配置信息存在差异的elements
 	 * 
 	 * @return
 	 */
