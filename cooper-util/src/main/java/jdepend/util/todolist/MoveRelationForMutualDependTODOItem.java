@@ -14,31 +14,63 @@ public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOI
 		if (this.getRelationData().getRelation().getAttentionType() != Relation.MutualDependAttentionType) {
 			throw new JDependException("该关系不是彼此依赖");
 		}
-		// 根据耦合值判断需要移动Relation
-		if (MathUtil.isZero(getRelationData().currentCaIntensity) || MathUtil.isZero(getRelationData().dependCeIntensity)) {
-			if (getRelationData().currentCeIntensity > getRelationData().dependCaIntensity) {
+		//根据耦合类型判断需要移动Relation
+		boolean isCurrentMutual = !MathUtil.isZero(getRelationData().currentCaIntensity)
+				&& !MathUtil.isZero(getRelationData().currentCeIntensity);
+		boolean isDependMutual = !MathUtil.isZero(getRelationData().dependCaIntensity)
+				&& !MathUtil.isZero(getRelationData().dependCeIntensity);
+
+		boolean decision = false;
+		if (isCurrentMutual && !isDependMutual) {
+			if (MathUtil.isZero(getRelationData().dependCeIntensity)) {
 				this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
 				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
 						.getComponent());
-			} else {
+				this.moveRelationInfo.setChangeDir(true);
+				decision = true;
+			}
+		} else if (!isCurrentMutual && isDependMutual) {
+			if (MathUtil.isZero(getRelationData().currentCaIntensity)) {
 				this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
 				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
 						.getComponent());
+				this.moveRelationInfo.setChangeDir(true);
+				decision = true;
 			}
-			this.moveRelationInfo.setChangeDir(true);
-		} else {
-			Float currentIntensity = getRelationData().currentCaIntensity + getRelationData().currentCeIntensity;
-			Float dependIntensity = getRelationData().dependCaIntensity + getRelationData().dependCeIntensity;
-			if (currentIntensity > dependIntensity) {
-				this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend, getRelationData().dependOther);
-				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
-						.getComponent());
+		}
+
+		if (!decision) {
+			// 根据耦合值判断需要移动Relation
+			if (MathUtil.isZero(getRelationData().currentCaIntensity)
+					|| MathUtil.isZero(getRelationData().dependCeIntensity)) {
+				if (getRelationData().currentCeIntensity > getRelationData().dependCaIntensity) {
+					this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend,
+							getRelationData().dependOther);
+					this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
+							.getComponent());
+				} else {
+					this.moveRelationInfo = new MoveRelationInfo(getRelationData().current,
+							getRelationData().currentOther);
+					this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
+							.getComponent());
+				}
+				this.moveRelationInfo.setChangeDir(true);
 			} else {
-				this.moveRelationInfo = new MoveRelationInfo(getRelationData().current, getRelationData().currentOther);
-				this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
-						.getComponent());
+				Float currentIntensity = getRelationData().currentCaIntensity + getRelationData().currentCeIntensity;
+				Float dependIntensity = getRelationData().dependCaIntensity + getRelationData().dependCeIntensity;
+				if (currentIntensity > dependIntensity) {
+					this.moveRelationInfo = new MoveRelationInfo(getRelationData().depend,
+							getRelationData().dependOther);
+					this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getCurrent()
+							.getComponent());
+				} else {
+					this.moveRelationInfo = new MoveRelationInfo(getRelationData().current,
+							getRelationData().currentOther);
+					this.moveRelationInfo.setTargetComponent(this.getRelationData().getRelation().getDepend()
+							.getComponent());
+				}
+				this.moveRelationInfo.setChangeDir(false);
 			}
-			this.moveRelationInfo.setChangeDir(false);
 		}
 		return true;
 	}
