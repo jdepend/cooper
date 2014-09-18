@@ -1,8 +1,10 @@
 package jdepend.model.component.modelconf;
 
+import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.JavaPackage;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -72,5 +74,10 @@ public class JavaPackageComponentModelConf extends ComponentModelConf {
 	@Override
 	public JavaPackageComponentModelConf load(Node componentModel) throws JDependException {
 		return this.repo.load(componentModel);
+	}
+
+	@Override
+	public Collection<? extends Candidate> getCandidates(Collection<JavaPackage> packages) {
+		return packages;
 	}
 }

@@ -401,13 +401,13 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	/**
-	 * 得到与配置信息存在差异的packages
+	 * 得到与配置信息存在差异的elements
 	 * 
 	 * @return
 	 */
-	public Map<String, String> getDiffPackages() {
+	public Map<String, String> getDiffElements() {
 		if (this.isExecuteResult) {
-			return this.runningContext.getDiffPackages();
+			return this.runningContext.getDiffElements();
 		} else {
 			return null;
 		}

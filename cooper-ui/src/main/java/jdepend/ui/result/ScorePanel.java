@@ -45,7 +45,6 @@ import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.CouplingDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreListDialog;
 import jdepend.ui.componentconf.ChangedPackageListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
@@ -509,13 +508,13 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 		otherPanel.add(BorderLayout.SOUTH, descPanel);
 
-		Map<String, String> diffPackages = result.getDiffPackages();
+		Map<String, String> diffPackages = result.getDiffElements();
 		if (diffPackages != null && diffPackages.size() > 0) {
 			JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 			tipPanel.setBackground(new java.awt.Color(255, 255, 255));
-			tipPanel.add(new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip)));
+			tipPanel.add(new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ElementChangeTip)));
 			JLabel tipClickLabel = new JLabel(
-					BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_PackageChangeTip_This));
+					BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ElementChangeTip_This));
 			JDependUIUtil.addClickTipEffect(tipClickLabel);
 			tipClickLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent evt) {

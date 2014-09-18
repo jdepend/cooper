@@ -315,12 +315,8 @@ public class CandidateListTable extends JTable {
 			}
 			packages = searchUtil.getPackages();
 		}
-
-		if (componentModelPanel.isPackageCandidate()) {
-			return packages;
-		} else {
-			return JavaClassUtil.getClassesForJavaPackages(packages);
-		}
+		
+		return componentModelPanel.getComponentModelConf().getCandidates(packages);
 	}
 
 	protected List<Candidate> getCandidates() {

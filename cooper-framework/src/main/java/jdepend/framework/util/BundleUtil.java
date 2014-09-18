@@ -62,8 +62,8 @@ public class BundleUtil {
 	public static final String ClientWin_ScorePanel_OtherMetrics = "ClientWin_ScorePanel_OtherMetrics";
 	public static final String ClientWin_ScorePanel_ExistingScoreScope = "ClientWin_ScorePanel_ExistingScoreScope";
 	public static final String ClientWin_ScorePanel_RelationNormal = "ClientWin_ScorePanel_RelationNormal";
-	public static final String ClientWin_ScorePanel_PackageChangeTip = "ClientWin_ScorePanel_PackageChangeTip";
-	public static final String ClientWin_ScorePanel_PackageChangeTip_This = "ClientWin_ScorePanel_PackageChangeTip_This";
+	public static final String ClientWin_ScorePanel_ElementChangeTip = "ClientWin_ScorePanel_ElementChangeTip";
+	public static final String ClientWin_ScorePanel_ElementChangeTip_This = "ClientWin_ScorePanel_ElementChangeTip_This";
 	public static final String ClientWin_ScorePanel_Value = "ClientWin_ScorePanel_Value";
 
 	public static final String ClientWin_Group_Name = "ClientWin_Group_Name";

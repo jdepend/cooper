@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.util.JavaClassUtil;
 
 /**
@@ -60,7 +58,7 @@ public final class AnalysisRunningContext implements Serializable {
 	 */
 	private transient Map<String, Collection<String>> targetFiles;// 保存分析目标组织形式
 
-	private transient Map<String, String> diffPackages;
+	private transient Map<String, String> diffElements;
 
 	private transient Collection<JavaClass> javaClasses;
 
@@ -188,39 +186,15 @@ public final class AnalysisRunningContext implements Serializable {
 	 * 
 	 * @return
 	 */
-	public Map<String, String> getDiffPackages() {
-		if (diffPackages == null) {
-			diffPackages = new HashMap<String, String>();
+	public Map<String, String> getDiffElements() {
+		if (diffElements == null) {
+			diffElements = new HashMap<String, String>();
 			if (this.component instanceof CustomComponent) {
 				ComponentModelConf componentModelConf = ((CustomComponent) this.component).getComponentModelConf();
-				if (componentModelConf instanceof JavaPackageComponentModelConf) {
-					Collection<String> containPackages = componentModelConf.getContainItems();
-					Collection<String> ignorePackages = componentModelConf.getIgnoreItems();
-					Collection<String> runPackages = new HashSet<String>();
-					Map<String, JavaPackage> javaPackageForName = new HashMap<String, JavaPackage>();
-
-					if (this.javaPackages != null) {
-						for (JavaPackage javaPackage : this.javaPackages) {
-							runPackages.add(javaPackage.getName());
-							javaPackageForName.put(javaPackage.getName(), javaPackage);
-						}
-					}
-					for (String runPackage : runPackages) {
-						if (!containPackages.contains(runPackage) && !ignorePackages.contains(runPackage)) {
-							if (javaPackageForName.get(runPackage).isInner()) {
-								diffPackages.put(runPackage, "ADD");
-							}
-						}
-					}
-					for (String containPackage : containPackages) {
-						if (!runPackages.contains(containPackage)) {
-							diffPackages.put(containPackage, "DELETE");
-						}
-					}
-				}
+				diffElements = componentModelConf.calDiffElements(this.javaPackages);
 			}
 		}
-		return this.diffPackages;
+		return this.diffElements;
 	}
 
 	@Override

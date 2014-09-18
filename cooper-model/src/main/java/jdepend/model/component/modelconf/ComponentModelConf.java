@@ -3,10 +3,13 @@ package jdepend.model.component.modelconf;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.JavaPackage;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -157,6 +160,37 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 	public abstract Element save(Document document);
 
 	public abstract ComponentModelConf load(Node componentModel) throws JDependException;
+
+	public abstract Collection<? extends Candidate> getCandidates(Collection<JavaPackage> packages);
+
+	public Map<String, String> calDiffElements(Collection<JavaPackage> packages) {
+
+		Map<String, String> diffElements = new HashMap<String, String>();
+
+		Collection<String> containItems = this.getContainItems();
+		Collection<String> ignoreItems = this.getIgnoreItems();
+		Collection<String> runItems = new HashSet<String>();
+		Map<String, Candidate> candidateForName = new HashMap<String, Candidate>();
+
+		for (Candidate candidate : this.getCandidates(packages)) {
+			runItems.add(candidate.getName());
+			candidateForName.put(candidate.getName(), candidate);
+		}
+		for (String runItem : runItems) {
+			if (!containItems.contains(runItem) && !ignoreItems.contains(runItem)) {
+				if (candidateForName.get(runItem).isInner()) {
+					diffElements.put(runItem, "ADD");
+				}
+			}
+		}
+		for (String containItem : containItems) {
+			if (!runItems.contains(containItem)) {
+				diffElements.put(containItem, "DELETE");
+			}
+		}
+
+		return diffElements;
+	}
 
 	@Override
 	public String toString() {

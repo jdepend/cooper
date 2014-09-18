@@ -33,8 +33,6 @@ import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
-import jdepend.model.component.modelconf.JavaPackageComponentConf;
-import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 
@@ -103,9 +101,8 @@ public final class ChangedPackageListDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				final GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 						.getTheGroupComponentModelConf(group);
-				ComponentModelConf componentModelConf1 = groupComponentModelConf.getComponentModelConfs().get(
+				ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 						componentModelConfName);
-				JavaPackageComponentModelConf componentModelConf = (JavaPackageComponentModelConf) componentModelConf1;
 				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages.get("新增"),
 						componentModelConf) {
 					@Override
@@ -130,7 +127,7 @@ public final class ChangedPackageListDialog extends JDialog {
 								.getTheGroupComponentModelConf(group);
 						ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 								componentModelConfName);
-						((JavaPackageComponentModelConf) componentModelConf).addComponentConf(componentname.getText(),
+						componentModelConf.addComponentConf(componentname.getText(),
 								getComponentLayer(), units);
 						groupComponentModelConf.save();
 						deleteSelectedPackages();
@@ -180,7 +177,7 @@ public final class ChangedPackageListDialog extends JDialog {
 
 		Object[] row;
 
-		Map<String, String> diffPackages = JDependUnitMgr.getInstance().getResult().getDiffPackages();
+		Map<String, String> diffPackages = JDependUnitMgr.getInstance().getResult().getDiffElements();
 
 		for (String packageName : diffPackages.keySet()) {
 			row = new Object[2];

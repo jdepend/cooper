@@ -243,10 +243,6 @@ public class ComponentModelPanel extends JPanel {
 		componentModelField.setEditable(false);
 	}
 
-	public boolean isPackageCandidate() {
-		return this.componentModelConf instanceof JavaPackageComponentModelConf;
-	}
-
 	public JComponent createCandidateList(String path, String group) {
 
 		candidateTable = new CandidateListTable(this, path, group);
