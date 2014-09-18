@@ -36,11 +36,11 @@ public class RelationData {
 
 	public void init() {
 		if (!inited) {
-			this.current = new VirtualComponent("current");
-			this.depend = new VirtualComponent("depend");
+			this.current = new VirtualComponent(relation.getCurrent().getName() + "_current");
+			this.depend = new VirtualComponent(relation.getDepend().getName() + "_depend");
 
-			currentOther = new VirtualComponent("currentOther");
-			dependOther = new VirtualComponent("dependOther");
+			currentOther = new VirtualComponent(relation.getCurrent().getName() + "_currentOther");
+			dependOther = new VirtualComponent(relation.getDepend().getName() + "_dependOther");
 
 			Component currentComponent = relation.getCurrent().getComponent();
 			Component dependComponent = relation.getDepend().getComponent();
