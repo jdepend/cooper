@@ -197,19 +197,15 @@ public class JavaClassMoveToDialog extends JDialog {
 		}
 		try {
 			String target = (String) this.componentTable.getValueAt(this.componentTable.getSelectedRows()[0], 0);
-
-			List<JavaClass> javaClasses = new ArrayList<JavaClass>();
-			for (JavaClass javaClass : JDependUnitMgr.getInstance().getResult().getClasses()) {
-				if (selectedJavaClass.contains(javaClass.getName())) {
-					javaClasses.add(javaClass);
-				}
-			}
+			jdepend.model.Component targetComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(target);
 
 			boolean adjust = false;
-			for (JavaClass javaClass : javaClasses) {
-				if (!javaClass.getComponent().getName().equals(target)) {
+			List<JavaClass> javaClasses = new ArrayList<JavaClass>();
+			for (String javaClassName : selectedJavaClass) {
+				JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(javaClassName);
+				javaClasses.add(javaClass);
+				if (!adjust && !targetComponent.containsClass(javaClass)) {
 					adjust = true;
-					break;
 				}
 			}
 
@@ -219,14 +215,7 @@ public class JavaClassMoveToDialog extends JDialog {
 				return;
 			}
 
-			jdepend.model.Component targetUnit = null;
-			for (jdepend.model.Component unit : JDependUnitMgr.getInstance().getComponents()) {
-				if (unit.getName().equals(target)) {
-					targetUnit = unit;
-					break;
-				}
-			}
-			RefactorToolFactory.createTool().moveClass(javaClasses, targetUnit);
+			RefactorToolFactory.createTool().moveClass(javaClasses, targetComponent);
 
 			frame.onRefactoring();
 			// 记录日志
