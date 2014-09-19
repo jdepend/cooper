@@ -77,10 +77,10 @@ public class GraphJDepend extends Display {
 
 	private RelationFilter filter = new RelationFilter();
 
-	protected static final String tree = "tree";
-	protected static final String treeNodes = "tree.nodes";
-	protected static final String treeEdges = "tree.edges";
-	protected static final String linear = "linear";
+	public static final String tree = "tree";
+	public static final String treeNodes = "tree.nodes";
+	public static final String treeEdges = "tree.edges";
+	public static final String linear = "linear";
 
 	private LabelRenderer m_nodeRenderer;
 	private JDependEdgeRenderer m_edgeRenderer;
@@ -91,6 +91,9 @@ public class GraphJDepend extends Display {
 
 	public GraphJDepend(Collection<Relation> relations) {
 		super(new Visualization());
+
+		// 重置hideVisualItem
+		HideVisualItemMgr.reset();
 
 		Collection<Element> elements = Relation.calElements(relations);
 		elementForNames = new HashMap<String, Element>();
@@ -281,56 +284,6 @@ public class GraphJDepend extends Display {
 
 	public Element getTheElement(String name) {
 		return this.elementForNames.get(name);
-	}
-
-	public static JPanel printGraph(Collection<Relation> relations) {
-		// 重置hideVisualItem
-		HideVisualItemMgr.reset();
-		// create a new radial tree view
-		final GraphJDepend gview = new GraphJDepend(relations);
-		Visualization vis = gview.getVisualization();
-
-		// create a search panel for the tree map
-		SearchQueryBinding sq = new SearchQueryBinding((Table) vis.getGroup(treeNodes), gview.getLabel(),
-				(SearchTupleSet) vis.getGroup(Visualization.SEARCH_ITEMS));
-		JSearchPanel search = sq.createSearchPanel();
-		search.setShowResultCount(true);
-		search.setBorder(BorderFactory.createEmptyBorder(5, 5, 4, 0));
-		search.setFont(FontLib.getFont("宋体", Font.PLAIN, 16));
-
-		final JFastLabel title = new JFastLabel("                 ");
-		title.setPreferredSize(new Dimension(350, 20));
-		title.setVerticalAlignment(SwingConstants.BOTTOM);
-		title.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
-		title.setFont(FontLib.getFont("宋体", Font.PLAIN, 16));
-
-		gview.addControlListener(new ControlAdapter() {
-			public void itemEntered(VisualItem item, MouseEvent e) {
-				if (item.canGetString("info")) {
-					title.setText(item.getString("info"));
-				}
-			}
-
-			public void itemExited(VisualItem item, MouseEvent e) {
-				title.setText(null);
-			}
-		});
-
-		Box box = new Box(BoxLayout.X_AXIS);
-		box.add(title);
-		// box.add(Box.createHorizontalGlue());
-		box.add(search);
-		// box.add(Box.createHorizontalStrut(3));
-
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(gview, BorderLayout.CENTER);
-		panel.add(box, BorderLayout.SOUTH);
-
-		Color BACKGROUND = Color.WHITE;
-		Color FOREGROUND = Color.DARK_GRAY;
-		UILib.setColor(panel, BACKGROUND, FOREGROUND);
-
-		return panel;
 	}
 
 	// ------------------------------------------------------------------------

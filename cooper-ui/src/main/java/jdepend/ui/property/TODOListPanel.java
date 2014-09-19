@@ -144,7 +144,7 @@ public final class TODOListPanel extends JPanel {
 			TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
 			if (render != null) {
 				index++;
-				groupComponents.put(item.getAccording() + index, render.render(info));
+				groupComponents.put(item.getAccording() + index, render.render(frame, info));
 
 			}
 		}
@@ -168,9 +168,9 @@ public final class TODOListPanel extends JPanel {
 				infos.put(item, info);
 			}
 		}
-		
+
 		frame.onRefactoring();
-		
+
 		int index;
 		for (TODOItem item : infos.keySet()) {
 			index = 0;
@@ -178,7 +178,7 @@ public final class TODOListPanel extends JPanel {
 				TODOItemRender render = TODOItemRenderMgr.getInstance().getItemRender(info);
 				if (render != null) {
 					index++;
-					frame.getResultPanel().addResult(item.getAccording() + index, render.render(info));
+					frame.getResultPanel().addResult(item.getAccording() + index, render.render(frame, info));
 				}
 			}
 		}

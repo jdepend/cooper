@@ -42,6 +42,7 @@ import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.CouplingDialog;
 import jdepend.report.ui.CycleDialog;
 import jdepend.report.util.ReportConstant;
+import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
@@ -65,7 +66,10 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 	protected ArrayList<String> selectedUnits;
 
-	public SummaryPanel(ReportCreator adapter) {
+	private JDependCooper frame;
+
+	public SummaryPanel(JDependCooper frame, ReportCreator adapter) {
+		this.frame = frame;
 		this.adapter = adapter;
 	}
 
@@ -231,7 +235,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceComponentDialog d = new BalanceComponentDialog(current);
+						BalanceComponentDialog d = new BalanceComponentDialog(frame, current);
 						d.setModal(true);
 						d.setVisible(true);
 					}

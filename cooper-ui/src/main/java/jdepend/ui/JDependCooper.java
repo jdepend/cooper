@@ -567,6 +567,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		d.setVisible(true);
 	}
 
+	@Override
 	public void onRefactoring() throws JDependException {
 		// 显示重构结果
 		this.getResultPanel().showMemoryResults();

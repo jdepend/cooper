@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
+import jdepend.framework.ui.JDependFrame;
 import jdepend.model.Relation;
 import jdepend.model.tree.JavaPackageNode;
 import jdepend.report.util.TreeGraphUtil;
@@ -34,10 +35,11 @@ public final class GraphPrinter {
 		return printer;
 	}
 
-	public JComponent print(Collection<Relation> relations, JavaPackageNode javaPackageTree) {
+	public JComponent print(JDependFrame frame, Collection<Relation> relations, JavaPackageNode javaPackageTree) {
 
 		this.javaPackageTree = javaPackageTree;
-		graphPanel = GraphJDepend.printGraph(relations);
+
+		graphPanel = new GraphPanel(frame, relations);
 
 		treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());

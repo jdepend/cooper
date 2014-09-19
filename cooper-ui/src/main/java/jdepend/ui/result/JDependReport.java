@@ -116,7 +116,7 @@ public class JDependReport extends ReportCreator {
 
 		groupComponents = new LinkedHashMap<String, JComponent>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
-		groupComponents.put("List", new SummaryPanel(this));
+		groupComponents.put("List", new SummaryPanel(frame, this));
 		if (printTableTree) {
 			groupComponents.put("TableTree", new SubResultTabPanel() {
 				@Override
@@ -299,7 +299,7 @@ public class JDependReport extends ReportCreator {
 			return new SubResultTabPanel() {
 				@Override
 				protected void init(AnalysisResult result) {
-					this.add(GraphPrinter.getIntance().print(result.getRelations(), result.getJavaPackageTree()));
+					this.add(GraphPrinter.getIntance().print(frame, result.getRelations(), result.getJavaPackageTree()));
 				}
 			};
 		} else {

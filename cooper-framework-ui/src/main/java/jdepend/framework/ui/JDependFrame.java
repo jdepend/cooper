@@ -149,6 +149,9 @@ public abstract class JDependFrame extends JFrame {
 	public Dimension getScrSize() {
 		return scrSize;
 	}
+	
+	public void onRefactoring() throws JDependException{
+	}
 
 	protected JMenuBar createMenubar() {
 
