@@ -128,15 +128,9 @@ public class JavaClassMoveToDialog extends JDialog {
 	}
 
 	private void calSelectedJavaClass() {
-		boolean fromCurrent;
-		if (current.isSelected()) {
-			fromCurrent = true;
-		} else {
-			fromCurrent = false;
-		}
 		selectedJavaClass = new ArrayList<String>();
 		for (JavaClassRelationItem item : this.relation.getItems()) {
-			if (fromCurrent) {
+			if (current.isSelected()) {
 				selectedJavaClass.add(item.getCurrent().getName());
 			} else {
 				selectedJavaClass.add(item.getDepend().getName());
