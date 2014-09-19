@@ -32,12 +32,12 @@ public class GraphPanel extends JPanel {
 	private JDependFrame frame;
 
 	public GraphPanel(JDependFrame frame, Collection<Relation> relations) {
-		
+
 		this.frame = frame;
 
 		this.setLayout(new BorderLayout());
 		// create a new radial tree view
-		final GraphJDepend gview = new GraphJDepend(relations);
+		final GraphJDepend gview = new GraphJDepend(this.frame, relations);
 		Visualization vis = gview.getVisualization();
 
 		// create a search panel for the tree map

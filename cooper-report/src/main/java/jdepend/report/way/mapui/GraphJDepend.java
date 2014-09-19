@@ -1,11 +1,6 @@
 package jdepend.report.way.mapui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,12 +9,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
+import jdepend.framework.ui.JDependFrame;
 import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.filter.RelationFilter;
@@ -39,7 +29,6 @@ import prefuse.action.assignment.FontAction;
 import prefuse.action.layout.CollapsedSubtreeLayout;
 import prefuse.action.layout.graph.RadialTreeLayout;
 import prefuse.activity.SlowInSlowOutPacer;
-import prefuse.controls.ControlAdapter;
 import prefuse.controls.DragControl;
 import prefuse.controls.FocusControl;
 import prefuse.controls.HoverActionControl;
@@ -47,12 +36,9 @@ import prefuse.controls.PanControl;
 import prefuse.controls.WheelZoomControl;
 import prefuse.data.Graph;
 import prefuse.data.Node;
-import prefuse.data.Table;
 import prefuse.data.Tuple;
 import prefuse.data.event.TupleSetListener;
-import prefuse.data.query.SearchQueryBinding;
 import prefuse.data.search.PrefixSearchTupleSet;
-import prefuse.data.search.SearchTupleSet;
 import prefuse.data.tuple.DefaultTupleSet;
 import prefuse.data.tuple.TupleSet;
 import prefuse.render.AbstractShapeRenderer;
@@ -60,9 +46,6 @@ import prefuse.render.DefaultRendererFactory;
 import prefuse.render.LabelRenderer;
 import prefuse.util.ColorLib;
 import prefuse.util.FontLib;
-import prefuse.util.ui.JFastLabel;
-import prefuse.util.ui.JSearchPanel;
-import prefuse.util.ui.UILib;
 import prefuse.visual.VisualItem;
 import prefuse.visual.expression.InGroupPredicate;
 import prefuse.visual.sort.TreeDepthItemSorter;
@@ -89,9 +72,12 @@ public class GraphJDepend extends Display {
 
 	private Map<String, Element> elementForNames;
 
-	public GraphJDepend(Collection<Relation> relations) {
+	private JDependFrame frame;
+
+	public GraphJDepend(JDependFrame frame, Collection<Relation> relations) {
 		super(new Visualization());
 
+		this.frame = frame;
 		// 重置hideVisualItem
 		HideVisualItemMgr.reset();
 
@@ -206,7 +192,7 @@ public class GraphJDepend extends Display {
 		}
 		addControlListener(new HoverActionControl("repaint"));
 		addControlListener(new JDependHighlightControl());
-		addControlListener(new JDependEdgeControl());
+		addControlListener(new JDependEdgeControl(frame));
 		addControlListener(new JDependNodeControl(this));
 		addControlListener(new MainMenuControl(this));
 
