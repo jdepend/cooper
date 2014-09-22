@@ -28,6 +28,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
+import jdepend.framework.ui.JDependFrame;
 import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
@@ -49,6 +50,12 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 	private transient Map<String, JDependUnit> unitNames = new HashMap<String, JDependUnit>();
 
 	private transient List<JDependUnit> units;
+	
+	private JDependFrame frame;
+
+	public TwoDimensionCell(JDependFrame frame) {
+		this.frame = frame;
+	}
 
 	@Override
 	protected void init(final AnalysisResult result) {
@@ -116,11 +123,11 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 
 				if (e.getClickCount() == 2) {
 					if (isRelation(unitNames.get(left), unitNames.get(right))) {
-						RelationDetailDialog d = new RelationDetailDialog(left, right);
+						RelationDetailDialog d = new RelationDetailDialog(frame, left, right);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (isRelation(unitNames.get(right), unitNames.get(left))) {
-						RelationDetailDialog d = new RelationDetailDialog(right, left);
+						RelationDetailDialog d = new RelationDetailDialog(frame, right, left);
 						d.setModal(true);
 						d.setVisible(true);
 					}

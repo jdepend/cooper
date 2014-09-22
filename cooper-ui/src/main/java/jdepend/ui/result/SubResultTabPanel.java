@@ -10,11 +10,11 @@ import jdepend.model.result.AnalysisResult;
 public abstract class SubResultTabPanel extends JPanel {
 
 	private boolean inited = false;
-	
+
 	public SubResultTabPanel() {
 		this.setLayout(new BorderLayout());
 	}
-	
+
 	@Override
 	public void setVisible(boolean aFlag) {
 		if (aFlag && !this.inited) {

@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -14,10 +13,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +26,6 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
-import jdepend.model.Relation;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public class JavaClassMoveToDialog extends JDialog {
@@ -41,22 +36,9 @@ public class JavaClassMoveToDialog extends JDialog {
 
 	private List<String> selectedJavaClass;
 
-	private Relation relation;
-
-	private JRadioButton current;
-
-	private JRadioButton depend;
-
 	private JPanel content;
 
 	private JavaClassMoveToDialogListener listener;
-
-	public JavaClassMoveToDialog(JDependFrame frame, Relation relation) {
-		this(frame);
-		this.relation = relation;
-
-		content.add(BorderLayout.NORTH, this.createRelationPanel());
-	}
 
 	public JavaClassMoveToDialog(JDependFrame frame, List<String> selectedJavaClass) {
 		this(frame);
@@ -92,52 +74,6 @@ public class JavaClassMoveToDialog extends JDialog {
 		panel.add(BorderLayout.SOUTH, buttonBar);
 
 		this.add(panel);
-	}
-
-	private JPanel createRelationPanel() {
-
-		JPanel relationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		relationPanel.add(new JLabel("要移动的类："));
-		current = new JRadioButton("源：" + this.relation.getCurrent().getName()) {
-			@Override
-			protected void fireItemStateChanged(ItemEvent event) {
-				if (current.isSelected()) {
-					depend.setSelected(false);
-				} else {
-					depend.setSelected(true);
-				}
-				calSelectedJavaClass();
-			}
-		};
-		relationPanel.add(current);
-
-		depend = new JRadioButton("目标：" + this.relation.getDepend().getName()) {
-			@Override
-			protected void fireItemStateChanged(ItemEvent event) {
-				if (depend.isSelected()) {
-					current.setSelected(false);
-				} else {
-					current.setSelected(true);
-				}
-				calSelectedJavaClass();
-			}
-		};
-		relationPanel.add(depend);
-
-		current.setSelected(true);
-
-		return relationPanel;
-	}
-
-	private void calSelectedJavaClass() {
-		selectedJavaClass = new ArrayList<String>();
-		for (JavaClassRelationItem item : this.relation.getItems()) {
-			if (current.isSelected()) {
-				selectedJavaClass.add(item.getCurrent().getName());
-			} else {
-				selectedJavaClass.add(item.getDepend().getName());
-			}
-		}
 	}
 
 	private JComponent createComponentTable() {

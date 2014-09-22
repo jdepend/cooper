@@ -133,14 +133,14 @@ public class JDependReport extends ReportCreator {
 			groupComponents.put("XML", this.createTextReport(ReportConstant.SummaryXML));
 		}
 		if (printTDC) {
-			groupComponents.put("TDC", new TwoDimensionCell());
+			groupComponents.put("TDC", new TwoDimensionCell(frame));
 		}
 		rtn.put(SummaryTabName, this.compositeComponent(groupComponents));
 
 		if (result.getRelations() != null) {
 			groupComponents = new LinkedHashMap<String, JComponent>();
 			groupComponents.put("Graph2D", this.createGraph(result.getRelations()));
-			groupComponents.put("Table", new RelationPanel());
+			groupComponents.put("Table", new RelationPanel(frame));
 			if (printRelationText) {
 				groupComponents.put("Text", this.createTextReport(ReportConstant.RelationText));
 			}

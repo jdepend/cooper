@@ -14,8 +14,6 @@ import javax.swing.JPopupMenu;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.Relation;
-import jdepend.report.ui.JavaClassMoveToDialog;
 import jdepend.report.ui.RelationDetailDialog;
 import prefuse.controls.ControlAdapter;
 import prefuse.visual.EdgeItem;
@@ -83,14 +81,6 @@ public class JDependEdgeControl extends ControlAdapter {
 			}
 		}
 
-		JMenuItem deleteRelation = new JMenuItem("移动类");
-		deleteRelation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				deleteRelation(sourceName, targetName);
-			}
-		});
-		popupMenu.add(deleteRelation);
-
 		return popupMenu;
 	}
 
@@ -144,14 +134,7 @@ public class JDependEdgeControl extends ControlAdapter {
 	}
 
 	private void viewRelation(String source, String target) {
-		RelationDetailDialog d = new RelationDetailDialog(source, target);
-		d.setModal(true);
-		d.setVisible(true);
-	}
-
-	private void deleteRelation(String source, String target) {
-		Relation relation = JDependUnitMgr.getInstance().getResult().getTheRelation(source, target);
-		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, relation);
+		RelationDetailDialog d = new RelationDetailDialog(frame, source, target);
 		d.setModal(true);
 		d.setVisible(true);
 	}

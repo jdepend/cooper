@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;

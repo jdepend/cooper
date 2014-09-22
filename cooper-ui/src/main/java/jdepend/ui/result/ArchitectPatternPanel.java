@@ -2,6 +2,7 @@ package jdepend.ui.result;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.ExceptionPrinter;
+import jdepend.framework.ui.JDependFrame;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.result.AnalysisResult;
@@ -19,8 +20,7 @@ public final class ArchitectPatternPanel extends SubResultTabPanel {
 			this.add(ExceptionPrinter.createComponent(e));
 		}
 		if (apResult != null) {
-			this.add(ResultPanel.createTextViewer(new StringBuilder(apResult
-					.getResult())));
+			this.add(ResultPanel.createTextViewer(new StringBuilder(apResult.getResult())));
 		}
 	}
 

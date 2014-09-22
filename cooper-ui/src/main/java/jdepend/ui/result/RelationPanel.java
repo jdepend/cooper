@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
@@ -40,6 +41,12 @@ public final class RelationPanel extends SubResultTabPanel {
 	private TableSorter sorter;
 
 	private JTable table;
+
+	private JDependFrame frame;
+
+	public RelationPanel(JDependFrame frame) {
+		this.frame = frame;
+	}
 
 	@Override
 	protected void init(final AnalysisResult result) {
@@ -114,7 +121,7 @@ public final class RelationPanel extends SubResultTabPanel {
 							.getHeaderValue();
 
 					if (currentCol.equals(ReportConstant.Relation_Intensity)) {
-						RelationDetailDialog d = new RelationDetailDialog(current, depend);
+						RelationDetailDialog d = new RelationDetailDialog(frame, current, depend);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Relation_CurrentName)
