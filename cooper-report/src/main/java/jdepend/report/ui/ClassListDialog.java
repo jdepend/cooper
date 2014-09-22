@@ -57,9 +57,14 @@ public class ClassListDialog extends CooperDialog {
 	private void initPopupMenu() {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		
-		popupMenu.add(this.classListPanel.createMoveToItem());
-		
+
+		popupMenu.add(this.classListPanel.createMoveToItem(new JavaClassMoveToDialogListener() {
+			@Override
+			public void onFinish() {
+				ClassListDialog.this.dispose();
+			}
+		}));
+
 		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -267,7 +267,7 @@ public class ClassListPanel extends JPanel {
 		return classListTable;
 	}
 
-	protected JMenuItem createMoveToItem() {
+	protected JMenuItem createMoveToItem(final JavaClassMoveToDialogListener listener) {
 		JMenuItem moveToItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Move));
 		moveToItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -275,7 +275,7 @@ public class ClassListPanel extends JPanel {
 					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
 						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
 					} else {
-						moveTo();
+						moveTo(listener);
 					}
 				} else {
 					JOptionPane.showMessageDialog(frame, "请选择至少一个JavaClass.", "alert", JOptionPane.WARNING_MESSAGE);
@@ -286,8 +286,11 @@ public class ClassListPanel extends JPanel {
 		return moveToItem;
 	}
 
-	private void moveTo() {
+	private void moveTo(JavaClassMoveToDialogListener listener) {
 		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, selectedJavaClass);
+		if (listener != null) {
+			d.setListener(listener);
+		}
 		d.setModal(true);
 		d.setVisible(true);
 	}

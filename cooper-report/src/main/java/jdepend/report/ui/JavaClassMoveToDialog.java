@@ -49,6 +49,8 @@ public class JavaClassMoveToDialog extends JDialog {
 
 	private JPanel content;
 
+	private JavaClassMoveToDialogListener listener;
+
 	public JavaClassMoveToDialog(JDependFrame frame, Relation relation) {
 		this(frame);
 		this.relation = relation;
@@ -218,6 +220,10 @@ public class JavaClassMoveToDialog extends JDialog {
 			RefactorToolFactory.createTool().moveClass(javaClasses, targetComponent);
 
 			frame.onRefactoring();
+
+			if (this.listener != null) {
+				this.listener.onFinish();
+			}
 			// 记录日志
 			BusiLogUtil.getInstance().businessLog(Operation.moveToClass);
 
@@ -229,4 +235,7 @@ public class JavaClassMoveToDialog extends JDialog {
 		}
 	}
 
+	public void setListener(JavaClassMoveToDialogListener listener) {
+		this.listener = listener;
+	}
 }
