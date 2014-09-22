@@ -36,6 +36,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.JavaClassComponent;
+import jdepend.model.util.JavaClassUtil;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {
@@ -50,8 +51,6 @@ public class ClassListPanel extends JPanel {
 
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
-
-	private String nameFilter;
 
 	private List<jdepend.model.Component> components;
 
@@ -79,9 +78,7 @@ public class ClassListPanel extends JPanel {
 		components.add(component);
 		this.loadClassList();
 
-		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.Name);
-		JTableUtil.fitTableColumns(classListTable, fitColNames);
+		this.fitCol();
 
 		return classListModel.getRowCount();
 	}
@@ -91,20 +88,16 @@ public class ClassListPanel extends JPanel {
 		components = JDependUnitMgr.getInstance().getComponents();
 		this.loadClassList();
 
-		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.Name);
-		JTableUtil.fitTableColumns(classListTable, fitColNames);
+		this.fitCol();
 
 		return classListModel.getRowCount();
 	}
 
-	public int reLoadClassList() {
+	public int filterClassList(String nameFilter, String callerFilter, String calleeFilter) {
 		clearClassList();
-		this.loadClassList();
+		this.inFilterClassList(nameFilter, callerFilter, calleeFilter);
 
-		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.Name);
-		JTableUtil.fitTableColumns(classListTable, fitColNames);
+		this.fitCol();
 
 		return classListModel.getRowCount();
 	}
@@ -114,6 +107,12 @@ public class ClassListPanel extends JPanel {
 		this.extendUnits = new ArrayList<String>();
 	}
 
+	private void fitCol() {
+		List<String> fitColNames = new ArrayList<String>();
+		fitColNames.add(ReportConstant.Name);
+		JTableUtil.fitTableColumns(classListTable, fitColNames);
+	}
+
 	private void loadClassList() {
 
 		Object[] row;
@@ -121,7 +120,32 @@ public class ClassListPanel extends JPanel {
 		String metrics = null;
 		for (jdepend.model.Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				if (nameFilter == null || nameFilter.length() == 0 || StringUtil.match(nameFilter, javaClass.getName())) {
+				row = new Object[classListTable.getColumnCount()];
+				for (int i = 0; i < classListTable.getColumnCount(); i++) {
+					metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+					row[i] = javaClass.getValue(metrics);
+				}
+				classListModel.addRow(row);
+				if (!javaClass.isInner()) {
+					this.extendUnits.add(javaClass.getName());
+				}
+			}
+		}
+	}
+
+	private void inFilterClassList(String nameFilter, String callerFilter, String calleeFilter) {
+
+		Object[] row;
+
+		String metrics = null;
+		for (jdepend.model.Component component : components) {
+			for (JavaClass javaClass : component.getClasses()) {
+				if ((nameFilter == null || nameFilter.length() == 0 || StringUtil
+						.match(nameFilter, javaClass.getName()))
+						&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
+								javaClass))
+						&& (calleeFilter == null || calleeFilter.length() == 0 || this.matchCalleeFilter(calleeFilter,
+								javaClass))) {
 					row = new Object[classListTable.getColumnCount()];
 					for (int i = 0; i < classListTable.getColumnCount(); i++) {
 						metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
@@ -134,6 +158,24 @@ public class ClassListPanel extends JPanel {
 				}
 			}
 		}
+	}
+
+	private boolean matchCallerFilter(String callerFilter, JavaClass javaClass) {
+		for (JavaClass caClass : javaClass.getCaList()) {
+			if (StringUtil.match(callerFilter, caClass.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean matchCalleeFilter(String calleeFilter, JavaClass javaClass) {
+		for (JavaClass ceClass : javaClass.getCeList()) {
+			if (StringUtil.match(calleeFilter, ceClass.getName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	protected void initClassList() {
@@ -465,9 +507,5 @@ public class ClassListPanel extends JPanel {
 			return Integer.valueOf(data.substring(0, data.indexOf('|')));
 		}
 
-	}
-
-	public void filterName(String name) {
-		this.nameFilter = name;
 	}
 }

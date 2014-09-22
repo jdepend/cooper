@@ -78,6 +78,9 @@ public class BundleUtil {
 	public static final String ClientWin_ComponentModel_PackageListFilter = "ClientWin_ComponentModel_PackageListFilter";
 	public static final String ClientWin_ComponentModel_ComponentList = "ClientWin_ComponentModel_ComponentList";
 	public static final String ClientWin_ComponentModel_ElementList = "ClientWin_ComponentModel_ElementList";
+	
+	public static final String ClientWin_ClassListDialog_Caller = "ClientWin_ClassListDialog_Caller";
+	public static final String ClientWin_ClassListDialog_Callee = "ClientWin_ClassListDialog_Callee";
 
 	public static final String Command_View = "Command_View";// 查看
 	public static final String Command_Save = "Command_Save";// 保存

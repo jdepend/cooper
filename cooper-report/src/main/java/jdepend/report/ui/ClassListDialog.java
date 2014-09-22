@@ -27,6 +27,12 @@ public class ClassListDialog extends CooperDialog {
 
 	private JLabel tipLabel;
 
+	private JTextField nameFilter;
+
+	private JTextField callerFilter;
+
+	private JTextField calleeFilter;
+
 	public ClassListDialog(JDependFrame frame, jdepend.model.Component component) {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
@@ -92,13 +98,13 @@ public class ClassListDialog extends CooperDialog {
 		JLabel titleLabel = new JLabel(BundleUtil.getString(BundleUtil.Metrics_Name) + ":");
 		searchPanel.add(titleLabel);
 
-		JTextField nameFilter = new JTextField();
+		nameFilter = new JTextField();
 		nameFilter.setPreferredSize(new Dimension(250, 20));
 		nameFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				classListPanel.filterName(((JTextField) e.getSource()).getText());
-				int classCount = classListPanel.reLoadClassList();
+				int classCount = classListPanel.filterClassList(nameFilter.getText(), callerFilter.getText(),
+						calleeFilter.getText());
 				tipLabel.setText("共" + classCount + "个类");
 			}
 		});
@@ -106,6 +112,36 @@ public class ClassListDialog extends CooperDialog {
 
 		tipLabel = new JLabel();
 		searchPanel.add(tipLabel);
+
+		JLabel callerLabel = new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ClassListDialog_Caller) + ":");
+		searchPanel.add(callerLabel);
+
+		callerFilter = new JTextField();
+		callerFilter.setPreferredSize(new Dimension(250, 20));
+		callerFilter.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int classCount = classListPanel.filterClassList(nameFilter.getText(), callerFilter.getText(),
+						calleeFilter.getText());
+				tipLabel.setText("共" + classCount + "个类");
+			}
+		});
+		searchPanel.add(callerFilter);
+
+		JLabel calleeLabel = new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ClassListDialog_Callee) + ":");
+		searchPanel.add(calleeLabel);
+
+		calleeFilter = new JTextField();
+		calleeFilter.setPreferredSize(new Dimension(250, 20));
+		calleeFilter.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int classCount = classListPanel.filterClassList(nameFilter.getText(), callerFilter.getText(),
+						calleeFilter.getText());
+				tipLabel.setText("共" + classCount + "个类");
+			}
+		});
+		searchPanel.add(calleeFilter);
 
 		return searchPanel;
 	}
