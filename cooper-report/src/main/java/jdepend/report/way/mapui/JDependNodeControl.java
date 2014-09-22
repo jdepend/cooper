@@ -87,7 +87,7 @@ public class JDependNodeControl extends ControlAdapter {
 	}
 
 	private void showClassList(String source) {
-		ClassListDialog d = new ClassListDialog(this.display.getTheElement(source).getComponent());
+		ClassListDialog d = new ClassListDialog(display.getFrame(), this.display.getTheElement(source).getComponent());
 		d.setModal(true);
 		d.setVisible(true);
 

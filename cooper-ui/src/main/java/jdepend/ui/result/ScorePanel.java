@@ -688,7 +688,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 						public void mouseClicked(java.awt.event.MouseEvent evt) {
 							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
 									.getTheComponent(advise.getComponentNameInfo());
-							ClassListDialog d = new ClassListDialog(component);
+							ClassListDialog d = new ClassListDialog(frame, component);
 							d.setModal(true);
 							d.setVisible(true);
 						}

@@ -27,11 +27,11 @@ public class ClassListDialog extends CooperDialog {
 
 	private JLabel tipLabel;
 
-	public ClassListDialog(jdepend.model.Component component) {
+	public ClassListDialog(JDependFrame frame, jdepend.model.Component component) {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
 
-		classListPanel = new ClassListPanel();
+		classListPanel = new ClassListPanel(frame);
 		this.add(classListPanel);
 		classListPanel.showClassList(component);
 
@@ -46,7 +46,7 @@ public class ClassListDialog extends CooperDialog {
 
 		this.add(BorderLayout.NORTH, this.createSearchPanel());
 
-		classListPanel = new ClassListPanel();
+		classListPanel = new ClassListPanel(frame);
 		this.add(classListPanel);
 		int classCount = classListPanel.showAllClassList();
 		tipLabel.setText("共" + classCount + "个类");
@@ -57,6 +57,9 @@ public class ClassListDialog extends CooperDialog {
 	private void initPopupMenu() {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
+		
+		popupMenu.add(this.classListPanel.createMoveToItem());
+		
 		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -271,9 +271,12 @@ public class GraphJDepend extends Display {
 	public Element getTheElement(String name) {
 		return this.elementForNames.get(name);
 	}
+	
+	public JDependFrame getFrame() {
+		return frame;
+	}
 
 	// ------------------------------------------------------------------------
-
 	/**
 	 * Switch the root of the tree by requesting a new spanning tree at the
 	 * desired root

@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,14 +25,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
+import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
+import jdepend.model.component.JavaClassComponent;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {
@@ -48,8 +55,12 @@ public class ClassListPanel extends JPanel {
 
 	private List<jdepend.model.Component> components;
 
-	public ClassListPanel() {
+	protected JDependFrame frame;
+
+	public ClassListPanel(JDependFrame frame) {
 		super();
+
+		this.frame = frame;
 
 		setLayout(new BorderLayout());
 
@@ -254,6 +265,31 @@ public class ClassListPanel extends JPanel {
 
 	protected JTable getClassListTable() {
 		return classListTable;
+	}
+
+	protected JMenuItem createMoveToItem() {
+		JMenuItem moveToItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Move));
+		moveToItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (selectedJavaClass.size() > 0) {
+					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
+						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
+					} else {
+						moveTo();
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "请选择至少一个JavaClass.", "alert", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+
+		return moveToItem;
+	}
+
+	private void moveTo() {
+		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, selectedJavaClass);
+		d.setModal(true);
+		d.setVisible(true);
 	}
 
 	public class DetailDialog extends CooperDialog {

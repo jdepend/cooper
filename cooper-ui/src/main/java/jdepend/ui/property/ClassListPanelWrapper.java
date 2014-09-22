@@ -1,59 +1,40 @@
 package jdepend.ui.property;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.log.BusiLogUtil;
-import jdepend.framework.log.Operation;
 import jdepend.framework.ui.JTableUtil;
-import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.Measurable;
-import jdepend.model.component.JavaClassComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListPanel;
-import jdepend.report.ui.JavaClassMoveToDialog;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.util.refactor.CompareObject;
-import jdepend.util.refactor.RefactorToolFactory;
 
 public class ClassListPanelWrapper extends ClassListPanel {
 
 	private JDependCooper frame;
 
 	public ClassListPanelWrapper(JDependCooper frame) {
-		super();
+		super(frame);
 
 		this.frame = frame;
-
 	}
 
 	protected void initClassList() {
@@ -90,21 +71,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		});
 		popupMenu.add(viewMethodListItem);
 
-		JMenuItem moveToItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Move));
-		moveToItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (selectedJavaClass.size() > 0) {
-					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
-						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
-					} else {
-						moveTo();
-					}
-				} else {
-					JOptionPane.showMessageDialog(frame, "请选择至少一个JavaClass.", "alert", JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		});
-		popupMenu.add(moveToItem);
+		popupMenu.add(this.createMoveToItem());
 
 		popupMenu.addSeparator();
 
@@ -152,12 +119,6 @@ public class ClassListPanelWrapper extends ClassListPanel {
 	private void viewMethodList() {
 		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 		MethodListDialog d = new MethodListDialog(javaClass);
-		d.setModal(true);
-		d.setVisible(true);
-	}
-
-	private void moveTo() {
-		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, selectedJavaClass);
 		d.setModal(true);
 		d.setVisible(true);
 	}
