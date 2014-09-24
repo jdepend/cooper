@@ -74,10 +74,14 @@ public class GraphJDepend extends Display {
 
 	private JDependFrame frame;
 
+	private Collection<Relation> relations;
+
 	public GraphJDepend(JDependFrame frame, Collection<Relation> relations) {
 		super(new Visualization());
 
 		this.frame = frame;
+
+		this.relations = relations;
 		// 重置hideVisualItem
 		HideVisualItemMgr.reset();
 
@@ -192,7 +196,7 @@ public class GraphJDepend extends Display {
 		}
 		addControlListener(new HoverActionControl("repaint"));
 		addControlListener(new JDependHighlightControl());
-		addControlListener(new JDependEdgeControl(frame));
+		addControlListener(new JDependEdgeControl(this));
 		addControlListener(new JDependNodeControl(this));
 		addControlListener(new MainMenuControl(this));
 
@@ -271,9 +275,13 @@ public class GraphJDepend extends Display {
 	public Element getTheElement(String name) {
 		return this.elementForNames.get(name);
 	}
-	
+
 	public JDependFrame getFrame() {
 		return frame;
+	}
+
+	public Collection<Relation> getRelations() {
+		return relations;
 	}
 
 	// ------------------------------------------------------------------------

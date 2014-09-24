@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -20,6 +19,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
+import jdepend.report.way.mapui.GraphJDepend;
 
 public class RelationDetailDialog extends CooperDialog {
 
@@ -40,7 +40,24 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(current, depend));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.relation));
+	}
+
+	public RelationDetailDialog(GraphJDepend display, String current, String depend) {
+		super(current + " 依赖于 " + depend);
+
+		this.frame = display.getFrame();
+
+		for (Relation r : display.getRelations()) {
+			if (r.equals(current, depend)) {
+				this.relation = r;
+			}
+		}
+		
+		this.setLayout(new BorderLayout());
+		this.add(BorderLayout.NORTH, this.createOperationPanel());
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.relation));
+
 	}
 
 	private JPanel createOperationPanel() {

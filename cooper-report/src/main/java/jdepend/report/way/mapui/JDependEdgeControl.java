@@ -22,11 +22,11 @@ import prefuse.visual.VisualItem;
 
 public class JDependEdgeControl extends ControlAdapter {
 
-	private JDependFrame frame;
+	private GraphJDepend display;
 
-	public JDependEdgeControl(JDependFrame frame) {
+	public JDependEdgeControl(GraphJDepend display) {
 		super();
-		this.frame = frame;
+		this.display = display;
 	}
 
 	@Override
@@ -134,7 +134,7 @@ public class JDependEdgeControl extends ControlAdapter {
 	}
 
 	private void viewRelation(String source, String target) {
-		RelationDetailDialog d = new RelationDetailDialog(frame, source, target);
+		RelationDetailDialog d = new RelationDetailDialog(display, source, target);
 		d.setModal(true);
 		d.setVisible(true);
 	}
