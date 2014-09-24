@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.model.Component;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
@@ -78,7 +79,7 @@ public class RelationData {
 
 			Collection<Component> otherComponents = new ArrayList<Component>();
 			Component otherComponent;
-			for (Component component : relation.getCurrent().getComponent().getResult().getComponents()) {
+			for (Component component : JDependUnitMgr.getInstance().getResult().getComponents()) {
 				if (!component.equals(relation.getCurrent().getComponent())
 						&& !component.equals(relation.getDepend().getComponent())) {
 					otherComponent = new VirtualComponent(component);
