@@ -13,7 +13,7 @@ import jdepend.model.tree.JavaPackageNode;
 import jdepend.report.util.TreeGraphUtil;
 import jdepend.report.util.TreePanel;
 
-public final class GraphPrinter {
+public final class GraphPrinter extends JPanel {
 
 	private JPanel graphPanel;
 
@@ -25,21 +25,17 @@ public final class GraphPrinter {
 
 	private JavaPackageNode javaPackageTree;
 
-	private static GraphPrinter printer = new GraphPrinter();
+	private JDependFrame frame;
 
-	private GraphPrinter() {
+	public GraphPrinter(JDependFrame frame, Collection<Relation> relations, JavaPackageNode javaPackageTree) {
 
-	}
+		this.setLayout(new BorderLayout());
 
-	public static GraphPrinter getIntance() {
-		return printer;
-	}
-
-	public JComponent print(JDependFrame frame, Collection<Relation> relations, JavaPackageNode javaPackageTree) {
+		this.frame = frame;
 
 		this.javaPackageTree = javaPackageTree;
 
-		graphPanel = new GraphPanel(frame, relations);
+		graphPanel = new GraphPanel(this, relations);
 
 		treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());
@@ -50,8 +46,7 @@ public final class GraphPrinter {
 
 		hiddenPackageTree();
 
-		return splitPane;
-
+		this.add(splitPane);
 	}
 
 	void showPackageTree() {
@@ -82,6 +77,10 @@ public final class GraphPrinter {
 
 	void setPackageTreeFocus(String focus) {
 		treeCompoennt.setFocus(focus);
+	}
+
+	public JDependFrame getFrame() {
+		return frame;
 	}
 
 }

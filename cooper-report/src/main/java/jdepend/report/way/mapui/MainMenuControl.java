@@ -19,7 +19,6 @@ import javax.swing.JPopupMenu;
 
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.framework.util.BundleUtil;
-import prefuse.Display;
 import prefuse.Visualization;
 import prefuse.action.Action;
 import prefuse.action.ActionList;
@@ -36,7 +35,7 @@ import prefuse.visual.VisualItem;
 
 public class MainMenuControl extends ControlAdapter {
 
-	private Display display;
+	private GraphJDepend display;
 
 	private JPopupMenu popupMenu;
 
@@ -44,7 +43,7 @@ public class MainMenuControl extends ControlAdapter {
 
 	private JMenuItem changeLayouttem;
 
-	public MainMenuControl(Display display) {
+	public MainMenuControl(GraphJDepend display) {
 		this.display = display;
 	}
 
@@ -174,10 +173,10 @@ public class MainMenuControl extends ControlAdapter {
 
 	private void packageTree() {
 		if (packageTreeItem.getText().equals(BundleUtil.getString(BundleUtil.Command_ViewPackageTree))) {
-			GraphPrinter.getIntance().showPackageTree();
+			display.getPrinter().showPackageTree();
 			packageTreeItem.setText(BundleUtil.getString(BundleUtil.Command_ClosePackageTree));
 		} else {
-			GraphPrinter.getIntance().hiddenPackageTree();
+			display.getPrinter().hiddenPackageTree();
 			packageTreeItem.setText(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
 		}
 	}

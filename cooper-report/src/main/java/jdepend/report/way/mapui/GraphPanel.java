@@ -15,7 +15,6 @@ import javax.swing.SwingConstants;
 
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.Relation;
-
 import prefuse.Visualization;
 import prefuse.controls.ControlAdapter;
 import prefuse.data.Table;
@@ -31,13 +30,20 @@ public class GraphPanel extends JPanel {
 
 	private JDependFrame frame;
 
+	private GraphJDepend gview;
+
+	public GraphPanel(GraphPrinter printer, Collection<Relation> relations) {
+		this(printer.getFrame(), relations);
+		gview.setPrinter(printer);
+	}
+
 	public GraphPanel(JDependFrame frame, Collection<Relation> relations) {
 
 		this.frame = frame;
 
 		this.setLayout(new BorderLayout());
 		// create a new radial tree view
-		final GraphJDepend gview = new GraphJDepend(this.frame, relations);
+		gview = new GraphJDepend(this.frame, relations);
 		Visualization vis = gview.getVisualization();
 
 		// create a search panel for the tree map

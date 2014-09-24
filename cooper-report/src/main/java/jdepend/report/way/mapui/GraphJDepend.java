@@ -76,6 +76,8 @@ public class GraphJDepend extends Display {
 
 	private Collection<Relation> relations;
 
+	private GraphPrinter printer;
+
 	public GraphJDepend(JDependFrame frame, Collection<Relation> relations) {
 		super(new Visualization());
 
@@ -284,6 +286,14 @@ public class GraphJDepend extends Display {
 		return relations;
 	}
 
+	public GraphPrinter getPrinter() {
+		return printer;
+	}
+
+	public void setPrinter(GraphPrinter printer) {
+		this.printer = printer;
+	}
+
 	// ------------------------------------------------------------------------
 	/**
 	 * Switch the root of the tree by requesting a new spanning tree at the
@@ -400,5 +410,4 @@ public class GraphJDepend extends Display {
 
 		}
 	} // end of inner class TextColorAction
-
 } // end of class RadialGraphView
