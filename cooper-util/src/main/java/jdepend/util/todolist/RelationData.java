@@ -68,8 +68,30 @@ public class RelationData {
 			components.add(currentOther);
 			components.add(dependOther);
 
-			relations = new RelationCreator().create(components);
+			RelationCreator relationCreator = new RelationCreator();
+			relations = relationCreator.create(components);
 
+			// 创建本关系与其他组件之间的关系
+			Collection<Component> selfComponents = new ArrayList<Component>();
+			selfComponents.add(current);
+			selfComponents.add(depend);
+
+			Collection<Component> otherComponents = new ArrayList<Component>();
+			Component otherComponent;
+			for (Component component : relation.getCurrent().getComponent().getResult().getComponents()) {
+				if (!component.equals(relation.getCurrent().getComponent())
+						&& !component.equals(relation.getDepend().getComponent())) {
+					otherComponent = new VirtualComponent(component.getName());
+					for (JavaClass javaClass : component.getClasses()) {
+						otherComponent.joinJavaClass(javaClass);
+					}
+					otherComponents.add(otherComponent);
+				}
+			}
+			relations.addAll(relationCreator.create(selfComponents, otherComponents));
+			relations.addAll(relationCreator.create(otherComponents, selfComponents));
+
+			// 获得关系强度
 			this.currentCeIntensity = current.ceCoupling(currentOther);
 			this.currentCaIntensity = current.caCoupling(currentOther);
 

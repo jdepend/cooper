@@ -23,20 +23,23 @@ public class RelationCreator {
 	private Map<String, Element> elements;
 
 	public Collection<Relation> create(final Collection<Component> components) {
+		return create(components, components);
+	}
 
+	public Collection<Relation> create(Collection<Component> lefts, final Collection<Component> rights) {
 		this.init();
 
 		final Collection<Relation> relations = new Vector<Relation>();
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		for (final Component left : components) {
+		for (final Component left : lefts) {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
 					Relation r;
 					float intensity = 0;
-					for (Component right : components) {
+					for (Component right : rights) {
 						intensity = left.calCeCoupling(right);
 						if (intensity != 0) {
 							r = new Relation();
