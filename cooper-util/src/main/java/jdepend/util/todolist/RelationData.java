@@ -81,10 +81,7 @@ public class RelationData {
 			for (Component component : relation.getCurrent().getComponent().getResult().getComponents()) {
 				if (!component.equals(relation.getCurrent().getComponent())
 						&& !component.equals(relation.getDepend().getComponent())) {
-					otherComponent = new VirtualComponent(component.getName());
-					for (JavaClass javaClass : component.getClasses()) {
-						otherComponent.joinJavaClass(javaClass);
-					}
+					otherComponent = new VirtualComponent(component);
 					otherComponents.add(otherComponent);
 				}
 			}

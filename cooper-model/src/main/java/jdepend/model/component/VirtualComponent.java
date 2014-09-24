@@ -27,29 +27,23 @@ public class VirtualComponent extends Component {
 	public VirtualComponent(String name) {
 		super(name);
 	}
-	
+
 	public VirtualComponent(JavaClass javaClass) {
 		super(javaClass.getName());
-		this.addJavaClass(javaClass);
+		this.joinJavaClass(javaClass);
+		this.setResult(javaClass.getResult());
 	}
 
 	public VirtualComponent(Component component) {
 		super(component.getName());
 		for (JavaClass javaClass : component.getClasses()) {
-			this.addJavaClass(javaClass);
+			this.joinJavaClass(javaClass);
 		}
+		this.setResult(component.getResult());
 	}
 
 	@Override
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
 		throw new JDependException("虚拟组件不进行组件的识别");
 	}
-
-	@Override
-	public void addJavaClass(JavaClass javaClass) {
-		if (!this.getClasses().contains(javaClass)) {
-			this.getClasses().add(javaClass);
-		}
-	}
-
 }
