@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -38,13 +39,14 @@ public class RelationDetailDialog extends CooperDialog {
 		this.relation = JDependUnitMgr.getInstance().getResult().getTheRelation(current, depend);
 
 		this.setLayout(new BorderLayout());
-		this.add(BorderLayout.NORTH, this.createRelationPanel());
+		this.add(BorderLayout.NORTH, this.createOperationPanel());
 		this.add(BorderLayout.CENTER, new RelationDetailPanel(current, depend));
 	}
 
-	private JPanel createRelationPanel() {
+	private JPanel createOperationPanel() {
 
 		JPanel relationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
 		relationPanel.add(new JLabel("要移动的类："));
 		current = new JRadioButton("源：" + this.relation.getCurrent().getName()) {
 			@Override
@@ -90,6 +92,17 @@ public class RelationDetailDialog extends CooperDialog {
 			}
 		});
 		relationPanel.add(moveTo);
+
+		JButton analyse = new JButton(BundleUtil.getString(BundleUtil.Command_Analyse));
+		analyse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RelationDetailForMoveDialog d = new RelationDetailForMoveDialog(frame, relation);
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		relationPanel.add(analyse);
 
 		return relationPanel;
 	}
