@@ -129,15 +129,17 @@ public class MainMenuControl extends ControlAdapter {
 
 		popupMenu.addSeparator();
 
-		packageTreeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
-		packageTreeItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				packageTree();
-			}
-		});
-		popupMenu.add(packageTreeItem);
+		if (this.display.getPrinter() != null) {
+			packageTreeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
+			packageTreeItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					packageTree();
+				}
+			});
+			popupMenu.add(packageTreeItem);
 
-		popupMenu.addSeparator();
+			popupMenu.addSeparator();
+		}
 
 		JMenuItem saveItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAsPic));
 		saveItem.addActionListener(new ActionListener() {

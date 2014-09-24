@@ -39,7 +39,8 @@ public class JDependNodeControl extends ControlAdapter {
 	@Override
 	public void itemEntered(VisualItem item, MouseEvent e) {
 		super.itemEntered(item, e);
-		if (item instanceof TableNodeItem && display.getPrinter().isPackageTreeVisible()) {
+		if (item instanceof TableNodeItem && display.getPrinter() != null
+				&& display.getPrinter().isPackageTreeVisible()) {
 			String itemName = item.getString("label");
 			display.getPrinter().setPackageTreeFocus(itemName);
 		}

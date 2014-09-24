@@ -79,7 +79,7 @@ public final class GraphPrinter extends JPanel {
 		treeCompoennt.setFocus(focus);
 	}
 
-	public JDependFrame getFrame() {
+	JDependFrame getFrame() {
 		return frame;
 	}
 
