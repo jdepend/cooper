@@ -1,14 +1,13 @@
 package jdepend.report.way.mapui;
 
 import java.awt.BorderLayout;
-import java.util.Collection;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import jdepend.framework.ui.JDependFrame;
-import jdepend.model.Relation;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.tree.JavaPackageNode;
 import jdepend.report.util.TreeGraphUtil;
 import jdepend.report.util.TreePanel;
@@ -27,15 +26,15 @@ public final class GraphPrinter extends JPanel {
 
 	private JDependFrame frame;
 
-	public GraphPrinter(JDependFrame frame, Collection<Relation> relations, JavaPackageNode javaPackageTree) {
+	public GraphPrinter(JDependFrame frame, AnalysisResult result) {
 
 		this.setLayout(new BorderLayout());
 
 		this.frame = frame;
 
-		this.javaPackageTree = javaPackageTree;
+		this.javaPackageTree = result.getJavaPackageTree();
 
-		graphPanel = new GraphPanel(this, relations);
+		graphPanel = new GraphPanel(this, result.getRelations());
 
 		treePanel = new JPanel();
 		treePanel.setLayout(new BorderLayout());

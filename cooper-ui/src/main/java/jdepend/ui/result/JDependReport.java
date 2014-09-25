@@ -299,7 +299,7 @@ public class JDependReport extends ReportCreator {
 			return new SubResultTabPanel() {
 				@Override
 				protected void init(AnalysisResult result) {
-					this.add(new GraphPrinter(frame, result.getRelations(), result.getJavaPackageTree()));
+					this.add(new GraphPrinter(frame, result));
 				}
 			};
 		} else {
