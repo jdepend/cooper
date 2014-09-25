@@ -87,8 +87,8 @@ public class MainMenuControl extends ControlAdapter {
 		JMenuItem unStepHideItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_UnStepHide));
 		unStepHideItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HideVisualItemMgr.unStepHide();
-				HideVisualItemMgr.repaint(display);
+				display.getHideVisualItemMgr().unStepHide();
+				display.getHideVisualItemMgr().repaint();
 			}
 		});
 		popupMenu.add(unStepHideItem);
@@ -96,8 +96,8 @@ public class MainMenuControl extends ControlAdapter {
 		JMenuItem nextStepHideItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_NextStepHide));
 		nextStepHideItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HideVisualItemMgr.nextStepHide();
-				HideVisualItemMgr.repaint(display);
+				display.getHideVisualItemMgr().nextStepHide();
+				display.getHideVisualItemMgr().repaint();
 			}
 		});
 		popupMenu.add(nextStepHideItem);
@@ -105,8 +105,8 @@ public class MainMenuControl extends ControlAdapter {
 		JMenuItem unHideItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_UnHide));
 		unHideItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HideVisualItemMgr.reset();
-				HideVisualItemMgr.repaint(display);
+				display.getHideVisualItemMgr().reset();
+				display.getHideVisualItemMgr().repaint();
 			}
 		});
 		popupMenu.add(unHideItem);
@@ -215,9 +215,9 @@ public class MainMenuControl extends ControlAdapter {
 			}
 		}
 
-		HideVisualItemMgr.addStepHideItems(currentHideItems);
+		display.getHideVisualItemMgr().addStepHideItems(currentHideItems);
 
-		HideVisualItemMgr.repaint(display);
+		display.getHideVisualItemMgr().repaint();
 	}
 
 	private void ZoomToFit() {

@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
-import jdepend.framework.ui.JDependFrame;
 import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.filter.RelationFilter;
@@ -78,14 +77,16 @@ public class GraphJDepend extends Display {
 
 	private GraphPrinter printer;
 
+	private HideVisualItemMgr hideVisualItemMgr;
+
 	public GraphJDepend(GraphPanel graphPanel, Collection<Relation> relations) {
 		super(new Visualization());
 
 		this.graphPanel = graphPanel;
 
 		this.relations = relations;
-		// 重置hideVisualItem
-		HideVisualItemMgr.reset();
+
+		hideVisualItemMgr = new HideVisualItemMgr(this);
 
 		Collection<Element> elements = Relation.calElements(relations);
 		elementForNames = new HashMap<String, Element>();
@@ -292,6 +293,10 @@ public class GraphJDepend extends Display {
 
 	public GraphPanel getGraphPanel() {
 		return graphPanel;
+	}
+
+	public HideVisualItemMgr getHideVisualItemMgr() {
+		return hideVisualItemMgr;
 	}
 
 	// ------------------------------------------------------------------------

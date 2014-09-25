@@ -151,8 +151,8 @@ public class JDependNodeControl extends ControlAdapter {
 
 	private void hide(HashSet<VisualItem> currentHideItems) {
 		// 记录本次隐藏的显示对象
-		HideVisualItemMgr.addStepHideItems(currentHideItems);
+		display.getHideVisualItemMgr().addStepHideItems(currentHideItems);
 
-		HideVisualItemMgr.repaint(this.display);
+		display.getHideVisualItemMgr().repaint();
 	}
 }

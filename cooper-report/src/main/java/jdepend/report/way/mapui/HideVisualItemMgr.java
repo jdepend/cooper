@@ -6,22 +6,28 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import prefuse.Display;
 import prefuse.visual.VisualItem;
 
-public class HideVisualItemMgr {
+class HideVisualItemMgr {
+	
+	private GraphJDepend display;
 
-	private static Map<String, HashSet<VisualItem>> hideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
+	private Map<String, HashSet<VisualItem>> hideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
 
-	private static Map<String, HashSet<VisualItem>> unHideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
+	private Map<String, HashSet<VisualItem>> unHideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
+	
+	HideVisualItemMgr(GraphJDepend display) {
+		super();
+		this.display = display;
+	}
 
-	public static void addStepHideItems(HashSet<VisualItem> currentHideItems) {
+	void addStepHideItems(HashSet<VisualItem> currentHideItems) {
 		// 记录本次隐藏的显示对象
 		String operationId = UUID.randomUUID().toString();
 		hideItems.put(operationId, currentHideItems);
 	}
 
-	public static HashSet<VisualItem> getHideItems() {
+	HashSet<VisualItem> getHideItems() {
 		HashSet<VisualItem> hItems = new HashSet<VisualItem>();
 		for (String operId : hideItems.keySet()) {
 			hItems.addAll(hideItems.get(operId));
@@ -29,12 +35,12 @@ public class HideVisualItemMgr {
 		return hItems;
 	}
 
-	public static void reset() {
+	void reset() {
 		hideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
 		unHideItems = new LinkedHashMap<String, HashSet<VisualItem>>();
 	}
 
-	public static void unStepHide() {
+	void unStepHide() {
 		if (hideItems.size() > 0) {
 			String lastOperationId = null;
 			for (String operationId : hideItems.keySet()) {
@@ -45,7 +51,7 @@ public class HideVisualItemMgr {
 		}
 	}
 
-	public static void nextStepHide() {
+	void nextStepHide() {
 		if (unHideItems.size() > 0) {
 			String lastOperationId = null;
 			for (String operationId : unHideItems.keySet()) {
@@ -56,7 +62,7 @@ public class HideVisualItemMgr {
 		}
 	}
 
-	public static void repaint(Display display) {
+	void repaint() {
 
 		// 计算所有被隐藏的显示对象
 		HashSet<VisualItem> hItems = getHideItems();

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import jdepend.framework.ui.JDependFrame;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.report.ui.RelationDetailDialog;
