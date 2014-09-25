@@ -291,7 +291,35 @@ public class Method extends AccessFlags {
 
 	@Override
 	public String toString() {
-		return "Method [" + info + " Class=" + this.getJavaClass().getName() + "]";
+
+		StringBuilder info1 = new StringBuilder();
+		info1.append("Method [" + info + " Class=" + this.getJavaClass().getName() + "]");
+		info1.append("\n		selfLineCount : " + this.selfLineCount);
+
+		if (this.readFields.size() != 0) {
+			info1.append("\n		readFields:");
+			for (Attribute attribute : this.readFields) {
+				info1.append("\n				");
+				info1.append(attribute);
+			}
+		}
+
+		if (this.writeFields.size() != 0) {
+			info1.append("\n		writeFields:");
+			for (Attribute attribute : this.writeFields) {
+				info1.append("\n				");
+				info1.append(attribute);
+			}
+		}
+
+		if (this.invokeItems.size() != 0) {
+			info1.append("\n		invokeItems:");
+			for (InvokeItem item : this.invokeItems) {
+				info1.append("\n				");
+				info1.append(item);
+			}
+		}
+		return info1.toString();
 	}
 
 	@Override
