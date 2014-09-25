@@ -14,7 +14,7 @@ import jdepend.report.util.TreePanel;
 
 public final class GraphPrinter extends JPanel {
 
-	private JPanel graphPanel;
+	private GraphPanel graphPanel;
 
 	private JPanel treePanel;
 

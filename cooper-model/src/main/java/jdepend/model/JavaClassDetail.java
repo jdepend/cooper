@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class JavaClassDetail implements Serializable {
 
@@ -20,7 +21,7 @@ public class JavaClassDetail implements Serializable {
 	private String superClassName;
 
 	private Collection<String> interfaceNames = new ArrayList<String>();
-	
+
 	private final Collection<String> variableTypes = new ArrayList<String>();
 
 	private final Collection<Attribute> attributes = new ArrayList<Attribute>();
@@ -28,7 +29,7 @@ public class JavaClassDetail implements Serializable {
 	private final Collection<Method> methods = new ArrayList<Method>();
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
-	
+
 	private transient JavaClass superClass;
 
 	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
@@ -36,6 +37,8 @@ public class JavaClassDetail implements Serializable {
 	private transient Collection<String> attributeTypes;
 
 	private transient Collection<String> paramTypes;
+
+	private transient Map<String, Attribute> attributeForNames = new HashMap<String, Attribute>();
 
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
@@ -115,8 +118,12 @@ public class JavaClassDetail implements Serializable {
 	public void addAttribute(Attribute attribute) {
 		if (!this.attributes.contains(attribute)) {
 			this.attributes.add(attribute);
+			this.attributeForNames.put(attribute.getName(), attribute);
 		}
+	}
 
+	public Attribute getTheAttribute(String name) {
+		return this.attributeForNames.get(name);
 	}
 
 	public Collection<Method> getMethods() {
@@ -159,12 +166,12 @@ public class JavaClassDetail implements Serializable {
 	public Collection<JavaClass> getInterfaces() {
 		return interfaces;
 	}
-	
+
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		this.interfaces = new HashSet<JavaClass>();
+		this.attributeForNames = new HashMap<String, Attribute>();
 	}
-
 
 	@Override
 	public String toString() {

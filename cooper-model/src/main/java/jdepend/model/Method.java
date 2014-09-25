@@ -26,9 +26,9 @@ public class Method extends AccessFlags {
 
 	private Collection<InvokeItem> invokeItems;
 
-	private Collection<String> readFields;
+	private Collection<Attribute> readFields;
 
-	private Collection<String> writeFields;
+	private Collection<Attribute> writeFields;
 
 	private int selfLineCount;
 
@@ -59,8 +59,8 @@ public class Method extends AccessFlags {
 		this.info = method.toString();
 		this.argumentCount = this.calArgumentCount();
 		this.invokeItems = new ArrayList<InvokeItem>();
-		this.readFields = new ArrayList<String>();
-		this.writeFields = new ArrayList<String>();
+		this.readFields = new ArrayList<Attribute>();
+		this.writeFields = new ArrayList<Attribute>();
 		this.isIncludeTransactionalAnnotation = false;
 		this.selfLineCount = -1;
 	}
@@ -139,11 +139,11 @@ public class Method extends AccessFlags {
 
 	}
 
-	public Collection<String> getReadFields() {
+	public Collection<Attribute> getReadFields() {
 		return readFields;
 	}
 
-	public Collection<String> getWriteFields() {
+	public Collection<Attribute> getWriteFields() {
 		return writeFields;
 	}
 
@@ -154,14 +154,16 @@ public class Method extends AccessFlags {
 	}
 
 	public void addReadField(String fieldName) {
-		if (!this.readFields.contains(fieldName)) {
-			this.readFields.add(fieldName);
+		Attribute attribute = this.javaClass.getTheAttribute(fieldName);
+		if (attribute != null && !this.readFields.contains(attribute)) {
+			this.readFields.add(attribute);
 		}
 	}
 
 	public void addWriteField(String fieldName) {
-		if (!this.writeFields.contains(fieldName)) {
-			this.writeFields.add(fieldName);
+		Attribute attribute = this.javaClass.getTheAttribute(fieldName);
+		if (attribute != null && !this.writeFields.contains(attribute)) {
+			this.writeFields.add(attribute);
 		}
 	}
 

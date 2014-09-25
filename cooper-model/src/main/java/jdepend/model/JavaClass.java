@@ -228,6 +228,10 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer, 
 		return this.detail.getAttributes();
 	}
 
+	public Attribute getTheAttribute(String name) {
+		return this.detail.getTheAttribute(name);
+	}
+
 	/**
 	 * 得到其他类可以使用的方法列表（不包含继承父类的方法）
 	 * 

@@ -34,7 +34,7 @@ public class FlyweightIdentifyer extends AbstractPatternIdentifyer {
 								for (JavaClass rtnClass : method.getReturnClassTypes()) {
 									if (attribute.getTypeClasses().contains(rtnClass)) {
 										if (method.getArgumentCount() > 0) {
-											if (method.getReadFields().contains(attribute.getName())) {
+											if (method.getReadFields().contains(attribute)) {
 												rtn.add(new PatternInfo(javaClass, javaClass.getName() + "."
 														+ attribute.getName()));
 												break M;

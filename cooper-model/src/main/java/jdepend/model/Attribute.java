@@ -11,7 +11,7 @@ import jdepend.model.util.SignatureUtil;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.Field;
 
-public class Attribute implements Serializable{
+public class Attribute implements Serializable {
 
 	private static final long serialVersionUID = 5330876838708287382L;
 
@@ -134,7 +134,7 @@ public class Attribute implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((info == null) ? 0 : info.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -147,10 +147,10 @@ public class Attribute implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Attribute other = (Attribute) obj;
-		if (info == null) {
-			if (other.info != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!info.equals(other.info))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}

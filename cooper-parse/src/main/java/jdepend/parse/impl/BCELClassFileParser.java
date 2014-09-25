@@ -38,7 +38,7 @@ public class BCELClassFileParser extends AbstractParser {
 			this.debug("");
 
 			this.getWriter().flush();
-
+			
 			return jClass;
 		} catch (Exception e) {
 			if (jClass != null) {
