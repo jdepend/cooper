@@ -72,16 +72,16 @@ public class GraphJDepend extends Display {
 
 	private Map<String, Element> elementForNames;
 
-	private JDependFrame frame;
-
 	private Collection<Relation> relations;
+
+	private GraphPanel graphPanel;
 
 	private GraphPrinter printer;
 
-	public GraphJDepend(JDependFrame frame, Collection<Relation> relations) {
+	public GraphJDepend(GraphPanel graphPanel, Collection<Relation> relations) {
 		super(new Visualization());
 
-		this.frame = frame;
+		this.graphPanel = graphPanel;
 
 		this.relations = relations;
 		// 重置hideVisualItem
@@ -278,10 +278,6 @@ public class GraphJDepend extends Display {
 		return this.elementForNames.get(name);
 	}
 
-	public JDependFrame getFrame() {
-		return frame;
-	}
-
 	public Collection<Relation> getRelations() {
 		return relations;
 	}
@@ -292,6 +288,10 @@ public class GraphJDepend extends Display {
 
 	public void setPrinter(GraphPrinter printer) {
 		this.printer = printer;
+	}
+
+	public GraphPanel getGraphPanel() {
+		return graphPanel;
 	}
 
 	// ------------------------------------------------------------------------

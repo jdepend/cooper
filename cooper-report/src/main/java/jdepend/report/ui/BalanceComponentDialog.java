@@ -20,7 +20,7 @@ public final class BalanceComponentDialog extends CooperDialog {
 
 		Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(this.componentName);
 
-		this.add(new GraphPanel(frame, component.open()));
+		this.add(new GraphPanel(frame, this, component.open()));
 
 	}
 

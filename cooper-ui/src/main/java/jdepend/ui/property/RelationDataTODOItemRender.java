@@ -11,6 +11,6 @@ public class RelationDataTODOItemRender implements TODOItemRender {
 	@Override
 	public JComponent render(JDependFrame frame, Object info) {
 		RelationData relationData = (RelationData) info;
-		return new GraphPanel(frame, relationData.getRelations());
+		return new GraphPanel(frame, null, relationData.getRelations());
 	}
 }

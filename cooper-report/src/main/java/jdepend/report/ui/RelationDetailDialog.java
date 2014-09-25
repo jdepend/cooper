@@ -31,6 +31,8 @@ public class RelationDetailDialog extends CooperDialog {
 
 	private JRadioButton depend;
 
+	private GraphJDepend display;
+
 	public RelationDetailDialog(JDependFrame frame, String current, String depend) {
 		super(current + " 依赖于 " + depend);
 
@@ -46,18 +48,27 @@ public class RelationDetailDialog extends CooperDialog {
 	public RelationDetailDialog(GraphJDepend display, String current, String depend) {
 		super(current + " 依赖于 " + depend);
 
-		this.frame = display.getFrame();
+		this.display = display;
+		this.frame = display.getGraphPanel().getFrame();
 
 		for (Relation r : display.getRelations()) {
 			if (r.equals(current, depend)) {
 				this.relation = r;
 			}
 		}
-		
+
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
 		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.relation));
 
+	}
+
+	@Override
+	public void dispose() {
+		if (this.display != null && this.display.getGraphPanel().getParentDialog() != null) {
+			this.display.getGraphPanel().getParentDialog().dispose();
+		}
+		super.dispose();
 	}
 
 	private JPanel createOperationPanel() {
@@ -114,7 +125,8 @@ public class RelationDetailDialog extends CooperDialog {
 		analyse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RelationDetailForMoveDialog d = new RelationDetailForMoveDialog(frame, relation);
+				RelationDetailForMoveDialog d = new RelationDetailForMoveDialog(frame, RelationDetailDialog.this,
+						relation);
 				d.setModal(true);
 				d.setVisible(true);
 			}

@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -32,18 +33,22 @@ public class GraphPanel extends JPanel {
 
 	private GraphJDepend gview;
 
+	private JDialog parentDialog;
+
 	public GraphPanel(GraphPrinter printer, Collection<Relation> relations) {
-		this(printer.getFrame(), relations);
+		this(printer.getFrame(), null, relations);
 		gview.setPrinter(printer);
 	}
 
-	public GraphPanel(JDependFrame frame, Collection<Relation> relations) {
+	public GraphPanel(JDependFrame frame, JDialog parentDialog, Collection<Relation> relations) {
 
 		this.frame = frame;
 
+		this.parentDialog = parentDialog;
+
 		this.setLayout(new BorderLayout());
 		// create a new radial tree view
-		gview = new GraphJDepend(this.frame, relations);
+		gview = new GraphJDepend(this, relations);
 		Visualization vis = gview.getVisualization();
 
 		// create a search panel for the tree map
@@ -86,4 +91,11 @@ public class GraphPanel extends JPanel {
 		UILib.setColor(this, BACKGROUND, FOREGROUND);
 	}
 
+	public JDependFrame getFrame() {
+		return frame;
+	}
+
+	public JDialog getParentDialog() {
+		return parentDialog;
+	}
 }
