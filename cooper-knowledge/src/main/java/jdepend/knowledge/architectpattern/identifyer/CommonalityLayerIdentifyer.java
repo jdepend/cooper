@@ -9,6 +9,7 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.architectpattern.AbstractArchitectPatternIdentifyer;
+import jdepend.knowledge.architectpattern.domain.IdealComponent;
 import jdepend.model.Component;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
@@ -18,7 +19,10 @@ public final class CommonalityLayerIdentifyer extends AbstractArchitectPatternId
 
 	@Override
 	public void identify(AnalysisResult result) throws JDependException {
-		List<Component> components = result.getComponents();
+		List<Component> components = new ArrayList<Component>();
+		for(Component component : result.getComponents()){
+			components.add(new IdealComponent(component));
+		}
 		Collections.sort(components, new JDependUnitByMetricsComparator(MetricsMgr.Ca));
 		// 计算传入差值
 		List<Integer> diffs = new ArrayList<Integer>();

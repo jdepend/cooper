@@ -268,7 +268,7 @@ public abstract class Component extends AbstractJDependUnit {
 	public synchronized Collection<Component> getAfferents() {
 
 		if (this.afferents == null) {
-			this.afferents = new ArrayList<Component>();
+			this.afferents = new HashSet<Component>();
 			for (Relation relation : relations) {
 				if (relation.getDepend().getComponent().equals(this)) {
 					this.afferents.add(relation.getCurrent().getComponent());
@@ -282,7 +282,7 @@ public abstract class Component extends AbstractJDependUnit {
 	public synchronized Collection<Component> getEfferents() {
 
 		if (this.efferents == null) {
-			this.efferents = new ArrayList<Component>();
+			this.efferents = new HashSet<Component>();
 			for (Relation relation : relations) {
 				if (relation.getCurrent().getComponent().equals(this)) {
 					this.efferents.add(relation.getDepend().getComponent());

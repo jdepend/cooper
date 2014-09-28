@@ -36,6 +36,8 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	private transient Integer attentionType;// 缓存
 	private transient Float attentionLevel;// 缓存
 
+	private transient boolean normality = true;
+
 	public static final int DefaultAttentionType = 0;
 	public static final int CycleDependAttentionType = 1;// 循环依赖的关系
 	public static final int SDPAttentionType = 2;// 违反稳定依赖原则的关系
@@ -131,55 +133,17 @@ public final class Relation implements Comparable<Relation>, Serializable {
 			return new Float(DefaultAttentionType);
 		}
 		if (this.attentionLevel == null) {
-			int attentiontype = getAttentionType();
-			if (attentiontype == MutualDependAttentionType) {// 彼此依赖
-				for (Relation relation : this.depend.getComponent().getRelations()) {
-					if (relation.getCurrent().equals(this.depend) && relation.getDepend().equals(this.current)) {
-						if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
-							this.attentionLevel = new Float(attentiontype);
-						} else {
-							Float attention = 1 - this.getIntensity() / (this.getIntensity() + relation.getIntensity());
-							this.attentionLevel = attentiontype + attention;
-						}
-					}
-				}
-			} else if (attentiontype == SDPAttentionType) {// 稳定性差的组件依赖稳定性高的组件
-				Float attention = this.getDepend().getComponent().getStability()
-						- this.getCurrent().getComponent().getStability();
-				if (attention > 0) {
-					this.attentionLevel = attentiontype + attention;// 按自动计算的稳定性计算attentionLevel
-				} else if (this.current.getComponent().getSteadyType() != null
-						&& this.depend.getComponent().getSteadyType() != null) {// 按人工指定的稳定性计算attentionLevel
-					if (this.current.getComponent().getSteadyType().equals(Component.StableType)
-							&& this.depend.getComponent().getSteadyType().equals(Component.MiddleType)
-							|| this.current.getComponent().getSteadyType().equals(Component.MiddleType)
-							&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
-						this.attentionLevel = attentiontype + 0.1F;
-					} else if (this.current.getComponent().getSteadyType().equals(Component.StableType)
-							&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
-						this.attentionLevel = attentiontype + 0.2F;
-					}
-				}
-			} else if (attentiontype == ComponentLayerAttentionType) {// 下层组件依赖了上层组件
-				Float attention = 0F;
-				if (this.current.getComponent().getAreaComponent() != null
-						&& this.depend.getComponent().getAreaComponent() != null) {
-					attention = this.getDepend().getComponent().getAreaComponent().instability()
-							- this.getCurrent().getComponent().getAreaComponent().instability();
-				} else {
-					attention = new Float(this.getDepend().getComponent().getLayer()
-							- this.getCurrent().getComponent().getLayer());
-				}
-				this.attentionLevel = attentiontype + attention;
-			} else {
-				this.attentionLevel = new Float(attentiontype);
-			}
+			this.attentionLevel = this.calAttentionLevel();
 		}
 		return this.attentionLevel;
 	}
 
 	public String getAttentionTypeName() {
 		return AttentionTypeList.get(this.getAttentionType());
+	}
+
+	public boolean isNormality() {
+		return normality;
 	}
 
 	public boolean isAttention() {
@@ -210,6 +174,68 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		} else {
 			return null;
 		}
+	}
+
+	public void init() {
+		this.getAttentionLevel();
+	}
+
+	private boolean isReverse(Relation relation) {
+		return this.current.equals(relation.getDepend()) && this.depend.equals(relation.getCurrent());
+	}
+
+	private Float calAttentionLevel() {
+		Float attentionLevel = 0F;
+		int attentiontype = getAttentionType();
+		if (attentiontype == MutualDependAttentionType) {// 彼此依赖
+			L: for (Relation relation : this.depend.getComponent().getRelations()) {
+				if (this.isReverse(relation)) {
+					if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
+						attentionLevel = new Float(attentiontype);
+					} else {
+						Float attention = 1 - this.getIntensity() / (this.getIntensity() + relation.getIntensity());
+						attentionLevel = attentiontype + attention;
+						if (attention > 0.5) {
+							this.normality = false;
+						}
+					}
+					break L;
+				}
+			}
+		} else if (attentiontype == SDPAttentionType) {// 稳定性差的组件依赖稳定性高的组件
+			Float attention = this.getDepend().getComponent().getStability()
+					- this.getCurrent().getComponent().getStability();
+			if (attention > 0) {
+				attentionLevel = attentiontype + attention;// 按自动计算的稳定性计算attentionLevel
+			} else if (this.current.getComponent().getSteadyType() != null
+					&& this.depend.getComponent().getSteadyType() != null) {// 按人工指定的稳定性计算attentionLevel
+				if (this.current.getComponent().getSteadyType().equals(Component.StableType)
+						&& this.depend.getComponent().getSteadyType().equals(Component.MiddleType)
+						|| this.current.getComponent().getSteadyType().equals(Component.MiddleType)
+						&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
+					attentionLevel = attentiontype + 0.1F;
+				} else if (this.current.getComponent().getSteadyType().equals(Component.StableType)
+						&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
+					attentionLevel = attentiontype + 0.2F;
+				}
+			}
+			this.normality = false;
+		} else if (attentiontype == ComponentLayerAttentionType) {// 下层组件依赖了上层组件
+			Float attention = 0F;
+			if (this.current.getComponent().getAreaComponent() != null
+					&& this.depend.getComponent().getAreaComponent() != null) {
+				attention = this.getDepend().getComponent().getAreaComponent().instability()
+						- this.getCurrent().getComponent().getAreaComponent().instability();
+			} else {
+				attention = new Float(this.getDepend().getComponent().getLayer()
+						- this.getCurrent().getComponent().getLayer());
+			}
+			attentionLevel = attentiontype + attention;
+			this.normality = false;
+		} else {
+			attentionLevel = new Float(attentiontype);
+		}
+		return attentionLevel;
 	}
 
 	private int calAttentionType() {
