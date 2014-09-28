@@ -45,120 +45,126 @@ public final class AnalysisResultRepository {
 
 	private final static String DeleteAnalysisDataSQL = "delete from analysisdata where id = ?";
 
-	public static boolean save(AnalysisResult result) throws JDependException {
+	public static void save(final AnalysisResult result) throws JDependException {
 
-		byte[] data = null;
+		new Thread() {
+			@Override
+			public void run() {
+				byte[] data = null;
 
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			data = result.getBytes();
-			conn = ConnectionFactory.getConnection();
-			conn.setAutoCommit(false);
-
-			AnalysisResultSummary feature = result.getSummary();
-
-			if (result.getRunningContext().isLocalRunning()) {
-				ps = conn.prepareStatement(IsFoundLocalSQL);
-			} else {
-				ps = conn.prepareStatement(IsFoundRemoteSQL);
-			}
-			ps.setString(1, result.getRunningContext().getGroup());
-			ps.setString(2, result.getRunningContext().getCommand());
-			ps.setInt(3, feature.getClassCount());
-			ps.setInt(4, feature.getConcreteClassCount());
-			ps.setInt(5, feature.getAbstractClassCount());
-			ps.setInt(6, feature.getAfferentCoupling());
-			ps.setInt(7, feature.getEfferentCoupling());
-			ps.setFloat(8, MetricsFormat.toFormattedMetrics(feature.getAbstractness()));
-			ps.setFloat(9, MetricsFormat.toFormattedMetrics(feature.getInstability()));
-			ps.setFloat(10, MetricsFormat.toFormattedMetrics(feature.getDistance()));
-			ps.setFloat(11, MetricsFormat.toFormattedMetrics(feature.getCoupling()));
-			ps.setFloat(12, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
-			ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getBalance()));
-			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
-			ps.setInt(16, feature.getComponentCount());
-			if (!result.getRunningContext().isLocalRunning()) {
-				ps.setString(17, result.getRunningContext().getClient());
-				ps.setString(18, result.getRunningContext().getUserName());
-			}
-
-			rs = ps.executeQuery();
-			rs.next();
-			if (rs.getInt("num") > 0) {
-				return false;
-			}
-
-			String id = UUID.randomUUID().toString();
-			if (result.getRunningContext().isLocalRunning()) {
-				ps = conn.prepareStatement(CreateLocalResultSUMMRYSQL);
-			} else {
-				ps = conn.prepareStatement(CreateRemoteResultSUMMRYSQL);
-			}
-			ps.setString(1, id);
-			ps.setString(2, result.getRunningContext().getGroup());
-			ps.setString(3, result.getRunningContext().getCommand());
-			ps.setInt(4, feature.getLineCount());
-			ps.setInt(5, feature.getClassCount());
-			ps.setInt(6, feature.getConcreteClassCount());
-			ps.setInt(7, feature.getAbstractClassCount());
-			ps.setInt(8, feature.getAfferentCoupling());
-			ps.setInt(9, feature.getEfferentCoupling());
-			ps.setFloat(10, MetricsFormat.toFormattedMetrics(feature.getAbstractness()));
-			ps.setFloat(11, MetricsFormat.toFormattedMetrics(feature.getInstability()));
-			ps.setFloat(12, MetricsFormat.toFormattedMetrics(feature.getDistance()));
-			ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getCoupling()));
-			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
-			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getBalance()));
-			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(17, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
-			ps.setInt(18, feature.getComponentCount());
-			if (!result.getRunningContext().isLocalRunning()) {
-				ps.setString(19, result.getRunningContext().getClient());
-				ps.setString(20, result.getRunningContext().getUserName());
-			}
-
-			ps.execute();
-
-			ps = conn.prepareStatement(CreateLocalResultDATASQL);
-			ps.setString(1, id);
-			ps.setBytes(2, data);
-			ps.execute();
-
-			LogUtil.getInstance(AnalysisResultRepository.class).systemLog(
-					"group " + result.getRunningContext().getGroup() + " command "
-							+ result.getRunningContext().getCommand() + " " + result.getComponents().size()
-							+ " units is saved!");
-
-			conn.commit();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			throw new JDependException("保存[" + result.getRunningContext().getGroup() + "."
-					+ result.getRunningContext().getCommand() + "]结果失败", e);
-		} finally {
-			if (rs != null) {
+				Connection conn = null;
+				PreparedStatement ps = null;
+				ResultSet rs = null;
 				try {
-					rs.close();
-				} catch (SQLException e) {
+					data = result.getBytes();
+					conn = ConnectionFactory.getConnection();
+					conn.setAutoCommit(false);
+
+					AnalysisResultSummary feature = result.getSummary();
+
+					if (result.getRunningContext().isLocalRunning()) {
+						ps = conn.prepareStatement(IsFoundLocalSQL);
+					} else {
+						ps = conn.prepareStatement(IsFoundRemoteSQL);
+					}
+					ps.setString(1, result.getRunningContext().getGroup());
+					ps.setString(2, result.getRunningContext().getCommand());
+					ps.setInt(3, feature.getClassCount());
+					ps.setInt(4, feature.getConcreteClassCount());
+					ps.setInt(5, feature.getAbstractClassCount());
+					ps.setInt(6, feature.getAfferentCoupling());
+					ps.setInt(7, feature.getEfferentCoupling());
+					ps.setFloat(8, MetricsFormat.toFormattedMetrics(feature.getAbstractness()));
+					ps.setFloat(9, MetricsFormat.toFormattedMetrics(feature.getInstability()));
+					ps.setFloat(10, MetricsFormat.toFormattedMetrics(feature.getDistance()));
+					ps.setFloat(11, MetricsFormat.toFormattedMetrics(feature.getCoupling()));
+					ps.setFloat(12, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
+					ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getBalance()));
+					ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
+					ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
+					ps.setInt(16, feature.getComponentCount());
+					if (!result.getRunningContext().isLocalRunning()) {
+						ps.setString(17, result.getRunningContext().getClient());
+						ps.setString(18, result.getRunningContext().getUserName());
+					}
+
+					rs = ps.executeQuery();
+					rs.next();
+					if (rs.getInt("num") > 0) {
+						return;
+					}
+
+					String id = UUID.randomUUID().toString();
+					if (result.getRunningContext().isLocalRunning()) {
+						ps = conn.prepareStatement(CreateLocalResultSUMMRYSQL);
+					} else {
+						ps = conn.prepareStatement(CreateRemoteResultSUMMRYSQL);
+					}
+					ps.setString(1, id);
+					ps.setString(2, result.getRunningContext().getGroup());
+					ps.setString(3, result.getRunningContext().getCommand());
+					ps.setInt(4, feature.getLineCount());
+					ps.setInt(5, feature.getClassCount());
+					ps.setInt(6, feature.getConcreteClassCount());
+					ps.setInt(7, feature.getAbstractClassCount());
+					ps.setInt(8, feature.getAfferentCoupling());
+					ps.setInt(9, feature.getEfferentCoupling());
+					ps.setFloat(10, MetricsFormat.toFormattedMetrics(feature.getAbstractness()));
+					ps.setFloat(11, MetricsFormat.toFormattedMetrics(feature.getInstability()));
+					ps.setFloat(12, MetricsFormat.toFormattedMetrics(feature.getDistance()));
+					ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getCoupling()));
+					ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
+					ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getBalance()));
+					ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
+					ps.setFloat(17, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
+					ps.setInt(18, feature.getComponentCount());
+					if (!result.getRunningContext().isLocalRunning()) {
+						ps.setString(19, result.getRunningContext().getClient());
+						ps.setString(20, result.getRunningContext().getUserName());
+					}
+
+					ps.execute();
+
+					ps = conn.prepareStatement(CreateLocalResultDATASQL);
+					ps.setString(1, id);
+					ps.setBytes(2, data);
+					ps.execute();
+
+					LogUtil.getInstance(AnalysisResultRepository.class).systemLog(
+							"group " + result.getRunningContext().getGroup() + " command "
+									+ result.getRunningContext().getCommand() + " " + result.getComponents().size()
+									+ " units is saved!");
+
+					conn.commit();
+				} catch (Exception e) {
 					e.printStackTrace();
+					try {
+						conn.rollback();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					LogUtil.getInstance(AnalysisResultRepository.class).systemError(
+							"保存[" + result.getRunningContext().getGroup() + "."
+									+ result.getRunningContext().getCommand() + "]结果失败");
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+
+		}.start();
 
 	}
 

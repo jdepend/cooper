@@ -1,6 +1,5 @@
 package jdepend.knowledge.architectpattern.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -58,4 +57,8 @@ public class IdealComponent extends Component {
 		return this.efferents;
 	}
 
+	@Override
+	public String toString() {
+		return component.toString();
+	}
 }
