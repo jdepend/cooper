@@ -45,10 +45,10 @@ public class MoveRelationInfo {
 	public Collection<JavaClassRelationItem> getFromClassRelations() {
 		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 
-		for (JavaClassRelationItem item : this.from.caCouplingDetail(this.fromOther)) {
+		for (JavaClassRelationItem item : this.from.caCouplingDetail(this.fromOther).getItems()) {
 			items.add(item);
 		}
-		for (JavaClassRelationItem item : this.from.ceCouplingDetail(this.fromOther)) {
+		for (JavaClassRelationItem item : this.from.ceCouplingDetail(this.fromOther).getItems()) {
 			items.add(item);
 		}
 		return items;

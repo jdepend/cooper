@@ -11,6 +11,7 @@ import jdepend.framework.util.ThreadPool;
 import jdepend.model.Component;
 import jdepend.model.Element;
 import jdepend.model.Relation;
+import jdepend.model.RelationDetail;
 
 /**
  * 分析单元关系创建器
@@ -38,14 +39,14 @@ public class RelationCreator {
 				@Override
 				public void run() {
 					Relation r;
-					float intensity = 0;
+					RelationDetail detail;
 					for (Component right : rights) {
-						intensity = left.calCeCoupling(right);
-						if (intensity != 0) {
+						detail = left.calCeCouplingDetail(right);
+						if (detail.getIntensity() != 0) {
 							r = new Relation();
 							r.setCurrent(createElement(left));
 							r.setDepend(createElement(right));
-							r.setIntensity(intensity);
+							r.setDetail(detail);
 							relations.add(r);
 						}
 					}

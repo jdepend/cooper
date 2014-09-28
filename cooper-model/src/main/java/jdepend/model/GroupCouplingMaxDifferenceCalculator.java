@@ -36,8 +36,8 @@ public final class GroupCouplingMaxDifferenceCalculator {
 		for (Component component : relationComponents) {
 			GroupCouplingItem info = new GroupCouplingItem(component.getName(), self.coupling(component));
 			if (info.coupling > 0F) {
-				info.addDetail(self.caCouplingDetail(component));
-				info.addDetail(self.ceCouplingDetail(component));
+				info.addDetail(self.caCouplingDetail(component).getItems());
+				info.addDetail(self.ceCouplingDetail(component).getItems());
 			}
 			groupCouplingInfos.add(info);
 		}

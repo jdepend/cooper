@@ -581,64 +581,46 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer, 
 	}
 
 	@Override
-	public float ceCoupling(JDependUnit jdependUnit) {
+	public RelationDetail ceCouplingDetail(JDependUnit dependUnit) {
 
-		if (this.equals(jdependUnit)) {
-			return 0;
-		}
-		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.ceItems) {
-			if (jdependUnit.containsClass(relationItem.getDepend())) {
-				intensity += relationItem.getRelationIntensity();
-			}
-		}
-		return intensity;
-	}
-
-	@Override
-	public float caCoupling(JDependUnit jdependUnit) {
-
-		if (this.equals(jdependUnit)) {
-			return 0;
-		}
-		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.caItems) {
-			if (jdependUnit.containsClass(relationItem.getDepend())) {
-				intensity += relationItem.getRelationIntensity();
-			}
-		}
-		return intensity;
-	}
-
-	@Override
-	public Collection<JavaClassRelationItem> ceCouplingDetail(JDependUnit dependUnit) {
-
-		Collection<JavaClassRelationItem> detail = new ArrayList<JavaClassRelationItem>();
+		RelationDetail detail = new RelationDetail();
 		if (this.equals(dependUnit)) {
 			return detail;
 		}
 
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
+		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.ceItems) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
-				detail.add(relationItem);
+				items.add(relationItem);
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
 		return detail;
 	}
 
 	@Override
-	public Collection<JavaClassRelationItem> caCouplingDetail(JDependUnit dependUnit) {
+	public RelationDetail caCouplingDetail(JDependUnit dependUnit) {
 
-		Collection<JavaClassRelationItem> detail = new ArrayList<JavaClassRelationItem>();
+		RelationDetail detail = new RelationDetail();
 		if (this.equals(dependUnit)) {
 			return detail;
 		}
 
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
+		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.caItems) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
-				detail.add(relationItem);
+				items.add(relationItem);
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
 		return detail;
 	}
 

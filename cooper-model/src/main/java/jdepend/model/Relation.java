@@ -26,12 +26,9 @@ public final class Relation implements Comparable<Relation>, Serializable {
 
 	private Element depend = null;
 
-	private float intensity = 0F;
+	private RelationDetail detail;
 
-	private transient boolean isAttention = true;
-
-	// 仅包含CeItem
-	private transient Collection<JavaClassRelationItem> items;// 缓存
+	private transient boolean isAttention = true;// 是否值得注意，可以通过外部设置为不关注
 
 	private transient Integer attentionType;// 缓存
 	private transient Float attentionLevel;// 缓存
@@ -62,6 +59,10 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	public static final String AttentionLevel = "Relation_AttentionLevel";
 	public static final String Balance = "Relation_Balance";
 
+	public Relation() {
+		super();
+	}
+
 	public void setCurrent(Element current) {
 		this.current = current;
 		this.current.getComponent().addRelation(this);
@@ -73,11 +74,19 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	public float getIntensity() {
-		return intensity;
+		return detail.getIntensity();
 	}
 
-	public void setIntensity(float intensity) {
-		this.intensity = intensity;
+	public Collection<JavaClassRelationItem> getItems() {
+		return this.detail.getItems();
+	}
+
+	public void setDetail(RelationDetail detail) {
+		this.detail = detail;
+	}
+
+	public RelationDetail getDetail() {
+		return detail;
 	}
 
 	/**
@@ -86,7 +95,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	 * @return
 	 */
 	public float getBalance() {
-		return this.current.getIntensity() + this.depend.getIntensity() - intensity;
+		return this.current.getIntensity() + this.depend.getIntensity() - detail.getIntensity();
 	}
 
 	public int size() {
@@ -103,13 +112,6 @@ public final class Relation implements Comparable<Relation>, Serializable {
 
 	public Element getDepend() {
 		return depend;
-	}
-
-	public Collection<JavaClassRelationItem> getItems() {
-		if (this.items == null) {
-			this.items = current.getComponent().calCeCouplingDetail(this.depend.getComponent());
-		}
-		return items;
 	}
 
 	public int getAttentionType() {

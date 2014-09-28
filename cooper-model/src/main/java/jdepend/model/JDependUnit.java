@@ -65,40 +65,20 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	public List<JDependUnit> collectCycle();
 
 	/**
-	 * 与特定分析单元的传出耦合值
-	 * 
-	 * @param dependUnit
-	 * @return
-	 */
-	public float ceCoupling(JDependUnit dependUnit);
-	/**
-	 * 与特定分析单元的传入耦合值
-	 * 
-	 * @param dependUnit
-	 * @return
-	 */
-	public float caCoupling(JDependUnit dependUnit);
-	/**
 	 * 与特定分析单元的传出耦合信息明细
 	 * 
 	 * @param dependUnit
 	 * @return
 	 */
-	public Collection<JavaClassRelationItem> ceCouplingDetail(JDependUnit dependUnit);
+	public RelationDetail ceCouplingDetail(JDependUnit dependUnit);
+
 	/**
 	 * 与特定分析单元的传入耦合信息明细
 	 * 
 	 * @param dependUnit
 	 * @return
 	 */
-	public Collection<JavaClassRelationItem> caCouplingDetail(JDependUnit dependUnit);
-	/**
-	 * 计算与特定分析单元的传出耦合值
-	 * 
-	 * @param jdependUnit
-	 * @return
-	 */
-	public float calCeCoupling(JDependUnit jdependUnit);
+	public RelationDetail caCouplingDetail(JDependUnit dependUnit);
 
 	/**
 	 * 计算与特定分析单元的传出耦合细节信息
@@ -106,7 +86,8 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @param jDependUnit
 	 * @return
 	 */
-	public Collection<JavaClassRelationItem> calCeCouplingDetail(JDependUnit jDependUnit);
+	public RelationDetail calCeCouplingDetail(JDependUnit jDependUnit);
+
 	/**
 	 * 传入耦合值
 	 * 
@@ -120,6 +101,7 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public float ceCoupling();
+
 	/**
 	 * 与特定分析单元的耦合值
 	 * 
@@ -127,6 +109,7 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public float coupling(JDependUnit dependUnit);
+
 	/**
 	 * 清空缓存
 	 */

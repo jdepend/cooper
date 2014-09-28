@@ -220,8 +220,8 @@ public final class JDependPrinter extends Printer {
 		for (JDependUnit ceUnit : unit.getEfferents()) {
 			getWriter().println(
 					tab(4) + "<CeUnit name=\"" + ceUnit.getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(unit.ceCoupling(ceUnit)) + "\">");
-			for (JavaClassRelationItem item : unit.ceCouplingDetail(ceUnit)) {
+							+ MetricsFormat.toFormattedMetrics(unit.ceCouplingDetail(ceUnit).getIntensity()) + "\">");
+			for (JavaClassRelationItem item : unit.ceCouplingDetail(ceUnit).getItems()) {
 				getWriter().println(
 						tab(5) + "<JavaClass current=\"" + item.getCurrent().getName() + "\" depend=\""
 								+ item.getDepend().getName() + "\" DependType=\"" + item.getType().getName()
@@ -235,8 +235,8 @@ public final class JDependPrinter extends Printer {
 		for (JDependUnit caUnit : unit.getAfferents()) {
 			getWriter().println(
 					tab(4) + "<CaUnit name=\"" + caUnit.getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(unit.caCoupling(caUnit)) + "\">");
-			for (JavaClassRelationItem item : unit.caCouplingDetail(caUnit)) {
+							+ MetricsFormat.toFormattedMetrics(unit.caCouplingDetail(caUnit).getIntensity()) + "\">");
+			for (JavaClassRelationItem item : unit.caCouplingDetail(caUnit).getItems()) {
 				getWriter().println(
 						tab(5) + "<JavaClass current=\"" + item.getCurrent().getName() + "\" depend=\""
 								+ item.getDepend().getName() + "\" DependType=\"" + item.getType().getName()

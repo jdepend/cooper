@@ -90,11 +90,11 @@ public class RelationData {
 			relations.addAll(relationCreator.create(otherComponents, selfComponents));
 
 			// 获得关系强度
-			this.currentCeIntensity = current.ceCoupling(currentOther);
-			this.currentCaIntensity = current.caCoupling(currentOther);
+			this.currentCeIntensity = current.ceCouplingDetail(currentOther).getIntensity();
+			this.currentCaIntensity = current.caCouplingDetail(currentOther).getIntensity();
 
-			this.dependCeIntensity = depend.ceCoupling(dependOther);
-			this.dependCaIntensity = depend.caCoupling(dependOther);
+			this.dependCeIntensity = depend.ceCouplingDetail(dependOther).getIntensity();
+			this.dependCaIntensity = depend.caCouplingDetail(dependOther).getIntensity();
 
 			this.inited = true;
 		}

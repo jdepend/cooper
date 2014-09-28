@@ -293,60 +293,32 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float caCoupling(JDependUnit jdependUnit) {
+	public RelationDetail ceCouplingDetail(JDependUnit dependUnit) {
 
-		if (this.equals(jdependUnit)) {
-			return 0;
-		}
-		for (Relation relation : this.relations) {
-			if (relation.getCurrent().getComponent().equals(jdependUnit)) {
-				return relation.getIntensity();
-			}
-		}
-		return 0;
-	}
-
-	@Override
-	public float ceCoupling(JDependUnit jdependUnit) {
-
-		if (this.equals(jdependUnit)) {
-			return 0;
-		}
-		for (Relation relation : this.relations) {
-			if (relation.getDepend().getComponent().equals(jdependUnit)) {
-				return relation.getIntensity();
-			}
-		}
-		return 0;
-	}
-
-	@Override
-	public Collection<JavaClassRelationItem> ceCouplingDetail(JDependUnit dependUnit) {
-
-		Collection<JavaClassRelationItem> detail = new ArrayList<JavaClassRelationItem>();
+		RelationDetail detail = new RelationDetail();
 		if (this.equals(dependUnit)) {
 			return detail;
 		}
 
 		for (Relation relation : this.relations) {
 			if (relation.getDepend().getComponent().equals(dependUnit)) {
-				return relation.getItems();
+				return relation.getDetail();
 			}
 		}
 		return detail;
 	}
 
 	@Override
-	public Collection<JavaClassRelationItem> caCouplingDetail(JDependUnit dependUnit) {
+	public RelationDetail caCouplingDetail(JDependUnit dependUnit) {
 
-		Collection<JavaClassRelationItem> detail = new ArrayList<JavaClassRelationItem>();
+		RelationDetail detail = new RelationDetail();
 		if (this.equals(dependUnit)) {
 			return detail;
 		}
 
 		for (Relation relation : this.relations) {
 			if (relation.getCurrent().getComponent().equals(dependUnit)) {
-				return relation.getItems();
+				return relation.getDetail();
 			}
 		}
 		return detail;
@@ -416,17 +388,17 @@ public abstract class Component extends AbstractJDependUnit {
 
 		Collection<Relation> relations = new ArrayList<Relation>();
 		Relation r;
-		float intensity = 0;
+		RelationDetail detail;
 		Map<String, Element> elements = new HashMap<String, Element>();
 		for (Component left : allComponents) {
 			for (Component right : allComponents) {
 				if (innerComponents.contains(left) || innerComponents.contains(right)) {
-					intensity = left.calCeCoupling(right);
-					if (intensity != 0) {
+					detail = left.calCeCouplingDetail(right);
+					if (detail.getIntensity() != 0) {
 						r = new Relation();
 						r.setCurrent(this.createElement(left, elements));
 						r.setDepend(this.createElement(right, elements));
-						r.setIntensity(intensity);
+						r.setDetail(detail);
 						relations.add(r);
 					}
 				}

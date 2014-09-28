@@ -153,7 +153,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	public float coupling(JDependUnit jdependUnit) {
-		return this.caCoupling(jdependUnit) + this.ceCoupling(jdependUnit);
+		return this.caCouplingDetail(jdependUnit).getIntensity() + this.ceCouplingDetail(jdependUnit).getIntensity();
 	}
 
 	public float getCoupling() {
@@ -187,37 +187,27 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	@Override
-	public float calCeCoupling(JDependUnit jdependUnit) {
+	public RelationDetail calCeCouplingDetail(JDependUnit dependUnit) {
 
-		if (this.equals(jdependUnit)) {
-			return 0;
-		}
-		float intensity = 0;
-		for (JavaClass javaClass : this.getClasses()) {
-			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
-				if (jdependUnit.containsClass(relationItem.getDepend())) {
-					intensity += relationItem.getRelationIntensity();
-				}
-			}
-		}
-		return intensity;
-	}
-
-	@Override
-	public Collection<JavaClassRelationItem> calCeCouplingDetail(JDependUnit dependUnit) {
-
-		Collection<JavaClassRelationItem> detail = new ArrayList<JavaClassRelationItem>();
+		RelationDetail detail = new RelationDetail();
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		if (this.equals(dependUnit)) {
 			return detail;
 		}
 
+		float intensity = 0;
 		for (JavaClass javaClass : this.getClasses()) {
 			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 				if (dependUnit.containsClass(relationItem.getDepend())) {
-					detail.add(relationItem);
+					items.add(relationItem);
+					intensity += relationItem.getRelationIntensity();
 				}
 			}
 		}
+
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
 		return detail;
 	}
 
