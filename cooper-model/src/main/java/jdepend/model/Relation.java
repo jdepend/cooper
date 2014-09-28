@@ -177,7 +177,8 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	public void init() {
-		this.getAttentionLevel();
+		this.attentionType = this.calAttentionType();
+		this.attentionLevel = this.calAttentionLevel();
 	}
 
 	private boolean isReverse(Relation relation) {
