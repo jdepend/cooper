@@ -26,6 +26,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 
 		Map<JavaClass, Collection<Method>> invokedMethods;
 		for (Method method : result.getMethods()) {
+			//对方法中调用的方法按着类进行分组
 			invokedMethods = new HashMap<JavaClass, Collection<Method>>();
 			for (Method invokeMethod1 : method.getInvokeMethods()) {
 				if (!invokeMethod1.getJavaClass().equals(method.getJavaClass())) {
@@ -35,7 +36,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 					invokedMethods.get(invokeMethod1.getJavaClass()).add(invokeMethod1);
 				}
 			}
-
+			//收集分组后大于一个方法的方法
 			for (JavaClass javaClass : invokedMethods.keySet()) {
 				if (invokedMethods.get(javaClass).size() > 1) {
 					for (Method invokedMethod : invokedMethods.get(javaClass)) {
@@ -59,8 +60,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 	@Override
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
-		explain.append("当一个方法只在一处被使用，并且该方法是一个领域层方法，值得分析该方法放在领域层类上是否合适。<br>");
-		explain.append("当一个方法在多处被使用，并且该方法是一个应用层方法，值得分析该方法放在应用层类上是否合适。<br>");
+		explain.append("当一个类中的多个方法经常在一起被其他方法调用时，应考虑是否应该进行合并。<br>");
 		return explain.toString();
 	}
 }
