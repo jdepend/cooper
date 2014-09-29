@@ -31,6 +31,7 @@ import jdepend.util.analyzer.element.RepeatClassAnalyzer;
 import jdepend.util.analyzer.element.SearchDAONoPageMethod;
 import jdepend.util.analyzer.element.ServiceHaveState;
 import jdepend.util.analyzer.element.TableView;
+import jdepend.util.analyzer.element.TogetherInvokeMethod;
 import jdepend.util.analyzer.element.TransactionalAnnotationChecker;
 
 public class Analyzers {
@@ -67,6 +68,7 @@ public class Analyzers {
 		allAnalyzers.add(new TableView());
 		allAnalyzers.add(new TransactionalAnnotationChecker());
 		allAnalyzers.add(new RepeatClassAnalyzer());
+		allAnalyzers.add(new TogetherInvokeMethod());
 
 		List<Analyzer> analyzerTypes;
 		for (Analyzer analyzer : allAnalyzers) {
