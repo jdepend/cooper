@@ -25,11 +25,10 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		Map<Method, CollectionMethod> invokeMethods = new HashMap<Method, CollectionMethod>();
 		Map<JavaClass, Collection<Method>> invokedMethods;
 
 		CollectionMethod cm;
-		Map<CollectionMethod, Method> cmm = new HashMap<CollectionMethod, Method>();
+		Map<CollectionMethod, Collection<Method>> cms = new HashMap<CollectionMethod, Collection<Method>>();
 
 		for (Method method : result.getMethods()) {
 			// 对方法中调用的方法按着类进行分组
@@ -47,25 +46,25 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 				if (invokedMethods.get(javaClass).size() > 1) {
 					cm = new CollectionMethod(invokedMethods.get(javaClass));
 					// 收集方法集合大于1处调用的情况
-					if (cmm.containsKey(cm)) {
-						if (!invokeMethods.containsKey(cmm.get(cm))) {
-							invokeMethods.put(cmm.get(cm), cm);
-							this.printTable("类名", cm.getJavaClass().getName());
-							this.printTable("方法集合名", cm.toString());
-							this.printTable("调用方法名", cmm.get(cm).getInfo());
-							this.printTable("调用类名", cmm.get(cm).getJavaClass().getName());
-						}
-						invokeMethods.put(method, cm);
-						this.printTable("类名", cm.getJavaClass().getName());
-						this.printTable("方法集合名", cm.toString());
-						this.printTable("调用方法名", method.getInfo());
-						this.printTable("调用类名", method.getJavaClass().getName());
-
+					if (!cms.containsKey(cm)) {
+						cms.put(cm, new ArrayList<Method>());
 					}
-					cmm.put(cm, method);
+					cms.get(cm).add(method);
 				}
 			}
 			this.progress();
+		}
+
+		for (CollectionMethod cm1 : cms.keySet()) {
+			if (cms.get(cm1).size() > 1) {
+				for (Method invokeMethod : cms.get(cm1)) {
+					this.printTable("类名", cm1.getJavaClass().getName());
+					this.printTable("方法集合名", cm1.toString());
+					this.printTable("出现的次数", cms.get(cm1).size());
+					this.printTable("调用者类名", invokeMethod.getJavaClass().getName());
+					this.printTable("调用者方法名", invokeMethod.getInfo());
+				}
+			}
 		}
 	}
 
