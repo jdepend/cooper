@@ -43,7 +43,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 						sameInvokeClass = true;
 						selfInvokeClass = false;
 						L: for (InvokeItem invokeItem : method.getInvokeItems()) {
-							if (!invokeItem.getInvokeClassName().equals(method.getJavaClass().getName())) {
+							if (!invokeItem.getMethod().getJavaClass().equals(method.getJavaClass())) {
 								if (invokeClassName != null && !invokeClassName.equals(invokeItem.getInvokeClassName())) {
 									sameInvokeClass = false;
 									break L;
@@ -81,7 +81,9 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 
 	@Override
 	public String getExplain() {
-		return "/culture/关注与反模式/moveMethod.htm";
+		StringBuilder explain = new StringBuilder();
+		explain.append("识别孤立的方法，并为其找到宿主。<br>");
+		return explain.toString();
 	}
 
 }
