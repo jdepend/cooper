@@ -58,6 +58,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	public static final String AttentionType = "Relation_AttentionType";
 	public static final String AttentionLevel = "Relation_AttentionLevel";
 	public static final String Balance = "Relation_Balance";
+	public static final String isProblem = "Relation_isProblem";
 
 	public Relation() {
 		super();
@@ -173,6 +174,8 @@ public final class Relation implements Comparable<Relation>, Serializable {
 			return this.getAttentionType();
 		} else if (metrics.equals(AttentionLevel)) {
 			return this.getAttentionLevel();
+		} else if (metrics.equals(isProblem)) {
+			return this.isNormality() ? "":"是";
 		} else {
 			return null;
 		}

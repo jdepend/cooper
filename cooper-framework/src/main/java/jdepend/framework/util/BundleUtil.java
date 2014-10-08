@@ -213,6 +213,7 @@ public class BundleUtil {
 	public static final String Relation_Balance = "Relation_Balance";
 	public static final String Relation_AttentionType = "Relation_AttentionType";
 	public static final String Relation_AttentionLevel = "Relation_AttentionLevel";
+	public static final String Relation_isProblem = "Relation_isProblem";
 
 	public static final String Advise_D_Small = "Advise_D_Small";
 	public static final String Advise_D_Big = "Advise_D_Big";

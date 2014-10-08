@@ -47,6 +47,7 @@ public class ReportConstant {
 	public static final String Relation_Balance = BundleUtil.getString(BundleUtil.Relation_Balance);
 	public static final String Relation_AttentionType = BundleUtil.getString(BundleUtil.Relation_AttentionType);
 	public static final String Relation_AttentionLevel = BundleUtil.getString(BundleUtil.Relation_AttentionLevel);
+	public static final String Relation_isProblem = BundleUtil.getString(BundleUtil.Relation_isProblem);
 
 	public static final String Result_Metrics_D = BundleUtil.getString(BundleUtil.Metrics_D);
 	public static final String Result_Metrics_Balance = BundleUtil.getString(BundleUtil.Metrics_Balance);
@@ -124,6 +125,7 @@ public class ReportConstant {
 		toMetricses.put(Relation_Balance, Relation.Balance);
 		toMetricses.put(Relation_AttentionType, Relation.AttentionType);
 		toMetricses.put(Relation_AttentionLevel, Relation.AttentionLevel);
+		toMetricses.put(Relation_isProblem, Relation.isProblem);
 	}
 
 	private static final Map<String, String> toMetricsNames = new HashMap<String, String>();

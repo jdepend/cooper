@@ -83,6 +83,7 @@ public final class RelationPanel extends SubResultTabPanel {
 		model.addColumn(ReportConstant.Relation_Balance);
 		model.addColumn(ReportConstant.Relation_AttentionType);
 		model.addColumn(ReportConstant.Relation_AttentionLevel);
+		model.addColumn(ReportConstant.Relation_isProblem);
 
 		sorter = new TableSorter(model);
 
@@ -154,7 +155,7 @@ public final class RelationPanel extends SubResultTabPanel {
 		Object[] arg;
 
 		for (Relation relation : relations) {
-			arg = new Object[8];
+			arg = new Object[9];
 			arg[0] = relation.getCurrent().getName();
 			arg[1] = relation.getDepend().getName();
 			arg[2] = MetricsFormat.toFormattedMetrics(relation.getIntensity());
@@ -163,6 +164,7 @@ public final class RelationPanel extends SubResultTabPanel {
 			arg[5] = MetricsFormat.toFormattedMetrics(relation.getBalance());
 			arg[6] = relation.getAttentionType();
 			arg[7] = MetricsFormat.toFormattedMetrics(relation.getAttentionLevel());
+			arg[8] = relation.isNormality() ? "":"是";
 			model.addRow(arg);
 		}
 
@@ -264,7 +266,13 @@ public final class RelationPanel extends SubResultTabPanel {
 						} else {
 							return false;
 						}
-					} else {
+					} else if (metrics.equals(Relation.isProblem)) {
+						if (result < 0) {
+							return true;
+						} else {
+							return false;
+						}
+					}else {
 						return null;
 					}
 				}
