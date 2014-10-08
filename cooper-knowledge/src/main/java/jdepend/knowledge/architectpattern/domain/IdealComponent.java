@@ -56,6 +56,11 @@ public class IdealComponent extends Component {
 		}
 		return this.efferents;
 	}
+	
+	@Override
+	public String getName() {
+		return component.getName();
+	}
 
 	@Override
 	public String toString() {

@@ -76,9 +76,8 @@ public class Analyzers {
 			if (analyzerTypes == null) {
 				analyzerTypes = new ArrayList<Analyzer>();
 				analyzers.put(analyzer.getType(), analyzerTypes);
-			} else {
-				analyzerTypes.add(analyzer);
 			}
+			analyzerTypes.add(analyzer);
 		}
 		return analyzers;
 	}
