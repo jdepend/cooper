@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -34,13 +35,13 @@ public class JavaClassMoveToDialog extends JDialog {
 
 	private JTable componentTable;
 
-	private List<String> selectedJavaClass;
+	private Collection<String> selectedJavaClass;
 
 	private JPanel content;
 
 	private JavaClassMoveToDialogListener listener;
 
-	public JavaClassMoveToDialog(JDependFrame frame, List<String> selectedJavaClass) {
+	public JavaClassMoveToDialog(JDependFrame frame, Collection<String> selectedJavaClass) {
 		this(frame);
 		this.selectedJavaClass = selectedJavaClass;
 	}

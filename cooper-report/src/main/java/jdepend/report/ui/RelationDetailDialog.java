@@ -1,24 +1,41 @@
 package jdepend.report.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
+import jdepend.core.config.CommandConfMgr;
+import jdepend.core.config.GroupConf;
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.JTableUtil;
+import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
+import jdepend.report.ui.ClassListPanel.CaCeComparator;
+import jdepend.report.util.ReportConstant;
 import jdepend.report.way.mapui.GraphJDepend;
 
 public class RelationDetailDialog extends CooperDialog {
@@ -84,7 +101,6 @@ public class RelationDetailDialog extends CooperDialog {
 				} else {
 					depend.setSelected(true);
 				}
-				calSelectedJavaClass();
 			}
 		};
 		relationPanel.add(current);
@@ -97,7 +113,6 @@ public class RelationDetailDialog extends CooperDialog {
 				} else {
 					current.setSelected(true);
 				}
-				calSelectedJavaClass();
 			}
 		};
 		relationPanel.add(depend);
@@ -108,13 +123,7 @@ public class RelationDetailDialog extends CooperDialog {
 		moveTo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, calSelectedJavaClass());
-				d.setListener(new JavaClassMoveToDialogListener() {
-					@Override
-					public void onFinish() {
-						RelationDetailDialog.this.dispose();
-					}
-				});
+				MoveToClassListDialog d = new MoveToClassListDialog();
 				d.setModal(true);
 				d.setVisible(true);
 			}
@@ -146,5 +155,124 @@ public class RelationDetailDialog extends CooperDialog {
 			}
 		}
 		return selectedJavaClass;
+	}
+
+	class MoveToClassListDialog extends JDialog {
+
+		private DefaultTableModel classListModel;
+
+		private JTable classListTable;
+
+		MoveToClassListDialog() {
+
+			getContentPane().setLayout(new BorderLayout());
+			setSize(ResultPopDialogWidth, ResultPopDialogHeight);
+			this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
+
+			JPanel panel = new JPanel();
+			panel.setLayout(new BorderLayout());
+
+			JPanel content = new JPanel(new BorderLayout());
+			content.add(initTable());
+
+			JPanel buttonBar = new JPanel(new FlowLayout());
+			buttonBar.add(createNextButton());
+			buttonBar.add(createCancelButton());
+
+			panel.add(BorderLayout.CENTER, content);
+
+			panel.add(BorderLayout.SOUTH, buttonBar);
+
+			getContentPane().add(BorderLayout.CENTER, panel);
+
+		}
+
+		private JComponent initTable() {
+
+			classListModel = new DefaultTableModel() {
+				@Override
+				public Class getColumnClass(int c) {
+					Object value = getValueAt(0, c);
+					if (value != null) {
+						return value.getClass();
+					} else {
+						return String.class;
+					}
+				}
+
+			};
+
+			TableSorter sorter = new TableSorter(classListModel);
+
+			classListTable = new JTable(sorter);
+
+			sorter.setTableHeader(classListTable.getTableHeader());
+
+			classListModel.addColumn("是否移动");
+			classListModel.addColumn(ReportConstant.Name);
+
+			Object[] row;
+			for (String className : calSelectedJavaClass()) {
+				row = new Object[2];
+				row[0] = new Boolean(true);
+				row[1] = className;
+				classListModel.addRow(row);
+			}
+
+			return new JScrollPane(classListTable);
+		}
+
+		private JButton createCancelButton() {
+
+			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Cancel));
+			button.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+
+			return button;
+		}
+
+		private JButton createNextButton() {
+
+			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_NextStep));
+			button.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					nextStep(e);
+				}
+			});
+
+			return button;
+		}
+
+		private void nextStep(ActionEvent e) {
+
+			Collection<String> moveToClassList = new HashSet<String>();
+			for (int i = 0; i < classListModel.getRowCount(); i++) {
+				if ((Boolean) classListModel.getValueAt(i, 0)) {
+					moveToClassList.add((String) classListModel.getValueAt(i, 1));
+				}
+			}
+
+			dispose();
+
+			this.openJavaClassMoveToDialog(moveToClassList);
+		}
+
+		private void openJavaClassMoveToDialog(Collection<String> moveToClassList) {
+			JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, moveToClassList);
+			d.setListener(new JavaClassMoveToDialogListener() {
+				@Override
+				public void onFinish() {
+					RelationDetailDialog.this.dispose();
+				}
+			});
+			d.setModal(true);
+			d.setVisible(true);
+		}
+
 	}
 }

@@ -84,6 +84,8 @@ public final class SelectGroupDialog extends JDialog {
 	private JComponent createGroups() {
 
 		DefaultTableModel model = new DefaultTableModel() {
+			
+			@Override
 			public Class getColumnClass(int c) {
 				Object value = getValueAt(0, c);
 				if (value != null) {
