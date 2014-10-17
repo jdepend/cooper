@@ -147,6 +147,15 @@ public final class ParseUtil {
 		return rtn.toString();
 	}
 
+	public static String getMethodInfo(String info) {
+		int pos = info.indexOf("[(Unknown");
+		if (pos == -1) {
+			return info;
+		} else {
+			return info.substring(0, pos);
+		}
+	}
+
 	public static void main(String[] args) {
 		// String c = "(()Ljava/util/List<Ljdepend/core/JDependUnit;>;)";
 		// String c = "()Ljava/util/List<[B>;";

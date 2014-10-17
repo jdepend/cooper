@@ -56,7 +56,7 @@ public class Method extends AccessFlags {
 		this.access_flags = method.getAccessFlags();
 		this.name = method.getName();
 		this.signature = SignatureUtil.getSignature(method);
-		this.info = method.toString();
+		this.info = ParseUtil.getMethodInfo(method.toString());
 		this.argumentCount = this.calArgumentCount();
 		this.invokeItems = new ArrayList<InvokeItem>();
 		this.readFields = new ArrayList<Attribute>();

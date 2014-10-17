@@ -92,12 +92,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public AnalysisResult(List<Component> components) {
 		super();
 		this.components = components;
-		for (Component component : this.components) {
-			component.setResult(this);
-		}
-		this.calRelations();
-		this.calAreaComponents();
-		this.initRelations();
+		this.init();
 	}
 
 	public AnalysisResult(List<Component> components, AnalysisRunningContext runningContext) {
@@ -125,6 +120,19 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.javaClasses = result.javaClasses;
 		this.javaPackages = result.javaPackages;
 		this.javaPackageTree = result.javaPackageTree;
+	}
+
+	private void init() {
+		// 填充Result
+		for (Component component : this.components) {
+			component.setResult(this);
+		}
+		// 计算关系
+		this.calRelations();
+		// 重新计算组件区域
+		this.calAreaComponents();
+		// 初始化Relations
+		this.initRelations();
 	}
 
 	public List<Component> getComponents() {
@@ -564,14 +572,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		JavaClassUtil.supplyJavaClassRelationItem(javaClasses);
 		// 填充Method中的InvokeItem中的Method
 		JavaClassUtil.supplyJavaClassDetail(javaClasses);
-		// 填充Result
-		for (Component component : this.components) {
-			component.setResult(this);
-		}
-		// 计算关系
-		this.calRelations();
-		// 重新计算组件区域
-		this.calAreaComponents();
+
+		this.init();
 	}
 
 	@Override
