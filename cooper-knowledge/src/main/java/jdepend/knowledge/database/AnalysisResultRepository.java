@@ -47,13 +47,10 @@ public final class AnalysisResultRepository {
 
 	public static void save(AnalysisResult result) throws JDependException {
 
-		byte[] data = null;
-
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			data = result.getBytes();
 			conn = ConnectionFactory.getConnection();
 			conn.setAutoCommit(false);
 
@@ -124,7 +121,7 @@ public final class AnalysisResultRepository {
 
 			ps = conn.prepareStatement(CreateLocalResultDATASQL);
 			ps.setString(1, id);
-			ps.setBytes(2, data);
+			ps.setBytes(2, result.getBytes());
 			ps.execute();
 
 			LogUtil.getInstance(AnalysisResultRepository.class).systemLog(
