@@ -1,6 +1,7 @@
 package jdepend.ui.command;
 
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
@@ -48,20 +49,18 @@ public final class CommandAction extends AsynAction {
 	protected void analyse(ActionEvent e) throws JDependException {
 		result = adapter.execute();
 		// 创建UI结果
-		this.addResults(reportRender.createMainReport(result));
+		this.addResults(reportRender.createReport(result));
 
 	}
 
 	@Override
 	protected void showResultLater() {
-
-		// 输出其他报告
-		Map<String, JComponent> otherReport = this.reportRender.createOtherReport(result);
 		// 输出日志
+		Map<String, JComponent> logReport = new HashMap<String, JComponent>();
 		if (adapter.getLog() != null && adapter.getLog().length() != 0) {
-			otherReport.put("log", ResultPanel.createTextViewer(adapter.getLog()));
+			logReport.put("log", ResultPanel.createTextViewer(adapter.getLog()));
 		}
-		frame.getResultPanel().appendResult(otherReport);
+		frame.getResultPanel().appendResult(logReport);
 
 		// 刷新TODOList
 		frame.getPropertyPanel().showTODOList();

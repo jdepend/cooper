@@ -1,4 +1,10 @@
-﻿1.2.3_06 2014-10-17
+﻿1.2.3_07
+
+a）将最大内存数由1500M减少到1024M
+
+b）简化JDependReport的设计，只保留createReport方法（删除了createMainReport和createOtherReport）
+
+1.2.3_06 2014-10-17
 
 a）增加分析器：识别共同调用的方法集合
 

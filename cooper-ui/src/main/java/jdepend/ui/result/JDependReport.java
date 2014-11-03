@@ -96,16 +96,6 @@ public class JDependReport extends ReportCreator {
 
 	public Map<String, JComponent> createReport(AnalysisResult result) {
 
-		Map<String, JComponent> rtn = new LinkedHashMap<String, JComponent>();
-
-		rtn.putAll(this.createMainReport(result));
-		rtn.putAll(this.createOtherReport(result));
-
-		return rtn;
-	}
-
-	public Map<String, JComponent> createMainReport(AnalysisResult result) {
-
 		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report start!");
 
 		this.calReportTexts(result);
@@ -164,20 +154,6 @@ public class JDependReport extends ReportCreator {
 				rtn.put(CohesionTabName, this.compositeComponent(groupComponents));
 			}
 		}
-
-		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report finish!");
-
-		return rtn;
-	}
-
-	public Map<String, JComponent> createOtherReport(AnalysisResult result) {
-
-		LogUtil.getInstance(JDependReport.class).systemLog("create other graph report start!");
-
-		Map<String, JComponent> rtn = new LinkedHashMap<String, JComponent>();
-
-		Map<String, JComponent> groupComponents;
-
 		if (printPattern) {
 			groupComponents = new LinkedHashMap<String, JComponent>();
 			groupComponents.put("Architect", new ArchitectPatternPanel());
@@ -198,7 +174,7 @@ public class JDependReport extends ReportCreator {
 			rtn.put(NoticeTabName, this.compositeComponent(groupComponents));
 		}
 
-		LogUtil.getInstance(JDependReport.class).systemLog("create other graph report finish!");
+		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report finish!");
 
 		return rtn;
 	}

@@ -215,20 +215,9 @@ public class ResultPanel extends TabsPanel {
 			jdependReport.setFrame(frame);
 			jdependReport.addReportListener(frame);
 			// 创建图形化结果
-			results = jdependReport.createMainReport(result);
+			results = jdependReport.createReport(result);
 			// 显示结果
 			this.showResults(results, false);
-			// 输出其他报告
-			this.appendResult(jdependReport.createOtherReport(result));
-			// 添加差异页
-			// Memento memento = AdjustHistory.getInstance().getCompared();
-			// if (memento != null) {
-			// AnalysisResult result1 = memento.getResult();
-			// StringBuilder diff = result.equals(result1);
-			// if (diff != null) {
-			// this.appendResult("差异", diff);
-			// }
-			// }
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			this.showError(ex);
