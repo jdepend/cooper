@@ -343,8 +343,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 	}
 
 	protected void viewIgnoreList() {
-		String group = CommandAdapterMgr.getCurrentGroup();
-		adapter.onViewIgnoreList(group);
+		adapter.onViewIgnoreList();
 	}
 
 	protected void addIgnoreList(boolean incluedsub) throws JDependException {

@@ -1,13 +1,9 @@
 package jdepend.ui.result;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -18,28 +14,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.log.Operation;
 import jdepend.framework.ui.TextViewer;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ReportCreator;
-import jdepend.report.history.ReportHistory;
 import jdepend.report.ui.XMLJDependUtil;
 import jdepend.report.util.ReportConstant;
 import jdepend.report.way.mapui.GraphPrinter;
@@ -54,10 +43,6 @@ import jdepend.ui.framework.UIPropertyConfigurator;
  * 
  */
 public class JDependReport extends ReportCreator {
-
-	private String group;
-
-	private String command;
 
 	private JDependCooper frame;
 
@@ -86,12 +71,19 @@ public class JDependReport extends ReportCreator {
 	private transient Map<String, StringBuilder> reportTexts;
 
 	public JDependReport(String group, String command) {
-		this.group = group;
-		this.command = command;
+		super(group, command);
 	}
 
 	public void setFrame(JDependCooper frame) {
 		this.frame = frame;
+	}
+
+	public StringBuilder getReportText(String title) {
+		return reportTexts.get(title);
+	}
+
+	public void setReportTexts(Map<String, StringBuilder> reportTexts) {
+		this.reportTexts = reportTexts;
 	}
 
 	public Map<String, JComponent> createReport(AnalysisResult result) {
@@ -218,11 +210,6 @@ public class JDependReport extends ReportCreator {
 		}
 
 		try {
-			resultStream.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			resultStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -293,7 +280,7 @@ public class JDependReport extends ReportCreator {
 		JMenuItem saveItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Save));
 		saveItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ReportHistorySaveDialog d = new ReportHistorySaveDialog(title);
+				ReportHistorySaveDialog d = new ReportHistorySaveDialog(JDependReport.this, title);
 				d.setModal(true);
 				d.setLocation(250, 100);
 				d.setVisible(true);
@@ -308,7 +295,8 @@ public class JDependReport extends ReportCreator {
 					saveAs(new StringBuilder(resultViewer.getText()));
 				} catch (JDependException e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "报告[" + command + "]保存失败！", "alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "报告[" + getCommand() + "]保存失败！", "alert",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -332,92 +320,8 @@ public class JDependReport extends ReportCreator {
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File f = jFileChooser.getSelectedFile();
 			FileUtil.saveFileContent(f.getAbsolutePath(), content);
-			JOptionPane.showMessageDialog(null, "报告[" + command + "]保存成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "报告[" + getCommand() + "]保存成功。", "alert",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-
-	class ReportHistorySaveDialog extends JDialog {
-
-		private JTextArea tip;
-
-		private String title;
-
-		public ReportHistorySaveDialog(String title) {
-
-			setTitle("Tip");
-
-			setResizable(false);
-
-			this.title = title;
-
-			getContentPane().setLayout(new BorderLayout());
-			setSize(400, 200);
-
-			addWindowListener(new WindowAdapter() {
-
-				public void windowClosing(WindowEvent e) {
-					dispose();
-				}
-			});
-
-			JPanel panel = new JPanel();
-			panel.setLayout(new BorderLayout());
-
-			tip = new JTextArea();
-			tip.setText(title);
-
-			JScrollPane pane = new JScrollPane(tip);
-
-			JPanel buttonBar = new JPanel(new FlowLayout());
-			buttonBar.add(createSaveButton());
-			buttonBar.add(createCloseButton());
-
-			panel.add(BorderLayout.CENTER, pane);
-
-			panel.add(BorderLayout.SOUTH, buttonBar);
-
-			getContentPane().add(BorderLayout.CENTER, panel);
-
-		}
-
-		private JButton createCloseButton() {
-
-			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
-			button.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-
-			return button;
-		}
-
-		private JButton createSaveButton() {
-
-			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Save));
-			button.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					try {
-						ReportHistory rh = new ReportHistory(group);
-						rh.save(command, reportTexts.get(title), tip.getText());
-						JDependReport.this.onReportHistorySave(group, command);
-						// 记录日志
-						BusiLogUtil.getInstance().businessLog(Operation.saveTextReport);
-						JOptionPane.showMessageDialog((java.awt.Component) e.getSource(), "保存成功", "alert",
-								JOptionPane.INFORMATION_MESSAGE);
-						dispose();
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						java.awt.Component source = (java.awt.Component) e.getSource();
-						JOptionPane.showMessageDialog(source, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-
-			return button;
-		}
-	}
-
 }

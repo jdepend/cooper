@@ -19,7 +19,32 @@ import jdepend.model.result.AnalysisResult;
  */
 public abstract class ReportCreator {
 
+	private String group;
+	private String command;
+
+	public ReportCreator(String group, String command) {
+		super();
+		this.group = group;
+		this.command = command;
+	}
+
 	private List<ReportListener> listeners = new ArrayList<ReportListener>();
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	public String getCommand() {
+		return command;
+	}
+
+	public void setCommand(String command) {
+		this.command = command;
+	}
 
 	/**
 	 * 增加报告监听器
@@ -35,7 +60,7 @@ public abstract class ReportCreator {
 	 * 
 	 * @param command
 	 */
-	public void onReportHistorySave(String group, String command) {
+	public void onReportHistorySave() {
 		for (ReportListener listener : listeners) {
 			listener.onSaveReport(group, command);
 		}
@@ -63,7 +88,7 @@ public abstract class ReportCreator {
 		}
 	}
 
-	public void onViewIgnoreList(String group) {
+	public void onViewIgnoreList() {
 		for (ReportListener listener : listeners) {
 			listener.onViewIgnoreList(group);
 		}
