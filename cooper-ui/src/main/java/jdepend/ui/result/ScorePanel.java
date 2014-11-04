@@ -417,7 +417,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				frame.getResultPanel().setTab(0, 1);
+				frame.getResultPanel().setTab(1, 0);
 			}
 		});
 		panel.add(valuePanel);
@@ -500,7 +500,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		JDependUIUtil.addClickTipEffect(this.capacityLabel);
 		this.capacityLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				frame.getResultPanel().setTab(3, 1);
+				frame.getResultPanel().setTab(0, 2);
 			}
 		});
 		panel.add(this.capacityLabel);
