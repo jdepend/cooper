@@ -47,7 +47,6 @@ public class JDependReport extends ReportCreator {
 	private JDependCooper frame;
 
 	public final static boolean printTDC = false;
-	public final static boolean printTableTree = false;
 	public final static boolean printSummaryXML = false;
 	public final static boolean printTable = true;
 
@@ -56,21 +55,12 @@ public class JDependReport extends ReportCreator {
 
 	public final static boolean printCoupling = false;
 	public final static boolean printCohesion = false;
-	public final static boolean printCapacity = true;
-	public final static boolean printPattern = true;
-
-	public final static String SummaryTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Summary);
-	public final static String RelationTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Relation);
-	public final static String CouplingTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Coupling);
-	public final static String CohesionTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Cohesion);
-	public final static String PatternTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Pattern);
-	public final static String CapacityTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Capacity);
-	public final static String NoticeTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Notice);
 
 	public final static String SystemTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_System);
 	public final static String ComponentTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Component);
 	public final static String ClassTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Class);
 	public final static String MethodTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Method);
+	public final static String NoticeTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Notice);
 
 	// 用于临时保存报告文本信息
 	private transient Map<String, StringBuilder> reportTexts;
