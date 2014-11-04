@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -104,6 +105,31 @@ public class ClassListPanel extends JPanel {
 	public void clearClassList() {
 		classListModel.setRowCount(0);
 		this.extendUnits = new ArrayList<String>();
+	}
+	
+	public void initPopupMenu(JavaClassMoveToDialogListener listener) {
+
+		final JPopupMenu popupMenu = new JPopupMenu();
+
+		popupMenu.add(this.createMoveToItem(listener));
+
+		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
+		saveAsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTableUtil.exportTableToExcel(getClassListTable());
+			}
+		});
+		popupMenu.add(saveAsItem);
+
+		this.getClassListTable().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (e.getButton() == 3) {
+					popupMenu.show(getClassListTable(), e.getX(), e.getY());
+				}
+			}
+		});
 	}
 
 	private void fitCol() {
@@ -335,7 +361,7 @@ public class ClassListPanel extends JPanel {
 		d.setModal(true);
 		d.setVisible(true);
 	}
-
+	
 	public class DetailDialog extends CooperDialog {
 
 		private JavaClass javaClass;

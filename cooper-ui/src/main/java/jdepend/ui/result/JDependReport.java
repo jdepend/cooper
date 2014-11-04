@@ -67,6 +67,11 @@ public class JDependReport extends ReportCreator {
 	public final static String CapacityTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Capacity);
 	public final static String NoticeTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Notice);
 
+	public final static String SystemTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_System);
+	public final static String ComponentTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Component);
+	public final static String ClassTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Class);
+	public final static String MethodTabName = BundleUtil.getString(BundleUtil.ClientWin_Result_Method);
+
 	// 用于临时保存报告文本信息
 	private transient Map<String, StringBuilder> reportTexts;
 
@@ -96,68 +101,39 @@ public class JDependReport extends ReportCreator {
 
 		Map<String, JComponent> groupComponents;
 
+		// 系统
 		groupComponents = new LinkedHashMap<String, JComponent>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
+		groupComponents.put("Architect", new ArchitectPatternPanel());
+		groupComponents.put("Capacity", new CapacityPanel());
+		rtn.put(SystemTabName, this.compositeComponent(groupComponents));
+
+		// 组件
+		groupComponents = new LinkedHashMap<String, JComponent>();
 		groupComponents.put("List", new SummaryPanel(frame, this));
-		if (printTableTree) {
-			groupComponents.put("TableTree", new SubResultTabPanel() {
-				@Override
-				protected void init(AnalysisResult result) {
-					this.add((new jdepend.report.way.swingui.SwingJDepend()).getResult(result.getComponents()));
-				}
-			});
-		}
-		if (printTable) {
-			groupComponents.put("Table", new TablePanel());
-		}
-		groupComponents.put("Text", this.createTextReport(ReportConstant.SummaryText));
-		if (printSummaryXML) {
-			groupComponents.put("XML", this.createTextReport(ReportConstant.SummaryXML));
+		if (result.getRelations() != null) {
+			groupComponents.put("RGraph2D", this.createGraph(result.getRelations()));
+			groupComponents.put("RTable", new RelationPanel(frame));
+			if (printRelationText) {
+				groupComponents.put("RText", this.createTextReport(ReportConstant.RelationText));
+			}
 		}
 		if (printTDC) {
 			groupComponents.put("TDC", new TwoDimensionCell(frame));
 		}
-		rtn.put(SummaryTabName, this.compositeComponent(groupComponents));
+		rtn.put(ComponentTabName, this.compositeComponent(groupComponents));
 
-		if (result.getRelations() != null) {
-			groupComponents = new LinkedHashMap<String, JComponent>();
-			groupComponents.put("Graph2D", this.createGraph(result.getRelations()));
-			groupComponents.put("Table", new RelationPanel(frame));
-			if (printRelationText) {
-				groupComponents.put("Text", this.createTextReport(ReportConstant.RelationText));
-			}
-			rtn.put(RelationTabName, this.compositeComponent(groupComponents));
-		}
-		if (printCoupling) {
-			StringBuilder CouplingText = this.reportTexts.get(ReportConstant.CouplingText);
-			if (CouplingText != null) {
-				groupComponents = new LinkedHashMap<String, JComponent>();
-				groupComponents.put("Table", this.createXML(CouplingText));
-				groupComponents.put("Text", this.createTextReport(ReportConstant.CouplingText));
-				rtn.put(CouplingTabName, this.compositeComponent(groupComponents));
-			}
-		}
-		if (printCohesion) {
-			StringBuilder CohesionText = this.reportTexts.get(ReportConstant.CohesionText);
-			if (CohesionText != null) {
-				groupComponents = new LinkedHashMap<String, JComponent>();
-				groupComponents.put("Table", this.createXML(CohesionText));
-				groupComponents.put("Text", this.createTextReport(ReportConstant.CohesionText));
-				rtn.put(CohesionTabName, this.compositeComponent(groupComponents));
-			}
-		}
-		if (printPattern) {
-			groupComponents = new LinkedHashMap<String, JComponent>();
-			groupComponents.put("Architect", new ArchitectPatternPanel());
-			groupComponents.put("Design", new DesignPatternPanel());
-			rtn.put(PatternTabName, this.compositeComponent(groupComponents));
-		}
+		// 类
+		groupComponents = new LinkedHashMap<String, JComponent>();
+		groupComponents.put("List", new ClassListSubTabPanel(frame));
+		groupComponents.put("Table", new TablePanel());
+		groupComponents.put("Pattern", new DesignPatternPanel());
+		rtn.put(ClassTabName, this.compositeComponent(groupComponents));
 
-		if (printCapacity) {
-			groupComponents = new LinkedHashMap<String, JComponent>();
-			groupComponents.put("Panel", new CapacityPanel());
-			rtn.put(CapacityTabName, this.compositeComponent(groupComponents));
-		}
+		// 方法
+		groupComponents = new LinkedHashMap<String, JComponent>();
+		// groupComponents.put("List", new JavaClassl(result, frame));
+		rtn.put(MethodTabName, this.compositeComponent(groupComponents));
 
 		StringBuilder NoticesText = this.reportTexts.get(ReportConstant.NoticesText);
 		if (NoticesText != null) {

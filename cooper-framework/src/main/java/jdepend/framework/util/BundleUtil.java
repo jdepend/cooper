@@ -54,6 +54,11 @@ public class BundleUtil {
 	public static final String ClientWin_Result_Pattern = "ClientWin_Result_Pattern";// 客户端窗口分析结果
 	public static final String ClientWin_Result_Capacity = "ClientWin_Result_Capacity";// 客户端窗口分析结果
 	public static final String ClientWin_Result_Notice = "ClientWin_Result_Notice";// 客户端窗口分析结果
+	
+	public static final String ClientWin_Result_System = "ClientWin_Result_System";// 客户端窗口分析结果
+	public static final String ClientWin_Result_Component = "ClientWin_Result_Component";// 客户端窗口分析结果
+	public static final String ClientWin_Result_Class = "ClientWin_Result_Class";// 客户端窗口分析结果
+	public static final String ClientWin_Result_Method = "ClientWin_Result_Method";// 客户端窗口分析结果
 
 	public static final String ClientWin_ScorePanel_TotalScore = "ClientWin_ScorePanel_TotalScore";
 	public static final String ClientWin_ScorePanel_Score = "ClientWin_ScorePanel_Score";
