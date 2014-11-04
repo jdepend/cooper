@@ -34,9 +34,6 @@ import jdepend.knowledge.AdviseInfo;
 import jdepend.knowledge.ExpertFactory;
 import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
-import jdepend.knowledge.capacity.Capacity;
-import jdepend.knowledge.capacity.CapacityCreatedListener;
-import jdepend.knowledge.capacity.CapacityMgr;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
@@ -52,14 +49,12 @@ import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
 
-public final class ScorePanel extends SubResultTabPanel implements CapacityCreatedListener {
+public final class ScorePanel extends SubResultTabPanel {
 
 	private AnalysisResult result;
 	private JDependCooper frame;
 
 	private List<ScoreInfo> scorelist = new ArrayList<ScoreInfo>();
-
-	private JLabel capacityLabel;
 
 	public ScorePanel(AnalysisResult result, JDependCooper frame) {
 		this.result = result;
@@ -74,10 +69,6 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			e.printStackTrace();
 		}
 		initComponents();
-
-		// 将自己注册到CapacityMgr中
-		CapacityMgr.getInstance().setListener(this);
-
 	}
 
 	private void initComponents() {
@@ -117,16 +108,6 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		scorePanel.add(this.createScorePanel());
 
 		leftPanel.add(BorderLayout.CENTER, scorePanel);
-
-		// JPanel otherPanel = new JPanel(new BorderLayout());
-		// otherPanel.setBorder(new TitledBorder(BundleUtil
-		// .getString(BundleUtil.ClientWin_ScorePanel_OtherMetrics)));
-		// otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-		//
-		// otherPanel.add(this.createItem(AnalysisResult.OOName, result
-		// .getSummary().getObjectOriented()));
-		//
-		// leftPanel.add(BorderLayout.SOUTH, otherPanel);
 
 		workspacePanel.add(leftPanel);
 
@@ -375,7 +356,7 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-		JPanel descPanel = new JPanel(new GridLayout(8, 1));
+		JPanel descPanel = new JPanel(new GridLayout(7, 1));
 		descPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JPanel panel = null;
 		JLabel valuePanel = null;
@@ -491,19 +472,6 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 		if (itemCompareLabel != null) {
 			panel.add(itemCompareLabel);
 		}
-		descPanel.add(panel);
-
-		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_Capacity) + ":"));
-		this.capacityLabel = new JLabel();
-		JDependUIUtil.addClickTipEffect(this.capacityLabel);
-		this.capacityLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				frame.getResultPanel().setTab(0, 2);
-			}
-		});
-		panel.add(this.capacityLabel);
 		descPanel.add(panel);
 
 		otherPanel.add(BorderLayout.SOUTH, descPanel);
@@ -805,11 +773,5 @@ public final class ScorePanel extends SubResultTabPanel implements CapacityCreat
 			CommandAdapterMgr.setCurrentCommand(command);
 			frame.getResultPanel().showResults();
 		}
-	}
-
-	@Override
-	public void onCreated(Capacity capacity) {
-		this.capacityLabel.setText("" + capacity.getLevel());
-
 	}
 }
