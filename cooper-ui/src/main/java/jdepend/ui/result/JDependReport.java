@@ -46,6 +46,7 @@ public class JDependReport extends ReportCreator {
 
 	private JDependCooper frame;
 
+	public final static boolean printSummaryText = false;
 	public final static boolean printTDC = false;
 	public final static boolean printSummaryXML = false;
 	public final static boolean printTable = true;
@@ -144,7 +145,9 @@ public class JDependReport extends ReportCreator {
 		printer.setStream(resultStream);
 
 		Set<String> items = new HashSet<String>();
-		items.add(ReportConstant.SummaryText);
+		if (printSummaryText) {
+			items.add(ReportConstant.SummaryText);
+		}
 		if (printSummaryXML) {
 			items.add(ReportConstant.SummaryXML);
 		}

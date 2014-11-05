@@ -8,7 +8,6 @@ import java.util.Set;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
