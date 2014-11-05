@@ -4,6 +4,10 @@ a）将最大内存数由1500M减少到1024M
 
 b）简化JDependReport的设计，只保留createReport方法（删除了createMainReport和createOtherReport）
 
+c）将结果页面的组织形式由【小结、关系、模式、能力】变为【系统、组件、类、方法】
+
+d）将Method.getInvokedMethods的计算时机由lazyload改变到JavaClassUtil.supplyJavaClassDetailMethodInvoke中执行，并改变了其算法
+
 1.2.3_06 2014-10-17
 
 a）增加分析器：识别共同调用的方法集合
