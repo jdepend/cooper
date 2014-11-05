@@ -29,15 +29,18 @@ public class ClassListDialog extends CooperDialog {
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 		getContentPane().setLayout(new BorderLayout());
 
-		ClassListOperationPanel classListPanel = new ClassListOperationPanel(frame,
-				new JavaClassMoveToDialogListener() {
-					@Override
-					public void onFinish() {
-						ClassListDialog.this.dispose();
-					}
-				});
+		ClassListPanel classListPanel = new ClassListPanel(frame);
 
-		this.add(classListPanel);
+		classListPanel.initPopupMenu(new JavaClassMoveToDialogListener() {
+			@Override
+			public void onFinish() {
+				ClassListDialog.this.dispose();
+			}
+		});
+
+		ClassListOperationPanel classListOperationPanel = new ClassListOperationPanel(classListPanel);
+
+		this.add(classListOperationPanel);
 	}
 
 }

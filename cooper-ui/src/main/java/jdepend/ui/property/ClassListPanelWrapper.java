@@ -26,6 +26,7 @@ import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.ui.framework.JavaClassCompareTableCellRenderer;
 import jdepend.util.refactor.CompareObject;
 
 public class ClassListPanelWrapper extends ClassListPanel {
@@ -38,11 +39,12 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		this.frame = frame;
 	}
 
+	@Override
 	protected void initClassList() {
 
 		super.initClassList();
 
-		JavaClassCompareTableCellRenderer renderer = new JavaClassCompareTableCellRenderer();
+		JavaClassCompareTableCellRenderer renderer = new JavaClassCompareTableCellRenderer(this.extendUnits);
 		for (int i = 0; i < classListTable.getColumnCount(); i++) {
 			classListTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
@@ -122,61 +124,5 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);
-	}
-
-	class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer {
-
-		public JavaClassCompareTableCellRenderer() {
-			super();
-		}
-
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-				boolean hasFocus, final int row, final int column) {
-			super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-			if (this.getComponentCount() > 0) {
-				Component component = this.getComponent(0);
-				if (extendUnits.contains(table.getValueAt(row, 0))) {
-					component.setForeground(Color.GRAY);
-				}
-			}
-			return this;
-		}
-
-		@Override
-		protected CompareObject getCompareObject(Object value, String id, String metrics) {
-			return new CompareObject(value, id, metrics) {
-				@Override
-				public Object getOriginalityValue(AnalysisResult result) {
-					Measurable measurable = result.getTheClass(this.getId());
-					if (measurable != null) {
-						return measurable.getValue(this.getMetrics());
-					} else {
-						return null;
-					}
-				}
-
-				@Override
-				public Boolean evaluate(int result, String metrics) {
-					if (metrics.equals(JavaClass.Stable)) {
-						if (result < 0) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (metrics.equals(JavaClass.isPrivateElement)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else {
-						return null;
-					}
-				}
-
-			};
-		}
-
 	}
 }

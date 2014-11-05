@@ -3,6 +3,8 @@ package jdepend.ui.result;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListOperationPanel;
+import jdepend.report.ui.ClassListPanel;
+import jdepend.ui.framework.JavaClassCompareTableCellRenderer;
 
 public class ClassListSubTabPanel extends SubResultTabPanel {
 
@@ -14,9 +16,23 @@ public class ClassListSubTabPanel extends SubResultTabPanel {
 
 	@Override
 	protected void init(AnalysisResult result) {
-		ClassListOperationPanel classListPanel = new ClassListOperationPanel(frame);
 
-		this.add(classListPanel);
+		ClassListPanel classListPanel = new ClassListPanel(frame) {
+			@Override
+			protected void initClassList() {
+				super.initClassList();
+
+				JavaClassCompareTableCellRenderer renderer = new JavaClassCompareTableCellRenderer(this.extendUnits);
+				for (int i = 0; i < classListTable.getColumnCount(); i++) {
+					classListTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
+				}
+			}
+		};
+		classListPanel.initPopupMenu(null);
+
+		ClassListOperationPanel classListOperationPanel = new ClassListOperationPanel(classListPanel);
+
+		this.add(classListOperationPanel);
 	}
 
 }

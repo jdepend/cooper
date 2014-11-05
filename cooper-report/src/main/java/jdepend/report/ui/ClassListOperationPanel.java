@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.util.BundleUtil;
 
 public class ClassListOperationPanel extends JPanel {
@@ -25,23 +24,16 @@ public class ClassListOperationPanel extends JPanel {
 
 	private JTextField calleeFilter;
 
-	public ClassListOperationPanel(JDependFrame frame) {
-		this(frame, null);
-	}
-
-	public ClassListOperationPanel(JDependFrame frame, JavaClassMoveToDialogListener listener) {
-		super();
-
+	public ClassListOperationPanel(ClassListPanel classListPanel) {
 		this.setLayout(new BorderLayout());
 
 		this.add(BorderLayout.NORTH, this.createSearchPanel());
 
-		classListPanel = new ClassListPanel(frame);
-		this.add(classListPanel);
-		int classCount = classListPanel.showAllClassList();
+		this.classListPanel = classListPanel;
+		this.add(this.classListPanel);
+		int classCount = this.classListPanel.showAllClassList();
 		tipLabel.setText("共" + classCount + "个类");
 
-		classListPanel.initPopupMenu(listener);
 	}
 
 	private JPanel createSearchPanel() {
