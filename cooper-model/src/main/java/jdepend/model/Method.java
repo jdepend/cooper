@@ -110,7 +110,7 @@ public class Method extends AccessFlags {
 		return this.invokeMethods;
 	}
 	
-	public void addInvokedMethod(Method invokeMethod){
+	public synchronized void addInvokedMethod(Method invokeMethod){
 		invokedMethods.add(invokeMethod);
 	}
 
