@@ -55,7 +55,7 @@ import jdepend.util.refactor.RefactorToolFactory;
  * @author wangdg
  * 
  */
-public final class SummaryPanel extends SubResultTabPanel {
+public final class ComponentListPanel extends SubResultTabPanel {
 
 	private ReportCreator adapter;
 
@@ -68,7 +68,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 
 	private JDependCooper frame;
 
-	public SummaryPanel(JDependCooper frame, ReportCreator adapter) {
+	public ComponentListPanel(JDependCooper frame, ReportCreator adapter) {
 		this.frame = frame;
 		this.adapter = adapter;
 	}
@@ -93,7 +93,7 @@ public final class SummaryPanel extends SubResultTabPanel {
 		final JTable table = new JDependTable(sorter) {
 			@Override
 			public TableCellRenderer getCellRenderer(int row, int column) {
-				return new SummaryTableCellRenderer();
+				return new ComponentTableCellRenderer();
 			}
 		};
 
@@ -431,9 +431,9 @@ public final class SummaryPanel extends SubResultTabPanel {
 		}
 	}
 
-	class SummaryTableCellRenderer extends CompareTableCellRenderer {
+	class ComponentTableCellRenderer extends CompareTableCellRenderer {
 
-		public SummaryTableCellRenderer() {
+		public ComponentTableCellRenderer() {
 			super();
 		}
 

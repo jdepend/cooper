@@ -100,7 +100,7 @@ public class JDependReport extends ReportCreator {
 
 		// 组件
 		groupComponents = new LinkedHashMap<String, JComponent>();
-		groupComponents.put("List", new SummaryPanel(frame, this));
+		groupComponents.put("List", new ComponentListPanel(frame, this));
 		if (result.getRelations() != null) {
 			groupComponents.put("RGraph2D", this.createGraph(result.getRelations()));
 			groupComponents.put("RTable", new RelationPanel(frame));

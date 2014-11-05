@@ -106,7 +106,7 @@ public class ClassListPanel extends JPanel {
 		classListModel.setRowCount(0);
 		this.extendUnits = new ArrayList<String>();
 	}
-	
+
 	public void initPopupMenu(JavaClassMoveToDialogListener listener) {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
@@ -361,7 +361,7 @@ public class ClassListPanel extends JPanel {
 		d.setModal(true);
 		d.setVisible(true);
 	}
-	
+
 	public class DetailDialog extends CooperDialog {
 
 		private JavaClass javaClass;
@@ -490,7 +490,9 @@ public class ClassListPanel extends JPanel {
 				if (extendUnits.contains(table.getValueAt(row, 0))) {
 					labelValue.setForeground(Color.GRAY);
 				}
-				labelValue.setText(String.valueOf(value));
+
+				String strValue = String.valueOf(value);
+				labelValue.setText(strValue);
 
 				this.add(labelValue);
 			}

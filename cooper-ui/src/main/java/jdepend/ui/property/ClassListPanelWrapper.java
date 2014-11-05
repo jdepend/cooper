@@ -20,6 +20,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.Measurable;
+import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
