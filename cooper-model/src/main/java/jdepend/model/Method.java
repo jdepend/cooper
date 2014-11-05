@@ -46,7 +46,7 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokeMethods;
 
-	private transient Collection<Method> invokedMethods;
+	private transient Collection<Method> invokedMethods = new HashSet<Method>();;
 
 	public Method() {
 	}
@@ -72,7 +72,12 @@ public class Method extends AccessFlags {
 		this.signature = method.signature;
 		this.info = method.info;
 		this.argumentCount = method.argumentCount;
+		
 		this.invokeItems = method.invokeItems;
+		for(InvokeItem invokeItem : this.invokeItems){
+			invokeItem.setSelf(this);
+		}
+		
 		this.readFields = method.readFields;
 		this.writeFields = method.writeFields;
 		this.selfLineCount = method.selfLineCount;
@@ -104,10 +109,14 @@ public class Method extends AccessFlags {
 		}
 		return this.invokeMethods;
 	}
+	
+	public void addInvokedMethod(Method invokeMethod){
+		invokedMethods.add(invokeMethod);
+	}
 
 	public Collection<Method> getInvokedMethods() {
 		if (this.invokedMethods == null) {
-			invokedMethods = new ArrayList<Method>();
+			invokedMethods = new HashSet<Method>();
 			for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
 				if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
 					invokedMethods.add(invokeMethod);
@@ -150,6 +159,7 @@ public class Method extends AccessFlags {
 	public void addInvokeItem(InvokeItem item) {
 		if (!this.invokeItems.contains(item)) {
 			this.invokeItems.add(item);
+			item.setSelf(this);
 		}
 	}
 

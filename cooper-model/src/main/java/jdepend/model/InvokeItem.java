@@ -20,6 +20,7 @@ public final class InvokeItem implements Serializable {
 	private static final String virtualType = "virtual";
 	private static final String interfaceType = "interface";
 
+	private transient Method self;
 	private transient Method method;
 
 	public InvokeItem(String invokeType, String invokeClassName, String invokeMethodName, String invokeMethodSignature) {
@@ -32,6 +33,10 @@ public final class InvokeItem implements Serializable {
 
 	public Method getMethod() {
 		return method;
+	}
+	
+	public void setSelf(Method self) {
+		this.self = self;
 	}
 
 	public String getInvokeClassName() {
@@ -50,6 +55,7 @@ public final class InvokeItem implements Serializable {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
 					this.method = invokeMethod;
+					this.method.addInvokedMethod(self);
 					return true;
 				}
 			}

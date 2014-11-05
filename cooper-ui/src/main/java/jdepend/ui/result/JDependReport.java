@@ -122,7 +122,7 @@ public class JDependReport extends ReportCreator {
 
 		// 方法
 		groupComponents = new LinkedHashMap<String, JComponent>();
-		// groupComponents.put("List", new JavaClassl(result, frame));
+		groupComponents.put("List", new MethodListSubTabPanel(frame));
 		rtn.put(MethodTabName, this.compositeComponent(groupComponents));
 
 		StringBuilder NoticesText = this.reportTexts.get(ReportConstant.NoticesText);
