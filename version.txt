@@ -8,6 +8,8 @@ c）将结果页面的组织形式由【小结、关系、模式、能力】变�
 
 d）将Method.getInvokedMethods的计算时机由lazyload改变到JavaClassUtil.supplyJavaClassDetailMethodInvoke中执行，并改变了其算法
 
+e）向新的结果页面中的类列表增加重构比较功能
+
 1.2.3_06 2014-10-17
 
 a）增加分析器：识别共同调用的方法集合
