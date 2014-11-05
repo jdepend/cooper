@@ -5,7 +5,7 @@
   <parent>
     <artifactId>cooper</artifactId>
     <groupId>cooper</groupId>
-    <version>1.2.3_07-SNAPSHOT</version>
+    <version>1.2.3_08-SNAPSHOT</version>
   </parent>
   <artifactId>cooper-ui</artifactId>
   <name>cooper-ui</name>
@@ -55,11 +55,13 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
+    <!-- 
     <dependency>
     	<groupId>cooper</groupId>
     	<artifactId>cooper-webserver</artifactId>
     	<version>${project.version}</version>
     	<scope>runtime</scope>
     </dependency>
+     -->
     </dependencies>
 </project>
