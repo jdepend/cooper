@@ -81,13 +81,13 @@ public class JDependReport extends ReportCreator {
 		this.reportTexts = reportTexts;
 	}
 
-	public Map<String, JComponent> createReport(AnalysisResult result) {
+	public Map<String, ? extends JComponent> createReport(AnalysisResult result) {
 
 		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report start!");
 
 		this.calReportTexts(result);
 
-		Map<String, JComponent> rtn = new LinkedHashMap<String, JComponent>();
+		Map<String, SubResultTab> rtn = new LinkedHashMap<String, SubResultTab>();
 
 		Map<String, JComponent> groupComponents;
 
@@ -212,7 +212,7 @@ public class JDependReport extends ReportCreator {
 		};
 	}
 
-	private JComponent compositeComponent(Map<String, JComponent> components) {
+	private SubResultTab compositeComponent(Map<String, JComponent> components) {
 		SubResultTab tabPane = new SubResultTab();
 		for (String title : components.keySet()) {
 			tabPane.add(title, components.get(title));

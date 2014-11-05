@@ -24,7 +24,7 @@ public class SubResultTab extends JTabbedPane implements MouseListener {
 
 		this.setTabPlacement(JTabbedPane.BOTTOM);
 		addMouseListener(this);
-		
+
 		this.popupMenu = new JPopupMenu();
 		JMenuItem defaultItem = new JMenuItem("设为默认显示");
 		defaultItem.addActionListener(new ActionListener() {
@@ -50,6 +50,7 @@ public class SubResultTab extends JTabbedPane implements MouseListener {
 
 	}
 
+	@Override
 	public void mouseClicked(MouseEvent e) {
 
 		SubResultTab tab = (SubResultTab) e.getSource();

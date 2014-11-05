@@ -51,7 +51,7 @@ public class ResultPanel extends TabsPanel {
 	 * @param isPopup
 	 *            是否弹出分数窗口（会自动保存分数）
 	 */
-	private void showResults(Map<String, JComponent> results, boolean isPopup) {
+	private void showResults(Map<String, ? extends JComponent> results, boolean isPopup) {
 		String label;
 		Iterator<String> iterator = results.keySet().iterator();
 
@@ -205,7 +205,7 @@ public class ResultPanel extends TabsPanel {
 
 		this.removeAll();
 
-		Map<String, JComponent> results = null;
+		Map<String, ? extends JComponent> results = null;
 		try {
 			// 得到内存分析结果
 			AnalysisResult result = JDependUnitMgr.getInstance().getResult();

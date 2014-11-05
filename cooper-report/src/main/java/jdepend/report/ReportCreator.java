@@ -102,7 +102,7 @@ public abstract class ReportCreator {
 	 *            分析结果
 	 * @return
 	 */
-	public abstract Map<String, JComponent> createReport(AnalysisResult result);
+	public abstract Map<String, ? extends JComponent> createReport(AnalysisResult result);
 
 	/**
 	 * 内存重构

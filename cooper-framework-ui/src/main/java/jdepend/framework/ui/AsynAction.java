@@ -121,7 +121,7 @@ public abstract class AsynAction extends AbstractAction {
 		result.put(label, component);
 	}
 
-	protected void addResults(Map<String, JComponent> results) {
+	protected void addResults(Map<String, ? extends JComponent> results) {
 		result.putAll(results);
 	}
 

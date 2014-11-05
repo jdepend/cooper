@@ -25,5 +25,4 @@ public abstract class SubResultTabPanel extends JPanel {
 	}
 
 	protected abstract void init(AnalysisResult result);
-
 }
