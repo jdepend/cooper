@@ -9,7 +9,7 @@ class SimpleFileGatherUtil extends AbstractFileGatherUtil {
 	SimpleFileGatherUtil() {
 	}
 
-	protected synchronized TargetFiles doGather() {
+	protected TargetFiles doGather() {
 
 		files = new TargetFiles();
 		// 分路径进行扫描
