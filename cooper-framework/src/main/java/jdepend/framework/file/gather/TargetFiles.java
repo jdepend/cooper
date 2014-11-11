@@ -1,11 +1,11 @@
-package jdepend.framework.file;
+package jdepend.framework.file.gather;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-class TargetFiles {
+public class TargetFiles {
 
 	private Map<String, List<File>> files;
 

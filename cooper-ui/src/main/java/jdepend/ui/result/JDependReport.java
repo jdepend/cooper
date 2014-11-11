@@ -90,17 +90,17 @@ public class JDependReport extends ReportCreator {
 
 		Map<String, SubResultTab> rtn = new LinkedHashMap<String, SubResultTab>();
 
-		Map<String, JComponent> groupComponents;
+		Map<String, SubResultTabPanel> groupComponents;
 
 		// 系统
-		groupComponents = new LinkedHashMap<String, JComponent>();
+		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
 		groupComponents.put("Architect", new ArchitectPatternPanel());
 		groupComponents.put("Capacity", new CapacityPanel());
 		rtn.put(SystemTabName, this.compositeComponent(groupComponents));
 
 		// 组件
-		groupComponents = new LinkedHashMap<String, JComponent>();
+		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new ComponentListPanel(frame, this));
 		if (result.getRelations() != null) {
 			groupComponents.put("RGraph2D", this.createGraph(result.getRelations()));
@@ -115,20 +115,20 @@ public class JDependReport extends ReportCreator {
 		rtn.put(ComponentTabName, this.compositeComponent(groupComponents));
 
 		// 类
-		groupComponents = new LinkedHashMap<String, JComponent>();
+		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new ClassListSubTabPanel(frame));
 		groupComponents.put("Table", new TablePanel());
 		groupComponents.put("Pattern", new DesignPatternPanel());
 		rtn.put(ClassTabName, this.compositeComponent(groupComponents));
 
 		// 方法
-		groupComponents = new LinkedHashMap<String, JComponent>();
+		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new MethodListSubTabPanel(frame));
 		rtn.put(MethodTabName, this.compositeComponent(groupComponents));
 
 		StringBuilder NoticesText = this.reportTexts.get(ReportConstant.NoticesText);
 		if (NoticesText != null) {
-			groupComponents = new LinkedHashMap<String, JComponent>();
+			groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 			groupComponents.put("Text", this.createTextReport(ReportConstant.NoticesText));
 			rtn.put(NoticeTabName, this.compositeComponent(groupComponents));
 		}
@@ -188,11 +188,11 @@ public class JDependReport extends ReportCreator {
 	public void clear() {
 	}
 
-	private JComponent createTextReport(String title) {
+	private SubResultTabPanel createTextReport(String title) {
 		return createTextReport(title, this.reportTexts.get(title).toString());
 	}
 
-	private JComponent createTextReport(final String title, final String body) {
+	private SubResultTabPanel createTextReport(final String title, final String body) {
 		return new SubResultTabPanel() {
 			@Override
 			protected void init(AnalysisResult result) {
@@ -215,7 +215,7 @@ public class JDependReport extends ReportCreator {
 		};
 	}
 
-	private SubResultTab compositeComponent(Map<String, JComponent> components) {
+	private SubResultTab compositeComponent(Map<String, SubResultTabPanel> components) {
 		SubResultTab tabPane = new SubResultTab();
 		for (String title : components.keySet()) {
 			tabPane.add(title, components.get(title));
@@ -223,10 +223,15 @@ public class JDependReport extends ReportCreator {
 		return tabPane;
 	}
 
-	private JComponent createGraph(Collection<Relation> relations) {
+	private SubResultTabPanel createGraph(final Collection<Relation> relations) {
 		int maxRelations = UIPropertyConfigurator.getInstance().getMaxRelations();
 		if (relations.size() == 0) {
-			return new TextViewer();
+			return new SubResultTabPanel() {
+				@Override
+				protected void init(AnalysisResult result) {
+					this.add(new TextViewer());
+				}
+			};
 		} else if (maxRelations == -1 || relations.size() < maxRelations) {
 			return new SubResultTabPanel() {
 				@Override
@@ -235,9 +240,14 @@ public class JDependReport extends ReportCreator {
 				}
 			};
 		} else {
-			TextViewer result = new TextViewer();
-			result.setText("关系数量为[" + relations.size() + "]，不予生成！");
-			return result;
+			return new SubResultTabPanel() {
+				@Override
+				protected void init(AnalysisResult result) {
+					TextViewer resultViewer = new TextViewer();
+					resultViewer.setText("关系数量为[" + relations.size() + "]，不予生成！");
+					this.add(resultViewer);
+				}
+			};
 		}
 	}
 

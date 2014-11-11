@@ -1,4 +1,4 @@
-package jdepend.framework.file;
+package jdepend.framework.file.gather;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ class ThreadSecurityTargetFiles {
 
 	private Map<String, List<File>> files;
 
-	public ThreadSecurityTargetFiles() {
+	ThreadSecurityTargetFiles() {
 		super();
 		this.files = new Hashtable<String, List<File>>();
 	}
