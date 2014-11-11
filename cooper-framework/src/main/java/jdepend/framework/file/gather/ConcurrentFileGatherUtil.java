@@ -13,7 +13,7 @@ class ConcurrentFileGatherUtil extends AbstractFileGatherUtil {
 	ConcurrentFileGatherUtil() {
 	}
 
-	public synchronized TargetFiles gather() {
+	protected synchronized TargetFiles doGather() {
 
 		files = new ThreadSecurityTargetFiles();
 		count = new Count();
