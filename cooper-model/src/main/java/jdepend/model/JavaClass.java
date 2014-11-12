@@ -760,12 +760,12 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer, 
 					}
 				}
 			} else {
-				knowledge.put(this, 1);
+				knowledge.put(this, LocalCycle);
 				return LocalCycle;// 存在局部循环依赖
 			}
 		}
 
-		list.add(this);// 将当前分析单元入站
+		list.add(this);// 将当前分析单元入栈
 
 		if (this.getCeList().contains(list.get(0))) {// 直接依赖进行广度搜索
 			for (JDependUnit unit : list) {
@@ -785,7 +785,7 @@ public final class JavaClass extends AbstractJDependUnit implements Identifyer, 
 			}
 		}
 
-		list.remove(this);// 将当前分析单元出站
+		list.remove(this);// 将当前分析单元出栈
 
 		knowledge.put(this, NoCycle);// 记录该对象扫描过的结果
 

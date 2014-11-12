@@ -34,19 +34,19 @@ public final class OnlyOneCycleIdentifyer implements CycleIdentifyer {
 			if (list.get(0).equals(unit)) {
 				return Cycle;// 存在循环依赖
 			} else {
-				knowledge.put(unit, 1);
+				knowledge.put(unit, LocalCycle);
 				return LocalCycle;// 存在局部循环依赖
 			}
 		}
 
-		list.add(unit);// 将当前分析单元入站
+		list.add(unit);// 将当前分析单元入栈
 
 		if (unit.getEfferents().contains(list.get(0))) {// 直接依赖进行广度搜索
 			return Cycle;
 		}
 
-		for (Iterator i = unit.getEfferents().iterator(); i.hasNext();) {
-			JDependUnit efferent = (JDependUnit) i.next();
+		for (Iterator<? extends JDependUnit> i = unit.getEfferents().iterator(); i.hasNext();) {
+			JDependUnit efferent = i.next();
 			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
@@ -56,7 +56,7 @@ public final class OnlyOneCycleIdentifyer implements CycleIdentifyer {
 			}
 		}
 
-		list.remove(unit);// 将当前分析单元出站
+		list.remove(unit);// 将当前分析单元出栈
 
 		knowledge.put(unit, NoCycle);// 记录该对象扫描过的结果
 
