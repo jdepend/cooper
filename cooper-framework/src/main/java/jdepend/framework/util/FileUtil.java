@@ -418,7 +418,8 @@ public class FileUtil {
 	}
 
 	private static boolean isDll(File file) {
-		return existsWithExtension(file, ".dll");
+		return false;
+		// return existsWithExtension(file, ".dll");
 	}
 
 	private static boolean existsWithExtension(File file, String extension) {

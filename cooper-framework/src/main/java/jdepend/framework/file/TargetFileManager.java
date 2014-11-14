@@ -93,32 +93,14 @@ public class TargetFileManager extends FileReader implements AcceptFile {
 	public AnalyzeData getAnalyzeData() throws IOException {
 
 		data = new AnalyzeData();
-		TargetFileInfo targetFileInfo;
-		byte[] fileData = null;
+		SimpileFileReader simpileFileReader = new SimpileFileReader(this.isAcceptInnerClasses());
 
 		for (String place : this.extractFiles().getFiles().keySet()) {
 			for (File file : this.extractFiles().getFiles().get(place)) {
 				if (this.acceptClassFile(file) || this.acceptXMLFile(file)) {
-					FileInputStream fis = null;
-					try {
-						fis = new FileInputStream(file);
-						fileData = StreamUtil.getData(fis);
-						targetFileInfo = new TargetFileInfo();
-						targetFileInfo.setName(file.getPath());
-						targetFileInfo.setContent(fileData);
-						if (this.acceptClassFile(file)) {
-							targetFileInfo.setType(TargetFileInfo.TYPE_CLASS);
-						} else {
-							targetFileInfo.setType(TargetFileInfo.TYPE_XML);
-						}
+					TargetFileInfo targetFileInfo = simpileFileReader.readDatas(place, file);
+					if (targetFileInfo != null) {
 						data.addFileInfo(place, targetFileInfo);
-					} catch (JDependException e) {
-						e.printStackTrace();
-						throw new IOException(e);
-					} finally {
-						if (fis != null) {
-							fis.close();
-						}
 					}
 				} else if (FileUtil.acceptCompressFile(file)) {
 
@@ -176,17 +158,4 @@ public class TargetFileManager extends FileReader implements AcceptFile {
 		return acceptXMLFile(file) || acceptClassFile(file) || FileUtil.acceptCompressFile(file);
 	}
 
-	private boolean acceptClassFile(File file) {
-		if (!file.isFile()) {
-			return false;
-		}
-		return acceptClassFileName(file.getName());
-	}
-
-	private boolean acceptXMLFile(File file) {
-		if (!file.isFile()) {
-			return false;
-		}
-		return acceptXMLFileName(file.getName());
-	}
 }

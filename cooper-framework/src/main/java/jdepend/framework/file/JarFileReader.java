@@ -31,7 +31,7 @@ public class JarFileReader extends FileReader {
 				byte[] data = getData(zipInput);
 				targetFileInfo.setContent(data);
 				if (this.acceptClassFileName(entry.getName())) {
-					targetFileInfo.setName(parseClassName2(entry.getName()));
+					targetFileInfo.setName(parseClassName(entry.getName()));
 					targetFileInfo.setType(TargetFileInfo.TYPE_CLASS);
 				} else {
 					targetFileInfo.setName(entry.getName());
@@ -56,7 +56,7 @@ public class JarFileReader extends FileReader {
 		while (entry != null) {
 			if (acceptClassFileName(entry.getName())) {
 				count++;
-				entryNames.add(parseClassName2(entry.getName()));
+				entryNames.add(parseClassName(entry.getName()));
 			}
 			entry = zipInput.getNextEntry();
 
@@ -76,6 +76,16 @@ public class JarFileReader extends FileReader {
 
 		return outputStream.toByteArray();
 
+	}
+
+	/**
+	 * 从压缩包中识别类名
+	 * 
+	 * @param jarEntry
+	 * @return
+	 */
+	private static String parseClassName(String jarEntry) {
+		return jarEntry.replace('/', '.').substring(0, jarEntry.length() - 6);
 	}
 
 	public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package jdepend.framework.file;
 
+import java.io.File;
+
 public abstract class FileReader {
 
 	private boolean acceptInnerClasses = true;
@@ -40,24 +42,17 @@ public abstract class FileReader {
 		return acceptInnerClasses;
 	}
 
-	/**
-	 * 从文件路径中识别类名
-	 * 
-	 * @param fileName
-	 * @return
-	 */
-	protected static String parseClassName(String fileName) {
-		return fileName.replace('\\', '.').substring(0, fileName.length() - 6);
+	protected boolean acceptClassFile(File file) {
+		if (!file.isFile()) {
+			return false;
+		}
+		return acceptClassFileName(file.getName());
 	}
 
-	/**
-	 * 从压缩包中识别类名
-	 * 
-	 * @param jarEntry
-	 * @return
-	 */
-	protected static String parseClassName2(String jarEntry) {
-		return jarEntry.replace('/', '.').substring(0, jarEntry.length() - 6);
+	protected boolean acceptXMLFile(File file) {
+		if (!file.isFile()) {
+			return false;
+		}
+		return acceptXMLFileName(file.getName());
 	}
-
 }
