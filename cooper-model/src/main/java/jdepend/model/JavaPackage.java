@@ -14,7 +14,7 @@ import jdepend.model.component.modelconf.Candidate;
  * 
  */
 
-public final class JavaPackage implements Serializable, Named, Candidate, Identifyer,
+public final class JavaPackage implements Serializable, Candidate, Identifyer,
 		Comparable<JavaPackage> {
 
 	/**
