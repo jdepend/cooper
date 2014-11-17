@@ -22,15 +22,26 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 		List<JavaClass> repeatClasses = new ArrayList<JavaClass>();
 
 		boolean firstRecord;
+		boolean needCheck;
 		for (JavaClass javaClass : result.getClasses()) {
-			firstRecord = true;
-			for (JavaClass javaClass1 : result.getClasses()) {
-				if (this.repeat(javaClass, javaClass1)) {
-					if (firstRecord) {
-						repeatClasses.add(javaClass);
-						firstRecord = false;
+			// 检查是否已经检测过（被检查时已经收集到repeatClasses中，不必再检查）
+			needCheck = true;
+			L: for (JavaClass repeatClass : repeatClasses) {
+				if (repeatClass.equals(javaClass)) {
+					needCheck = false;
+					break L;
+				}
+			}
+			if (needCheck) {
+				firstRecord = true;
+				for (JavaClass javaClass1 : result.getClasses()) {
+					if (this.repeat(javaClass, javaClass1)) {
+						if (firstRecord) {
+							repeatClasses.add(javaClass);
+							firstRecord = false;
+						}
+						repeatClasses.add(javaClass1);
 					}
-					repeatClasses.add(javaClass1);
 				}
 			}
 		}

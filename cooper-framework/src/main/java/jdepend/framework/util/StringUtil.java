@@ -124,7 +124,7 @@ public final class StringUtil {
 			result = true;
 		return result;
 	}
-
+	
 	public static void main(String[] args) {
 		String test = "126";
 

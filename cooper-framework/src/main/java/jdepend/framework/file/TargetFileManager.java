@@ -7,13 +7,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.gather.AcceptFile;
 import jdepend.framework.file.gather.FileGatherUtil;
 import jdepend.framework.file.gather.FileGatherUtilFactory;
 import jdepend.framework.file.gather.TargetFiles;
 import jdepend.framework.util.FileUtil;
-import jdepend.framework.util.StreamUtil;
 
 /**
  * The <code>TargetFileManager</code> class is responsible for extracting Java
