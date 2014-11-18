@@ -53,11 +53,6 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private List<JavaPackage> javaPackages;
 
-	/**
-	 * key:jar名称；value：包含的javaClasses名字
-	 */
-	private transient Map<String, Collection<String>> targetFiles;// 保存分析目标组织形式
-
 	private transient Map<String, String> diffElements;
 
 	private transient Collection<JavaClass> javaClasses;
@@ -254,13 +249,5 @@ public final class AnalysisRunningContext implements Serializable {
 		} else {
 			return "否";
 		}
-	}
-
-	public void setTargetFiles(Map<String, Collection<String>> targetFiles) {
-		this.targetFiles = targetFiles;
-	}
-
-	public Map<String, Collection<String>> getTargetFiles() {
-		return targetFiles;
 	}
 }

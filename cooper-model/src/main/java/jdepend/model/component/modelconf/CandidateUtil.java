@@ -2,7 +2,7 @@ package jdepend.model.component.modelconf;
 
 public class CandidateUtil {
 
-	private final static String IDDecollator = "#";
+	public final static String IDDecollator = "#";
 
 	public final static String getId(String place, String name) {
 		return place + IDDecollator + name;
@@ -20,4 +20,8 @@ public class CandidateUtil {
 		return id.substring(id.indexOf(IDDecollator) + 1);
 	}
 
+	public final static boolean containPlace(String id) {
+		return id.indexOf(IDDecollator) != -1;
+
+	}
 }

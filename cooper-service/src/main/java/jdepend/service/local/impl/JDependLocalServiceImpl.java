@@ -77,8 +77,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		// 调用解析服务
 		Collection<JavaPackage> javaPackages = parse.execute();
 		context.setJavaPackages(new ArrayList<JavaPackage>(javaPackages));
-		// 设置目标文件分组信息
-		context.setTargetFiles(parse.getAnalyseData().getFileNames());
 		// 组织成组件
 		List<Component> components = component.list(javaPackages);
 

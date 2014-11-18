@@ -22,7 +22,11 @@ public final class JavaPackageComponentConf extends ComponentConf {
 
 	@Override
 	public boolean isMember(JavaClass javaClass) {
-		return this.getItemIds().contains(javaClass.getJavaPackage().getId());
+		if (this.containPlace()) {
+			return this.getItemIds().contains(javaClass.getJavaPackage().getId());
+		} else {
+			return this.getItemIds().contains(javaClass.getJavaPackage().getName());
+		}
 	}
 
 	@Override
