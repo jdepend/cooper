@@ -89,24 +89,28 @@ public class AnalyzeData implements Serializable {
 			for (String place1 : places) {
 				placeSegments.add(place1.split("\\\\"));
 			}
-			int count = 0;
-			int pos = 0;
-			L: for (String[] placeSegment1 : placeSegments) {
-				for (String segment1 : placeSegment1) {
-					for (String[] placeSegment2 : placeSegments) {
-						if (placeSegment2.length < count) {
-							break L;
+			if (places.size() == 1) {
+				this.placePos = place.lastIndexOf("\\") + 1;
+			} else {
+				int count = 0;
+				int pos = 0;
+				L: for (String[] placeSegment1 : placeSegments) {
+					for (String segment1 : placeSegment1) {
+						for (String[] placeSegment2 : placeSegments) {
+							if (placeSegment2.length < count) {
+								break L;
+							}
+							String segment2 = placeSegment2[count];
+							if (!segment1.equals(segment2)) {
+								break L;
+							}
 						}
-						String segment2 = placeSegment2[count];
-						if (!segment1.equals(segment2)) {
-							break L;
-						}
+						count++;
+						pos += segment1.length() + 1;
 					}
-					count++;
-					pos += segment1.length() + 1;
 				}
+				this.placePos = pos;
 			}
-			this.placePos = pos;
 		}
 		return place.substring(this.placePos);
 
