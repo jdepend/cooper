@@ -62,7 +62,7 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private transient Collection<JavaClass> javaClasses;
 
-	private transient Map<String, JavaPackage> javaPackageForNames;
+	private transient Map<String, JavaPackage> javaPackagesForId;
 
 	public AnalysisRunningContext() {
 		super();
@@ -162,15 +162,15 @@ public final class AnalysisRunningContext implements Serializable {
 		this.javaPackages = packages;
 	}
 
-	public JavaPackage getThePackage(String name) {
+	public JavaPackage getThePackage(String id) {
 
-		if (javaPackageForNames == null) {
-			javaPackageForNames = new HashMap<String, JavaPackage>();
+		if (javaPackagesForId == null) {
+			javaPackagesForId = new HashMap<String, JavaPackage>();
 			for (JavaPackage javaPackage : this.getJavaPackages()) {
-				javaPackageForNames.put(javaPackage.getName(), javaPackage);
+				javaPackagesForId.put(javaPackage.getId(), javaPackage);
 			}
 		}
-		return this.javaPackageForNames.get(name);
+		return this.javaPackagesForId.get(id);
 
 	}
 

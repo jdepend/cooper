@@ -10,7 +10,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
-import jdepend.model.result.AnalysisRunningContextMgr;
 
 public final class JarComponent extends Component {
 
