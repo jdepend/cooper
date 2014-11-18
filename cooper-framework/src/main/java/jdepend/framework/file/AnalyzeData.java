@@ -1,5 +1,6 @@
 package jdepend.framework.file;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +17,8 @@ public class AnalyzeData implements Serializable {
 	private transient Map<String, List<TargetFileInfo>> configs;
 
 	private transient Map<String, List<TargetFileInfo>> classes;
+
+	private transient Integer placePos;
 
 	public AnalyzeData() {
 		super();
@@ -66,16 +69,47 @@ public class AnalyzeData implements Serializable {
 		configs = new HashMap<String, List<TargetFileInfo>>();
 		classes = new HashMap<String, List<TargetFileInfo>>();
 		for (String place : files.keySet()) {
-			configs.put(place, new ArrayList<TargetFileInfo>());
-			classes.put(place, new ArrayList<TargetFileInfo>());
+			String smallPlace = getSmallPlace(place);
+			configs.put(smallPlace, new ArrayList<TargetFileInfo>());
+			classes.put(smallPlace, new ArrayList<TargetFileInfo>());
 			for (TargetFileInfo targetFileInfo : files.get(place)) {
 				if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_XML)) {
-					configs.get(place).add(targetFileInfo);
+					configs.get(smallPlace).add(targetFileInfo);
 				} else if (targetFileInfo.getType().equals(TargetFileInfo.TYPE_CLASS)) {
-					classes.get(place).add(targetFileInfo);
+					classes.get(smallPlace).add(targetFileInfo);
 				}
 			}
 		}
+	}
+
+	private String getSmallPlace(String place) {
+		if (this.placePos == null) {
+			Collection<String> places = new ArrayList<String>(files.keySet());
+			Collection<String[]> placeSegments = new ArrayList<String[]>();
+			for (String place1 : places) {
+				placeSegments.add(place1.split("\\\\"));
+			}
+			int count = 0;
+			int pos = 0;
+			L: for (String[] placeSegment1 : placeSegments) {
+				for (String segment1 : placeSegment1) {
+					for (String[] placeSegment2 : placeSegments) {
+						if (placeSegment2.length < count) {
+							break L;
+						}
+						String segment2 = placeSegment2[count];
+						if (!segment1.equals(segment2)) {
+							break L;
+						}
+					}
+					count++;
+					pos += segment1.length() + 1;
+				}
+			}
+			this.placePos = pos;
+		}
+		return place.substring(this.placePos);
+
 	}
 
 }
