@@ -2,6 +2,7 @@ package jdepend.model.component;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,28 +26,22 @@ public final class JarComponent extends Component {
 
 	@Override
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
-		Map<String, Collection<String>> targetFiles = AnalysisRunningContextMgr.getContext().getTargetFiles();
-		if (targetFiles == null || targetFiles.isEmpty()) {
-			throw new JDependException("没有目标文件分组信息");
-		}
-		List<Component> components = new ArrayList<Component>();
+
+		Map<String, JarComponent> components = new HashMap<String, JarComponent>();
 		JarComponent component;
-		Collection<String> classNames;
 
-		for (String name : targetFiles.keySet()) {
-			component = new JarComponent(name);
-			classNames = targetFiles.get(name);
-			for (JavaPackage javaPackage : javaPackages) {
-				for (JavaClass javaClass : javaPackage.getClasses()) {
-					if (classNames.contains(javaClass.getName())) {
-						component.addJavaClass(javaClass);
-					}
-				}
+		for (JavaPackage javaPackage : javaPackages) {
+			component = components.get(javaPackage.getPlace());
+			if (component == null) {
+				component = new JarComponent(javaPackage.getPlace());
+				components.put(javaPackage.getPlace(), component);
 			}
-			components.add(component);
+			for (JavaClass javaClass : javaPackage.getClasses()) {
+				component.addJavaClass(javaClass);
+			}
 		}
 
-		return components;
+		return new ArrayList<Component>(components.values());
 	}
 
 }

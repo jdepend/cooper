@@ -244,6 +244,7 @@ public class BundleUtil {
 	public static final String TableHead_ActionList = "TableHead_ActionList";
 	public static final String TableHead_GroupName = "TableHead_GroupName";
 	public static final String TableHead_CommandName = "TableHead_CommandName";
+	public static final String TableHead_Place = "TableHead_Place";
 	public static final String TableHead_Name = "TableHead_Name";
 	public static final String TableHead_ExecuteDate = "TableHead_ExecuteDate";
 	public static final String TableHead_Version = "TableHead_Version";

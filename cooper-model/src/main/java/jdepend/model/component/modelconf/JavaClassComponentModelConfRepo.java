@@ -21,7 +21,7 @@ public class JavaClassComponentModelConfRepo {
 			Element selement = document.createElement("component");// 组件节点
 			selement.setAttribute("name", componentConf.getName());
 			selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-			for (String className : componentConf.getItemNames()) {
+			for (String className : componentConf.getItemIds()) {
 				Element eelement = document.createElement("class");
 				eelement.setTextContent(className);
 				selement.appendChild(eelement);

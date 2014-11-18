@@ -46,7 +46,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
 
-	private transient Map<String, JavaClass> javaClassesForName = new HashMap<String, JavaClass>();// 缓存
+	private transient Map<String, JavaClass> javaClassesForId = new HashMap<String, JavaClass>();// 缓存
 
 	protected transient Collection<Component> afferents = null;// 缓存
 
@@ -174,7 +174,7 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	public JavaClass getTheClass(String current) {
-		return this.javaClassesForName.get(current);
+		return this.javaClassesForId.get(current);
 	}
 
 	@Override
@@ -216,21 +216,21 @@ public abstract class Component extends AbstractJDependUnit {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
-			this.javaClassesForName.put(javaClass.getName(), javaClass);
+			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}
 	}
 
 	public synchronized void joinJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
-			this.javaClassesForName.put(javaClass.getName(), javaClass);
+			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}
 	}
 
 	public synchronized boolean removeJavaClass(JavaClass javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
 			javaClass.setComponent(null);
-			this.javaClassesForName.remove(javaClass.getName());
+			this.javaClassesForId.remove(javaClass.getId());
 			return true;
 		} else {
 			return false;
@@ -239,7 +239,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		return this.javaClassesForName.containsKey(javaClass.getName());
+		return this.javaClassesForId.containsKey(javaClass.getId());
 	}
 
 	@Override
@@ -560,9 +560,9 @@ public abstract class Component extends AbstractJDependUnit {
 		ois.defaultReadObject();
 		this.relations = new ArrayList<Relation>();
 
-		this.javaClassesForName = new HashMap<String, JavaClass>();
+		this.javaClassesForId = new HashMap<String, JavaClass>();
 		for (JavaClass javaClass : this.javaClasses) {
-			this.javaClassesForName.put(javaClass.getName(), javaClass);
+			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}
 	}
 

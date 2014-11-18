@@ -34,6 +34,7 @@ import javax.swing.event.ChangeListener;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.modelconf.Candidate;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
@@ -108,7 +109,7 @@ public class ComponentModelPanel extends JPanel {
 		// 更新componentListModel和packageListModel
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			componentListModel.addElement(componentConf.getName());
-			for (String packageName : componentConf.getItemNames()) {
+			for (String packageName : componentConf.getItemIds()) {
 				if (componentListModel.size() == 1) {
 					elementListModel.addElement(packageName);
 				}
@@ -305,12 +306,14 @@ public class ComponentModelPanel extends JPanel {
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
-		ArrayList<String> selectedPackages = new ArrayList<String>();
+		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
+			String place = (String) candidateTable.getValueAt(rows[i], 0);
+			String name = (String) candidateTable.getValueAt(rows[i], 1);
+			selectedCandidates.add(CandidateUtil.getId(place, name));
 		}
 
-		CreateCustomComponentConfDialog d = new CreateCustomComponentConfDialog(selectedPackages);
+		CreateCustomComponentConfDialog d = new CreateCustomComponentConfDialog(selectedCandidates);
 		d.setModal(true);
 		d.setVisible(true);
 	}
@@ -320,18 +323,20 @@ public class ComponentModelPanel extends JPanel {
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
-		ArrayList<String> selectedPackages = new ArrayList<String>();
+		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
+			String place = (String) candidateTable.getValueAt(rows[i], 0);
+			String name = (String) candidateTable.getValueAt(rows[i], 1);
+			selectedCandidates.add(CandidateUtil.getId(place, name));
 		}
 
-		ArrayList<String> packageList;
-		for (String unit : selectedPackages) {
-			packageList = new ArrayList<String>();
-			packageList.add(unit);
-			componentModelConf.addComponentConf(unit, jdepend.model.Component.UndefinedComponentLevel, packageList);
+		ArrayList<String> candidateList;
+		for (String unit : selectedCandidates) {
+			candidateList = new ArrayList<String>();
+			candidateList.add(unit);
+			componentModelConf.addComponentConf(unit, jdepend.model.Component.UndefinedComponentLevel, candidateList);
 		}
-		candidateTable.removeTheCandidateList(selectedPackages);
+		candidateTable.removeTheCandidateList(selectedCandidates);
 		refreshComponentList();
 	}
 
@@ -340,12 +345,14 @@ public class ComponentModelPanel extends JPanel {
 		if (rows == null || rows.length == 0)
 			throw new JDependException("您没有选择包！");
 
-		ArrayList<String> selectedPackages = new ArrayList<String>();
+		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
-			selectedPackages.add((String) candidateTable.getValueAt(rows[i], 0));
+			String place = (String) candidateTable.getValueAt(rows[i], 0);
+			String name = (String) candidateTable.getValueAt(rows[i], 1);
+			selectedCandidates.add(CandidateUtil.getId(place, name));
 		}
 
-		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedPackages, componentModelConf) {
+		JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedCandidates, componentModelConf) {
 			@Override
 			protected void doService() {
 				candidateTable.removeTheCandidateList(joinPackages);
@@ -413,7 +420,7 @@ public class ComponentModelPanel extends JPanel {
 						componentModelConf) {
 					@Override
 					protected void doService() {
-						componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(joinPackages);
+						componentModelConf.getTheComponentConf(currentComponent).deleteItemIds(joinPackages);
 						refreshComponentList();
 					}
 				};
@@ -437,7 +444,7 @@ public class ComponentModelPanel extends JPanel {
 					selectedPackages.add((String) value);
 				}
 
-				componentModelConf.getTheComponentConf(currentComponent).deleteItemNames(selectedPackages);
+				componentModelConf.getTheComponentConf(currentComponent).deleteItemIds(selectedPackages);
 				candidateTable.addTheCandidateList(selectedPackages);
 				refreshComponentList();
 			}
@@ -458,8 +465,9 @@ public class ComponentModelPanel extends JPanel {
 
 	private void deleteComponent() {
 		String componentName = (String) componentListUI.getSelectedValue();
-		candidateTable.addTheCandidateList(componentModelConf.getTheComponentConf(componentName).getItemNames());
+		candidateTable.addTheCandidateList(componentModelConf.getTheComponentConf(componentName).getItemIds());
 		componentModelConf.deleteComponentConf(componentName);
+		this.currentComponent = null;
 	}
 
 	private void refreshComponentList() {
@@ -473,8 +481,8 @@ public class ComponentModelPanel extends JPanel {
 	private void refreshElementList() {
 		elementListModel.removeAllElements();
 		if (currentComponent != null) {
-			for (String packageName : componentModelConf.getTheComponentConf(currentComponent).getItemNames())
-				elementListModel.addElement(packageName);
+			for (String itemId : componentModelConf.getTheComponentConf(currentComponent).getItemIds())
+				elementListModel.addElement(itemId);
 		}
 	}
 

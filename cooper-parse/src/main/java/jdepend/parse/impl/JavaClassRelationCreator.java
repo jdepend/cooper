@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
@@ -18,6 +16,7 @@ import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Method;
 import jdepend.model.TableInfo;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.parse.ParseConfigurator;
 
@@ -25,7 +24,9 @@ public class JavaClassRelationCreator {
 
 	private ParseConfigurator conf;
 
-	private Map<String, JavaClass> parsedClasses;
+	private Map<String, JavaClass> parsedClassesForName;
+
+	private Map<String, JavaClass> parsedClassesForId;
 
 	private Collection<JavaClass> javaClasses;
 
@@ -36,16 +37,22 @@ public class JavaClassRelationCreator {
 
 	private void init(Collection<JavaClass> javaClasses) {
 
-		this.parsedClasses = new HashMap<String, JavaClass>();
+		this.parsedClassesForName = new HashMap<String, JavaClass>();
 		for (JavaClass javaClass : javaClasses) {
-			this.parsedClasses.put(javaClass.getName(), javaClass);
+			this.parsedClassesForName.put(javaClass.getName(), javaClass);
 		}
+
+		this.parsedClassesForId = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			this.parsedClassesForId.put(javaClass.getId(), javaClass);
+		}
+
 		this.javaClasses = javaClasses;
 
 		Map<String, String> entryMapTableName = new HashMap<String, String>();
 		String littleClassName;
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClass javaClass : this.javaClasses) {
 			// 收集Entry和TableName对应关系信息
 			L: for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
 				if (tableInfo.isDefine()) {
@@ -59,7 +66,7 @@ public class JavaClassRelationCreator {
 		}
 		// 更新TableName
 		if (entryMapTableName.size() > 0) {
-			for (JavaClass javaClass : javaClasses) {
+			for (JavaClass javaClass : this.javaClasses) {
 				for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
 					if (!tableInfo.isDefine()) {
 						if (entryMapTableName.containsKey(tableInfo.getTableName())) {
@@ -96,7 +103,7 @@ public class JavaClassRelationCreator {
 						// 处理父类
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)) {
 							if (info.getSuperClassName() != null) {
-								dependJavaClass = getJavaClass(info.getSuperClassName());
+								dependJavaClass = getJavaClass(javaClass.getPlace(), info.getSuperClassName());
 								setDependInfo(javaClass, dependJavaClass, mgr.getInheritRelation());
 							}
 						}
@@ -105,7 +112,7 @@ public class JavaClassRelationCreator {
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)
 								&& info.getInterfaceNames().size() != 0) {
 							for (String interfaceName : info.getInterfaceNames()) {
-								dependJavaClass = getJavaClass(interfaceName);
+								dependJavaClass = getJavaClass(javaClass.getPlace(), interfaceName);
 								setDependInfo(javaClass, dependJavaClass, mgr.getInheritRelation());
 							}
 						}
@@ -124,7 +131,7 @@ public class JavaClassRelationCreator {
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Field)
 								&& info.getAttributeTypes().size() != 0) {
 							for (String attributeType : info.getAttributeTypes()) {
-								dependJavaClass = getJavaClass(attributeType);
+								dependJavaClass = getJavaClass(javaClass.getPlace(), attributeType);
 								// 分析该属性是包含关系还是调用关系
 								if (returnTypes.contains(attributeType)) {
 									setDependInfo(javaClass, dependJavaClass, mgr.getFieldRelation());
@@ -138,7 +145,7 @@ public class JavaClassRelationCreator {
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Param)
 								&& info.getParamTypes().size() != 0) {
 							for (String paramType : info.getParamTypes()) {
-								dependJavaClass = getJavaClass(paramType);
+								dependJavaClass = getJavaClass(javaClass.getPlace(), paramType);
 								setDependInfo(javaClass, dependJavaClass, mgr.getParamRelation());
 							}
 						}
@@ -147,7 +154,7 @@ public class JavaClassRelationCreator {
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Variable)
 								&& info.getVariableTypes().size() != 0) {
 							for (String variableType : info.getVariableTypes()) {
-								dependJavaClass = getJavaClass(variableType);
+								dependJavaClass = getJavaClass(javaClass.getPlace(), variableType);
 								setDependInfo(javaClass, dependJavaClass, mgr.getVariableRelation());
 							}
 						}
@@ -171,7 +178,7 @@ public class JavaClassRelationCreator {
 				}
 			});
 		}
-		
+
 		ThreadPool.awaitTermination(pool);
 	}
 
@@ -200,8 +207,13 @@ public class JavaClassRelationCreator {
 		depend.addCaItems(item);
 	}
 
-	private JavaClass getJavaClass(String javaClassName) {
-		return this.parsedClasses.get(javaClassName);
+	private JavaClass getJavaClass(String place, String javaClassName) {
+		JavaClass javaClass = this.parsedClassesForId.get(CandidateUtil.getId(place, javaClassName));
+		if (javaClass == null) {
+			return this.parsedClassesForName.get(javaClassName);
+		} else {
+			return javaClass;
+		}
 	}
 
 	private List<JavaClass> getWriteAndDefineToTableClasses(TableInfo tableInfo) {

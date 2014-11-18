@@ -2,6 +2,7 @@ package jdepend.model.component.modelconf;
 
 import java.util.Collection;
 
+import jdepend.model.Identifyer;
 import jdepend.model.JavaClass;
 import jdepend.model.Named;
 
@@ -11,7 +12,9 @@ import jdepend.model.Named;
  * @author user
  * 
  */
-public interface Candidate extends Named {
+public interface Candidate extends Named, Identifyer {
+	
+	public String getPlace();
 
 	public boolean isInner();
 

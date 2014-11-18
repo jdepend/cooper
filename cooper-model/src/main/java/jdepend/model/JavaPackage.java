@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.component.modelconf.Candidate;
+import jdepend.model.component.modelconf.CandidateUtil;
 
 /**
  * The <code>JavaPackage</code> class represents a Java package.
@@ -14,8 +15,7 @@ import jdepend.model.component.modelconf.Candidate;
  * 
  */
 
-public final class JavaPackage implements Serializable, Candidate, Identifyer,
-		Comparable<JavaPackage> {
+public final class JavaPackage implements Serializable, Candidate, Comparable<JavaPackage> {
 
 	/**
 	 * 
@@ -24,11 +24,14 @@ public final class JavaPackage implements Serializable, Candidate, Identifyer,
 
 	private String name;
 
+	private String place;
+
 	private Collection<JavaClass> classes;
 
 	public static final String Default = "Default";
 
-	public JavaPackage(String name) {
+	public JavaPackage(String place, String name) {
+		this.place = place;
 		this.name = name;
 		this.classes = new ArrayList<JavaClass>();
 	}
@@ -81,11 +84,19 @@ public final class JavaPackage implements Serializable, Candidate, Identifyer,
 		this.name = name;
 	}
 
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
 	@Override
 	public String getId() {
-		return this.name;
+		return CandidateUtil.getId(this);
 	}
-	
+
 	@Override
 	public int size() {
 		return this.getClassCount();

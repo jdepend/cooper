@@ -21,7 +21,7 @@ public class JavaPackageComponentModelConfRepo {
 			Element selement = document.createElement("component");// 组件节点
 			selement.setAttribute("name", componentConf.getName());
 			selement.setAttribute("layer", String.valueOf(componentConf.getLayer()));
-			for (String packageName : componentConf.getItemNames()) {
+			for (String packageName : componentConf.getItemIds()) {
 				Element eelement = document.createElement("package");
 				eelement.setTextContent(packageName);
 				selement.appendChild(eelement);

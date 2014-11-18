@@ -22,14 +22,14 @@ public final class JavaPackageComponentConf extends ComponentConf {
 
 	@Override
 	public boolean isMember(JavaClass javaClass) {
-		return this.getItemNames().contains(javaClass.getJavaPackage().getName());
+		return this.getItemIds().contains(javaClass.getJavaPackage().getId());
 	}
 
 	@Override
 	public JavaPackageComponentConf clone() throws CloneNotSupportedException {
 		JavaPackageComponentConf conf = new JavaPackageComponentConf(this.getName(), this.getLayer());
-		for (String packageName : this.getItemNames()) {
-			conf.addItemName(packageName);
+		for (String packageName : this.getItemIds()) {
+			conf.addItemId(packageName);
 		}
 		return conf;
 	}
@@ -42,7 +42,7 @@ public final class JavaPackageComponentConf extends ComponentConf {
 		content.append("\n");
 		content.append("包含的包：");
 
-		for (String packageName : this.getItemNames()) {
+		for (String packageName : this.getItemIds()) {
 			content.append(packageName);
 			content.append("、");
 		}

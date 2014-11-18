@@ -43,7 +43,7 @@ public class JavaClassComponentModelConf extends ComponentModelConf {
 
 		for (ComponentConf componentConf : this.getComponentConfs()) {
 			for (String className : classNames) {
-				if (componentConf.getItemNames().contains(className)) {
+				if (componentConf.getItemIds().contains(className)) {
 					throw new JDependException("该组件名选择的类[" + className + "]已经在组件[" + componentConf.getName() + "]中包含！");
 				}
 			}

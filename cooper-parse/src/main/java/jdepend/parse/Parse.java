@@ -16,6 +16,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Metrics;
 import jdepend.model.MetricsMgr;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.parse.impl.AbstractClassBuilder;
 import jdepend.parse.impl.CSharpClassBuilder;
 import jdepend.parse.impl.JavaClassBuilder;
@@ -227,13 +228,13 @@ public class Parse {
 	 *            Java package name.
 	 * @return Added Java package.
 	 */
-	private JavaPackage addPackage(String name) {
+	private JavaPackage addPackage(String place, String name) {
 
-		JavaPackage pkg = packages.get(name);
+		JavaPackage pkg = packages.get(CandidateUtil.getId(place, name));
 		if (pkg == null) {
-			pkg = new JavaPackage(name);
-			packages.put(pkg.getName(), pkg);
-			LogUtil.getInstance(Parse.class).systemLog("创建JavaPackage[" + pkg.getName() + "]");
+			pkg = new JavaPackage(place, name);
+			packages.put(pkg.getId(), pkg);
+			LogUtil.getInstance(Parse.class).systemLog("创建JavaPackage[" + pkg.getId() + "]");
 		}
 
 		return pkg;
@@ -247,7 +248,7 @@ public class Parse {
 			return;
 		}
 
-		JavaPackage clazzPackage = addPackage(packageName);
+		JavaPackage clazzPackage = addPackage(clazz.getPlace(), packageName);
 		clazzPackage.addClass(clazz);
 		clazz.setJavaPackage(clazzPackage);
 	}

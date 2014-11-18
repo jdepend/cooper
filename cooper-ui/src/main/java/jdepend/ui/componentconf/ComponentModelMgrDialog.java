@@ -501,7 +501,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		ComponentModelConf componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
 
-		for (String packageName : componentGroup.getTheComponentConf(currentComponent).getItemNames()) {
+		for (String packageName : componentGroup.getTheComponentConf(currentComponent).getItemIds()) {
 			packageListModel.addElement(packageName);
 		}
 

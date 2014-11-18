@@ -31,7 +31,7 @@ import jdepend.framework.util.StringUtil;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateComparator;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.parse.util.SearchUtil;
 
 public class CandidateListTable extends JTable {
@@ -45,7 +45,7 @@ public class CandidateListTable extends JTable {
 
 	// 候选集合
 	private List<Candidate> candidates;
-	private Map<String, Candidate> candidateForNames;
+	private Map<String, Candidate> candidateForIds;
 	// 当前候选集合
 	private List<String> currentCandidateList;
 
@@ -140,10 +140,11 @@ public class CandidateListTable extends JTable {
 
 		sorter.setTableHeader(this.getTableHeader());
 
+		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Place));
 		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Name));
 		candidateTableModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_Scale));
 
-		sorter.setSortingStatus(0, TableSorter.ASCENDING);
+		sorter.setSortingStatus(1, TableSorter.ASCENDING);
 
 		this.setModel(sorter);
 
@@ -159,9 +160,9 @@ public class CandidateListTable extends JTable {
 
 		Collections.sort(candidates, new CandidateComparator());
 
-		this.candidateForNames = new HashMap<String, Candidate>();
+		this.candidateForIds = new HashMap<String, Candidate>();
 		for (Candidate candidate : candidates) {
-			this.candidateForNames.put(candidate.getName(), candidate);
+			this.candidateForIds.put(candidate.getId(), candidate);
 		}
 		maxSize = 0;
 
@@ -170,23 +171,24 @@ public class CandidateListTable extends JTable {
 		for (Candidate candidate : candidates) {
 			if (this.componentModelPanel.filterExt.isSelected() && candidate.isInner()
 					|| !this.componentModelPanel.filterExt.isSelected()) {
-				row = new Object[2];
-				row[0] = candidate.getName();
+				row = new Object[3];
+				row[0] = candidate.getPlace();
+				row[1] = candidate.getName();
 				size = candidate.size();
-				row[1] = size;
+				row[2] = size;
 				if (maxSize < size) {
 					maxSize = size;
 				}
 				candidateTableModel.addRow(row);
 			}
-			currentCandidateList.add(candidate.getName());
+			currentCandidateList.add(candidate.getId());
 		}
 
 		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(BundleUtil.getString(BundleUtil.TableHead_PackageName));
+		fitColNames.add(BundleUtil.getString(BundleUtil.TableHead_Name));
 		JTableUtil.fitTableColumns(this, fitColNames);
 	}
-	
+
 	protected void reLoadCandidateList() {
 		this.clear();
 		this.loadCandidateList();
@@ -194,7 +196,7 @@ public class CandidateListTable extends JTable {
 
 	@Override
 	public TableCellRenderer getCellRenderer(int row, int column) {
-		if (column == 1) {
+		if (column == 2) {
 			return new TableCellRenderer() {
 				@Override
 				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -229,31 +231,39 @@ public class CandidateListTable extends JTable {
 		if (rows == null || rows.length != 1)
 			throw new JDependException("请选择一个包！");
 
-		String javaPackageName = (String) this.getValueAt(rows[0], 0);
-		Candidate javaPackage = this.candidateForNames.get(javaPackageName);
-		ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
+		String place = (String) candidateTableModel.getValueAt(rows[0], 0);
+		String name = (String) candidateTableModel.getValueAt(rows[0], 1);
+		Candidate candidate = this.candidateForIds.get(CandidateUtil.getId(place, name));
+
+		ClassListInThePackageDialog d = new ClassListInThePackageDialog(candidate);
 		d.setModal(true);
 		d.setVisible(true);
 	}
 
-	protected void removeTheCandidateList(Collection<String> packageNames) {
+	protected void removeTheCandidateList(Collection<String> candidateIds) {
+
+		if (candidateIds.size() == 0) {
+			return;
+		}
+
 		for (int row = candidateTableModel.getRowCount() - 1; row >= 0; row--) {
-			if (packageNames.contains(candidateTableModel.getValueAt(row, 0))) {
+			String place = (String) candidateTableModel.getValueAt(row, 0);
+			String name = (String) candidateTableModel.getValueAt(row, 1);
+			if (candidateIds.contains(CandidateUtil.getId(place, name))) {
 				candidateTableModel.removeRow(row);
 			}
 		}
 		for (int row = this.currentCandidateList.size() - 1; row >= 0; row--) {
-			if (packageNames.contains(currentCandidateList.get(row))) {
+			if (candidateIds.contains(currentCandidateList.get(row))) {
 				currentCandidateList.remove(row);
 			}
 		}
 	}
 
-	protected void addTheCandidateList(Collection<String> candidateNames) {
+	protected void addTheCandidateList(Collection<String> candidateIds) {
 		for (Candidate candidate : candidates) {
-			if (candidateNames.contains(candidate.getName())
-					&& !this.currentCandidateList.contains(candidate.getName())) {
-				this.currentCandidateList.add(candidate.getName());
+			if (candidateIds.contains(candidate.getId()) && !this.currentCandidateList.contains(candidate.getId())) {
+				this.currentCandidateList.add(candidate.getId());
 			}
 		}
 		filterCandidateList();
@@ -265,25 +275,25 @@ public class CandidateListTable extends JTable {
 		boolean filterExtSetting = this.componentModelPanel.filterExt.isSelected();
 		boolean filterString;
 		boolean filterExtResult;
-		List<String> matchPackageList = new ArrayList<String>();
+		List<String> matchCandidateList = new ArrayList<String>();
 
-		for (String packageName : this.currentCandidateList) {
-			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, packageName);
-			filterExtResult = filterExtSetting ? this.candidateForNames.get(packageName).isInner() ? true : false
-					: true;
+		for (String candidateId : this.currentCandidateList) {
+			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, candidateId);
+			filterExtResult = filterExtSetting ? this.candidateForIds.get(candidateId).isInner() ? true : false : true;
 			if (filterString && filterExtResult) {
-				matchPackageList.add(packageName);
+				matchCandidateList.add(candidateId);
 			}
 		}
 
 		candidateTableModel.setRowCount(0);
 		Object[] row;
-		for (String packageName : matchPackageList) {
-			row = new Object[2];
-			row[0] = packageName;
+		for (String candidateId : matchCandidateList) {
+			row = new Object[3];
+			row[0] = CandidateUtil.getPlace(candidateId);
+			row[1] = CandidateUtil.getName(candidateId);
 			for (Candidate javaPackage : candidates) {
-				if (javaPackage.getName().equals(packageName)) {
-					row[1] = javaPackage.size();
+				if (javaPackage.getId().equals(candidateId)) {
+					row[2] = javaPackage.size();
 				}
 			}
 			candidateTableModel.addRow(row);
@@ -315,7 +325,7 @@ public class CandidateListTable extends JTable {
 			}
 			packages = searchUtil.getPackages();
 		}
-		
+
 		return componentModelPanel.getComponentModelConf().getCandidates(packages);
 	}
 

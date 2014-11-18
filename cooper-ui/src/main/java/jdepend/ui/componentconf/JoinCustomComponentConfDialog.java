@@ -83,7 +83,7 @@ abstract class JoinCustomComponentConfDialog extends JDialog {
 				try {
 					String joinComponentName = (String) componentListTable.getValueAt(
 							componentListTable.getSelectedRow(), 0);
-					componentModelConf.getTheComponentConf(joinComponentName).addItemNames(joinPackages);
+					componentModelConf.getTheComponentConf(joinComponentName).addItemIds(joinPackages);
 					doService();
 					JoinCustomComponentConfDialog.this.dispose();
 				} catch (JDependException e1) {

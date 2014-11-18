@@ -139,7 +139,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 	public Collection<String> getContainItems() {
 		Collection<String> containItems = new HashSet<String>();
 		for (ComponentConf componentConf : this.getComponentConfs()) {
-			for (String itemName : componentConf.getItemNames()) {
+			for (String itemName : componentConf.getItemIds()) {
 				containItems.add(itemName);
 			}
 		}
@@ -170,15 +170,15 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		Collection<String> containItems = this.getContainItems();
 		Collection<String> ignoreItems = this.getIgnoreItems();
 		Collection<String> runItems = new HashSet<String>();
-		
-		Map<String, Candidate> candidateForName = new HashMap<String, Candidate>();
+
+		Map<String, Candidate> candidateForId = new HashMap<String, Candidate>();
 		for (Candidate candidate : this.getCandidates(packages)) {
-			runItems.add(candidate.getName());
-			candidateForName.put(candidate.getName(), candidate);
+			runItems.add(candidate.getId());
+			candidateForId.put(candidate.getId(), candidate);
 		}
 		for (String runItem : runItems) {
 			if (!containItems.contains(runItem) && !ignoreItems.contains(runItem)) {
-				if (candidateForName.get(runItem).isInner()) {
+				if (candidateForId.get(runItem).isInner()) {
 					diffElements.put(runItem, "ADD");
 				}
 			}

@@ -42,7 +42,7 @@ public class JavaPackageComponentModelConf extends ComponentModelConf {
 
 		for (ComponentConf componentConf : this.getComponentConfs()) {
 			for (String packageName : packageNames) {
-				if (componentConf.getItemNames().contains(packageName)) {
+				if (componentConf.getItemIds().contains(packageName)) {
 					throw new JDependException("该组件名选择的包[" + packageName + "]已经在组件[" + componentConf.getName()
 							+ "]中包含！");
 				}

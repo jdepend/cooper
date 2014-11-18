@@ -18,7 +18,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 	private String name;
 	private int layer;
 
-	private Collection<String> itemNames = new HashSet<String>();
+	private Collection<String> itemIds = new HashSet<String>();
 
 	public ComponentConf(String name) {
 		super();
@@ -31,10 +31,10 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		this.layer = layer;
 	}
 
-	public ComponentConf(String name, Collection<String> itemNames) {
+	public ComponentConf(String name, Collection<String> itemIds) {
 		super();
 		this.name = name;
-		this.itemNames = itemNames;
+		this.itemIds = itemIds;
 	}
 
 	public String getName() {
@@ -49,33 +49,33 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		this.layer = layer;
 	}
 
-	public Collection<String> getItemNames() {
-		return itemNames;
+	public Collection<String> getItemIds() {
+		return itemIds;
 	}
 
-	public void addItemNames(Collection<String> joinItemNames) {
-		for (String itemName : joinItemNames) {
-			this.addItemName(itemName);
+	public void addItemIds(Collection<String> joinItemIds) {
+		for (String itemid : joinItemIds) {
+			this.addItemId(itemid);
 		}
 	}
 
-	public void addItemName(String itemName) {
-		if (!itemNames.contains(itemName)) {
-			itemNames.add(itemName);
+	public void addItemId(String itemId) {
+		if (!itemIds.contains(itemId)) {
+			itemIds.add(itemId);
 		}
 	}
 
-	public void deleteItemNames(Collection<String> deleteItemNames) {
-		Iterator<String> iterator = this.itemNames.iterator();
+	public void deleteItemIds(Collection<String> deleteItemIds) {
+		Iterator<String> iterator = this.itemIds.iterator();
 		while (iterator.hasNext()) {
-			if (deleteItemNames.contains(iterator.next())) {
+			if (deleteItemIds.contains(iterator.next())) {
 				iterator.remove();
 			}
 		}
 	}
 
-	public void deleteItemName(String deleteItemName) {
-		this.itemNames.remove(deleteItemName);
+	public void deleteItemId(String deleteItemId) {
+		this.itemIds.remove(deleteItemId);
 	}
 
 	public abstract boolean isMember(JavaClass javaClass);

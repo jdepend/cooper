@@ -65,7 +65,7 @@ public final class CopyUtil {
 
 		JavaPackage newjavaPackage = javaPackages.get(javaPackage.getId());
 		if (newjavaPackage == null) {
-			newjavaPackage = new JavaPackage(javaPackage.getName());
+			newjavaPackage = new JavaPackage(javaPackage.getPlace(), javaPackage.getName());
 			javaPackages.put(newjavaPackage.getId(), newjavaPackage);
 		}
 		return newjavaPackage;

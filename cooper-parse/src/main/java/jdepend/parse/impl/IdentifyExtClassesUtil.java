@@ -87,6 +87,7 @@ class IdentifyExtClassesUtil {
 			String packageName = ParseUtil.getPackageName(javaClassName);
 			if (this.filter.accept(packageName)) {
 				JavaClass extendJavaClass = new JavaClass(javaClassName, false);
+				extendJavaClass.setPlace("outer");
 				extendJavaClass.setPackageName(packageName);
 				this.extendJavaClasses.put(extendJavaClass.getName(), extendJavaClass);
 			}
