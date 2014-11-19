@@ -152,17 +152,4 @@ public final class CalculateMetricsTool {
 	List<List<JDependUnit>> collectCycle() {
 		return (new OnlyOneCycleIdentifyer()).collectCycle(unit);
 	}
-
-	/**
-	 * 收集循环依赖信息
-	 * 
-	 * @param list
-	 * @param knowledge
-	 * @return
-	 */
-	int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
-		return (new OnlyOneCycleIdentifyer()).collectCycle(unit, list, knowledge);
-
-	}
-
 }

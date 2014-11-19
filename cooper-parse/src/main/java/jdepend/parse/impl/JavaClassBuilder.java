@@ -94,9 +94,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 							javaClass.setPlace(place);
 							if (parser.getFilter().accept(javaClass.getPackageName())) {
 								synchronized (javaClasses) {
-									if (!javaClasses.contains(javaClass)) {
-										javaClasses.add(javaClass);
-									}
+									javaClasses.add(javaClass);
 								}
 							}
 						} catch (Exception e) {

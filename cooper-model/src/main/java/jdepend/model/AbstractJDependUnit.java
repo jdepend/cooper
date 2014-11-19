@@ -35,6 +35,10 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	private transient Float distance = null;
 	private transient Float volatility = null;
 
+	public final static int Cycle = 2;
+	public final static int LocalCycle = 1;
+	public final static int NoCycle = 0;
+
 	public AbstractJDependUnit() {
 
 	}
@@ -136,10 +140,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 			}
 		}
 		return this.cycles;
-	}
-
-	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
-		return new CalculateMetricsTool(this).collectCycle(list, knowledge);
 	}
 
 	public int getLineCount() {

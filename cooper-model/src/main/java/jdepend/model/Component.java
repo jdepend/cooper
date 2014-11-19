@@ -548,6 +548,42 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
+	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
+
+		if (list.contains(this)) {
+			if (list.get(0).equals(this)) {
+				return Cycle;// 存在循环依赖
+			} else {
+				knowledge.put(this, LocalCycle);
+				return LocalCycle;// 存在局部循环依赖
+			}
+		}
+
+		list.add(this);// 将当前分析单元入栈
+
+		if (this.getEfferents().contains(list.get(0))) {// 直接依赖进行广度搜索
+			return Cycle;
+		}
+
+		for (Iterator<? extends JDependUnit> i = this.getEfferents().iterator(); i.hasNext();) {
+			JDependUnit efferent = i.next();
+			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
+			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
+				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
+				if (rtn == Cycle) {// 存在循环依赖
+					return Cycle;
+				}
+			}
+		}
+
+		list.remove(this);// 将当前分析单元出栈
+
+		knowledge.put(this, NoCycle);// 记录该对象扫描过的结果
+
+		return NoCycle;// 不存在循环依赖
+	}
+
+	@Override
 	public Object getValue(String metrics) {
 		if (metrics.equals(Area)) {
 			return this.getAreaComponent();

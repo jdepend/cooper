@@ -22,15 +22,4 @@ public interface CycleIdentifyer {
 	 * @return
 	 */
 	public List<List<JDependUnit>> collectCycle(JDependUnit unit);
-
-	/**
-	 * 收集循环依赖信息
-	 * 
-	 * @param unit
-	 * @param list
-	 * @param knowledge
-	 * @return
-	 */
-	public int collectCycle(JDependUnit unit, List<JDependUnit> list, Map<JDependUnit, Integer> knowledge);
-
 }

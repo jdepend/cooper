@@ -67,10 +67,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private boolean isIncludeTransactionalAnnotation;
 
-	public final static int Cycle = 2;
-	public final static int LocalCycle = 1;
-	public final static int NoCycle = 0;
-
 	private final static int UnCalculate = -2;
 	private final static int HaveState = 1;
 	private final static int NoHaveState = 0;
