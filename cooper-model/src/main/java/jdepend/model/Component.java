@@ -554,6 +554,19 @@ public abstract class Component extends AbstractJDependUnit {
 			if (list.get(0).equals(this)) {
 				return Cycle;// 存在循环依赖
 			} else {
+				List<Component> otherCycles = new ArrayList<Component>();
+				int index;
+				for (index = 1; index < list.size(); index++) {
+					if (list.get(index).equals(this)) {
+						break;
+					}
+				}
+				for (int pos = index; pos < list.size(); pos++) {
+					otherCycles.add((Component) list.get(pos));
+				}
+				for (Component unit : otherCycles) {
+					unit.setCycles(otherCycles);
+				}
 				knowledge.put(this, LocalCycle);
 				return LocalCycle;// 存在局部循环依赖
 			}
@@ -565,8 +578,10 @@ public abstract class Component extends AbstractJDependUnit {
 			return Cycle;
 		}
 
-		for (Iterator<? extends JDependUnit> i = this.getEfferents().iterator(); i.hasNext();) {
-			JDependUnit efferent = i.next();
+		for (Component efferent : this.getEfferents()) {
+			if (efferent.getCycles() != null && efferent.getCycles().size() > 0) {
+				return LocalCycle;// 存在局部循环依赖
+			}
 			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域

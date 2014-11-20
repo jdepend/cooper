@@ -164,20 +164,20 @@ public abstract class SummaryPrinter extends Printer {
 			return;
 		}
 
-		List<JDependUnit> list = unit.collectCycle();
+		List<? extends JDependUnit> list = unit.collectCycle();
 
-		JDependUnit cyclePackage = (JDependUnit) list.get(list.size() - 1);
-		String cyclePackageName = cyclePackage.getName();
+		JDependUnit cycleUnit = (JDependUnit) list.get(list.size() - 1);
+		String cycleUnitName = cycleUnit.getName();
 
 		int i = 0;
-		Iterator<JDependUnit> pkgIter = list.iterator();
-		while (pkgIter.hasNext()) {
+		Iterator<? extends JDependUnit> unitIter = list.iterator();
+		while (unitIter.hasNext()) {
 			i++;
-			JDependUnit pkg = pkgIter.next();
+			JDependUnit pkg = unitIter.next();
 			if (i == 1) {
 				printCycleHeader(pkg);
 			} else {
-				if (pkg.getName().equals(cyclePackageName)) {
+				if (pkg.getName().equals(cycleUnitName)) {
 					printCycleTarget(pkg);
 				} else {
 					printCycleContributor(pkg);

@@ -24,7 +24,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	private int lineCount = -1;
 
-	private transient List<JDependUnit> cycles = null;
+	private transient List<? extends JDependUnit> cycles = null;
 
 	private transient Float cohesion = null;
 	private transient Float coupling = null;
@@ -127,19 +127,33 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	public boolean getContainsCycle() {
-		return this.collectCycle().size() > 0;
+		return this.collectCycle().size() > 1;
 	}
 
-	public List<JDependUnit> collectCycle() {
+	public List<? extends JDependUnit> collectCycle() {
 		if (this.cycles == null) {
 			List<List<JDependUnit>> cycleses = new CalculateMetricsTool(this).collectCycle();
 			if (cycleses != null) {
 				this.cycles = cycleses.get(0);
+				if(this.cycles.size() == 1){
+					System.out.print("");
+				}
 			} else {
 				this.cycles = new ArrayList<JDependUnit>();
 			}
 		}
 		return this.cycles;
+	}
+
+	public void setCycles(List<? extends JDependUnit> cycles) {
+		this.cycles = cycles;
+		if(this.cycles.size() == 1){
+			System.out.print("");
+		}
+	}
+
+	public List<? extends JDependUnit> getCycles() {
+		return cycles;
 	}
 
 	public int getLineCount() {

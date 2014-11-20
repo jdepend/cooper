@@ -62,7 +62,7 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * 
 	 * @return
 	 */
-	public List<JDependUnit> collectCycle();
+	public List<? extends JDependUnit> collectCycle();
 
 	/**
 	 * 与特定分析单元的传出耦合信息明细

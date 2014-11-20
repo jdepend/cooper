@@ -6,7 +6,6 @@ import java.util.List;
 
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.service.avertcheat.abstractClassQualificationConfirmer.AbstractClassQualificationConfirmer;
-import jdepend.service.avertcheat.collectcycle.CollectCycleUtil;
 import jdepend.service.avertcheat.stabilityClassIdentifyer.StabilityClassIdentifyer;
 
 public final class AvertCheatMgr {
@@ -49,7 +48,6 @@ public final class AvertCheatMgr {
 		} else {
 			avertCheats.add(new StabilityClassIdentifyer());
 			avertCheats.add(new AbstractClassQualificationConfirmer());
-			avertCheats.add(new CollectCycleUtil());
 		}
 	}
 
