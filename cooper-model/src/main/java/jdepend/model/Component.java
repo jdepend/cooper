@@ -554,6 +554,7 @@ public abstract class Component extends AbstractJDependUnit {
 			if (list.get(0).equals(this)) {
 				return Cycle;// 存在循环依赖
 			} else {
+				//通知其他组件存在循环依赖
 				List<Component> otherCycles = new ArrayList<Component>();
 				int index;
 				for (index = 1; index < list.size(); index++) {
@@ -567,6 +568,7 @@ public abstract class Component extends AbstractJDependUnit {
 				for (Component unit : otherCycles) {
 					unit.setCycles(otherCycles);
 				}
+				
 				knowledge.put(this, LocalCycle);
 				return LocalCycle;// 存在局部循环依赖
 			}
