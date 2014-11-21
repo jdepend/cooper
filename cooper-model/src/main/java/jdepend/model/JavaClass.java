@@ -745,6 +745,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
+		if (!this.getComponent().getContainsCycle()) {
+			return NoCycle;//当类所在的组件不存在循环依赖时，类也不会存在循环依赖
+		}
+
+		if (list.size() > 20) {
+			return StopCheckCycle;// 搜索深度大于20时停止
+		}
+
 		if (list.contains(this)) {
 			if (list.get(0).equals(this)) {
 				for (JDependUnit unit : list) {

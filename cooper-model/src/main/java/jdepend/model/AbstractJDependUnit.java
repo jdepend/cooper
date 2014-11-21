@@ -38,6 +38,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	public final static int Cycle = 2;
 	public final static int LocalCycle = 1;
 	public final static int NoCycle = 0;
+	public final static int StopCheckCycle = -1;
 
 	public AbstractJDependUnit() {
 

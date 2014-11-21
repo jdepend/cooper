@@ -550,6 +550,10 @@ public abstract class Component extends AbstractJDependUnit {
 	@Override
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
+		if (list.size() > 20) {
+			return StopCheckCycle;// 搜索深度大于20时停止
+		}
+
 		if (list.contains(this)) {
 			if (list.get(0).equals(this)) {
 				return Cycle;// 存在循环依赖
@@ -593,7 +597,7 @@ public abstract class Component extends AbstractJDependUnit {
 						((Component) list.get(index)).setCycles(list);
 					}
 					return Cycle;
-				}
+				} 
 			}
 		}
 
