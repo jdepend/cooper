@@ -554,7 +554,7 @@ public abstract class Component extends AbstractJDependUnit {
 			if (list.get(0).equals(this)) {
 				return Cycle;// 存在循环依赖
 			} else {
-				//通知其他组件存在循环依赖
+				// 通知其他组件存在循环依赖
 				List<Component> otherCycles = new ArrayList<Component>();
 				int index;
 				for (index = 1; index < list.size(); index++) {
@@ -568,7 +568,7 @@ public abstract class Component extends AbstractJDependUnit {
 				for (Component unit : otherCycles) {
 					unit.setCycles(otherCycles);
 				}
-				
+
 				knowledge.put(this, LocalCycle);
 				return LocalCycle;// 存在局部循环依赖
 			}
@@ -588,6 +588,10 @@ public abstract class Component extends AbstractJDependUnit {
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
 				if (rtn == Cycle) {// 存在循环依赖
+					// 通知其他组件存在循环依赖
+					for (int index = 0; index < list.size(); index++) {
+						((Component) list.get(index)).setCycles(list);
+					}
 					return Cycle;
 				}
 			}

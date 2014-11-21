@@ -753,7 +753,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 					}
 				}
 			} else {
-				//通知其他组件存在循环依赖
+				// 通知其他组件存在循环依赖
 				List<JavaClass> otherCycles = new ArrayList<JavaClass>();
 				Collection<Component> otherCycleComponents = new HashSet<Component>();
 				int index;
@@ -795,6 +795,10 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
 				if (rtn == Cycle) {// 存在循环依赖
+					// 通知其他组件存在循环依赖
+					for (int index = 0; index < list.size(); index++) {
+						((JavaClass) list.get(index)).setCycles(list);
+					}
 					return Cycle;
 				}
 			}
