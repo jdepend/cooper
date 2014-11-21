@@ -149,7 +149,7 @@ public final class CalculateMetricsTool {
 	 * 
 	 * @return
 	 */
-	List<List<JDependUnit>> collectCycle() {
+	List<List<? extends JDependUnit>> collectCycle() {
 		return (new OnlyOneCycleIdentifyer()).collectCycle(unit);
 	}
 }

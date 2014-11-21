@@ -132,12 +132,9 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	public List<? extends JDependUnit> collectCycle() {
 		if (this.cycles == null) {
-			List<List<JDependUnit>> cycleses = new CalculateMetricsTool(this).collectCycle();
+			List<List<? extends JDependUnit>> cycleses = new CalculateMetricsTool(this).collectCycle();
 			if (cycleses != null) {
 				this.cycles = cycleses.get(0);
-				if(this.cycles.size() == 1){
-					System.out.print("");
-				}
 			} else {
 				this.cycles = new ArrayList<JDependUnit>();
 			}
@@ -147,9 +144,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	public void setCycles(List<? extends JDependUnit> cycles) {
 		this.cycles = cycles;
-		if(this.cycles.size() == 1){
-			System.out.print("");
-		}
 	}
 
 	public List<? extends JDependUnit> getCycles() {

@@ -21,5 +21,5 @@ public interface CycleIdentifyer {
 	 * @param unit
 	 * @return
 	 */
-	public List<List<JDependUnit>> collectCycle(JDependUnit unit);
+	public List<List<? extends JDependUnit>> collectCycle(JDependUnit unit);
 }

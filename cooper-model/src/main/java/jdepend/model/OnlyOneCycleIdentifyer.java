@@ -14,10 +14,11 @@ import java.util.Map;
 public final class OnlyOneCycleIdentifyer implements CycleIdentifyer {
 
 	@Override
-	public List<List<JDependUnit>> collectCycle(JDependUnit unit) {
-		List<List<JDependUnit>> cycles = new ArrayList<List<JDependUnit>>();
+	public List<List<? extends JDependUnit>> collectCycle(JDependUnit unit) {
+		List<List<? extends JDependUnit>> cycles = new ArrayList<List<? extends JDependUnit>>();
 		List<JDependUnit> cycle = new ArrayList<JDependUnit>();
 		Map<JDependUnit, Integer> knowledge = new HashMap<JDependUnit, Integer>();
+
 		if (unit.collectCycle(cycle, knowledge) == Cycle) {
 			cycles.add(cycle);
 			return cycles;
