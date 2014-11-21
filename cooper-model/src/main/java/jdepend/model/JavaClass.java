@@ -796,7 +796,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
 				if (rtn == Cycle) {// 存在循环依赖
 					// 通知其他组件存在循环依赖
-					for (int index = 0; index < list.size(); index++) {
+					for (int index = 1; index < list.size(); index++) {
 						((JavaClass) list.get(index)).setCycles(list);
 					}
 					return Cycle;
