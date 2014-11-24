@@ -70,8 +70,7 @@ public abstract class AbstractParser {
 	public final JavaClass parse(String place, InputStream is) throws ParseJDependException {
 		JavaClass jClass = null;
 		try {
-			jClass = this.doParse(place, is);
-			return jClass;
+			return this.doParse(place, is);
 		} finally {
 			this.onParsedJavaClass(jClass);
 		}
