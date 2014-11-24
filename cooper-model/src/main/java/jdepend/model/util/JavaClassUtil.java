@@ -241,7 +241,7 @@ public class JavaClassUtil {
 						while (it.hasNext()) {
 							invokeItem = it.next();
 							invokeItem.setSelf(method);
-							if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForId())) {
+							if (!invokeItem.supplyMethod(javaClasses)) {
 								it.remove();
 							}
 						}

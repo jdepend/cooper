@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import jdepend.model.component.modelconf.CandidateUtil;
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
 public final class InvokeItem implements Serializable {
@@ -61,9 +62,8 @@ public final class InvokeItem implements Serializable {
 	 * @param javaClasses
 	 * @return
 	 */
-	public boolean supplyMethod(Map<String, JavaClass> javaClasses) {
-		JavaClass invokeClass = javaClasses.get(CandidateUtil.getId(this.getInvokeClassPlace(),
-				this.getInvokeClassName()));
+	public boolean supplyMethod(JavaClassCollection javaClasses) {
+		JavaClass invokeClass = javaClasses.getTheClass(this.getInvokeClassPlace(), this.getInvokeClassName());
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
