@@ -9,10 +9,10 @@ import jdepend.parse.impl.ParseJDependException;
 
 public final class ParseClassUtil {
 
-	public static JavaClass parse(InputStream is) throws ParseJDependException {
+	public static JavaClass parse(String place, InputStream is) throws ParseJDependException {
 		ParseConfigurator conf = new ParseConfigurator();
 		BCELClassFileParser parser = new BCELClassFileParser(conf);
-		return parser.parse(is);
+		return parser.parse(place, is);
 	}
 
 }

@@ -10,6 +10,7 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
+import jdepend.model.component.modelconf.CandidateUtil;
 
 public final class CopyUtil {
 
@@ -44,7 +45,7 @@ public final class CopyUtil {
 		// 关联JavaClass和JavaPackage
 		JavaPackage javaPackage;
 		for (JavaClass javaClass : jClasses.getJavaClasses()) {
-			javaPackage = javaPackages.get(javaClass.getPackageName());
+			javaPackage = javaPackages.get(CandidateUtil.getId(javaClass.getPlace(), javaClass.getPackageName()));
 			javaClass.setJavaPackage(javaPackage);
 			javaPackage.addClass(javaClass);
 		}

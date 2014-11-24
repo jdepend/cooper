@@ -95,7 +95,8 @@ public class JavaClassUtil {
 					it = javaClass.getCaItems().iterator();
 					while (it.hasNext()) {
 						relationItem = it.next();
-						dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
+						dependClass = javaClasses.getTheClass(relationItem.getCurrentJavaClassPlace(),
+								relationItem.getDependJavaClass());
 						if (dependClass != null) {
 							relationItem.setDepend(dependClass);
 							relationItem.setCurrent(javaClass);
@@ -106,7 +107,8 @@ public class JavaClassUtil {
 					it = javaClass.getCeItems().iterator();
 					while (it.hasNext()) {
 						relationItem = it.next();
-						dependClass = javaClasses.getTheClassByName(relationItem.getDependJavaClass());
+						dependClass = javaClasses.getTheClass(relationItem.getDependJavaClassPlace(),
+								relationItem.getDependJavaClass());
 						if (dependClass != null) {
 							relationItem.setDepend(dependClass);
 							relationItem.setCurrent(javaClass);
@@ -155,7 +157,8 @@ public class JavaClassUtil {
 					JavaClass returnTypeClass;
 
 					// 填充superClass和interfaces
-					JavaClass superClass = javaClasses.getTheClassByName(javaClass.getDetail().getSuperClassName());
+					JavaClass superClass = javaClasses.getTheClass(javaClass.getPlace(), javaClass.getDetail()
+							.getSuperClassName());
 					if (superClass != null) {
 						javaClass.getDetail().setSuperClass(superClass);
 					} else {
@@ -164,7 +167,7 @@ public class JavaClassUtil {
 					Collection<JavaClass> interfaces = new HashSet<JavaClass>();
 					Collection<String> interfaceNames = new ArrayList<String>();
 					for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
-						JavaClass interfaceClass = javaClasses.getTheClassByName(interfaceName);
+						JavaClass interfaceClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
 						if (interfaceClass != null) {
 							interfaces.add(interfaceClass);
 							interfaceNames.add(interfaceName);
@@ -177,7 +180,7 @@ public class JavaClassUtil {
 					for (Attribute attribute : javaClass.getAttributes()) {
 						attributeTypes = new HashSet<JavaClass>();
 						for (String type : attribute.getTypes()) {
-							attributeTypeClass = javaClasses.getTheClassByName(type);
+							attributeTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 							if (attributeTypeClass != null) {
 								attributeTypes.add(attributeTypeClass);
 							}
@@ -190,7 +193,7 @@ public class JavaClassUtil {
 						// 填充参数
 						argumentTypes = new HashSet<JavaClass>();
 						for (String type : method.getArgumentTypes()) {
-							argumentTypeClass = javaClasses.getTheClassByName(type);
+							argumentTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 							if (argumentTypeClass != null) {
 								argumentTypes.add(argumentTypeClass);
 							}
@@ -199,7 +202,7 @@ public class JavaClassUtil {
 						// 填充返回值
 						returnTypes = new HashSet<JavaClass>();
 						for (String type : method.getReturnTypes()) {
-							returnTypeClass = javaClasses.getTheClassByName(type);
+							returnTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 							if (returnTypeClass != null) {
 								returnTypes.add(returnTypeClass);
 							}
@@ -237,7 +240,8 @@ public class JavaClassUtil {
 						it = method.getInvokeItems().iterator();
 						while (it.hasNext()) {
 							invokeItem = it.next();
-							if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForName())) {
+							invokeItem.setSelf(method);
+							if (!invokeItem.supplyMethod(javaClasses.getJavaClassesForId())) {
 								it.remove();
 							}
 						}

@@ -1,5 +1,7 @@
 package jdepend.model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -46,7 +48,7 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokeMethods;
 
-	private transient Collection<Method> invokedMethods = new HashSet<Method>();;
+	private transient Collection<Method> invokedMethods;
 
 	public Method() {
 	}
@@ -63,6 +65,7 @@ public class Method extends AccessFlags {
 		this.writeFields = new ArrayList<Attribute>();
 		this.isIncludeTransactionalAnnotation = false;
 		this.selfLineCount = -1;
+		this.invokedMethods = new HashSet<Method>();
 	}
 
 	public Method(JavaClass javaClass, Method method) {
@@ -72,12 +75,13 @@ public class Method extends AccessFlags {
 		this.signature = method.signature;
 		this.info = method.info;
 		this.argumentCount = method.argumentCount;
-		
+		this.invokedMethods = new HashSet<Method>();
+
 		this.invokeItems = method.invokeItems;
-		for(InvokeItem invokeItem : this.invokeItems){
+		for (InvokeItem invokeItem : this.invokeItems) {
 			invokeItem.setSelf(this);
 		}
-		
+
 		this.readFields = method.readFields;
 		this.writeFields = method.writeFields;
 		this.selfLineCount = method.selfLineCount;
@@ -109,8 +113,8 @@ public class Method extends AccessFlags {
 		}
 		return this.invokeMethods;
 	}
-	
-	public synchronized void addInvokedMethod(Method invokeMethod){
+
+	public synchronized void addInvokedMethod(Method invokeMethod) {
 		invokedMethods.add(invokeMethod);
 	}
 
@@ -297,6 +301,12 @@ public class Method extends AccessFlags {
 			return false;
 		}
 		return this.signature.equals(method.signature);
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		ois.defaultReadObject();
+
+		this.invokedMethods = new HashSet<Method>();
 	}
 
 	@Override

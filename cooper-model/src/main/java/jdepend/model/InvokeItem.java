@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.ParseUtil;
 
 public final class InvokeItem implements Serializable {
@@ -11,6 +12,7 @@ public final class InvokeItem implements Serializable {
 	private static final long serialVersionUID = -5979020781021111806L;
 
 	private String invokeType;
+	private String invokeClassPlace;
 	private String invokeClassName;
 	private String invokeMethodName;
 	private String invokeMethodSignature;
@@ -23,9 +25,11 @@ public final class InvokeItem implements Serializable {
 	private transient Method self;
 	private transient Method method;
 
-	public InvokeItem(String invokeType, String invokeClassName, String invokeMethodName, String invokeMethodSignature) {
+	public InvokeItem(String invokeType, String invokeClassPlace, String invokeClassName, String invokeMethodName,
+			String invokeMethodSignature) {
 		super();
 		this.invokeType = invokeType;
+		this.invokeClassPlace = invokeClassPlace;
 		this.invokeClassName = invokeClassName;
 		this.invokeMethodName = invokeMethodName;
 		this.invokeMethodSignature = invokeMethodSignature;
@@ -34,13 +38,21 @@ public final class InvokeItem implements Serializable {
 	public Method getMethod() {
 		return method;
 	}
-	
+
 	public void setSelf(Method self) {
 		this.self = self;
 	}
 
 	public String getInvokeClassName() {
 		return this.invokeClassName;
+	}
+
+	public String getInvokeClassPlace() {
+		return invokeClassPlace;
+	}
+
+	public void setInvokeClassPlace(String invokeClassPlace) {
+		this.invokeClassPlace = invokeClassPlace;
 	}
 
 	/**
@@ -50,7 +62,8 @@ public final class InvokeItem implements Serializable {
 	 * @return
 	 */
 	public boolean supplyMethod(Map<String, JavaClass> javaClasses) {
-		JavaClass invokeClass = javaClasses.get(this.getInvokeClassName());
+		JavaClass invokeClass = javaClasses.get(CandidateUtil.getId(this.getInvokeClassPlace(),
+				this.getInvokeClassName()));
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {

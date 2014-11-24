@@ -90,8 +90,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 						InputStream is = null;
 						try {
 							is = new ByteArrayInputStream(classData.getContent());
-							JavaClass javaClass = parser.parse(is);
-							javaClass.setPlace(place);
+							JavaClass javaClass = parser.parse(place, is);
 							if (parser.getFilter().accept(javaClass.getPackageName())) {
 								synchronized (javaClasses) {
 									javaClasses.add(javaClass);

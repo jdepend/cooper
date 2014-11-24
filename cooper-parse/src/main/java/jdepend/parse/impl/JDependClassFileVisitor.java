@@ -257,6 +257,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			String info;
 			String[] infos;
 			int pos;
+			String calledPlace;
 			String calledName;
 			String calledPackageName;
 			String calledMethod;
@@ -276,6 +277,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 								callType = infos[0].substring(6);
 								calledName = infos[1].substring(0, pos);
 								calledMethod = infos[1].substring(pos + 1);
+								calledPlace = jClass.getPlace();
 								// 得到包名
 								index = calledName.lastIndexOf(".");
 								if (index > 0) {
@@ -284,7 +286,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 									calledPackageName = JavaPackage.Default;
 								}
 								if (filter.accept(calledPackageName)) {
-									item = new InvokeItem(callType, calledName, calledMethod, infos[2]);
+									item = new InvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
 									method.addInvokeItem(item);
 								}
 							}

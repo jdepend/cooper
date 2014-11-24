@@ -3,6 +3,8 @@ package jdepend.model;
 import java.io.IOException;
 import java.io.Serializable;
 
+import jdepend.model.component.modelconf.CandidateUtil;
+
 /**
  * 两个JavaClass之间的关联项信息
  * 
@@ -24,7 +26,11 @@ public class JavaClassRelationItem implements Serializable {
 
 	private transient JavaClass current = null;// 当前javaClass
 
+	private String dependJavaClassPlace = null;// 序列化和反序列化时使用
+
 	private String dependJavaClass = null;// 序列化和反序列化时使用
+
+	private String currentJavaClassPlace = null;// 序列化和反序列化时使用
 
 	private String currentJavaClass = null;// 序列化和反序列化时使用
 
@@ -97,11 +103,21 @@ public class JavaClassRelationItem implements Serializable {
 		this.currentJavaClass = currentJavaClass;
 	}
 
+	public String getDependJavaClassPlace() {
+		return dependJavaClassPlace;
+	}
+
+	public String getCurrentJavaClassPlace() {
+		return currentJavaClassPlace;
+	}
+
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		if (this.depend != null) {
+			this.dependJavaClassPlace = this.depend.getPlace();
 			this.dependJavaClass = this.depend.getName();
 		}
 		if (this.current != null) {
+			this.currentJavaClassPlace = this.current.getPlace();
 			this.currentJavaClass = this.current.getName();
 		}
 		out.defaultWriteObject();// 先序列化对象
@@ -117,8 +133,14 @@ public class JavaClassRelationItem implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((current == null) ? currentJavaClass.hashCode() : current.getName().hashCode());
-		result = prime * result + ((depend == null) ? dependJavaClass.hashCode() : depend.getName().hashCode());
+		result = prime
+				* result
+				+ ((current == null) ? CandidateUtil.getId(currentJavaClassPlace, currentJavaClass).hashCode()
+						: current.getName().hashCode());
+		result = prime
+				* result
+				+ ((depend == null) ? CandidateUtil.getId(dependJavaClassPlace, dependJavaClass).hashCode() : depend
+						.getName().hashCode());
 		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
@@ -133,6 +155,16 @@ public class JavaClassRelationItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
+		if (currentJavaClassPlace == null) {
+			if (other.currentJavaClassPlace != null)
+				return false;
+		} else if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
+			return false;
+		if (dependJavaClassPlace == null) {
+			if (other.dependJavaClassPlace != null)
+				return false;
+		} else if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
+			return false;
 		if (currentJavaClass == null) {
 			if (other.currentJavaClass != null)
 				return false;
@@ -146,12 +178,12 @@ public class JavaClassRelationItem implements Serializable {
 		if (current == null) {
 			if (other.current != null)
 				return false;
-		} else if (!current.getName().equals(other.current.getName()))
+		} else if (!current.equals(other.current))
 			return false;
 		if (depend == null) {
 			if (other.depend != null)
 				return false;
-		} else if (!depend.getName().equals(other.depend.getName()))
+		} else if (!depend.equals(other.depend))
 			return false;
 		if (direction == null) {
 			if (other.direction != null)

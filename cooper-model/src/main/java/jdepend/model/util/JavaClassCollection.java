@@ -5,15 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.model.JavaClass;
+import jdepend.model.component.modelconf.CandidateUtil;
 
 public class JavaClassCollection {
 
 	private Collection<JavaClass> javaClasses;
+	private Map<String, JavaClass> javaClassesForId;
 	private Map<String, JavaClass> javaClassesForName;
 
 	public JavaClassCollection(Collection<JavaClass> javaClasses) {
 		super();
 		this.javaClasses = javaClasses;
+
+		javaClassesForId = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
+			javaClassesForId.put(javaClass.getId(), javaClass);
+		}
 
 		javaClassesForName = new HashMap<String, JavaClass>();
 		for (JavaClass javaClass : javaClasses) {
@@ -25,11 +32,16 @@ public class JavaClassCollection {
 		return javaClasses;
 	}
 
-	public Map<String, JavaClass> getJavaClassesForName() {
-		return javaClassesForName;
+	public Map<String, JavaClass> getJavaClassesForId() {
+		return javaClassesForId;
 	}
 
-	public JavaClass getTheClassByName(String name) {
-		return this.javaClassesForName.get(name);
+	public JavaClass getTheClass(String place, String name) {
+		JavaClass javaClass = this.javaClassesForId.get(CandidateUtil.getId(place, name));
+		if (javaClass == null) {
+			return this.javaClassesForName.get(name);
+		} else {
+			return javaClass;
+		}
 	}
 }

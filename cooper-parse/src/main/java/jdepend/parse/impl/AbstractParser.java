@@ -67,17 +67,17 @@ public abstract class AbstractParser {
 	 * Registered parser listeners are informed that the resulting
 	 * <code>JavaClass</code> was parsed.
 	 */
-	public final JavaClass parse(InputStream is) throws ParseJDependException {
+	public final JavaClass parse(String place, InputStream is) throws ParseJDependException {
 		JavaClass jClass = null;
 		try {
-			jClass = this.doParse(is);
+			jClass = this.doParse(place, is);
 			return jClass;
 		} finally {
 			this.onParsedJavaClass(jClass);
 		}
 	}
 
-	protected abstract JavaClass doParse(InputStream is) throws ParseJDependException;
+	protected abstract JavaClass doParse(String place, InputStream is) throws ParseJDependException;
 
 	/**
 	 * Informs registered parser listeners that the specified
