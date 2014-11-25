@@ -1,10 +1,8 @@
 ﻿1.2.3_09
 
-a）完善在读取分析结果时按着Id搜索JavaClass和JavaPackage
+a）完善在读取、拷贝分析结果时按着Id搜索JavaClass和JavaPackage
 
-b）修正读取分析结果时，Method bug
 
-c）修正在重构时拷贝JavaClassRelationItem中的bug
 
 1.2.3_08 2014-11-24
 
