@@ -62,7 +62,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Map<String, Component> componentForNames;
 
-	private transient Map<String, JavaClass> javaClassForNames;
+	private transient Map<String, JavaClass> javaClassForIds;
 
 	private transient List<AreaComponent> areaComponents;
 
@@ -115,7 +115,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.data = result.data;
 		this.tableRelationScale = result.tableRelationScale;
 		this.componentForNames = result.componentForNames;
-		this.javaClassForNames = result.javaClassForNames;
+		this.javaClassForIds = result.javaClassForIds;
 		this.methods = result.methods;
 		this.javaClasses = result.javaClasses;
 		this.javaPackages = result.javaPackages;
@@ -144,7 +144,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.componentForNames = null;
 		this.javaClasses = null;
 		this.javaPackages = null;
-		this.javaClassForNames = null;
+		this.javaClassForIds = null;
 	}
 
 	public AnalysisRunningContext getRunningContext() {
@@ -177,13 +177,13 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public synchronized JavaClass getTheClass(String name) {
-		if (javaClassForNames == null) {
-			javaClassForNames = new HashMap<String, JavaClass>();
+		if (javaClassForIds == null) {
+			javaClassForIds = new HashMap<String, JavaClass>();
 			for (JavaClass javaClass : getClasses()) {
-				javaClassForNames.put(javaClass.getName(), javaClass);
+				javaClassForIds.put(javaClass.getId(), javaClass);
 			}
 		}
-		return javaClassForNames.get(name);
+		return javaClassForIds.get(name);
 	}
 
 	public synchronized Collection<Method> getMethods() {
@@ -445,7 +445,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.data = null;
 		this.tableRelationScale = null;
 		this.componentForNames = null;
-		this.javaClassForNames = null;
+		this.javaClassForIds = null;
 		this.methods = null;
 
 		this.clearScore();

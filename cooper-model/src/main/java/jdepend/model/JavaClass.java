@@ -99,6 +99,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private transient Collection<JavaClass> invokeClasses;
 
+	public static final String Place = "JavaClass_Place";
 	public static final String isPrivateElement = "JavaClass_isPrivateElement";
 	public static final String Stable = "JavaClass_Stable";
 	public static final String State = "JavaClass_State";
@@ -1098,7 +1099,12 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	@Override
 	public Object getValue(String metrics) {
-		if (metrics.equals(JavaClass.State)) {
+		if(metrics == null){
+			System.out.print("");
+		}
+		if (metrics.equals(JavaClass.Place)) {
+			return this.getPlace();
+		} else if (metrics.equals(JavaClass.State)) {
 			if (this.isState()) {
 				return MetricsMgr.HaveState;
 			} else {

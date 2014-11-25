@@ -34,6 +34,7 @@ public class ReportConstant {
 
 	public static final String Component_Area = BundleUtil.getString(BundleUtil.Metrics_Area);
 
+	public static final String JavaClass_Place = BundleUtil.getString(BundleUtil.Metrics_Place);
 	public static final String JavaClass_State = BundleUtil.getString(BundleUtil.Metrics_State);
 	public static final String JavaClass_Stable = BundleUtil.getString(BundleUtil.Metrics_Stable);
 	public static final String JavaClass_isPrivateElement = BundleUtil.getString(BundleUtil.Metrics_isPrivateElement);
@@ -113,6 +114,7 @@ public class ReportConstant {
 
 		toMetricses.put(Component_Area, Component.Area);
 
+		toMetricses.put(JavaClass_Place, JavaClass.Place);
 		toMetricses.put(JavaClass_State, JavaClass.State);
 		toMetricses.put(JavaClass_Stable, JavaClass.Stable);
 		toMetricses.put(JavaClass_isPrivateElement, JavaClass.isPrivateElement);

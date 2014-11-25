@@ -34,6 +34,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.report.ui.ClassListPanel.CaCeComparator;
 import jdepend.report.util.ReportConstant;
 import jdepend.report.way.mapui.GraphJDepend;
@@ -149,9 +150,9 @@ public class RelationDetailDialog extends CooperDialog {
 		List<String> selectedJavaClass = new ArrayList<String>();
 		for (JavaClassRelationItem item : this.relation.getItems()) {
 			if (current.isSelected()) {
-				selectedJavaClass.add(item.getCurrent().getName());
+				selectedJavaClass.add(CandidateUtil.getId(item.getCurrent().getPlace(), item.getCurrent().getName()));
 			} else {
-				selectedJavaClass.add(item.getDepend().getName());
+				selectedJavaClass.add(CandidateUtil.getId(item.getDepend().getPlace(), item.getDepend().getName()));
 			}
 		}
 		return selectedJavaClass;
@@ -209,15 +210,20 @@ public class RelationDetailDialog extends CooperDialog {
 			sorter.setTableHeader(classListTable.getTableHeader());
 
 			classListModel.addColumn("是否移动");
+			classListModel.addColumn(ReportConstant.JavaClass_Place);
 			classListModel.addColumn(ReportConstant.Name);
 
 			Object[] row;
 			for (String className : calSelectedJavaClass()) {
-				row = new Object[2];
+				row = new Object[3];
 				row[0] = new Boolean(true);
-				row[1] = className;
+				row[1] = CandidateUtil.getPlace(className);
+				row[2] = CandidateUtil.getName(className);
 				classListModel.addRow(row);
 			}
+
+			classListTable.getColumnModel().getColumn(1).setMinWidth(0);
+			classListTable.getColumnModel().getColumn(1).setMaxWidth(0);
 
 			return new JScrollPane(classListTable);
 		}
@@ -253,7 +259,8 @@ public class RelationDetailDialog extends CooperDialog {
 			Collection<String> moveToClassList = new HashSet<String>();
 			for (int i = 0; i < classListModel.getRowCount(); i++) {
 				if ((Boolean) classListModel.getValueAt(i, 0)) {
-					moveToClassList.add((String) classListModel.getValueAt(i, 1));
+					moveToClassList.add(CandidateUtil.getId((String) classListModel.getValueAt(i, 1),
+							(String) classListModel.getValueAt(i, 2)));
 				}
 			}
 

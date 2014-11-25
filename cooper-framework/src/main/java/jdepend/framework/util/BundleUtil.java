@@ -176,6 +176,7 @@ public class BundleUtil {
 	public static final String Metrics_RelationRationality = "Metrics_RelationRationality";// 关系合理性
 	public static final String Metrics_OO = "Metrics_OO";// 面向对象指数
 
+	public static final String Metrics_Place = "Metrics_Place";
 	public static final String Metrics_Name = "Metrics_Name";
 	public static final String Metrics_Area = "Metrics_Area";
 	public static final String Metrics_Title = "Metrics_Title";

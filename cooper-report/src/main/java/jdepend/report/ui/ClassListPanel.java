@@ -37,6 +37,7 @@ import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.JavaClassComponent;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {
@@ -216,7 +217,7 @@ public class ClassListPanel extends JPanel {
 		TableSorter sorter = new TableSorter(classListModel) {
 			@Override
 			protected Comparator getComparator(int column) {
-				if (column == 4 || column == 5) {
+				if (column == 5 || column == 6) {
 					return new CaCeComparator();
 				} else {
 					return super.getComparator(column);
@@ -232,12 +233,13 @@ public class ClassListPanel extends JPanel {
 				Point p = new Point(e.getX(), e.getY());
 				int col = table.columnAtPoint(p);
 				int row = table.rowAtPoint(p);
-				current = (String) table.getValueAt(row, 0);
+				current = CandidateUtil.getId((String) table.getValueAt(row, 0), (String) table.getValueAt(row, 1));
 				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 
 				selectedJavaClass = new ArrayList<String>();
 				for (int rowNumber : table.getSelectedRows()) {
-					selectedJavaClass.add((String) table.getValueAt(rowNumber, 0));
+					selectedJavaClass.add(CandidateUtil.getId((String) table.getValueAt(rowNumber, 0),
+							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
@@ -291,6 +293,7 @@ public class ClassListPanel extends JPanel {
 
 		sorter.setTableHeader(classListTable.getTableHeader());
 
+		classListModel.addColumn(ReportConstant.JavaClass_Place);
 		classListModel.addColumn(ReportConstant.Name);
 		classListModel.addColumn(ReportConstant.LC);
 		classListModel.addColumn(ReportConstant.CC);
@@ -322,7 +325,10 @@ public class ClassListPanel extends JPanel {
 
 		classListTable.addMouseMotionListener(new TableMouseMotionAdapter(classListTable, colNames));
 
-		sorter.setSortingStatus(0, TableSorter.ASCENDING);
+		sorter.setSortingStatus(1, TableSorter.ASCENDING);
+
+		classListTable.getColumnModel().getColumn(0).setMinWidth(0);
+		classListTable.getColumnModel().getColumn(0).setMaxWidth(0);
 
 		JavaClassTableRenderer renderer = new JavaClassTableRenderer();
 		for (int i = 0; i < classListTable.getColumnCount(); i++) {
@@ -420,10 +426,10 @@ public class ClassListPanel extends JPanel {
 				if (includeInner || !isInner) {
 					row = new Object[listTable.getColumnCount()];
 					for (int i = 0; i < listTable.getColumnCount(); i++) {
-						if (i == 1) {
-							row[1] = item.getType().getName();
-						} else if (i == 2) {
-							row[2] = isInner ? "否" : "是";
+						if (i == 2) {
+							row[2] = item.getType().getName();
+						} else if (i == 3) {
+							row[3] = isInner ? "否" : "是";
 						} else {
 							metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
 							row[i] = item.getDepend().getValue(metrics1);
@@ -450,6 +456,7 @@ public class ClassListPanel extends JPanel {
 
 			sorter.setTableHeader(listTable.getTableHeader());
 
+			listModel.addColumn(ReportConstant.JavaClass_Place);
 			listModel.addColumn(ReportConstant.Name);
 			listModel.addColumn(ReportConstant.DependType);
 			listModel.addColumn(ReportConstant.JavaClass_isExt);
@@ -469,6 +476,9 @@ public class ClassListPanel extends JPanel {
 			listModel.addColumn(ReportConstant.JavaClass_State);
 			listModel.addColumn(ReportConstant.JavaClass_Stable);
 			listModel.addColumn(ReportConstant.JavaClass_isPrivateElement);
+
+			listTable.getColumnModel().getColumn(0).setMinWidth(0);
+			listTable.getColumnModel().getColumn(0).setMaxWidth(0);
 		}
 	}
 
