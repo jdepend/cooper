@@ -29,11 +29,11 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
-import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 
 public final class ChangedElementListDialog extends JDialog {
@@ -73,6 +73,7 @@ public final class ChangedElementListDialog extends JDialog {
 
 		sorter.setTableHeader(listTable.getTableHeader());
 
+		listModel.addColumn("位置");
 		listModel.addColumn("元素名");
 		listModel.addColumn("变动");
 
@@ -127,8 +128,7 @@ public final class ChangedElementListDialog extends JDialog {
 								.getTheGroupComponentModelConf(group);
 						ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 								componentModelConfName);
-						componentModelConf.addComponentConf(componentname.getText(),
-								getComponentLayer(), units);
+						componentModelConf.addComponentConf(componentname.getText(), getComponentLayer(), units);
 						groupComponentModelConf.save();
 						deleteSelectedElements();
 					}
@@ -180,16 +180,17 @@ public final class ChangedElementListDialog extends JDialog {
 		Map<String, String> diffElements = JDependUnitMgr.getInstance().getResult().getDiffElements();
 
 		for (String elementName : diffElements.keySet()) {
-			row = new Object[2];
-			row[0] = elementName;
-			row[1] = diffElements.get(elementName).equals("ADD") ? "新增" : "已删除";
+			row = new Object[3];
+			row[0] = CandidateUtil.getPlace(elementName);
+			row[1] = CandidateUtil.getName(elementName);
+			row[2] = diffElements.get(elementName).equals("ADD") ? "新增" : "已删除";
 			listModel.addRow(row);
 		}
 
-		sorter.setSortingStatus(0, TableSorter.DESCENDING);
+		sorter.setSortingStatus(1, TableSorter.DESCENDING);
 
 		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.Name);
+		fitColNames.add("元素名");
 		JTableUtil.fitTableColumns(listTable, fitColNames);
 
 		this.add(BorderLayout.CENTER, new JScrollPane(listTable));
@@ -211,8 +212,9 @@ public final class ChangedElementListDialog extends JDialog {
 		String elementName = null;
 
 		for (int i = 0; i < rows.length; i++) {
-			elementName = (String) listTable.getValueAt(rows[i], 0);
-			operation = (String) listTable.getValueAt(rows[i], 1);
+			elementName = CandidateUtil.getId((String) listTable.getValueAt(rows[i], 0),
+					(String) listTable.getValueAt(rows[i], 1));
+			operation = (String) listTable.getValueAt(rows[i], 2);
 			if (!selectedElements.containsKey(operation)) {
 				selectedElements.put(operation, new ArrayList<String>());
 			}
@@ -253,7 +255,8 @@ public final class ChangedElementListDialog extends JDialog {
 			elements = this.selectedElements.get("已删除");
 		}
 		for (int row = listModel.getRowCount() - 1; row >= 0; row--) {
-			if (elements.contains(listModel.getValueAt(row, 0))) {
+			if (elements.contains(CandidateUtil.getId((String) listTable.getValueAt(row, 0),
+					(String) listTable.getValueAt(row, 1)))) {
 				listModel.removeRow(row);
 			}
 		}

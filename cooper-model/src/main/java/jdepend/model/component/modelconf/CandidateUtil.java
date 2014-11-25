@@ -5,7 +5,11 @@ public class CandidateUtil {
 	public final static String IDDecollator = "#";
 
 	public final static String getId(String place, String name) {
-		return place + IDDecollator + name;
+		if (place != null) {
+			return place + IDDecollator + name;
+		} else {
+			return name;
+		}
 	}
 
 	public final static String getId(Candidate candidate) {
@@ -13,11 +17,19 @@ public class CandidateUtil {
 	}
 
 	public final static String getPlace(String id) {
-		return id.substring(0, id.indexOf(IDDecollator));
+		if (containPlace(id)) {
+			return id.substring(0, id.indexOf(IDDecollator));
+		} else {
+			return null;
+		}
 	}
 
 	public final static String getName(String id) {
-		return id.substring(id.indexOf(IDDecollator) + 1);
+		if (containPlace(id)) {
+			return id.substring(id.indexOf(IDDecollator) + 1);
+		} else {
+			return id;
+		}
 	}
 
 	public final static boolean containPlace(String id) {
