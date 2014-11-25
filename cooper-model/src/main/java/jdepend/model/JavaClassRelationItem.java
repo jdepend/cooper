@@ -111,6 +111,29 @@ public class JavaClassRelationItem implements Serializable {
 		return currentJavaClassPlace;
 	}
 
+	public void setDependJavaClassPlace(String dependJavaClassPlace) {
+		this.dependJavaClassPlace = dependJavaClassPlace;
+	}
+
+	public void setCurrentJavaClassPlace(String currentJavaClassPlace) {
+		this.currentJavaClassPlace = currentJavaClassPlace;
+	}
+
+	public JavaClassRelationItem clone() {
+		JavaClassRelationItem newItem = new JavaClassRelationItem();
+
+		newItem.direction = this.direction;
+		newItem.type = this.type;
+
+		newItem.currentJavaClassPlace = this.currentJavaClassPlace;
+		newItem.currentJavaClass = this.currentJavaClass;
+
+		newItem.dependJavaClassPlace = this.dependJavaClassPlace;
+		newItem.dependJavaClass = this.dependJavaClass;
+
+		return newItem;
+	}
+
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		if (this.depend != null) {
 			this.dependJavaClassPlace = this.depend.getPlace();

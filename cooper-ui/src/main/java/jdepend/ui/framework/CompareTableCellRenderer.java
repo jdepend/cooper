@@ -1,6 +1,5 @@
 package jdepend.ui.framework;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;

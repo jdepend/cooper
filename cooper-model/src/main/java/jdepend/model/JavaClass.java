@@ -746,7 +746,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
 		if (!this.getComponent().getContainsCycle()) {
-			return NoCycle;//当类所在的组件不存在循环依赖时，类也不会存在循环依赖
+			return NoCycle;// 当类所在的组件不存在循环依赖时，类也不会存在循环依赖
 		}
 
 		if (list.size() > 20) {
@@ -934,13 +934,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		obj.setDetail(targetDetail);
 
 		for (JavaClassRelationItem item : this.getCaItems()) {
-			JavaClassRelationItem newItem = new JavaClassRelationItem();
-
-			newItem.setDirection(item.getDirection());
-			newItem.setType(item.getType());
-
-			newItem.setCurrentJavaClass(item.getCurrent().getName());
-			newItem.setDependJavaClass(item.getDepend().getName());
+			JavaClassRelationItem newItem = item.clone();
 
 			if (!obj.caItems.contains(newItem)) {
 				obj.caItems.add(newItem);
@@ -948,13 +942,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		}
 
 		for (JavaClassRelationItem item : this.getCeItems()) {
-			JavaClassRelationItem newItem = new JavaClassRelationItem();
-
-			newItem.setDirection(item.getDirection());
-			newItem.setType(item.getType());
-
-			newItem.setCurrentJavaClass(item.getCurrent().getName());
-			newItem.setDependJavaClass(item.getDepend().getName());
+			JavaClassRelationItem newItem = item.clone();
 
 			if (!obj.ceItems.contains(newItem)) {
 				obj.ceItems.add(newItem);

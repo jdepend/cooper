@@ -50,7 +50,7 @@ import jdepend.util.refactor.CompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
 /**
- * 小结窗口
+ * 组件列表
  * 
  * @author wangdg
  * 

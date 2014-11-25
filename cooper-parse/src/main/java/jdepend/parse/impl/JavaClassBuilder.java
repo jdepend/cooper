@@ -54,7 +54,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 			// 补充JavaClassDetail信息
 			if (this.isSupplyJavaClassDetail()) {
 				LogUtil.getInstance(JavaClassBuilder.class).systemLog(
-						"开始填充Class细节，Class的个数为：" + this.getJavaClasses().size());
+						"开始填充Class细节，Class的个数为：" + this.javaClasses.size());
 				JavaClassUtil.supplyJavaClassDetail(new JavaClassCollection(this.javaClasses));
 			}
 			// 添加外部classes
@@ -62,12 +62,12 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 			// 建立Class的关系
 			if (this.isBuildClassRelation()) {
 				LogUtil.getInstance(JavaClassBuilder.class).systemLog("开始建立Class的关系");
-				(new JavaClassRelationCreator(this.getConf())).create(this.javaClasses);
+				(new JavaClassRelationCreator(this.getConf())).create(new JavaClassCollection(this.javaClasses));
 			}
 			// 发出事件
-			this.onClassBuild(this.getJavaClasses());
+			this.onClassBuild(this.javaClasses);
 		}
-		return this.getJavaClasses();
+		return this.javaClasses;
 	}
 
 	private void parseConfigs(Map<String, List<TargetFileInfo>> configs) {
@@ -136,9 +136,5 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	public void setWriter(PrintWriter writer) {
 		this.parser.setWriter(writer);
 
-	}
-
-	private Collection<JavaClass> getJavaClasses() {
-		return this.javaClasses;
 	}
 }
