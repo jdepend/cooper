@@ -2,7 +2,7 @@
 
 a）完善在读取、拷贝分析结果时按着Id搜索JavaClass和JavaPackage
 
-
+b）将类列表中定位组件的逻辑由name改为id
 
 1.2.3_08 2014-11-24
 
