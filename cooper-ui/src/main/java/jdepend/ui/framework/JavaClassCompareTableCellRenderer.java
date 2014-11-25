@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import jdepend.model.JavaClass;
 import jdepend.model.Measurable;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.refactor.CompareObject;
 
@@ -27,7 +28,8 @@ public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer 
 		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		if (this.getComponentCount() > 0) {
 			Component component = this.getComponent(0);
-			if (extendUnits.contains(table.getValueAt(row, 0))) {
+			if (extendUnits.contains(CandidateUtil.getId((String) table.getValueAt(row, 0),
+					(String) table.getValueAt(row, 1)))) {
 				component.setForeground(Color.GRAY);
 			}
 		}
@@ -68,4 +70,10 @@ public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer 
 
 		};
 	}
+
+	@Override
+	protected String getRowObjectId(JTable table, int row) {
+		return CandidateUtil.getId((String) table.getValueAt(row, 0), (String) table.getValueAt(row, 1));
+	}
+
 }

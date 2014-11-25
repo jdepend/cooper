@@ -153,7 +153,7 @@ public class ClassListPanel extends JPanel {
 				}
 				classListModel.addRow(row);
 				if (!javaClass.isInner()) {
-					this.extendUnits.add(javaClass.getName());
+					this.extendUnits.add(javaClass.getId());
 				}
 			}
 		}
@@ -179,7 +179,7 @@ public class ClassListPanel extends JPanel {
 					}
 					classListModel.addRow(row);
 					if (!javaClass.isInner()) {
-						this.extendUnits.add(javaClass.getName());
+						this.extendUnits.add(javaClass.getId());
 					}
 				}
 			}
@@ -497,7 +497,8 @@ public class ClassListPanel extends JPanel {
 				JLabel labelValue = new JLabel();
 
 				labelValue.setFont(table.getFont());
-				if (extendUnits.contains(table.getValueAt(row, 0))) {
+				if (extendUnits.contains(CandidateUtil.getId((String) table.getValueAt(row, 0),
+						(String) table.getValueAt(row, 1)))) {
 					labelValue.setForeground(Color.GRAY);
 				}
 
