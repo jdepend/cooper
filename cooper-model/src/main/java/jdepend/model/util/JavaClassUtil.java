@@ -62,16 +62,6 @@ public class JavaClassUtil {
 		return javaClasses;
 	}
 
-	public static Map<String, JavaClass> getMapClasses(Collection<Component> units) {
-		Map<String, JavaClass> javaClasses = new HashMap<String, JavaClass>();
-		for (JDependUnit unit : units) {
-			for (JavaClass javaClass : unit.getClasses()) {
-				javaClasses.put(javaClass.getName(), javaClass);
-			}
-		}
-		return javaClasses;
-	}
-
 	public static Collection<JavaClass> getClassesForJavaPackages(Collection<JavaPackage> javaPackages) {
 		Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
 		for (JavaPackage javaPackage : javaPackages) {

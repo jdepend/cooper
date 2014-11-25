@@ -20,7 +20,6 @@ import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
-import jdepend.model.result.AnalysisRunningContextMgr;
 import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
@@ -205,8 +204,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 		context.setClient(AnalyseContextMgr.getContext().getClient());
 		context.setUserName(AnalyseContextMgr.getContext().getUserName());
-
-		AnalysisRunningContextMgr.setContext(context);
 
 		return context;
 	}
