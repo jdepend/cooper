@@ -110,7 +110,7 @@ public final class CalculateMetricsTool {
 					privates += 1;
 				}
 			}
-			return privates * 1F / this.unit.getClasses().size();
+			return privates * 1F / this.unit.getClassCount();
 		}
 	}
 

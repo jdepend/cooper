@@ -50,7 +50,7 @@ public class WorkspaceSettingDialog extends JDialog {
 		this.args = args;
 
 		getContentPane().setLayout(new BorderLayout());
-		setSize(580, 100);
+		setSize(580, 115);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		addWindowListener(new WindowAdapter() {
