@@ -48,6 +48,9 @@ public final class ChangedElementListDialog extends JDialog {
 
 	private Map<String, ArrayList<String>> selectedElements;
 
+	private static final String NEW = "新增";
+	private static final String DELETED = "已删除";
+
 	public ChangedElementListDialog(JDependCooper frame) {
 
 		this.setTitle("元素变动列表");
@@ -82,11 +85,11 @@ public final class ChangedElementListDialog extends JDialog {
 		JMenuItem viewClassItem = new JMenuItem("查看类列表");
 		viewClassItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedElements.size() != 1 && selectedElements.get("新增").size() != 1) {
+				if (selectedElements.size() != 1 && selectedElements.get(NEW).size() != 1) {
 					JOptionPane.showMessageDialog(null, "请选择一个包", "alert", JOptionPane.ERROR_MESSAGE);
 					return;
 				} else {
-					String javaPackageName = selectedElements.get("新增").get(0);
+					String javaPackageName = selectedElements.get(NEW).get(0);
 					JavaPackage javaPackage = JDependUnitMgr.getInstance().getResult().getRunningContext()
 							.getThePackage(javaPackageName);
 					ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
@@ -104,7 +107,7 @@ public final class ChangedElementListDialog extends JDialog {
 						.getTheGroupComponentModelConf(group);
 				ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 						componentModelConfName);
-				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedElements.get("新增"),
+				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedElements.get(NEW),
 						componentModelConf) {
 					@Override
 					protected void doService() throws JDependException {
@@ -121,7 +124,7 @@ public final class ChangedElementListDialog extends JDialog {
 		JMenuItem createItem = new JMenuItem("创建新组件");
 		createItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateComponentConfDialog d = new CreateComponentConfDialog(selectedElements.get("新增"), false) {
+				CreateComponentConfDialog d = new CreateComponentConfDialog(selectedElements.get(NEW), false) {
 					@Override
 					protected void doService(ActionEvent e) throws JDependException {
 						GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
@@ -161,7 +164,7 @@ public final class ChangedElementListDialog extends JDialog {
 					try {
 						selectedElements = collect();
 						if (selectedElements.size() > 0) {
-							if (selectedElements.containsKey("新增")) {
+							if (selectedElements.containsKey(NEW)) {
 								addPopupMenu.show(table, e.getX(), e.getY());
 							} else {
 								deletePopupMenu.show(table, e.getX(), e.getY());
@@ -183,7 +186,7 @@ public final class ChangedElementListDialog extends JDialog {
 			row = new Object[3];
 			row[0] = CandidateUtil.getPlace(elementName);
 			row[1] = CandidateUtil.getName(elementName);
-			row[2] = diffElements.get(elementName).equals("ADD") ? "新增" : "已删除";
+			row[2] = diffElements.get(elementName).equals(ComponentModelConf.ADD) ? NEW : DELETED;
 			listModel.addRow(row);
 		}
 
@@ -233,7 +236,7 @@ public final class ChangedElementListDialog extends JDialog {
 		ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
 				componentModelConfName);
 
-		ArrayList<String> deletePackages = this.selectedElements.get("已删除");
+		ArrayList<String> deletePackages = this.selectedElements.get(DELETED);
 		for (ComponentConf componentConf : componentModelConf.getComponentConfs()) {
 			Iterator<String> it = componentConf.getItemIds().iterator();
 			while (it.hasNext()) {
@@ -249,10 +252,10 @@ public final class ChangedElementListDialog extends JDialog {
 
 	private void deleteSelectedElements() {
 		List<String> elements;
-		if (this.selectedElements.containsKey("新增")) {
-			elements = this.selectedElements.get("新增");
+		if (this.selectedElements.containsKey(NEW)) {
+			elements = this.selectedElements.get(NEW);
 		} else {
-			elements = this.selectedElements.get("已删除");
+			elements = this.selectedElements.get(DELETED);
 		}
 		for (int row = listModel.getRowCount() - 1; row >= 0; row--) {
 			if (elements.contains(CandidateUtil.getId((String) listTable.getValueAt(row, 0),

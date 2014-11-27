@@ -31,6 +31,9 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 
 	public final static String ComponentModelType_Package = "package";
 	public final static String ComponentModelType_Class = "class";
+	
+	public final static String ADD = "ADD";
+	public final static String DELETE = "DELETE";
 
 	public ComponentModelConf() {
 
@@ -179,13 +182,13 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		for (String runItem : runItems) {
 			if (!containItems.contains(runItem) && !ignoreItems.contains(runItem)) {
 				if (candidateForId.get(runItem).isInner()) {
-					diffElements.put(runItem, "ADD");
+					diffElements.put(runItem, ADD);
 				}
 			}
 		}
 		for (String containItem : containItems) {
 			if (!runItems.contains(containItem)) {
-				diffElements.put(containItem, "DELETE");
+				diffElements.put(containItem, DELETE);
 			}
 		}
 
