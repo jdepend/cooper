@@ -379,9 +379,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				ClassListDialog d = new ClassListDialog(frame);
-				d.setModal(true);
-				d.setVisible(true);
+				frame.getResultPanel().setTab(2, 0);
 			}
 		});
 		panel.add(valuePanel);
