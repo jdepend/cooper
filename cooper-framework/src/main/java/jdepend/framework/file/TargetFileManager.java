@@ -108,7 +108,7 @@ public class TargetFileManager extends FileReader implements AcceptFile {
 					in.close();
 
 					for (TargetFileInfo targetFileInfo2 : targetFileInfos2) {
-						data.addFileInfo(file.getName(), targetFileInfo2);
+						data.addFileInfo(file.getAbsolutePath(), targetFileInfo2);
 					}
 				} else {
 					throw new IOException("File is not a valid " + ".class, .jar, .war, .dll, or .zip file: "
