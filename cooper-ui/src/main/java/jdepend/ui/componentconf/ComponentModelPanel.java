@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -155,9 +157,10 @@ public class ComponentModelPanel extends JPanel {
 
 		JCheckBox candidateType = new JCheckBox(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageModel));
 		candidateType.setSelected(true);
-		candidateType.addChangeListener(new ChangeListener() {
+
+		candidateType.addItemListener(new ItemListener() {
 			@Override
-			public void stateChanged(ChangeEvent event) {
+			public void itemStateChanged(ItemEvent event) {
 				if (((JCheckBox) event.getSource()).isSelected()) {
 					componentModelConf = new JavaPackageComponentModelConf();
 				} else {
@@ -168,6 +171,7 @@ public class ComponentModelPanel extends JPanel {
 				}
 				candidateTable.loadCandidateList();
 				refreshComponentList();
+
 			}
 		});
 		contentPanel.add(candidateType);
@@ -523,8 +527,8 @@ public class ComponentModelPanel extends JPanel {
 
 		List<String> ignorePackages = new ArrayList<String>();
 		for (Candidate javaPackage : candidateTable.getCandidates()) {
-			if (!containItems.contains(javaPackage.getName()) && javaPackage.isInner()) {
-				ignorePackages.add(javaPackage.getName());
+			if (!containItems.contains(javaPackage.getId()) && javaPackage.isInner()) {
+				ignorePackages.add(javaPackage.getId());
 			}
 		}
 		return ignorePackages;

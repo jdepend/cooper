@@ -3,6 +3,7 @@ package jdepend.ui.componentconf;
 import java.util.List;
 
 import jdepend.model.Component;
+import jdepend.model.component.modelconf.CandidateUtil;
 
 /**
  * 用于创建组件配置的弹出窗口基类
@@ -23,7 +24,8 @@ public abstract class CreateComponentConfDialog extends ComponentConfDialog {
 		this(units);
 
 		if (units.size() > 0) {
-			componentname.setText(Component.getDefaultComponentName(units, isFullComponentName));
+			componentname
+					.setText(Component.getDefaultComponentName(CandidateUtil.getNames(units), isFullComponentName));
 		}
 	}
 }

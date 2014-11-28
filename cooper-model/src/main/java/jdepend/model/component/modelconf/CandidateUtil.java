@@ -1,5 +1,8 @@
 package jdepend.model.component.modelconf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CandidateUtil {
 
 	public final static String IDDecollator = "#";
@@ -30,6 +33,15 @@ public class CandidateUtil {
 		} else {
 			return id;
 		}
+	}
+
+	public final static List<String> getNames(List<String> ids) {
+
+		List<String> names = new ArrayList<String>();
+		for (String id : ids) {
+			names.add(getName(id));
+		}
+		return names;
 	}
 
 	public final static boolean containPlace(String id) {
