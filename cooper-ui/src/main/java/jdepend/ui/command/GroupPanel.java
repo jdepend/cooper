@@ -225,7 +225,7 @@ public class GroupPanel extends JPanel {
 			}
 			UIPropertyConfigurator.getInstance().setGroupIndex(index);
 		} else {
-			JLabel tip = new JLabel("右键选择“使用向导增加组”");
+			JLabel tip = new JLabel("右键选择“增加组”");
 			JPanel content = new JPanel(new BorderLayout());
 			content.add(BorderLayout.CENTER, tip);
 			content.setBackground(new Color(255, 255, 255));

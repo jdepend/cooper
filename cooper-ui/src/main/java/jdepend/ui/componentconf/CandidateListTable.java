@@ -278,7 +278,7 @@ public class CandidateListTable extends JTable {
 		List<String> matchCandidateList = new ArrayList<String>();
 
 		for (String candidateId : this.currentCandidateList) {
-			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, candidateId);
+			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, CandidateUtil.getName(candidateId));
 			filterExtResult = filterExtSetting ? this.candidateForIds.get(candidateId).isInner() ? true : false : true;
 			if (filterString && filterExtResult) {
 				matchCandidateList.add(candidateId);
