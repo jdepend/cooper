@@ -205,7 +205,7 @@ public class MainMenuControl extends ControlAdapter {
 			isVisible = false;
 			L: while (it.hasNext()) {
 				eitem = (EdgeItem) it.next();
-				if (eitem.isVisible()) {
+				if (eitem.getStrokeColor() != ColorLib.rgb(100, 200, 200)) {
 					isVisible = true;
 					break L;
 				}
