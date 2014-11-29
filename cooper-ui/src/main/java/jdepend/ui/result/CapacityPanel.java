@@ -21,8 +21,16 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.knowledge.capacity.Capacity;
 import jdepend.knowledge.capacity.CapacityMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.ui.JDependCooper;
 
 public final class CapacityPanel extends SubResultTabPanel {
+
+	private JDependCooper frame;
+
+	public CapacityPanel(JDependCooper frame) {
+		super();
+		this.frame = frame;
+	}
 
 	@Override
 	protected void init(final AnalysisResult result) {
@@ -33,31 +41,24 @@ public final class CapacityPanel extends SubResultTabPanel {
 		final Capacity capacity = CapacityMgr.getInstance().getCapacity(result);
 
 		JPanel capacityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		capacityPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_Capacity)));
+		capacityPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Capacity)));
 		capacityPanel.setBackground(new java.awt.Color(255, 255, 255));
 
 		JLabel capacityLabel = new JLabel();
 		capacityLabel.setFont(new java.awt.Font("宋体", 1, 18));
-		capacityLabel.setText(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_Score)
-				+ ":"
-				+ capacity.getLevel());
+		capacityLabel.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":" + capacity.getLevel());
 
 		capacityPanel.add(capacityLabel);
 
 		this.add(BorderLayout.NORTH, capacityPanel);
 
 		JPanel complexityPanel = new JPanel(new GridLayout(2, 1));
-		complexityPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_Complexity)));
+		complexityPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Complexity)));
 		complexityPanel.setBackground(new java.awt.Color(255, 255, 255));
 
 		JLabel complexityLabel = new JLabel();
 		complexityLabel.setFont(new java.awt.Font("宋体", 1, 18));
-		complexityLabel.setText(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_Value)
-				+ ":"
+		complexityLabel.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Value) + ":"
 				+ capacity.getComplexity().getValue() + "                ");
 		complexityPanel.add(complexityLabel);
 
@@ -65,22 +66,17 @@ public final class CapacityPanel extends SubResultTabPanel {
 		JPanel complexityWPanel = new JPanel(gLayout);
 		complexityWPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel relationsLabel = new JLabel();
-		relationsLabel.setText(BundleUtil
-				.getString(BundleUtil.Metrics_RelationCount)
-				+ ":"
+		relationsLabel.setText(BundleUtil.getString(BundleUtil.Metrics_RelationCount) + ":"
 				+ capacity.getComplexity().getRelations());
 		complexityWPanel.add(relationsLabel);
 
 		JLabel componentsLabel = new JLabel();
-		componentsLabel.setText(BundleUtil
-				.getString(BundleUtil.Metrics_ComponentCount)
-				+ ":"
+		componentsLabel.setText(BundleUtil.getString(BundleUtil.Metrics_ComponentCount) + ":"
 				+ capacity.getComplexity().getComponents());
 		complexityWPanel.add(componentsLabel);
 
 		JLabel classesLabel = new JLabel();
-		classesLabel.setText(BundleUtil.getString(BundleUtil.Metrics_CN) + ":"
-				+ capacity.getComplexity().getClasses());
+		classesLabel.setText(BundleUtil.getString(BundleUtil.Metrics_CN) + ":" + capacity.getComplexity().getClasses());
 		complexityWPanel.add(classesLabel);
 
 		complexityPanel.add(complexityWPanel);
@@ -88,15 +84,12 @@ public final class CapacityPanel extends SubResultTabPanel {
 		this.add(BorderLayout.WEST, complexityPanel);
 
 		JPanel skillPanel = new JPanel(new BorderLayout());
-		skillPanel.setBorder(new TitledBorder(BundleUtil
-				.getString(BundleUtil.Metrics_Skill)));
+		skillPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_Skill)));
 		skillPanel.setBackground(new java.awt.Color(255, 255, 255));
 
 		JLabel skillLabel = new JLabel();
 		skillLabel.setFont(new java.awt.Font("宋体", 1, 18));
-		skillLabel.setText(BundleUtil
-				.getString(BundleUtil.ClientWin_ScorePanel_Score)
-				+ ":"
+		skillLabel.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":"
 				+ capacity.getSkill().getLevel());
 		skillPanel.add(BorderLayout.NORTH, skillLabel);
 
@@ -112,15 +105,12 @@ public final class CapacityPanel extends SubResultTabPanel {
 		JPanel panel;
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
-		panel.add(new JLabel(BundleUtil
-				.getString(BundleUtil.Metrics_PatternCount) + ":"));
+		panel.add(new JLabel(BundleUtil.getString(BundleUtil.Metrics_PatternCount) + ":"));
 		JLabel valuePanel = new JLabel("" + capacity.getSkill().getPatterns());
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				PatternListDialog d = new PatternListDialog(result);
-				d.setModal(true);
-				d.setVisible(true);
+				frame.getResultPanel().setTab(2, 2);
 			}
 		});
 		panel.add(valuePanel);
@@ -129,23 +119,18 @@ public final class CapacityPanel extends SubResultTabPanel {
 		JLabel itemLabel;
 
 		itemLabel = new JLabel();
-		itemLabel.setText(BundleUtil
-				.getString(BundleUtil.Metrics_AverageClassSize)
-				+ ":"
+		itemLabel.setText(BundleUtil.getString(BundleUtil.Metrics_AverageClassSize) + ":"
 				+ capacity.getSkill().getClassSize());
 		skillLPanel.add(itemLabel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel("超过500行类的比例："));
-		valuePanel = new JLabel(""
-				+ MetricsFormat.toFormattedPercent(capacity.getSkill()
-						.getBigClassScale()));
+		valuePanel = new JLabel("" + MetricsFormat.toFormattedPercent(capacity.getSkill().getBigClassScale()));
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				BigClassDialog d = new BigClassDialog(capacity.getSkill()
-						.getBigClasses());
+				BigClassDialog d = new BigClassDialog(capacity.getSkill().getBigClasses());
 				d.setModal(true);
 				d.setVisible(true);
 			}
@@ -156,14 +141,11 @@ public final class CapacityPanel extends SubResultTabPanel {
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel("超过6个参数的方法的比例："));
-		valuePanel = new JLabel(""
-				+ MetricsFormat.toFormattedPercent(capacity.getSkill()
-						.getBigArgumentMethodScale()));
+		valuePanel = new JLabel("" + MetricsFormat.toFormattedPercent(capacity.getSkill().getBigArgumentMethodScale()));
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				BigArgumentMethodDialog d = new BigArgumentMethodDialog(
-						capacity.getSkill().getBigArgumentMethods());
+				BigArgumentMethodDialog d = new BigArgumentMethodDialog(capacity.getSkill().getBigArgumentMethods());
 				d.setModal(true);
 				d.setVisible(true);
 			}
@@ -174,14 +156,11 @@ public final class CapacityPanel extends SubResultTabPanel {
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
 		panel.add(new JLabel("超过200行的方法的比例："));
-		valuePanel = new JLabel(""
-				+ MetricsFormat.toFormattedPercent(capacity.getSkill()
-						.getBigLineCountMethodScale()));
+		valuePanel = new JLabel("" + MetricsFormat.toFormattedPercent(capacity.getSkill().getBigLineCountMethodScale()));
 		JDependUIUtil.addClickTipEffect(valuePanel);
 		valuePanel.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				BigLineCountMethodDialog d = new BigLineCountMethodDialog(
-						capacity.getSkill().getBigLineCountMethods());
+				BigLineCountMethodDialog d = new BigLineCountMethodDialog(capacity.getSkill().getBigLineCountMethods());
 				d.setModal(true);
 				d.setVisible(true);
 			}
@@ -192,8 +171,7 @@ public final class CapacityPanel extends SubResultTabPanel {
 		skillWPanel.add(skillLPanel);
 
 		try {
-			skillWPanel.add(createClassRelations(capacity.getSkill()
-					.getClassRelations()));
+			skillWPanel.add(createClassRelations(capacity.getSkill().getClassRelations()));
 		} catch (JDependException e) {
 			e.printStackTrace();
 		}
@@ -204,8 +182,7 @@ public final class CapacityPanel extends SubResultTabPanel {
 
 	}
 
-	private JComponent createClassRelations(Map<Object, Object> data)
-			throws JDependException {
+	private JComponent createClassRelations(Map<Object, Object> data) throws JDependException {
 
 		GraphData graphData = new GraphData();
 		GraphDataItem item = new GraphDataItem();
@@ -213,7 +190,7 @@ public final class CapacityPanel extends SubResultTabPanel {
 		item.setType(GraphDataItem.PIE);
 		item.setDatas(data);
 		graphData.addItem(item);
-		
+
 		GraphUtil.getInstance().setAddJScrollPane(false);
 
 		return GraphUtil.getInstance().createGraph(graphData);
