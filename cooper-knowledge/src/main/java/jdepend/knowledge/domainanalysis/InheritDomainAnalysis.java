@@ -22,7 +22,7 @@ public final class InheritDomainAnalysis extends AbstractDomainAnalysis {
 	private int allTreeMinDeep = 3;// 整个继承关系中的最小深度
 
 	public InheritDomainAnalysis() {
-		super("继承关系领域分析", "用于对继承树结构进行建议");
+		super("继承关系领域分析器", "用于对继承树结构进行建议");
 	}
 
 	protected AdviseInfo doAdvise(String name, AnalysisResult result) {

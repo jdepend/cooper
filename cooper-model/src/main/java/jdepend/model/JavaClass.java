@@ -634,9 +634,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.ceItems) {
 			if (!this.component.containsClass(relationItem.getDepend())) {
-				if (!relationItem.getDepend().isStable()) {
-					intensity += relationItem.getRelationIntensity();
-				}
+				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		return intensity;
@@ -1099,7 +1097,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	@Override
 	public Object getValue(String metrics) {
-		if(metrics == null){
+		if (metrics == null) {
 			System.out.print("");
 		}
 		if (metrics.equals(JavaClass.Place)) {
