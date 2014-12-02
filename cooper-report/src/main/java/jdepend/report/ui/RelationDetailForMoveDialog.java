@@ -26,6 +26,7 @@ public class RelationDetailForMoveDialog extends CooperDialog {
 
 		RelationData relationData = new RelationData(relation);
 		relationData.init();
+		relationData.appendRelations();
 		this.add(new GraphPanel(this.frame, this, relationData.getRelations()));
 	}
 

@@ -292,6 +292,10 @@ public abstract class Component extends AbstractJDependUnit {
 		return this.efferents;
 	}
 
+	public boolean isRelation(Component component) {
+		return this.getEfferents().contains(component) || this.getAfferents().contains(component);
+	}
+
 	@Override
 	public RelationDetail ceCouplingDetail(JDependUnit dependUnit) {
 
@@ -597,7 +601,7 @@ public abstract class Component extends AbstractJDependUnit {
 						((Component) list.get(index)).setCycles(list);
 					}
 					return Cycle;
-				} 
+				}
 			}
 		}
 

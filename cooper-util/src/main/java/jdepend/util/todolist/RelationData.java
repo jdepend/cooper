@@ -31,6 +31,8 @@ public class RelationData {
 
 	private boolean inited = false;
 
+	private boolean appendRelations = false;
+
 	public RelationData(Relation relation) {
 		this.relation = relation;
 	}
@@ -72,23 +74,6 @@ public class RelationData {
 			RelationCreator relationCreator = new RelationCreator();
 			relations = relationCreator.create(components);
 
-			// 创建本关系与其他组件之间的关系
-			Collection<Component> selfComponents = new ArrayList<Component>();
-			selfComponents.add(current);
-			selfComponents.add(depend);
-
-			Collection<Component> otherComponents = new ArrayList<Component>();
-			Component otherComponent;
-			for (Component component : JDependUnitMgr.getInstance().getResult().getComponents()) {
-				if (!component.equals(relation.getCurrent().getComponent())
-						&& !component.equals(relation.getDepend().getComponent())) {
-					otherComponent = new VirtualComponent(component);
-					otherComponents.add(otherComponent);
-				}
-			}
-			relations.addAll(relationCreator.create(selfComponents, otherComponents));
-			relations.addAll(relationCreator.create(otherComponents, selfComponents));
-
 			// 获得关系强度
 			this.currentCeIntensity = current.ceCouplingDetail(currentOther).getIntensity();
 			this.currentCaIntensity = current.caCouplingDetail(currentOther).getIntensity();
@@ -97,6 +82,41 @@ public class RelationData {
 			this.dependCaIntensity = depend.caCouplingDetail(dependOther).getIntensity();
 
 			this.inited = true;
+		}
+	}
+
+	/**
+	 * 创建本关系与其他组件之间的关系
+	 */
+	public void appendRelations() {
+		if (!this.appendRelations) {
+			Collection<Component> selfComponents = new ArrayList<Component>();
+			selfComponents.add(current);
+			selfComponents.add(depend);
+
+			Collection<Component> caComponents = new ArrayList<Component>();
+			Collection<Component> ceComponents = new ArrayList<Component>();
+			Component otherComponent;
+			for (Component component : JDependUnitMgr.getInstance().getResult().getComponents()) {
+				if (!component.equals(relation.getCurrent().getComponent())
+						&& !component.equals(relation.getDepend().getComponent())) {
+					if (relation.getCurrent().getComponent().getEfferents().contains(component)
+							|| relation.getDepend().getComponent().getEfferents().contains(component)) {
+						otherComponent = new VirtualComponent(component);
+						ceComponents.add(otherComponent);
+					} else if (relation.getCurrent().getComponent().getAfferents().contains(component)
+							|| relation.getDepend().getComponent().getAfferents().contains(component)) {
+						otherComponent = new VirtualComponent(component);
+						caComponents.add(otherComponent);
+					}
+				}
+			}
+
+			RelationCreator relationCreator = new RelationCreator();
+			relations.addAll(relationCreator.create(selfComponents, ceComponents));
+			relations.addAll(relationCreator.create(caComponents, selfComponents));
+
+			this.appendRelations = true;
 		}
 	}
 

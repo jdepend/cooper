@@ -29,10 +29,22 @@ public class TODOListIdentify {
 		list = new ArrayList<TODOItem>();
 		this.result = result;
 		if (this.result != null) {
+			long start = System.currentTimeMillis();
 			this.identifyMoveJavaClass();
+			LogUtil.getInstance(TODOListIdentify.class).systemLog(
+					"identifyMoveJavaClass [" + (System.currentTimeMillis() - start) + "]");
+			start = System.currentTimeMillis();
 			this.identifyUniteComponent();
+			LogUtil.getInstance(TODOListIdentify.class).systemLog(
+					"identifyUniteComponent [" + (System.currentTimeMillis() - start) + "]");
+			start = System.currentTimeMillis();
 			this.identifySplitCompoent();
+			LogUtil.getInstance(TODOListIdentify.class).systemLog(
+					"identifySplitCompoent [" + (System.currentTimeMillis() - start) + "]");
+			start = System.currentTimeMillis();
 			this.identifyAdjustAbstract();
+			LogUtil.getInstance(TODOListIdentify.class).systemLog(
+					"identifyAdjustAbstract [" + (System.currentTimeMillis() - start) + "]");
 		}
 		// 按Order排序
 		Collections.sort(list);
