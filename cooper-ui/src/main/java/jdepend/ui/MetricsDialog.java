@@ -84,11 +84,11 @@ public final class MetricsDialog extends JDialog {
 		
 		content.append("指标分成基本指标和计算指标。\n\n");
 
-		content.append("	基本指标比较简单：\n");
+		content.append("基本指标比较简单：\n\n");
 		
 		content.append("	CN 是分析单元含有的JavaClass的总数；CC是具体类个数；AC是抽象类和接口的个数；PC私有类数量；SC 稳定类数量；Ca是有多少个别的单元依赖我；Ce是我依赖了多少个别的单元。\n\n");
 
-		content.append("计算指标包括：\n");
+		content.append("计算指标包括：\n\n");
 
 		content.append("	A=AC/CN,是抽象类和接口的比例，表达了这个分析单元的抽象程度。越大越抽象。\n");
 		
