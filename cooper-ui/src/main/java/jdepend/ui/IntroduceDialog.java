@@ -78,27 +78,19 @@ public final class IntroduceDialog extends JDialog {
 
 	private String getIntroduce() {
 		StringBuilder content = new StringBuilder();
-		content.append("Cooper可以对您的代码（class文件夹或jar文件）按着您定义的逻辑单元进行依赖关系的分析，并可以由您定义依赖关系的类型、强度。一些显而易见的功能，如：\n");
+		content.append("Cooper是软件架构师用于查看、评价和改进软件程序结构的工具。\n");
 
-		content.append("它可以分析出您的代码中Action直接调用Dao的地方；\n");
+		content.append("产品特性：\n");
 
-		content.append("它可以分析出您的代码中Dao反向调用Service的地方；\n");
+		content.append("采用一套遵从业界认可的设计原则而形成的模型来度量程序结构的质量。\n");
 
-		content.append("它可以分析出您的代码中Util类（全部是static方法）作为类属性使用的反常地方；\n");
+		content.append("以图形化的方式直观地展示程序结构中的问题。\n");
 
-		content.append("它可以分析出您的代码中ActionForm出现在了Dao中；\n");
+		content.append("对发现的结构问题能够给出调整建议。\n");
 
-		content.append("等等。\n");
+		content.append("模拟执行架构师对程序结构进行的调整，并给出数据对比。\n");
 
-		content.append("它还可以分析出：\n");
-
-		content.append("逻辑单元的是否稳定、是否内聚、是否与其他逻辑单元有较强的耦合关系；\n");
-
-		content.append("它可以给出逻辑单元的合并和拆分建议。\n");
-
-		content.append("它受一些设计原则的影响，这里它实现了DIP、ADP、SDP、SAP等原则，并可以根据这些原则检查您的代码。\n");
-
-		content.append("当然，它是一个开放的工具，您可以根据自己对设计原则的理解编写分析器对自己的代码进行检查。\n");
+		content.append("提供多种（当前25种）分析程序细节信息的分析器。\n");
 
 		return content.toString();
 	}

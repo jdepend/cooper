@@ -78,7 +78,7 @@ public final class ScoreIntroduceDialog extends JDialog {
 	private String getIntroduce() {
 		StringBuilder content = new StringBuilder();
 
-		content.append("目前总分（满分100）由四部分构成：抽象程度合理性（20%）、内聚性指数（20%）、封装性（20%）和关系合理性（40%）。\n\n");
+		content.append("目前总分（满分100）由四部分构成：抽象程度合理性（25%）、内聚性（25%）、封装性（25%）和关系合理性（25%）。\n\n");
 
 		content.append("抽象程度合理性的含义是：\n");
 
