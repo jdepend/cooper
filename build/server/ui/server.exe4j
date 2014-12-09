@@ -31,7 +31,7 @@
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.4_01-SNAPSHOT/WEB-INF/lib/cooper-service-1.2.4_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.4_01-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.4_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.4_01-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.4_01-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.4_01-SNAPSHOT/WEB-INF/lib/bcel-5.2.jar" failOnError="false" />
+      <archive location="../../cooper-model/lib/bcel.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.4_01-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.4_01-SNAPSHOT.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
