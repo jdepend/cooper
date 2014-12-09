@@ -17,6 +17,7 @@ import jdepend.model.util.SignatureUtil;
 import org.apache.bcel.classfile.AnnotationDefault;
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.Annotations;
+import org.apache.bcel.classfile.ArrayElementValue;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Constant;
@@ -27,6 +28,7 @@ import org.apache.bcel.classfile.ConstantMethodref;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.ConstantUtf8;
+import org.apache.bcel.classfile.ElementValue;
 import org.apache.bcel.classfile.ElementValuePair;
 import org.apache.bcel.classfile.EmptyVisitor;
 import org.apache.bcel.classfile.Field;
@@ -158,18 +160,30 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			}
 		}
 
-		//处理Annotation
+		// 处理Annotation
 		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
 			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
-				for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+				L: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
 					if (elementValuePair.getNameString().equals("name")) {
 						this.jClass.getDetail().addTable(
 								new TableInfo(elementValuePair.getValue().toShortString(), TableInfo.Define));
+						break L;
 					}
 				}
 			} else if (annotationEntry.getAnnotationType().equals(
 					"Lorg/springframework/transaction/annotation/Transactional;")) {
 				jClass.setIncludeTransactionalAnnotation(true);
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+				M: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+					if (elementValuePair.getNameString().equals("value")) {
+						ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
+						for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
+							this.jClass.getDetail().setRequestMapping(elementValue.toShortString());
+							break M;
+						}
+					}
+				}
 			}
 		}
 
@@ -203,11 +217,22 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			method.setSelfLineCount(this.calLineCount(obj));
 			this.jClass.getDetail().addMethod(method);
 
-			//处理Annotation
+			// 处理Annotation
 			for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
 				if (annotationEntry.getAnnotationType().equals(
 						"Lorg/springframework/transaction/annotation/Transactional;")) {
 					method.setIncludeTransactionalAnnotation(true);
+				} else if (annotationEntry.getAnnotationType().equals(
+						"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+					M: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+						if (elementValuePair.getNameString().equals("value")) {
+							ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
+							for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
+								method.setRequestMapping(elementValue.toShortString());
+								break M;
+							}
+						}
+					}
 				}
 			}
 			this.parser.debug("visitMethod: method type = " + obj);

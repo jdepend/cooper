@@ -30,6 +30,8 @@ public class JavaClassDetail implements Serializable {
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
+	private String requestMapping;
+
 	private transient JavaClass superClass;
 
 	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
@@ -165,6 +167,14 @@ public class JavaClassDetail implements Serializable {
 
 	public Collection<JavaClass> getInterfaces() {
 		return interfaces;
+	}
+
+	public String getRequestMapping() {
+		return requestMapping;
+	}
+
+	public void setRequestMapping(String requestMapping) {
+		this.requestMapping = requestMapping;
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

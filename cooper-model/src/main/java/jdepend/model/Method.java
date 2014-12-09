@@ -38,6 +38,8 @@ public class Method extends AccessFlags {
 
 	private boolean isIncludeTransactionalAnnotation;
 
+	private String requestMapping;
+
 	private transient Collection<String> argTypes;
 
 	private transient Collection<String> returnTypes;
@@ -288,6 +290,14 @@ public class Method extends AccessFlags {
 
 	public void setIncludeTransactionalAnnotation(boolean isIncludeTransactionalAnnotation) {
 		this.isIncludeTransactionalAnnotation = isIncludeTransactionalAnnotation;
+	}
+
+	public String getRequestMapping() {
+		return requestMapping;
+	}
+
+	public void setRequestMapping(String requestMapping) {
+		this.requestMapping = requestMapping;
 	}
 
 	public boolean isOverride(Method method) {
