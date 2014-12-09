@@ -14,6 +14,9 @@ import jdepend.model.TableInfo;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
+import org.apache.bcel.classfile.AnnotationDefault;
+import org.apache.bcel.classfile.AnnotationEntry;
+import org.apache.bcel.classfile.Annotations;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Constant;
@@ -24,12 +27,14 @@ import org.apache.bcel.classfile.ConstantMethodref;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.ConstantUtf8;
+import org.apache.bcel.classfile.ElementValuePair;
 import org.apache.bcel.classfile.EmptyVisitor;
 import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.Method;
+import org.apache.bcel.classfile.ParameterAnnotations;
 import org.apache.bcel.classfile.Unknown;
 import org.apache.bcel.classfile.Utility;
 import org.apache.bcel.util.ByteSequence;
@@ -133,9 +138,6 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		this.parser.debug("Parser: abstract = " + jClass.isAbstract());
 		this.parser.debug("Parser: package name = " + jClass.getPackageName());
 
-		jClass.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(),
-				obj.getConstantPool()));
-
 		// 处理父类
 		if (!obj.getSuperclassName().equals("java.lang.Object")) {
 			this.jClass.getDetail().setSuperClassName(obj.getSuperclassName());
@@ -153,6 +155,21 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		if (tables.containsKey(jClass.getName())) {
 			for (TableInfo tableInfo : tables.get(jClass.getName())) {
 				jClass.getDetail().addTable(tableInfo);
+			}
+		}
+
+		//处理Annotation
+		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
+			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
+				for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+					if (elementValuePair.getNameString().equals("name")) {
+						this.jClass.getDetail().addTable(
+								new TableInfo(elementValuePair.getValue().toShortString(), TableInfo.Define));
+					}
+				}
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/transaction/annotation/Transactional;")) {
+				jClass.setIncludeTransactionalAnnotation(true);
 			}
 		}
 
@@ -184,9 +201,15 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
 			this.internalSearchForMethod(method, obj, parser.getFilter());
 			method.setSelfLineCount(this.calLineCount(obj));
-			method.setIncludeTransactionalAnnotation(this.searchTransactionalAnnotation(obj.getAttributes(),
-					obj.getConstantPool()));
 			this.jClass.getDetail().addMethod(method);
+
+			//处理Annotation
+			for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
+				if (annotationEntry.getAnnotationType().equals(
+						"Lorg/springframework/transaction/annotation/Transactional;")) {
+					method.setIncludeTransactionalAnnotation(true);
+				}
+			}
 			this.parser.debug("visitMethod: method type = " + obj);
 		}
 	}
@@ -195,28 +218,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	public void visitConstantUtf8(ConstantUtf8 obj) {
 		String name = obj.getBytes();
 		this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + name);
-		if (name.equals("Ljavax/persistence/Table;")) {
-			Constant[] constants = cp.getConstantPool();
-			// 计算索引
-			int index;
-			for (index = 1; index < constants.length; index++) {
-				if (constants[index] != null && constants[index].equals(obj)) {
-					break;
-				}
-			}
-			// 搜索tableName
-			String tableName = null;
-			while (++index < constants.length && constants[index] instanceof ConstantUtf8) {
-				tableName = ((ConstantUtf8) constants[index]).getBytes();
-				if (!tableName.equals("name")) {
-					break;
-				}
-			}
-			if (tableName != null) {
-				this.jClass.getDetail().addTable(new TableInfo(tableName, TableInfo.Define));
-			}
-
-		} else if (SqlParserUtil.isSQL(name)) {// 处理Annotation
+		if (SqlParserUtil.isSQL(name)) {
 			List<TableInfo> tables = SqlParserUtil.parserSql(name);
 			if (tables != null) {
 				for (TableInfo table : tables) {
@@ -356,40 +358,5 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				return 0;
 			}
 		}
-	}
-
-	private boolean searchTransactionalAnnotation(Attribute[] attributes, ConstantPool constantPool) {
-
-		boolean isIncludeTransactionalAnnotation = false;
-		org.apache.bcel.classfile.Constant constant;
-		Unknown unknown;
-		String name;
-		int indexInt;
-		L: for (org.apache.bcel.classfile.Attribute attribute : attributes) {
-			if (attribute instanceof Unknown) {
-				unknown = (Unknown) attribute;
-				if (unknown.getName().equals("RuntimeVisibleAnnotations")) {
-					for (byte index : unknown.getBytes()) {
-						indexInt = (int) index;
-						if (indexInt != 0 && indexInt != 1 && indexInt < constantPool.getLength()) {
-							if (indexInt < 0) {
-								indexInt = 256 + indexInt;
-							}
-							constant = constantPool.getConstant(indexInt);
-							if (constant != null && constant instanceof ConstantUtf8) {
-								name = ((ConstantUtf8) constant).getBytes();
-								if (name != null
-										&& name.indexOf("org/springframework/transaction/annotation/Transactional") != -1) {
-									isIncludeTransactionalAnnotation = true;
-									break L;
-								}
-							}
-						}
-					}
-				}
-
-			}
-		}
-		return isIncludeTransactionalAnnotation;
 	}
 }

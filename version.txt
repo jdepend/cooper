@@ -1,4 +1,11 @@
-﻿1.2.3_09 2014-12-04
+﻿1.2.4_01
+
+a）更新底层解析class的bcel版本5.2->6.0 RC3，获取Annotation能力
+
+b）简化原有对Transactional和Table注解的获取方式
+
+
+1.2.3_09 2014-12-04
 
 a）完善在读取、拷贝分析结果时按着Id搜索JavaClass和JavaPackage
 
