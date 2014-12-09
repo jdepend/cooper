@@ -326,6 +326,14 @@ public class Method extends AccessFlags {
 		info1.append("Method [" + info + " Class=" + this.getJavaClass().getName() + "]");
 		info1.append("\n		selfLineCount : " + this.selfLineCount);
 
+		if (this.isIncludeTransactionalAnnotation) {
+			info1.append("\n		isIncludeTransactionalAnnotation : true");
+		}
+
+		if (this.requestMapping != null) {
+			info1.append("\n		requestMapping : " + this.requestMapping);
+		}
+
 		if (this.readFields.size() != 0) {
 			info1.append("\n		readFields:");
 			for (Attribute attribute : this.readFields) {

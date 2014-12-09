@@ -221,6 +221,17 @@ public class JavaClassDetail implements Serializable {
 		content.append(this.javaClass.getName());
 		content.append("\n");
 
+		if (this.getRequestMapping() != null) {
+			content.append("RequestMapping:");
+			content.append(this.getRequestMapping());
+			content.append("\n");
+		}
+
+		if (this.javaClass.isIncludeTransactionalAnnotation()) {
+			content.append("isIncludeTransactionalAnnotation:true");
+			content.append("\n");
+		}
+
 		content.append("\n");
 
 		if (this.getAttributeTypes() != null && this.getAttributeTypes().size() > 0) {
