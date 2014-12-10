@@ -353,7 +353,8 @@ public class Method extends AccessFlags {
 		}
 
 		if (this.requestMapping != null) {
-			info1.append("\n		requestMapping : " + this.requestMapping);
+			info1.append("\n		requestMapping : " + this.getRequestMappingValue());
+			info1.append(" method : " + this.requestMapping.getMethod());
 		}
 
 		if (this.readFields.size() != 0) {

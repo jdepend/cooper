@@ -173,6 +173,18 @@ public class JavaClassDetail implements Serializable {
 		return requestMapping;
 	}
 
+	public String getRequestMappingValue() {
+		if (this.requestMapping == null) {
+			return null;
+		}
+
+		if (this.requestMapping.getValue().startsWith("/")) {
+			return this.requestMapping.getValue().substring(1);
+		} else {
+			return this.requestMapping.getValue();
+		}
+	}
+
 	public void setRequestMapping(RequestMapping requestMapping) {
 		this.requestMapping = requestMapping;
 	}
@@ -221,9 +233,9 @@ public class JavaClassDetail implements Serializable {
 		content.append(this.javaClass.getName());
 		content.append("\n");
 
-		if (this.getRequestMapping() != null) {
+		if (this.getRequestMappingValue() != null) {
 			content.append("RequestMapping:");
-			content.append(this.getRequestMapping());
+			content.append(this.getRequestMappingValue());
 			content.append("\n");
 		}
 
