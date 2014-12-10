@@ -32,6 +32,7 @@ import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateComparator;
 import jdepend.model.component.modelconf.CandidateUtil;
+import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.util.SearchUtil;
 
 public class CandidateListTable extends JTable {
@@ -278,7 +279,8 @@ public class CandidateListTable extends JTable {
 		List<String> matchCandidateList = new ArrayList<String>();
 
 		for (String candidateId : this.currentCandidateList) {
-			filterString = filter == null || filter.length() == 0 || StringUtil.match(filter, CandidateUtil.getName(candidateId));
+			filterString = filter == null || filter.length() == 0
+					|| JavaClassUtil.match(filter, CandidateUtil.getName(candidateId));
 			filterExtResult = filterExtSetting ? this.candidateForIds.get(candidateId).isInner() ? true : false : true;
 			if (filterString && filterExtResult) {
 				matchCandidateList.add(candidateId);

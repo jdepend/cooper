@@ -38,6 +38,7 @@ import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.modelconf.CandidateUtil;
+import jdepend.model.util.JavaClassUtil;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {
@@ -166,8 +167,7 @@ public class ClassListPanel extends JPanel {
 		String metrics = null;
 		for (jdepend.model.Component component : components) {
 			for (JavaClass javaClass : component.getClasses()) {
-				if ((nameFilter == null || nameFilter.length() == 0 || StringUtil
-						.match(nameFilter, javaClass.getName()))
+				if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter, javaClass))
 						&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
 								javaClass))
 						&& (calleeFilter == null || calleeFilter.length() == 0 || this.matchCalleeFilter(calleeFilter,
@@ -188,7 +188,7 @@ public class ClassListPanel extends JPanel {
 
 	private boolean matchCallerFilter(String callerFilter, JavaClass javaClass) {
 		for (JavaClass caClass : javaClass.getCaList()) {
-			if (StringUtil.match(callerFilter, caClass.getName())) {
+			if (JavaClassUtil.match(callerFilter, caClass)) {
 				return true;
 			}
 		}
@@ -197,7 +197,7 @@ public class ClassListPanel extends JPanel {
 
 	private boolean matchCalleeFilter(String calleeFilter, JavaClass javaClass) {
 		for (JavaClass ceClass : javaClass.getCeList()) {
-			if (StringUtil.match(calleeFilter, ceClass.getName())) {
+			if (JavaClassUtil.match(calleeFilter, ceClass)) {
 				return true;
 			}
 		}

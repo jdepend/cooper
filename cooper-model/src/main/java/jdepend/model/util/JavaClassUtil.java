@@ -2,13 +2,12 @@ package jdepend.model.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
+import jdepend.framework.util.StringUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.Attribute;
 import jdepend.model.Component;
@@ -121,6 +120,39 @@ public class JavaClassUtil {
 	public static void supplyJavaClassDetail(final JavaClassCollection javaClasses) {
 		supplyJavaClassDetailSimple(javaClasses);
 		supplyJavaClassDetailMethodInvoke(javaClasses);
+	}
+
+	/**
+	 * 匹配JavaClass
+	 * 
+	 * @param pattern
+	 * @param javaClass
+	 * @return
+	 */
+	public static boolean match(String pattern, JavaClass javaClass) {
+		return match(pattern, javaClass.getName());
+	}
+
+	/**
+	 * 匹配JavaClass
+	 * 
+	 * @param pattern
+	 * @param className
+	 * @return
+	 */
+	public static boolean match(String pattern, String className) {
+		String newPattern = null;
+		if (!pattern.endsWith("*")) {
+			newPattern = pattern + "*";
+		}
+		boolean rtn = StringUtil.match(newPattern.toUpperCase(), className.substring(className.lastIndexOf('.') + 1)
+				.toUpperCase());
+		if (rtn) {
+			return true;
+		} else {
+			return StringUtil.match(pattern.toUpperCase(), className.substring(className.lastIndexOf('.') + 1)
+					.toUpperCase());
+		}
 	}
 
 	/**
@@ -241,6 +273,14 @@ public class JavaClassUtil {
 		}
 
 		ThreadPool.awaitTermination(pool);
+	}
+
+	public static void main(String[] args) {
+		String pattern = "*controller";
+
+		String className = "com.neusoft.saca.snap.portal.comment.CommentController";
+
+		System.out.print(JavaClassUtil.match(pattern, className));
 	}
 
 }
