@@ -10,6 +10,7 @@ import java.util.Map;
 import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
+import jdepend.model.RequestMapping;
 import jdepend.model.TableInfo;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
@@ -175,15 +176,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				jClass.setIncludeTransactionalAnnotation(true);
 			} else if (annotationEntry.getAnnotationType().equals(
 					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-				M: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-					if (elementValuePair.getNameString().equals("value")) {
-						ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
-						for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
-							this.jClass.getDetail().setRequestMapping(elementValue.toShortString());
-							break M;
-						}
-					}
-				}
+				this.jClass.getDetail().setRequestMapping(this.parseRequestMapping(annotationEntry));
 			}
 		}
 
@@ -224,15 +217,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 					method.setIncludeTransactionalAnnotation(true);
 				} else if (annotationEntry.getAnnotationType().equals(
 						"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-					M: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-						if (elementValuePair.getNameString().equals("value")) {
-							ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
-							for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
-								method.setRequestMapping(elementValue.toShortString());
-								break M;
-							}
-						}
-					}
+					method.setRequestMapping(this.parseRequestMapping(annotationEntry));
 				}
 			}
 			this.parser.debug("visitMethod: method type = " + obj);
@@ -255,6 +240,25 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	public void setParser(AbstractParser parser) {
 		this.parser = parser;
+	}
+
+	private RequestMapping parseRequestMapping(AnnotationEntry annotationEntry) {
+		RequestMapping requestMapping = new RequestMapping();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("value")) {
+				ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
+				for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
+					requestMapping.setValue(elementValue.toShortString());
+				}
+			} else if (elementValuePair.getNameString().equals("method")) {
+				ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
+				for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
+					requestMapping.setMethod(elementValue.toShortString());
+				}
+			}
+		}
+
+		return requestMapping;
 	}
 
 	private List<TableInfo> ParseTable(String constant) {

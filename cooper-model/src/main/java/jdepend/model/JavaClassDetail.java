@@ -30,7 +30,7 @@ public class JavaClassDetail implements Serializable {
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
-	private String requestMapping;
+	private RequestMapping requestMapping;
 
 	private transient JavaClass superClass;
 
@@ -169,11 +169,11 @@ public class JavaClassDetail implements Serializable {
 		return interfaces;
 	}
 
-	public String getRequestMapping() {
+	public RequestMapping getRequestMapping() {
 		return requestMapping;
 	}
 
-	public void setRequestMapping(String requestMapping) {
+	public void setRequestMapping(RequestMapping requestMapping) {
 		this.requestMapping = requestMapping;
 	}
 

@@ -38,7 +38,7 @@ public class Method extends AccessFlags {
 
 	private boolean isIncludeTransactionalAnnotation;
 
-	private String requestMapping;
+	private RequestMapping requestMapping;
 
 	private transient Collection<String> argTypes;
 
@@ -292,12 +292,34 @@ public class Method extends AccessFlags {
 		this.isIncludeTransactionalAnnotation = isIncludeTransactionalAnnotation;
 	}
 
-	public String getRequestMapping() {
+	public RequestMapping getRequestMapping() {
 		return requestMapping;
 	}
 
-	public void setRequestMapping(String requestMapping) {
+	public void setRequestMapping(RequestMapping requestMapping) {
 		this.requestMapping = requestMapping;
+	}
+
+	public String getRequestMappingValue() {
+		if (this.javaClass.getDetail().getRequestMapping() == null || this.requestMapping == null) {
+			return null;
+		}
+		StringBuilder value = new StringBuilder();
+		if (this.javaClass.getDetail().getRequestMapping().getValue().startsWith("/")) {
+			value.append(this.javaClass.getDetail().getRequestMapping().getValue().substring(1));
+		} else {
+			value.append(this.javaClass.getDetail().getRequestMapping().getValue());
+		}
+
+		if (this.requestMapping.getValue().startsWith("/")) {
+			value.append(this.requestMapping.getValue());
+		} else {
+			value.append("/");
+			value.append(this.requestMapping.getValue());
+		}
+
+		return value.toString();
+
 	}
 
 	public boolean isOverride(Method method) {
