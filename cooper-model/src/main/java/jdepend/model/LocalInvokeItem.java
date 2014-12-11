@@ -1,10 +1,5 @@
 package jdepend.model;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
-
-import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
