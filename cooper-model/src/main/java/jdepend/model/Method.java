@@ -26,7 +26,7 @@ public class Method extends AccessFlags {
 
 	private String info;
 
-	private Collection<LocalInvokeItem> invokeItems;
+	private Collection<InvokeItem> invokeItems;
 
 	private Collection<Attribute> readFields;
 
@@ -62,7 +62,7 @@ public class Method extends AccessFlags {
 		this.signature = SignatureUtil.getSignature(method);
 		this.info = ParseUtil.getMethodInfo(method.toString());
 		this.argumentCount = this.calArgumentCount();
-		this.invokeItems = new ArrayList<LocalInvokeItem>();
+		this.invokeItems = new ArrayList<InvokeItem>();
 		this.readFields = new ArrayList<Attribute>();
 		this.writeFields = new ArrayList<Attribute>();
 		this.isIncludeTransactionalAnnotation = false;
@@ -80,7 +80,7 @@ public class Method extends AccessFlags {
 		this.invokedMethods = new HashSet<Method>();
 
 		this.invokeItems = method.invokeItems;
-		for (LocalInvokeItem invokeItem : this.invokeItems) {
+		for (InvokeItem invokeItem : this.invokeItems) {
 			invokeItem.setSelf(this);
 		}
 
@@ -102,14 +102,14 @@ public class Method extends AccessFlags {
 		return info;
 	}
 
-	public Collection<LocalInvokeItem> getInvokeItems() {
+	public Collection<InvokeItem> getInvokeItems() {
 		return invokeItems;
 	}
 
 	public Collection<Method> getInvokeMethods() {
 		if (this.invokeMethods == null) {
 			this.invokeMethods = new HashSet<Method>();
-			for (LocalInvokeItem item : this.invokeItems) {
+			for (InvokeItem item : this.invokeItems) {
 				this.invokeMethods.add(item.getMethod());
 			}
 		}
@@ -375,7 +375,7 @@ public class Method extends AccessFlags {
 
 		if (this.invokeItems.size() != 0) {
 			info1.append("\n		invokeItems:");
-			for (LocalInvokeItem item : this.invokeItems) {
+			for (InvokeItem item : this.invokeItems) {
 				info1.append("\n				");
 				info1.append(item);
 			}

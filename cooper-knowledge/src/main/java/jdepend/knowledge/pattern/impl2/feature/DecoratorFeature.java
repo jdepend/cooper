@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.Method;
 
 public class DecoratorFeature extends AbstractFeature {
@@ -15,7 +15,7 @@ public class DecoratorFeature extends AbstractFeature {
 		} else {
 			for (Method method : context.getOverrideMethods().keySet()) {
 				for (Method superMethod : context.getOverrideMethods().get(method)) {
-					for (LocalInvokeItem item : method.getInvokeItems()) {
+					for (InvokeItem item : method.getInvokeItems()) {
 						if (item.getMethod().equals(superMethod)) {
 							for (Attribute attribute : context.getAbstractAttributes()) {
 								if (method.getReadFields().contains(attribute.getName())) {

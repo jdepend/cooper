@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -33,7 +33,7 @@ public class CommandIdentifyer extends AbstractPatternIdentifyer {
 					if (params.size() > 0) {
 						for (Method method : subClass.getOverrideMethods()) {
 							if (method.getArgumentCount() == 0) {
-								for (LocalInvokeItem item : method.getInvokeItems()) {
+								for (InvokeItem item : method.getInvokeItems()) {
 									
 								}
 							}

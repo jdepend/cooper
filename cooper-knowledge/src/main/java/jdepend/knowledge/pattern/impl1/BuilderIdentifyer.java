@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -24,7 +24,7 @@ public final class BuilderIdentifyer extends AbstractPatternIdentifyer {
 							// 识别builderMethod
 							if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
 								JavaClass productType = method.getReturnClassTypes().iterator().next();
-								for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
+								for (InvokeItem invokeItem : method.getInvokeItems()) {
 									Method invokeMethod = invokeItem.getMethod();
 									if (invokeMethod.getJavaClass().equals(builder)
 											&& invokeMethod.getReturnTypes().size() == 1

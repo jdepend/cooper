@@ -8,7 +8,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Method;
@@ -72,7 +72,7 @@ public class DIPPrinciple extends AbstractAnalyzer {
 									found = false;
 									break L;
 								}
-								for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
+								for (InvokeItem invokeItem : method.getInvokeItems()) {
 									if (invokeItem.getMethod().getArgClassTypes().contains(depend)) {
 										found = false;
 										break L;

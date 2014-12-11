@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -40,7 +40,7 @@ public class ProxyIdentifyer extends AbstractPatternIdentifyer {
 				if (otherSubClasses.size() > 0) {
 					// 搜索代理方法
 					L: for (Method method : javaClass.getOverrideMethods()) {
-						for (LocalInvokeItem item : method.getInvokeItems()) {
+						for (InvokeItem item : method.getInvokeItems()) {
 							if (otherSubClasses.contains(item.getMethod().getJavaClass())) {
 								for (Method superMethod : javaClass.getOverridedMethods(method)) {
 									if (item.math2(superMethod)) {

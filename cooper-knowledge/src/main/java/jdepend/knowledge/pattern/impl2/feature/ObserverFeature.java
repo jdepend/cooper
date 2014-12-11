@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -25,7 +25,7 @@ public class ObserverFeature extends AbstractFeature {
 				}
 				if (attributeHaveSubClass) {
 					for (Method method : context.getCurrent().getSelfMethods()) {
-						for (LocalInvokeItem item : method.getInvokeItems()) {
+						for (InvokeItem item : method.getInvokeItems()) {
 							if (item.getMethod().getArgClassTypes().contains(context.getCurrent())
 									&& attribute.getTypeClasses().contains(item.getMethod().getJavaClass())) {
 								this.setPatternInfo(method.getName());

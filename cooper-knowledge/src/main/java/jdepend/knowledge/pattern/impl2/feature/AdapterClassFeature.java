@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -17,7 +17,7 @@ public class AdapterClassFeature extends AbstractFeature {
 				for (Method overrideMethod : context.getCurrent().getOverridedMethods(method)) {
 					theInterfaceClass = overrideMethod.getJavaClass();
 					if (context.getInterfaces().contains(theInterfaceClass)) {
-						for (LocalInvokeItem item : method.getInvokeItems()) {
+						for (InvokeItem item : method.getInvokeItems()) {
 							theSuperClass = item.getMethod().getJavaClass();
 							if (context.getSupers().contains(theSuperClass)) {
 								if (!theSuperClass.getSupers().contains(theInterfaceClass)) {

@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.LocalInvokeItem;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -36,7 +36,7 @@ public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 					for (Method overrideMethod : javaClass.getOverridedMethods(method)) {
 						theInterfaceClass = overrideMethod.getJavaClass();
 						if (interfaces.contains(theInterfaceClass)) {
-							for (LocalInvokeItem item : method.getInvokeItems()) {
+							for (InvokeItem item : method.getInvokeItems()) {
 								theSuperClass = item.getMethod().getJavaClass();
 								if (supers.contains(theSuperClass)) {
 									if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
