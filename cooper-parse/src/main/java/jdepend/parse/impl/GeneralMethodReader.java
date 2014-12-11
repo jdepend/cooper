@@ -4,6 +4,12 @@ import jdepend.model.InvokeItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
 
+/**
+ * 普通方法读取器
+ * 
+ * @author user
+ *
+ */
 public class GeneralMethodReader extends MethodReader {
 
 	private PackageFilter filter;

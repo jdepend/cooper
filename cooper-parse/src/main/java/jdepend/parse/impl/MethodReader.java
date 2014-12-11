@@ -8,6 +8,12 @@ import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Utility;
 import org.apache.bcel.util.ByteSequence;
 
+/**
+ * 方法內容读取器
+ * 
+ * @author user
+ *
+ */
 public abstract class MethodReader {
 
 	protected Method method;
