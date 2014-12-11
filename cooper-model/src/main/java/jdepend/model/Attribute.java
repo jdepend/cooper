@@ -142,7 +142,17 @@ public class Attribute implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Attribute [info=" + info + "]";
+		StringBuilder rtn = new StringBuilder();
+		rtn.append("Attribute [info=");
+		rtn.append(info);
+		if (this.isStatic() && this.staticValue != null && info.indexOf('=') == -1) {
+			rtn.append(" = ");
+			rtn.append(staticValue);
+		}
+		rtn.append("]");
+
+		return rtn.toString();
+
 	}
 
 	@Override

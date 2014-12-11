@@ -4,6 +4,8 @@ a）更新底层解析class的bcel版本5.2->6.0 RC3，获取Annotation能力
 
 b）简化原有对Transactional和Table注解的获取方式
 
+c）向static属性增加获取初始值的逻辑
+
 
 1.2.3_09 2014-12-04
 

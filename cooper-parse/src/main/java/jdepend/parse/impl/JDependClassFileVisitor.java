@@ -197,9 +197,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitMethod(Method obj) {
-		if (!obj.isSynthetic()) {// 编译器生成的Method
-			if (!obj.getName().equals("<clinit>")) {
-				jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
+		if (!obj.isSynthetic()) {// 不采集编译器生成的Method
+			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
+			if (!obj.getName().equals("<clinit>")) {				
 				new GeneralMethodReader(method, parser.getFilter()).read(obj);
 				method.setSelfLineCount(this.calLineCount(obj));
 				this.jClass.getDetail().addMethod(method);
@@ -216,7 +216,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				}
 				this.parser.debug("visitMethod: method type = " + obj);
 			} else {
-				//System.out.print("");
+				new ClInitMethodReader(method).read(obj);
 			}
 		}
 	}
