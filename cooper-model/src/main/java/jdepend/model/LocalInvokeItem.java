@@ -8,7 +8,7 @@ import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
-public final class LocalInvokeItem implements Serializable {
+public final class LocalInvokeItem extends InvokeItem {
 
 	private static final long serialVersionUID = -5979020781021111806L;
 
@@ -23,9 +23,6 @@ public final class LocalInvokeItem implements Serializable {
 	private static final String virtualType = "virtual";
 	private static final String interfaceType = "interface";
 
-	private transient Method self;
-	private transient Method method;
-
 	public LocalInvokeItem(String invokeType, String invokeClassPlace, String invokeClassName, String invokeMethodName,
 			String invokeMethodSignature) {
 		super();
@@ -34,14 +31,6 @@ public final class LocalInvokeItem implements Serializable {
 		this.invokeClassName = invokeClassName;
 		this.invokeMethodName = invokeMethodName;
 		this.invokeMethodSignature = invokeMethodSignature;
-	}
-
-	public Method getMethod() {
-		return method;
-	}
-
-	public void setSelf(Method self) {
-		this.self = self;
 	}
 
 	public String getInvokeClassName() {
@@ -62,13 +51,13 @@ public final class LocalInvokeItem implements Serializable {
 	 * @param javaClasses
 	 * @return
 	 */
+	@Override
 	public boolean supplyMethod(JavaClassCollection javaClasses) {
 		JavaClass invokeClass = javaClasses.getTheClass(this.getInvokeClassPlace(), this.getInvokeClassName());
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
-					this.method = invokeMethod;
-					this.method.addInvokedMethod(self);
+					this.setMethod(invokeMethod);
 					return true;
 				}
 			}
@@ -107,10 +96,10 @@ public final class LocalInvokeItem implements Serializable {
 
 	@Override
 	public int hashCode() {
-		if (this.method != null) {
+		if (this.getMethod() != null) {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + method.hashCode();
+			result = prime * result + getMethod().hashCode();
 			return result;
 		} else {
 			final int prime = 31;
@@ -132,11 +121,11 @@ public final class LocalInvokeItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LocalInvokeItem other = (LocalInvokeItem) obj;
-		if (this.method != null) {
-			if (other.method == null) {
+		if (this.getMethod() != null) {
+			if (other.getMethod() == null) {
 				return false;
 			} else {
-				return this.method.equals(other.method);
+				return this.getMethod().equals(other.getMethod());
 			}
 		} else {
 			if (invokeClassName == null) {
@@ -160,9 +149,9 @@ public final class LocalInvokeItem implements Serializable {
 
 	@Override
 	public String toString() {
-		if (this.method != null) {
-			return "InvokeItem [invokeClassName=" + method.getJavaClass().getName() + ", invokeMethodName="
-					+ method.getName() + ", invokeMethodSignature=" + method.getSignature() + "]";
+		if (this.getMethod() != null) {
+			return "InvokeItem [invokeClassName=" + getMethod().getJavaClass().getName() + ", invokeMethodName="
+					+ getMethod().getName() + ", invokeMethodSignature=" + getMethod().getSignature() + "]";
 		} else {
 			return "InvokeItem [invokeClassName=" + invokeClassName + ", invokeType=" + invokeType
 					+ ", invokeMethodName=" + invokeMethodName + ", invokeMethodSignature=" + invokeMethodSignature
