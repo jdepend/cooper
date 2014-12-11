@@ -15,13 +15,9 @@ import jdepend.model.TableInfo;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
-import org.apache.bcel.classfile.AnnotationDefault;
 import org.apache.bcel.classfile.AnnotationEntry;
-import org.apache.bcel.classfile.Annotations;
 import org.apache.bcel.classfile.ArrayElementValue;
-import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
-import org.apache.bcel.classfile.Constant;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantFieldref;
 import org.apache.bcel.classfile.ConstantInterfaceMethodref;
@@ -37,8 +33,6 @@ import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.classfile.ParameterAnnotations;
-import org.apache.bcel.classfile.Unknown;
 import org.apache.bcel.classfile.Utility;
 import org.apache.bcel.util.ByteSequence;
 
@@ -203,24 +197,27 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitMethod(Method obj) {
+		if (!obj.isSynthetic()) {// 编译器生成的Method
+			if (!obj.getName().equals("<clinit>")) {
+				jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
+				new GeneralMethodReader(method, parser.getFilter()).read(obj);
+				method.setSelfLineCount(this.calLineCount(obj));
+				this.jClass.getDetail().addMethod(method);
 
-		if (!obj.getName().equals("<clinit>") && !obj.isSynthetic()) {
-			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
-			this.internalSearchForMethod(method, obj, parser.getFilter());
-			method.setSelfLineCount(this.calLineCount(obj));
-			this.jClass.getDetail().addMethod(method);
-
-			// 处理Annotation
-			for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
-				if (annotationEntry.getAnnotationType().equals(
-						"Lorg/springframework/transaction/annotation/Transactional;")) {
-					method.setIncludeTransactionalAnnotation(true);
-				} else if (annotationEntry.getAnnotationType().equals(
-						"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-					method.setRequestMapping(this.parseRequestMapping(annotationEntry));
+				// 处理Annotation
+				for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
+					if (annotationEntry.getAnnotationType().equals(
+							"Lorg/springframework/transaction/annotation/Transactional;")) {
+						method.setIncludeTransactionalAnnotation(true);
+					} else if (annotationEntry.getAnnotationType().equals(
+							"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+						method.setRequestMapping(this.parseRequestMapping(annotationEntry));
+					}
 				}
+				this.parser.debug("visitMethod: method type = " + obj);
+			} else {
+				//System.out.print("");
 			}
-			this.parser.debug("visitMethod: method type = " + obj);
 		}
 	}
 
@@ -275,91 +272,6 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			}
 		}
 		return null;
-	}
-
-	private void internalSearchForMethod(jdepend.model.Method method, org.apache.bcel.classfile.Method obj,
-			PackageFilter filter) {
-
-		InvokeItem item;
-		Code codeType = obj.getCode();
-		if (codeType != null) {
-			byte[] code = codeType.getCode();
-			ByteSequence stream = new ByteSequence(code);
-			String info;
-			String[] infos;
-			int pos;
-			String calledPlace;
-			String calledName;
-			String calledPackageName;
-			String calledMethod;
-			String callType;
-			int index;
-			String fieldName;
-
-			try {
-				while (stream.available() > 0) {
-					info = Utility.codeToString(stream, obj.getConstantPool(), true);
-
-					if (info.startsWith("invoke")) {
-						infos = info.split("\\s+");
-						if (infos.length > 1) {
-							pos = infos[1].lastIndexOf('.');
-							if (pos != -1) {
-								callType = infos[0].substring(6);
-								calledName = infos[1].substring(0, pos);
-								calledMethod = infos[1].substring(pos + 1);
-								calledPlace = jClass.getPlace();
-								// 得到包名
-								index = calledName.lastIndexOf(".");
-								if (index > 0) {
-									calledPackageName = calledName.substring(0, index);
-								} else {
-									calledPackageName = JavaPackage.Default;
-								}
-								if (filter.accept(calledPackageName)) {
-									item = new InvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
-									method.addInvokeItem(item);
-								}
-							}
-						}
-					} else if (info.startsWith("getfield")) {
-						fieldName = this.getFieldName(info);
-						if (fieldName != null) {
-							method.addReadField(fieldName);
-						}
-					} else if (info.startsWith("putfield")) {
-						fieldName = this.getFieldName(info);
-						if (fieldName != null) {
-							method.addWriteField(fieldName);
-						}
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (stream != null) {
-					try {
-						stream.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
-	private String getFieldName(String info) {
-		String[] infos = info.split("\\s+");
-		if (infos.length > 1) {
-			int pos = infos[1].lastIndexOf('.');
-			if (pos != -1) {
-				return infos[1].substring(pos + 1);
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
 	}
 
 	private int calLineCount(org.apache.bcel.classfile.Method method) {

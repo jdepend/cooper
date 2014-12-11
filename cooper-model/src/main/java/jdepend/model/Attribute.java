@@ -21,6 +21,8 @@ public class Attribute implements Serializable {
 
 	private String name;
 
+	private String staticValue;
+
 	private String signature;
 
 	private List<String> types;
@@ -37,6 +39,10 @@ public class Attribute implements Serializable {
 			this.types.add(type);
 		}
 
+		if (field.isStatic() && field.getConstantValue() != null) {
+			staticValue = field.getConstantValue().toString();
+		}
+
 	}
 
 	public Attribute(Attribute attribute) {
@@ -48,6 +54,7 @@ public class Attribute implements Serializable {
 		for (String type : attribute.types) {
 			this.types.add(type);
 		}
+		this.staticValue = attribute.staticValue;
 	}
 
 	public String getInfo() {
@@ -72,6 +79,14 @@ public class Attribute implements Serializable {
 
 	public boolean existCollectionType() {
 		return ParseUtil.existCollectionType(signature);
+	}
+
+	public String getStaticValue() {
+		return staticValue;
+	}
+
+	public void setStaticValue(String staticValue) {
+		this.staticValue = staticValue;
 	}
 
 	public final boolean isPublic() {

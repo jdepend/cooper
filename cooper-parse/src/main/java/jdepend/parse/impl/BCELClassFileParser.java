@@ -23,6 +23,10 @@ public class BCELClassFileParser extends AbstractParser {
 			ClassParser parser = new ClassParser(is, null);
 
 			org.apache.bcel.classfile.JavaClass javaClass = parser.parse();
+			
+//			if(javaClass.getClassName().equals("com.neusoft.saca.snap.domain.feed.basic.application.impl.CounterFacade")){
+//				System.out.print("");
+//			}
 
 			jClass = new JavaClass("Unknown", true, javaClass.getAccessFlags());
 			jClass.setPlace(place);
