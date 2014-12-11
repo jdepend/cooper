@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -58,7 +58,7 @@ public final class DecoratorIdentifyer extends AbstractPatternIdentifyer {
 									if (attribute.getTypes().contains(superClass.getName())) {
 										for (Method method : javaClass.getOverrideMethods()) {
 											for (Method superMethod : javaClass.getOverridedMethods(method)) {
-												for (InvokeItem item : method.getInvokeItems()) {
+												for (LocalInvokeItem item : method.getInvokeItems()) {
 													if (item.getMethod().equals(superMethod)
 															&& method.getReadFields().contains(attribute)) {
 														rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."

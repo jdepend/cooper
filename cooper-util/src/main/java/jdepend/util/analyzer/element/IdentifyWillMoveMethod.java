@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
@@ -42,7 +42,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 						invokeMethods = new ArrayList<String>();
 						sameInvokeClass = true;
 						selfInvokeClass = false;
-						L: for (InvokeItem invokeItem : method.getInvokeItems()) {
+						L: for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
 							if (!invokeItem.getMethod().getJavaClass().equals(method.getJavaClass())) {
 								if (invokeClassName != null && !invokeClassName.equals(invokeItem.getInvokeClassName())) {
 									sameInvokeClass = false;

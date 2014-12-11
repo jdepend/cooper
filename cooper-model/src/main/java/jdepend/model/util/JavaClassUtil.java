@@ -11,7 +11,7 @@ import jdepend.framework.util.StringUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.Attribute;
 import jdepend.model.Component;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
@@ -252,8 +252,8 @@ public class JavaClassUtil {
 				@Override
 				public void run() {
 
-					Iterator<InvokeItem> it;
-					InvokeItem invokeItem;
+					Iterator<LocalInvokeItem> it;
+					LocalInvokeItem invokeItem;
 
 					// 填充Method中的JavaClass
 					for (Method method : javaClass.getSelfMethods()) {

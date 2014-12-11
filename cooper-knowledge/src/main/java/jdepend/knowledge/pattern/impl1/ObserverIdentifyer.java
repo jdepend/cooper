@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -44,7 +44,7 @@ public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
 			}
 			// 判断是否在当前Class调用该方法
 			M: for (Method method : javaClass.getSelfMethods()) {
-				for (InvokeItem invokeItem : method.getInvokeItems()) {
+				for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
 					if (observereMethods.contains(invokeItem.getMethod())) {
 						rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
 						break M;

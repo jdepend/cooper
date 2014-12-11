@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.Method;
 
 public class ProxyFeature extends AbstractFeature {
@@ -15,7 +15,7 @@ public class ProxyFeature extends AbstractFeature {
 
 			for (Method method : context.getOverrideMethods().keySet()) {
 				for (Method superMethod : context.getOverrideMethods().get(method)) {
-					for (InvokeItem item : method.getInvokeItems()) {
+					for (LocalInvokeItem item : method.getInvokeItems()) {
 						if (context.getSuperOtherSubClasses().contains(item.getMethod().getJavaClass())
 								&& item.math2(superMethod)) {
 							this.setPatternInfo(item.getMethod().getName());

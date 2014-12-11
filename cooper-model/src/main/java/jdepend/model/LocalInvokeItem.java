@@ -8,7 +8,7 @@ import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
-public final class InvokeItem implements Serializable {
+public final class LocalInvokeItem implements Serializable {
 
 	private static final long serialVersionUID = -5979020781021111806L;
 
@@ -26,7 +26,7 @@ public final class InvokeItem implements Serializable {
 	private transient Method self;
 	private transient Method method;
 
-	public InvokeItem(String invokeType, String invokeClassPlace, String invokeClassName, String invokeMethodName,
+	public LocalInvokeItem(String invokeType, String invokeClassPlace, String invokeClassName, String invokeMethodName,
 			String invokeMethodSignature) {
 		super();
 		this.invokeType = invokeType;
@@ -131,7 +131,7 @@ public final class InvokeItem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InvokeItem other = (InvokeItem) obj;
+		LocalInvokeItem other = (LocalInvokeItem) obj;
 		if (this.method != null) {
 			if (other.method == null) {
 				return false;

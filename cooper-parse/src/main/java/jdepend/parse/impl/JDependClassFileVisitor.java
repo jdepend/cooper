@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.RequestMapping;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -34,7 +34,7 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 						// 查找调用抽象方法的公开方法
 						for (Method publicMethod : javaClass.getSelfMethods()) {
 							if (!publicMethod.isAbstract() && publicMethod.isPublic()) {
-								for (InvokeItem item : publicMethod.getInvokeItems()) {
+								for (LocalInvokeItem item : publicMethod.getInvokeItems()) {
 									if (item.getMethod().equals(abstractMethod)) {
 										// 查找是否存在子类，并覆盖了抽象方法
 										for (JavaClass subClass : javaClass.getSubClasses()) {

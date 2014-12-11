@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
@@ -18,7 +18,7 @@ public class BuilderFeature extends AbstractFeature {
 						// 识别builderMethod
 						if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
 							JavaClass productType = method.getReturnClassTypes().iterator().next();
-							for (InvokeItem invokeItem : method.getInvokeItems()) {
+							for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
 								Method invokeMethod = invokeItem.getMethod();
 								if (invokeMethod.getJavaClass().equals(builder)
 										&& invokeMethod.getReturnTypes().size() == 1

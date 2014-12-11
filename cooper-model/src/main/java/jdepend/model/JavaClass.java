@@ -1137,7 +1137,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private void collectInvokeClasses(JavaClass javaClass, Collection<JavaClass> invokeClasses) {
 		JavaClass invokeClass;
 		for (Method method : javaClass.getSelfMethods()) {
-			for (InvokeItem invokeItem : method.getInvokeItems()) {
+			for (LocalInvokeItem invokeItem : method.getInvokeItems()) {
 				invokeClass = invokeItem.getMethod().getJavaClass();
 				if (!invokeClasses.contains(invokeClass)) {
 					invokeClasses.add(invokeClass);

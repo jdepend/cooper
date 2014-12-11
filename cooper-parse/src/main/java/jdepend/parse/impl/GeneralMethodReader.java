@@ -1,6 +1,6 @@
 package jdepend.parse.impl;
 
-import jdepend.model.InvokeItem;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
 
@@ -22,7 +22,7 @@ public class GeneralMethodReader extends MethodReader {
 	@Override
 	protected void readInfo(String info) {
 
-		InvokeItem item;
+		LocalInvokeItem item;
 		String[] infos;
 		int pos;
 		String calledPlace;
@@ -50,7 +50,7 @@ public class GeneralMethodReader extends MethodReader {
 						calledPackageName = JavaPackage.Default;
 					}
 					if (filter.accept(calledPackageName)) {
-						item = new InvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
+						item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
 						method.addInvokeItem(item);
 					}
 				}
