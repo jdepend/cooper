@@ -24,6 +24,9 @@ public class RESTInvokeMethodReader extends MethodReader {
 
 	public RESTInvokeMethodReader(Method method) {
 		super(method);
+
+		this.invokeClassNames.add("org.springframework.web.client.RestTemplate");
+		this.invokeClassNames.add("com.neusoft.saca.snap.infrastructure.oauth.OAuthClientRequestWithParam");
 	}
 
 	public void addInvokeClassName(String invokeClassName) {

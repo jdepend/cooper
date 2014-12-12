@@ -202,12 +202,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			if (!obj.getName().equals("<clinit>")) {
 
 				new GeneralMethodReader(method, parser.getFilter()).read(obj);
-
-				RESTInvokeMethodReader restInvokeMethodReader = new RESTInvokeMethodReader(method);
-				restInvokeMethodReader.addInvokeClassName("org.springframework.web.client.RestTemplate");
-				restInvokeMethodReader
-						.addInvokeClassName("com.neusoft.saca.snap.infrastructure.oauth.OAuthClientRequestWithParam");
-				restInvokeMethodReader.read(obj);
+				new RESTInvokeMethodReader(method).read(obj);
 
 				method.setSelfLineCount(this.calLineCount(obj));
 				this.jClass.getDetail().addMethod(method);

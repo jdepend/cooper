@@ -61,7 +61,8 @@ public final class RESTInvokeItem extends InvokeItem {
 	 * @return
 	 */
 	public boolean math2(Method method) {
-		return method.getRequestMappingValue() != null && method.getRequestMappingValue().startsWith(url);
+		return method.getRequestMappingValue() != null && this.url != null
+				&& method.getRequestMappingValue().startsWith(this.url);
 	}
 
 	@Override
