@@ -262,6 +262,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				}
 			}
 		}
+		if (requestMapping.getValue() == null) {
+			requestMapping.setValue("");
+		}
 
 		return requestMapping;
 	}

@@ -305,20 +305,23 @@ public class Method extends AccessFlags {
 			return null;
 		}
 		StringBuilder value = new StringBuilder();
-		if (this.javaClass.getDetail().getRequestMapping().getValue().startsWith("/")) {
-			value.append(this.javaClass.getDetail().getRequestMapping().getValue());
-		} else {
-			value.append("/");
-			value.append(this.javaClass.getDetail().getRequestMapping().getValue());
+		if (this.javaClass.getDetail().getRequestMapping().getValue().length() > 0) {
+			if (this.javaClass.getDetail().getRequestMapping().getValue().startsWith("/")) {
+				value.append(this.javaClass.getDetail().getRequestMapping().getValue());
+			} else {
+				value.append("/");
+				value.append(this.javaClass.getDetail().getRequestMapping().getValue());
+			}
 		}
 
-		if (this.requestMapping.getValue().startsWith("/")) {
-			value.append(this.requestMapping.getValue());
-		} else {
-			value.append("/");
-			value.append(this.requestMapping.getValue());
+		if (this.requestMapping.getValue().length() > 0) {
+			if (this.requestMapping.getValue().startsWith("/")) {
+				value.append(this.requestMapping.getValue());
+			} else {
+				value.append("/");
+				value.append(this.requestMapping.getValue());
+			}
 		}
-
 		return value.toString();
 
 	}
