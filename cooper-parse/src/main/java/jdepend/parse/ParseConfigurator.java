@@ -113,6 +113,7 @@ public class ParseConfigurator implements Serializable {
 		allRelationTypes.add(JavaClassRelationTypeMgr.Param);
 		allRelationTypes.add(JavaClassRelationTypeMgr.Variable);
 		allRelationTypes.add(JavaClassRelationTypeMgr.Table);
+		allRelationTypes.add(JavaClassRelationTypeMgr.REST);
 
 		for (String relationType : allRelationTypes) {
 			if (properties.containsKey(relationType)) {

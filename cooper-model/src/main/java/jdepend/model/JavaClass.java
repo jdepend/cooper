@@ -909,28 +909,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			obj.addImportedPackage(importPackage);
 		}
 
-		JavaClassDetail sourceDetail = this.getDetail();
-		JavaClassDetail targetDetail = new JavaClassDetail(obj);
-
-		targetDetail.setSuperClassName(sourceDetail.getSuperClassName());
-
-		for (Attribute name : sourceDetail.getAttributes()) {
-			targetDetail.addAttribute(new Attribute(name));
-		}
-
-		for (String name : sourceDetail.getInterfaceNames()) {
-			targetDetail.addInterfaceName(name);
-		}
-
-		for (String name : sourceDetail.getVariableTypes()) {
-			targetDetail.addVariableType(name);
-		}
-
-		for (TableInfo tableRelationInfo : sourceDetail.getTables()) {
-			targetDetail.addTable(new TableInfo(tableRelationInfo));
-		}
-
-		obj.setDetail(targetDetail);
+		obj.setDetail(this.getDetail().clone(obj));
 
 		for (JavaClassRelationItem item : this.getCaItems()) {
 			JavaClassRelationItem newItem = item.clone();

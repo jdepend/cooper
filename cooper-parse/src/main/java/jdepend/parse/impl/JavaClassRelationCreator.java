@@ -157,6 +157,14 @@ public class JavaClassRelationCreator {
 								}
 							}
 						}
+						// 处理REST调用
+//						if (createRelationTypes.contains(JavaClassRelationTypeMgr.REST)
+//								&& info.getVariableTypes().size() != 0) {
+//							for (String variableType : info.getVariableTypes()) {
+//								dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), variableType);
+//								setDependInfo(javaClass, dependJavaClass, mgr.getVariableRelation());
+//							}
+//						}
 					}
 				}
 			});

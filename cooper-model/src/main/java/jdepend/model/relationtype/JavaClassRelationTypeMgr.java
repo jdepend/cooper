@@ -28,6 +28,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	public static final String Param = "Param";
 	public static final String Variable = "Variable";
 	public static final String Table = "Table";
+	public static final String REST = "REST";
 
 	private static JavaClassRelationTypeMgr mgr;
 
@@ -53,6 +54,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 		types.put(Param, new ParamRelation(0.5F));
 		types.put(Variable, new VariableRelation(0.3F));
 		types.put(Table, new TableRelation(0.1F));
+		types.put(REST, new RESTRelation(0.1F));
 	}
 
 	public static JavaClassRelationTypeMgr getInstance() {
@@ -94,6 +96,8 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 			JavaClassRelationTypeMgr.getInstance().setInheritRelation((InheritRelation) type);
 		} else if (type instanceof TableRelation) {
 			JavaClassRelationTypeMgr.getInstance().setTableRelation((TableRelation) type);
+		} else if (type instanceof RESTRelation) {
+			JavaClassRelationTypeMgr.getInstance().setRESTRelation((RESTRelation) type);
 		} else {
 			if (types.containsKey(type.getName()))
 				throw new JDependException("类型[" + type.getName() + "]已经注册了。");
@@ -128,6 +132,11 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	}
 
 	@notPersistent
+	public TableRelation getRESTRelation() {
+		return (TableRelation) getType(REST);
+	}
+
+	@notPersistent
 	public void setInheritRelation(InheritRelation type) {
 		if (type != null)
 			types.put(Inherit, type);
@@ -155,6 +164,12 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	public void setTableRelation(TableRelation type) {
 		if (type != null)
 			types.put(Table, type);
+	}
+
+	@notPersistent
+	public void setRESTRelation(RESTRelation type) {
+		if (type != null)
+			types.put(REST, type);
 	}
 
 	public Collection<String> getIgnoreTables() {

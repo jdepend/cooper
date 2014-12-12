@@ -22,11 +22,11 @@ public class JavaClassDetail implements Serializable {
 
 	private Collection<String> interfaceNames = new ArrayList<String>();
 
-	private final Collection<String> variableTypes = new ArrayList<String>();
-
 	private final Collection<Attribute> attributes = new ArrayList<Attribute>();
 
 	private final Collection<Method> methods = new ArrayList<Method>();
+
+	private final Collection<String> variableTypes = new ArrayList<String>();
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
@@ -193,9 +193,9 @@ public class JavaClassDetail implements Serializable {
 		}
 
 		if (this.requestMapping.getValue().startsWith("/")) {
-			return this.requestMapping.getValue().substring(1);
-		} else {
 			return this.requestMapping.getValue();
+		} else {
+			return "/" + this.requestMapping.getValue();
 		}
 	}
 
@@ -207,6 +207,34 @@ public class JavaClassDetail implements Serializable {
 		ois.defaultReadObject();
 		this.interfaces = new HashSet<JavaClass>();
 		this.attributeForNames = new HashMap<String, Attribute>();
+	}
+
+	public JavaClassDetail clone(JavaClass javaClass) {
+
+		JavaClassDetail obj = new JavaClassDetail(javaClass);
+
+		obj.setSuperClassName(this.getSuperClassName());
+		obj.setInterfaceNames(this.getInterfaceNames());
+
+		for (Attribute name : this.getAttributes()) {
+			obj.addAttribute(new Attribute(name));
+		}
+
+		for (String name : this.getInterfaceNames()) {
+			obj.addInterfaceName(name);
+		}
+
+		for (String name : this.getVariableTypes()) {
+			obj.addVariableType(name);
+		}
+
+		for (TableInfo tableRelationInfo : this.getTables()) {
+			obj.addTable(new TableInfo(tableRelationInfo));
+		}
+
+		obj.setRequestMapping(this.getRequestMapping());
+
+		return obj;
 	}
 
 	@Override
