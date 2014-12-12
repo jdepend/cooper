@@ -38,6 +38,8 @@ public class JavaClassDetail implements Serializable {
 
 	private transient Collection<String> attributeTypes;
 
+	private transient Collection<JavaClass> attributeClasses;
+
 	private transient Collection<String> paramTypes;
 
 	private transient Map<String, Attribute> attributeForNames = new HashMap<String, Attribute>();
@@ -56,6 +58,18 @@ public class JavaClassDetail implements Serializable {
 			}
 		}
 		return attributeTypes;
+	}
+
+	public Collection<JavaClass> getAttributeClasses() {
+		if (this.attributeClasses == null) {
+			this.attributeClasses = new HashSet<JavaClass>();
+			for (Attribute attribute : this.attributes) {
+				for (JavaClass type : attribute.getTypeClasses()) {
+					this.attributeClasses.add(type);
+				}
+			}
+		}
+		return attributeClasses;
 	}
 
 	public Collection<String> getInterfaceNames() {

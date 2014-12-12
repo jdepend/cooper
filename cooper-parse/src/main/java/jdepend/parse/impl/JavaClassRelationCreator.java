@@ -88,19 +88,16 @@ public class JavaClassRelationCreator {
 						info = javaClass.getDetail();
 						// 处理父类
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)) {
-							if (info.getSuperClassName() != null) {
-								dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(),
-										info.getSuperClassName());
-								setDependInfo(javaClass, dependJavaClass, mgr.getInheritRelation());
+							if (info.getSuperClass() != null) {
+								setDependInfo(javaClass, info.getSuperClass(), mgr.getInheritRelation());
 							}
 						}
 
 						// 处理接口
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)
 								&& info.getInterfaceNames().size() != 0) {
-							for (String interfaceName : info.getInterfaceNames()) {
-								dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
-								setDependInfo(javaClass, dependJavaClass, mgr.getInheritRelation());
+							for (JavaClass interfaceClass : info.getInterfaces()) {
+								setDependInfo(javaClass, interfaceClass, mgr.getInheritRelation());
 							}
 						}
 
@@ -116,14 +113,13 @@ public class JavaClassRelationCreator {
 						}
 						// 2.建立包含或者调用关系
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Field)
-								&& info.getAttributeTypes().size() != 0) {
-							for (String attributeType : info.getAttributeTypes()) {
-								dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), attributeType);
+								&& info.getAttributeClasses().size() != 0) {
+							for (JavaClass attributeClass : info.getAttributeClasses()) {
 								// 分析该属性是包含关系还是调用关系
-								if (returnTypes.contains(attributeType)) {
-									setDependInfo(javaClass, dependJavaClass, mgr.getFieldRelation());
+								if (returnTypes.contains(attributeClass.getName())) {
+									setDependInfo(javaClass, attributeClass, mgr.getFieldRelation());
 								} else {
-									setDependInfo(javaClass, dependJavaClass, mgr.getVariableRelation());
+									setDependInfo(javaClass, attributeClass, mgr.getVariableRelation());
 								}
 							}
 						}
