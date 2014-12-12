@@ -162,7 +162,7 @@ public class Method extends AccessFlags {
 		return writeFields;
 	}
 
-	public void addInvokeItem(LocalInvokeItem item) {
+	public void addInvokeItem(InvokeItem item) {
 		if (!this.invokeItems.contains(item)) {
 			this.invokeItems.add(item);
 			item.setSelf(this);
@@ -306,8 +306,9 @@ public class Method extends AccessFlags {
 		}
 		StringBuilder value = new StringBuilder();
 		if (this.javaClass.getDetail().getRequestMapping().getValue().startsWith("/")) {
-			value.append(this.javaClass.getDetail().getRequestMapping().getValue().substring(1));
+			value.append(this.javaClass.getDetail().getRequestMapping().getValue());
 		} else {
+			value.append("/");
 			value.append(this.javaClass.getDetail().getRequestMapping().getValue());
 		}
 

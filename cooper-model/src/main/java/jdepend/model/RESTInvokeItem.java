@@ -8,18 +8,14 @@ public final class RESTInvokeItem extends InvokeItem {
 
 	private String url;
 
-	private transient String constantClassName;
-	private transient String constantAttributeName;
+	private String constantClassName;
+	private String constantAttributeName;
 
-	public RESTInvokeItem(String constantClassName, String constantAttributeName) {
-		super();
-		this.constantClassName = constantClassName;
-		this.constantAttributeName = constantAttributeName;
-	}
-
-	public RESTInvokeItem(String url) {
+	public RESTInvokeItem(String url, String constantClassName, String constantAttributeName) {
 		super();
 		this.url = url;
+		this.constantClassName = constantClassName;
+		this.constantAttributeName = constantAttributeName;
 	}
 
 	/**
@@ -30,6 +26,31 @@ public final class RESTInvokeItem extends InvokeItem {
 	 */
 	@Override
 	public boolean supplyMethod(JavaClassCollection javaClasses) {
+
+		if (this.constantClassName != null && this.constantAttributeName != null) {
+			JavaClass urlClass = javaClasses.getTheClass(this.getSelf().getJavaClass().getPlace(),
+					this.constantClassName);
+			if (urlClass != null) {
+				L: for (Attribute attribute : urlClass.getAttributes()) {
+					if (attribute.getStaticValue() != null && attribute.getName().equals(this.constantAttributeName)) {
+						url = attribute.getStaticValue();
+						break L;
+					}
+				}
+			}
+		}
+
+		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
+			if (javaClass.getDetail().getRequestMapping() != null) {
+				for (Method method : javaClass.getMethods()) {
+					if (this.math2(method)) {
+						this.setMethod(method);
+						return true;
+					}
+				}
+			}
+		}
+
 		return false;
 	}
 
@@ -40,7 +61,7 @@ public final class RESTInvokeItem extends InvokeItem {
 	 * @return
 	 */
 	public boolean math2(Method method) {
-		return false;
+		return method.getRequestMappingValue() != null && method.getRequestMappingValue().startsWith(url);
 	}
 
 	@Override

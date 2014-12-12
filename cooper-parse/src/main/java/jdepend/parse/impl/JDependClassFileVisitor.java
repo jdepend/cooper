@@ -199,8 +199,16 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	public void visitMethod(Method obj) {
 		if (!obj.isSynthetic()) {// 不采集编译器生成的Method
 			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
-			if (!obj.getName().equals("<clinit>")) {				
+			if (!obj.getName().equals("<clinit>")) {
+
 				new GeneralMethodReader(method, parser.getFilter()).read(obj);
+
+				RESTInvokeMethodReader restInvokeMethodReader = new RESTInvokeMethodReader(method);
+				restInvokeMethodReader.addInvokeClassName("org.springframework.web.client.RestTemplate");
+				restInvokeMethodReader
+						.addInvokeClassName("com.neusoft.saca.snap.infrastructure.oauth.OAuthClientRequestWithParam");
+				restInvokeMethodReader.read(obj);
+
 				method.setSelfLineCount(this.calLineCount(obj));
 				this.jClass.getDetail().addMethod(method);
 

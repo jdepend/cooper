@@ -8,7 +8,7 @@ import jdepend.model.Method;
  * 普通方法读取器
  * 
  * @author user
- *
+ * 
  */
 public class GeneralMethodReader extends MethodReader {
 
@@ -22,7 +22,6 @@ public class GeneralMethodReader extends MethodReader {
 	@Override
 	protected void readInfo(String info) {
 
-		LocalInvokeItem item;
 		String[] infos;
 		int pos;
 		String calledPlace;
@@ -50,7 +49,8 @@ public class GeneralMethodReader extends MethodReader {
 						calledPackageName = JavaPackage.Default;
 					}
 					if (filter.accept(calledPackageName)) {
-						item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
+						LocalInvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod,
+								infos[2]);
 						method.addInvokeItem(item);
 					}
 				}
