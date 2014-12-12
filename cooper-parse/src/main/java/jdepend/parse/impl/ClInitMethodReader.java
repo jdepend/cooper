@@ -7,11 +7,11 @@ import jdepend.model.Method;
  * 通過讀取ClInit方法，填充static屬性的值
  * 
  * @author user
- *
+ * 
  */
 public class ClInitMethodReader extends MethodReader {
 
-	private String staticValue;
+	private String staticValue = "";
 
 	public ClInitMethodReader(Method method) {
 		super(method);
@@ -32,9 +32,9 @@ public class ClInitMethodReader extends MethodReader {
 					staticAtributeName = infos[1].substring(pos + 1);
 					L: for (Attribute attribute : this.method.getJavaClass().getAttributes()) {
 						if (attribute.getName().equals(staticAtributeName)) {
-							if (attribute.getStaticValue() == null && staticValue != null) {
-								attribute.setStaticValue(staticValue);
-								staticValue = null;
+							if (attribute.getStaticValue() == null && staticValue.length() > 0) {
+								attribute.setStaticValue("\"" + staticValue + "\"");
+								staticValue = "";
 							}
 							break L;
 						}
@@ -45,10 +45,9 @@ public class ClInitMethodReader extends MethodReader {
 		} else if (info.startsWith("ldc")) {
 			infos = info.split("\\s+");
 			if (infos.length > 0) {
-				staticValue = infos[1];
+				staticValue += infos[1].substring(1, infos[1].length() - 1);
 			}
 		}
 
 	}
-
 }
