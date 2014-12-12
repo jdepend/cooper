@@ -8,8 +8,8 @@ public final class RESTInvokeItem extends InvokeItem {
 
 	private String url;
 
-	private String constantClassName;
-	private String constantAttributeName;
+	private transient String constantClassName;
+	private transient String constantAttributeName;
 
 	public RESTInvokeItem(String url, String constantClassName, String constantAttributeName) {
 		super();
@@ -40,15 +40,14 @@ public final class RESTInvokeItem extends InvokeItem {
 			}
 		}
 
-		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
-			if (javaClass.getDetail().getRequestMapping() != null) {
-				for (Method method : javaClass.getMethods()) {
-					if (this.math2(method)) {
-						this.setMethod(method);
-						return true;
-					}
-				}
-			}
+		if (url == null) {
+			return false;
+		}
+
+		Method method = javaClasses.getTheRESTMethod(this.formatUrl(this.url));
+		if (method != null) {
+			this.setMethod(method);
+			return true;
 		}
 
 		return false;

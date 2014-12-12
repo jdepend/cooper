@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.model.JavaClass;
+import jdepend.model.Method;
 import jdepend.model.component.modelconf.CandidateUtil;
 
 public class JavaClassCollection {
@@ -12,6 +13,8 @@ public class JavaClassCollection {
 	private Collection<JavaClass> javaClasses;
 	private Map<String, JavaClass> javaClassesForId;
 	private Map<String, JavaClass> javaClassesForName;
+
+	private Map<String, Method> restMethods;
 
 	public JavaClassCollection(Collection<JavaClass> javaClasses) {
 		super();
@@ -43,5 +46,21 @@ public class JavaClassCollection {
 		} else {
 			return javaClass;
 		}
+	}
+
+	public Method getTheRESTMethod(String url) {
+		if (this.restMethods == null) {
+			this.restMethods = new HashMap<String, Method>();
+			for (JavaClass javaClass : javaClasses) {
+				if (javaClass.getDetail().getRequestMapping() != null) {
+					for (Method method : javaClass.getMethods()) {
+						if (method.getRequestMapping() != null) {
+							this.restMethods.put(method.getRequestMappingValue(), method);
+						}
+					}
+				}
+			}
+		}
+		return this.restMethods.get(url);
 	}
 }
