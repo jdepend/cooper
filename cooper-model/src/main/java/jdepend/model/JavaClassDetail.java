@@ -32,6 +32,8 @@ public class JavaClassDetail implements Serializable {
 
 	private RequestMapping requestMapping;
 
+	private boolean RESTCaller;
+
 	private transient JavaClass superClass;
 
 	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
@@ -201,6 +203,14 @@ public class JavaClassDetail implements Serializable {
 
 	public void setRequestMapping(RequestMapping requestMapping) {
 		this.requestMapping = requestMapping;
+	}
+
+	public boolean isRESTCaller() {
+		return RESTCaller;
+	}
+
+	public void setRESTCaller(boolean rESTCaller) {
+		RESTCaller = rESTCaller;
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

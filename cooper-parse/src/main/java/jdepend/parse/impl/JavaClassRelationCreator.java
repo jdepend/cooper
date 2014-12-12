@@ -10,11 +10,13 @@ import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
+import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Method;
+import jdepend.model.RESTInvokeItem;
 import jdepend.model.TableInfo;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.util.JavaClassCollection;
@@ -158,13 +160,16 @@ public class JavaClassRelationCreator {
 							}
 						}
 						// 处理REST调用
-//						if (createRelationTypes.contains(JavaClassRelationTypeMgr.REST)
-//								&& info.getVariableTypes().size() != 0) {
-//							for (String variableType : info.getVariableTypes()) {
-//								dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), variableType);
-//								setDependInfo(javaClass, dependJavaClass, mgr.getVariableRelation());
-//							}
-//						}
+						if (createRelationTypes.contains(JavaClassRelationTypeMgr.REST) && info.isRESTCaller()) {
+							for (Method method : javaClass.getSelfMethods()) {
+								for (InvokeItem invokeItem : method.getInvokeItems()) {
+									if (invokeItem instanceof RESTInvokeItem) {
+										setDependInfo(javaClass, invokeItem.getMethod().getJavaClass(),
+												mgr.getRESTRelation());
+									}
+								}
+							}
+						}
 					}
 				}
 			});

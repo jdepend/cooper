@@ -132,8 +132,8 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	}
 
 	@notPersistent
-	public TableRelation getRESTRelation() {
-		return (TableRelation) getType(REST);
+	public RESTRelation getRESTRelation() {
+		return (RESTRelation) getType(REST);
 	}
 
 	@notPersistent

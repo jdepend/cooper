@@ -47,6 +47,7 @@ public final class RESTInvokeItem extends InvokeItem {
 		Method method = javaClasses.getTheRESTMethod(this.formatUrl(this.url));
 		if (method != null) {
 			this.setMethod(method);
+			this.getSelf().getJavaClass().getDetail().setRESTCaller(true);
 			return true;
 		}
 

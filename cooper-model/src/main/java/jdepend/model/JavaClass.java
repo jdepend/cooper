@@ -48,6 +48,12 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private int haveState = UnCalculate;// 缓存是否存在状态
 
 	private JavaClassDetail detail;
+	
+	private Collection<JavaClassRelationItem> caItems = new ArrayList<JavaClassRelationItem>();
+
+	private Collection<JavaClassRelationItem> ceItems = new ArrayList<JavaClassRelationItem>();
+
+	private boolean isIncludeTransactionalAnnotation;
 
 	private transient Collection<Method> methods;
 
@@ -60,12 +66,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private transient Collection<JavaClass> interfaces;
 
 	private transient Collection<JavaClass> subClasses;
-
-	private Collection<JavaClassRelationItem> caItems = new ArrayList<JavaClassRelationItem>();
-
-	private Collection<JavaClassRelationItem> ceItems = new ArrayList<JavaClassRelationItem>();
-
-	private boolean isIncludeTransactionalAnnotation;
 
 	private final static int UnCalculate = -2;
 	private final static int HaveState = 1;
