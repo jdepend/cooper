@@ -1,15 +1,12 @@
 package jdepend.parse.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaPackage;
 import jdepend.model.RequestMapping;
 import jdepend.model.TableInfo;
 import jdepend.model.util.ParseUtil;
@@ -17,7 +14,6 @@ import jdepend.model.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.ArrayElementValue;
-import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantFieldref;
 import org.apache.bcel.classfile.ConstantInterfaceMethodref;
@@ -33,8 +29,6 @@ import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.classfile.Utility;
-import org.apache.bcel.util.ByteSequence;
 
 public class JDependClassFileVisitor extends EmptyVisitor {
 

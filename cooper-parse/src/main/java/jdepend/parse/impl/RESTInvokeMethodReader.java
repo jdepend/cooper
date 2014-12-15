@@ -46,7 +46,7 @@ public class RESTInvokeMethodReader extends MethodReader {
 		int pos;
 		String calledName;
 
-		if (info.startsWith("invokevirtual")) {
+		if (info.startsWith("invokevirtual") || info.startsWith("invokespecial")) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
 				pos = infos[1].lastIndexOf('.');
