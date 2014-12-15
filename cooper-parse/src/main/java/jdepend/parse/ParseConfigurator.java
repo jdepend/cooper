@@ -104,7 +104,7 @@ public class ParseConfigurator {
 		allRelationTypes.add(JavaClassRelationTypeMgr.Param);
 		allRelationTypes.add(JavaClassRelationTypeMgr.Variable);
 		allRelationTypes.add(JavaClassRelationTypeMgr.Table);
-		allRelationTypes.add(JavaClassRelationTypeMgr.REST);
+		allRelationTypes.add(JavaClassRelationTypeMgr.Http);
 
 		for (String relationType : allRelationTypes) {
 			if (properties.containsKey(relationType)) {
@@ -131,9 +131,9 @@ public class ParseConfigurator {
 		return false;
 	}
 
-	public String[] getRestInvokeClassNames() {
+	public String[] getHttpInvokeClassNames() {
 
-		String key = "restInvokeClassNames";
+		String key = "httpInvokeClassNames";
 		if (properties.containsKey(key)) {
 			String value = properties.getProperty(key);
 			return value.split(",");

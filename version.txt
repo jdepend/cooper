@@ -1,14 +1,14 @@
 ﻿1.2.4_01
 
-a）更新底层解析class的bcel版本5.2->6.0 RC3，获取Annotation能力
+a）更新底层解析class的bcel版本5.2->6.0 RC3，获取解析Annotation能力
 
 b）简化原有对Transactional和Table注解的获取方式
 
-c）向static属性增加获取初始值的逻辑
+c）向static属性增加获取初始值的逻辑（ClInitMethodReader）
 
 d）增加对注解RequestMapping的识别
 
-e）增加了对REST调用的识别，并创建了一个新的类关系REST（默认强度为0.1，相同的调用者和被调用者有多次REST调用关系时，取1次）
+e）增加了对REST调用的识别，并创建了一个新的类关系REST（默认强度为0.1，相同的调用者和被调用者有多次REST调用关系时，取1次）【RESTInvokeItem】
 
 
 1.2.3_09 2014-12-04

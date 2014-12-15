@@ -2,7 +2,7 @@ package jdepend.model;
 
 import jdepend.model.util.JavaClassCollection;
 
-public final class RESTInvokeItem extends InvokeItem {
+public final class HttpInvokeItem extends InvokeItem {
 
 	private static final long serialVersionUID = -4196380179142091486L;
 
@@ -11,7 +11,7 @@ public final class RESTInvokeItem extends InvokeItem {
 	private transient String constantClassName;
 	private transient String constantAttributeName;
 
-	public RESTInvokeItem(String url, String constantClassName, String constantAttributeName) {
+	public HttpInvokeItem(String url, String constantClassName, String constantAttributeName) {
 		super();
 		this.url = url;
 		this.constantClassName = constantClassName;
@@ -47,7 +47,7 @@ public final class RESTInvokeItem extends InvokeItem {
 		Method method = javaClasses.getTheRESTMethod(this.formatUrl(this.url));
 		if (method != null) {
 			this.setMethod(method);
-			this.getSelf().getJavaClass().getDetail().setRESTCaller(true);
+			this.getSelf().getJavaClass().getDetail().setHttpCaller(true);
 			return true;
 		}
 
@@ -98,7 +98,7 @@ public final class RESTInvokeItem extends InvokeItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RESTInvokeItem other = (RESTInvokeItem) obj;
+		HttpInvokeItem other = (HttpInvokeItem) obj;
 		if (this.getMethod() != null) {
 			if (other.getMethod() == null) {
 				return false;

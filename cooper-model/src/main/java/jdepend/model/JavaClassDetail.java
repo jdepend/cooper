@@ -32,7 +32,7 @@ public class JavaClassDetail implements Serializable {
 
 	private RequestMapping requestMapping;
 
-	private boolean RESTCaller;
+	private boolean httpCaller;
 
 	private transient JavaClass superClass;
 
@@ -205,12 +205,12 @@ public class JavaClassDetail implements Serializable {
 		this.requestMapping = requestMapping;
 	}
 
-	public boolean isRESTCaller() {
-		return RESTCaller;
+	public boolean isHttpCaller() {
+		return httpCaller;
 	}
 
-	public void setRESTCaller(boolean rESTCaller) {
-		RESTCaller = rESTCaller;
+	public void setHttpCaller(boolean httpCaller) {
+		this.httpCaller = httpCaller;
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

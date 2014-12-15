@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.model.Method;
-import jdepend.model.RESTInvokeItem;
+import jdepend.model.HttpInvokeItem;
 import jdepend.parse.ParseConfigurator;
 
 /**
- * 识别REST调用的方法读取器
+ * 识别Http调用的方法读取器
  * 
  * @author user
  * 
  */
-public class RESTInvokeMethodReader extends MethodReader {
+public class HttpInvokeMethodReader extends MethodReader {
 
 	private String url;
 
@@ -23,11 +23,13 @@ public class RESTInvokeMethodReader extends MethodReader {
 
 	private List<String> invokeClassNames = new ArrayList<String>();
 
-	public RESTInvokeMethodReader(Method method, ParseConfigurator parseConfigurator) {
+	public HttpInvokeMethodReader(Method method, ParseConfigurator parseConfigurator) {
 		super(method);
 
-		for (String invokeClassName : parseConfigurator.getRestInvokeClassNames()) {
-			this.invokeClassNames.add(invokeClassName);
+		if (parseConfigurator.getHttpInvokeClassNames() != null) {
+			for (String invokeClassName : parseConfigurator.getHttpInvokeClassNames()) {
+				this.invokeClassNames.add(invokeClassName);
+			}
 		}
 	}
 
@@ -53,7 +55,7 @@ public class RESTInvokeMethodReader extends MethodReader {
 				if (pos != -1) {
 					calledName = infos[1].substring(0, pos);
 					if (invokeClassNames.contains(calledName)) {
-						RESTInvokeItem item = new RESTInvokeItem(url, constantClassName, constantAttributeName);
+						HttpInvokeItem item = new HttpInvokeItem(url, constantClassName, constantAttributeName);
 						method.addInvokeItem(item);
 					}
 				}

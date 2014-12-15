@@ -16,7 +16,7 @@ import jdepend.model.JavaClassDetail;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Method;
-import jdepend.model.RESTInvokeItem;
+import jdepend.model.HttpInvokeItem;
 import jdepend.model.TableInfo;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.util.JavaClassCollection;
@@ -159,13 +159,13 @@ public class JavaClassRelationCreator {
 								}
 							}
 						}
-						// 处理REST调用
-						if (createRelationTypes.contains(JavaClassRelationTypeMgr.REST) && info.isRESTCaller()) {
-							// 收集REST调用的类集合
+						// 处理Http调用
+						if (createRelationTypes.contains(JavaClassRelationTypeMgr.Http) && info.isHttpCaller()) {
+							// 收集Http调用的类集合
 							Collection<JavaClass> dependClasses = new HashSet<JavaClass>();
 							for (Method method : javaClass.getSelfMethods()) {
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
-									if (invokeItem instanceof RESTInvokeItem) {
+									if (invokeItem instanceof HttpInvokeItem) {
 										if (!dependClasses.contains(invokeItem.getMethod().getJavaClass())) {
 											dependClasses.add(invokeItem.getMethod().getJavaClass());
 										}
@@ -174,7 +174,7 @@ public class JavaClassRelationCreator {
 							}
 							// 建立REST类关系
 							for (JavaClass dependClass : dependClasses) {
-								setDependInfo(javaClass, dependClass, mgr.getRESTRelation());
+								setDependInfo(javaClass, dependClass, mgr.getHttpRelation());
 							}
 						}
 					}

@@ -28,7 +28,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	public static final String Param = "Param";
 	public static final String Variable = "Variable";
 	public static final String Table = "Table";
-	public static final String REST = "REST";
+	public static final String Http = "Http";
 
 	private static JavaClassRelationTypeMgr mgr;
 
@@ -54,7 +54,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 		types.put(Param, new ParamRelation(0.5F));
 		types.put(Variable, new VariableRelation(0.3F));
 		types.put(Table, new TableRelation(0.1F));
-		types.put(REST, new RESTRelation(0.1F));
+		types.put(Http, new HttpRelation(0.1F));
 	}
 
 	public static JavaClassRelationTypeMgr getInstance() {
@@ -96,8 +96,8 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 			JavaClassRelationTypeMgr.getInstance().setInheritRelation((InheritRelation) type);
 		} else if (type instanceof TableRelation) {
 			JavaClassRelationTypeMgr.getInstance().setTableRelation((TableRelation) type);
-		} else if (type instanceof RESTRelation) {
-			JavaClassRelationTypeMgr.getInstance().setRESTRelation((RESTRelation) type);
+		} else if (type instanceof HttpRelation) {
+			JavaClassRelationTypeMgr.getInstance().setHttpRelation((HttpRelation) type);
 		} else {
 			if (types.containsKey(type.getName()))
 				throw new JDependException("类型[" + type.getName() + "]已经注册了。");
@@ -132,8 +132,8 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	}
 
 	@notPersistent
-	public RESTRelation getRESTRelation() {
-		return (RESTRelation) getType(REST);
+	public HttpRelation getHttpRelation() {
+		return (HttpRelation) getType(Http);
 	}
 
 	@notPersistent
@@ -167,9 +167,9 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	}
 
 	@notPersistent
-	public void setRESTRelation(RESTRelation type) {
+	public void setHttpRelation(HttpRelation type) {
 		if (type != null)
-			types.put(REST, type);
+			types.put(Http, type);
 	}
 
 	public Collection<String> getIgnoreTables() {
