@@ -48,7 +48,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private int haveState = UnCalculate;// 缓存是否存在状态
 
 	private JavaClassDetail detail;
-	
+
 	private Collection<JavaClassRelationItem> caItems = new ArrayList<JavaClassRelationItem>();
 
 	private Collection<JavaClassRelationItem> ceItems = new ArrayList<JavaClassRelationItem>();
@@ -1076,9 +1076,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	@Override
 	public Object getValue(String metrics) {
-		if (metrics == null) {
-			System.out.print("");
-		}
+
 		if (metrics.equals(JavaClass.Place)) {
 			return this.getPlace();
 		} else if (metrics.equals(JavaClass.State)) {
