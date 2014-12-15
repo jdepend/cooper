@@ -55,7 +55,7 @@ public class JavaClassCollection {
 				if (javaClass.getDetail().getRequestMapping() != null) {
 					for (Method method : javaClass.getMethods()) {
 						if (method.getRequestMapping() != null) {
-							this.restMethods.put(method.getRequestMappingValue(), method);
+							this.restMethods.put(method.getRequestMappingValueNoVariable(), method);
 						}
 					}
 				}

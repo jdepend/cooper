@@ -91,7 +91,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 						try {
 							is = new ByteArrayInputStream(classData.getContent());
 							JavaClass javaClass = parser.parse(place, is);
-							if (parser.getFilter().accept(javaClass.getPackageName())) {
+							if (parser.getConf().getPackageFilter().accept(javaClass.getPackageName())) {
 								synchronized (javaClasses) {
 									javaClasses.add(javaClass);
 								}
@@ -116,14 +116,14 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	}
 
 	private void appendExtClasses() {
-		Collection<JavaClass> extClasses = new IdentifyExtClassesUtil(this.parser.getFilter())
+		Collection<JavaClass> extClasses = new IdentifyExtClassesUtil(this.parser.getConf().getPackageFilter())
 				.identify(this.javaClasses);
 		this.javaClasses.addAll(extClasses);
 	}
 
 	@Override
 	public PackageFilter getFilter() {
-		return this.parser.getFilter();
+		return parser.getConf().getPackageFilter();
 	}
 
 	@Override

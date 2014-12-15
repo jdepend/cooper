@@ -201,8 +201,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
 			if (!obj.getName().equals("<clinit>")) {
 
-				new GeneralMethodReader(method, parser.getFilter()).read(obj);
-				new RESTInvokeMethodReader(method).read(obj);
+				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);
+				new RESTInvokeMethodReader(method, parser.getConf()).read(obj);
 
 				method.setSelfLineCount(this.calLineCount(obj));
 				this.jClass.getDetail().addMethod(method);

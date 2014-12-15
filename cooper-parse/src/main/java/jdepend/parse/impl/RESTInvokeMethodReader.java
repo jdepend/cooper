@@ -5,6 +5,7 @@ import java.util.List;
 
 import jdepend.model.Method;
 import jdepend.model.RESTInvokeItem;
+import jdepend.parse.ParseConfigurator;
 
 /**
  * 识别REST调用的方法读取器
@@ -22,11 +23,12 @@ public class RESTInvokeMethodReader extends MethodReader {
 
 	private List<String> invokeClassNames = new ArrayList<String>();
 
-	public RESTInvokeMethodReader(Method method) {
+	public RESTInvokeMethodReader(Method method, ParseConfigurator parseConfigurator) {
 		super(method);
 
-		this.invokeClassNames.add("org.springframework.web.client.RestTemplate");
-		this.invokeClassNames.add("com.neusoft.saca.snap.infrastructure.oauth.OAuthClientRequestWithParam");
+		for (String invokeClassName : parseConfigurator.getRestInvokeClassNames()) {
+			this.invokeClassNames.add(invokeClassName);
+		}
 	}
 
 	public void addInvokeClassName(String invokeClassName) {
@@ -35,6 +37,10 @@ public class RESTInvokeMethodReader extends MethodReader {
 
 	@Override
 	protected void readInfo(String info) {
+
+		if (invokeClassNames.size() == 0) {
+			return;
+		}
 
 		String[] infos;
 		int pos;

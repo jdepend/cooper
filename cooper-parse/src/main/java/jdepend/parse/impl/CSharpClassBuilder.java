@@ -22,7 +22,7 @@ public class CSharpClassBuilder extends AbstractClassBuilder {
 
 	public CSharpClassBuilder(ParseConfigurator conf) {
 		this.setConf(conf);
-		this.filter = new PackageFilter(conf.getFilteredPackages(), conf.getNotFilteredPackages());
+		this.filter = conf.getPackageFilter();
 	}
 
 	@Override

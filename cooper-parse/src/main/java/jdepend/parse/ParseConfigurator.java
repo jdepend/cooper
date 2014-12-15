@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,6 +15,7 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.parse.impl.FilteredPackageConfigurator;
+import jdepend.parse.impl.PackageFilter;
 
 /**
  * 解析配置信息
@@ -23,9 +23,7 @@ import jdepend.parse.impl.FilteredPackageConfigurator;
  * @author wangdg
  * 
  */
-public class ParseConfigurator implements Serializable {
-
-	private static final long serialVersionUID = 4818843046017316979L;
+public class ParseConfigurator {
 
 	private Properties properties;
 
@@ -33,15 +31,12 @@ public class ParseConfigurator implements Serializable {
 
 	public transient static final String DEFAULT_PROPERTY_FILE = "parse.properties";
 
-	private Collection<String> filteredPackages;
-
-	private Collection<String> notFilteredPackages;
+	private PackageFilter packageFilter;
 
 	public ParseConfigurator() {
 		this(getDefaultPropertyFile());
 		// 装载全局过滤包列表
-		this.filteredPackages = (new FilteredPackageConfigurator()).getFilteredPackages();
-		this.notFilteredPackages = (new FilteredPackageConfigurator()).getNotFilteredPackages();
+		this.packageFilter = (new FilteredPackageConfigurator()).getPackageFilter();
 	}
 
 	private ParseConfigurator(Properties p) {
@@ -52,12 +47,8 @@ public class ParseConfigurator implements Serializable {
 		this(loadProperties(f));
 	}
 
-	public Collection<String> getFilteredPackages() {
-		return filteredPackages;
-	}
-
-	public Collection<String> getNotFilteredPackages() {
-		return notFilteredPackages;
+	public PackageFilter getPackageFilter() {
+		return packageFilter;
 	}
 
 	public boolean getAnalyzeInnerClasses() {
@@ -102,7 +93,7 @@ public class ParseConfigurator implements Serializable {
 
 		return null;
 	}
-	
+
 	public Collection<String> getCreateRelationTypes() {
 
 		Collection<String> relationTypes = new HashSet<String>();
@@ -138,6 +129,17 @@ public class ParseConfigurator implements Serializable {
 		}
 
 		return false;
+	}
+
+	public String[] getRestInvokeClassNames() {
+
+		String key = "restInvokeClassNames";
+		if (properties.containsKey(key)) {
+			String value = properties.getProperty(key);
+			return value.split(",");
+		}
+
+		return null;
 	}
 
 	public static File getDefaultPropertyFile() {

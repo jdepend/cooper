@@ -326,6 +326,30 @@ public class Method extends AccessFlags {
 
 	}
 
+	public String getRequestMappingValueNoVariable() {
+		String requestMappingValue = this.getRequestMappingValue();
+		if (requestMappingValue == null) {
+			return null;
+		} else {
+			if (requestMappingValue.indexOf("{") == -1) {
+				return requestMappingValue;
+			} else {
+				StringBuilder valueNoVariable = new StringBuilder();
+				valueNoVariable.append("/");
+				for (String segment : requestMappingValue.split("/")) {
+					if (segment.length() > 0 && !segment.startsWith("{")) {
+						valueNoVariable.append(segment);
+						valueNoVariable.append("/");
+					}
+				}
+				if (!requestMappingValue.endsWith("/")) {
+					valueNoVariable.delete(valueNoVariable.length() - 1, valueNoVariable.length());
+				}
+				return valueNoVariable.toString();
+			}
+		}
+	}
+
 	public boolean isOverride(Method method) {
 		if (this.getJavaClass().equals(method.getJavaClass())) {
 			return false;

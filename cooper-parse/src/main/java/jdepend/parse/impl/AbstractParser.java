@@ -32,7 +32,6 @@ public abstract class AbstractParser {
 	public static final int CONSTANT_NAMEANDTYPE = 12;
 
 	private ArrayList<ParseListener> parseListeners;
-	private PackageFilter filter;
 	private boolean DEBUG = false;
 
 	private PrintWriter writer = new PrintWriter(System.err);
@@ -54,7 +53,6 @@ public abstract class AbstractParser {
 
 	public AbstractParser(ParseConfigurator conf) {
 		this.conf = conf;
-		this.filter = new PackageFilter(conf.getFilteredPackages(), conf.getNotFilteredPackages());
 		parseListeners = new ArrayList<ParseListener>();
 		DEBUG = conf.getParseDebug();
 	}
@@ -89,14 +87,6 @@ public abstract class AbstractParser {
 		for (ParseListener listener : parseListeners) {
 			listener.onParsedJavaClass(jClass, 1);
 		}
-	}
-
-	public PackageFilter getFilter() {
-		return filter;
-	}
-
-	public void setFilter(PackageFilter filter) {
-		this.filter = filter;
 	}
 
 	public ParseConfigurator getConf() {

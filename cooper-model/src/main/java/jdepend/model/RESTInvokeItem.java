@@ -62,7 +62,7 @@ public final class RESTInvokeItem extends InvokeItem {
 	 */
 	public boolean math2(Method method) {
 		return method.getRequestMappingValue() != null && this.url != null
-				&& method.getRequestMappingValue().startsWith(this.formatUrl(this.url));
+				&& method.getRequestMappingValueNoVariable().startsWith(this.formatUrl(this.url));
 	}
 
 	private String formatUrl(String url) {

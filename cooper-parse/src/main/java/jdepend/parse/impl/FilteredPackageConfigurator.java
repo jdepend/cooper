@@ -33,6 +33,10 @@ public class FilteredPackageConfigurator implements Serializable {
 		this(getDefaultPropertyFile());
 	}
 
+	public PackageFilter getPackageFilter() {
+		return new PackageFilter(this.getFilteredPackages(), this.getNotFilteredPackages());
+	}
+
 	private FilteredPackageConfigurator(Properties p) {
 		this.properties = p;
 	}
@@ -41,7 +45,7 @@ public class FilteredPackageConfigurator implements Serializable {
 		this(loadProperties(f));
 	}
 
-	public Collection<String> getFilteredPackages() {
+	private Collection<String> getFilteredPackages() {
 
 		Collection<String> packages = new ArrayList<String>();
 
@@ -64,7 +68,7 @@ public class FilteredPackageConfigurator implements Serializable {
 		return packages;
 	}
 
-	public Collection<String> getNotFilteredPackages() {
+	private Collection<String> getNotFilteredPackages() {
 		Collection<String> packages = new ArrayList<String>();
 
 		Enumeration e = properties.propertyNames();
@@ -95,12 +99,12 @@ public class FilteredPackageConfigurator implements Serializable {
 		return packages;
 	}
 
-	public static File getDefaultPropertyFile() {
+	private static File getDefaultPropertyFile() {
 		String home = JDependContext.getWorkspacePath() + "/" + FilteredPackageConfigurator.DEFAULT_PROPERTY_DIR;
 		return new File(home, DEFAULT_PROPERTY_FILE);
 	}
 
-	public static Properties loadProperties(File file) {
+	private static Properties loadProperties(File file) {
 
 		Properties p = new Properties();
 
