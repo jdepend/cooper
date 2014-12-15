@@ -161,13 +161,20 @@ public class JavaClassRelationCreator {
 						}
 						// 处理REST调用
 						if (createRelationTypes.contains(JavaClassRelationTypeMgr.REST) && info.isRESTCaller()) {
+							// 收集REST调用的类集合
+							Collection<JavaClass> dependClasses = new HashSet<JavaClass>();
 							for (Method method : javaClass.getSelfMethods()) {
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
 									if (invokeItem instanceof RESTInvokeItem) {
-										setDependInfo(javaClass, invokeItem.getMethod().getJavaClass(),
-												mgr.getRESTRelation());
+										if (!dependClasses.contains(invokeItem.getMethod().getJavaClass())) {
+											dependClasses.add(invokeItem.getMethod().getJavaClass());
+										}
 									}
 								}
+							}
+							// 建立REST类关系
+							for (JavaClass dependClass : dependClasses) {
+								setDependInfo(javaClass, dependClass, mgr.getRESTRelation());
 							}
 						}
 					}
