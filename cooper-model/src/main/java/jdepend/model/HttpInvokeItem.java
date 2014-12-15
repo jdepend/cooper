@@ -27,18 +27,7 @@ public final class HttpInvokeItem extends InvokeItem {
 	@Override
 	public boolean supplyMethod(JavaClassCollection javaClasses) {
 
-		if (this.constantClassName != null && this.constantAttributeName != null) {
-			JavaClass urlClass = javaClasses.getTheClass(this.getSelf().getJavaClass().getPlace(),
-					this.constantClassName);
-			if (urlClass != null) {
-				L: for (Attribute attribute : urlClass.getAttributes()) {
-					if (attribute.getStaticValue() != null && attribute.getName().equals(this.constantAttributeName)) {
-						url = attribute.getStaticValue();
-						break L;
-					}
-				}
-			}
-		}
+		this.calUrl(javaClasses);
 
 		if (url == null) {
 			return false;
@@ -65,6 +54,21 @@ public final class HttpInvokeItem extends InvokeItem {
 				&& method.getRequestMappingValueNoVariable().startsWith(this.formatUrl(this.url));
 	}
 
+	private void calUrl(JavaClassCollection javaClasses) {
+		if (this.constantClassName != null && this.constantAttributeName != null) {
+			JavaClass urlClass = javaClasses.getTheClass(this.getSelf().getJavaClass().getPlace(),
+					this.constantClassName);
+			if (urlClass != null) {
+				L: for (Attribute attribute : urlClass.getAttributes()) {
+					if (attribute.getStaticValue() != null && attribute.getName().equals(this.constantAttributeName)) {
+						url = attribute.getStaticValue();
+						break L;
+					}
+				}
+			}
+		}
+	}
+
 	private String formatUrl(String url) {
 		if (url.startsWith("\"") && url.endsWith("\"")) {
 			return url.substring(1, url.length() - 1);
@@ -84,6 +88,8 @@ public final class HttpInvokeItem extends InvokeItem {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((url == null) ? 0 : url.hashCode());
+			result = prime * result + ((constantClassName == null) ? 0 : constantClassName.hashCode());
+			result = prime * result + ((constantAttributeName == null) ? 0 : constantAttributeName.hashCode());
 
 			return result;
 		}
@@ -111,6 +117,16 @@ public final class HttpInvokeItem extends InvokeItem {
 					return false;
 			} else if (!url.equals(other.url))
 				return false;
+			if (constantClassName == null) {
+				if (other.constantClassName != null)
+					return false;
+			} else if (!constantClassName.equals(other.constantClassName))
+				return false;
+			if (constantAttributeName == null) {
+				if (other.constantAttributeName != null)
+					return false;
+			} else if (!constantAttributeName.equals(other.constantAttributeName))
+				return false;
 
 			return true;
 		}
@@ -122,7 +138,20 @@ public final class HttpInvokeItem extends InvokeItem {
 			return "InvokeItem [invokeClassName=" + getMethod().getJavaClass().getName() + ", invokeMethodName="
 					+ getMethod().getName() + ", invokeMethodSignature=" + getMethod().getSignature() + "]";
 		} else {
-			return "InvokeItem [url=" + url + "]";
+			StringBuilder info = new StringBuilder();
+			info.append("InvokeItem [");
+			if (this.url != null) {
+				info.append("url=" + url + ",");
+			}
+			if (this.constantClassName != null) {
+				info.append("constantClassName=" + constantClassName + ",");
+			}
+			if (this.constantAttributeName != null) {
+				info.append("constantAttributeName=" + constantAttributeName + ",");
+			}
+			info.delete(info.length() - 1, info.length());
+			info.append("]");
+			return info.toString();
 		}
 	}
 }

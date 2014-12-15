@@ -1,10 +1,10 @@
 package jdepend.parse.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
-import jdepend.model.Method;
 import jdepend.model.HttpInvokeItem;
+import jdepend.model.Method;
 import jdepend.parse.ParseConfigurator;
 
 /**
@@ -21,7 +21,7 @@ public class HttpInvokeMethodReader extends MethodReader {
 
 	private String constantAttributeName;
 
-	private List<String> invokeClassNames = new ArrayList<String>();
+	private Collection<String> invokeClassNames = new HashSet<String>();
 
 	public HttpInvokeMethodReader(Method method, ParseConfigurator parseConfigurator) {
 		super(method);
