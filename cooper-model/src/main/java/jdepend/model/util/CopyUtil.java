@@ -45,7 +45,6 @@ public final class CopyUtil {
 		JavaPackage javaPackage;
 		for (JavaClass javaClass : jClasses.getJavaClasses()) {
 			javaPackage = javaPackages.get(CandidateUtil.getId(javaClass.getPlace(), javaClass.getPackageName()));
-			javaClass.setJavaPackage(javaPackage);
 			javaPackage.addClass(javaClass);
 		}
 

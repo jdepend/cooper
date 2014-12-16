@@ -38,6 +38,7 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 
 	public void addClass(JavaClass clazz) {
 		classes.add(clazz);
+		clazz.setJavaPackage(this);
 	}
 
 	/*

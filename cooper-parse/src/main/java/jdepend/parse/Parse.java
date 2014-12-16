@@ -250,7 +250,6 @@ public class Parse {
 
 		JavaPackage clazzPackage = addPackage(clazz.getPlace(), packageName);
 		clazzPackage.addClass(clazz);
-		clazz.setJavaPackage(clazzPackage);
 	}
 
 }
