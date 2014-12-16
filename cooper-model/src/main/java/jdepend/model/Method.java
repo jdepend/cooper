@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
@@ -375,6 +376,39 @@ public class Method extends AccessFlags {
 
 	public String getJavaClassId() {
 		return javaClassId;
+	}
+
+	public void supply(JavaClassCollection javaClasses) {
+
+		Collection<JavaClass> argumentTypes;
+		JavaClass argumentTypeClass;
+
+		Collection<JavaClass> returnTypes;
+		JavaClass returnTypeClass;
+
+		// 填充JavaClass
+		if (this.javaClass == null) {
+			this.javaClass = javaClasses.getTheClass(this.javaClassId);
+		}
+
+		// 填充参数
+		argumentTypes = new HashSet<JavaClass>();
+		for (String type : this.getArgumentTypes()) {
+			argumentTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
+			if (argumentTypeClass != null) {
+				argumentTypes.add(argumentTypeClass);
+			}
+		}
+		this.setArgClassTypes(argumentTypes);
+		// 填充返回值
+		returnTypes = new HashSet<JavaClass>();
+		for (String type : this.getReturnTypes()) {
+			returnTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
+			if (returnTypeClass != null) {
+				returnTypes.add(returnTypeClass);
+			}
+		}
+		this.setReturnClassTypes(returnTypes);
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

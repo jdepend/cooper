@@ -3,8 +3,10 @@ package jdepend.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
 
@@ -14,6 +16,8 @@ import org.apache.bcel.classfile.Field;
 public class Attribute implements Serializable {
 
 	private static final long serialVersionUID = 5330876838708287382L;
+
+	private String javaClassId;
 
 	private int access_flags;
 
@@ -27,9 +31,14 @@ public class Attribute implements Serializable {
 
 	private List<String> types;
 
+	private transient JavaClass javaClass;
+
 	private transient Collection<JavaClass> typeClasses;
 
-	public Attribute(Field field) {
+	public Attribute(JavaClass javaClass, Field field) {
+		this.javaClass = javaClass;
+		this.javaClassId = javaClass.getId();
+
 		this.access_flags = field.getAccessFlags();
 		this.info = field.toString();
 		this.name = field.getName();
@@ -45,7 +54,9 @@ public class Attribute implements Serializable {
 
 	}
 
-	public Attribute(Attribute attribute) {
+	public Attribute(String javaClassId, Attribute attribute) {
+		this.javaClassId = javaClassId;
+
 		this.access_flags = attribute.access_flags;
 		this.info = attribute.info;
 		this.name = attribute.name;
@@ -55,6 +66,14 @@ public class Attribute implements Serializable {
 			this.types.add(type);
 		}
 		this.staticValue = attribute.staticValue;
+	}
+
+	public JavaClass getJavaClass() {
+		return javaClass;
+	}
+
+	public void setJavaClass(JavaClass javaClass) {
+		this.javaClass = javaClass;
 	}
 
 	public String getInfo() {
@@ -140,6 +159,26 @@ public class Attribute implements Serializable {
 		return false;
 	}
 
+	public void supply(JavaClassCollection javaClasses) {
+
+		Collection<JavaClass> attributeTypes;
+		JavaClass attributeTypeClass;
+
+		// 填充JavaClass
+		if (this.javaClass == null) {
+			this.javaClass = javaClasses.getTheClass(this.javaClassId);
+		}
+
+		attributeTypes = new HashSet<JavaClass>();
+		for (String type : this.getTypes()) {
+			attributeTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
+			if (attributeTypeClass != null) {
+				attributeTypes.add(attributeTypeClass);
+			}
+		}
+		this.setTypeClasses(attributeTypes);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder rtn = new StringBuilder();
@@ -159,6 +198,7 @@ public class Attribute implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((this.javaClassId == null) ? 0 : this.javaClassId.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -172,6 +212,11 @@ public class Attribute implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Attribute other = (Attribute) obj;
+		if (javaClassId == null) {
+			if (other.javaClassId != null)
+				return false;
+		} else if (!javaClassId.equals(other.javaClassId))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;

@@ -111,7 +111,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitField(Field obj) {
-		this.jClass.getDetail().addAttribute(new jdepend.model.Attribute(obj));
+		this.jClass.getDetail().addAttribute(new jdepend.model.Attribute(this.jClass, obj));
 		this.parser.debug("visitField: obj.getSignature() = " + SignatureUtil.getSignature(obj));
 	}
 

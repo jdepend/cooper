@@ -168,73 +168,7 @@ public class JavaClassUtil {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-
-					Collection<JavaClass> attributeTypes;
-					JavaClass attributeTypeClass;
-
-					Collection<JavaClass> argumentTypes;
-					JavaClass argumentTypeClass;
-
-					Collection<JavaClass> returnTypes;
-					JavaClass returnTypeClass;
-
-					// 填充superClass和interfaces
-					JavaClass superClass = javaClasses.getTheClass(javaClass.getPlace(), javaClass.getDetail()
-							.getSuperClassName());
-					if (superClass != null) {
-						javaClass.getDetail().setSuperClass(superClass);
-					} else {
-						javaClass.getDetail().setSuperClassName(null);
-					}
-					Collection<JavaClass> interfaces = new HashSet<JavaClass>();
-					Collection<String> interfaceNames = new ArrayList<String>();
-					for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
-						JavaClass interfaceClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
-						if (interfaceClass != null) {
-							interfaces.add(interfaceClass);
-							interfaceNames.add(interfaceName);
-						}
-					}
-					javaClass.getDetail().setInterfaces(interfaces);
-					javaClass.getDetail().setInterfaceNames(interfaceNames);
-
-					// 填充Attribute中的JavaClass
-					for (Attribute attribute : javaClass.getAttributes()) {
-						attributeTypes = new HashSet<JavaClass>();
-						for (String type : attribute.getTypes()) {
-							attributeTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
-							if (attributeTypeClass != null) {
-								attributeTypes.add(attributeTypeClass);
-							}
-						}
-						attribute.setTypeClasses(attributeTypes);
-					}
-
-					// 填充Method中的JavaClass
-					for (Method method : javaClass.getSelfMethods()) {
-						// 填充JavaClass
-						if (method.getJavaClass() == null) {
-							method.setJavaClass(javaClasses.getTheClass(method.getJavaClassId()));
-						}
-						// 填充参数
-						argumentTypes = new HashSet<JavaClass>();
-						for (String type : method.getArgumentTypes()) {
-							argumentTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
-							if (argumentTypeClass != null) {
-								argumentTypes.add(argumentTypeClass);
-							}
-						}
-						method.setArgClassTypes(argumentTypes);
-						// 填充返回值
-						returnTypes = new HashSet<JavaClass>();
-						for (String type : method.getReturnTypes()) {
-							returnTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
-							if (returnTypeClass != null) {
-								returnTypes.add(returnTypeClass);
-							}
-						}
-						method.setReturnClassTypes(returnTypes);
-					}
+					javaClass.getDetail().supply(javaClasses);
 				}
 			});
 		}
