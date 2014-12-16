@@ -410,11 +410,13 @@ public class Method extends AccessFlags {
 			}
 		}
 		this.setReturnClassTypes(returnTypes);
+	}
 
-		// 填充InvokeItem中的Method
+	public void supplyInvokeItem(JavaClassCollection javaClasses) {
+
 		Iterator<InvokeItem> it;
 		InvokeItem invokeItem;
-
+		// 填充Method中的InvokeItem
 		it = this.getInvokeItems().iterator();
 		while (it.hasNext()) {
 			invokeItem = it.next();
@@ -423,6 +425,7 @@ public class Method extends AccessFlags {
 				it.remove();
 			}
 		}
+
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

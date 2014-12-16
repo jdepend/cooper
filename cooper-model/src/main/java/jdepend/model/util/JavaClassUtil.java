@@ -119,6 +119,7 @@ public class JavaClassUtil {
 	 */
 	public static void supplyJavaClassDetail(final JavaClassCollection javaClasses) {
 		supplyJavaClassDetailSimple(javaClasses);
+		supplyJavaClassDetailMethodInvoke(javaClasses);
 	}
 
 	/**
@@ -168,6 +169,30 @@ public class JavaClassUtil {
 				@Override
 				public void run() {
 					javaClass.getDetail().supply(javaClasses);
+				}
+			});
+		}
+
+		ThreadPool.awaitTermination(pool);
+	}
+
+	/**
+	 * 将Method.InvokeItem中的字符串信息填充为对象引用
+	 * 
+	 * @param javaClasses
+	 */
+	private static void supplyJavaClassDetailMethodInvoke(final JavaClassCollection javaClasses) {
+
+		ExecutorService pool = ThreadPool.getPool();
+
+		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
+					// 填充Method中的InvokeItem
+					for (Method method : javaClass.getSelfMethods()) {
+						method.supplyInvokeItem(javaClasses);
+					}
 				}
 			});
 		}
