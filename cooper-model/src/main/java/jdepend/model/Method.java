@@ -86,6 +86,7 @@ public class Method extends AccessFlags {
 		this.invokeItems = method.invokeItems;
 		for (InvokeItem invokeItem : this.invokeItems) {
 			invokeItem.setSelf(this);
+			invokeItem.setMethod(null);
 		}
 
 		this.readFields = method.readFields;
