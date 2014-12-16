@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
 import org.apache.bcel.Constants;
@@ -928,6 +930,38 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		}
 
 		return obj;
+	}
+
+	public void supplyJavaClassRelationItem(JavaClassCollection javaClasses) {
+
+		Iterator<JavaClassRelationItem> it;
+		JavaClassRelationItem relationItem;
+		JavaClass dependClass;
+
+		it = this.getCaItems().iterator();
+		while (it.hasNext()) {
+			relationItem = it.next();
+			dependClass = javaClasses.getTheClass(relationItem.getCurrentJavaClassPlace(),
+					relationItem.getDependJavaClass());
+			if (dependClass != null) {
+				relationItem.setDepend(dependClass);
+				relationItem.setCurrent(this);
+			} else {
+				it.remove();
+			}
+		}
+		it = this.getCeItems().iterator();
+		while (it.hasNext()) {
+			relationItem = it.next();
+			dependClass = javaClasses.getTheClass(relationItem.getDependJavaClassPlace(),
+					relationItem.getDependJavaClass());
+			if (dependClass != null) {
+				relationItem.setDepend(dependClass);
+				relationItem.setCurrent(this);
+			} else {
+				it.remove();
+			}
+		}
 	}
 
 	@Override

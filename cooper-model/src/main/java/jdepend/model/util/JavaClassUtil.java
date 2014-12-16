@@ -77,34 +77,7 @@ public class JavaClassUtil {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					Iterator<JavaClassRelationItem> it;
-					JavaClassRelationItem relationItem;
-					JavaClass dependClass;
-
-					it = javaClass.getCaItems().iterator();
-					while (it.hasNext()) {
-						relationItem = it.next();
-						dependClass = javaClasses.getTheClass(relationItem.getCurrentJavaClassPlace(),
-								relationItem.getDependJavaClass());
-						if (dependClass != null) {
-							relationItem.setDepend(dependClass);
-							relationItem.setCurrent(javaClass);
-						} else {
-							it.remove();
-						}
-					}
-					it = javaClass.getCeItems().iterator();
-					while (it.hasNext()) {
-						relationItem = it.next();
-						dependClass = javaClasses.getTheClass(relationItem.getDependJavaClassPlace(),
-								relationItem.getDependJavaClass());
-						if (dependClass != null) {
-							relationItem.setDepend(dependClass);
-							relationItem.setCurrent(javaClass);
-						} else {
-							it.remove();
-						}
-					}
+					javaClass.supplyJavaClassRelationItem(javaClasses);
 				}
 			});
 		}

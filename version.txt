@@ -10,6 +10,8 @@ d）增加对注解RequestMapping的识别
 
 e）增加了对Http调用的识别，并创建了一个新的类关系Http（默认强度为0.1，相同的调用者和被调用者有多次Http调用关系时，取1次）【HttpInvokeItem】
 
+f）将JavaClass的supply逻辑附加在各级Entity上（JavaClassDetail、Attribute、Method）
+
 
 1.2.3_09 2014-12-04
 

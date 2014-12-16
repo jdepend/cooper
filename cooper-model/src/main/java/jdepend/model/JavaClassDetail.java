@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 
 import jdepend.model.util.JavaClassCollection;
@@ -281,7 +282,7 @@ public class JavaClassDetail implements Serializable {
 			method.supply(javaClasses);
 		}
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder content = new StringBuilder(500);
