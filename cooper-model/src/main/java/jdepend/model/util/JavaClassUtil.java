@@ -3,18 +3,14 @@ package jdepend.model.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.util.StringUtil;
 import jdepend.framework.util.ThreadPool;
-import jdepend.model.Attribute;
 import jdepend.model.Component;
-import jdepend.model.InvokeItem;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
 

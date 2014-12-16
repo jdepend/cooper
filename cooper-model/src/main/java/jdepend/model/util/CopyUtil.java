@@ -9,7 +9,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
-import jdepend.model.Method;
 import jdepend.model.component.modelconf.CandidateUtil;
 
 public final class CopyUtil {
