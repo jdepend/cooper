@@ -78,16 +78,7 @@ public final class CopyUtil {
 		if (newJavaClass == null) {
 			newJavaClass = javaClass.clone();
 			javaClasses.put(newJavaClass.getId(), newJavaClass);
-
-			for (Method name : javaClass.getSelfMethods()) {
-				newJavaClass.addSelfMethod(newMethod(name));
-			}
 		}
 		return newJavaClass;
-	}
-
-	private Method newMethod(Method method) {
-		return new Method(newJavaClass(method.getJavaClass()), method);
-
 	}
 }

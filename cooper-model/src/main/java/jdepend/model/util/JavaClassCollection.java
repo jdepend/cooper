@@ -14,7 +14,7 @@ public class JavaClassCollection {
 	private Map<String, JavaClass> javaClassesForId;
 	private Map<String, JavaClass> javaClassesForName;
 
-	private Map<String, Method> restMethods;
+	private Map<String, Method> httpMethods;
 
 	public JavaClassCollection(Collection<JavaClass> javaClasses) {
 		super();
@@ -35,8 +35,8 @@ public class JavaClassCollection {
 		return javaClasses;
 	}
 
-	public Map<String, JavaClass> getJavaClassesForId() {
-		return javaClassesForId;
+	public JavaClass getTheClass(String id) {
+		return javaClassesForId.get(id);
 	}
 
 	public JavaClass getTheClass(String place, String name) {
@@ -48,19 +48,19 @@ public class JavaClassCollection {
 		}
 	}
 
-	public Method getTheRESTMethod(String url) {
-		if (this.restMethods == null) {
-			this.restMethods = new HashMap<String, Method>();
+	public Method getTheHttpMethod(String url) {
+		if (this.httpMethods == null) {
+			this.httpMethods = new HashMap<String, Method>();
 			for (JavaClass javaClass : javaClasses) {
 				if (javaClass.getDetail().getRequestMapping() != null) {
 					for (Method method : javaClass.getMethods()) {
 						if (method.getRequestMapping() != null) {
-							this.restMethods.put(method.getRequestMappingValueNoVariable(), method);
+							this.httpMethods.put(method.getRequestMappingValueNoVariable(), method);
 						}
 					}
 				}
 			}
 		}
-		return this.restMethods.get(url);
+		return this.httpMethods.get(url);
 	}
 }

@@ -212,6 +212,10 @@ public class JavaClassUtil {
 
 					// 填充Method中的JavaClass
 					for (Method method : javaClass.getSelfMethods()) {
+						// 填充JavaClass
+						if (method.getJavaClass() == null) {
+							method.setJavaClass(javaClasses.getTheClass(method.getJavaClassId()));
+						}
 						// 填充参数
 						argumentTypes = new HashSet<JavaClass>();
 						for (String type : method.getArgumentTypes()) {

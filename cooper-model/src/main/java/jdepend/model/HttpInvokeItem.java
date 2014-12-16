@@ -33,7 +33,7 @@ public final class HttpInvokeItem extends InvokeItem {
 			return false;
 		}
 
-		Method method = javaClasses.getTheRESTMethod(this.formatUrl(this.url));
+		Method method = javaClasses.getTheHttpMethod(this.formatUrl(this.url));
 		if (method != null) {
 			this.setMethod(method);
 			this.getSelf().getJavaClass().getDetail().setHttpCaller(true);

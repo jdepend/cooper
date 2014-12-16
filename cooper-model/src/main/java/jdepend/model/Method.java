@@ -18,7 +18,7 @@ public class Method extends AccessFlags {
 	 */
 	private static final long serialVersionUID = -8642392143295770051L;
 
-	private JavaClass javaClass;
+	private String javaClassId;
 
 	private String name;
 
@@ -52,11 +52,14 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokedMethods;
 
+	private transient JavaClass javaClass;
+
 	public Method() {
 	}
 
 	public Method(JavaClass javaClass, org.apache.bcel.classfile.Method method) {
 		this.javaClass = javaClass;
+		this.javaClassId = javaClass.getId();
 		this.access_flags = method.getAccessFlags();
 		this.name = method.getName();
 		this.signature = SignatureUtil.getSignature(method);
@@ -70,8 +73,9 @@ public class Method extends AccessFlags {
 		this.invokedMethods = new HashSet<Method>();
 	}
 
-	public Method(JavaClass javaClass, Method method) {
-		this.javaClass = javaClass;
+	public Method(String javaClassId, Method method) {
+
+		this.javaClassId = javaClassId;
 		this.access_flags = method.access_flags;
 		this.name = method.name;
 		this.signature = method.signature;
@@ -88,6 +92,7 @@ public class Method extends AccessFlags {
 		this.writeFields = method.writeFields;
 		this.selfLineCount = method.selfLineCount;
 		this.isIncludeTransactionalAnnotation = method.isIncludeTransactionalAnnotation;
+		this.requestMapping = method.requestMapping;
 	}
 
 	public String getName() {
@@ -96,6 +101,10 @@ public class Method extends AccessFlags {
 
 	public JavaClass getJavaClass() {
 		return javaClass;
+	}
+
+	public void setJavaClass(JavaClass javaClass) {
+		this.javaClass = javaClass;
 	}
 
 	public String getInfo() {
@@ -363,6 +372,10 @@ public class Method extends AccessFlags {
 		return this.signature.equals(method.signature);
 	}
 
+	public String getJavaClassId() {
+		return javaClassId;
+	}
+
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 
@@ -416,7 +429,7 @@ public class Method extends AccessFlags {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((info == null) ? 0 : info.hashCode());
-		result = prime * result + ((javaClass == null) ? 0 : javaClass.hashCode());
+		result = prime * result + ((javaClassId == null) ? 0 : javaClassId.hashCode());
 		return result;
 	}
 
@@ -434,10 +447,10 @@ public class Method extends AccessFlags {
 				return false;
 		} else if (!info.equals(other.info))
 			return false;
-		if (javaClass == null) {
-			if (other.javaClass != null)
+		if (javaClassId == null) {
+			if (other.javaClassId != null)
 				return false;
-		} else if (!javaClass.equals(other.javaClass))
+		} else if (!javaClassId.equals(other.javaClassId))
 			return false;
 		return true;
 	}

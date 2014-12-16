@@ -230,8 +230,8 @@ public class JavaClassDetail implements Serializable {
 			obj.addAttribute(new Attribute(name));
 		}
 
-		for (String name : this.getInterfaceNames()) {
-			obj.addInterfaceName(name);
+		for (Method method : this.getMethods()) {
+			obj.addMethod(new Method(method.getJavaClass().getId(), method));
 		}
 
 		for (String name : this.getVariableTypes()) {
@@ -242,7 +242,8 @@ public class JavaClassDetail implements Serializable {
 			obj.addTable(new TableInfo(tableRelationInfo));
 		}
 
-		obj.setRequestMapping(this.getRequestMapping());
+		obj.requestMapping = this.requestMapping;
+		obj.httpCaller = this.httpCaller;
 
 		return obj;
 	}
