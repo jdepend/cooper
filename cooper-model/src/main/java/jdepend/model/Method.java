@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
@@ -409,6 +410,19 @@ public class Method extends AccessFlags {
 			}
 		}
 		this.setReturnClassTypes(returnTypes);
+
+		// 填充InvokeItem中的Method
+		Iterator<InvokeItem> it;
+		InvokeItem invokeItem;
+
+		it = this.getInvokeItems().iterator();
+		while (it.hasNext()) {
+			invokeItem = it.next();
+			invokeItem.setSelf(this);
+			if (!invokeItem.supplyMethod(javaClasses)) {
+				it.remove();
+			}
+		}
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
