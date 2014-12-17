@@ -33,7 +33,7 @@ public class JavaClassCollection {
 		this.httpMethods = new HashMap<String, Method>();
 		for (JavaClass javaClass : javaClasses) {
 			if (javaClass.getDetail().getRequestMapping() != null) {
-				for (Method method : javaClass.getMethods()) {
+				for (Method method : javaClass.getSelfMethods()) {
 					if (method.getRequestMapping() != null) {
 						this.httpMethods.put(method.getRequestMappingValueNoVariable(), method);
 					}
