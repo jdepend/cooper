@@ -145,10 +145,10 @@ public final class LocalInvokeItem extends InvokeItem {
 	@Override
 	public String toString() {
 		if (this.getMethod() != null) {
-			return "InvokeItem [invokeClassName=" + getMethod().getJavaClass().getName() + ", invokeMethodName="
+			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName() + ", invokeMethodName="
 					+ getMethod().getName() + ", invokeMethodSignature=" + getMethod().getSignature() + "]";
 		} else {
-			return "InvokeItem [invokeClassName=" + invokeClassName + ", invokeType=" + invokeType
+			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + invokeClassName + ", invokeType=" + invokeType
 					+ ", invokeMethodName=" + invokeMethodName + ", invokeMethodSignature=" + invokeMethodSignature
 					+ "]";
 		}

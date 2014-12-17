@@ -29,6 +29,17 @@ public class JavaClassCollection {
 		for (JavaClass javaClass : javaClasses) {
 			javaClassesForName.put(javaClass.getName(), javaClass);
 		}
+
+		this.httpMethods = new HashMap<String, Method>();
+		for (JavaClass javaClass : javaClasses) {
+			if (javaClass.getDetail().getRequestMapping() != null) {
+				for (Method method : javaClass.getMethods()) {
+					if (method.getRequestMapping() != null) {
+						this.httpMethods.put(method.getRequestMappingValueNoVariable(), method);
+					}
+				}
+			}
+		}
 	}
 
 	public Collection<JavaClass> getJavaClasses() {
@@ -48,19 +59,7 @@ public class JavaClassCollection {
 		}
 	}
 
-	public Method getTheHttpMethod(String url) {
-		if (this.httpMethods == null) {
-			this.httpMethods = new HashMap<String, Method>();
-			for (JavaClass javaClass : javaClasses) {
-				if (javaClass.getDetail().getRequestMapping() != null) {
-					for (Method method : javaClass.getMethods()) {
-						if (method.getRequestMapping() != null) {
-							this.httpMethods.put(method.getRequestMappingValueNoVariable(), method);
-						}
-					}
-				}
-			}
-		}
-		return this.httpMethods.get(url);
+	public Map<String, Method> getHttpMethod() {
+		return this.httpMethods;
 	}
 }

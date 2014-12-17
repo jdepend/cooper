@@ -1,5 +1,7 @@
 package jdepend.model;
 
+import java.util.Map;
+
 import jdepend.model.util.JavaClassCollection;
 
 public final class HttpInvokeItem extends InvokeItem {
@@ -33,11 +35,14 @@ public final class HttpInvokeItem extends InvokeItem {
 			return false;
 		}
 
-		Method method = javaClasses.getTheHttpMethod(this.formatUrl(this.url));
-		if (method != null) {
-			this.setMethod(method);
-			this.getSelf().getJavaClass().getDetail().setHttpCaller(true);
-			return true;
+		String mathUrl = this.formatUrl(this.url);
+		Map<String, Method> httpMethods = javaClasses.getHttpMethod();
+		for (String calledUrl : httpMethods.keySet()) {
+			if (calledUrl.startsWith(mathUrl) || mathUrl.startsWith(calledUrl)) {
+				this.setMethod(httpMethods.get(calledUrl));
+				this.getSelf().getJavaClass().getDetail().setHttpCaller(true);
+				return true;
+			}
 		}
 
 		return false;
@@ -50,8 +55,18 @@ public final class HttpInvokeItem extends InvokeItem {
 	 * @return
 	 */
 	public boolean math2(Method method) {
-		return method.getRequestMapping() != null && this.url != null
-				&& method.getRequestMappingValueNoVariable().startsWith(this.formatUrl(this.url));
+		if (method.getRequestMapping() == null || this.url == null) {
+			return false;
+		} else {
+			String mathUrl = this.formatUrl(this.url);
+			String calledUrl = method.getRequestMappingValueNoVariable();
+
+			if (calledUrl.startsWith(mathUrl) || mathUrl.startsWith(calledUrl)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 
 	private void calUrl(JavaClassCollection javaClasses) {
@@ -135,11 +150,12 @@ public final class HttpInvokeItem extends InvokeItem {
 	@Override
 	public String toString() {
 		if (this.getMethod() != null) {
-			return "InvokeItem [invokeClassName=" + getMethod().getJavaClass().getName() + ", invokeMethodName="
-					+ getMethod().getName() + ", invokeMethodSignature=" + getMethod().getSignature() + "]";
+			return "InvokeItem [type=HttpInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
+					+ ", invokeMethodName=" + getMethod().getName() + ", invokeMethodSignature="
+					+ getMethod().getSignature() + "]";
 		} else {
 			StringBuilder info = new StringBuilder();
-			info.append("InvokeItem [");
+			info.append("InvokeItem [type=HttpInvokeItem, ");
 			if (this.url != null) {
 				info.append("url=" + url + ",");
 			}
