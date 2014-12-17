@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import jdepend.framework.log.LogUtil;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 import jdepend.model.util.SignatureUtil;
@@ -421,7 +422,11 @@ public class Method extends AccessFlags {
 		while (it.hasNext()) {
 			invokeItem = it.next();
 			invokeItem.setSelf(this);
+
 			if (!invokeItem.supplyMethod(javaClasses)) {
+				LogUtil.getInstance(Method.class).systemWarning(
+						"Method [" + this.getJavaClass().getName() + "." + this.getInfo() + "] invokeItem ["
+								+ invokeItem + "] not found, is removed.");
 				it.remove();
 			}
 		}
@@ -439,6 +444,7 @@ public class Method extends AccessFlags {
 
 		StringBuilder info1 = new StringBuilder();
 		info1.append("Method [" + info + " Class=" + this.getJavaClass().getName() + "]");
+		info1.append("\n		Signature : " + this.signature + "]");
 		info1.append("\n		selfLineCount : " + this.selfLineCount);
 
 		if (this.isIncludeTransactionalAnnotation) {

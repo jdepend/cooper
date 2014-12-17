@@ -172,7 +172,7 @@ public class JavaClassRelationCreator {
 									}
 								}
 							}
-							// 建立REST类关系
+							// 建立Http类关系
 							for (JavaClass dependClass : dependClasses) {
 								setDependInfo(javaClass, dependClass, mgr.getHttpRelation());
 							}

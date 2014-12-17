@@ -12,7 +12,7 @@ import org.apache.bcel.util.ByteSequence;
  * 方法內容读取器
  * 
  * @author user
- *
+ * 
  */
 public abstract class MethodReader {
 
@@ -30,9 +30,17 @@ public abstract class MethodReader {
 			ByteSequence stream = new ByteSequence(code);
 			String info;
 
+			if (this.method.getJavaClass().getName()
+					.equals("com.neusoft.saca.snap.engine.api.internal.NotificationController")
+					&& this.method
+							.getInfo()
+							.equals("public java.util.Map createNotification(com.neusoft.saca.snap.engine.api.internal.dto.NotificationDto notificationDto) [Signature((Lcom/neusoft/saca/snap/engine/api/internal/dto/NotificationDto;)Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;)] [RuntimeVisibleAnnotations] [RuntimeVisibleParameterAnnotations]")) {
+				System.out.print("");
+			}
+
 			try {
 				while (stream.available() > 0) {
-					info = Utility.codeToString(stream, obj.getConstantPool(), false);
+					info = Utility.codeToString(stream, obj.getConstantPool(), true);
 					readInfo(info);
 				}
 			} catch (Exception e) {
