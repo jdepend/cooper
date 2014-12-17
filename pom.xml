@@ -5,7 +5,7 @@
 
 	<groupId>cooper</groupId>
 	<artifactId>cooper</artifactId>
-	<version>1.2.4_01-SNAPSHOT</version>
+	<version>1.2.4_02-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>cooper</name>
