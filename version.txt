@@ -1,4 +1,4 @@
-﻿1.2.4_01
+﻿1.2.4_01 2014-12-17
 
 a）更新底层解析class的bcel版本5.2->6.0 RC3，获取解析Annotation能力
 
@@ -10,7 +10,7 @@ d）增加对注解RequestMapping的识别
 
 e）增加了对Http调用的识别，并创建了一个新的类关系Http（默认强度为0.1，相同的调用者和被调用者有多次Http调用关系时，取1次）【HttpInvokeItem】
 
-f）将JavaClass的supply逻辑附加在各级Entity上（JavaClass、JavaClassDetail、Attribute、Method）
+f）将JavaClass的supply逻辑由JavaClassUtil转移到各级Entity上（JavaClass、JavaClassDetail、Attribute、Method）
 
 
 1.2.3_09 2014-12-04
