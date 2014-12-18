@@ -1,4 +1,4 @@
-package jdepend.model.component;
+package jdepend.util.refactor;
 
 import java.util.ArrayList;
 import java.util.Collection;

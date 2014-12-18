@@ -8,7 +8,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.component.UniteComponent;
 
 final class DefaultRefactorTool implements RefactorTool {
 
