@@ -1,4 +1,4 @@
-package jdepend.model.component;
+package jdepend.util.analyzer.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +8,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
+import jdepend.model.component.PrefixComponent;
 import jdepend.model.component.layer.LayerInfo;
 import jdepend.model.component.layer.LayerType;
 

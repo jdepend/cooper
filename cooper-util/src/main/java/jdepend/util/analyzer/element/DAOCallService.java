@@ -9,7 +9,6 @@ import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassType;
-import jdepend.model.component.JEELayer;
 import jdepend.model.component.layer.LayerInfo;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
