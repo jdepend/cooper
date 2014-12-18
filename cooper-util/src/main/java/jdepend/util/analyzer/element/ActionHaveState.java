@@ -6,8 +6,8 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassType;
 import jdepend.model.result.AnalysisResult;
+import jdepend.util.analyzer.element.layer.JavaClassType;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 

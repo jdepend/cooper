@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassType;
 import jdepend.model.JavaPackage;
 
 public final class LayerType {

@@ -1,8 +1,10 @@
-package jdepend.model;
+package jdepend.util.analyzer.element.layer;
 
 import java.util.Collection;
 import java.util.List;
 
+import jdepend.model.JDependUnitMgr;
+import jdepend.model.JavaClass;
 import jdepend.model.util.JavaClassUtil;
 
 public class JavaClassType {
