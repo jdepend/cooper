@@ -1,4 +1,4 @@
-package jdepend.model.component.layer;
+package jdepend.util.analyzer.element.layer;
 
 import java.util.ArrayList;
 import java.util.List;

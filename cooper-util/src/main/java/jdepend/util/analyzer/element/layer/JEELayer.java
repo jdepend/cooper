@@ -1,4 +1,4 @@
-package jdepend.util.analyzer.element;
+package jdepend.util.analyzer.element.layer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,8 +9,6 @@ import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.PrefixComponent;
-import jdepend.model.component.layer.LayerInfo;
-import jdepend.model.component.layer.LayerType;
 
 public final class JEELayer extends PrefixComponent {
 

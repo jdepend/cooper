@@ -1,4 +1,4 @@
-package jdepend.model.component.layer;
+package jdepend.util.analyzer.element.layer;
 
 public class LayerInfo {
 
