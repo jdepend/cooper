@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jdepend.core.command.SimpleComponent;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
@@ -12,7 +13,6 @@ import jdepend.model.Component;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.AptitudeComponent;
 import jdepend.model.component.CustomComponent;
-import jdepend.model.component.SimpleComponent;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.LayerComponentJudge;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;

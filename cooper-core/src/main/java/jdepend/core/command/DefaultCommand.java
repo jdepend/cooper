@@ -11,7 +11,6 @@ import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.Metrics;
-import jdepend.model.component.SimpleComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
 import jdepend.service.local.AnalyseListener;

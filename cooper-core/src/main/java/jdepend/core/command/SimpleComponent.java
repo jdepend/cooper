@@ -1,4 +1,4 @@
-package jdepend.model.component;
+package jdepend.core.command;
 
 import java.util.ArrayList;
 import java.util.Collection;
