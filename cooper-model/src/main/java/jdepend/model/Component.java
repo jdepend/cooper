@@ -563,13 +563,13 @@ public abstract class Component extends AbstractJDependUnit {
 				return Cycle;// 存在循环依赖
 			} else {
 				// 通知其他组件存在循环依赖
-				List<Component> otherCycles = new ArrayList<Component>();
 				int index;
-				for (index = 1; index < list.size(); index++) {
+				L: for (index = 1; index < list.size(); index++) {
 					if (list.get(index).equals(this)) {
-						break;
+						break L;
 					}
 				}
+				List<Component> otherCycles = new ArrayList<Component>();
 				for (int pos = index; pos < list.size(); pos++) {
 					otherCycles.add((Component) list.get(pos));
 				}

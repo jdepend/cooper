@@ -763,14 +763,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 				}
 			} else {
 				// 通知其他组件存在循环依赖
-				List<JavaClass> otherCycles = new ArrayList<JavaClass>();
-				Collection<Component> otherCycleComponents = new HashSet<Component>();
 				int index;
-				for (index = 1; index < list.size(); index++) {
+				L: for (index = 1; index < list.size(); index++) {
 					if (list.get(index).equals(this)) {
-						break;
+						break L;
 					}
 				}
+				List<JavaClass> otherCycles = new ArrayList<JavaClass>();
+				Collection<Component> otherCycleComponents = new HashSet<Component>();
 				for (int pos = index; pos < list.size(); pos++) {
 					otherCycles.add((JavaClass) list.get(pos));
 					otherCycleComponents.add(((JavaClass) list.get(pos)).getComponent());
