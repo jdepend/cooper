@@ -34,7 +34,6 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultListener;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreListDialog;
 import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 

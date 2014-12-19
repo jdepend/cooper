@@ -676,7 +676,7 @@ public final class ScorePanel extends SubResultTabPanel {
 				JDependUIUtil.addClickTipEffect(adviseLabel);
 				adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 					public void mouseClicked(java.awt.event.MouseEvent evt) {
-						frame.getResultPanel().setTab(1, 0);
+						frame.getResultPanel().setTab(1, 1);
 					}
 				});
 			}
