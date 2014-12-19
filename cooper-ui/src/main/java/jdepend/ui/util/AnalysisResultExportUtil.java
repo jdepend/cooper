@@ -8,10 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
-import jdepend.framework.util.StreamUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
