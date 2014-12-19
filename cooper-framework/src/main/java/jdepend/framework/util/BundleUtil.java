@@ -134,6 +134,7 @@ public class BundleUtil {
 	public static final String Command_SaveAsTxt = "Command_SaveAsTxt";
 	public static final String Command_SaveAsHTML = "Command_SaveAsHTML";
 	public static final String Command_ExportList = "Command_ExportList";
+	public static final String Command_Export = "Command_Export";//导出
 	public static final String Command_AddGroup = "Command_AddGroup";
 	public static final String Command_DeleteGroup = "Command_DeleteGroup";
 	public static final String Command_RefreshGroup = "Command_RefreshGroup";
