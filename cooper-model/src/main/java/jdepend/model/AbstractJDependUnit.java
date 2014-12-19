@@ -3,7 +3,6 @@ package jdepend.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.model.result.AnalysisResult;
 
@@ -73,7 +72,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return Instability (0-1).
 	 */
-	public float getStability() {
+	public synchronized float getStability() {
 		if (stability == null) {
 			stability = new CalculateMetricsTool(this).stability();
 		}
@@ -83,7 +82,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return The package's abstractness (0-1).
 	 */
-	public float getAbstractness() {
+	public synchronized float getAbstractness() {
 		if (abstractness == null) {
 			abstractness = new CalculateMetricsTool(this).abstractness();
 		}
@@ -101,7 +100,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return The package's distance from the main sequence (D).
 	 */
-	public float getDistance() {
+	public synchronized float getDistance() {
 		if (distance == null) {
 			distance = new CalculateMetricsTool(this).distance();
 		}
@@ -109,7 +108,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	@Override
-	public float getVolatility() {
+	public synchronized float getVolatility() {
 		if (volatility == null) {
 			volatility = new CalculateMetricsTool(this).volatility();
 		}
@@ -131,7 +130,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return this.collectCycle().size() > 1;
 	}
 
-	public List<? extends JDependUnit> collectCycle() {
+	public synchronized List<? extends JDependUnit> collectCycle() {
 		if (this.cycles == null) {
 			List<List<? extends JDependUnit>> cycleses = new CalculateMetricsTool(this).collectCycle();
 			if (cycleses != null) {
@@ -143,15 +142,15 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return this.cycles;
 	}
 
-	public void setCycles(List<? extends JDependUnit> cycles) {
+	public synchronized void setCycles(List<? extends JDependUnit> cycles) {
 		this.cycles = cycles;
 	}
 
-	public List<? extends JDependUnit> getCycles() {
+	public synchronized List<? extends JDependUnit> getCycles() {
 		return cycles;
 	}
 
-	public int getLineCount() {
+	public synchronized int getLineCount() {
 		if (this.lineCount == -1) {
 			this.lineCount = 0;
 			for (JavaClass jClass : this.getClasses()) {
@@ -165,14 +164,14 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return this.caCouplingDetail(jdependUnit).getIntensity() + this.ceCouplingDetail(jdependUnit).getIntensity();
 	}
 
-	public float getCoupling() {
+	public synchronized float getCoupling() {
 		if (coupling == null) {
 			coupling = caCoupling() + this.ceCoupling();
 		}
 		return coupling;
 	}
 
-	public float getCohesion() {
+	public synchronized float getCohesion() {
 		if (cohesion == null) {
 			float intensity = 0;
 			for (JavaClass javaClass : this.getClasses()) {
@@ -188,7 +187,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return cohesion;
 	}
 
-	public Float getEncapsulation() {
+	public synchronized Float getEncapsulation() {
 		if (this.encapsulation == null) {
 			this.encapsulation = new CalculateMetricsTool(this).encapsulation();
 		}
@@ -221,7 +220,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	@Override
-	public void clear() {
+	public synchronized void clear() {
 		this.cycles = null;
 		this.cohesion = null;
 		this.coupling = null;
