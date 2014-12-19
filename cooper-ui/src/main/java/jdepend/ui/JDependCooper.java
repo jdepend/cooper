@@ -15,7 +15,6 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -77,7 +76,6 @@ import jdepend.ui.start.WorkspaceSettingDialog;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerExecutorListener;
 import jdepend.util.refactor.AdjustHistory;
-import jdepend.util.refactor.RefactorToolFactory;
 
 /**
  * 客户端主窗口

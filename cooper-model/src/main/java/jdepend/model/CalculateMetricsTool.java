@@ -2,7 +2,6 @@ package jdepend.model;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
