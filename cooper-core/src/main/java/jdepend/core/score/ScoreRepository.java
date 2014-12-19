@@ -64,7 +64,6 @@ public final class ScoreRepository {
 			ps.setString(1, score.group);
 			ps.setString(2, score.command);
 			rs = ps.executeQuery();
-			rs = ps.executeQuery();
 			if (rs.next()) {
 				String id = rs.getString("id");
 				// 删除分数主表

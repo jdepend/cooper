@@ -316,8 +316,9 @@ public class FileUtil {
 
 	public static void saveFile(String filePath, byte[] data) throws JDependException {
 		createFile(filePath);
+		FileOutputStream fis = null;
 		try {
-			FileOutputStream fis = new FileOutputStream(filePath);
+			fis = new FileOutputStream(filePath);
 			fis.write(data);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -325,6 +326,14 @@ public class FileUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new JDependException("文件[" + filePath + "]保存失败。", e);
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}

@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import jdepend.core.config.CommandConfMgr;
+import jdepend.core.command.CommandAdapterMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
 import jdepend.model.JDependUnitMgr;
@@ -39,8 +39,25 @@ public final class ResultTransfer {
 			socket = ss.accept();
 			in = socket.getInputStream();
 			AnalysisResult result = AnalysisResult.create(StreamUtil.getData(in));
+			// 清空历史
+			frame.clearPriorResult();
+			// 显示结果
 			JDependUnitMgr.getInstance().setResult(result);
+			CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
+			CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
 			frame.getResultPanel().showResults();
+			// 刷新TODOList
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						frame.getPropertyPanel().getToDoListPanel().refresh();
+					} catch (JDependException e) {
+						e.printStackTrace();
+						frame.getResultPanel().showError(e);
+					}
+				}
+			}.start();
 		} finally {
 			if (in != null) {
 				try {

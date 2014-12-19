@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileFilter;
 
 import jdepend.core.command.CommandAdapter;
 import jdepend.core.command.CommandAdapterMgr;
@@ -34,6 +35,7 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.way.htmlui.ExportHTML;
 import jdepend.report.way.textui.TextSummaryPrinter;
+import jdepend.ui.util.AnalysisResultExportUtil;
 
 public final class ScoreListDialog extends CooperDialog {
 
@@ -103,7 +105,21 @@ public final class ScoreListDialog extends CooperDialog {
 				});
 				popupMenu.add(exportHTMLItem);
 
-				JMenuItem exportItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ExportList));
+				JMenuItem exportListItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ExportList));
+				exportListItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							exportList();
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(ScoreListDialog.this, ex.getMessage(), "alert",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+				});
+				popupMenu.add(exportListItem);
+				popupMenu.addSeparator();
+
+				JMenuItem exportItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Export));
 				exportItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
@@ -236,7 +252,7 @@ public final class ScoreListDialog extends CooperDialog {
 				}
 			}
 
-			private void export() throws JDependException {
+			private void exportList() throws JDependException {
 
 				StringBuilder contentList = new StringBuilder();
 				List<ScoreInfo> scoreList = ScoreRepository.getScoreList();
@@ -275,6 +291,13 @@ public final class ScoreListDialog extends CooperDialog {
 				}
 			}
 
+			private void export() throws JDependException, IOException {
+				if (this.getCurrentes().size() > 1) {
+					throw new JDependException("请选择一条信息");
+				}
+
+				AnalysisResultExportUtil.exportResult(frame, this.getId());
+			}
 		});
 
 		JPanel buttonPanel = new JPanel();

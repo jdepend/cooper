@@ -52,6 +52,7 @@ import jdepend.parse.util.SearchUtil;
 import jdepend.report.ReportListener;
 import jdepend.ui.action.AddGroupWizardAction;
 import jdepend.ui.action.ExitAction;
+import jdepend.ui.action.ImportResultAction;
 import jdepend.ui.action.IntroduceAction;
 import jdepend.ui.action.LoginAction;
 import jdepend.ui.action.LogoutAction;
@@ -151,8 +152,10 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Login) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout));
-		resourceStrings.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList));
+		resourceStrings.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult));
 		resourceStrings.put(
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Help),
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce) + "/"
@@ -175,6 +178,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), "O");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data), "D");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), "U");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), "J");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce), "I");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain), "M");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain), "C");
@@ -199,6 +203,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), new LoginAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), new LogoutAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), new ImportResultAction(this));
 
 		getContentPane().setLayout(new BorderLayout());
 		setBackground(SystemColor.control);

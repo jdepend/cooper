@@ -21,6 +21,7 @@ public class BundleUtil {
 	public static final String ClientWin_Menu_Login = "ClientWin_Menu_Login";// 客户端窗口菜单登陆
 	public static final String ClientWin_Menu_Logout = "ClientWin_Menu_Logout";// 客户端窗口菜单注销
 	public static final String ClientWin_Menu_ScoreList = "ClientWin_Menu_ScoreList";// 客户端窗口菜单分数列表
+	public static final String ClientWin_Menu_ImportResult = "ClientWin_Menu_ImportResult";// 客户端窗口菜单导入外部分析结果
 	public static final String ClientWin_Menu_Introduce = "ClientWin_Menu_Introduce";// 客户端窗口菜单介绍
 	public static final String ClientWin_Menu_MetricsExplain = "ClientWin_Menu_MetricsExplain";// 客户端窗口菜单指标说明
 	public static final String ClientWin_Menu_ScoreExplain = "ClientWin_Menu_ScoreExplain";// 客户端窗口菜单分数说明
