@@ -295,8 +295,8 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-
-				AnalysisResultExportUtil.exportResult(frame, this.getId());
+				AnalysisResult result = ScoreRepository.getTheResult(this.getId());
+				AnalysisResultExportUtil.exportResult(frame, result);
 			}
 		});
 

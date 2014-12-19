@@ -34,6 +34,8 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultListener;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.ScoreListDialog;
+import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 
 public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListener, AnalysisResultListener {
@@ -172,6 +174,14 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			}
 		});
 		popupMenu.add(saveAsItem);
+
+		JMenuItem exportItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Export));
+		exportItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				export();
+			}
+		});
+		popupMenu.add(exportItem);
 
 		histroyTable.addMouseListener(new MouseAdapter() {
 
@@ -314,7 +324,6 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame, "读取执行历史失败！", "alert", JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	private void compare(String id1, String id2) {
@@ -341,6 +350,16 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		} catch (Throwable e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame, "读取执行历史失败！", "alert", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void export() {
+		try {
+			AnalysisResult result = AnalysisResultRepository.getResult(currentId);
+			AnalysisResultExportUtil.exportResult(frame, result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(frame, "导出失败！", "alert", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

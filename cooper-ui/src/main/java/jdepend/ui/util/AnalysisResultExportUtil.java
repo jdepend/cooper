@@ -18,14 +18,13 @@ import jdepend.ui.JDependCooper;
 
 public class AnalysisResultExportUtil {
 
-	public static void exportResult(JDependCooper frame, String resultId) throws JDependException, IOException {
+	public static void exportResult(JDependCooper frame, AnalysisResult result) throws JDependException, IOException {
 
 		JFileChooser jFileChooser = getJFileChooser();
 
 		int rtn = jFileChooser.showSaveDialog(null);
 
 		if (rtn == JFileChooser.APPROVE_OPTION) {
-			final AnalysisResult result = ScoreRepository.getTheResult(resultId);
 			if (result != null) {
 				File f = jFileChooser.getSelectedFile();
 				String fileName = f.getAbsolutePath();
