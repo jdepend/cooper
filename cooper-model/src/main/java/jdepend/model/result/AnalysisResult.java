@@ -393,17 +393,9 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	private void initRelations() {
-		ExecutorService pool = ThreadPool.getPool();
 		for (final Relation relation : this.getRelations()) {
-			pool.execute(new Runnable() {
-				@Override
-				public void run() {
-					relation.init();
-				}
-			});
+			relation.init();
 		}
-
-		ThreadPool.awaitTermination(pool);
 	}
 
 	public Relation getTheRelation(String current, String depend) {

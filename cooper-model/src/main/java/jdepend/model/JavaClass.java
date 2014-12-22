@@ -797,10 +797,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		}
 
 		for (JavaClass efferent : this.getCeList()) {
-			if (efferent.getCycles() != null && efferent.getCycles().size() > 0) {
-				knowledge.put(this, LocalCycle);
-				return LocalCycle;// 存在局部循环依赖
-			}
 			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域

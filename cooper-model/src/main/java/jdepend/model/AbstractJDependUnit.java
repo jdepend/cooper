@@ -143,7 +143,28 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	public synchronized void setCycles(List<? extends JDependUnit> cycles) {
-		this.cycles = cycles;
+		//计算循环依赖的顺序
+		List<JDependUnit> sortCycles = new ArrayList<JDependUnit>();
+		if (cycles.get(0).equals(this)) {
+			sortCycles = (List<JDependUnit>) cycles;
+		} else {
+			int pos;
+			JDependUnit unit;
+			L: for (pos = 1; pos < cycles.size(); pos++) {
+				unit = cycles.get(pos);
+				if (unit.equals(this)) {
+					break L;
+				}
+			}
+			for (int index = pos; index < cycles.size(); index++) {
+				sortCycles.add(cycles.get(index));
+			}
+			for (int index = 0; index < pos; index++) {
+				sortCycles.add(cycles.get(index));
+			}
+		}
+		//赋值
+		this.cycles = sortCycles;
 	}
 
 	public synchronized List<? extends JDependUnit> getCycles() {
