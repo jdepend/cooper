@@ -44,7 +44,7 @@ public class ClInitMethodReader extends MethodReader {
 			}
 		} else if (info.startsWith("ldc")) {
 			infos = info.split("\\s+");
-			if (infos.length > 0) {
+			if (infos.length > 1 && infos[1].length() > 2) {
 				staticValue += infos[1].substring(1, infos[1].length() - 1);
 			}
 		}
