@@ -12,6 +12,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.result.AnalysisResultUnSequenceListener;
 import jdepend.ui.JDependCooper;
 
 public class AnalysisResultExportUtil {
@@ -55,7 +56,12 @@ public class AnalysisResultExportUtil {
 						byte[] data = FileUtil.readFile(fileName);
 
 						frame.getStatusField().setText(" 正在生成分析结果。。。。");
-						AnalysisResult result = AnalysisResult.create(data);
+						AnalysisResult result = AnalysisResult.create(data, new AnalysisResultUnSequenceListener() {
+							@Override
+							public void onUnSequence(String content) {
+								frame.getStatusField().setText(" " + content + "。。。。");
+							}
+						});
 
 						// 清空历史
 						frame.clearPriorResult();

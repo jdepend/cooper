@@ -523,6 +523,11 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public static AnalysisResult create(byte[] data) throws IOException, ClassNotFoundException {
+		return create(data, null);
+	}
+
+	public static AnalysisResult create(byte[] data, AnalysisResultUnSequenceListener listener) throws IOException,
+			ClassNotFoundException {
 		InputStream inputstream = null;
 		GZIPInputStream gzip = null;
 		ObjectInputStream in = null;
@@ -531,7 +536,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			gzip = new GZIPInputStream(inputstream);
 			in = new ObjectInputStream(gzip);
 			AnalysisResult result = (AnalysisResult) in.readObject();
-			result.unSequence();
+			result.unSequence(listener);
 			return result;
 		} finally {
 			if (in != null) {
@@ -559,10 +564,23 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public void unSequence() {
+		this.unSequence(null);
+	}
+
+	public void unSequence(AnalysisResultUnSequenceListener listener) {
+		if (listener != null) {
+			listener.onUnSequence("正在创建类集合");
+		}
 		JavaClassCollection javaClasses = new JavaClassCollection(getClasses());
 		// 填充JavaClassRelationItem
+		if (listener != null) {
+			listener.onUnSequence("正在填充类关系");
+		}
 		JavaClassUtil.supplyJavaClassRelationItem(javaClasses);
 		// 填充Method中的InvokeItem中的Method
+		if (listener != null) {
+			listener.onUnSequence("正在填充类细节");
+		}
 		JavaClassUtil.supplyJavaClassDetail(javaClasses);
 
 		this.init();
