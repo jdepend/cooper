@@ -16,19 +16,22 @@ public class JavaClassCollection {
 
 	private Map<String, Method> httpMethods;
 
+	private Map<String, Collection<JavaClass>> unitJavaClasses;
+
 	public JavaClassCollection(Collection<JavaClass> javaClasses) {
 		super();
 		this.javaClasses = javaClasses;
 
 		javaClassesForId = new HashMap<String, JavaClass>();
+		javaClassesForName = new HashMap<String, JavaClass>();
+
 		for (JavaClass javaClass : javaClasses) {
 			javaClassesForId.put(javaClass.getId(), javaClass);
-		}
-
-		javaClassesForName = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : javaClasses) {
 			javaClassesForName.put(javaClass.getName(), javaClass);
 		}
+
+		unitJavaClasses = TheadClassCollection.unitTheadClassCollection(javaClasses);
+
 	}
 
 	public Collection<JavaClass> getJavaClasses() {
@@ -46,6 +49,10 @@ public class JavaClassCollection {
 		} else {
 			return javaClass;
 		}
+	}
+
+	public Map<String, Collection<JavaClass>> getUnitJavaClasses() {
+		return unitJavaClasses;
 	}
 
 	public synchronized Map<String, Method> getHttpMethod() {

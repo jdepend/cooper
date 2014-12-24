@@ -1,10 +1,13 @@
 package jdepend.service.avertcheat.framework;
 
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.JavaClass;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.TheadClassCollection;
 import jdepend.service.local.AbstractAnalyseListener;
 
 /**
@@ -20,11 +23,16 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		for (final JavaClass javaClass : result.getClasses()) {
+		final Map<String, Collection<JavaClass>> unitJavaClasses = TheadClassCollection.unitTheadClassCollection(result
+				.getClasses());
+
+		for (final String unit : unitJavaClasses.keySet()) {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					handle(javaClass);
+					for (JavaClass javaClass : unitJavaClasses.get(unit)) {
+						handle(javaClass);
+					}
 				}
 			});
 		}

@@ -69,11 +69,13 @@ public class JavaClassUtil {
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+		for (final String unit : javaClasses.getUnitJavaClasses().keySet()) {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					javaClass.supplyJavaClassRelationItem(javaClasses);
+					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+						javaClass.supplyJavaClassRelationItem(javaClasses);
+					}
 				}
 			});
 		}
@@ -133,11 +135,13 @@ public class JavaClassUtil {
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+		for (final String unit : javaClasses.getUnitJavaClasses().keySet()) {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					javaClass.getDetail().supply(javaClasses);
+					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+						javaClass.getDetail().supply(javaClasses);
+					}
 				}
 			});
 		}
@@ -154,13 +158,15 @@ public class JavaClassUtil {
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		for (final JavaClass javaClass : javaClasses.getJavaClasses()) {
+		for (final String unit : javaClasses.getUnitJavaClasses().keySet()) {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					// 填充Method中的InvokeItem
-					for (Method method : javaClass.getSelfMethods()) {
-						method.supplyInvokeItem(javaClasses);
+					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+						// 填充Method中的InvokeItem
+						for (Method method : javaClass.getSelfMethods()) {
+							method.supplyInvokeItem(javaClasses);
+						}
 					}
 				}
 			});
