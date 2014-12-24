@@ -14,14 +14,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.framework.util.ThreadPool;
 import jdepend.model.AreaComponent;
 import jdepend.model.CalculateMetricsTool;
 import jdepend.model.Component;
