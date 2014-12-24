@@ -29,6 +29,11 @@ public final class HttpInvokeItem extends InvokeItem {
 	@Override
 	public boolean supplyMethod(JavaClassCollection javaClasses) {
 
+		Map<String, Method> httpMethods = javaClasses.getHttpMethod();
+		if (httpMethods.size() == 0) {
+			return false;
+		}
+
 		this.calUrl(javaClasses);
 
 		if (url == null) {
@@ -36,7 +41,6 @@ public final class HttpInvokeItem extends InvokeItem {
 		}
 
 		String mathUrl = this.formatUrl(this.url);
-		Map<String, Method> httpMethods = javaClasses.getHttpMethod();
 		for (String calledUrl : httpMethods.keySet()) {
 			if (calledUrl.startsWith(mathUrl) || mathUrl.startsWith(calledUrl)) {
 				this.setMethod(httpMethods.get(calledUrl));

@@ -37,33 +37,50 @@ public class AnalysisResultExportUtil {
 		}
 	}
 
-	public static void importResult(final JDependCooper frame) throws JDependException, IOException,
-			ClassNotFoundException {
+	public static void importResult(final JDependCooper frame) {
 
-		JFileChooser jFileChooser = getJFileChooser();
+		final JFileChooser jFileChooser = getJFileChooser();
 
 		int rtn = jFileChooser.showSaveDialog(null);
 
 		if (rtn == JFileChooser.APPROVE_OPTION) {
-			File f = jFileChooser.getSelectedFile();
-			String fileName = f.getAbsolutePath();
-			byte[] data = FileUtil.readFile(fileName);
-
-			AnalysisResult result = AnalysisResult.create(data);
-			// 清空历史
-			frame.clearPriorResult();
-			// 显示结果
-			JDependUnitMgr.getInstance().setResult(result);
-			CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
-			CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
-			frame.getResultPanel().showResults();
-			// 刷新TODOList
 			new Thread() {
 				@Override
 				public void run() {
 					try {
-						frame.getPropertyPanel().getToDoListPanel().refresh();
-					} catch (JDependException e) {
+						File f = jFileChooser.getSelectedFile();
+						String fileName = f.getAbsolutePath();
+
+						frame.getStatusField().setText(" 正在读取文件。。。。");
+						byte[] data = FileUtil.readFile(fileName);
+
+						frame.getStatusField().setText(" 正在生成分析结果。。。。");
+						AnalysisResult result = AnalysisResult.create(data);
+
+						// 清空历史
+						frame.clearPriorResult();
+						// 显示结果
+						JDependUnitMgr.getInstance().setResult(result);
+						CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
+						CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
+
+						frame.getStatusField().setText(" 正在显示分析结果。。。。");
+						frame.getResultPanel().showResults();
+						// 刷新TODOList
+						new Thread() {
+							@Override
+							public void run() {
+								try {
+									frame.getStatusField().setText(" 正在创建改进建议。。。。");
+									frame.getPropertyPanel().getToDoListPanel().refresh();
+									frame.getStatusField().setText("");
+								} catch (JDependException e) {
+									e.printStackTrace();
+									frame.getResultPanel().showError(e);
+								}
+							}
+						}.start();
+					} catch (Exception e) {
 						e.printStackTrace();
 						frame.getResultPanel().showError(e);
 					}
