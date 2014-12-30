@@ -231,7 +231,9 @@ public class BundleUtil {
 	public static final String Advise_LessScoreItem = "Advise_LessScoreItem";
 
 	public static final String TableHead_DependInterface = "TableHead_DependInterface";
+	public static final String TableHead_CurrentJC_Place = "TableHead_CurrentJC_Place";
 	public static final String TableHead_CurrentJC = "TableHead_CurrentJC";
+	public static final String TableHead_DependJC_Place = "TableHead_DependJC_Place";
 	public static final String TableHead_DependJC = "TableHead_DependJC";
 	public static final String TableHead_Desc = "TableHead_Desc";
 	public static final String TableHead_According = "TableHead_According";

@@ -1,7 +1,5 @@
 package jdepend.report.ui;
 
-import java.awt.BorderLayout;
-
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.Component;
@@ -16,9 +14,7 @@ public final class BalanceComponentDialog extends CooperDialog {
 		super(componentName + "内聚性");
 		this.componentName = componentName;
 
-		getContentPane().setLayout(new BorderLayout());
-
-		Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(this.componentName);
+				Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(this.componentName);
 
 		this.add(new GraphPanel(frame, this, component.open()));
 

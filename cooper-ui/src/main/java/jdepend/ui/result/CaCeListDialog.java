@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
@@ -28,6 +29,8 @@ import jdepend.report.util.ReportConstant;
 
 public final class CaCeListDialog extends CooperDialog {
 
+	private JDependFrame frame;
+
 	private String unitID;
 
 	private String metrics;
@@ -36,9 +39,11 @@ public final class CaCeListDialog extends CooperDialog {
 
 	private DefaultTableModel listModel;
 
-	public CaCeListDialog(String unitID, String metrics) {
+	public CaCeListDialog(JDependFrame frame, String unitID, String metrics) {
 
 		super(unitID + " " + metrics + " list");
+
+		this.frame = frame;
 
 		this.unitID = unitID;
 		this.metrics = metrics;
@@ -145,7 +150,7 @@ public final class CaCeListDialog extends CooperDialog {
 							left = unitID;
 							right = current;
 						}
-						RelationDetailPanel relationDetailPanel = new RelationDetailPanel(left, right);
+						RelationDetailPanel relationDetailPanel = new RelationDetailPanel(frame, left, right);
 						CaCeListDialog.this.getContentPane().removeAll();
 						CaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, relationDetailPanel);
 						FlowLayout buttonFlowLayout = new FlowLayout();

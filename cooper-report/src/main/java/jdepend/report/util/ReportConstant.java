@@ -59,7 +59,9 @@ public class ReportConstant {
 
 	public static final String DependInterface = BundleUtil.getString(BundleUtil.TableHead_DependInterface);
 
+	public static final String CurrentJC_Place = BundleUtil.getString(BundleUtil.TableHead_CurrentJC_Place);
 	public static final String CurrentJC = BundleUtil.getString(BundleUtil.TableHead_CurrentJC);
+	public static final String DependJC_Place = BundleUtil.getString(BundleUtil.TableHead_DependJC_Place);
 	public static final String DependJC = BundleUtil.getString(BundleUtil.TableHead_DependJC);
 
 	public static final String SummaryText = "SummaryText";

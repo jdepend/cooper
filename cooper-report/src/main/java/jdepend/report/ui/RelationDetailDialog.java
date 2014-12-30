@@ -1,14 +1,12 @@
 package jdepend.report.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,26 +14,20 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.modelconf.CandidateUtil;
-import jdepend.report.ui.ClassListPanel.CaCeComparator;
 import jdepend.report.util.ReportConstant;
 import jdepend.report.way.mapui.GraphJDepend;
 
@@ -60,7 +52,7 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.relation));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation));
 	}
 
 	public RelationDetailDialog(GraphJDepend display, String current, String depend) {
@@ -77,7 +69,7 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.relation));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation));
 
 	}
 

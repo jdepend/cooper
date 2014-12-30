@@ -21,17 +21,22 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
+import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.TableRelation;
 import jdepend.report.util.ReportConstant;
 
 public final class RelationDetailPanel extends JPanel {
+
+	private JDependFrame frame;
 
 	private JTable listTable;
 
@@ -41,7 +46,10 @@ public final class RelationDetailPanel extends JPanel {
 
 	private List<String> extendUnits = new ArrayList<String>();
 
-	public RelationDetailPanel(String current, String depend) {
+	public RelationDetailPanel(JDependFrame frame, String current, String depend) {
+
+		this.frame = frame;
+
 		this.currentRelation = JDependUnitMgr.getInstance().getResult().getTheRelation(current, depend);
 
 		if (this.currentRelation == null) {
@@ -50,7 +58,10 @@ public final class RelationDetailPanel extends JPanel {
 		display();
 	}
 
-	public RelationDetailPanel(Relation relation) {
+	public RelationDetailPanel(JDependFrame frame, Relation relation) {
+
+		this.frame = frame;
+
 		this.currentRelation = relation;
 		display();
 	}
@@ -92,12 +103,14 @@ public final class RelationDetailPanel extends JPanel {
 		if (items != null && items.size() != 0) {
 
 			for (JavaClassRelationItem item : items) {
-				row = new Object[4];
+				row = new Object[6];
 
-				row[0] = item.getCurrent().getName();
-				row[1] = item.getDepend().getName();
-				row[2] = item.getType().getName();
-				row[3] = item.getRelationIntensity();
+				row[0] = item.getCurrent().getPlace();
+				row[1] = item.getCurrent().getName();
+				row[2] = item.getDepend().getPlace();
+				row[3] = item.getDepend().getName();
+				row[4] = item.getType().getName();
+				row[5] = item.getRelationIntensity();
 
 				listModel.addRow(row);
 			}
@@ -130,7 +143,28 @@ public final class RelationDetailPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				if (e.getButton() == 3) {
+				JTable table = (JTable) e.getSource();
+				Point p = new Point(e.getX(), e.getY());
+				int col = table.columnAtPoint(p);
+				int row = table.rowAtPoint(p);
+
+				if (e.getClickCount() == 2) {
+					String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
+					if (currentCol.equals(ReportConstant.CurrentJC) || currentCol.equals(ReportConstant.DependJC)) {
+						String current;
+						if (currentCol.equals(ReportConstant.CurrentJC)) {
+							current = CandidateUtil.getId((String) table.getValueAt(row, 0),
+									(String) table.getValueAt(row, 1));
+						} else {
+							current = CandidateUtil.getId((String) table.getValueAt(row, 2),
+									(String) table.getValueAt(row, 3));
+						}
+						JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+						JavaClassRelationGraphDialog d = new JavaClassRelationGraphDialog(frame, currentClass);
+						d.setModal(true);
+						d.setVisible(true);
+					}
+				} else if (e.getButton() == 3) {
 					popupMenu.show(listTable, e.getX(), e.getY());
 				}
 			}
@@ -144,8 +178,8 @@ public final class RelationDetailPanel extends JPanel {
 				int column = listTable.columnAtPoint(point);
 				if (column == 2 && listTable.getValueAt(row, column) != null
 						&& ((String) listTable.getValueAt(row, column)).equals("Table")) {
-					String current = (String) listTable.getValueAt(row, 0);
-					String depend = (String) listTable.getValueAt(row, 1);
+					String current = (String) listTable.getValueAt(row, 1);
+					String depend = (String) listTable.getValueAt(row, 3);
 					for (JavaClassRelationItem item : currentRelation.getItems()) {
 						if (item.getCurrent().getName().equals(current) && item.getDepend().getName().equals(depend)) {
 							if (item.getType() instanceof TableRelation) {
@@ -160,14 +194,29 @@ public final class RelationDetailPanel extends JPanel {
 		});
 		sorter.setTableHeader(listTable.getTableHeader());
 
+		listModel.addColumn(ReportConstant.CurrentJC_Place);
 		listModel.addColumn(ReportConstant.CurrentJC);
+		listModel.addColumn(ReportConstant.DependJC_Place);
 		listModel.addColumn(ReportConstant.DependJC);
 		listModel.addColumn(ReportConstant.DependType);
 		listModel.addColumn(ReportConstant.Relation_Intensity);
 
+		listTable.getColumnModel().getColumn(0).setMinWidth(0);
+		listTable.getColumnModel().getColumn(0).setMaxWidth(0);
+
+		listTable.getColumnModel().getColumn(2).setMinWidth(0);
+		listTable.getColumnModel().getColumn(2).setMaxWidth(0);
+
 		for (int i = 0; i < listTable.getColumnCount(); i++) {
 			listTable.getColumn(listTable.getColumnName(i)).setCellRenderer(new JavaClassRelationTableRenderer());
 		}
+
+		// 增加点击图标
+		List<String> colNames = new ArrayList<String>();
+		colNames.add(ReportConstant.CurrentJC);
+		colNames.add(ReportConstant.DependJC);
+
+		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, colNames));
 	}
 
 	class JavaClassRelationTableRenderer extends DefaultTableCellRenderer {

@@ -250,12 +250,12 @@ public class ClassListPanel extends JPanel {
 						int pos = value.indexOf('|');
 						String preValue = value.substring(0, pos);
 						int width = x + comp.getFontMetrics(comp.getFont()).stringWidth(preValue);
-						DetailDialog d;
+						JavaClassCaCeDetailDialog d;
 						JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 						if (p.x > x && p.x < width) {
-							d = new DetailDialog(currentClass, currentCol, false);
+							d = new JavaClassCaCeDetailDialog(currentClass, currentCol, false);
 						} else {
-							d = new DetailDialog(currentClass, currentCol, true);
+							d = new JavaClassCaCeDetailDialog(currentClass, currentCol, true);
 						}
 						d.setModal(true);
 						d.setVisible(true);
@@ -368,7 +368,7 @@ public class ClassListPanel extends JPanel {
 		d.setVisible(true);
 	}
 
-	public class DetailDialog extends CooperDialog {
+	public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 		private JavaClass javaClass;
 
@@ -380,7 +380,7 @@ public class ClassListPanel extends JPanel {
 
 		private boolean includeInner;
 
-		public DetailDialog(JavaClass javaClass, String metrics, boolean includeInner) {
+		public JavaClassCaCeDetailDialog(JavaClass javaClass, String metrics, boolean includeInner) {
 
 			super(javaClass.getName() + " " + metrics + " list" + (includeInner ? "（全部）" : "（组件外）"));
 
