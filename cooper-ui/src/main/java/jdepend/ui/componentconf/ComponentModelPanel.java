@@ -86,7 +86,7 @@ public class ComponentModelPanel extends JPanel {
 	 * @param group
 	 */
 	public ComponentModelPanel(JDependCooper frame, String path, String group) {
-		this.init(frame, path, group);
+		this.init(frame, path, group, null);
 		candidateTable.loadCandidateList();
 	}
 
@@ -99,13 +99,10 @@ public class ComponentModelPanel extends JPanel {
 	 * @param componentModelName
 	 */
 	public ComponentModelPanel(JDependCooper frame, String path, String groupName, String componentModelName) {
-		this.init(frame, path, groupName);
+		this.init(frame, path, groupName, componentModelName);
 
 		componentModelField.setText(componentModelName);
 		this.setReadOnlyName();
-
-		componentModelConf = ComponentModelConfMgr.getInstance()
-				.getTheComponentModelConf(groupName, componentModelName);
 
 		candidateTable.loadCandidateList();
 		// 更新componentListModel和packageListModel
@@ -134,8 +131,9 @@ public class ComponentModelPanel extends JPanel {
 	 * @param frame
 	 * @param path
 	 * @param group
+	 * @param componentModelName
 	 */
-	private void init(JDependCooper frame, String path, String group) {
+	private void init(JDependCooper frame, String path, String group, String componentModelName) {
 
 		this.frame = frame;
 
@@ -155,8 +153,19 @@ public class ComponentModelPanel extends JPanel {
 		});
 		contentPanel.add(componentModelField);
 
+		if (componentModelName != null) {
+			componentModelConf = ComponentModelConfMgr.getInstance()
+					.getTheComponentModelConf(group, componentModelName);
+		} else {
+			componentModelConf = new JavaPackageComponentModelConf();
+		}
+
 		JCheckBox candidateType = new JCheckBox(BundleUtil.getString(BundleUtil.ClientWin_ComponentModel_PackageModel));
-		candidateType.setSelected(true);
+		if (componentModelConf instanceof JavaPackageComponentModelConf) {
+			candidateType.setSelected(true);
+		} else {
+			candidateType.setSelected(false);
+		}
 
 		candidateType.addItemListener(new ItemListener() {
 			@Override
@@ -169,6 +178,7 @@ public class ComponentModelPanel extends JPanel {
 				if (componentModelField.getText() != null && componentModelField.getText().length() > 0) {
 					componentModelConf.setName(componentModelField.getText());
 				}
+				currentComponent = null;
 				candidateTable.loadCandidateList();
 				refreshComponentList();
 
