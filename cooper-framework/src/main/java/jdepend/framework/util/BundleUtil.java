@@ -87,6 +87,8 @@ public class BundleUtil {
 	
 	public static final String ClientWin_ClassListDialog_Caller = "ClientWin_ClassListDialog_Caller";
 	public static final String ClientWin_ClassListDialog_Callee = "ClientWin_ClassListDialog_Callee";
+	
+	public static final String ClientWin_MethodListDialog_Name = "ClientWin_MethodListDialog_Name";
 
 	public static final String Command_View = "Command_View";// 查看
 	public static final String Command_Save = "Command_Save";// 保存

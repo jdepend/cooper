@@ -18,7 +18,9 @@ import org.apache.bcel.classfile.Utility;
 
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
+import jdepend.framework.util.StringUtil;
 import jdepend.model.Method;
+import jdepend.model.util.JavaClassUtil;
 
 public class MethodListPanel extends JPanel {
 
@@ -38,19 +40,19 @@ public class MethodListPanel extends JPanel {
 
 		this.initMethodList();
 
-		this.loadClassList(methods);
-
 		JScrollPane pane = new JScrollPane(methodListTable);
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		this.add(pane);
 	}
 
-	private void loadClassList(Collection<Method> methods) {
+	public int loadMethodList() {
+
+		methodListModel.setRowCount(0);
 
 		Object[] row;
 
-		for (Method method : methods) {
+		for (Method method : this.methods) {
 			row = new Object[8];
 
 			row[0] = method.getJavaClass().getName();
@@ -65,6 +67,8 @@ public class MethodListPanel extends JPanel {
 			methodListModel.addRow(row);
 
 		}
+
+		return methodListModel.getRowCount();
 
 	}
 
@@ -137,4 +141,34 @@ public class MethodListPanel extends JPanel {
 		return null;
 	}
 
+	public int filterMehtodList(String className, String name) {
+		methodListModel.setRowCount(0);
+
+		this.inFilterMethodList(className, name);
+
+		return methodListModel.getRowCount();
+	}
+
+	private void inFilterMethodList(String className, String name) {
+		Object[] row;
+
+		for (Method method : this.methods) {
+			row = new Object[8];
+
+			if ((className == null || className.length() == 0 || JavaClassUtil.match(className, method.getJavaClass()))
+					&& (name == null || name.length() == 0 || StringUtil.match(name.toUpperCase(), method.getName()
+							.toUpperCase()))) {
+				row[0] = method.getJavaClass().getName();
+				row[1] = Utility.accessToString(method.getAccessFlags());
+				row[2] = method.getName();
+				row[3] = method.getArgumentInfo();
+				row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
+				row[5] = method.getSelfLineCount();
+				row[6] = method.getInvokedMethods().size();
+				row[7] = method.getInvokeMethods().size();
+
+				methodListModel.addRow(row);
+			}
+		}
+	}
 }

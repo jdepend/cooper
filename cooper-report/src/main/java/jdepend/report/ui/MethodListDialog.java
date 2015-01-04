@@ -12,7 +12,9 @@ public class MethodListDialog extends CooperDialog {
 		super();
 		getContentPane().setLayout(new BorderLayout());
 
-		this.add(new MethodListPanel(methods));
+		MethodListPanel methodListPanel = new MethodListPanel(methods);
+		methodListPanel.loadMethodList();
+		this.add(methodListPanel);
 	}
 
 	public MethodListDialog(jdepend.model.JavaClass javaClass) {
