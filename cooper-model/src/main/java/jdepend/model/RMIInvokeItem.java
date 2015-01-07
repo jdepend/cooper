@@ -74,10 +74,11 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 
 	@Override
 	public int hashCode() {
-		if (this.getMethod() != null) {
+		if (this.getMethod() != null && this.getSelf() != null) {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + getMethod().hashCode();
+			result = prime * result + getSelf().hashCode();
 			return result;
 		} else {
 			final int prime = 31;
@@ -99,11 +100,11 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 		if (getClass() != obj.getClass())
 			return false;
 		RMIInvokeItem other = (RMIInvokeItem) obj;
-		if (this.getMethod() != null) {
-			if (other.getMethod() == null) {
+		if (this.getMethod() != null && this.getSelf() != null) {
+			if (other.getMethod() == null || other.getSelf() == null) {
 				return false;
 			} else {
-				return this.getMethod().equals(other.getMethod());
+				return this.getSelf().equals(other.getSelf()) && this.getMethod().equals(other.getMethod());
 			}
 		} else {
 			if (invokeClassName == null) {

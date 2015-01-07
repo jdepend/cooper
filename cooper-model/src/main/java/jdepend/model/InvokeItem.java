@@ -15,7 +15,7 @@ public abstract class InvokeItem implements Serializable {
 
 	protected void setMethod(Method method) {
 		this.method = method;
-		this.method.addInvokedMethod(self);
+		this.method.addInvokedItem(this);
 	}
 
 	public Method getSelf() {

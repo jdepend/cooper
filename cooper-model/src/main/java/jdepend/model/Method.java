@@ -53,6 +53,8 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokeMethods;
 
+	private transient Collection<InvokeItem> invokedItems;
+
 	private transient Collection<Method> invokedMethods;
 
 	private transient Collection<Method> cascadeInvokedMethods;
@@ -75,7 +77,7 @@ public class Method extends AccessFlags {
 		this.writeFields = new ArrayList<Attribute>();
 		this.isIncludeTransactionalAnnotation = false;
 		this.selfLineCount = -1;
-		this.invokedMethods = new HashSet<Method>();
+		this.invokedItems = new HashSet<InvokeItem>();
 	}
 
 	public Method(String javaClassId, Method method) {
@@ -87,7 +89,7 @@ public class Method extends AccessFlags {
 		this.info = method.info;
 		this.argumentCount = method.argumentCount;
 
-		this.invokedMethods = new HashSet<Method>();
+		this.invokedItems = new HashSet<InvokeItem>();
 
 		this.invokeItems = method.invokeItems;
 		for (InvokeItem invokeItem : this.invokeItems) {
@@ -131,18 +133,19 @@ public class Method extends AccessFlags {
 		return this.invokeMethods;
 	}
 
-	public synchronized void addInvokedMethod(Method invokeMethod) {
-		invokedMethods.add(invokeMethod);
+	public Collection<InvokeItem> getInvokedItems() {
+		return invokedItems;
+	}
+
+	public synchronized void addInvokedItem(InvokeItem invokeItem) {
+		invokedItems.add(invokeItem);
 	}
 
 	public synchronized Collection<Method> getInvokedMethods() {
 		if (this.invokedMethods == null) {
-			// 目前该部分已不执行，invokedMethods在InvokeItem创建时增加
-			invokedMethods = new HashSet<Method>();
-			for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
-				if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
-					invokedMethods.add(invokeMethod);
-				}
+			this.invokedMethods = new HashSet<Method>();
+			for (InvokeItem item : this.invokedItems) {
+				this.invokedMethods.add(item.getSelf());
 			}
 		}
 		return invokedMethods;
@@ -468,7 +471,7 @@ public class Method extends AccessFlags {
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 
-		this.invokedMethods = new HashSet<Method>();
+		this.invokedItems = new HashSet<InvokeItem>();
 	}
 
 	@Override
