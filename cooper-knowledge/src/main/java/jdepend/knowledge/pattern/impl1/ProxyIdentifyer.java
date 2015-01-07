@@ -41,11 +41,11 @@ public class ProxyIdentifyer extends AbstractPatternIdentifyer {
 					// 搜索代理方法
 					L: for (Method method : javaClass.getOverrideMethods()) {
 						for (InvokeItem item : method.getInvokeItems()) {
-							if (otherSubClasses.contains(item.getMethod().getJavaClass())) {
+							if (otherSubClasses.contains(item.getCallee().getJavaClass())) {
 								for (Method superMethod : javaClass.getOverridedMethods(method)) {
 									if (item.math2(superMethod)) {
 										rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
-												+ item.getMethod().getName());
+												+ item.getCallee().getName());
 										if (!rtn.contains(rtnItem)) {
 											rtn.add(rtnItem);
 										}

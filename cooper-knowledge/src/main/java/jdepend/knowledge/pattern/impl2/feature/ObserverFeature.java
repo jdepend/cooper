@@ -26,8 +26,8 @@ public class ObserverFeature extends AbstractFeature {
 				if (attributeHaveSubClass) {
 					for (Method method : context.getCurrent().getSelfMethods()) {
 						for (InvokeItem item : method.getInvokeItems()) {
-							if (item.getMethod().getArgClassTypes().contains(context.getCurrent())
-									&& attribute.getTypeClasses().contains(item.getMethod().getJavaClass())) {
+							if (item.getCallee().getArgClassTypes().contains(context.getCurrent())
+									&& attribute.getTypeClasses().contains(item.getCallee().getJavaClass())) {
 								this.setPatternInfo(method.getName());
 								return true;
 							}

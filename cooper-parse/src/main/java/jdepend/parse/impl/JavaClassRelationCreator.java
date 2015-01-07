@@ -168,8 +168,8 @@ public class JavaClassRelationCreator {
 								for (Method method : javaClass.getSelfMethods()) {
 									for (InvokeItem invokeItem : method.getInvokeItems()) {
 										if (invokeItem instanceof HttpInvokeItem) {
-											if (!dependClasses.contains(invokeItem.getMethod().getJavaClass())) {
-												dependClasses.add(invokeItem.getMethod().getJavaClass());
+											if (!dependClasses.contains(invokeItem.getCallee().getJavaClass())) {
+												dependClasses.add(invokeItem.getCallee().getJavaClass());
 											}
 										}
 									}

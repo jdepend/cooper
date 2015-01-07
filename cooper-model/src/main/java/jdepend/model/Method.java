@@ -93,7 +93,7 @@ public class Method extends AccessFlags {
 
 		this.invokeItems = method.invokeItems;
 		for (InvokeItem invokeItem : this.invokeItems) {
-			invokeItem.setSelf(this);
+			invokeItem.setCaller(this);
 		}
 
 		this.readFields = method.readFields;
@@ -127,7 +127,7 @@ public class Method extends AccessFlags {
 		if (this.invokeMethods == null) {
 			this.invokeMethods = new HashSet<Method>();
 			for (InvokeItem item : this.invokeItems) {
-				this.invokeMethods.add(item.getMethod());
+				this.invokeMethods.add(item.getCallee());
 			}
 		}
 		return this.invokeMethods;
@@ -145,7 +145,7 @@ public class Method extends AccessFlags {
 		if (this.invokedMethods == null) {
 			this.invokedMethods = new HashSet<Method>();
 			for (InvokeItem item : this.invokedItems) {
-				this.invokedMethods.add(item.getSelf());
+				this.invokedMethods.add(item.getCaller());
 			}
 		}
 		return invokedMethods;
@@ -196,7 +196,7 @@ public class Method extends AccessFlags {
 	public synchronized void addInvokeItem(InvokeItem item) {
 		if (!this.invokeItems.contains(item)) {
 			this.invokeItems.add(item);
-			item.setSelf(this);
+			item.setCaller(this);
 		}
 	}
 
@@ -450,9 +450,9 @@ public class Method extends AccessFlags {
 		it = this.getInvokeItems().iterator();
 		while (it.hasNext()) {
 			invokeItem = it.next();
-			invokeItem.setSelf(this);
+			invokeItem.setCaller(this);
 
-			if (!invokeItem.supplyMethod(javaClasses)) {
+			if (!invokeItem.supplyCallee(javaClasses)) {
 				LogUtil.getInstance(Method.class).systemWarning(
 						"Method [" + this.getJavaClass().getName() + "." + this.getInfo() + "] invokeItem ["
 								+ invokeItem + "] not found, is removed.");

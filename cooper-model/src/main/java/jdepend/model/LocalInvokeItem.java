@@ -51,12 +51,12 @@ public final class LocalInvokeItem extends InvokeItem {
 	 * @return
 	 */
 	@Override
-	public boolean supplyMethod(JavaClassCollection javaClasses) {
+	public boolean supplyCallee(JavaClassCollection javaClasses) {
 		JavaClass invokeClass = javaClasses.getTheClass(invokeClassPlace, invokeClassName);
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
-					this.setMethod(invokeMethod);
+					this.setCallee(invokeMethod);
 					return true;
 				}
 			}
@@ -95,7 +95,7 @@ public final class LocalInvokeItem extends InvokeItem {
 
 	@Override
 	public InvokeItem transform() {
-		if (this.getMethod().getJavaClass().getDetail().getInterfaceNames().contains("java.rmi.Remote")) {
+		if (this.getCallee().getJavaClass().getDetail().getInterfaceNames().contains("java.rmi.Remote")) {
 			return new RMIInvokeItem(this);
 		} else {
 			return null;
@@ -104,11 +104,11 @@ public final class LocalInvokeItem extends InvokeItem {
 
 	@Override
 	public int hashCode() {
-		if (this.getMethod() != null && this.getSelf() != null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + getMethod().hashCode();
-			result = prime * result + getSelf().hashCode();
+			result = prime * result + getCallee().hashCode();
+			result = prime * result + getCaller().hashCode();
 			return result;
 		} else {
 			final int prime = 31;
@@ -131,11 +131,11 @@ public final class LocalInvokeItem extends InvokeItem {
 			return false;
 		LocalInvokeItem other = (LocalInvokeItem) obj;
 
-		if (this.getMethod() != null && this.getSelf() != null) {
-			if (other.getMethod() == null || other.getSelf() == null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
+			if (other.getCallee() == null || other.getCaller() == null) {
 				return false;
 			} else {
-				return this.getSelf().equals(other.getSelf()) && this.getMethod().equals(other.getMethod());
+				return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
 			}
 		} else {
 			if (invokeClassName == null) {
@@ -159,10 +159,10 @@ public final class LocalInvokeItem extends InvokeItem {
 
 	@Override
 	public String toString() {
-		if (this.getMethod() != null) {
-			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
-					+ ", invokeMethodName=" + getMethod().getName() + ", invokeMethodSignature="
-					+ getMethod().getSignature() + "]";
+		if (this.getCallee() != null) {
+			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + getCallee().getJavaClass().getName()
+					+ ", invokeMethodName=" + getCallee().getName() + ", invokeMethodSignature="
+					+ getCallee().getSignature() + "]";
 		} else {
 			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + invokeClassName + ", invokeType="
 					+ invokeType + ", invokeMethodName=" + invokeMethodName + ", invokeMethodSignature="

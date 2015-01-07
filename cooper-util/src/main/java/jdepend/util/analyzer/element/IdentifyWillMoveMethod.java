@@ -43,15 +43,15 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 						sameInvokeClass = true;
 						selfInvokeClass = false;
 						L: for (InvokeItem invokeItem : method.getInvokeItems()) {
-							if (!invokeItem.getMethod().getJavaClass().equals(method.getJavaClass())) {
+							if (!invokeItem.getCallee().getJavaClass().equals(method.getJavaClass())) {
 								if (invokeClassName != null
-										&& !invokeClassName.equals(invokeItem.getMethod().getJavaClass().getName())) {
+										&& !invokeClassName.equals(invokeItem.getCallee().getJavaClass().getName())) {
 									sameInvokeClass = false;
 									break L;
 								} else if (invokeClassName == null) {
-									invokeClassName = invokeItem.getMethod().getJavaClass().getName();
+									invokeClassName = invokeItem.getCallee().getJavaClass().getName();
 								}
-								invokeMethods.add(invokeItem.getMethod().getName());
+								invokeMethods.add(invokeItem.getCallee().getName());
 							} else {
 								selfInvokeClass = true;
 								break L;

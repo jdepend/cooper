@@ -290,7 +290,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	/**
 	 * 得到全部方法覆盖的父类方法列表
 	 * 
-	 * @param method
+	 * @param callee
 	 * @return
 	 */
 	public Collection<Method> getOverridedMethods() {
@@ -355,7 +355,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	/**
 	 * 得到覆盖的子类全部方法列表
 	 * 
-	 * @param method
+	 * @param callee
 	 * @return
 	 */
 	public Collection<Method> getSubOverrideMethods() {
@@ -1146,7 +1146,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		JavaClass invokeClass;
 		for (Method method : javaClass.getSelfMethods()) {
 			for (InvokeItem invokeItem : method.getInvokeItems()) {
-				invokeClass = invokeItem.getMethod().getJavaClass();
+				invokeClass = invokeItem.getCallee().getJavaClass();
 				if (!invokeClasses.contains(invokeClass)) {
 					invokeClasses.add(invokeClass);
 					collectInvokeClasses(invokeClass, invokeClasses);

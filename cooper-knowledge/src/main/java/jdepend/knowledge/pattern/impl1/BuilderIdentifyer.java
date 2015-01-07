@@ -25,13 +25,13 @@ public final class BuilderIdentifyer extends AbstractPatternIdentifyer {
 							if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
 								JavaClass productType = method.getReturnClassTypes().iterator().next();
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
-									Method invokeMethod = invokeItem.getMethod();
+									Method invokeMethod = invokeItem.getCallee();
 									if (invokeMethod.getJavaClass().equals(builder)
 											&& invokeMethod.getReturnTypes().size() == 1
 											&& invokeMethod.getReturnClassTypes().size() == 1) {
 										if (invokeMethod.getReturnClassTypes().iterator().next().equals(productType)) {
 											rtn.add(new PatternInfo(javaClass, attribute.getName() + "."
-													+ invokeItem.getMethod().getName()));
+													+ invokeItem.getCallee().getName()));
 											break L;
 										}
 									}

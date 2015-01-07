@@ -6,33 +6,33 @@ import jdepend.model.util.JavaClassCollection;
 
 public abstract class InvokeItem implements Serializable {
 
-	protected transient Method self;
-	protected transient Method method;
+	protected transient Method caller;
+	protected transient Method callee;
 
-	public Method getMethod() {
-		return method;
+	public Method getCallee() {
+		return callee;
 	}
 
-	protected void setMethod(Method method) {
-		this.method = method;
-		this.method.addInvokedItem(this);
+	protected void setCallee(Method callee) {
+		this.callee = callee;
+		this.callee.addInvokedItem(this);
 	}
 
-	public Method getSelf() {
-		return self;
+	public Method getCaller() {
+		return caller;
 	}
 
-	public void setSelf(Method self) {
-		this.self = self;
+	public void setCaller(Method caller) {
+		this.caller = caller;
 	}
 
 	/**
-	 * 补充method信息
+	 * 补充callee信息
 	 * 
 	 * @param javaClasses
 	 * @return
 	 */
-	public abstract boolean supplyMethod(JavaClassCollection javaClasses);
+	public abstract boolean supplyCallee(JavaClassCollection javaClasses);
 
 	/**
 	 * 调用的method是否是传入的method

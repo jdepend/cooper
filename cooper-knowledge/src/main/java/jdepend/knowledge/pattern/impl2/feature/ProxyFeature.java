@@ -16,9 +16,9 @@ public class ProxyFeature extends AbstractFeature {
 			for (Method method : context.getOverrideMethods().keySet()) {
 				for (Method superMethod : context.getOverrideMethods().get(method)) {
 					for (InvokeItem item : method.getInvokeItems()) {
-						if (context.getSuperOtherSubClasses().contains(item.getMethod().getJavaClass())
+						if (context.getSuperOtherSubClasses().contains(item.getCallee().getJavaClass())
 								&& item.math2(superMethod)) {
-							this.setPatternInfo(item.getMethod().getName());
+							this.setPatternInfo(item.getCallee().getName());
 							return true;
 						}
 					}

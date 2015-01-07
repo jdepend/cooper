@@ -17,7 +17,7 @@ public class TemplateMethodFeature extends AbstractFeature {
 					for (Method publicMethod : context.getCurrent().getSelfMethods()) {
 						if (!publicMethod.isAbstract() && publicMethod.isPublic() && !publicMethod.isConstruction()) {
 							for (InvokeItem item : publicMethod.getInvokeItems()) {
-								if (item.getMethod().equals(abstractMethod)) {
+								if (item.getCallee().equals(abstractMethod)) {
 									// 子类覆盖了抽象方法
 									for (JavaClass subClass : context.getSubClasses()) {
 										if (subClass.getOverridedMethods().contains(abstractMethod)) {

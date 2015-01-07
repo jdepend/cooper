@@ -73,12 +73,12 @@ public class DIPPrinciple extends AbstractAnalyzer {
 									break L;
 								}
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
-									if (invokeItem.getMethod().getArgClassTypes().contains(depend)) {
+									if (invokeItem.getCallee().getArgClassTypes().contains(depend)) {
 										found = false;
 										break L;
 									}
-									if (invokeItem.getMethod().getJavaClass().equals(depend)) {
-										if (depend.getSelfMethods().contains(invokeItem.getMethod())) {
+									if (invokeItem.getCallee().getJavaClass().equals(depend)) {
+										if (depend.getSelfMethods().contains(invokeItem.getCallee())) {
 											found = false;
 											break L;
 										}

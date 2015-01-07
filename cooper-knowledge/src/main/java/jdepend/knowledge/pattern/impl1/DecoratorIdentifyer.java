@@ -59,10 +59,10 @@ public final class DecoratorIdentifyer extends AbstractPatternIdentifyer {
 										for (Method method : javaClass.getOverrideMethods()) {
 											for (Method superMethod : javaClass.getOverridedMethods(method)) {
 												for (InvokeItem item : method.getInvokeItems()) {
-													if (item.getMethod().equals(superMethod)
+													if (item.getCallee().equals(superMethod)
 															&& method.getReadFields().contains(attribute)) {
 														rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
-																+ item.getMethod().getName());
+																+ item.getCallee().getName());
 														if (!rtn.contains(rtnItem)) {
 															rtn.add(rtnItem);
 														}

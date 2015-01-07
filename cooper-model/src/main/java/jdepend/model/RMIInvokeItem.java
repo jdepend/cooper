@@ -19,8 +19,8 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 		this.invokeMethodName = item.getInvokeMethodName();
 		this.invokeMethodSignature = item.getInvokeMethodSignature();
 
-		this.self = item.self;
-		this.method = item.method;
+		this.caller = item.caller;
+		this.callee = item.callee;
 	}
 
 	/**
@@ -30,12 +30,12 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 	 * @return
 	 */
 	@Override
-	public boolean supplyMethod(JavaClassCollection javaClasses) {
+	public boolean supplyCallee(JavaClassCollection javaClasses) {
 		JavaClass invokeClass = javaClasses.getTheClass(invokeClassPlace, invokeClassName);
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {
-					this.setMethod(invokeMethod);
+					this.setCallee(invokeMethod);
 					return true;
 				}
 			}
@@ -74,11 +74,11 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 
 	@Override
 	public int hashCode() {
-		if (this.getMethod() != null && this.getSelf() != null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + getMethod().hashCode();
-			result = prime * result + getSelf().hashCode();
+			result = prime * result + getCallee().hashCode();
+			result = prime * result + getCaller().hashCode();
 			return result;
 		} else {
 			final int prime = 31;
@@ -100,11 +100,11 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 		if (getClass() != obj.getClass())
 			return false;
 		RMIInvokeItem other = (RMIInvokeItem) obj;
-		if (this.getMethod() != null && this.getSelf() != null) {
-			if (other.getMethod() == null || other.getSelf() == null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
+			if (other.getCallee() == null || other.getCaller() == null) {
 				return false;
 			} else {
-				return this.getSelf().equals(other.getSelf()) && this.getMethod().equals(other.getMethod());
+				return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
 			}
 		} else {
 			if (invokeClassName == null) {
@@ -128,10 +128,10 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 
 	@Override
 	public String toString() {
-		if (this.getMethod() != null) {
-			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
-					+ ", invokeMethodName=" + getMethod().getName() + ", invokeMethodSignature="
-					+ getMethod().getSignature() + "]";
+		if (this.getCallee() != null) {
+			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + getCallee().getJavaClass().getName()
+					+ ", invokeMethodName=" + getCallee().getName() + ", invokeMethodSignature="
+					+ getCallee().getSignature() + "]";
 		} else {
 			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + invokeClassName + ", invokeMethodName="
 					+ invokeMethodName + ", invokeMethodSignature=" + invokeMethodSignature + "]";

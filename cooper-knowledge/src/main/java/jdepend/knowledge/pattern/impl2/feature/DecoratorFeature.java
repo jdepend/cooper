@@ -16,10 +16,10 @@ public class DecoratorFeature extends AbstractFeature {
 			for (Method method : context.getOverrideMethods().keySet()) {
 				for (Method superMethod : context.getOverrideMethods().get(method)) {
 					for (InvokeItem item : method.getInvokeItems()) {
-						if (item.getMethod().equals(superMethod)) {
+						if (item.getCallee().equals(superMethod)) {
 							for (Attribute attribute : context.getAbstractAttributes()) {
 								if (method.getReadFields().contains(attribute.getName())) {
-									this.setPatternInfo(item.getMethod().getName());
+									this.setPatternInfo(item.getCallee().getName());
 									return true;
 								}
 							}

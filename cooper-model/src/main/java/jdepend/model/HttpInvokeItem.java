@@ -27,7 +27,7 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 	 * @return
 	 */
 	@Override
-	public boolean supplyMethod(JavaClassCollection javaClasses) {
+	public boolean supplyCallee(JavaClassCollection javaClasses) {
 
 		Map<String, Method> httpMethods = javaClasses.getHttpMethod();
 		if (httpMethods.size() == 0) {
@@ -43,8 +43,8 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 		String mathUrl = this.formatUrl(this.url);
 		for (String calledUrl : httpMethods.keySet()) {
 			if (calledUrl.startsWith(mathUrl) || mathUrl.startsWith(calledUrl)) {
-				this.setMethod(httpMethods.get(calledUrl));
-				this.getSelf().getJavaClass().getDetail().setHttpCaller(true);
+				this.setCallee(httpMethods.get(calledUrl));
+				this.getCaller().getJavaClass().getDetail().setHttpCaller(true);
 				return true;
 			}
 		}
@@ -75,7 +75,7 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 
 	private void calUrl(JavaClassCollection javaClasses) {
 		if (this.constantClassName != null && this.constantAttributeName != null) {
-			JavaClass urlClass = javaClasses.getTheClass(this.getSelf().getJavaClass().getPlace(),
+			JavaClass urlClass = javaClasses.getTheClass(this.getCaller().getJavaClass().getPlace(),
 					this.constantClassName);
 			if (urlClass != null) {
 				L: for (Attribute attribute : urlClass.getAttributes()) {
@@ -98,11 +98,11 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 
 	@Override
 	public int hashCode() {
-		if (this.getMethod() != null && this.getSelf() != null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + getMethod().hashCode();
-			result = prime * result + getSelf().hashCode();
+			result = prime * result + getCallee().hashCode();
+			result = prime * result + getCaller().hashCode();
 			return result;
 		} else {
 			final int prime = 31;
@@ -125,11 +125,11 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 		if (getClass() != obj.getClass())
 			return false;
 		HttpInvokeItem other = (HttpInvokeItem) obj;
-		if (this.getMethod() != null && this.getSelf() != null) {
-			if (other.getMethod() == null || other.getSelf() == null) {
+		if (this.getCallee() != null && this.getCaller() != null) {
+			if (other.getCallee() == null || other.getCaller() == null) {
 				return false;
 			} else {
-				return this.getSelf().equals(other.getSelf()) && this.getMethod().equals(other.getMethod());
+				return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
 			}
 		} else {
 			if (url == null) {
@@ -154,10 +154,10 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 
 	@Override
 	public String toString() {
-		if (this.getMethod() != null) {
-			return "InvokeItem [type=HttpInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
-					+ ", invokeMethodName=" + getMethod().getName() + ", invokeMethodSignature="
-					+ getMethod().getSignature() + "]";
+		if (this.getCallee() != null) {
+			return "InvokeItem [type=HttpInvokeItem, invokeClassName=" + getCallee().getJavaClass().getName()
+					+ ", invokeMethodName=" + getCallee().getName() + ", invokeMethodSignature="
+					+ getCallee().getSignature() + "]";
 		} else {
 			StringBuilder info = new StringBuilder();
 			info.append("InvokeItem [type=HttpInvokeItem, ");

@@ -18,7 +18,7 @@ public class AdapterClassFeature extends AbstractFeature {
 					theInterfaceClass = overrideMethod.getJavaClass();
 					if (context.getInterfaces().contains(theInterfaceClass)) {
 						for (InvokeItem item : method.getInvokeItems()) {
-							theSuperClass = item.getMethod().getJavaClass();
+							theSuperClass = item.getCallee().getJavaClass();
 							if (context.getSupers().contains(theSuperClass)) {
 								if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
 									this.setPatternInfo(method.getName());

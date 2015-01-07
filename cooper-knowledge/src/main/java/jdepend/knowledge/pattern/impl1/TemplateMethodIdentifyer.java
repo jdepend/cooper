@@ -35,7 +35,7 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 						for (Method publicMethod : javaClass.getSelfMethods()) {
 							if (!publicMethod.isAbstract() && publicMethod.isPublic()) {
 								for (InvokeItem item : publicMethod.getInvokeItems()) {
-									if (item.getMethod().equals(abstractMethod)) {
+									if (item.getCallee().equals(abstractMethod)) {
 										// 查找是否存在子类，并覆盖了抽象方法
 										for (JavaClass subClass : javaClass.getSubClasses()) {
 											if (subClass.getOverridedMethods().contains(abstractMethod)) {

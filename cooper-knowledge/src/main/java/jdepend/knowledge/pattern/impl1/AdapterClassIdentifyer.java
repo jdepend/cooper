@@ -37,7 +37,7 @@ public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 						theInterfaceClass = overrideMethod.getJavaClass();
 						if (interfaces.contains(theInterfaceClass)) {
 							for (InvokeItem item : method.getInvokeItems()) {
-								theSuperClass = item.getMethod().getJavaClass();
+								theSuperClass = item.getCallee().getJavaClass();
 								if (supers.contains(theSuperClass)) {
 									if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
 										rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));

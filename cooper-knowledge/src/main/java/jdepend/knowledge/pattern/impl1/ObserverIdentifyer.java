@@ -45,7 +45,7 @@ public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
 			// 判断是否在当前Class调用该方法
 			M: for (Method method : javaClass.getSelfMethods()) {
 				for (InvokeItem invokeItem : method.getInvokeItems()) {
-					if (observereMethods.contains(invokeItem.getMethod())) {
+					if (observereMethods.contains(invokeItem.getCallee())) {
 						rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
 						break M;
 					}
