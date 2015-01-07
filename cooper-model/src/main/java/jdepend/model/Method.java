@@ -395,9 +395,9 @@ public class Method extends AccessFlags {
 		return javaClassId;
 	}
 
-	public boolean containHttpInvokeItem() {
+	public boolean containRemoteInvokeItem() {
 		for (InvokeItem item : this.getInvokeItems()) {
-			if (item instanceof HttpInvokeItem) {
+			if (item instanceof RemoteInvokeItem) {
 				return true;
 			}
 		}

@@ -64,7 +64,7 @@ public class MethodListPanel extends JPanel {
 			row[6] = method.getInvokedMethods().size();
 			row[7] = method.getCascadeInvokedMethods().size();
 			row[8] = method.getInvokeMethods().size();
-			row[9] = method.containHttpInvokeItem() ? "是" : "否";
+			row[9] = method.containRemoteInvokeItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -176,7 +176,7 @@ public class MethodListPanel extends JPanel {
 				row[6] = method.getInvokedMethods().size();
 				row[7] = method.getCascadeInvokedMethods().size();
 				row[8] = method.getInvokeMethods().size();
-				row[9] = method.containHttpInvokeItem() ? "是" : "否";
+				row[9] = method.containRemoteInvokeItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}

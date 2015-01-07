@@ -146,6 +146,7 @@ public class ClassListPanel extends JPanel {
 
 		String metrics = null;
 		for (jdepend.model.Component component : components) {
+			
 			for (JavaClass javaClass : component.getClasses()) {
 				row = new Object[classListTable.getColumnCount()];
 				for (int i = 0; i < classListTable.getColumnCount(); i++) {

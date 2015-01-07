@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ThreadPool {
 	
-	public final static int ThreadCount = 4;
+	public final static int ThreadCount = Runtime.getRuntime().availableProcessors();
 	private final static int awaitTerminationTimeOut = 100;
 	
 	public static ExecutorService getPool(){

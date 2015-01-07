@@ -4,7 +4,7 @@ import java.util.Map;
 
 import jdepend.model.util.JavaClassCollection;
 
-public final class HttpInvokeItem extends InvokeItem {
+public final class HttpInvokeItem extends RemoteInvokeItem {
 
 	private static final long serialVersionUID = -4196380179142091486L;
 
