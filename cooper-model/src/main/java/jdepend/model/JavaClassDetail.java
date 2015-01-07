@@ -254,23 +254,18 @@ public class JavaClassDetail implements Serializable {
 	public void supply(JavaClassCollection javaClasses) {
 
 		// 填充superClass和interfaces
-		JavaClass superClass = javaClasses.getTheClass(javaClass.getPlace(), javaClass.getDetail().getSuperClassName());
+		JavaClass superClass = javaClasses.getTheClass(javaClass.getPlace(), this.getSuperClassName());
 		if (superClass != null) {
 			this.setSuperClass(superClass);
-		} else {
-			this.setSuperClassName(null);
 		}
 		Collection<JavaClass> interfaces = new HashSet<JavaClass>();
-		Collection<String> interfaceNames = new ArrayList<String>();
-		for (String interfaceName : javaClass.getDetail().getInterfaceNames()) {
+		for (String interfaceName : this.getInterfaceNames()) {
 			JavaClass interfaceClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
 			if (interfaceClass != null) {
 				interfaces.add(interfaceClass);
-				interfaceNames.add(interfaceName);
 			}
 		}
 		this.setInterfaces(interfaces);
-		this.setInterfaceNames(interfaceNames);
 
 		// 填充Attribute中的JavaClass
 		for (Attribute attribute : this.getAttributes()) {
@@ -282,7 +277,7 @@ public class JavaClassDetail implements Serializable {
 			method.supply(javaClasses);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder content = new StringBuilder(500);
