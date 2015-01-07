@@ -441,6 +441,8 @@ public class Method extends AccessFlags {
 
 		Iterator<InvokeItem> it;
 		InvokeItem invokeItem;
+
+		Collection<InvokeItem> newInvokeItems = new HashSet<InvokeItem>();
 		// 填充Method中的InvokeItem
 		it = this.getInvokeItems().iterator();
 		while (it.hasNext()) {
@@ -452,9 +454,15 @@ public class Method extends AccessFlags {
 						"Method [" + this.getJavaClass().getName() + "." + this.getInfo() + "] invokeItem ["
 								+ invokeItem + "] not found, is removed.");
 				it.remove();
+			} else {
+				InvokeItem newInvokeItem = invokeItem.transform();
+				if (newInvokeItem != null) {
+					it.remove();
+					newInvokeItems.add(newInvokeItem);
+				}
 			}
 		}
-
+		this.getInvokeItems().addAll(newInvokeItems);
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {

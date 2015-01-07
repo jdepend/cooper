@@ -6,8 +6,8 @@ import jdepend.model.util.JavaClassCollection;
 
 public abstract class InvokeItem implements Serializable {
 
-	private transient Method self;
-	private transient Method method;
+	protected transient Method self;
+	protected transient Method method;
 
 	public Method getMethod() {
 		return method;
@@ -41,5 +41,14 @@ public abstract class InvokeItem implements Serializable {
 	 * @return
 	 */
 	public abstract boolean math2(Method method);
+
+	/**
+	 * 该调用类型需要转化的其他调用类型
+	 * 
+	 * @return
+	 */
+	public InvokeItem transform() {
+		return null;
+	};
 
 }

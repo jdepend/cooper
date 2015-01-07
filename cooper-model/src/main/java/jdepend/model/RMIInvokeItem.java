@@ -3,45 +3,24 @@ package jdepend.model;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.ParseUtil;
 
-public final class LocalInvokeItem extends InvokeItem {
+public final class RMIInvokeItem extends RemoteInvokeItem {
 
-	private static final long serialVersionUID = -5979020781021111806L;
+	private static final long serialVersionUID = 8888171995972886018L;
 
-	private String invokeType;
 	private String invokeClassPlace;
 	private String invokeClassName;
 	private String invokeMethodName;
 	private String invokeMethodSignature;
 
-	private static final String specialType = "special";
-	private static final String staticType = "static";
-	private static final String virtualType = "virtual";
-	private static final String interfaceType = "interface";
-
-	public LocalInvokeItem(String invokeType, String invokeClassPlace, String invokeClassName, String invokeMethodName,
-			String invokeMethodSignature) {
+	public RMIInvokeItem(LocalInvokeItem item) {
 		super();
-		this.invokeType = invokeType;
-		this.invokeClassPlace = invokeClassPlace;
-		this.invokeClassName = invokeClassName;
-		this.invokeMethodName = invokeMethodName;
-		this.invokeMethodSignature = invokeMethodSignature;
-	}
+		this.invokeClassPlace = item.getInvokeClassPlace();
+		this.invokeClassName = item.getInvokeClassName();
+		this.invokeMethodName = item.getInvokeMethodName();
+		this.invokeMethodSignature = item.getInvokeMethodSignature();
 
-	public String getInvokeClassPlace() {
-		return invokeClassPlace;
-	}
-
-	public String getInvokeClassName() {
-		return this.invokeClassName;
-	}
-
-	public String getInvokeMethodName() {
-		return invokeMethodName;
-	}
-
-	public String getInvokeMethodSignature() {
-		return invokeMethodSignature;
+		this.self = item.self;
+		this.method = item.method;
 	}
 
 	/**
@@ -94,15 +73,6 @@ public final class LocalInvokeItem extends InvokeItem {
 	}
 
 	@Override
-	public InvokeItem transform() {
-		if (this.getMethod().getJavaClass().getDetail().getInterfaceNames().contains("java.rmi.Remote")) {
-			return new RMIInvokeItem(this);
-		} else {
-			return null;
-		}
-	}
-
-	@Override
 	public int hashCode() {
 		if (this.getMethod() != null) {
 			final int prime = 31;
@@ -128,7 +98,7 @@ public final class LocalInvokeItem extends InvokeItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LocalInvokeItem other = (LocalInvokeItem) obj;
+		RMIInvokeItem other = (RMIInvokeItem) obj;
 		if (this.getMethod() != null) {
 			if (other.getMethod() == null) {
 				return false;
@@ -158,13 +128,12 @@ public final class LocalInvokeItem extends InvokeItem {
 	@Override
 	public String toString() {
 		if (this.getMethod() != null) {
-			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
+			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + getMethod().getJavaClass().getName()
 					+ ", invokeMethodName=" + getMethod().getName() + ", invokeMethodSignature="
 					+ getMethod().getSignature() + "]";
 		} else {
-			return "InvokeItem [type=LocalInvokeItem, invokeClassName=" + invokeClassName + ", invokeType="
-					+ invokeType + ", invokeMethodName=" + invokeMethodName + ", invokeMethodSignature="
-					+ invokeMethodSignature + "]";
+			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + invokeClassName + ", invokeMethodName="
+					+ invokeMethodName + ", invokeMethodSignature=" + invokeMethodSignature + "]";
 		}
 	}
 }
