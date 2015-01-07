@@ -55,6 +55,8 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokedMethods;
 
+	private transient Collection<Method> cascadeInvokedMethods;
+
 	private transient JavaClass javaClass;
 
 	public Method() {
@@ -84,6 +86,7 @@ public class Method extends AccessFlags {
 		this.signature = method.signature;
 		this.info = method.info;
 		this.argumentCount = method.argumentCount;
+
 		this.invokedMethods = new HashSet<Method>();
 
 		this.invokeItems = method.invokeItems;
@@ -118,7 +121,7 @@ public class Method extends AccessFlags {
 		return invokeItems;
 	}
 
-	public Collection<Method> getInvokeMethods() {
+	public synchronized Collection<Method> getInvokeMethods() {
 		if (this.invokeMethods == null) {
 			this.invokeMethods = new HashSet<Method>();
 			for (InvokeItem item : this.invokeItems) {
@@ -132,8 +135,9 @@ public class Method extends AccessFlags {
 		invokedMethods.add(invokeMethod);
 	}
 
-	public Collection<Method> getInvokedMethods() {
+	public synchronized Collection<Method> getInvokedMethods() {
 		if (this.invokedMethods == null) {
+			// 目前该部分已不执行，invokedMethods在InvokeItem创建时增加
 			invokedMethods = new HashSet<Method>();
 			for (Method invokeMethod : this.getJavaClass().getResult().getMethods()) {
 				if (!this.equals(invokeMethod) && this.isInvoked(invokeMethod)) {
@@ -166,6 +170,18 @@ public class Method extends AccessFlags {
 
 	}
 
+	public synchronized Collection<Method> getCascadeInvokedMethods() {
+		if (cascadeInvokedMethods == null) {
+			cascadeInvokedMethods = new HashSet<Method>();
+			cascadeInvokedMethods.addAll(this.getInvokedMethods());
+			for (Method method : this.getInvokedMethods()) {
+				cascadeInvokedMethods.addAll(method.getInvokedMethods());
+				cascadeInvokedMethods.addAll(method.getCascadeInvokedMethods());
+			}
+		}
+		return cascadeInvokedMethods;
+	}
+
 	public Collection<Attribute> getReadFields() {
 		return readFields;
 	}
@@ -174,7 +190,7 @@ public class Method extends AccessFlags {
 		return writeFields;
 	}
 
-	public void addInvokeItem(InvokeItem item) {
+	public synchronized void addInvokeItem(InvokeItem item) {
 		if (!this.invokeItems.contains(item)) {
 			this.invokeItems.add(item);
 			item.setSelf(this);
@@ -199,7 +215,7 @@ public class Method extends AccessFlags {
 		return signature;
 	}
 
-	public Collection<String> getArgumentTypes() {
+	public synchronized Collection<String> getArgumentTypes() {
 		if (this.argTypes == null) {
 			this.argTypes = new ArrayList<String>();
 			try {
@@ -246,7 +262,7 @@ public class Method extends AccessFlags {
 		}
 	}
 
-	public Collection<String> getReturnTypes() {
+	public synchronized Collection<String> getReturnTypes() {
 		if (this.returnTypes == null) {
 			this.returnTypes = new ArrayList<String>();
 			try {
@@ -377,6 +393,15 @@ public class Method extends AccessFlags {
 
 	public String getJavaClassId() {
 		return javaClassId;
+	}
+
+	public boolean containHttpInvokeItem() {
+		for (InvokeItem item : this.getInvokeItems()) {
+			if (item instanceof HttpInvokeItem) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void supply(JavaClassCollection javaClasses) {

@@ -53,7 +53,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[8];
+			row = new Object[10];
 
 			row[0] = method.getJavaClass().getName();
 			row[1] = Utility.accessToString(method.getAccessFlags());
@@ -62,7 +62,9 @@ public class MethodListPanel extends JPanel {
 			row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
 			row[5] = method.getSelfLineCount();
 			row[6] = method.getInvokedMethods().size();
-			row[7] = method.getInvokeMethods().size();
+			row[7] = method.getCascadeInvokedMethods().size();
+			row[8] = method.getInvokeMethods().size();
+			row[9] = method.containHttpInvokeItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -102,6 +104,10 @@ public class MethodListPanel extends JPanel {
 							MethodListDialog d = new MethodListDialog(currentMethod.getInvokedMethods());
 							d.setModal(true);
 							d.setVisible(true);
+						} else if (currentCol.equals("级联传入")) {
+							MethodListDialog d = new MethodListDialog(currentMethod.getCascadeInvokedMethods());
+							d.setModal(true);
+							d.setVisible(true);
 						} else if (currentCol.equals("传出")) {
 							MethodListDialog d = new MethodListDialog(currentMethod.getInvokeMethods());
 							d.setModal(true);
@@ -121,11 +127,14 @@ public class MethodListPanel extends JPanel {
 		methodListModel.addColumn("返回值");
 		methodListModel.addColumn("行数");
 		methodListModel.addColumn("传入");
+		methodListModel.addColumn("级联传入");
 		methodListModel.addColumn("传出");
+		methodListModel.addColumn("是否包含进程间调用");
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();
 		colNames.add("传入");
+		colNames.add("级联传入");
 		colNames.add("传出");
 
 		methodListTable.addMouseMotionListener(new TableMouseMotionAdapter(methodListTable, colNames));
@@ -153,7 +162,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[8];
+			row = new Object[10];
 
 			if ((className == null || className.length() == 0 || JavaClassUtil.match(className, method.getJavaClass()))
 					&& (name == null || name.length() == 0 || StringUtil.match(name.toUpperCase(), method.getName()
@@ -165,7 +174,9 @@ public class MethodListPanel extends JPanel {
 				row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
 				row[5] = method.getSelfLineCount();
 				row[6] = method.getInvokedMethods().size();
-				row[7] = method.getInvokeMethods().size();
+				row[7] = method.getCascadeInvokedMethods().size();
+				row[8] = method.getInvokeMethods().size();
+				row[9] = method.containHttpInvokeItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}

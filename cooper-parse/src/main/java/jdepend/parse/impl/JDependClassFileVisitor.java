@@ -194,7 +194,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		if (!obj.isSynthetic()) {// 不采集编译器生成的Method
 			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
 			if (!obj.getName().equals("<clinit>")) {
-
+				
 				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);
 				new HttpInvokeMethodReader(method, parser.getConf()).read(obj);
 

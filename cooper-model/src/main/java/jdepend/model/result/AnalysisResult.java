@@ -580,7 +580,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			listener.onUnSequence("正在填充类细节");
 		}
 		JavaClassUtil.supplyJavaClassDetail(javaClasses);
-
+		//初始化
 		this.init();
 	}
 

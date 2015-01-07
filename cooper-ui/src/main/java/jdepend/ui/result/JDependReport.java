@@ -93,13 +93,16 @@ public class JDependReport extends ReportCreator {
 		Map<String, SubResultTabPanel> groupComponents;
 
 		// 系统
+		LogUtil.getInstance(JDependReport.class).systemLog("create system graph report start!");
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
 		groupComponents.put("Architect", new ArchitectPatternPanel());
 		groupComponents.put("Capacity", new CapacityPanel(frame));
 		rtn.put(SystemTabName, this.compositeComponent(groupComponents));
+		LogUtil.getInstance(JDependReport.class).systemLog("create system graph report end!");
 
 		// 组件
+		LogUtil.getInstance(JDependReport.class).systemLog("create component graph report start!");
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new ComponentListPanel(frame, this));
 		if (result.getRelations() != null) {
@@ -113,15 +116,19 @@ public class JDependReport extends ReportCreator {
 			groupComponents.put("TDC", new TwoDimensionCell(frame));
 		}
 		rtn.put(ComponentTabName, this.compositeComponent(groupComponents));
+		LogUtil.getInstance(JDependReport.class).systemLog("create component graph report end!");
 
 		// 类
+		LogUtil.getInstance(JDependReport.class).systemLog("create class graph report start!");
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new ClassListSubTabPanel(frame));
 		groupComponents.put("Table", new TablePanel());
 		groupComponents.put("Pattern", new DesignPatternPanel());
 		rtn.put(ClassTabName, this.compositeComponent(groupComponents));
+		LogUtil.getInstance(JDependReport.class).systemLog("create class graph report end!");
 
 		// 方法
+		LogUtil.getInstance(JDependReport.class).systemLog("create method graph report start!");
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("List", new MethodListSubTabPanel(frame));
 		rtn.put(MethodTabName, this.compositeComponent(groupComponents));
@@ -132,6 +139,7 @@ public class JDependReport extends ReportCreator {
 			groupComponents.put("Text", this.createTextReport(ReportConstant.NoticesText));
 			rtn.put(NoticeTabName, this.compositeComponent(groupComponents));
 		}
+		LogUtil.getInstance(JDependReport.class).systemLog("create method graph report end!");
 
 		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report finish!");
 
