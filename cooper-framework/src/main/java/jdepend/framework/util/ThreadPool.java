@@ -25,6 +25,9 @@ public class ThreadPool {
 		}
 	}
 	
+	public static void shutdown(ExecutorService pool){
+		pool.shutdown();
+	}
 	
 
 }

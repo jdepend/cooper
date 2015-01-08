@@ -1181,27 +1181,15 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			return HaveState;
 		}
 
-		// 收集属性数据
-		List<JavaClassRelationItem> fieldRelationItems = new ArrayList<JavaClassRelationItem>();
-		for (JavaClassRelationItem item : this.ceItems) {
-			if (item.getType() instanceof FieldRelation) {
-				fieldRelationItems.add(item);
-			}
-		}
-
-		if (this.detail.getAttributeTypes().size() > fieldRelationItems.size()) {
-			// 清空扫描列表
-			JDependContext.setInfo(SCOPE.THREAD_SCOPSE, haveStateJavaClasses, null);
-			return HaveState;
-		}
-
 		int result;
 
 		// 判断属性
-		for (JavaClassRelationItem item : fieldRelationItems) {
-			result = item.getDepend().searchState();
-			if (result != Searched) {
-				return result;
+		for (Attribute attribute : this.getAttributes()) {
+			for (JavaClass javaClass : attribute.getTypeClasses()) {
+				result = javaClass.searchState();
+				if (result != Searched) {
+					return result;
+				}
 			}
 		}
 
