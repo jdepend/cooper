@@ -9,6 +9,9 @@ public abstract class InvokeItem implements Serializable {
 	protected transient Method caller;
 	protected transient Method callee;
 
+	public static final String Ca = "Ca";
+	public static final String Ce = "Ce";
+
 	public Method getCallee() {
 		return callee;
 	}

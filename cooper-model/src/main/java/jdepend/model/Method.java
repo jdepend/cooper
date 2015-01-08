@@ -57,6 +57,8 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> invokedMethods;
 
+	private transient Collection<InvokeItem> cascadeInvokedItems;
+
 	private transient Collection<Method> cascadeInvokedMethods;
 
 	private transient JavaClass javaClass;
@@ -151,35 +153,23 @@ public class Method extends AccessFlags {
 		return invokedMethods;
 	}
 
-	private boolean isInvoked(Method method) {
-
-		if (method.getInvokeMethods().contains(this)) {
-			return true;
-		}
-
-		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
-			if (method.getInvokeMethods().contains(overridedMethod)) {
-				return true;
+	public synchronized Collection<InvokeItem> getCascadeInvokedItems() {
+		if (cascadeInvokedItems == null) {
+			cascadeInvokedItems = new HashSet<InvokeItem>();
+			cascadeInvokedItems.addAll(this.getInvokedItems());
+			for (Method method : this.getInvokedMethods()) {
+				cascadeInvokedItems.addAll(method.getInvokedItems());
+				cascadeInvokedItems.addAll(method.getCascadeInvokedItems());
 			}
 		}
-
-		for (Method subOverrideMethod : this.javaClass.getSubOverrideMethods(this)) {
-			if (method.getInvokeMethods().contains(subOverrideMethod)) {
-				return true;
-			}
-		}
-
-		return false;
-
+		return cascadeInvokedItems;
 	}
 
 	public synchronized Collection<Method> getCascadeInvokedMethods() {
 		if (cascadeInvokedMethods == null) {
 			cascadeInvokedMethods = new HashSet<Method>();
-			cascadeInvokedMethods.addAll(this.getInvokedMethods());
-			for (Method method : this.getInvokedMethods()) {
-				cascadeInvokedMethods.addAll(method.getInvokedMethods());
-				cascadeInvokedMethods.addAll(method.getCascadeInvokedMethods());
+			for (InvokeItem invokeItem : getCascadeInvokedItems()) {
+				cascadeInvokedMethods.add(invokeItem.getCaller());
 			}
 		}
 		return cascadeInvokedMethods;
@@ -479,6 +469,28 @@ public class Method extends AccessFlags {
 		ois.defaultReadObject();
 
 		this.invokedItems = new HashSet<InvokeItem>();
+	}
+
+	private boolean isInvoked(Method method) {
+
+		if (method.getInvokeMethods().contains(this)) {
+			return true;
+		}
+
+		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
+			if (method.getInvokeMethods().contains(overridedMethod)) {
+				return true;
+			}
+		}
+
+		for (Method subOverrideMethod : this.javaClass.getSubOverrideMethods(this)) {
+			if (method.getInvokeMethods().contains(subOverrideMethod)) {
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 
 	@Override

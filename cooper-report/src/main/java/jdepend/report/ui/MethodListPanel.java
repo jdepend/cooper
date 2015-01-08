@@ -19,6 +19,7 @@ import org.apache.bcel.classfile.Utility;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.StringUtil;
+import jdepend.model.InvokeItem;
 import jdepend.model.Method;
 import jdepend.model.util.JavaClassUtil;
 
@@ -101,15 +102,18 @@ public class MethodListPanel extends JPanel {
 					Method currentMethod = getCurrentMethod();
 					if (currentMethod != null) {
 						if (currentCol.equals("传入")) {
-							MethodListDialog d = new MethodListDialog(currentMethod.getInvokedMethods());
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokedItems(),
+									InvokeItem.Ca);
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("级联传入")) {
-							MethodListDialog d = new MethodListDialog(currentMethod.getCascadeInvokedMethods());
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getCascadeInvokedItems(),
+									InvokeItem.Ca);
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("传出")) {
-							MethodListDialog d = new MethodListDialog(currentMethod.getInvokeMethods());
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokeItems(),
+									InvokeItem.Ce);
 							d.setModal(true);
 							d.setVisible(true);
 						}
