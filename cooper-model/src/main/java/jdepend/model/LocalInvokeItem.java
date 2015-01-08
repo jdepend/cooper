@@ -92,7 +92,7 @@ public final class LocalInvokeItem extends InvokeItem {
 			}
 		}
 	}
-	
+
 	@Override
 	public InvokeItem transform() {
 		if (this.getCallee().getJavaClass().getDetail().getInterfaceNames().contains("java.rmi.Remote")) {
@@ -125,33 +125,18 @@ public final class LocalInvokeItem extends InvokeItem {
 
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		LocalInvokeItem other = (LocalInvokeItem) obj;
 
 		if (this.getCallee() != null && this.getCaller() != null) {
-			if (other.getCallee() == null || other.getCaller() == null) {
-				return false;
-			} else {
-				return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
-			}
+			return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
 		} else {
-			if (invokeClassName == null) {
-				if (other.invokeClassName != null)
-					return false;
-			} else if (!invokeClassName.equals(other.invokeClassName))
+			if (!invokeClassName.equals(other.invokeClassName))
 				return false;
-			if (invokeMethodName == null) {
-				if (other.invokeMethodName != null)
-					return false;
-			} else if (!invokeMethodName.equals(other.invokeMethodName))
+			if (!invokeMethodName.equals(other.invokeMethodName))
 				return false;
-			if (invokeMethodSignature == null) {
-				if (other.invokeMethodSignature != null)
-					return false;
-			} else if (!invokeMethodSignature.equals(other.invokeMethodSignature))
+			if (!invokeMethodSignature.equals(other.invokeMethodSignature))
 				return false;
 			return true;
 		}

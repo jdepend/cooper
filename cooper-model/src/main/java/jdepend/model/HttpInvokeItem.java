@@ -120,32 +120,17 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		HttpInvokeItem other = (HttpInvokeItem) obj;
 		if (this.getCallee() != null && this.getCaller() != null) {
-			if (other.getCallee() == null || other.getCaller() == null) {
-				return false;
-			} else {
-				return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
-			}
+			return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
 		} else {
-			if (url == null) {
-				if (other.url != null)
-					return false;
-			} else if (!url.equals(other.url))
+			if (!url.equals(other.url))
 				return false;
-			if (constantClassName == null) {
-				if (other.constantClassName != null)
-					return false;
-			} else if (!constantClassName.equals(other.constantClassName))
+			if (!constantClassName.equals(other.constantClassName))
 				return false;
-			if (constantAttributeName == null) {
-				if (other.constantAttributeName != null)
-					return false;
-			} else if (!constantAttributeName.equals(other.constantAttributeName))
+			if (!constantAttributeName.equals(other.constantAttributeName))
 				return false;
 
 			return true;

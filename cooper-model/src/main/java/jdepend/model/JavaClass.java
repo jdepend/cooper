@@ -978,15 +978,11 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
+
 		JavaClass other = (JavaClass) obj;
-		if (getId() == null) {
-			if (other.getId() != null)
-				return false;
-		} else if (!getId().equals(other.getId()))
+		if (!getId().equals(other.getId()))
 			return false;
 
 		return true;
@@ -1143,6 +1139,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		default:
 			return super.getValue(metrics);
 		}
+
 	}
 
 	@Override

@@ -173,51 +173,27 @@ public class JavaClassRelationItem implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
-		if (currentJavaClassPlace == null) {
-			if (other.currentJavaClassPlace != null)
-				return false;
-		} else if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
+
+		if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
 			return false;
-		if (dependJavaClassPlace == null) {
-			if (other.dependJavaClassPlace != null)
-				return false;
-		} else if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
+		if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
 			return false;
-		if (currentJavaClass == null) {
-			if (other.currentJavaClass != null)
-				return false;
-		} else if (!currentJavaClass.equals(other.currentJavaClass))
+		if (!currentJavaClass.equals(other.currentJavaClass))
 			return false;
-		if (dependJavaClass == null) {
-			if (other.dependJavaClass != null)
-				return false;
-		} else if (!dependJavaClass.equals(other.dependJavaClass))
+		if (!dependJavaClass.equals(other.dependJavaClass))
 			return false;
-		if (current == null) {
-			if (other.current != null)
-				return false;
-		} else if (!current.equals(other.current))
+		if (!current.equals(other.current))
 			return false;
-		if (depend == null) {
-			if (other.depend != null)
-				return false;
-		} else if (!depend.equals(other.depend))
+		if (!depend.equals(other.depend))
 			return false;
-		if (direction == null) {
-			if (other.direction != null)
-				return false;
-		} else if (!direction.equals(other.direction))
+		if (!direction.equals(other.direction))
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
+		if (!type.equals(other.type))
 			return false;
+
 		return true;
 	}
 }

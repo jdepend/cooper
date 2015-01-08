@@ -549,20 +549,12 @@ public class Method extends AccessFlags {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Method other = (Method) obj;
-		if (info == null) {
-			if (other.info != null)
-				return false;
-		} else if (!info.equals(other.info))
+		if (!info.equals(other.info))
 			return false;
-		if (javaClassId == null) {
-			if (other.javaClassId != null)
-				return false;
-		} else if (!javaClassId.equals(other.javaClassId))
+		if (!javaClassId.equals(other.javaClassId))
 			return false;
 		return true;
 	}

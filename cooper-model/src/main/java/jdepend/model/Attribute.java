@@ -207,20 +207,12 @@ public class Attribute implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Attribute other = (Attribute) obj;
-		if (javaClassId == null) {
-			if (other.javaClassId != null)
-				return false;
-		} else if (!javaClassId.equals(other.javaClassId))
+		if (!javaClassId.equals(other.javaClassId))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (!name.equals(other.name))
 			return false;
 		return true;
 	}

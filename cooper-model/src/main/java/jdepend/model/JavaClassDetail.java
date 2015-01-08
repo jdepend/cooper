@@ -405,15 +405,10 @@ public class JavaClassDetail implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		final JavaClassDetail other = (JavaClassDetail) obj;
-		if (javaClass == null) {
-			if (other.javaClass != null)
-				return false;
-		} else if (!javaClass.equals(other.javaClass))
+		if (!javaClass.equals(other.javaClass))
 			return false;
 		return true;
 	}
