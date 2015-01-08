@@ -43,12 +43,11 @@ public abstract class InvokeItem implements Serializable {
 	public abstract boolean math2(Method method);
 
 	/**
-	 * 该调用类型需要转化的其他调用类型
+	 * 该调用类型需要转化为其他调用的类型
 	 * 
 	 * @return
 	 */
 	public InvokeItem transform() {
 		return null;
-	};
-
+	}
 }

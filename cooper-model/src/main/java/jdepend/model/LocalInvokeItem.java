@@ -92,7 +92,7 @@ public final class LocalInvokeItem extends InvokeItem {
 			}
 		}
 	}
-
+	
 	@Override
 	public InvokeItem transform() {
 		if (this.getCallee().getJavaClass().getDetail().getInterfaceNames().contains("java.rmi.Remote")) {

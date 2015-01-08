@@ -460,12 +460,19 @@ public class Method extends AccessFlags {
 			} else {
 				InvokeItem newInvokeItem = invokeItem.transform();
 				if (newInvokeItem != null) {
+					// 删除原invokeItem的相关引用
 					it.remove();
+					invokeItem.getCallee().getInvokedItems().remove(invokeItem);
+					// 增加新的invokeItem
 					newInvokeItems.add(newInvokeItem);
 				}
 			}
 		}
-		this.getInvokeItems().addAll(newInvokeItems);
+		// 增加新的invokeItems
+		for (InvokeItem newInvokeItem : newInvokeItems) {
+			this.getInvokeItems().add(newInvokeItem);
+			newInvokeItem.getCallee().getInvokedItems().add(newInvokeItem);
+		}
 	}
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
