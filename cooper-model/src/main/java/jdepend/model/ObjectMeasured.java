@@ -11,50 +11,56 @@ public abstract class ObjectMeasured implements Measurable {
 	 * @return
 	 */
 	public Object getValue(String metrics) {
-		if (metrics.equals(MetricsMgr.Name)) {
+
+		switch (metrics) {
+		case MetricsMgr.Name:
 			return this.getName();
-		} else if (metrics.equals(MetricsMgr.Title)) {
+		case MetricsMgr.Title:
 			return this.getTitle();
-		} else if (metrics.equals(MetricsMgr.LC)) {
+		case MetricsMgr.LC:
 			return this.getLineCount();
-		} else if (metrics.equals(MetricsMgr.CN)) {
+		case MetricsMgr.CN:
 			return this.getClassCount();
-		} else if (metrics.equals(MetricsMgr.AC)) {
+		case MetricsMgr.AC:
 			return this.getAbstractClassCount();
-		} else if (metrics.equals(MetricsMgr.CC)) {
+		case MetricsMgr.CC:
 			return this.getConcreteClassCount();
-		} else if (metrics.equals(MetricsMgr.Ca)) {
+		case MetricsMgr.Ca:
 			return this.getAfferentCoupling();
-		} else if (metrics.equals(MetricsMgr.Ce)) {
+		case MetricsMgr.Ce:
 			return this.getEfferentCoupling();
-		} else if (metrics.equals(MetricsMgr.A)) {
+		case MetricsMgr.A:
 			return MetricsFormat.toFormattedMetrics(this.getAbstractness());
-		} else if (metrics.equals(MetricsMgr.I)) {
+		case MetricsMgr.I:
 			return MetricsFormat.toFormattedMetrics(this.getStability());
-		} else if (metrics.equals(MetricsMgr.D)) {
+		case MetricsMgr.D:
 			return MetricsFormat.toFormattedMetrics(this.getDistance());
-		} else if (metrics.equals(MetricsMgr.V)) {
+		case MetricsMgr.V:
 			return MetricsFormat.toFormattedMetrics(this.getVolatility());
-		} else if (metrics.equals(MetricsMgr.Cycle)) {
+		case MetricsMgr.Cycle:
 			if (this.getContainsCycle()) {
 				return MetricsMgr.Cyclic;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.Cohesion)) {
+		case MetricsMgr.Cohesion:
 			return MetricsFormat.toFormattedMetrics(this.getCohesion());
-		} else if (metrics.equals(MetricsMgr.Coupling)) {
+		case MetricsMgr.Coupling:
 			return MetricsFormat.toFormattedMetrics(this.getCoupling());
-		} else if (metrics.equals(MetricsMgr.Balance)) {
+		case MetricsMgr.Balance:
 			return MetricsFormat.toFormattedMetrics(this.getBalance());
-		} else if (metrics.equals(MetricsMgr.Encapsulation)) {
+		case MetricsMgr.Encapsulation:
 			return MetricsFormat.toFormattedMetrics(this.getEncapsulation());
-		} else if (metrics.equals(MetricsMgr.OO)) {
+		case MetricsMgr.OO:
 			return MetricsFormat.toFormattedMetrics(this.getObjectOriented());
-		} else if (this.extendMetrics(metrics) != null) {
-			return MetricsFormat.toFormattedMetrics(this.extendMetrics(metrics).getMetrics());
-		} else {
-			return null;
+
+		default:
+			if (this.extendMetrics(metrics) != null) {
+				return MetricsFormat.toFormattedMetrics(this.extendMetrics(metrics).getMetrics());
+			} else {
+				return null;
+			}
 		}
+
 	}
 }

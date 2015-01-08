@@ -1108,31 +1108,39 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public Object getValue(String metrics) {
 
-		if (metrics.equals(JavaClass.Place)) {
+		switch (metrics) {
+
+		case JavaClass.Place:
 			return this.getPlace();
-		} else if (metrics.equals(JavaClass.State)) {
+
+		case JavaClass.State:
 			if (this.isState()) {
 				return MetricsMgr.HaveState;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(JavaClass.Stable)) {
+
+		case JavaClass.Stable:
 			if (this.isStable()) {
 				return MetricsMgr.Stability;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(JavaClass.isPrivateElement)) {
+
+		case JavaClass.isPrivateElement:
 			if (!this.isUsedByExternal()) {
 				return MetricsMgr.Private;
 			} else {
 				return MetricsMgr.NoValue;
 			}
-		} else if (metrics.equals(MetricsMgr.Ca)) {
+
+		case MetricsMgr.Ca:
 			return this.getAfferentCoupling() + "|" + this.getCaList().size();
-		} else if (metrics.equals(MetricsMgr.Ce)) {
+
+		case MetricsMgr.Ce:
 			return this.getEfferentCoupling() + "|" + this.getCeList().size();
-		} else {
+
+		default:
 			return super.getValue(metrics);
 		}
 	}
