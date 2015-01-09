@@ -378,7 +378,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		if (this.methods == null) {
 			boolean isOverride;
 			this.methods = new HashSet<Method>();
-			for (JavaClass superClass : this.getSupers()) {
+			for (JavaClass superClass : this.getSuperClasses()) {
 				for (Method method : superClass.getSelfMethods()) {
 					if (!method.isConstruction() && (method.isPublic() || method.isProtected())) {
 						isOverride = false;
