@@ -210,16 +210,14 @@ public class Method extends AccessFlags {
 
 	public synchronized Collection<String> getArgumentTypes() {
 		if (this.argTypes == null) {
-			this.argTypes = new ArrayList<String>();
+			this.argTypes = new HashSet<String>();
 			try {
 				int pos = signature.lastIndexOf(')');
 				if (pos > 0) {
 					String paramTypes = signature.substring(1, pos);
 					Collection<String> types = ParseUtil.signatureToTypes(paramTypes);
 					for (String type : types) {
-						if (!this.argTypes.contains(type)) {
-							this.argTypes.add(type);
-						}
+						this.argTypes.add(type);
 					}
 
 				}
@@ -257,14 +255,12 @@ public class Method extends AccessFlags {
 
 	public synchronized Collection<String> getReturnTypes() {
 		if (this.returnTypes == null) {
-			this.returnTypes = new ArrayList<String>();
+			this.returnTypes = new HashSet<String>();
 			try {
 				String returnType = signature.substring(signature.lastIndexOf(')') + 1);
 				Collection<String> types = ParseUtil.signatureToTypes(returnType);
 				for (String type : types) {
-					if (!this.returnTypes.contains(type)) {
-						this.returnTypes.add(type);
-					}
+					this.returnTypes.add(type);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

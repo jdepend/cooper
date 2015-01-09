@@ -65,6 +65,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private transient Collection<JavaClass> supers;
 
+	private transient Collection<JavaClass> superClasses;
+
 	private transient Collection<JavaClass> interfaces;
 
 	private transient Collection<JavaClass> subClasses;
@@ -375,7 +377,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public synchronized Collection<Method> getMethods() {
 		if (this.methods == null) {
 			boolean isOverride;
-			this.methods = new ArrayList<Method>();
+			this.methods = new HashSet<Method>();
 			for (JavaClass superClass : this.getSupers()) {
 				for (Method method : superClass.getSelfMethods()) {
 					if (!method.isConstruction() && (method.isPublic() || method.isProtected())) {
@@ -412,18 +414,36 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	 */
 	public synchronized Collection<JavaClass> getSupers() {
 		if (this.supers == null) {
-			this.supers = new HashSet<JavaClass>();
-			JavaClass superClass = this.getSuperClass();
-			if (superClass != null) {
-				supers.add(superClass);
-				supers.addAll(superClass.getSupers());
-			}
+			supers = new HashSet<JavaClass>();
+			supers.addAll(this.getSuperClasses());
 			supers.addAll(this.getAllInterfaces());
 		}
 		return this.supers;
 	}
 
-	private Collection<JavaClass> getAllInterfaces() {
+	/**
+	 * 得到所有的父类列表
+	 * 
+	 * @return
+	 */
+	private synchronized Collection<JavaClass> getSuperClasses() {
+		if (this.superClasses == null) {
+			this.superClasses = new HashSet<JavaClass>();
+			JavaClass superClass = this.getSuperClass();
+			if (superClass != null) {
+				superClasses.add(superClass);
+				superClasses.addAll(superClass.getSuperClasses());
+			}
+		}
+		return this.superClasses;
+	}
+
+	/**
+	 * 得到所有的接口列表
+	 * 
+	 * @return
+	 */
+	private synchronized Collection<JavaClass> getAllInterfaces() {
 		if (this.interfaces == null) {
 			this.interfaces = new HashSet<JavaClass>();
 			for (JavaClass interfaceClass : this.getInterfaces()) {
