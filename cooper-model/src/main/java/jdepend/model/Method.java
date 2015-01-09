@@ -436,8 +436,7 @@ public class Method extends AccessFlags {
 		it = this.getInvokeItems().iterator();
 		while (it.hasNext()) {
 			invokeItem = it.next();
-			invokeItem.setCaller(this);
-
+	
 			if (!invokeItem.supplyCallee(javaClasses)) {
 				LogUtil.getInstance(Method.class).systemWarning(
 						"Method [" + this.getJavaClass().getName() + "." + this.getInfo() + "] invokeItem ["
