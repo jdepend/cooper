@@ -52,7 +52,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<JavaClass> javaClasses;
 
-	private transient Collection<JavaPackage> javaPackages;
+	private transient Collection<JavaPackage> javaPackages;//包含在Component中的包集合
 
 	private transient Float tableRelationScale = null;// tableRelation比例
 
