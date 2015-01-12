@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
@@ -555,6 +556,7 @@ public abstract class Component extends AbstractJDependUnit {
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
 		if (list.size() > 20) {
+			LogUtil.getInstance(JavaClass.class).systemWarning("Component["+ this.getName()+"] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 

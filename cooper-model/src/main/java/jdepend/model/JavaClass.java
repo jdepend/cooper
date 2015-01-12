@@ -10,6 +10,7 @@ import java.util.Map;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
+import jdepend.framework.log.LogUtil;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.FieldRelation;
@@ -771,6 +772,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		}
 
 		if (list.size() > 20) {
+			LogUtil.getInstance(JavaClass.class).systemWarning("JavaClass["+ this.getName()+"] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
