@@ -18,6 +18,7 @@ import org.apache.bcel.classfile.Utility;
 
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
+import jdepend.framework.util.MetricsFormat;
 import jdepend.framework.util.StringUtil;
 import jdepend.model.InvokeItem;
 import jdepend.model.Method;
@@ -54,7 +55,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[10];
+			row = new Object[11];
 
 			row[0] = method.getJavaClass().getName();
 			row[1] = Utility.accessToString(method.getAccessFlags());
@@ -65,7 +66,8 @@ public class MethodListPanel extends JPanel {
 			row[6] = method.getInvokedMethods().size();
 			row[7] = method.getCascadeInvokedMethods().size();
 			row[8] = method.getInvokeMethods().size();
-			row[9] = method.containRemoteInvokeItem() ? "是" : "否";
+			row[9] = MetricsFormat.toFormattedMetrics(method.getStability());
+			row[10] = method.containRemoteInvokeItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -133,6 +135,7 @@ public class MethodListPanel extends JPanel {
 		methodListModel.addColumn("传入");
 		methodListModel.addColumn("级联传入");
 		methodListModel.addColumn("传出");
+		methodListModel.addColumn("稳定性");
 		methodListModel.addColumn("是否包含进程间调用");
 
 		// 增加点击图标
@@ -166,7 +169,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[10];
+			row = new Object[11];
 
 			if ((className == null || className.length() == 0 || JavaClassUtil.match(className, method.getJavaClass()))
 					&& (name == null || name.length() == 0 || StringUtil.match(name.toUpperCase(), method.getName()
@@ -180,7 +183,8 @@ public class MethodListPanel extends JPanel {
 				row[6] = method.getInvokedMethods().size();
 				row[7] = method.getCascadeInvokedMethods().size();
 				row[8] = method.getInvokeMethods().size();
-				row[9] = method.containRemoteInvokeItem() ? "是" : "否";
+				row[9] = MetricsFormat.toFormattedMetrics(method.getStability());
+				row[10] = method.containRemoteInvokeItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}

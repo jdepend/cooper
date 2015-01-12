@@ -393,6 +393,16 @@ public class Method extends AccessFlags {
 		return false;
 	}
 
+	public float getStability() {
+
+		int totalCoupling = this.getInvokedMethods().size() + this.getInvokeMethods().size();
+		if (totalCoupling > 0) {
+			return (float) this.getInvokeMethods().size() / (float) totalCoupling;
+		} else {
+			return 0.5F;
+		}
+	}
+
 	public void supply(JavaClassCollection javaClasses) {
 
 		Collection<JavaClass> argumentTypes;
