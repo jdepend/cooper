@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="4.5.2" transformSequenceNumber="1">
-  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper3/cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib" />
+  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper3/cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib" />
   <application name="Cooper" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper3/build/standalone">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
@@ -23,27 +23,27 @@
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-ui/target/cooper-ui-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-ui/target/cooper-ui-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-report/lib/forms-1.0.7.jar" failOnError="false" />
       <archive location="../../cooper-report/lib/JMeld-2.1_all.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/jxl-2.6.9.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-report-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-util-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-service-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/jxl-2.6.9.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-report-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-util-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-service-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-model/lib/bcel.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.4_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_03-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.4_04-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.4_04-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
   </java>
