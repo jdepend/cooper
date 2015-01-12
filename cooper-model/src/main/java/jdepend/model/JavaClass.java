@@ -13,7 +13,6 @@ import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateUtil;
-import jdepend.model.relationtype.FieldRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassCollection;
