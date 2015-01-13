@@ -231,12 +231,27 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	/**
-	 * 得到其他类可以使用的方法列表（不包含继承父类的方法）
+	 * 得到类本身的方法列表（不包含继承父类的方法）
 	 * 
 	 * @return
 	 */
 	public Collection<Method> getSelfMethods() {
 		return this.detail.getMethods();
+	}
+
+	/**
+	 * 得到类的构造函数列表
+	 * 
+	 * @return
+	 */
+	public Collection<Method> getConstructorMethods() {
+		Collection<Method> constructors = new HashSet<Method>();
+		for (Method method : this.getMethods()) {
+			if (method.isConstruction()) {
+				constructors.add(method);
+			}
+		}
+		return constructors;
 	}
 
 	/**
@@ -771,7 +786,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		}
 
 		if (list.size() > 20) {
-			LogUtil.getInstance(JavaClass.class).systemWarning("JavaClass["+ this.getName()+"] collectCycle 搜索深度大于20停止搜索");
+			LogUtil.getInstance(JavaClass.class).systemWarning(
+					"JavaClass[" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
