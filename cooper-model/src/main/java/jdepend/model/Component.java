@@ -122,7 +122,6 @@ public abstract class Component extends AbstractJDependUnit {
 	public final List<Component> list(Collection<JavaPackage> javaPackages) throws JDependException {
 		List<Component> components = this.doList(javaPackages);
 		this.filterExternalJavaClassRelationItems(components);
-		this.javaPackages = javaPackages;
 		return components;
 	}
 
