@@ -23,7 +23,7 @@ import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleAnchor;
 import org.jfree.ui.TextAnchor;
 
-public final class SplineChartCreater implements ChartCreater {
+public final class SplineChartCreater extends AbstractChartCreater {
 
 	@Override
 	public JFreeChart create(GraphDataItem item) {
@@ -37,8 +37,8 @@ public final class SplineChartCreater implements ChartCreater {
 
 	private JFreeChart createChart(final GraphDataItem item) {
 
-		JFreeChart jfreechart = ChartFactory.createXYLineChart(item.getTitle(), item.getLineXName(), item
-				.getLineYName(), this.createData(item), PlotOrientation.VERTICAL, true, true, true);
+		JFreeChart jfreechart = ChartFactory.createXYLineChart(item.getTitle(), item.getLineXName(),
+				item.getLineYName(), this.createData(item), PlotOrientation.VERTICAL, true, true, true);
 
 		Font font = new Font("宋体", Font.PLAIN, 13);
 		jfreechart.getTitle().setFont(font);

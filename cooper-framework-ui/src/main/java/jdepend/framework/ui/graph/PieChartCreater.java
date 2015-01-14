@@ -13,7 +13,7 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 
-public final class PieChartCreater implements ChartCreater {
+public final class PieChartCreater extends AbstractChartCreater {
 
 	@Override
 	public JFreeChart create(GraphDataItem item) {
@@ -46,6 +46,13 @@ public final class PieChartCreater implements ChartCreater {
 		pieplot.setLabelBackgroundPaint(new Color(220, 220, 220));
 		pieplot.setSimpleLabels(true);
 		pieplot.setInteriorGap(0.0D);
+
+		int index = 0;
+		for (Object name : item.getDatas().keySet()) {
+			pieplot.setSectionPaint((String) name, COLORS[index % COLORS.length]);
+			index++;
+
+		}
 		return jfreechart;
 	}
 }

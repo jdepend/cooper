@@ -13,7 +13,7 @@ import org.jfree.chart.renderer.category.StackedBarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public final class BarCreater implements ChartCreater {
+public final class BarCreater extends AbstractChartCreater {
 
 	@Override
 	public JFreeChart create(GraphDataItem item) {
@@ -54,6 +54,15 @@ public final class BarCreater implements ChartCreater {
 		stackedbarrenderer.setDrawBarOutline(false);
 		stackedbarrenderer.setBaseItemLabelsVisible(true);
 		stackedbarrenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+
+		int index = 0;
+		for (Object name : item.getDatas().keySet()) {
+			stackedbarrenderer
+					.setSeriesPaint(categorydataset.getRowIndex((String) name), COLORS[index % COLORS.length]);
+			index++;
+
+		}
+
 		return jfreechart;
 	}
 
