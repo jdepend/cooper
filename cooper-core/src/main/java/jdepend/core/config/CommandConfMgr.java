@@ -32,7 +32,7 @@ public final class CommandConfMgr {
 		this.refresh();
 	}
 
-	public void refresh() throws JDependException {
+	public synchronized void refresh() throws JDependException {
 		groups = GroupConf.init();
 
 		for (GroupConfChangeListener listener : this.listeners) {
@@ -47,7 +47,7 @@ public final class CommandConfMgr {
 		return mgr;
 	}
 
-	public Collection<String> getGroupNames() {
+	public synchronized Collection<String> getGroupNames() {
 		List<String> names = new ArrayList<String>();
 		for (GroupConf group : groups) {
 			names.add(group.getName());
@@ -55,7 +55,7 @@ public final class CommandConfMgr {
 		return names;
 	}
 
-	public GroupConf getTheGroup(String group) {
+	public synchronized GroupConf getTheGroup(String group) {
 
 		for (GroupConf info : groups) {
 			if (info.getName().equals(group)) {
@@ -65,7 +65,7 @@ public final class CommandConfMgr {
 		return null;
 	}
 
-	public void createGroup(GroupConf group) throws JDependException {
+	public synchronized void createGroup(GroupConf group) throws JDependException {
 		group.insertAll();
 		groups.add(group);
 
@@ -76,11 +76,11 @@ public final class CommandConfMgr {
 		BusiLogUtil.getInstance().businessLog(Operation.createGroup);
 	}
 
-	public List<GroupConf> getGroups() {
+	public synchronized List<GroupConf> getGroups() {
 		return groups;
 	}
 
-	public void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute,
+	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute,
 			List<CommandConf> commandInfos, Map<String, ComponentModelConf> componentModels) throws JDependException {
 		GroupConf group = new GroupConf(name);
 		group.setPath(path);
@@ -93,13 +93,13 @@ public final class CommandConfMgr {
 		this.createGroup(group);
 	}
 
-	public void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute)
+	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute)
 			throws JDependException {
 		GroupConf group = new GroupConf(name, path, srcPath, filteredPackages, attribute);
 		this.createGroup(group);
 	}
 
-	public void updateGroup(GroupConf group) throws CommandConfException {
+	public synchronized void updateGroup(GroupConf group) throws CommandConfException {
 		group.update();
 
 		for (GroupConfChangeListener listener : this.listeners) {
@@ -111,13 +111,13 @@ public final class CommandConfMgr {
 		}
 	}
 
-	public void updateGroups() throws CommandConfException {
+	public synchronized void updateGroups() throws CommandConfException {
 		for (GroupConf obj : groups) {
 			obj.update();
 		}
 	}
 
-	public void deleteGroup(String group) throws JDependException {
+	public synchronized void deleteGroup(String group) throws JDependException {
 
 		for (GroupConfChangeListener listener : this.listeners) {
 			listener.onDelete(group);
@@ -130,36 +130,36 @@ public final class CommandConfMgr {
 		BusiLogUtil.getInstance().businessLog(Operation.deleteGroup);
 	}
 
-	public void deleteCommand(String group, String command) throws CommandConfException {
+	public synchronized void deleteCommand(String group, String command) throws CommandConfException {
 		this.getTheGroup(group).deleteCommand(command);
 		BusiLogUtil.getInstance().businessLog(Operation.deleteCommand);
 	}
 
-	public void deleteComponentGroup(String group, String componentGroup) throws JDependException {
+	public synchronized void deleteComponentGroup(String group, String componentGroup) throws JDependException {
 		this.getTheGroup(group).deleteComponentModel(componentGroup);
 	}
 
-	public void createCommand(String group, CommandConf info) throws CommandConfException {
+	public synchronized void createCommand(String group, CommandConf info) throws CommandConfException {
 		this.getTheGroup(group).insertCommand(info);
 		BusiLogUtil.getInstance().businessLog(Operation.createCommand);
 	}
 
-	public void updateCommand(String group, String oldlabel, CommandConf info) throws CommandConfException {
+	public synchronized void updateCommand(String group, String oldlabel, CommandConf info) throws CommandConfException {
 		this.getTheGroup(group).updateCommand(oldlabel, info);
 	}
 
-	public CommandConf findCommand(String group, String label) throws CommandConfException {
+	public synchronized CommandConf findCommand(String group, String label) throws CommandConfException {
 		return this.getTheGroup(group).getCommandInfo(label);
 	}
 
-	public void addGroupListener(GroupConfChangeListener listener) {
+	public synchronized void addGroupListener(GroupConfChangeListener listener) {
 		if (!this.listeners.contains(listener)) {
 			this.listeners.add(listener);
 		}
 
 	}
 
-	public Map<String, CommandConf> getCommands(String group) {
+	public synchronized Map<String, CommandConf> getCommands(String group) {
 		Map<String, CommandConf> confs = new LinkedHashMap<String, CommandConf>();
 		for (CommandConf conf : this.getTheGroup(group).getCommands()) {
 			confs.put(conf.label, conf);

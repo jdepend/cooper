@@ -51,8 +51,10 @@ public class ComponentStep extends Step {
 
 	@Override
 	public void refresh() {
-		this.componentPanel.setPath(this.getWizard().getWorker().getPath());
-		this.componentPanel.refresh();
+		if(this.componentPanel.getPath() != null && !this.componentPanel.getPath().equals(this.getWizard().getWorker().getPath())){
+			this.componentPanel.setPath(this.getWizard().getWorker().getPath());
+			this.componentPanel.refresh();
+		}
 	}
 
 	@Override

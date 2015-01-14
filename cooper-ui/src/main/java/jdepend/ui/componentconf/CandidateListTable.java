@@ -227,6 +227,10 @@ public class CandidateListTable extends JTable {
 		this.path = path;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
 	private void viewClassList() throws JDependException {
 		int[] rows = this.getSelectedRows();
 		if (rows == null || rows.length != 1)

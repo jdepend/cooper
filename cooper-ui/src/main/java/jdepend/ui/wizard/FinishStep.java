@@ -66,7 +66,6 @@ public class FinishStep extends Step {
 
 	@Override
 	protected Step createNextStep() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

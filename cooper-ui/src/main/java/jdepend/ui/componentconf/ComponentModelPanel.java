@@ -315,6 +315,10 @@ public class ComponentModelPanel extends JPanel {
 		candidateTable.setPath(path);
 	}
 
+	public String getPath() {
+		return candidateTable.getPath();
+	}
+
 	protected void createComponent() throws JDependException {
 		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
