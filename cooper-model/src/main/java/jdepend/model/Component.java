@@ -212,6 +212,11 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
+	/**
+	 * 建立组件与类之间的双向关联
+	 * 
+	 * @param javaClass
+	 */
 	public synchronized void addJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
@@ -220,6 +225,11 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
+	/**
+	 * 建立组件与类之间的单向关联
+	 * 
+	 * @param javaClass
+	 */
 	public synchronized void joinJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
@@ -229,7 +239,9 @@ public abstract class Component extends AbstractJDependUnit {
 
 	public synchronized boolean removeJavaClass(JavaClass javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
-			javaClass.setComponent(null);
+			if (javaClass.getComponent().equals(this)) {
+				javaClass.setComponent(null);
+			}
 			this.javaClassesForId.remove(javaClass.getId());
 			return true;
 		} else {
@@ -555,7 +567,8 @@ public abstract class Component extends AbstractJDependUnit {
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
 		if (list.size() > 20) {
-			LogUtil.getInstance(JavaClass.class).systemWarning("Component["+ this.getName()+"] collectCycle 搜索深度大于20停止搜索");
+			LogUtil.getInstance(JavaClass.class).systemWarning(
+					"Component[" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
