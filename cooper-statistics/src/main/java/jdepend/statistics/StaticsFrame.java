@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
 import jdepend.core.persistent.ClientConnectionProvider;

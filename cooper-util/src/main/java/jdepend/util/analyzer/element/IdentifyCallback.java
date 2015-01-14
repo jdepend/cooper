@@ -69,7 +69,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 				}
 			}
 			if (isCallback2 && isCallback3) {
-				this.print("Callback : " + javaClass.getName() + "." + callbackMethod.getName() + "\n");
+				this.print("\nCallback : " + javaClass.getName() + "." + callbackMethod.getName() + "\n");
 				this.printTab();
 				this.print("Invoked Method : " + method1.getJavaClass().getName() + "." + method1.getName() + "\n");
 				this.printTab();

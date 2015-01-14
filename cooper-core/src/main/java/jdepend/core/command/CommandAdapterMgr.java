@@ -2,7 +2,6 @@ package jdepend.core.command;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import jdepend.core.config.CommandConf;
@@ -10,7 +9,6 @@ import jdepend.core.config.CommandConfMgr;
 import jdepend.core.config.GroupConf;
 import jdepend.core.config.GroupConfChangeListener;
 import jdepend.framework.exception.JDependException;
-import jdepend.model.util.ClassSearchUtil;
 
 /**
  * 命令管理器

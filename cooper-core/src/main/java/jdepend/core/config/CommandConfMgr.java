@@ -9,7 +9,6 @@ import java.util.Map;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
-import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
 /**
