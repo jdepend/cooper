@@ -50,6 +50,7 @@ public final class NewGroupWizard extends JDialog {
 			next = this.doNextStep(next);
 			next.refresh();
 
+			this.setVisible(false);
 			getContentPane().removeAll();
 			getContentPane().add(BorderLayout.CENTER, next);
 			this.setVisible(true);
@@ -61,6 +62,7 @@ public final class NewGroupWizard extends JDialog {
 	}
 
 	public void priorStep() {
+		this.setVisible(false);
 		getContentPane().removeAll();
 		getContentPane().add(BorderLayout.CENTER, this.getPriorStep());
 		this.setVisible(true);
