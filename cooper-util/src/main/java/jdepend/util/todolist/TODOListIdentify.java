@@ -15,9 +15,11 @@ import jdepend.model.util.JDependUnitByMetricsComparator;
 
 public class TODOListIdentify {
 
-	private transient List<TODOItem> list;
+	private List<TODOItem> list;
 
-	private transient AnalysisResult result;
+	private AnalysisResult result;
+
+	private List<RelationData> relationDatas;
 
 	private static final Float MoveJavaClassTODOItemOrder = 10000F;
 	private static final Float UniteComponentTODOItemOrder = 1000F;
@@ -26,39 +28,46 @@ public class TODOListIdentify {
 	private static final Float AdjustAbstractTODOItemOrder = 10F;
 
 	public List<TODOItem> identify(AnalysisResult result) throws JDependException {
-		list = new ArrayList<TODOItem>();
-		this.result = result;
-		if (this.result != null) {
-			long start = System.currentTimeMillis();
-			this.identifyMoveJavaClass();
-			LogUtil.getInstance(TODOListIdentify.class).systemLog(
-					"identifyMoveJavaClass [" + (System.currentTimeMillis() - start) + "]");
-			start = System.currentTimeMillis();
-			this.identifyUniteComponent();
-			LogUtil.getInstance(TODOListIdentify.class).systemLog(
-					"identifyUniteComponent [" + (System.currentTimeMillis() - start) + "]");
-			start = System.currentTimeMillis();
-			this.identifySplitCompoent();
-			LogUtil.getInstance(TODOListIdentify.class).systemLog(
-					"identifySplitCompoent [" + (System.currentTimeMillis() - start) + "]");
-			start = System.currentTimeMillis();
-			this.identifyAdjustAbstract();
-			LogUtil.getInstance(TODOListIdentify.class).systemLog(
-					"identifyAdjustAbstract [" + (System.currentTimeMillis() - start) + "]");
-		}
+		this.init(result);
+		long start = System.currentTimeMillis();
+		this.identifyMoveJavaClass();
+		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+				"identifyMoveJavaClass [" + (System.currentTimeMillis() - start) + "]");
+		start = System.currentTimeMillis();
+		this.identifyUniteComponent();
+		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+				"identifyUniteComponent [" + (System.currentTimeMillis() - start) + "]");
+		start = System.currentTimeMillis();
+		this.identifySplitCompoent();
+		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+				"identifySplitCompoent [" + (System.currentTimeMillis() - start) + "]");
+		start = System.currentTimeMillis();
+		this.identifyAdjustAbstract();
+		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+				"identifyAdjustAbstract [" + (System.currentTimeMillis() - start) + "]");
 		// 按Order排序
 		Collections.sort(list);
 		return list;
 	}
 
+	private void init(AnalysisResult result) {
+		list = new ArrayList<TODOItem>();
+		this.result = result;
+
+		relationDatas = new ArrayList<RelationData>();
+		for (Relation relation : this.result.getRelations()) {
+			relationDatas.add(new RelationData(relation));
+		}
+	}
+
 	private void identifyMoveJavaClass() {
-		Collection<Relation> relations = this.result.getRelations();
 		Float attentionLevel = null;
 		MoveRelationTODOItem item = null;
 		RelationData cycleDepend = null;
-		for (Relation relation : relations) {
+		Relation relation;
+		for (RelationData relationData : relationDatas) {
+			relation = relationData.getRelation();
 			try {
-				RelationData relationData = new RelationData(relation);
 				if (relation.isAttention()) {
 					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
 						attentionLevel = relation.getAttentionLevel();
@@ -134,10 +143,11 @@ public class TODOListIdentify {
 	 * 根据关系强度识别需要合并的组件
 	 */
 	private void identifyUniteComponentWithRelation() {
-		Collection<Relation> relations = this.result.getRelations();
 		Float attentionLevel = null;
 		TODOItem item = null;
-		for (Relation relation : relations) {
+		Relation relation;
+		for (RelationData relationData : relationDatas) {
+			relation = relationData.getRelation();
 			if (relation.isAttention()) {
 				if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
 					attentionLevel = relation.getAttentionLevel() - Relation.MutualDependAttentionType;

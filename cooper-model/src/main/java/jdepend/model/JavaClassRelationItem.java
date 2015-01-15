@@ -177,18 +177,21 @@ public class JavaClassRelationItem implements Serializable {
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
 
-		if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
-			return false;
-		if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
-			return false;
-		if (!currentJavaClass.equals(other.currentJavaClass))
-			return false;
-		if (!dependJavaClass.equals(other.dependJavaClass))
-			return false;
-		if (!current.equals(other.current))
-			return false;
-		if (!depend.equals(other.depend))
-			return false;
+		if (current != null && other.current != null) {
+			if (!current.equals(other.current))
+				return false;
+			if (!depend.equals(other.depend))
+				return false;
+		} else {
+			if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
+				return false;
+			if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
+				return false;
+			if (!currentJavaClass.equals(other.currentJavaClass))
+				return false;
+			if (!dependJavaClass.equals(other.dependJavaClass))
+				return false;
+		}
 		if (!direction.equals(other.direction))
 			return false;
 		if (!type.equals(other.type))

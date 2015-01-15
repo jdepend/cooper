@@ -124,11 +124,11 @@ public final class TODOListPanel extends JPanel {
 		this.listTable.getColumnModel().getColumn(0).setMaxWidth(0);
 		this.listTable.getColumnModel().getColumn(0).setMinWidth(0);
 
-		try {
-			refresh();
-		} catch (JDependException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			refresh();
+//		} catch (JDependException e1) {
+//			e1.printStackTrace();
+//		}
 
 		JScrollPane pane = new JScrollPane(this.listTable);
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
