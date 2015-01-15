@@ -33,6 +33,8 @@ public class RelationData {
 
 	private boolean appendRelations = false;
 
+	private boolean todo = false;
+
 	public RelationData(Relation relation) {
 		this.relation = relation;
 	}
@@ -159,4 +161,13 @@ public class RelationData {
 	public VirtualComponent getDependOther() {
 		return dependOther;
 	}
+
+	public boolean isTodo() {
+		return todo;
+	}
+
+	public void setTodo(boolean todo) {
+		this.todo = todo;
+	}
+
 }

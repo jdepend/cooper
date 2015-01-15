@@ -3,10 +3,12 @@ package jdepend.util.todolist;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
+import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -20,6 +22,8 @@ public class TODOListIdentify {
 	private AnalysisResult result;
 
 	private List<RelationData> relationDatas;
+
+	private Collection<Component> splitComponents;
 
 	private static final Float MoveJavaClassTODOItemOrder = 10000F;
 	private static final Float UniteComponentTODOItemOrder = 1000F;
@@ -58,6 +62,17 @@ public class TODOListIdentify {
 		for (Relation relation : this.result.getRelations()) {
 			relationDatas.add(new RelationData(relation));
 		}
+
+		splitComponents = new HashSet<Component>();
+	}
+
+	private RelationData getRelationData(Relation relation) {
+		for (RelationData relationData : relationDatas) {
+			if (relationData.getRelation().equals(relation)) {
+				return relationData;
+			}
+		}
+		return null;
 	}
 
 	private void identifyMoveJavaClass() {
@@ -75,6 +90,7 @@ public class TODOListIdentify {
 						if (attentionLevel - Relation.MutualDependAttentionType > 0.8) {
 							item = new MoveRelationForMutualDependTODOItem(relationData);
 							if (item.isMove()) {
+								relationData.setTodo(true);
 								item.setOrder(MoveJavaClassTODOItemOrder + attentionLevel);
 								this.list.add(item);
 							}
@@ -88,6 +104,7 @@ public class TODOListIdentify {
 					} else if (relation.getAttentionType() == Relation.ComponentLayerAttentionType) {
 						item = new MoveRelationForChangeDirTODOItem(relationData);
 						if (item.isMove()) {
+							relationData.setTodo(true);
 							item.setOrder(MoveJavaClassTODOItemOrder + relation.getAttentionLevel());
 							this.list.add(item);
 						}
@@ -96,6 +113,7 @@ public class TODOListIdentify {
 						if (attentionLevel - Relation.SDPAttentionType > 0.4) {
 							item = new MoveRelationForChangeDirTODOItem(relationData);
 							if (item.isMove()) {
+								relationData.setTodo(true);
 								item.setOrder(MoveJavaClassTODOItemOrder + attentionLevel);
 								this.list.add(item);
 							}
@@ -104,6 +122,7 @@ public class TODOListIdentify {
 				} else {
 					item = new MoveRelationForReduceCouplingTODOItem(relationData);
 					if (item.isMove()) {
+						relationData.setTodo(true);
 						Float order = MoveRelationTODOItemOrder;
 						if (!item.isChangeDir()) {
 							order = order + 10F;
@@ -119,10 +138,11 @@ public class TODOListIdentify {
 			}
 		}
 		// 处理循环依赖链
-		if (cycleDepend != null) {
+		if (cycleDepend != null && !cycleDepend.isTodo()) {
 			try {
 				item = new MoveRelationForChangeDirTODOItem(cycleDepend);
 				if (item.isMove()) {
+					cycleDepend.setTodo(true);
 					item.setOrder(MoveJavaClassTODOItemOrder);
 					this.list.add(item);
 				}
@@ -147,41 +167,45 @@ public class TODOListIdentify {
 		TODOItem item = null;
 		Relation relation;
 		for (RelationData relationData : relationDatas) {
-			relation = relationData.getRelation();
-			if (relation.isAttention()) {
-				if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
-					attentionLevel = relation.getAttentionLevel() - Relation.MutualDependAttentionType;
-					// 循环依赖的双方依赖线不是一“粗”一“细”
-					if (attentionLevel < 0.8 && attentionLevel >= 0.2) {
+			if (!relationData.isTodo()) {
+				relation = relationData.getRelation();
+				if (relation.isAttention()) {
+					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
+						attentionLevel = relation.getAttentionLevel() - Relation.MutualDependAttentionType;
+						// 循环依赖的双方依赖线不是一“粗”一“细”
+						if (attentionLevel < 0.8 && attentionLevel >= 0.2) {
+							item = new ComponentUniteTODOItem(relation);
+							item.setContent("合并组件[" + relation.getCurrent().getName() + "]和["
+									+ relation.getDepend().getName() + "]");
+							StringBuilder according = new StringBuilder("两个组件存在彼此依赖");
+							int orderOffset = 0;
+							// 依赖强度相似
+							if (attentionLevel < 0.6 && attentionLevel > 0.4) {
+								according.append("，依赖强度相似");
+								orderOffset += 10;
+							}
+							// 耦合值大于内聚值
+							if (relation.getBalance() < 0) {
+								according.append("，并且耦合值大于内聚值");
+								orderOffset -= relation.getBalance();
+							}
+							item.setAccording(according.toString());
+							item.setOrder(UniteComponentTODOItemOrder + orderOffset);
+							relationData.setTodo(true);
+							this.list.add(item);
+						}
+					}
+				} else {
+					// 耦合值大于内聚值和值100
+					if (relation.getBalance() < -100) {
 						item = new ComponentUniteTODOItem(relation);
 						item.setContent("合并组件[" + relation.getCurrent().getName() + "]和["
 								+ relation.getDepend().getName() + "]");
-						StringBuilder according = new StringBuilder("两个组件存在彼此依赖");
-						int orderOffset = 0;
-						// 依赖强度相似
-						if (attentionLevel < 0.6 && attentionLevel > 0.4) {
-							according.append("，依赖强度相似");
-							orderOffset += 10;
-						}
-						// 耦合值大于内聚值
-						if (relation.getBalance() < 0) {
-							according.append("，并且耦合值大于内聚值");
-							orderOffset -= relation.getBalance();
-						}
-						item.setAccording(according.toString());
-						item.setOrder(UniteComponentTODOItemOrder + orderOffset);
+						item.setAccording("两个组件的耦合值远大于内聚值");
+						item.setOrder(UniteComponentTODOItemOrder - relation.getBalance());
+						relationData.setTodo(true);
 						this.list.add(item);
 					}
-				}
-			} else {
-				// 耦合值大于内聚值和值100
-				if (relation.getBalance() < -100) {
-					item = new ComponentUniteTODOItem(relation);
-					item.setContent("合并组件[" + relation.getCurrent().getName() + "]和[" + relation.getDepend().getName()
-							+ "]");
-					item.setAccording("两个组件的耦合值远大于内聚值");
-					item.setOrder(UniteComponentTODOItemOrder - relation.getBalance());
-					this.list.add(item);
 				}
 			}
 		}
@@ -191,27 +215,30 @@ public class TODOListIdentify {
 	 * 根据蝶形对象识别需要合并的组件
 	 */
 	private void identifyUniteComponentWithButterflyObject() {
-		List<JDependUnit> units = new ArrayList<JDependUnit>(result.getComponents());
+		List<Component> components = new ArrayList<Component>(result.getComponents());
 
-		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.Ca, false));
+		Collections.sort(components, new JDependUnitByMetricsComparator(MetricsMgr.Ca, false));
 		int Ca;
 		int Ce;
 		TODOItem item = null;
 		Relation relation;
-		for (JDependUnit unit : units) {
-			Ca = unit.getAfferentCoupling();
-			Ce = unit.getEfferentCoupling();
-			if (Ce > 0 && Ce < 2 && Ca > Ce) {
-				for (JDependUnit ceUnit : unit.getEfferents()) {
-					relation = result.getTheRelation(unit.getName(), ceUnit.getName());
+		L: for (Component component : components) {
+			Ca = component.getAfferentCoupling();
+			Ce = component.getEfferentCoupling();
+			if (Ce == 1 && Ca > Ce) {
+				relation = result.getTheRelation(component.getName(), component.getEfferents().iterator().next()
+						.getName());
+				RelationData relationData = this.getRelationData(relation);
+				if (!relationData.isTodo()) {
 					item = new ComponentUniteTODOItem(relation);
 					item.setContent("合并组件[" + relation.getCurrent().getName() + "]和[" + relation.getDepend().getName()
 							+ "]");
 					item.setAccording("组件[" + relation.getCurrent().getName() + "]作为蝶形对象不应该在依赖其他组件");
 					item.setOrder(UniteComponentTODOItemOrder);
+					relationData.setTodo(true);
 					this.list.add(item);
+					break L;
 				}
-				break;
 			}
 		}
 	}
@@ -226,14 +253,15 @@ public class TODOListIdentify {
 	 */
 	private void identifySplitCompoentWithBalance() {
 		SplitCompoentTODOItem item = null;
-		for (JDependUnit unit : result.getComponents()) {
-			if (unit.getBalance() < 0.2F) {
-				item = new SplitCompoentTODOItem(unit);
+		for (Component component : result.getComponents()) {
+			if (!this.splitComponents.contains(component) && component.getBalance() < 0.2F) {
+				item = new SplitCompoentTODOItem(component);
 				if (item.isSplit()) {
-					item.setContent("组件[" + unit.getName() + "]内聚性差，需要拆分");
+					item.setContent("组件[" + component.getName() + "]内聚性差，需要拆分");
 					item.setAccording("组件内的Class应该关系更紧密，而与其他组件中的Class关系疏远");
-					item.setOrder(SplitComponentTODOItemOrder - unit.getBalance());
+					item.setOrder(SplitComponentTODOItemOrder - component.getBalance());
 
+					this.splitComponents.add(component);
 					this.list.add(item);
 				}
 			}
@@ -245,23 +273,26 @@ public class TODOListIdentify {
 	 */
 	private void identifySplitCompoentWithFissileObject() {
 
-		List<JDependUnit> units = new ArrayList<JDependUnit>(result.getComponents());
-		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.Ce, false));
+		List<Component> components = new ArrayList<Component>(result.getComponents());
+		Collections.sort(components, new JDependUnitByMetricsComparator(MetricsMgr.Ce, false));
 		int Ca;
 		int Ce;
 		SplitCompoentTODOItem item = null;
-		for (JDependUnit unit : units) {
-			Ca = unit.getAfferentCoupling();
-			Ce = unit.getEfferentCoupling();
-			if (Ca > 0 && Ca < 2 && Ca < Ce) {
-				item = new SplitCompoentTODOItem(unit);
-				if (item.isSplit()) {
-					item.setContent("组件[" + unit.getName() + "]作为易分对象又被其他组件依赖，需要拆分");
-					item.setAccording("作为易分对象又被其他组件依赖，需要拆分");
-					item.setOrder(SplitComponentTODOItemOrder - unit.getBalance());
+		L: for (Component component : components) {
+			if (!this.splitComponents.contains(component)) {
+				Ca = component.getAfferentCoupling();
+				Ce = component.getEfferentCoupling();
+				if (Ca == 1 && Ca < Ce) {
+					item = new SplitCompoentTODOItem(component);
+					if (item.isSplit()) {
+						item.setContent("组件[" + component.getName() + "]作为易分对象又被其他组件依赖，需要拆分");
+						item.setAccording("作为易分对象又被其他组件依赖，需要拆分");
+						item.setOrder(SplitComponentTODOItemOrder - component.getBalance());
 
-					this.list.add(item);
-					break;
+						this.splitComponents.add(component);
+						this.list.add(item);
+						break L;
+					}
 				}
 			}
 		}
@@ -269,17 +300,17 @@ public class TODOListIdentify {
 
 	private void identifyAdjustAbstract() {
 		TODOItem item = null;
-		for (JDependUnit unit : result.getComponents()) {
-			if (unit.getDistance() > 0.8F) {
-				item = new AdjustAbstractTODOItem(unit);
-				if (unit.getStability() < 0.5) {
-					item.setContent("组件[" + unit.getName() + "]的抽象程度不够");
+		for (Component component : result.getComponents()) {
+			if (component.getDistance() > 0.8F) {
+				item = new AdjustAbstractTODOItem(component);
+				if (component.getStability() < 0.5) {
+					item.setContent("组件[" + component.getName() + "]的抽象程度不够");
 				} else {
-					item.setContent("组件[" + unit.getName() + "]的抽象程度过大");
+					item.setContent("组件[" + component.getName() + "]的抽象程度过大");
 				}
 
 				item.setAccording("稳定抽象等价原则");
-				item.setOrder(AdjustAbstractTODOItemOrder + unit.getDistance());
+				item.setOrder(AdjustAbstractTODOItemOrder + component.getDistance());
 
 				this.list.add(item);
 			}
