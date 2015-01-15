@@ -9,7 +9,6 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.Component;
-import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
