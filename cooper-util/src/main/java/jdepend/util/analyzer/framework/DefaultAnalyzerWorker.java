@@ -1,15 +1,11 @@
 package jdepend.util.analyzer.framework;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.TableCallBack;
 import jdepend.framework.ui.graph.TableData;
-import jdepend.model.tree.JavaClassTree;
 import jdepend.model.tree.Node;
 
-public class DefaultAnalyzerWorker implements AnalyzerWorker {
+public final class DefaultAnalyzerWorker implements AnalyzerWorker {
 
 	private Analyzer analyzer;
 

@@ -35,7 +35,7 @@ import jdepend.util.analyzer.element.TableView;
 import jdepend.util.analyzer.element.TogetherInvokeMethod;
 import jdepend.util.analyzer.element.TransactionalAnnotationChecker;
 
-public class Analyzers {
+public final class Analyzers {
 
 	public static Map<String, List<Analyzer>> getStaticAnalyzers() {
 		Map<String, List<Analyzer>> analyzers = new LinkedHashMap<String, List<Analyzer>>();
