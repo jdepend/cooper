@@ -7,7 +7,7 @@ import java.util.Date;
 public class VersionUtil {
 
 	public static String getVersion() {
-		return "1.2.4_04";
+		return "1.2.4_05_building";
 	}
 
 	public static Date getBuildDate() {
