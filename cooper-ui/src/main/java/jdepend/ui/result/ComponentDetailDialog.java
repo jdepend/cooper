@@ -9,25 +9,24 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
+import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.report.way.textui.TextSummaryPrinter;
 
-public final class JDependUnitDetailDialog extends CooperDialog {
+public final class ComponentDetailDialog extends CooperDialog {
 
 	private String detailText = null;
 
-	public JDependUnitDetailDialog(String name) {
+	public ComponentDetailDialog(Component component) {
 
-		super(name);
+		super(component.getName());
 
 		getContentPane().setLayout(new BorderLayout());
 
 		TextViewer classProperty = new TextViewer();
 
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
-
-		printUnit(unit);
+		printUnit(component);
 
 		classProperty.setText(detailText);
 		classProperty.setCaretPosition(0);

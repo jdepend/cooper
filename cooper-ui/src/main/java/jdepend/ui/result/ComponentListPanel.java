@@ -31,6 +31,7 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.AreaComponent;
 import jdepend.model.JDependUnitMgr;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Measurable;
 import jdepend.model.MetricsMgr;
@@ -206,6 +207,8 @@ public final class ComponentListPanel extends SubResultTabPanel {
 				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
+					jdepend.model.Component currentComponent = JDependUnitMgr.getInstance().getResult()
+							.getTheComponent(current);
 					JTable table = (JTable) e.getSource();
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						CaCeListDialog d = new CaCeListDialog(frame, current, currentCol);
@@ -219,7 +222,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 							d.setVisible(true);
 						}
 					} else if (currentCol.equals(ReportConstant.Name)) {
-						JDependUnitDetailDialog d = new JDependUnitDetailDialog(current);
+						ComponentDetailDialog d = new ComponentDetailDialog(currentComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
@@ -235,7 +238,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceComponentDialog d = new BalanceComponentDialog(frame, current);
+						BalanceComponentDialog d = new BalanceComponentDialog(frame, currentComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					}
