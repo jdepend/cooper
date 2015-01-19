@@ -43,8 +43,8 @@ public class ProblemIdentify {
 				attentionLevel = relation.getAttentionLevel();
 				if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
 					// 搜索彼此依赖的“对方”关系
-					otherRelation = result.getTheRelation(relation.getDepend().getName(), relation.getCurrent()
-							.getName());
+					otherRelation = relation.getCurrent().getComponent()
+							.getCaTheRelation(relation.getDepend().getComponent());
 					if (attentionLevel > otherRelation.getAttentionLevel()) {
 						relationProblem = new RelationProblem(relation);
 						relationProblem.setType(Problem.MutualDependRelationProblem);
