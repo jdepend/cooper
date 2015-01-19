@@ -787,7 +787,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 		if (list.size() > 20) {
 			LogUtil.getInstance(JavaClass.class).systemWarning(
-					"JavaClass[" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
+					"JavaClass[" + list.get(0).getName() + "] [" + this.getName() + "]collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
@@ -833,7 +833,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			}
 		}
 
-		for (JavaClass efferent : this.getCeList()) {
+		L: for (JavaClass efferent : this.getCeList()) {
 			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
@@ -843,6 +843,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 						((JavaClass) list.get(index)).setCycles(list);
 					}
 					return Cycle;
+				} else if (rtn == StopCheckCycle) {
+					break L;// 搜索深度大于20时停止
 				}
 			}
 		}

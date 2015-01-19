@@ -69,11 +69,12 @@ public class IdentifyCallback extends AbstractAnalyzer {
 				}
 			}
 			if (isCallback2 && isCallback3) {
-				this.print("\nCallback : " + javaClass.getName() + "." + callbackMethod.getName() + "\n");
+				this.print("\nComponent:" + javaClass.getComponent().getName() + "\n");
+				this.print("Callback : " + javaClass.getName() + "." + callbackMethod.getName() + "\n");
 				this.printTab();
-				this.print("Invoked Method : " + method1.getJavaClass().getName() + "." + method1.getName() + "\n");
+				this.print("is Invoked Method : " + method1.getJavaClass().getName() + "." + method1.getName() + "\n");
 				this.printTab();
-				this.print("subClass : " + subClass2.getName() + " Constructors InvokedMethods:\n");
+				this.print("have subClass : " + subClass2.getName() + " Constructors InvokedMethods:\n");
 				for (Method method : method3s) {
 					this.printTab();
 					this.printTab();

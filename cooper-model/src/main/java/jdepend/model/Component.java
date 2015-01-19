@@ -568,7 +568,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 		if (list.size() > 20) {
 			LogUtil.getInstance(JavaClass.class).systemWarning(
-					"Component[" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
+					"Component[" + list.get(0).getName() + "][" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
@@ -602,7 +602,7 @@ public abstract class Component extends AbstractJDependUnit {
 			return Cycle;
 		}
 
-		for (Component efferent : this.getEfferents()) {
+		L: for (Component efferent : this.getEfferents()) {
 			Integer rtnInteger = (Integer) knowledge.get(efferent);// 获取历史扫描数据
 			if (rtnInteger == null) {// 没有扫描过的区域进行深度扫描
 				int rtn = efferent.collectCycle(list, knowledge);// 深度搜索该区域
@@ -612,6 +612,8 @@ public abstract class Component extends AbstractJDependUnit {
 						((Component) list.get(index)).setCycles(list);
 					}
 					return Cycle;
+				} else if (rtn == StopCheckCycle) {
+					break L;// 搜索深度大于20时停止
 				}
 			}
 		}
