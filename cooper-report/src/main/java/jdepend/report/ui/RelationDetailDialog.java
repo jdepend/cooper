@@ -24,7 +24,7 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JDependUnitMgr;
+import jdepend.model.Component;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.modelconf.CandidateUtil;
@@ -43,12 +43,12 @@ public class RelationDetailDialog extends CooperDialog {
 
 	private GraphJDepend display;
 
-	public RelationDetailDialog(JDependFrame frame, String current, String depend) {
+	public RelationDetailDialog(JDependFrame frame, Component current, Component depend) {
 		super(current + " 依赖于 " + depend);
 
 		this.frame = frame;
 
-		this.relation = JDependUnitMgr.getInstance().getResult().getTheRelation(current, depend);
+		this.relation = current.getCeTheRelation(depend);
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());

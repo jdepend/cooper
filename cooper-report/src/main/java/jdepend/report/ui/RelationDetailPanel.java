@@ -46,11 +46,11 @@ public final class RelationDetailPanel extends JPanel {
 
 	private List<String> extendUnits = new ArrayList<String>();
 
-	public RelationDetailPanel(JDependFrame frame, String current, String depend) {
+	public RelationDetailPanel(JDependFrame frame, jdepend.model.Component current, jdepend.model.Component depend) {
 
 		this.frame = frame;
 
-		this.currentRelation = JDependUnitMgr.getInstance().getResult().getTheRelation(current, depend);
+		this.currentRelation = current.getCeTheRelation(depend);
 
 		if (this.currentRelation == null) {
 			return;

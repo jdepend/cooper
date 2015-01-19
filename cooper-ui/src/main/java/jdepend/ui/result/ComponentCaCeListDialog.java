@@ -21,17 +21,18 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;
 import jdepend.report.ui.RelationDetailPanel;
 import jdepend.report.util.ReportConstant;
 
-public final class CaCeListDialog extends CooperDialog {
+public final class ComponentCaCeListDialog extends CooperDialog {
 
 	private JDependFrame frame;
 
-	private String unitID;
+	private Component component;
 
 	private String metrics;
 
@@ -39,13 +40,13 @@ public final class CaCeListDialog extends CooperDialog {
 
 	private DefaultTableModel listModel;
 
-	public CaCeListDialog(JDependFrame frame, String unitID, String metrics) {
+	public ComponentCaCeListDialog(JDependFrame frame, Component component, String metrics) {
 
-		super(unitID + " " + metrics + " list");
+		super(component.getName() + " " + metrics + " list");
 
 		this.frame = frame;
 
-		this.unitID = unitID;
+		this.component = component;
 		this.metrics = metrics;
 
 		initList();
@@ -68,14 +69,12 @@ public final class CaCeListDialog extends CooperDialog {
 
 		Object[] row;
 
-		JDependUnit currentUnit = JDependUnitMgr.getInstance().getUnit(this.unitID);
-
 		Collection<? extends JDependUnit> units = new ArrayList<JDependUnit>();
 
 		if (metrics.equals(ReportConstant.Ca)) {
-			units = currentUnit.getAfferents();
+			units = this.component.getAfferents();
 		} else if (metrics.equals(ReportConstant.Ce)) {
-			units = currentUnit.getEfferents();
+			units = this.component.getEfferents();
 		}
 		for (JDependUnit unit : units) {
 			row = new Object[13];
@@ -140,26 +139,27 @@ public final class CaCeListDialog extends CooperDialog {
 					String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
+					Component currentComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(current);
 					if (currentCol.equals(ReportConstant.Name)) {
-						String left = null;
-						String right = null;
+						Component left = null;
+						Component right = null;
 						if (metrics.equals(ReportConstant.Ca)) {
-							left = current;
-							right = unitID;
+							left = currentComponent;
+							right = component;
 						} else if (metrics.equals(ReportConstant.Ce)) {
-							left = unitID;
-							right = current;
+							left = component;
+							right = currentComponent;
 						}
 						RelationDetailPanel relationDetailPanel = new RelationDetailPanel(frame, left, right);
-						CaCeListDialog.this.getContentPane().removeAll();
-						CaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, relationDetailPanel);
+						ComponentCaCeListDialog.this.getContentPane().removeAll();
+						ComponentCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, relationDetailPanel);
 						FlowLayout buttonFlowLayout = new FlowLayout();
 						buttonFlowLayout.setAlignment(FlowLayout.RIGHT);
 						JPanel buttonBar = new JPanel(buttonFlowLayout);
 						buttonBar.add(createBackButton());
-						CaCeListDialog.this.add(BorderLayout.SOUTH, buttonBar);
+						ComponentCaCeListDialog.this.add(BorderLayout.SOUTH, buttonBar);
 
-						CaCeListDialog.this.setVisible(true);
+						ComponentCaCeListDialog.this.setVisible(true);
 					}
 				}
 			}
@@ -178,9 +178,9 @@ public final class CaCeListDialog extends CooperDialog {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				CaCeListDialog.this.getContentPane().removeAll();
-				CaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, new JScrollPane(listTable));
-				CaCeListDialog.this.setVisible(true);
+				ComponentCaCeListDialog.this.getContentPane().removeAll();
+				ComponentCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, new JScrollPane(listTable));
+				ComponentCaCeListDialog.this.setVisible(true);
 			}
 		});
 

@@ -116,14 +116,18 @@ public final class RelationPanel extends SubResultTabPanel {
 			public void mousePressed(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
-					String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
-					String depend = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 1);
 
 					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
 
 					if (currentCol.equals(ReportConstant.Relation_Intensity)) {
-						RelationDetailDialog d = new RelationDetailDialog(frame, current, depend);
+						String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
+						String depend = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 1);
+						jdepend.model.Component currentComponent = JDependUnitMgr.getInstance().getResult()
+								.getTheComponent(current);
+						jdepend.model.Component dependComponent = JDependUnitMgr.getInstance().getResult()
+								.getTheComponent(depend);
+						RelationDetailDialog d = new RelationDetailDialog(frame, currentComponent, dependComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Relation_CurrentName)

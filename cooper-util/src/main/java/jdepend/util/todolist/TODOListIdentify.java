@@ -225,8 +225,7 @@ public class TODOListIdentify {
 			Ca = component.getAfferentCoupling();
 			Ce = component.getEfferentCoupling();
 			if (Ce == 1 && Ca > Ce) {
-				relation = result.getTheRelation(component.getName(), component.getEfferents().iterator().next()
-						.getName());
+				relation = component.getCeTheRelation(component.getEfferents().iterator().next());
 				RelationData relationData = this.getRelationData(relation);
 				if (!relationData.isTodo()) {
 					item = new ComponentUniteTODOItem(relation);

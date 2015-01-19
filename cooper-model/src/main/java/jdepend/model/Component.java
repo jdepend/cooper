@@ -340,6 +340,15 @@ public abstract class Component extends AbstractJDependUnit {
 		return detail;
 	}
 
+	public Relation getCeTheRelation(Component component) {
+		for (Relation relation : this.relations) {
+			if (relation.getDepend().getComponent().equals(component)) {
+				return relation;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public synchronized float caCoupling() {
 		if (caCoupling == null) {

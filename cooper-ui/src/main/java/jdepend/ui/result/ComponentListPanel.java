@@ -211,7 +211,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 							.getTheComponent(current);
 					JTable table = (JTable) e.getSource();
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
-						CaCeListDialog d = new CaCeListDialog(frame, current, currentCol);
+						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, currentComponent, currentCol);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cycle)) {

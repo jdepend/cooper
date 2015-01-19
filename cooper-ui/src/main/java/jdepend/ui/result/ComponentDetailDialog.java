@@ -11,7 +11,6 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.report.way.textui.TextSummaryPrinter;
 
 public final class ComponentDetailDialog extends CooperDialog {

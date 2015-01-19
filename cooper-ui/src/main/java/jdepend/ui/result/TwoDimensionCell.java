@@ -30,6 +30,7 @@ import javax.swing.table.TableModel;
 
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.JDependUnit;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
@@ -47,10 +48,8 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 
 	private JTable table;
 
-	private transient Map<String, JDependUnit> unitNames = new HashMap<String, JDependUnit>();
-
 	private transient List<JDependUnit> units;
-	
+
 	private JDependFrame frame;
 
 	public TwoDimensionCell(JDependFrame frame) {
@@ -60,9 +59,6 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 	@Override
 	protected void init(final AnalysisResult result) {
 
-		for (JDependUnit unit : result.getComponents()) {
-			unitNames.put(unit.getName(), unit);
-		}
 		units = new ArrayList<JDependUnit>(result.getComponents());
 		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.Ca));
 
@@ -101,11 +97,16 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 				int row = table.rowAtPoint(p);
 				String left = (String) table.getValueAt(row, 0);
 				String right = (String) table.getColumnModel().getColumn(col).getHeaderValue();
+
+				jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(left);
+				jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult()
+						.getTheComponent(right);
+
 				if (left != null && left.length() != 0 && right != null && right.length() != 0
-						&& isRelation(unitNames.get(left), unitNames.get(right))) {
+						&& isRelation(leftComponent, rightComponent)) {
 					table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				} else if (left != null && left.length() != 0 && right != null && right.length() != 0
-						&& isRelation(unitNames.get(right), unitNames.get(left))) {
+						&& isRelation(rightComponent, leftComponent)) {
 					table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				} else {
 					table.setCursor(Cursor.getDefaultCursor());
@@ -117,17 +118,22 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				JTable table = (JTable) e.getSource();
-				String left = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
-				String right = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
-						.getHeaderValue();
 
 				if (e.getClickCount() == 2) {
-					if (isRelation(unitNames.get(left), unitNames.get(right))) {
-						RelationDetailDialog d = new RelationDetailDialog(frame, left, right);
+					String left = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
+					String right = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
+							.getHeaderValue();
+					jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult()
+							.getTheComponent(left);
+					jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult()
+							.getTheComponent(right);
+
+					if (isRelation(leftComponent, rightComponent)) {
+						RelationDetailDialog d = new RelationDetailDialog(frame, leftComponent, rightComponent);
 						d.setModal(true);
 						d.setVisible(true);
-					} else if (isRelation(unitNames.get(right), unitNames.get(left))) {
-						RelationDetailDialog d = new RelationDetailDialog(frame, right, left);
+					} else if (isRelation(rightComponent, leftComponent)) {
+						RelationDetailDialog d = new RelationDetailDialog(frame, rightComponent, leftComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					}
@@ -153,13 +159,8 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 		}
 	}
 
-	private boolean isRelation(JDependUnit left, JDependUnit right) {
-		for (JDependUnit unit : left.getEfferents()) {
-			if (unit.equals(right)) {
-				return true;
-			}
-		}
-		return false;
+	private boolean isRelation(jdepend.model.Component left, jdepend.model.Component right) {
+		return left.getEfferents().contains(right);
 	}
 
 	class TDCRenderer extends DefaultTableCellRenderer {
@@ -173,11 +174,15 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 				boolean hasFocus, final int row, final int column) {
 			String left = (String) table.getValueAt(row, 0);
 			String right = (String) table.getColumnModel().getColumn(column).getHeaderValue();
+
+			jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(left);
+			jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(right);
+
 			if (left != null && left.length() != 0 && right != null && right.length() != 0
-					&& isRelation(unitNames.get(left), unitNames.get(right))) {
+					&& isRelation(leftComponent, rightComponent)) {
 				this.setBackground(Color.ORANGE);
 			} else if (left != null && left.length() != 0 && right != null && right.length() != 0
-					&& TwoDimensionCell.this.isRelation(unitNames.get(right), unitNames.get(left))) {
+					&& TwoDimensionCell.this.isRelation(rightComponent, leftComponent)) {
 				this.setBackground(Color.CYAN);
 			} else if (column == 0) {
 				JTableHeader header = table.getTableHeader();
