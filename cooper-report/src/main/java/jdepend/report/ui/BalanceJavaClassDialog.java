@@ -13,17 +13,13 @@ import jdepend.model.JavaClass;
 
 public final class BalanceJavaClassDialog extends CooperDialog {
 
-	private String javaClassName;
-
-	public BalanceJavaClassDialog(String current) {
-		super(current + "内聚性指数明细");
-		this.javaClassName = current;
+	public BalanceJavaClassDialog(JavaClass javaClass) {
+		super(javaClass.getName() + "内聚性指数明细");
 
 		getContentPane().setLayout(new BorderLayout());
 		TextViewer balance = new TextViewer();
 
-		JavaClass unit = JDependUnitMgr.getInstance().getResult().getTheClass(this.javaClassName);
-		balance.setText(getBalance(unit));
+		balance.setText(getBalance(javaClass));
 		balance.setCaretPosition(0);
 
 		this.add(new JScrollPane(balance));

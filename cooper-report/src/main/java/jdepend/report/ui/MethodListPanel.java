@@ -21,6 +21,7 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.framework.util.StringUtil;
 import jdepend.model.InvokeItem;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.Method;
 import jdepend.model.util.JavaClassUtil;
 
@@ -55,19 +56,22 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[11];
+			row = new Object[13];
 
-			row[0] = method.getJavaClass().getName();
-			row[1] = Utility.accessToString(method.getAccessFlags());
-			row[2] = method.getName();
-			row[3] = method.getArgumentInfo();
-			row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
-			row[5] = method.getSelfLineCount();
-			row[6] = method.getInvokedMethods().size();
-			row[7] = method.getCascadeInvokedMethods().size();
-			row[8] = method.getInvokeMethods().size();
-			row[9] = MetricsFormat.toFormattedMetrics(method.getStability());
-			row[10] = method.containRemoteInvokeItem() ? "是" : "否";
+			row[0] = method.getJavaClass().getId();
+			row[1] = method.getInfo();
+
+			row[2] = method.getJavaClass().getName();
+			row[3] = Utility.accessToString(method.getAccessFlags());
+			row[4] = method.getName();
+			row[5] = method.getArgumentInfo();
+			row[6] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
+			row[7] = method.getSelfLineCount();
+			row[8] = method.getInvokedMethods().size();
+			row[9] = method.getCascadeInvokedMethods().size();
+			row[10] = method.getInvokeMethods().size();
+			row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
+			row[12] = method.containRemoteInvokeItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -97,13 +101,19 @@ public class MethodListPanel extends JPanel {
 				Point p = new Point(e.getX(), e.getY());
 				int col = table.columnAtPoint(p);
 				int row = table.rowAtPoint(p);
-				current = (String) table.getValueAt(row, 0) + table.getValueAt(row, 2) + table.getValueAt(row, 3);
+				String classId = (String) table.getValueAt(row, 0);
+				String info = (String) table.getValueAt(row, 1);
 				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 
 				if (e.getClickCount() == 2) {
-					Method currentMethod = getCurrentMethod();
+					Method currentMethod = JDependUnitMgr.getInstance().getResult().getTheClass(classId)
+							.getTheMethod(info);
 					if (currentMethod != null) {
-						if (currentCol.equals("传入")) {
+						if (currentCol.equals("名称")) {
+							MethodDetailDialog d = new MethodDetailDialog(currentMethod);
+							d.setModal(true);
+							d.setVisible(true);
+						} else if (currentCol.equals("传入")) {
 							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokedItems(),
 									InvokeItem.Ca);
 							d.setModal(true);
@@ -126,6 +136,8 @@ public class MethodListPanel extends JPanel {
 
 		sorter.setTableHeader(methodListTable.getTableHeader());
 
+		methodListModel.addColumn("类标识");
+		methodListModel.addColumn("方法标识");
 		methodListModel.addColumn("类名");
 		methodListModel.addColumn("访问修饰符");
 		methodListModel.addColumn("名称");
@@ -140,21 +152,18 @@ public class MethodListPanel extends JPanel {
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();
+		colNames.add("名称");
 		colNames.add("传入");
 		colNames.add("级联传入");
 		colNames.add("传出");
 
+		methodListTable.getColumnModel().getColumn(0).setMinWidth(0);
+		methodListTable.getColumnModel().getColumn(0).setMaxWidth(0);
+		methodListTable.getColumnModel().getColumn(1).setMinWidth(0);
+		methodListTable.getColumnModel().getColumn(1).setMaxWidth(0);
+
 		methodListTable.addMouseMotionListener(new TableMouseMotionAdapter(methodListTable, colNames));
 
-	}
-
-	private Method getCurrentMethod() {
-		for (Method method : this.methods) {
-			if ((method.getJavaClass().getName() + method.getName() + method.getArgumentInfo()).equals(current)) {
-				return method;
-			}
-		}
-		return null;
 	}
 
 	public int filterMehtodList(String className, String name) {
@@ -169,22 +178,25 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[11];
+			row = new Object[13];
 
 			if ((className == null || className.length() == 0 || JavaClassUtil.match(className, method.getJavaClass()))
 					&& (name == null || name.length() == 0 || StringUtil.match(name.toUpperCase(), method.getName()
 							.toUpperCase()))) {
-				row[0] = method.getJavaClass().getName();
-				row[1] = Utility.accessToString(method.getAccessFlags());
-				row[2] = method.getName();
-				row[3] = method.getArgumentInfo();
-				row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
-				row[5] = method.getSelfLineCount();
-				row[6] = method.getInvokedMethods().size();
-				row[7] = method.getCascadeInvokedMethods().size();
-				row[8] = method.getInvokeMethods().size();
-				row[9] = MetricsFormat.toFormattedMetrics(method.getStability());
-				row[10] = method.containRemoteInvokeItem() ? "是" : "否";
+				row[0] = method.getJavaClass().getId();
+				row[1] = method.getInfo();
+
+				row[2] = method.getJavaClass().getName();
+				row[3] = Utility.accessToString(method.getAccessFlags());
+				row[4] = method.getName();
+				row[5] = method.getArgumentInfo();
+				row[6] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
+				row[7] = method.getSelfLineCount();
+				row[8] = method.getInvokedMethods().size();
+				row[9] = method.getCascadeInvokedMethods().size();
+				row[10] = method.getInvokeMethods().size();
+				row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
+				row[12] = method.containRemoteInvokeItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}

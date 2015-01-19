@@ -239,6 +239,15 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		return this.detail.getMethods();
 	}
 
+	public Method getTheMethod(String info) {
+		for (Method method : this.getMethods()) {
+			if (method.getInfo().equals(info)) {
+				return method;
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * 得到类的构造函数列表
 	 * 

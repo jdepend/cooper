@@ -6,19 +6,18 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
-import jdepend.model.JavaClass;
+import jdepend.model.JDependUnitMgr;
+import jdepend.model.Method;
 
-public class JavaClassDetailDialog extends CooperDialog {
+public class MethodDetailDialog extends CooperDialog {
 
-	public JavaClassDetailDialog(JavaClass javaClass) {
-
-		super(javaClass.getName());
+	public MethodDetailDialog(Method method) {
 
 		getContentPane().setLayout(new BorderLayout());
 
 		TextViewer classProperty = new TextViewer();
 
-		classProperty.setText(javaClass.toString());
+		classProperty.setText(method.toString());
 		classProperty.setCaretPosition(0);
 
 		this.add(new JScrollPane(classProperty));

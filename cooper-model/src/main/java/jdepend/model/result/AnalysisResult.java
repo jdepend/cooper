@@ -52,7 +52,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<JavaClass> javaClasses;
 
-	private transient Collection<JavaPackage> javaPackages;//包含在Component中的包集合
+	private transient Collection<JavaPackage> javaPackages;// 包含在Component中的包集合
 
 	private transient Float tableRelationScale = null;// tableRelation比例
 
@@ -174,14 +174,14 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return javaPackageTree;
 	}
 
-	public synchronized JavaClass getTheClass(String name) {
+	public synchronized JavaClass getTheClass(String id) {
 		if (javaClassForIds == null) {
 			javaClassForIds = new HashMap<String, JavaClass>();
 			for (JavaClass javaClass : getClasses()) {
 				javaClassForIds.put(javaClass.getId(), javaClass);
 			}
 		}
-		return javaClassForIds.get(name);
+		return javaClassForIds.get(id);
 	}
 
 	public synchronized Collection<Method> getMethods() {
@@ -580,7 +580,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			listener.onUnSequence("正在填充类细节");
 		}
 		JavaClassUtil.supplyJavaClassDetail(javaClasses);
-		//初始化
+		// 初始化
 		this.init();
 	}
 

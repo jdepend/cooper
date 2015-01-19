@@ -241,6 +241,7 @@ public class ClassListPanel extends JPanel {
 							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
+					JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						Rectangle rec = table.getCellRect(row, col, false);
 						Component comp = table.getComponentAt(p);
@@ -250,7 +251,7 @@ public class ClassListPanel extends JPanel {
 						String preValue = value.substring(0, pos);
 						int width = x + comp.getFontMetrics(comp.getFont()).stringWidth(preValue);
 						JavaClassCaCeDetailDialog d;
-						JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+
 						if (p.x > x && p.x < width) {
 							d = new JavaClassCaCeDetailDialog(currentClass, currentCol, false);
 						} else {
@@ -259,7 +260,7 @@ public class ClassListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Name)) {
-						JavaClassDetailDialog d = new JavaClassDetailDialog(current);
+						JavaClassDetailDialog d = new JavaClassDetailDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cycle)) {
@@ -278,7 +279,7 @@ public class ClassListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceJavaClassDialog d = new BalanceJavaClassDialog(current);
+						BalanceJavaClassDialog d = new BalanceJavaClassDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.I)) {

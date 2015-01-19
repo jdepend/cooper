@@ -539,6 +539,15 @@ public class Method extends AccessFlags {
 				info1.append(item);
 			}
 		}
+
+		if (this.getInvokedItems().size() != 0) {
+			info1.append("\n		invokedItems:");
+			for (InvokeItem item : this.getInvokedItems()) {
+				info1.append("\n				");
+				info1.append(item);
+			}
+		}
+
 		return info1.toString();
 	}
 
@@ -558,10 +567,11 @@ public class Method extends AccessFlags {
 		if (getClass() != obj.getClass())
 			return false;
 		Method other = (Method) obj;
-		if (!info.equals(other.info))
-			return false;
 		if (!javaClassId.equals(other.javaClassId))
 			return false;
+		if (!info.equals(other.info))
+			return false;
+
 		return true;
 	}
 }
