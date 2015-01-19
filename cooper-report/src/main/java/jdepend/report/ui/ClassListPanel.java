@@ -266,16 +266,16 @@ public class ClassListPanel extends JPanel {
 					} else if (currentCol.equals(ReportConstant.Cycle)) {
 						if (MetricsMgr.Cyclic.equals(table.getModel().getValueAt(table.rowAtPoint(e.getPoint()),
 								table.columnAtPoint(e.getPoint())))) {
-							CycleDialog d = new CycleDialog(current);
+							CycleDialog d = new CycleDialog(currentClass);
 							d.setModal(true);
 							d.setVisible(true);
 						}
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionDialog d = new CohesionDialog(current);
+						CohesionDialog d = new CohesionDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Coupling)) {
-						CouplingDialog d = new CouplingDialog(current);
+						CouplingDialog d = new CouplingDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
@@ -283,7 +283,7 @@ public class ClassListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.I)) {
-						DistanceDialog d = new DistanceDialog(current);
+						DistanceDialog d = new DistanceDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					}

@@ -18,13 +18,12 @@ public class CohesionDialog extends CooperDialog {
 
 	private StringBuilder cohesionText;
 
-	public CohesionDialog(String name) {
+	public CohesionDialog(JDependUnit unit) {
 
-		super(name + " 内聚值（正序）");
+		super(unit.getName() + " 内聚值（正序）");
 
 		getContentPane().setLayout(new BorderLayout());
 
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
 		Collection<JDependUnit> units = new ArrayList<JDependUnit>();
 		units.add(unit);
 

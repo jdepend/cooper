@@ -9,20 +9,17 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.report.way.textui.JDependPrinter;
 
 public class DistanceDialog extends CooperDialog {
 
 	private StringBuilder distanceText;
 
-	public DistanceDialog(String name) {
+	public DistanceDialog(JDependUnit unit) {
 
-		super(name + " 不稳定性");
+		super(unit.getName() + " 不稳定性");
 
 		getContentPane().setLayout(new BorderLayout());
-
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
 
 		printCoupling(unit);
 

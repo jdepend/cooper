@@ -18,13 +18,12 @@ public class CouplingDialog extends CooperDialog {
 
 	private StringBuilder couplingText;
 
-	public CouplingDialog(String name) {
+	public CouplingDialog(JDependUnit unit) {
 
-		super(name + " 耦合值（倒序）");
+		super(unit.getName() + " 耦合值（倒序）");
 
 		getContentPane().setLayout(new BorderLayout());
 
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
 		Collection<JDependUnit> units = new ArrayList<JDependUnit>();
 		units.add(unit);
 

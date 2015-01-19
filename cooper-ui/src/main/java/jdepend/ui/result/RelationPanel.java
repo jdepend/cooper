@@ -22,6 +22,7 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.CohesionDialog;
@@ -131,7 +132,9 @@ public final class RelationPanel extends SubResultTabPanel {
 						String element = (String) table.getValueAt(table.rowAtPoint(e.getPoint()),
 								table.columnAtPoint(e.getPoint()));
 
-						CohesionDialog d = new CohesionDialog(element);
+						jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
+								.getTheComponent(element);
+						CohesionDialog d = new CohesionDialog(component);
 						d.setModal(true);
 						d.setVisible(true);
 					}
@@ -164,7 +167,7 @@ public final class RelationPanel extends SubResultTabPanel {
 			arg[5] = MetricsFormat.toFormattedMetrics(relation.getBalance());
 			arg[6] = relation.getAttentionType();
 			arg[7] = MetricsFormat.toFormattedMetrics(relation.getAttentionLevel());
-			arg[8] = relation.isNormality() ? "":"是";
+			arg[8] = relation.isNormality() ? "" : "是";
 			model.addRow(arg);
 		}
 
@@ -272,7 +275,7 @@ public final class RelationPanel extends SubResultTabPanel {
 						} else {
 							return false;
 						}
-					}else {
+					} else {
 						return null;
 					}
 				}

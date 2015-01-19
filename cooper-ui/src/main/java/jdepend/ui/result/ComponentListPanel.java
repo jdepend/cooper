@@ -217,7 +217,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 					} else if (currentCol.equals(ReportConstant.Cycle)) {
 						if (MetricsMgr.Cyclic.equals(table.getModel().getValueAt(table.rowAtPoint(e.getPoint()),
 								table.columnAtPoint(e.getPoint())))) {
-							CycleDialog d = new CycleDialog(current);
+							CycleDialog d = new CycleDialog(currentComponent);
 							d.setModal(true);
 							d.setVisible(true);
 						}
@@ -226,11 +226,11 @@ public final class ComponentListPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionDialog d = new CohesionDialog(current);
+						CohesionDialog d = new CohesionDialog(currentComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Coupling)) {
-						CouplingDialog d = new CouplingDialog(current);
+						CouplingDialog d = new CouplingDialog(currentComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.I)) {

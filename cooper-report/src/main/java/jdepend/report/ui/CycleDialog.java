@@ -17,15 +17,14 @@ public class CycleDialog extends CooperDialog {
 
 	private String cycleText;
 
-	public CycleDialog(String name) {
+	public CycleDialog(JDependUnit unit) {
 
-		super(name);
+		super(unit.getName());
 
 		getContentPane().setLayout(new BorderLayout());
 
 		TextViewer classProperty = new TextViewer();
 
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
 		printCycle(unit);
 
 		classProperty.setText(cycleText);
