@@ -321,6 +321,17 @@ public abstract class Component extends AbstractJDependUnit {
 				return relation.getDetail();
 			}
 		}
+
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
+		float intensity = 0;
+		for (JavaClass javaClass : this.getClasses()) {
+			RelationDetail relationDetail = javaClass.ceCouplingDetail(dependUnit);
+			intensity += relationDetail.getIntensity();
+			items.addAll(relationDetail.getItems());
+		}
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
 		return detail;
 	}
 
@@ -337,9 +348,20 @@ public abstract class Component extends AbstractJDependUnit {
 				return relation.getDetail();
 			}
 		}
+
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
+		float intensity = 0;
+		for (JavaClass javaClass : this.getClasses()) {
+			RelationDetail relationDetail = javaClass.caCouplingDetail(dependUnit);
+			intensity += relationDetail.getIntensity();
+			items.addAll(relationDetail.getItems());
+		}
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
 		return detail;
 	}
-	
+
 	/**
 	 * 计算与特定组件的传出耦合细节信息
 	 * 
