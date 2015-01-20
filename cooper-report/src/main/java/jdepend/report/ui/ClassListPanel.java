@@ -31,7 +31,6 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.framework.util.StringUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
@@ -49,7 +48,7 @@ public class ClassListPanel extends JPanel {
 
 	protected String current;
 
-	protected List<String> selectedJavaClass;
+	protected List<String> selectedJavaClassId;
 
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
@@ -235,9 +234,9 @@ public class ClassListPanel extends JPanel {
 				current = CandidateUtil.getId((String) table.getValueAt(row, 0), (String) table.getValueAt(row, 1));
 				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 
-				selectedJavaClass = new ArrayList<String>();
+				selectedJavaClassId = new ArrayList<String>();
 				for (int rowNumber : table.getSelectedRows()) {
-					selectedJavaClass.add(CandidateUtil.getId((String) table.getValueAt(rowNumber, 0),
+					selectedJavaClassId.add(CandidateUtil.getId((String) table.getValueAt(rowNumber, 0),
 							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
@@ -313,7 +312,7 @@ public class ClassListPanel extends JPanel {
 		colNames.add(ReportConstant.Cohesion);
 		colNames.add(ReportConstant.Balance);
 		colNames.add(ReportConstant.Cycle);
-	
+
 		classListTable.addMouseMotionListener(new TableMouseMotionAdapter(classListTable, colNames));
 
 		sorter.setSortingStatus(1, TableSorter.ASCENDING);
@@ -335,7 +334,7 @@ public class ClassListPanel extends JPanel {
 		JMenuItem moveToItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Move));
 		moveToItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedJavaClass.size() > 0) {
+				if (selectedJavaClassId.size() > 0) {
 					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
 						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -351,7 +350,11 @@ public class ClassListPanel extends JPanel {
 	}
 
 	private void moveTo(JavaClassMoveToDialogListener listener) {
-		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, selectedJavaClass);
+		Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
+		for (String javaClassId : selectedJavaClassId) {
+			javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+		}
+		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, javaClasses);
 		if (listener != null) {
 			d.setListener(listener);
 		}

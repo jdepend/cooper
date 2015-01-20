@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -35,15 +33,15 @@ public class JavaClassMoveToDialog extends JDialog {
 
 	private JTable componentTable;
 
-	private Collection<String> selectedJavaClass;
+	private Collection<JavaClass> javaClasses;
 
 	private JPanel content;
 
 	private JavaClassMoveToDialogListener listener;
 
-	public JavaClassMoveToDialog(JDependFrame frame, Collection<String> selectedJavaClass) {
+	public JavaClassMoveToDialog(JDependFrame frame, Collection<JavaClass> javaClasses) {
 		this(frame);
-		this.selectedJavaClass = selectedJavaClass;
+		this.javaClasses = javaClasses;
 	}
 
 	private JavaClassMoveToDialog(JDependFrame frame) {
@@ -139,12 +137,10 @@ public class JavaClassMoveToDialog extends JDialog {
 			jdepend.model.Component targetComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(target);
 
 			boolean adjust = false;
-			List<JavaClass> javaClasses = new ArrayList<JavaClass>();
-			for (String javaClassName : selectedJavaClass) {
-				JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(javaClassName);
-				javaClasses.add(javaClass);
+			L: for (JavaClass javaClass : javaClasses) {
 				if (!adjust && !targetComponent.containsClass(javaClass)) {
 					adjust = true;
+					break L;
 				}
 			}
 
