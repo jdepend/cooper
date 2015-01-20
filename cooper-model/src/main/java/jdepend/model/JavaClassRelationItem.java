@@ -45,10 +45,12 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	public float getRelationIntensity() {
 		// 计算耦合
-		float intensity = this.type.getIntensity();
-		float rationality = this.type.getRationality(this.depend, this.current, this.direction);
-
-		return intensity * rationality;
+		// float intensity = this.type.getIntensity();
+		// float rationality = this.type.getRationality(this.depend,
+		// this.current, this.direction);
+		//
+		// return intensity * rationality;
+		return this.type.getIntensity();
 	}
 
 	public boolean isInner() {
