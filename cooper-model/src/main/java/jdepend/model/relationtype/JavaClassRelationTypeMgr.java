@@ -68,7 +68,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 		return new ArrayList<JavaClassRelationType>(types.values());
 	}
 
-	private JavaClassRelationType getType(String name) {
+	public JavaClassRelationType getType(String name) {
 		return types.get(name);
 	}
 

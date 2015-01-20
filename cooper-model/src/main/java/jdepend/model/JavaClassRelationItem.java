@@ -34,7 +34,9 @@ public class JavaClassRelationItem implements Serializable {
 
 	private String currentJavaClass = null;// 序列化和反序列化时使用
 
-	private JavaClassRelationType type = null;// 关联类型
+	private transient JavaClassRelationType type = null;// 关联类型
+
+	private String typeName = null; // 序列化和反序列化时使用
 
 	private String direction = null;// 关联方向
 
@@ -121,11 +123,20 @@ public class JavaClassRelationItem implements Serializable {
 		this.currentJavaClassPlace = currentJavaClassPlace;
 	}
 
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
 	public JavaClassRelationItem clone() {
 		JavaClassRelationItem newItem = new JavaClassRelationItem();
 
 		newItem.direction = this.direction;
 		newItem.type = this.type;
+		newItem.typeName = this.typeName;
 
 		newItem.currentJavaClassPlace = this.currentJavaClassPlace;
 		newItem.currentJavaClass = this.currentJavaClass;
@@ -137,14 +148,12 @@ public class JavaClassRelationItem implements Serializable {
 	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		if (this.depend != null) {
-			this.dependJavaClassPlace = this.depend.getPlace();
-			this.dependJavaClass = this.depend.getName();
-		}
-		if (this.current != null) {
-			this.currentJavaClassPlace = this.current.getPlace();
-			this.currentJavaClass = this.current.getName();
-		}
+		this.dependJavaClassPlace = this.depend.getPlace();
+		this.dependJavaClass = this.depend.getName();
+		this.currentJavaClassPlace = this.current.getPlace();
+		this.currentJavaClass = this.current.getName();
+		this.typeName = this.type.getName();
+
 		out.defaultWriteObject();// 先序列化对象
 	}
 
@@ -167,7 +176,7 @@ public class JavaClassRelationItem implements Serializable {
 				+ ((depend == null) ? CandidateUtil.getId(dependJavaClassPlace, dependJavaClass).hashCode() : depend
 						.getName().hashCode());
 		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((type == null) ? typeName.hashCode() : type.hashCode());
 		return result;
 	}
 

@@ -991,6 +991,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			if (dependClass != null) {
 				relationItem.setDepend(dependClass);
 				relationItem.setCurrent(this);
+				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();
 			}
@@ -1003,6 +1004,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			if (dependClass != null) {
 				relationItem.setDepend(dependClass);
 				relationItem.setCurrent(this);
+				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();
 			}
