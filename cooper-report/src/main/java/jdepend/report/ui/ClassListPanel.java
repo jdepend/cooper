@@ -282,10 +282,6 @@ public class ClassListPanel extends JPanel {
 						BalanceJavaClassDialog d = new BalanceJavaClassDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.I)) {
-						DistanceDialog d = new DistanceDialog(currentClass);
-						d.setModal(true);
-						d.setVisible(true);
 					}
 				}
 			}
@@ -296,13 +292,9 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.JavaClass_Place);
 		classListModel.addColumn(ReportConstant.Name);
 		classListModel.addColumn(ReportConstant.LC);
-		classListModel.addColumn(ReportConstant.CC);
 		classListModel.addColumn(ReportConstant.AC);
 		classListModel.addColumn(ReportConstant.Ca);
 		classListModel.addColumn(ReportConstant.Ce);
-		classListModel.addColumn(ReportConstant.A);
-		classListModel.addColumn(ReportConstant.I);
-		classListModel.addColumn(ReportConstant.D);
 		classListModel.addColumn(ReportConstant.Coupling);
 		classListModel.addColumn(ReportConstant.Cohesion);
 		classListModel.addColumn(ReportConstant.Balance);
@@ -321,8 +313,7 @@ public class ClassListPanel extends JPanel {
 		colNames.add(ReportConstant.Cohesion);
 		colNames.add(ReportConstant.Balance);
 		colNames.add(ReportConstant.Cycle);
-		colNames.add(ReportConstant.I);
-
+	
 		classListTable.addMouseMotionListener(new TableMouseMotionAdapter(classListTable, colNames));
 
 		sorter.setSortingStatus(1, TableSorter.ASCENDING);
@@ -461,13 +452,9 @@ public class ClassListPanel extends JPanel {
 			listModel.addColumn(ReportConstant.DependType);
 			listModel.addColumn(ReportConstant.JavaClass_isExt);
 			listModel.addColumn(ReportConstant.LC);
-			listModel.addColumn(ReportConstant.CC);
 			listModel.addColumn(ReportConstant.AC);
 			listModel.addColumn(ReportConstant.Ca);
 			listModel.addColumn(ReportConstant.Ce);
-			listModel.addColumn(ReportConstant.A);
-			listModel.addColumn(ReportConstant.I);
-			listModel.addColumn(ReportConstant.D);
 			listModel.addColumn(ReportConstant.Coupling);
 			listModel.addColumn(ReportConstant.Cohesion);
 			listModel.addColumn(ReportConstant.Balance);

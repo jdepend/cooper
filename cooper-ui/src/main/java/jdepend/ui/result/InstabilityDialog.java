@@ -17,18 +17,15 @@ import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.util.MetricsTool;
 
 public class InstabilityDialog extends CooperDialog {
 
-	public InstabilityDialog(String name) {
+	public InstabilityDialog(JDependUnit unit) {
 
-		super(name + " 不稳定性");
+		super(unit.getName() + " 不稳定性");
 
 		getContentPane().setLayout(new BorderLayout());
-
-		JDependUnit unit = JDependUnitMgr.getInstance().getUnit(name);
 
 		JTabbedPane pane = new JTabbedPane();
 

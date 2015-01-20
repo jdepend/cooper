@@ -234,7 +234,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.I)) {
-						InstabilityDialog d = new InstabilityDialog(current);
+						InstabilityDialog d = new InstabilityDialog(currentComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
