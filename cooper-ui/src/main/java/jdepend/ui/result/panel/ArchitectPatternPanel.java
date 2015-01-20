@@ -1,11 +1,12 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.ExceptionPrinter;
-import jdepend.framework.ui.JDependFrame;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.result.AnalysisResult;
+import jdepend.ui.result.framework.ResultPanel;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 public final class ArchitectPatternPanel extends SubResultTabPanel {
 

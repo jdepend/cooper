@@ -1,9 +1,10 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.MethodListOperationPanel;
 import jdepend.report.ui.MethodListPanel;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 public class MethodListSubTabPanel extends SubResultTabPanel {
 

@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.event.MouseEvent;
 

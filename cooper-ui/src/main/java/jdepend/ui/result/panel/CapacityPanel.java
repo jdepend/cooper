@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -22,6 +22,7 @@ import jdepend.knowledge.capacity.Capacity;
 import jdepend.knowledge.capacity.CapacityMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 public final class CapacityPanel extends SubResultTabPanel {
 

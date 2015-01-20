@@ -49,7 +49,7 @@ import jdepend.report.util.TreeGraphUtil;
 import jdepend.ui.ClassPathURLStreamHandler;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
-import jdepend.ui.result.ResultPanel;
+import jdepend.ui.result.framework.ResultPanel;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerExecutor;
 import jdepend.util.analyzer.framework.AnalyzerResult;

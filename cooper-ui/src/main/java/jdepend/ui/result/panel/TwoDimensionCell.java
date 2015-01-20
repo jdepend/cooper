@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -35,6 +35,7 @@ import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 import jdepend.report.ui.RelationDetailDialog;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 /**
  * 二维格

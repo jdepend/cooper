@@ -1,10 +1,11 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListOperationPanel;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.ui.framework.JavaClassCompareTableCellRenderer;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 public class ClassListSubTabPanel extends SubResultTabPanel {
 

@@ -16,11 +16,9 @@ import jdepend.framework.ui.AsynAction;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.report.ReportCreatorFactory;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.result.JDependReport;
-import jdepend.ui.result.JDependReportAdapterFactory;
-import jdepend.ui.result.ResultPanel;
+import jdepend.ui.result.framework.ResultPanel;
+import jdepend.ui.result.report.JDependReport;
 
 public final class CommandAction extends AsynAction {
 
@@ -93,8 +91,7 @@ public final class CommandAction extends AsynAction {
 
 		adapter.addParseListener(frame);
 
-		ReportCreatorFactory reportAdapterFactory = new JDependReportAdapterFactory();
-		reportRender = (JDependReport) reportAdapterFactory.create(group, command);
+		reportRender = new JDependReport(group, command);
 		reportRender.setFrame(frame);
 		reportRender.addReportListener(frame);
 		// 设置正在运行的group和command名称

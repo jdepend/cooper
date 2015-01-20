@@ -25,9 +25,9 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.result.ArchitectPatternPanel;
-import jdepend.ui.result.DesignPatternPanel;
-import jdepend.ui.result.SubResultTab;
+import jdepend.ui.result.framework.SubResultTab;
+import jdepend.ui.result.panel.ArchitectPatternPanel;
+import jdepend.ui.result.panel.DesignPatternPanel;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
 

@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -29,6 +29,7 @@ import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.RelationDetailDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.util.refactor.CompareObject;
 
 public final class RelationPanel extends SubResultTabPanel {

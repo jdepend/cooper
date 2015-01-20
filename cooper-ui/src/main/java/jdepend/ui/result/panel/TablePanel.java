@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -11,6 +11,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
+import jdepend.ui.result.framework.SubResultTabPanel;
 
 public final class TablePanel extends SubResultTabPanel {
 

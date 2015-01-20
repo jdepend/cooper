@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.framework;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;

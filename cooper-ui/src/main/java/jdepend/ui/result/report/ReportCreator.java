@@ -1,4 +1,4 @@
-package jdepend.report;
+package jdepend.ui.result.report;
 
 import java.util.ArrayList;
 import java.util.List;

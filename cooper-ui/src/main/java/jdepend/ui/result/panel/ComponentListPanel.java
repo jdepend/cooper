@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -31,13 +31,11 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.AreaComponent;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Measurable;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultSummary;
-import jdepend.report.ReportCreator;
 import jdepend.report.ui.BalanceComponentDialog;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.CouplingDialog;
@@ -47,6 +45,8 @@ import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.ui.result.framework.SubResultTabPanel;
+import jdepend.ui.result.report.ReportCreator;
 import jdepend.util.refactor.CompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 

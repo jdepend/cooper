@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -45,6 +45,7 @@ import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ChangedElementListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
+import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;

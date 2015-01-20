@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -18,6 +18,7 @@ import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.util.BundleUtil;
 import jdepend.report.history.ReportHistory;
+import jdepend.ui.result.report.JDependReport;
 
 public class ReportHistorySaveDialog extends JDialog {
 

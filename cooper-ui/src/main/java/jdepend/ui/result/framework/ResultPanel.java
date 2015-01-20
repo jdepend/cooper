@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.framework;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +25,7 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
+import jdepend.ui.result.report.JDependReport;
 
 public class ResultPanel extends TabsPanel {
 
