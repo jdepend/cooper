@@ -204,52 +204,6 @@ public final class JDependPrinter extends Printer {
 
 	}
 
-	public void printDistance(JDependUnit unit) {
-
-		Float ceCoupling = 0F;
-		Float caCoupling = 0F;
-		Float coupling = 0F;
-
-		coupling = unit.getCoupling();
-		ceCoupling = unit.ceCoupling();
-		caCoupling = unit.caCoupling();
-
-		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\" title=\"" + unit.getTitle() + "\">");
-		getWriter().println(tab(2) + "<Ce Intensity=\"" + MetricsFormat.toFormattedMetrics(ceCoupling) + "\">");
-		for (JDependUnit ceUnit : unit.getEfferents()) {
-			getWriter().println(
-					tab(4) + "<CeUnit name=\"" + ceUnit.getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(unit.ceCouplingDetail(ceUnit).getIntensity()) + "\">");
-			for (JavaClassRelationItem item : unit.ceCouplingDetail(ceUnit).getItems()) {
-				getWriter().println(
-						tab(5) + "<JavaClass current=\"" + item.getCurrent().getName() + "\" depend=\""
-								+ item.getDepend().getName() + "\" DependType=\"" + item.getType().getName()
-								+ "\" Intensity=\""
-								+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(item)) + "\"/>");
-			}
-			getWriter().println(tab(4) + "</CeUnit>");
-		}
-		getWriter().println(tab(2) + "</Ce>");
-		getWriter().println(tab(2) + "<Ca Intensity=\"" + MetricsFormat.toFormattedMetrics(caCoupling) + "\">");
-		for (JDependUnit caUnit : unit.getAfferents()) {
-			getWriter().println(
-					tab(4) + "<CaUnit name=\"" + caUnit.getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(unit.caCouplingDetail(caUnit).getIntensity()) + "\">");
-			for (JavaClassRelationItem item : unit.caCouplingDetail(caUnit).getItems()) {
-				getWriter().println(
-						tab(5) + "<JavaClass current=\"" + item.getCurrent().getName() + "\" depend=\""
-								+ item.getDepend().getName() + "\" DependType=\"" + item.getType().getName()
-								+ "\" Intensity=\""
-								+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(item)) + "\"/>");
-			}
-			getWriter().println(tab(4) + "</CaUnit>");
-		}
-		getWriter().println(tab(2) + "</Ca>");
-		getWriter().println(tab(2) + "<Coupling>" + MetricsFormat.toFormattedMetrics(coupling) + "</Coupling>");
-		getWriter().println(tab() + "</Component>");
-
-	}
-
 	protected void printNotices() {
 		for (String notice : NoticeMgr.getInstance().getNotices()) {
 			getWriter().println(notice);
