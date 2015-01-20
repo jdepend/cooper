@@ -81,14 +81,6 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	public RelationDetail caCouplingDetail(JDependUnit dependUnit);
 
 	/**
-	 * 计算与特定分析单元的传出耦合细节信息
-	 * 
-	 * @param jDependUnit
-	 * @return
-	 */
-	public RelationDetail calCeCouplingDetail(JDependUnit jDependUnit);
-
-	/**
 	 * 传入耦合值
 	 * 
 	 * @return

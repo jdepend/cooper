@@ -339,6 +339,36 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 		return detail;
 	}
+	
+	/**
+	 * 计算与特定组件的传出耦合细节信息
+	 * 
+	 * @param jDependUnit
+	 * @return
+	 */
+	public RelationDetail calCeCouplingDetail(Component component) {
+
+		RelationDetail detail = new RelationDetail();
+		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
+		if (this.equals(component)) {
+			return detail;
+		}
+
+		float intensity = 0;
+		for (JavaClass javaClass : this.getClasses()) {
+			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
+				if (component.containsClass(relationItem.getDepend())) {
+					items.add(relationItem);
+					intensity += relationItem.getRelationIntensity();
+				}
+			}
+		}
+
+		detail.setIntensity(intensity);
+		detail.setItems(items);
+
+		return detail;
+	}
 
 	public Relation getCeTheRelation(Component component) {
 		for (Relation relation : this.relations) {

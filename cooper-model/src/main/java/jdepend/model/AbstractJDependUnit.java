@@ -216,31 +216,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	@Override
-	public RelationDetail calCeCouplingDetail(JDependUnit dependUnit) {
-
-		RelationDetail detail = new RelationDetail();
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
-		if (this.equals(dependUnit)) {
-			return detail;
-		}
-
-		float intensity = 0;
-		for (JavaClass javaClass : this.getClasses()) {
-			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
-				if (dependUnit.containsClass(relationItem.getDepend())) {
-					items.add(relationItem);
-					intensity += relationItem.getRelationIntensity();
-				}
-			}
-		}
-
-		detail.setIntensity(intensity);
-		detail.setItems(items);
-
-		return detail;
-	}
-
-	@Override
 	public synchronized void clear() {
 		this.cycles = null;
 		this.cohesion = null;
