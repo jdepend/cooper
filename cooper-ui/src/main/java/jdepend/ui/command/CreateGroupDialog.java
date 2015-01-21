@@ -58,13 +58,6 @@ public final class CreateGroupDialog extends JDialog {
 		setSize(ComponentModelPanel.Width, ComponentModelPanel.Height);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
-		addWindowListener(new WindowAdapter() {
-
-			public void windowClosing(WindowEvent e) {
-				dispose();
-			}
-		});
-
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 

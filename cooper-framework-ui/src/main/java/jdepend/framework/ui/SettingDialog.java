@@ -75,13 +75,6 @@ public abstract class SettingDialog extends JDialog {
 		setSize(SettingPopDialogWidth, SettingPopDialogHeight);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
-		addWindowListener(new WindowAdapter() {
-
-			public void windowClosing(WindowEvent e) {
-				dispose();
-			}
-		});
-
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 

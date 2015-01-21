@@ -129,6 +129,8 @@ public final class ComponentModelMgrDialog extends JDialog {
 		framework.add(BorderLayout.CENTER, content);
 		framework.add(BorderLayout.SOUTH, buttonBar);
 
+		refreshComponentGroupList();
+
 		return framework;
 	}
 
@@ -140,8 +142,6 @@ public final class ComponentModelMgrDialog extends JDialog {
 	}
 
 	private Component createComponentGroupList() {
-
-		refreshComponentGroupList();
 
 		final JList componentGroupList = new JList(componentGroupListModel);
 
