@@ -1,4 +1,4 @@
-package jdepend.ui.result.report;
+package jdepend.ui.result.framework;
 
 import java.util.List;
 

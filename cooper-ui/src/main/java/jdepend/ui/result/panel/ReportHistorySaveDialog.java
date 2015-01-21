@@ -18,8 +18,7 @@ import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.util.BundleUtil;
 import jdepend.report.history.ReportHistory;
-import jdepend.ui.result.report.JDependReport;
-import jdepend.ui.result.report.ReportCreator;
+import jdepend.ui.result.framework.ReportCreator;
 
 public class ReportHistorySaveDialog extends JDialog {
 
@@ -27,15 +26,15 @@ public class ReportHistorySaveDialog extends JDialog {
 
 	private String title;
 
-	private ReportCreator dependReport;
+	private ReportCreator reportCreator;
 
-	public ReportHistorySaveDialog(ReportCreator dependReport, String title) {
+	public ReportHistorySaveDialog(ReportCreator reportCreator, String title) {
 
 		setTitle("Tip");
 
 		setResizable(false);
 
-		this.dependReport = dependReport;
+		this.reportCreator = reportCreator;
 		this.title = title;
 
 		getContentPane().setLayout(new BorderLayout());
@@ -88,9 +87,9 @@ public class ReportHistorySaveDialog extends JDialog {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ReportHistory rh = new ReportHistory(dependReport.getGroup());
-					rh.save(dependReport.getCommand(), dependReport.getReportText(title), tip.getText());
-					dependReport.onReportHistorySave();
+					ReportHistory rh = new ReportHistory(reportCreator.getGroup());
+					rh.save(reportCreator.getCommand(), reportCreator.getReportText(title), tip.getText());
+					reportCreator.onReportHistorySave();
 					// 记录日志
 					BusiLogUtil.getInstance().businessLog(Operation.saveTextReport);
 					JOptionPane.showMessageDialog((java.awt.Component) e.getSource(), "保存成功", "alert",

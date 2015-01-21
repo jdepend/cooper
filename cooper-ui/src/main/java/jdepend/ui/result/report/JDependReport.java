@@ -34,6 +34,7 @@ import jdepend.report.way.mapui.GraphPrinter;
 import jdepend.report.way.textui.JDependPrinter;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
+import jdepend.ui.result.framework.ReportCreator;
 import jdepend.ui.result.framework.SubResultTab;
 import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.ui.result.panel.ArchitectPatternPanel;

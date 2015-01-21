@@ -46,8 +46,8 @@ import jdepend.ui.command.GroupIngoreListSettingDialog;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.ui.result.framework.ReportCreator;
 import jdepend.ui.result.framework.SubResultTabPanel;
-import jdepend.ui.result.report.ReportCreator;
 import jdepend.util.refactor.CompareObject;
 import jdepend.util.refactor.RefactorToolFactory;
 
