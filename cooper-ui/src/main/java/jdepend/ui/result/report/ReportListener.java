@@ -37,13 +37,6 @@ public interface ReportListener {
 	public void onAddIgnoreList(List<String> ignoreList);
 
 	/**
-	 * 当点击查看组忽略列表时触发
-	 * 
-	 * @param group
-	 */
-	public void onViewIgnoreList(String group);
-
-	/**
 	 * 当做内存重构时触发
 	 * 
 	 * @throws JDependException

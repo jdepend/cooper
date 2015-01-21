@@ -81,7 +81,11 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 	public abstract boolean isMember(JavaClass javaClass);
 
 	protected boolean containPlace() {
-		return CandidateUtil.containPlace(itemIds.iterator().next());
+		if (itemIds.isEmpty()) {
+			return false;
+		} else {
+			return CandidateUtil.containPlace(itemIds.iterator().next());
+		}
 	}
 
 	public abstract ComponentConf clone() throws CloneNotSupportedException;

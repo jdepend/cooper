@@ -42,6 +42,7 @@ import jdepend.report.ui.CouplingDialog;
 import jdepend.report.ui.CycleDialog;
 import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.command.GroupIngoreListSettingDialog;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
@@ -346,7 +347,9 @@ public final class ComponentListPanel extends SubResultTabPanel {
 	}
 
 	protected void viewIgnoreList() {
-		adapter.onViewIgnoreList();
+		GroupIngoreListSettingDialog d = new GroupIngoreListSettingDialog(frame, adapter.getGroup());
+		d.setModal(true);
+		d.setVisible(true);
 	}
 
 	protected void addIgnoreList(boolean incluedsub) throws JDependException {

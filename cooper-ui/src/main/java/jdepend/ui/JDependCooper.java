@@ -69,6 +69,7 @@ import jdepend.ui.command.GroupPanel;
 import jdepend.ui.culture.CulturePanel;
 import jdepend.ui.framework.UIPropertyConfigurator;
 import jdepend.ui.property.PropertyPanel;
+import jdepend.ui.result.ResultPanelWrapper;
 import jdepend.ui.result.framework.ResultPanel;
 import jdepend.ui.result.report.ReportListener;
 import jdepend.ui.start.ClientWelcomeDialog;
@@ -303,6 +304,10 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			resultPanel = createResultPanel();
 		}
 		return resultPanel;
+	}
+
+	public ResultPanelWrapper getResultPanelWrapper() {
+		return new ResultPanelWrapper(this.getResultPanel());
 	}
 
 	public CirclePanel getCirclePanel() {
@@ -573,7 +578,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	@Override
 	public void onRefactoring() throws JDependException {
 		// 显示重构结果
-		this.getResultPanel().showMemoryResults();
+		this.getResultPanelWrapper().showMemoryResults();
 		// 刷新、显示虚拟重构历史
 		this.getPropertyPanel().showMementoList();
 		// 刷新TODOList

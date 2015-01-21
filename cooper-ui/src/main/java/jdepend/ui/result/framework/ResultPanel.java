@@ -22,10 +22,8 @@ import jdepend.framework.ui.TextViewer;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
-import jdepend.ui.result.report.JDependReport;
 
 public class ResultPanel extends TabsPanel {
 
@@ -34,6 +32,10 @@ public class ResultPanel extends TabsPanel {
 	public ResultPanel(JDependCooper frame) {
 		super(new ResultTab(frame));
 		this.frame = frame;
+	}
+
+	public JDependCooper getFrame() {
+		return frame;
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class ResultPanel extends TabsPanel {
 	 * @param isPopup
 	 *            是否弹出分数窗口（会自动保存分数）
 	 */
-	private void showResults(Map<String, ? extends JComponent> results, boolean isPopup) {
+	public void showResults(Map<String, ? extends JComponent> results, boolean isPopup) {
 		String label;
 		Iterator<String> iterator = results.keySet().iterator();
 
@@ -85,7 +87,7 @@ public class ResultPanel extends TabsPanel {
 		this.setDefaultTab(defaultOneIndex, defaultTwoIndex);
 	}
 
-	private void setDefaultTab(int defaultOneIndex, int defaultTwoIndex) {
+	public void setDefaultTab(int defaultOneIndex, int defaultTwoIndex) {
 		this.setVisible(false);
 		if (defaultOneIndex < this.tabPane.getTabCount()) {
 			this.tabPane.setSelectedIndex(defaultOneIndex);
@@ -104,7 +106,7 @@ public class ResultPanel extends TabsPanel {
 		this.setDefaultTab(one, two);
 	}
 
-	private int getOneIndex() {
+	public int getOneIndex() {
 		if (this.tabPane.getTabCount() > 0) {
 			return this.tabPane.getSelectedIndex();
 		} else {
@@ -112,7 +114,7 @@ public class ResultPanel extends TabsPanel {
 		}
 	}
 
-	private int getTwoIndex() {
+	public int getTwoIndex() {
 		if (this.tabPane.getTabCount() > 0) {
 			if (((TabWrapper) this.tabPane.getSelectedComponent()).getComponent() instanceof SubResultTab) {
 				SubResultTab subTab = (SubResultTab) ((TabWrapper) this.tabPane.getSelectedComponent()).getComponent();
@@ -199,44 +201,4 @@ public class ResultPanel extends TabsPanel {
 		}
 	}
 
-	/**
-	 * 显示内存中JDependUnitMgr中的结果（不弹出分数窗口）
-	 */
-	public void showResults() {
-
-		this.removeAll();
-
-		Map<String, ? extends JComponent> results = null;
-		try {
-			// 得到内存分析结果
-			AnalysisResult result = JDependUnitMgr.getInstance().getResult();
-			// 构造报告生成器
-			JDependReport jdependReport = new JDependReport(result.getRunningContext().getGroup(), result
-					.getRunningContext().getCommand());
-			jdependReport.setFrame(frame);
-			jdependReport.addReportListener(frame);
-			// 创建图形化结果
-			results = jdependReport.createReport(result);
-			// 显示结果
-			this.showResults(results, false);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			this.showError(ex);
-		}
-		frame.getPropertyPanel().getClassPanel().clearClassList();
-	}
-
-	/**
-	 * 显示内存操作后的结果
-	 */
-	public void showMemoryResults() {
-		int defaultOneIndex = this.getOneIndex();
-		int defaultTwoIndex = this.getTwoIndex();
-
-		this.showResults();
-
-		if (defaultOneIndex != -1 && defaultTwoIndex != -1) {
-			this.setDefaultTab(defaultOneIndex, defaultTwoIndex);
-		}
-	}
 }

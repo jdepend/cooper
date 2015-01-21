@@ -71,7 +71,7 @@ public class AnalysisResultExportUtil {
 						CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
 
 						frame.getStatusField().setText(" 正在显示分析结果。。。。");
-						frame.getResultPanel().showResults();
+						frame.getResultPanelWrapper().showResults();
 						// 刷新TODOList
 						new Thread() {
 							@Override

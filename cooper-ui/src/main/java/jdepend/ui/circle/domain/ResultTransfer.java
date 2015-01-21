@@ -45,7 +45,7 @@ public final class ResultTransfer {
 			JDependUnitMgr.getInstance().setResult(result);
 			CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
 			CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
-			frame.getResultPanel().showResults();
+			frame.getResultPanelWrapper().showResults();
 			// 刷新TODOList
 			new Thread() {
 				@Override

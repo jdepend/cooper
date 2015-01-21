@@ -19,6 +19,7 @@ import jdepend.framework.log.Operation;
 import jdepend.framework.util.BundleUtil;
 import jdepend.report.history.ReportHistory;
 import jdepend.ui.result.report.JDependReport;
+import jdepend.ui.result.report.ReportCreator;
 
 public class ReportHistorySaveDialog extends JDialog {
 
@@ -26,9 +27,9 @@ public class ReportHistorySaveDialog extends JDialog {
 
 	private String title;
 
-	private JDependReport dependReport;
+	private ReportCreator dependReport;
 
-	public ReportHistorySaveDialog(JDependReport dependReport, String title) {
+	public ReportHistorySaveDialog(ReportCreator dependReport, String title) {
 
 		setTitle("Tip");
 

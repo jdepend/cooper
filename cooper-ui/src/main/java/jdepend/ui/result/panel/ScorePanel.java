@@ -773,7 +773,7 @@ public final class ScorePanel extends SubResultTabPanel {
 			JDependUnitMgr.getInstance().setResult(result);
 			CommandAdapterMgr.setCurrentGroup(group);
 			CommandAdapterMgr.setCurrentCommand(command);
-			frame.getResultPanel().showResults();
+			frame.getResultPanelWrapper().showResults();
 		}
 	}
 }

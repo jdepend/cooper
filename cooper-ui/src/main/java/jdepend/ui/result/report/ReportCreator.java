@@ -88,9 +88,15 @@ public abstract class ReportCreator {
 		}
 	}
 
-	public void onViewIgnoreList() {
+	/**
+	 * 内存重构
+	 * 
+	 * @throws JDependException
+	 */
+	public void onRefactoring() throws JDependException {
+
 		for (ReportListener listener : listeners) {
-			listener.onViewIgnoreList(group);
+			listener.onRefactoring();
 		}
 
 	}
@@ -105,16 +111,11 @@ public abstract class ReportCreator {
 	public abstract Map<String, ? extends JComponent> createReport(AnalysisResult result);
 
 	/**
-	 * 内存重构
+	 * 得到报告文本
 	 * 
-	 * @throws JDependException
+	 * @param title
+	 * @return
 	 */
-	public void onRefactoring() throws JDependException {
-
-		for (ReportListener listener : listeners) {
-			listener.onRefactoring();
-		}
-
-	}
+	public abstract StringBuilder getReportText(String title);
 
 }

@@ -554,7 +554,7 @@ public class MotiveOperationPanel extends MotivePanel {
 					execute();
 					JDependUnitMgr.getInstance().getResult().clearScore();
 					JDependUnitMgr.getInstance().getResult().clearRelationCache();
-					frame.getResultPanel().showResults();
+					frame.getResultPanelWrapper().showResults();
 					motiveDialog.dispose();
 				} catch (IOException e1) {
 					e1.printStackTrace();
@@ -635,7 +635,7 @@ public class MotiveOperationPanel extends MotivePanel {
 
 	private void execute() throws IOException, JDependException {
 		motiveContainer.execute();
-		//记录日志
+		// 记录日志
 		BusiLogUtil.getInstance().businessLog(Operation.executeMotive);
 	}
 
