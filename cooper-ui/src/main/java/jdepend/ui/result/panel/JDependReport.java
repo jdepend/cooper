@@ -1,4 +1,4 @@
-package jdepend.ui.result.report;
+package jdepend.ui.result.panel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,17 +37,6 @@ import jdepend.ui.framework.UIPropertyConfigurator;
 import jdepend.ui.result.framework.ReportCreator;
 import jdepend.ui.result.framework.SubResultTab;
 import jdepend.ui.result.framework.SubResultTabPanel;
-import jdepend.ui.result.panel.ArchitectPatternPanel;
-import jdepend.ui.result.panel.CapacityPanel;
-import jdepend.ui.result.panel.ClassListSubTabPanel;
-import jdepend.ui.result.panel.ComponentListPanel;
-import jdepend.ui.result.panel.DesignPatternPanel;
-import jdepend.ui.result.panel.MethodListSubTabPanel;
-import jdepend.ui.result.panel.RelationPanel;
-import jdepend.ui.result.panel.ReportHistorySaveDialog;
-import jdepend.ui.result.panel.ScorePanel;
-import jdepend.ui.result.panel.TablePanel;
-import jdepend.ui.result.panel.TwoDimensionCell;
 
 /**
  * 报告生成器

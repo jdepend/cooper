@@ -18,7 +18,7 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.result.framework.ResultPanel;
-import jdepend.ui.result.report.JDependReport;
+import jdepend.ui.result.panel.JDependReport;
 
 public final class CommandAction extends AsynAction {
 

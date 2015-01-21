@@ -1,4 +1,4 @@
-package jdepend.ui.result;
+package jdepend.ui.result.panel;
 
 import java.util.Map;
 
@@ -7,7 +7,6 @@ import javax.swing.JComponent;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.result.framework.ResultPanel;
-import jdepend.ui.result.report.JDependReport;
 
 public class ResultPanelWrapper {
 
