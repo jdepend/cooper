@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -31,10 +32,8 @@ import jdepend.core.config.CommandConfMgr;
 import jdepend.core.config.GroupConf;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.ui.JDependCooper;
 
 public final class ComponentModelMgrDialog extends JDialog {
@@ -164,15 +163,15 @@ public final class ComponentModelMgrDialog extends JDialog {
 		JMenuItem updateItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Update));
 		updateItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object[] names = componentGroupList.getSelectedValues();
-				if (names == null || names.length == 0) {
+				List<String> names = componentGroupList.getSelectedValuesList();
+				if (names == null || names.size() == 0) {
 					JOptionPane.showMessageDialog(frame, "请选择修改的组件模型！");
 					return;
-				} else if (names.length > 1) {
+				} else if (names.size() > 1) {
 					JOptionPane.showMessageDialog(frame, "请选择一个修改的组件模型！");
 					return;
 				} else {
-					refreshContent(getComponentGroupUpdatePanel((String) names[0]));
+					refreshContent(getComponentGroupUpdatePanel(names.get(0)));
 				}
 			}
 
@@ -182,15 +181,15 @@ public final class ComponentModelMgrDialog extends JDialog {
 		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
 		deleteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object[] names = componentGroupList.getSelectedValues();
-				if (names == null || names.length == 0) {
+				List<String> names = componentGroupList.getSelectedValuesList();
+				if (names == null || names.size() == 0) {
 					JOptionPane.showMessageDialog(frame, "请选择删除的组件模型！");
 					return;
 				} else if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
 					try {
-						for (Object name : names) {
-							groupInfo.deleteComponentModel((String) name);
-							CommandConf info = groupInfo.getCommandInfoByComponentGroup((String) name);
+						for (String name : names) {
+							groupInfo.deleteComponentModel(name);
+							CommandConf info = groupInfo.getCommandInfoByComponentGroup(name);
 							if (info != null) {
 								groupInfo.deleteCommand(info.label);
 							}
@@ -209,15 +208,15 @@ public final class ComponentModelMgrDialog extends JDialog {
 		JMenuItem copyItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Copy));
 		copyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object[] names = componentGroupList.getSelectedValues();
-				if (names == null || names.length == 0) {
+				List<String> names = componentGroupList.getSelectedValuesList();
+				if (names == null || names.size() == 0) {
 					JOptionPane.showMessageDialog(frame, "请选择拷贝的组件模型！");
 					return;
-				} else if (names.length > 1) {
+				} else if (names.size() > 1) {
 					JOptionPane.showMessageDialog(frame, "请选择一个拷贝的组件模型！");
 					return;
 				} else {
-					CreateComponentModelFromCopyDialog d = new CreateComponentModelFromCopyDialog((String) names[0]);
+					CreateComponentModelFromCopyDialog d = new CreateComponentModelFromCopyDialog(names.get(0));
 					d.setModal(true);
 					d.setVisible(true);
 				}
@@ -231,17 +230,17 @@ public final class ComponentModelMgrDialog extends JDialog {
 		JMenuItem creatCommandItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_CreateCommand));
 		creatCommandItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object[] names = componentGroupList.getSelectedValues();
-				if (names == null || names.length == 0) {
+				List<String> names = componentGroupList.getSelectedValuesList();
+				if (names == null || names.size() == 0) {
 					JOptionPane.showMessageDialog(frame, "请选择组件组！");
 					return;
-				} else if (names.length > 1) {
+				} else if (names.size() > 1) {
 					JOptionPane.showMessageDialog(frame, "请选择一个组件组！");
 					return;
 				} else {
 					try {
 						// 根据新建的组件组信息创建命令
-						CommandConf info = CommandConf.create(((String) names[0]), groupInfo.getName());
+						CommandConf info = CommandConf.create(names.get(0), groupInfo.getName());
 						groupInfo.insertCommand(info);
 						JOptionPane.showMessageDialog(frame, "创建成功！");
 					} catch (JDependException e1) {
@@ -482,8 +481,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 
 		componentListModel.removeAllElements();
 
-		ComponentModelConf componentGroup = this.groupInfo
-				.getTheComponentModelConf(currentComponentModelName);
+		ComponentModelConf componentGroup = this.groupInfo.getTheComponentModelConf(currentComponentModelName);
 
 		for (String componentName : componentGroup.getComponentConfNames()) {
 			componentListModel.addElement(componentName);
