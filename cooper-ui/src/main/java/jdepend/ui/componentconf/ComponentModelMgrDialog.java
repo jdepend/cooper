@@ -75,7 +75,7 @@ public final class ComponentModelMgrDialog extends JDialog {
 		setSize(ComponentModelPanel.Width, ComponentModelPanel.Height);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
-		this.refreshContent(this.getDefaultContent());
+		this.add(BorderLayout.CENTER, this.getDefaultContent());
 	}
 
 	private void refreshGroup() {
