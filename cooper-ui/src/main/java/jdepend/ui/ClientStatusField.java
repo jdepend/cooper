@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.serverconf.ServerConfigurator;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
@@ -33,9 +34,11 @@ public class ClientStatusField extends StatusField {
 					getStatusCenter().setText(JDependContext.Local);
 					try {
 						synServiceConf();
+						CommandAdapterMgr.getInstance().refresh();
 					} catch (JDependException e1) {
 						e1.printStackTrace();
 					}
+
 				}
 			});
 			popupMenu.add(localItem);
@@ -47,6 +50,7 @@ public class ClientStatusField extends StatusField {
 					getStatusCenter().setText(JDependContext.Remote);
 					try {
 						synServiceConf();
+						CommandAdapterMgr.getInstance().refresh();
 					} catch (JDependException e1) {
 						e1.printStackTrace();
 					}
