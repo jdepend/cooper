@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-public final class StatusField extends JPanel {
+public class StatusField extends JPanel {
 
 	private JTextField statusLeft;
 	private JTextField statusCenter;

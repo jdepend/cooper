@@ -341,71 +341,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	@Override
 	protected StatusField createStatusField() {
-
-		final StatusField statusField = super.createStatusField();
-		// 单机版运行模式可以切换单机或联机运行模式
-		if (JDependContext.isStandaloneMode()) {
-			final JPopupMenu popupMenu = new JPopupMenu();
-
-			JMenuItem localItem = new JMenuItem(JDependContext.Local);
-			localItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JDependContext.setIsLocalService(true);
-					statusField.getStatusCenter().setText(JDependContext.Local);
-					try {
-						synServiceConf();
-					} catch (JDependException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-			popupMenu.add(localItem);
-
-			JMenuItem remoteItem = new JMenuItem(JDependContext.Remote);
-			remoteItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JDependContext.setIsLocalService(false);
-					statusField.getStatusCenter().setText(JDependContext.Remote);
-					try {
-						synServiceConf();
-					} catch (JDependException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-			popupMenu.add(remoteItem);
-			statusField.getStatusCenter().addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (e.getButton() == 3) {
-						popupMenu.show((Component) e.getSource(), e.getX(), e.getY());
-					}
-				}
-			});
-		}
-		return statusField;
-	}
-
-	private void synServiceConf() throws JDependException {
-		String filePath = JDependContext.getWorkspacePath() + "/" + PropertyConfigurator.DEFAULT_PROPERTY_DIR + "/"
-				+ ServerConfigurator.DEFAULT_PROPERTY_FILE;
-
-		StringBuilder content = FileUtil.readFileContent(filePath, "UTF-8");
-
-		int startPos = content.indexOf("isLocalService=") + 15;
-		int endPos = content.indexOf("\n", startPos);
-		String value = content.substring(startPos, endPos);
-		boolean isNeedSave = false;
-		if (JDependContext.isLocalService() && value.equalsIgnoreCase("false")) {
-			content.replace(startPos, endPos, "true");
-			isNeedSave = true;
-		} else if (!JDependContext.isLocalService() && value.equalsIgnoreCase("true")) {
-			content.replace(startPos, endPos, "false");
-			isNeedSave = true;
-		}
-		if (isNeedSave) {
-			FileUtil.saveFileContent(filePath, content, "UTF-8");
-		}
+		return new ClientStatusField(this);
 	}
 
 	public void maxWorkspace() {
