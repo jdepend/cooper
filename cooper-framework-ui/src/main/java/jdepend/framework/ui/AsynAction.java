@@ -93,6 +93,8 @@ public abstract class AsynAction extends AbstractAction {
 						}
 						// 显示结果
 						frame.show(result);
+						// 截止进度条
+						frame.stopProgressMonitor();
 					}
 				}
 			}.start();
