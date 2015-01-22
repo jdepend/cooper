@@ -29,8 +29,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		} else {
 			// 子类不在一个组件中也具备抽象类计数资格
 			for (JavaClass subClass : subClasses) {
-				if (subClass.getComponent() != null && javaClass.getComponent() != null
-						&& !subClass.getComponent().equals(javaClass.getComponent())) {
+				if (!subClass.getComponent().equals(javaClass.getComponent())) {
 					return true;
 				}
 			}
