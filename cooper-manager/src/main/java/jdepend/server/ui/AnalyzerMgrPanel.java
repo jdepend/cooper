@@ -22,13 +22,14 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.ServiceFactory;
 import jdepend.service.remote.analyzer.AnalyzerService;
+import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerMgrPanel extends JPanel {
 
 	private JDependServer server;
 
-	private AnalyzerService analyzerService;
+	private AnalyzerServiceImpl analyzerService;
 
 	private List<AnalyzerSummaryDTO> analyzers;
 
@@ -67,12 +68,6 @@ public final class AnalyzerMgrPanel extends JPanel {
 		model.addColumn("类名");
 		model.addColumn("上传用户名");
 		model.addColumn("上传时间");
-
-		try {
-			this.refresh();
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
 
 		final JScrollPane pane = new JScrollPane(table);
 

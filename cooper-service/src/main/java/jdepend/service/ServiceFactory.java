@@ -23,7 +23,7 @@ public class ServiceFactory {
 
 	public static void init() {
 
-		initClassList();
+//		initClassList();
 	}
 
 	public static int initClassList() {
@@ -45,7 +45,7 @@ public class ServiceFactory {
 		return new JDependLocalServiceImpl(groupName, commandName);
 	}
 
-	public static AnalyzerService createAnalyzerService() throws RemoteException {
+	public static AnalyzerServiceImpl createAnalyzerService() throws RemoteException {
 		return new AnalyzerServiceImpl();
 	}
 

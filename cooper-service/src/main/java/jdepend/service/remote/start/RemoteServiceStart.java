@@ -82,7 +82,7 @@ public final class RemoteServiceStart {
 		LogUtil.SYSTEMLOG = conf.isPrintSystemLog();
 		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
-		ServiceFactory.initClassList();
+		// ServiceFactory.initClassList();
 	}
 
 	public synchronized void startService() throws JDependException {

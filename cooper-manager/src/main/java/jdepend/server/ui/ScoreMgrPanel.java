@@ -107,12 +107,6 @@ public final class ScoreMgrPanel extends JPanel {
 		table.getColumn("ID").setMaxWidth(0);
 		table.getColumn("ID").setMinWidth(0);
 
-		try {
-			this.refresh();
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-
 		final JScrollPane pane = new JScrollPane(table);
 
 		this.add(BorderLayout.CENTER, pane);

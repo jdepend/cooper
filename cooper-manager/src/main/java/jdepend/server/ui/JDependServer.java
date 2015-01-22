@@ -192,7 +192,7 @@ public class JDependServer extends JDependFrame {
 		LogUtil.SYSTEMLOG = conf.isPrintSystemLog();
 		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
-		ServiceFactory.initClassList();
+//		ServiceFactory.initClassList();
 	}
 
 	@Override

@@ -46,13 +46,23 @@ public final class AnalyzerServiceImpl extends UnicastRemoteObject implements An
 		return new AnalyzerDTO(info);
 	}
 
-	@Override
+	/**
+	 * 删除分析器
+	 * 
+	 * @param className
+	 * @throws JDependException 
+	 */
 	public void delete(String className) throws JDependException {
 		(new AnalyzerRepository()).delete(className);
 		
 	}
 
-	@Override
+	/**
+	 * 获取全部的分析器信息
+	 * 
+	 * @return
+	 * @throws JDependException 
+	 */
 	public List<AnalyzerSummaryDTO> queryAll() throws JDependException {
 		return (new AnalyzerRepository()).queryAll();
 	}

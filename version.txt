@@ -2,7 +2,9 @@
 
 a）改进ui组件中弹出窗口构造函数参数的数据结构（String->Component\JavaClass\JDependUnit）
 
-b）简化JavaClassRelationItem.getRelationIntensity的设计，删除JavaClassRelationType.getRationality
+b）简化JavaClassRelationItem.getRelationIntensity的设计，删除JavaClassRelationType.getRationality（类关系类型合理性）
+
+c）
 
 
 1.2.4_04 2015-01-18

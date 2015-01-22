@@ -68,8 +68,6 @@ public class ServiceMonitorPanel extends JPanel implements ServiceMonitor {
 		workspace.add(tasks);
 
 		this.add(BorderLayout.CENTER, workspace);
-
-		refresh();
 	}
 
 	private JTable initRequestList() {

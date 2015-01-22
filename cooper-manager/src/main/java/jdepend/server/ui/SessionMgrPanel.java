@@ -56,8 +56,6 @@ public class SessionMgrPanel extends JPanel implements SessionListener {
 		workspace.add(clients);
 
 		this.add(BorderLayout.CENTER, workspace);
-
-		refresh();
 	}
 
 	private JTable initSessionList() {

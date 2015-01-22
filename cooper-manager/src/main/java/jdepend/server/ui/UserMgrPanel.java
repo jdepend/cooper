@@ -97,12 +97,6 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 		model.addColumn("积分");
 		model.addColumn("是否有效");
 
-		try {
-			this.refresh();
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-
 		final JScrollPane pane = new JScrollPane(table);
 
 		this.add(BorderLayout.CENTER, pane);

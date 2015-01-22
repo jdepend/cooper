@@ -40,20 +40,4 @@ public interface AnalyzerService extends Remote {
 	 */
 	public AnalyzerDTO download(String className) throws java.rmi.RemoteException;
 
-	/**
-	 * 删除分析器
-	 * 
-	 * @param className
-	 * @throws JDependException 
-	 */
-	public void delete(String className) throws JDependException;
-
-	/**
-	 * 获取全部的分析器信息
-	 * 
-	 * @return
-	 * @throws JDependException 
-	 */
-	public List<AnalyzerSummaryDTO> queryAll() throws JDependException;
-
 }
