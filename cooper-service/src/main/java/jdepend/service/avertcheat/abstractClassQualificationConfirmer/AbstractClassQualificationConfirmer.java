@@ -20,8 +20,8 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	}
 
 	private boolean confirmAbstractQualification(JavaClass javaClass) {
-		if (!javaClass.isAbstract())
-			return false;
+		// if (!javaClass.isAbstract())
+		// return false;
 
 		Collection<JavaClass> subClasses = javaClass.getSubClasses();
 		if (subClasses.size() >= ChildJavaClassCount) {
