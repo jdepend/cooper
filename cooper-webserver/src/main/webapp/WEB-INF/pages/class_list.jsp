@@ -15,13 +15,10 @@
 			<th>传入</th>
 			<th>传出</th>
 			<th>抽象程度</th>
-			<th>稳定性</th>
-			<th>抽象程度合理性</th>
 			<th>耦合值</th>
 			<th>内聚值</th>
 			<th>内聚性</th>
-			<th>封装性</th>
-			<th>易变性</th>
+			<th>是否稳定</th>
 			<th>是否存在状态</th>
 			<th>是否私有</th>
 		</tr>
@@ -34,17 +31,12 @@
 				<td>${item.lineCount}</td>
 				<td>${item.afferentCoupling}</td>
 				<td>${item.efferentCoupling}</td>
-				<td><fmt:formatNumber value="${item.abstractness}"
-						pattern="#.###" /></td>
-				<td><fmt:formatNumber value="${item.stability}" pattern="#.###" /></td>
-				<td><fmt:formatNumber value="${item.distance}" pattern="#.###" /></td>
+				<td>${item.abstractClassCount}</td>
 				<td><fmt:formatNumber value="${item.coupling}"
 						pattern="###,###.##" /></td>
 				<td><fmt:formatNumber value="${item.cohesion}"
 						pattern="###,###.##" /></td>
 				<td><fmt:formatNumber value="${item.balance}" pattern="#.###" /></td>
-				<td><fmt:formatNumber value="${item.encapsulation}"
-						pattern="#.###" /></td>
 				<td>${item.stable ? "是":"否"}</td>
 				<td>${item.state ? "有":"无"}</td>
 				<td>${item.usedByExternal ? "否":"是"}</td>
