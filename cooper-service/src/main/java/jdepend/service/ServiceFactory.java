@@ -26,7 +26,7 @@ public class ServiceFactory {
 //		initClassList();
 	}
 
-	public static int initClassList() {
+	private static int initClassList() {
 		SearchUtil search = new SearchUtil();
 		for (String path : ClassSearchUtil.getSelfPath()) {
 			search.addPath(path);
