@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;

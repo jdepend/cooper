@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.report.way.textui.TextSummaryPrinter;
 
 public class CycleDialog extends CooperDialog {

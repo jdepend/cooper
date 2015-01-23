@@ -10,7 +10,6 @@ import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
 import jdepend.service.remote.impl.JDependRemoteServiceImpl;
 import jdepend.service.remote.impl.JDependSessionServiceImpl;

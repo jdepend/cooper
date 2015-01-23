@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.ServiceFactory;
-import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 

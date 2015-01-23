@@ -16,7 +16,6 @@ import jdepend.model.component.CustomComponent;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.LayerComponentJudge;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;
-import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import junit.framework.TestCase;
 

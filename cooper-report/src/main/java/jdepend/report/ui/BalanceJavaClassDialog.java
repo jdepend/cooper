@@ -8,7 +8,6 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.GroupCouplingItem;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 
 public final class BalanceJavaClassDialog extends CooperDialog {

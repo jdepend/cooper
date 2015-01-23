@@ -1,7 +1,6 @@
 package jdepend.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 循环依赖识别器

@@ -19,12 +19,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.MultiLineTableCellRender;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;

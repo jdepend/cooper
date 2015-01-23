@@ -10,13 +10,13 @@ import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
+import jdepend.model.HttpInvokeItem;
 import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.Method;
-import jdepend.model.HttpInvokeItem;
 import jdepend.model.TableInfo;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.util.JavaClassCollection;

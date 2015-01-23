@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileFilter;
 
 import jdepend.core.command.CommandAdapter;
 import jdepend.core.command.CommandAdapterMgr;

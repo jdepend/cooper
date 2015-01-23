@@ -9,7 +9,6 @@ import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
-import jdepend.model.Relation;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public abstract class MoveRelationTODOItem extends TODOItem {

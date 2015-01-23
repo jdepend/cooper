@@ -10,8 +10,6 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.model.util.ClassSearchUtil;
-import jdepend.parse.util.SearchUtil;
 import jdepend.service.persistent.ServerConnectionProvider;
 
 import org.apache.log4j.Logger;

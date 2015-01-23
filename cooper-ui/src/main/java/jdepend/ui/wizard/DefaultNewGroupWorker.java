@@ -8,7 +8,6 @@ import java.util.Map;
 import jdepend.core.config.CommandConf;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
-import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
 public final class DefaultNewGroupWorker implements NewGroupWorker {

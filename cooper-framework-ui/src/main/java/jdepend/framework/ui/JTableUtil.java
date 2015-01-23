@@ -1,22 +1,15 @@
 package jdepend.framework.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
 import jxl.Workbook;
 import jxl.write.Label;

@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
-
 /**
  * 指标计算针对的单元
  * 

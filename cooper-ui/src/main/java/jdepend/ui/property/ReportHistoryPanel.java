@@ -17,7 +17,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.config.CommandConfException;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.core.config.GroupConfChangeListener;
 import jdepend.framework.exception.JDependException;

@@ -7,7 +7,6 @@ import javax.swing.ListModel;
 import javax.swing.ToolTipManager;
 
 import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.ui.JDependCooper;
 

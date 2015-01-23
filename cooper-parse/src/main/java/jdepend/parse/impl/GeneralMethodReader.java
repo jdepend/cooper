@@ -1,10 +1,9 @@
 package jdepend.parse.impl;
 
 import jdepend.model.InvokeItem;
-import jdepend.model.LocalInvokeItem;
 import jdepend.model.JavaPackage;
+import jdepend.model.LocalInvokeItem;
 import jdepend.model.Method;
-import jdepend.model.RMIInvokeItem;
 
 /**
  * 普通方法读取器

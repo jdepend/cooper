@@ -17,7 +17,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.Component;
 import jdepend.model.component.modelconf.ComponentConf;
-import jdepend.model.component.modelconf.JavaPackageComponentConf;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 
 import org.w3c.dom.Document;

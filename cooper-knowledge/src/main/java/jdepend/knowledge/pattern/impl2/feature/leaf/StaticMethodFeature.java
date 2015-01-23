@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.Attribute;
 import jdepend.model.Method;
 
 public class StaticMethodFeature extends AbstractFeature {

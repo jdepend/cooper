@@ -3,8 +3,6 @@ package jdepend.service.remote.analyzer;
 import java.rmi.Remote;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
-
 /**
  * 分析器远程服务
  * 

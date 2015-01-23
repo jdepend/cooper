@@ -1,6 +1,5 @@
 package jdepend.ui.property;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,15 +18,10 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.Measurable;
-import jdepend.model.Relation;
-import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.framework.CompareTableCellRenderer;
 import jdepend.ui.framework.JavaClassCompareTableCellRenderer;
-import jdepend.util.refactor.CompareObject;
 
 public class ClassListPanelWrapper extends ClassListPanel {
 

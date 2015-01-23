@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.BundleUtil;
 
 /**
  * 动态指标管理器

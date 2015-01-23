@@ -27,7 +27,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.framework.util.StringUtil;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateComparator;

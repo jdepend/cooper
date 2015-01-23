@@ -5,13 +5,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONArray;
-
-
-
 import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.util.IntensitySizeCalculator;
+import net.sf.json.JSONArray;
 
 
 public class WebRelationGraphUtil {

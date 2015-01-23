@@ -14,8 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import org.apache.bcel.classfile.Utility;
-
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
@@ -24,6 +22,8 @@ import jdepend.model.InvokeItem;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.Method;
 import jdepend.model.util.JavaClassUtil;
+
+import org.apache.bcel.classfile.Utility;
 
 public class MethodListPanel extends JPanel {
 

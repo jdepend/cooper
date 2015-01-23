@@ -16,7 +16,6 @@ import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.Measurable;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.result.AnalysisResultSummary;
 import jdepend.model.util.RelationByMetricsComparator;
 
 public class WebAnalysisResult extends AnalysisResult {

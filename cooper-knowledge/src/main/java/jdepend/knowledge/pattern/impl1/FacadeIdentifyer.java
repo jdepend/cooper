@@ -2,8 +2,6 @@ package jdepend.knowledge.pattern.impl1;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.JavaClass;

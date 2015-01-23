@@ -11,7 +11,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import jdepend.framework.config.PropertyConfigurator;
@@ -24,7 +23,6 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.util.JDependUtil;
 import jdepend.knowledge.ui.KnowledgePanel;
-import jdepend.service.ServiceFactory;
 import jdepend.service.persistent.ServerConnectionProvider;
 
 /**

@@ -2,7 +2,6 @@ package jdepend.util.todolist;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MathUtil;
-import jdepend.model.Relation;
 
 public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTODOItem {
 

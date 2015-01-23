@@ -2,7 +2,6 @@ package jdepend.knowledge.pattern.impl2.feature.leaf;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
