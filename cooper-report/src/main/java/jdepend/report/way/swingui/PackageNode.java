@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import jdepend.model.JDependUnit;
-import jdepend.model.util.JDependUnitComparatorMgr;
 
 /**
  * The <code>PackageNode</code> class defines the default behavior for tree
@@ -122,7 +121,7 @@ public abstract class PackageNode {
 
 			children = new ArrayList();
 			ArrayList packages = new ArrayList(getCoupledPackages());
-			Collections.sort(packages, JDependUnitComparatorMgr.getComparator());
+			Collections.sort(packages);
 			Iterator i = packages.iterator();
 			while (i.hasNext()) {
 				JDependUnit jPackage = (JDependUnit) i.next();

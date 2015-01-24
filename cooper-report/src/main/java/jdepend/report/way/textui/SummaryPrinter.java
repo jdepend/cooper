@@ -11,7 +11,6 @@ import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JDependUnitComparatorMgr;
 
 public abstract class SummaryPrinter extends Printer {
 
@@ -116,7 +115,7 @@ public abstract class SummaryPrinter extends Printer {
 
 		List<JDependUnit> efferents = new ArrayList<JDependUnit>(efferents1);
 
-		Collections.sort(efferents, JDependUnitComparatorMgr.getComparator());
+		Collections.sort(efferents);
 		Iterator efferentIter = efferents.iterator();
 		while (efferentIter.hasNext()) {
 			JDependUnit efferent = (JDependUnit) efferentIter.next();
@@ -136,7 +135,7 @@ public abstract class SummaryPrinter extends Printer {
 
 		List<JDependUnit> afferents = new ArrayList<JDependUnit>(afferents1);
 
-		Collections.sort(afferents, JDependUnitComparatorMgr.getComparator());
+		Collections.sort(afferents);
 		Iterator afferentIter = afferents.iterator();
 		while (afferentIter.hasNext()) {
 			JDependUnit afferent = (JDependUnit) afferentIter.next();
