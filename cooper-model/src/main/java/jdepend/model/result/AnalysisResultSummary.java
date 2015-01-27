@@ -77,9 +77,9 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		metricsSummaryInfos[9] = new MetricsSummaryInfo(MetricsMgr.D, MetricsSummaryInfo.TypeFloat,
 				MetricsSummaryInfo.LogicAVE);
 		metricsSummaryInfos[10] = new MetricsSummaryInfo(MetricsMgr.Coupling, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
+				MetricsSummaryInfo.LogicSUM);
 		metricsSummaryInfos[11] = new MetricsSummaryInfo(MetricsMgr.Cohesion, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
+				MetricsSummaryInfo.LogicSUM);
 		metricsSummaryInfos[12] = new MetricsSummaryInfo(MetricsMgr.Balance, MetricsSummaryInfo.TypeFloat,
 				MetricsSummaryInfo.LogicAVE);
 		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.OO, MetricsSummaryInfo.TypeFloat,
@@ -349,7 +349,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		resultSummry.setVolatility(MetricsFormat.toFormattedMetrics((Float) summry[7]));
 		resultSummry.setInstability(MetricsFormat.toFormattedMetrics((Float) summry[8]));
 		resultSummry.setDistance(MetricsFormat.toFormattedMetrics((Float) summry[9]));
-		resultSummry.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]));
+		resultSummry.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]) / 2);
 		resultSummry.setCohesion(MetricsFormat.toFormattedMetrics((Float) summry[11]));
 		resultSummry.setBalance(MetricsFormat.toFormattedMetrics((Float) summry[12]));
 		resultSummry.setObjectOriented(MetricsFormat.toFormattedMetrics((Float) summry[13]));

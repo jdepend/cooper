@@ -23,6 +23,7 @@ import jdepend.core.score.ScoreInfo;
 import jdepend.core.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JDependUIUtil;
+import jdepend.framework.ui.NumberLabel;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
@@ -160,17 +161,23 @@ public final class ScorePanel extends SubResultTabPanel {
 		JPanel scorePanel = new JPanel(new GridLayout(2, 1));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-		JPanel scoreItemPanel = new JPanel(new GridLayout(1, 2, 4, 0));
+		JPanel scoreItemPanel = new JPanel(new GridLayout(1, 3, 4, 0));
 		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
-		JLabel score = new JLabel();
-		score.setFont(new java.awt.Font("宋体", 1, 18));
+		JLabel scoreTitle = new JLabel();
+		scoreTitle.setFont(new java.awt.Font("宋体", 1, 18));
 		String title = null;
 		if (itemName.equals(AnalysisResult.Metrics_OO)) {
 			title = itemName + ":";
 		} else {
 			title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":";
 		}
-		score.setText(title + MetricsFormat.toFormattedMetrics(scoreValue));
+		scoreTitle.setText(title);
+		scoreItemPanel.add(scoreTitle);
+
+		JLabel score = new JLabel();
+		score.setFont(new java.awt.Font("宋体", 1, 18));
+
+		score.setText(MetricsFormat.toFormattedMetrics(scoreValue).toString());
 		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			score.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
