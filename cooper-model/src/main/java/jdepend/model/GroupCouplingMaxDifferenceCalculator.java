@@ -36,10 +36,17 @@ public final class GroupCouplingMaxDifferenceCalculator {
 		}
 		// 计算分组耦合值
 		for (Component component : relationComponents) {
-			GroupCouplingItem info = new GroupCouplingItem(component.getName(), self.coupling(component));
-			if (info.coupling > 0F) {
-				info.addDetail(self.caCouplingDetail(component).getItems());
-				info.addDetail(self.ceCouplingDetail(component).getItems());
+			RelationDetail caCouplingDetail = self.caCouplingDetail(component);
+			RelationDetail ceCouplingDetail = self.ceCouplingDetail(component);
+			float caCoupling = caCouplingDetail.getIntensity();
+			float ceCoupling = ceCouplingDetail.getIntensity();
+			float coupling = caCoupling + ceCoupling;
+			GroupCouplingItem info = new GroupCouplingItem(component.getName(), coupling);
+			if (caCoupling > 0F) {
+				info.addDetail(caCouplingDetail.getItems());
+			}
+			if (ceCoupling > 0F) {
+				info.addDetail(ceCouplingDetail.getItems());
 			}
 			groupCouplingInfos.add(info);
 		}
