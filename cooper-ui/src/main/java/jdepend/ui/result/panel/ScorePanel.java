@@ -23,7 +23,6 @@ import jdepend.core.score.ScoreInfo;
 import jdepend.core.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JDependUIUtil;
-import jdepend.framework.ui.NumberLabel;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;

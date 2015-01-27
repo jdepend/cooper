@@ -1,7 +1,9 @@
 package jdepend.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,15 +22,15 @@ public final class GroupCouplingMaxDifferenceCalculator {
 
 	public GroupCouplingMaxDifferenceCalculator(JavaClass self) {
 		// 收集有关系的分析单元
-		List<Component> relationComponents = new ArrayList<Component>();
+		Collection<Component> relationComponents = new HashSet<Component>();
 		for (JavaClass javaClass : self.getEfferents()) {
-			if (!self.getComponent().containsClass(javaClass) && !relationComponents.contains(javaClass.getComponent())) {
+			if (!relationComponents.contains(javaClass.getComponent())) {
 				relationComponents.add(javaClass.getComponent());
 
 			}
 		}
 		for (JavaClass javaClass : self.getAfferents()) {
-			if (!self.getComponent().containsClass(javaClass) && !relationComponents.contains(javaClass.getComponent())) {
+			if (!relationComponents.contains(javaClass.getComponent())) {
 				relationComponents.add(javaClass.getComponent());
 			}
 		}
