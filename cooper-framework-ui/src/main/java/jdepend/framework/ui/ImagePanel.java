@@ -18,6 +18,7 @@ public class ImagePanel extends JPanel {
 		this.imageName = imageName;
 
 		this.setLayout(new GridBagLayout());
+		this.setBackground(new java.awt.Color(255, 255, 255));
 	}
 
 	public void setStretch(boolean stretch) {
