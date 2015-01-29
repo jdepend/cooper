@@ -16,7 +16,7 @@ public class MMDialog extends CooperDialog {
 
 		ImagePanel imagePanel = new ImagePanel(getImageName(score));
 		imagePanel.setStretch(false);
-
+		
 		this.add(BorderLayout.CENTER, imagePanel);
 
 		JPanel buttonBar = new JPanel(new FlowLayout());

@@ -33,10 +33,14 @@ public class ImagePanel extends JPanel {
 		if (stretch) {
 			width = this.getWidth();
 			height = this.getHeight();
+			g.drawImage(backgroundImage, 0, 0, width, height, this);
 		} else {
 			width = backgroundImage.getWidth(this);
 			height = backgroundImage.getHeight(this);
+			int x = this.getWidth() / 2 - width / 2;
+			int y = this.getHeight() / 2 - height / 2;
+			g.drawImage(backgroundImage, x, y, width, height, this);
 		}
-		g.drawImage(backgroundImage, 0, 0, width, height, this);
+
 	}
 }
