@@ -1,4 +1,4 @@
-﻿1.2.4_05
+﻿1.2.4_05 2015-01-29
 
 a）改进ui组件中弹出窗口构造函数参数的数据结构（String->Component\JavaClass\JDependUnit）
 
