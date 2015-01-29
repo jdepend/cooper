@@ -4,7 +4,9 @@ a）改进ui组件中弹出窗口构造函数参数的数据结构（String->Com
 
 b）简化JavaClassRelationItem.getRelationIntensity的设计，删除JavaClassRelationType.getRationality（类关系类型合理性）
 
-c）
+c）清除部分复杂设计（抽象类识别逻辑、报告生成器）
+
+d）增加【分数对应的美女】功能（在总分数后有一个MM的链接，点击就是你的分数对应的美女）
 
 
 1.2.4_04 2015-01-18
