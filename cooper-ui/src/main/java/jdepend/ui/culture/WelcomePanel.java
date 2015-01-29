@@ -8,11 +8,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
+import jdepend.framework.ui.ImagePanel;
+
 public final class WelcomePanel extends ImagePanel {
 
 	private boolean visibleTitle = true;
 
 	public WelcomePanel() {
+
+		super("mascot.jpg");
 
 		this.setLayout(new GridBagLayout());
 

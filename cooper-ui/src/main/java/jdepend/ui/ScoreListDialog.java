@@ -335,16 +335,4 @@ public final class ScoreListDialog extends CooperDialog {
 
 		return button;
 	}
-
-	private Component createCloseButton() {
-		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ScoreListDialog.this.dispose();
-			}
-		});
-
-		return button;
-	}
-
 }

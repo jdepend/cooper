@@ -61,16 +61,4 @@ public final class ResultListDialog extends CooperDialog {
 
 		return button;
 	}
-
-	protected Component createCloseButton() {
-		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ResultListDialog.this.dispose();
-			}
-		});
-
-		return button;
-	}
-
 }

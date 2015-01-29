@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
 
+import jdepend.framework.ui.ImagePanel;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.AlphaPane;
@@ -71,6 +72,9 @@ public class JImagePane extends AlphaPane {
 
 	private Image prevArrow = JDependUIUtil.getImage("previous.png");
 	private Image nextArrow = JDependUIUtil.getImage("next.png");
+	
+	
+	private final static String backgroundImageName = "mascot.jpg";
 
 	/**
 	 * 构造一个没有背景图片的JImagePane
@@ -311,7 +315,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent2() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = new JLabel("1960年第一部Mini登陆美国.全球共计售出63,000部Mini汽车.");
@@ -331,7 +335,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent3() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = new JLabel("1963年Mini在Alpine Rally赛事中赢得冠军.Cooper S车型的获胜,也使得Mini被");
@@ -349,7 +353,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent4() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = new JLabel("1964年Mini赢得蒙地卡罗大赛冠军.而在1965,(1966)及1967年的赛事中,Mini依");
@@ -377,7 +381,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent5() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = new JLabel("1967年Mini Moke (jeep-style)成为电视影集\"The Prisoner\"的指定用车.");
@@ -391,7 +395,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent6() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = new JLabel("1994年BMW Group购并Rover Group, Mini, Land Rover, Rover及MG等品牌,正式");
@@ -489,7 +493,7 @@ public class JImagePane extends AlphaPane {
 
 	private JComponent getContent7() {
 
-		JPanel panel = new ImagePanel();
+		JPanel panel = new ImagePanel(backgroundImageName);
 		panel.setLayout(new GridBagLayout());
 
 		JLabel nameLabel = null;

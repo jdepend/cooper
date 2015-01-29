@@ -1,4 +1,4 @@
-package jdepend.ui.culture;
+package jdepend.framework.ui;
 
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
@@ -10,7 +10,10 @@ import jdepend.framework.ui.JDependUIUtil;
 
 public class ImagePanel extends JPanel {
 
-	public ImagePanel() {
+	private String imageName;
+
+	public ImagePanel(String imageName) {
+		this.imageName = imageName;
 
 		this.setLayout(new GridBagLayout());
 	}
@@ -18,7 +21,7 @@ public class ImagePanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Image backgroundImage = JDependUIUtil.getImage("mascot.jpg");
+		Image backgroundImage = JDependUIUtil.getImage(this.imageName);
 		int width = this.getWidth();
 		int height = this.getHeight();
 		// int imageWidth = backgroundImage.getWidth(this);

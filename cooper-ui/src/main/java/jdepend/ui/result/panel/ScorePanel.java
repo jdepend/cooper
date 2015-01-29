@@ -106,7 +106,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		scorePanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_TotalScore)));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-		scorePanel.add(this.createScorePanel());
+		scorePanel.add(this.createLeftPanel());
 
 		leftPanel.add(BorderLayout.CENTER, scorePanel);
 
@@ -160,7 +160,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JPanel scorePanel = new JPanel(new GridLayout(2, 1));
 		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-		JPanel scoreItemPanel = new JPanel(new GridLayout(1, 3, 4, 0));
+		JPanel scoreItemPanel = new JPanel(new GridLayout(1, 4, 4, 0));
 		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel scoreTitle = new JLabel();
 		scoreTitle.setFont(new java.awt.Font("宋体", 1, 18));
@@ -193,6 +193,19 @@ public final class ScorePanel extends SubResultTabPanel {
 		JLabel scoreCompareLabel = this.getComparedLabel(scoreValue, itemName);
 		if (scoreCompareLabel != null) {
 			scoreItemPanel.add(scoreCompareLabel);
+		}
+		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
+			JLabel mm = new JLabel("MM");
+			mm.addMouseListener(new java.awt.event.MouseAdapter() {
+				@Override
+				public void mouseClicked(java.awt.event.MouseEvent evt) {
+					MotiveDialog motive = new MotiveDialog(frame);
+					motive.setModal(true);
+					motive.setVisible(true);
+				}
+			});
+			JDependUIUtil.addClickTipEffect(mm);
+			scoreItemPanel.add(mm);
 		}
 		scorePanel.add(scoreItemPanel);
 
@@ -355,11 +368,11 @@ public final class ScorePanel extends SubResultTabPanel {
 	 * 
 	 * @return
 	 */
-	private JComponent createScorePanel() {
+	private JComponent createLeftPanel() {
 
-		JPanel scorePanel = new JPanel(new BorderLayout());
-		scorePanel.setBackground(new java.awt.Color(255, 255, 255));
-		scorePanel.add(BorderLayout.NORTH, this.createItem(AnalysisResult.Metrics_TotalScore, result.getScore()));
+		JPanel leftPanel = new JPanel(new BorderLayout());
+		leftPanel.setBackground(new java.awt.Color(255, 255, 255));
+		leftPanel.add(BorderLayout.NORTH, this.createItem(AnalysisResult.Metrics_TotalScore, result.getScore()));
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -504,9 +517,9 @@ public final class ScorePanel extends SubResultTabPanel {
 		contentpanel.add(otherPanel);
 		contentpanel.add(this.createGraphScore());
 
-		scorePanel.add(BorderLayout.CENTER, contentpanel);
+		leftPanel.add(BorderLayout.CENTER, contentpanel);
 
-		return scorePanel;
+		return leftPanel;
 	}
 
 	private JComponent createGraphScore() {
