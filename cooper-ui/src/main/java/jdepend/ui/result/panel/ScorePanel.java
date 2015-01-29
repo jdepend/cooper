@@ -151,7 +151,7 @@ public final class ScorePanel extends SubResultTabPanel {
 
 	}
 
-	private JPanel createItem(String itemName, Float scoreValue) {
+	private JPanel createItem(String itemName, final Float scoreValue) {
 
 		JPanel itemPanel = new JPanel(new BorderLayout());
 		itemPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -199,7 +199,7 @@ public final class ScorePanel extends SubResultTabPanel {
 			mm.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					MotiveDialog motive = new MotiveDialog(frame);
+					MMDialog motive = new MMDialog(scoreValue);
 					motive.setModal(true);
 					motive.setVisible(true);
 				}
