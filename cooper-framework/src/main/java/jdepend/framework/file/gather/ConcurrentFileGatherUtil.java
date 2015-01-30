@@ -2,13 +2,15 @@ package jdepend.framework.file.gather;
 
 import java.io.File;
 
+import jdepend.framework.util.ThreadPool;
+
 class ConcurrentFileGatherUtil extends AbstractFileGatherUtil {
 
 	ThreadSecurityTargetFiles files;// 所有的文件统计结果
 
 	Count count;// 跟踪并发线程数实体
 
-	final int threadCount = 10;// 并发线程数上限
+	final int threadCount = ThreadPool.ThreadCount;// 并发线程数上限
 
 	ConcurrentFileGatherUtil() {
 	}
