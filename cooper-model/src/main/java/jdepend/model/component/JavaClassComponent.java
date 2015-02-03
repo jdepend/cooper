@@ -29,11 +29,6 @@ public final class JavaClassComponent extends Component {
 		super(name);
 	}
 	
-	public JavaClassComponent(JavaClass javaClass){
-		this(javaClass.getName());
-		this.joinJavaClass(javaClass);
-	}
-
 	@Override
 	public float getObjectOriented() {
 		return this.getClasses().iterator().next().getObjectOriented();

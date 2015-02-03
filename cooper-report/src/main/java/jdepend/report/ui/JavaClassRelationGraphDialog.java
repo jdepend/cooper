@@ -20,18 +20,24 @@ public class JavaClassRelationGraphDialog extends CooperDialog {
 
 		Collection<Component> components = new ArrayList<Component>();
 
-		components.add(new JavaClassComponent(javaClass));
+		JavaClassComponent javaClassComponent = new JavaClassComponent(javaClass.getName());
+		javaClassComponent.joinJavaClass(javaClass);
+		components.add(javaClassComponent);
 
 		Collection<Component> componentCas = new ArrayList<Component>();
 
 		for (JavaClass relJavaClass : javaClass.getCaList()) {
-			componentCas.add(new JavaClassComponent(relJavaClass));
+			javaClassComponent = new JavaClassComponent(relJavaClass.getName());
+			javaClassComponent.joinJavaClass(relJavaClass);
+			componentCas.add(javaClassComponent);
 		}
 
 		Collection<Component> componentCes = new ArrayList<Component>();
 
 		for (JavaClass relJavaClass : javaClass.getCeList()) {
-			componentCes.add(new JavaClassComponent(relJavaClass));
+			javaClassComponent = new JavaClassComponent(relJavaClass.getName());
+			javaClassComponent.joinJavaClass(relJavaClass);
+			componentCes.add(javaClassComponent);
 		}
 
 		Collection<Relation> relations = new ArrayList<Relation>();
