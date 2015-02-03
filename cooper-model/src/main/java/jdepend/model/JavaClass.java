@@ -797,6 +797,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		if (list.size() > 20) {
 			LogUtil.getInstance(JavaClass.class).systemWarning(
 					"JavaClass[" + list.get(0).getName() + "] [" + this.getName() + "]collectCycle 搜索深度大于20停止搜索");
+			for (JDependUnit javaClass : list) {
+				LogUtil.getInstance(JavaClass.class).systemWarning("JavaClass[" + javaClass.getName() + "]");
+			}
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
 
@@ -807,6 +810,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 						return Cycle;// 存在循环依赖
 					}
 				}
+				knowledge.put(this, LocalCycle);
+				return LocalCycle;// 存在局部循环依赖
 			} else {
 				// 通知其他组件存在循环依赖
 				int index;
