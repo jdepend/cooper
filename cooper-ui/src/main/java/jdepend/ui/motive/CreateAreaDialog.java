@@ -40,11 +40,10 @@ public final class CreateAreaDialog extends ComponentListDialog {
 
 	private void addAreaInfo(int areaLayer, String areaName) throws JDependException {
 		Collection<jdepend.model.Component> components = new ArrayList<jdepend.model.Component>();
-		Map<String, jdepend.model.Component> unitForNames = JDependUnitMgr.getInstance().getResult()
-				.getComponentForNames();
 		for (String componentName : this.currentComponentNames) {
-			if (unitForNames.containsKey(componentName)) {
-				components.add(unitForNames.get(componentName));
+			jdepend.model.Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(componentName);
+			if (component != null) {
+				components.add(component);
 			}
 		}
 		this.motiveContainer.addAreaComponent(areaLayer, areaName, components);

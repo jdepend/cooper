@@ -22,11 +22,11 @@ public final class AddComponentDialog extends ComponentListDialog {
 		if (this.currentComponentNames == null || currentComponentNames.size() == 0) {
 			JOptionPane.showMessageDialog(this, "请选择组件", "alert", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			Map<String, jdepend.model.Component> unitForNames = JDependUnitMgr.getInstance().getResult()
-					.getComponentForNames();
 			for (String componentName : this.currentComponentNames) {
-				if (unitForNames.containsKey(componentName)) {
-					this.motiveContainer.addComponent(areaName, unitForNames.get(componentName));
+				jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
+						.getTheComponent(componentName);
+				if (component != null) {
+					this.motiveContainer.addComponent(areaName, component);
 				}
 			}
 			motiveOperationPanel.refreshArea();

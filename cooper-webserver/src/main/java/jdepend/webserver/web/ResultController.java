@@ -25,10 +25,10 @@ public class ResultController {
 		if (result == null) {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
-		model.addAttribute("component", result.getComponentForNames().get(componentId));
+		model.addAttribute("component", result.getTheComponent(componentId));
 		return "class_list";
 	}
-	
+
 	@RequestMapping(value = "/component/{componentId}/ca/view.ajax", method = RequestMethod.GET)
 	public String componentCa(Model model, @PathVariable String componentId, HttpServletRequest request)
 			throws JDependException {
@@ -37,11 +37,11 @@ public class ResultController {
 		if (result == null) {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
-		model.addAttribute("components", result.getComponentForNames().get(componentId).getAfferents());
-		
+		model.addAttribute("components", result.getTheComponent(componentId).getAfferents());
+
 		return "component_list";
 	}
-	
+
 	@RequestMapping(value = "/component/{componentId}/ce/view.ajax", method = RequestMethod.GET)
 	public String componentCe(Model model, @PathVariable String componentId, HttpServletRequest request)
 			throws JDependException {
@@ -50,8 +50,8 @@ public class ResultController {
 		if (result == null) {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
-		model.addAttribute("components", result.getComponentForNames().get(componentId).getEfferents());
-		
+		model.addAttribute("components", result.getTheComponent(componentId).getEfferents());
+
 		return "component_list";
 	}
 

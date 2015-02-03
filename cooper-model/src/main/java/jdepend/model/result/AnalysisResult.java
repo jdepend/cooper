@@ -405,7 +405,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return null;
 	}
 
-	public synchronized Map<String, Component> getComponentForNames() {
+	private synchronized Map<String, Component> getComponentForNames() {
 		if (this.componentForNames == null) {
 			this.componentForNames = new HashMap<String, Component>();
 			for (Component unit : this.components) {

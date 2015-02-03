@@ -146,13 +146,12 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		componentList = new ArrayList<Component>();
-		Map<String, Component> componentForNames = JDependUnitMgr.getInstance().getResult().getComponentForNames();
 		Iterator<String> itComponent = this.components.iterator();
 		String componentName;
 		Component component;
 		while (itComponent.hasNext()) {
 			componentName = itComponent.next();
-			component = componentForNames.get(componentName);
+			component = JDependUnitMgr.getInstance().getResult().getTheComponent(componentName);
 			if (component != null) {
 				this.componentList.add(component);
 				component.setAreaComponent(this);
