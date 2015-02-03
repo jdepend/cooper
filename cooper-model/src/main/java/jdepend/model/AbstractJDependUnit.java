@@ -195,14 +195,9 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		if (cohesion == null) {
 			float intensity = 0;
 			for (JavaClass javaClass : this.getClasses()) {
-				// 采用Ce来计算内值值
-				for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
-					if (this.containsClass(relationItem.getDepend())) {
-						intensity += relationItem.getRelationIntensity();
-					}
-				}
+				intensity += javaClass.getCohesion();
 			}
-			cohesion = intensity;
+			cohesion = intensity / 2;
 		}
 		return cohesion;
 	}
