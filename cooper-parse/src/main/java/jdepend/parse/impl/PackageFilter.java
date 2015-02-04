@@ -22,11 +22,21 @@ public class PackageFilter {
 	private Collection<String> filtered = new ArrayList<String>();
 	private Collection<String> notFiltered = new ArrayList<String>();
 
+	private transient Collection<String> classNames;// 本次分析的类列表
+
 	private transient Map<String, Boolean> histroy = new HashMap<String, Boolean>();
 
 	public PackageFilter(Collection<String> filteredPackages, Collection<String> notFilteredPackages) {
 		this.filtered = filteredPackages;
 		this.notFiltered = notFilteredPackages;
+	}
+
+	public boolean acceptClass(String className) {
+		if (this.classNames == null) {
+			return true;
+		} else {
+			return this.classNames.contains(className);
+		}
 	}
 
 	/**
@@ -87,6 +97,9 @@ public class PackageFilter {
 				this.filtered.add(filteredPackage);
 			}
 		}
+	}
 
+	public void setClassNames(Collection<String> classNames) {
+		this.classNames = classNames;
 	}
 }

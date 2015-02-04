@@ -45,6 +45,8 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	public Collection<JavaClass> build(AnalyzeData data) {
 		if (this.javaClasses == null || this.getConf().getEveryClassBuild()) {
 			javaClasses = new HashSet<JavaClass>();
+			//设置本次分析的classNames
+			this.parser.getConf().getPackageFilter().setClassNames(data.getClassNames());
 			// 解析Config
 			if (this.isParseConfigs()) {
 				this.parseConfigs(data.getConfigs());

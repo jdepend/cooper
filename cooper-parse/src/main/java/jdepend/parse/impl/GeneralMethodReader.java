@@ -49,7 +49,7 @@ public class GeneralMethodReader extends MethodReader {
 					} else {
 						calledPackageName = JavaPackage.Default;
 					}
-					if (filter.accept(calledPackageName)) {
+					if (filter.accept(calledPackageName) && filter.acceptClass(calledName)) {
 						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
 						method.addInvokeItem(item);
 					}

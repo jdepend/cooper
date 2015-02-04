@@ -2,9 +2,11 @@ package jdepend.framework.file;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,8 @@ public class AnalyzeData implements Serializable {
 	private transient Map<String, List<TargetFileInfo>> classes;
 
 	private transient Integer placePos;
+
+	private transient Collection<String> classNames;
 
 	public AnalyzeData() {
 		super();
@@ -55,6 +59,18 @@ public class AnalyzeData implements Serializable {
 			this.classifyFiles();
 		}
 		return classes;
+	}
+
+	public Collection<String> getClassNames() {
+		if (this.classNames == null) {
+			this.classNames = new HashSet<String>();
+			for (List<TargetFileInfo> targetFileInfos : getClasses().values()) {
+				for (TargetFileInfo targetFileInfo : targetFileInfos) {
+					this.classNames.add(targetFileInfo.getName());
+				}
+			}
+		}
+		return classNames;
 	}
 
 	public int getClassesCount() {
