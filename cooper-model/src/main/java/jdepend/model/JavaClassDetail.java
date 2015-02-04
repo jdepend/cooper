@@ -384,6 +384,16 @@ public class JavaClassDetail implements Serializable {
 			content.append("\n");
 		}
 
+		if (this.javaClass.getInnerClasses().size() > 0) {
+			content.append("innerClasses:\n");
+			for (JavaClass innerClass : this.javaClass.getInnerClasses()) {
+				content.append(tab());
+				content.append(innerClass.getName());
+				content.append("\n");
+			}
+			content.append("\n");
+		}
+
 		return content.toString();
 	}
 

@@ -76,6 +76,10 @@ public final class CopyUtil {
 		if (newJavaClass == null) {
 			newJavaClass = javaClass.clone();
 			javaClasses.put(newJavaClass.getId(), newJavaClass);
+			// 添加内部类
+			for (JavaClass innerClass : newJavaClass.getInnerClasses()) {
+				javaClasses.put(innerClass.getId(), innerClass);
+			}
 		}
 		return newJavaClass;
 	}

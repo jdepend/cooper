@@ -150,17 +150,11 @@ public class JavaClassRelationItem implements Serializable {
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 
 		// 准备序列化数据
-		if (this.depend != null) {
-			this.dependJavaClassPlace = this.depend.getPlace();
-			this.dependJavaClass = this.depend.getName();
-		}
-		if (this.current != null) {
-			this.currentJavaClassPlace = this.current.getPlace();
-			this.currentJavaClass = this.current.getName();
-		}
-		if (this.type != null) {
-			this.typeName = this.type.getName();
-		}
+		this.dependJavaClassPlace = this.depend.getPlace();
+		this.dependJavaClass = this.depend.getName();
+		this.currentJavaClassPlace = this.current.getPlace();
+		this.currentJavaClass = this.current.getName();
+		this.typeName = this.type.getName();
 
 		out.defaultWriteObject();// 序列化对象
 	}

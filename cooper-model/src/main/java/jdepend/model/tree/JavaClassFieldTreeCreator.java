@@ -25,7 +25,7 @@ public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
 
 		Collection<JavaClassRelationItem> relationTypeItems = new ArrayList<JavaClassRelationItem>();
 
-		for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
+		for (JavaClassRelationItem relationItem : javaClass.getSelfCeItems()) {
 			if (relationItem.getType() instanceof FieldRelation) {
 				relationTypeItems.add(relationItem);
 			}

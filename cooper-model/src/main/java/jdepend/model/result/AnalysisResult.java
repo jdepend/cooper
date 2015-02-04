@@ -225,7 +225,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			Iterator<JavaClassRelationItem> it;
 			for (JavaClass javaClass : deleteComponent.getClasses()) {
 				for (JavaClass dependClass : javaClass.getCaList()) {
-					it = dependClass.getCeItems().iterator();
+					it = dependClass.getSelfCeItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getDepend().equals(javaClass)) {
 							it.remove();
@@ -233,7 +233,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 					}
 				}
 				for (JavaClass dependClass : javaClass.getCeList()) {
-					it = dependClass.getCaItems().iterator();
+					it = dependClass.getSelfCaItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getDepend().equals(javaClass)) {
 							it.remove();
@@ -569,7 +569,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		if (listener != null) {
 			listener.onUnSequence("正在创建类集合");
 		}
-		JavaClassCollection javaClasses = new JavaClassCollection(getClasses());
+		JavaClassCollection javaClasses = new JavaClassCollection(JavaClassUtil.getAllClasses(components));
 		// 填充JavaClassRelationItem
 		if (listener != null) {
 			listener.onUnSequence("正在填充类关系");

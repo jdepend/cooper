@@ -198,6 +198,15 @@ public class JavaClassRelationCreator {
 			return;
 		}
 
+		if (current.containsInnerClass(depend)) {
+			current.addInnerClass(depend);
+			return;
+		}
+
+		if (current.containedInnerClass(depend)) {
+			return;
+		}
+
 		JavaClassRelationItem item = new JavaClassRelationItem();
 		item.setType(type);
 		item.setDirection(JavaClassRelationItem.CE_DIRECTION);

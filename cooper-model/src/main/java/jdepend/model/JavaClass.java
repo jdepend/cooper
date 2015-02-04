@@ -57,6 +57,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private boolean isIncludeTransactionalAnnotation;
 
+	private List<JavaClass> innerClasses = new ArrayList<JavaClass>();
+
 	private transient Collection<Method> methods;
 
 	private transient Map<Method, Collection<Method>> overrideMethods;
@@ -70,6 +72,10 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private transient Collection<JavaClass> interfaces;
 
 	private transient Collection<JavaClass> subClasses;
+
+	private transient Collection<JavaClassRelationItem> allCaItems;
+
+	private transient Collection<JavaClassRelationItem> allCeItems;
 
 	private final static int UnCalculate = -2;
 	private final static int HaveState = 1;
@@ -146,6 +152,37 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		} else {
 			return false;
 		}
+	}
+
+	public boolean containsInnerClass(JavaClass javaClass) {
+		if (!javaClass.isInnerClass()) {
+			return false;
+		} else {
+			return javaClass.getName().startsWith(this.getName());
+		}
+	}
+
+	public boolean containedInnerClass(JavaClass javaClass) {
+		if (!this.isInnerClass()) {
+			return false;
+		} else {
+			return this.getName().startsWith(javaClass.getName());
+		}
+	}
+
+	public void addInnerClass(JavaClass javaClass) {
+		if (!this.innerClasses.contains(javaClass)) {
+			this.innerClasses.add(javaClass);
+		}
+	}
+
+	public Collection<JavaClass> getInnerClasses() {
+		Collection<JavaClass> innerAllClasses = new HashSet<JavaClass>();
+		innerAllClasses.addAll(this.innerClasses);
+		for (JavaClass innerClass : this.innerClasses) {
+			innerAllClasses.addAll(innerClass.getInnerClasses());
+		}
+		return innerAllClasses;
 	}
 
 	public void setPackageName(String name) {
@@ -504,6 +541,16 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	public Collection<JavaClassRelationItem> getCaItems() {
+		if (this.allCaItems == null) {
+			this.allCaItems = new HashSet<JavaClassRelationItem>(this.caItems);
+			for (JavaClass innerClass : this.getInnerClasses()) {
+				this.allCaItems.addAll(innerClass.getSelfCaItems());
+			}
+		}
+		return allCaItems;
+	}
+
+	public Collection<JavaClassRelationItem> getSelfCaItems() {
 		return caItems;
 	}
 
@@ -536,6 +583,16 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	public Collection<JavaClassRelationItem> getCeItems() {
+		if (this.allCeItems == null) {
+			this.allCeItems = new HashSet<JavaClassRelationItem>(this.ceItems);
+			for (JavaClass innerClass : this.getInnerClasses()) {
+				this.allCeItems.addAll(innerClass.getSelfCeItems());
+			}
+		}
+		return allCeItems;
+	}
+
+	public Collection<JavaClassRelationItem> getSelfCeItems() {
 		return ceItems;
 	}
 
@@ -630,7 +687,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.ceItems) {
+		for (JavaClassRelationItem relationItem : this.getCeItems()) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
 				items.add(relationItem);
 				intensity += relationItem.getRelationIntensity();
@@ -652,7 +709,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.caItems) {
+		for (JavaClassRelationItem relationItem : this.getCaItems()) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
 				items.add(relationItem);
 				intensity += relationItem.getRelationIntensity();
@@ -667,7 +724,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public float caCoupling() {
 		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.caItems) {
+		for (JavaClassRelationItem relationItem : this.getCaItems()) {
 			if (!this.component.containsClass(relationItem.getDepend())) {
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -678,7 +735,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public float ceCoupling() {
 		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.ceItems) {
+		for (JavaClassRelationItem relationItem : this.getCeItems()) {
 			if (!this.component.containsClass(relationItem.getDepend())) {
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -904,6 +961,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	public void setComponent(Component component) {
 		this.component = component;
+		for (JavaClass innerClass : this.getInnerClasses()) {
+			innerClass.setComponent(component);
+		}
 	}
 
 	public void setStable(boolean b) {
@@ -960,7 +1020,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 		obj.setDetail(this.getDetail().clone(obj));
 
-		for (JavaClassRelationItem item : this.getCaItems()) {
+		for (JavaClassRelationItem item : this.getSelfCaItems()) {
 			JavaClassRelationItem newItem = item.clone();
 
 			if (!obj.caItems.contains(newItem)) {
@@ -968,7 +1028,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			}
 		}
 
-		for (JavaClassRelationItem item : this.getCeItems()) {
+		for (JavaClassRelationItem item : this.getSelfCeItems()) {
 			JavaClassRelationItem newItem = item.clone();
 
 			if (!obj.ceItems.contains(newItem)) {
@@ -976,7 +1036,15 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			}
 		}
 
+		for (JavaClass innerClass : this.innerClasses) {
+			obj.addInnerClass(innerClass.clone());
+		}
+
 		return obj;
+	}
+
+	public void supplyDetail(JavaClassCollection javaClasses) {
+		this.getDetail().supply(javaClasses);
 	}
 
 	public void supplyJavaClassRelationItem(JavaClassCollection javaClasses) {
@@ -985,7 +1053,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		JavaClassRelationItem relationItem;
 		JavaClass dependClass;
 
-		it = this.getCaItems().iterator();
+		it = this.getSelfCaItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();
 			dependClass = javaClasses.getTheClass(relationItem.getCurrentJavaClassPlace(),
@@ -998,7 +1066,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 				it.remove();
 			}
 		}
-		it = this.getCeItems().iterator();
+		it = this.getSelfCeItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();
 			dependClass = javaClasses.getTheClass(relationItem.getDependJavaClassPlace(),

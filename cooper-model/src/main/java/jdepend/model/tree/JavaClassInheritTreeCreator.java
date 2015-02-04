@@ -25,7 +25,7 @@ public class JavaClassInheritTreeCreator extends JavaClassTreeCreator {
 
 		Collection<JavaClassRelationItem> relationTypeItems = new ArrayList<JavaClassRelationItem>();
 
-		for (JavaClassRelationItem relationItem : javaClass.getCaItems()) {
+		for (JavaClassRelationItem relationItem : javaClass.getSelfCaItems()) {
 			if (relationItem.getType() instanceof InheritRelation) {
 				relationTypeItems.add(relationItem);
 			}

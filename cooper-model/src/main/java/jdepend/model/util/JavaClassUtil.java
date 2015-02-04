@@ -51,8 +51,19 @@ public class JavaClassUtil {
 
 	public static Collection<JavaClass> getClasses(Collection<Component> units) {
 		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
-		for (JDependUnit unit : units) {
+		for (Component unit : units) {
 			javaClasses.addAll(unit.getClasses());
+		}
+		return javaClasses;
+	}
+
+	public static Collection<JavaClass> getAllClasses(Collection<Component> units) {
+		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+		for (Component unit : units) {
+			javaClasses.addAll(unit.getClasses());
+			for (JavaClass javaClass : unit.getClasses()) {
+				javaClasses.addAll(javaClass.getInnerClasses());
+			}
 		}
 		return javaClasses;
 	}
@@ -140,7 +151,7 @@ public class JavaClassUtil {
 				@Override
 				public void run() {
 					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
-						javaClass.getDetail().supply(javaClasses);
+						javaClass.supplyDetail(javaClasses);
 					}
 				}
 			});

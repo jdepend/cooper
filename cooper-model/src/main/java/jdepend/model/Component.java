@@ -131,16 +131,16 @@ public abstract class Component extends AbstractJDependUnit {
 	 * @param components
 	 */
 	protected void filterExternalJavaClassRelationItems(Collection<Component> components) {
-		Collection<JavaClass> javaClasses = JavaClassUtil.getClasses(components);
+		Collection<JavaClass> javaClasses = JavaClassUtil.getAllClasses(components);
 		Iterator<JavaClassRelationItem> it;
 		for (JavaClass javaClass : javaClasses) {
-			it = javaClass.getCaItems().iterator();
+			it = javaClass.getSelfCaItems().iterator();
 			while (it.hasNext()) {
 				if (!javaClasses.contains(it.next().getDepend())) {
 					it.remove();
 				}
 			}
-			it = javaClass.getCeItems().iterator();
+			it = javaClass.getSelfCeItems().iterator();
 			while (it.hasNext()) {
 				if (!javaClasses.contains(it.next().getDepend())) {
 					it.remove();

@@ -73,7 +73,9 @@ public class Parse {
 
 		LogUtil.getInstance(Parse.class).systemLog("开始建立Package");
 		for (JavaClass javaClass : javaClasses) {
-			createPackage(javaClass);
+			if (!javaClass.isInnerClass()) {
+				createPackage(javaClass);
+			}
 		}
 
 		return packages.values();
