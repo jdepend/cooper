@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.metrics.ObjectOrientedMetrics;
 
 /**
  * 动态指标管理器
@@ -12,7 +13,7 @@ import jdepend.framework.exception.JDependException;
  * 
  */
 public final class MetricsMgr {
-	
+
 	public static final String Name = "Name";
 	public static final String Title = "Title";
 	public static final String LC = "LC";
@@ -32,7 +33,9 @@ public final class MetricsMgr {
 	public static final String Balance = "Balance";
 	public static final String Encapsulation = "Encapsulation";
 	public static final String Cycle = "Cycle";
-	
+
+	public static final String OO = "OO";
+
 	public static final String Cyclic = "存在";
 
 	public static final String HaveState = "有";
@@ -44,9 +47,12 @@ public final class MetricsMgr {
 
 	private static MetricsMgr mgr = new MetricsMgr();
 
-	protected Map<String, Metrics> metricses = new HashMap<String, Metrics>();
+	private Map<String, Metrics> metricses;
 
 	private MetricsMgr() {
+		metricses = new HashMap<String, Metrics>();
+
+		metricses.put(OO, new ObjectOrientedMetrics());
 	}
 
 	public static MetricsMgr getInstance() {
@@ -55,8 +61,9 @@ public final class MetricsMgr {
 
 	public void addMetrics(String name, Metrics metrics) throws JDependException {
 
-		// if(this.metricses.containsKey(name))
-		// throw new JDependException("名为[" + name + "]已经注册！");
+		if (this.metricses.containsKey(name)) {
+			throw new JDependException("名为[" + name + "]已经注册！");
+		}
 
 		this.metricses.put(name, metrics);
 	}
