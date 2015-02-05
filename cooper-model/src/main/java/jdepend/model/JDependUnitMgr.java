@@ -41,19 +41,6 @@ public final class JDependUnitMgr {
 		}
 	}
 
-	public JDependUnit getUnit(String unitID) {
-		if (result == null) {
-			return null;
-		} else {
-			Component component = this.result.getTheComponent(unitID);
-			if (component != null) {
-				return component;
-			} else {
-				return this.result.getTheClass(unitID);
-			}
-		}
-	}
-
 	public void clear() {
 		this.result = null;
 	}
