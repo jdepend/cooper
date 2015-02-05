@@ -51,8 +51,6 @@ public abstract class ObjectMeasured implements Measurable {
 			return MetricsFormat.toFormattedMetrics(this.getBalance());
 		case MetricsMgr.Encapsulation:
 			return MetricsFormat.toFormattedMetrics(this.getEncapsulation());
-		case MetricsMgr.OO:
-			return MetricsFormat.toFormattedMetrics(this.getObjectOriented());
 
 		default:
 			if (this.extendMetrics(metrics) != null) {

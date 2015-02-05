@@ -504,18 +504,6 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
-	public float getObjectOriented() {
-		if (this.getClassCount() == 0) {
-			return 0.0F;
-		}
-		Float oo = 0.0F;
-		for (JavaClass javaClass : this.javaClasses) {
-			oo += javaClass.getObjectOriented();
-		}
-		return oo / this.getClassCount();
-	}
-
-	@Override
 	public void clear() {
 		super.clear();
 
@@ -727,8 +715,7 @@ public abstract class Component extends AbstractJDependUnit {
 				+ MetricsFormat.toFormattedMetrics(this.getCoupling()) + " 内聚值:"
 				+ MetricsFormat.toFormattedMetrics(this.getCohesion()) + " 内聚性:"
 				+ MetricsFormat.toFormattedMetrics(this.getBalance()) + " 封装性:"
-				+ (this.getEncapsulation() == null ? "-" : MetricsFormat.toFormattedMetrics(this.getEncapsulation()))
-				+ " 面向对象:" + MetricsFormat.toFormattedMetrics(this.getObjectOriented());
+				+ (this.getEncapsulation() == null ? "-" : MetricsFormat.toFormattedMetrics(this.getEncapsulation()));
 	}
 
 	public static String getDefaultComponentName(List<String> javaPackages, boolean isFullComponentName) {

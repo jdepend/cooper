@@ -60,8 +60,8 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 				tab(4) + "<Coupling>" + MetricsFormat.toFormattedMetrics(jPackage.getCoupling()) + "</Coupling>");
 		getWriter().println(
 				tab(4) + "<Cohesion>" + MetricsFormat.toFormattedMetrics(jPackage.getCohesion()) + "</Cohesion>");
-		getWriter().println(tab(4) + "<Balance>" + MetricsFormat.toFormattedMetrics(jPackage.getBalance()) + "</Balance>");
-		getWriter().println(tab(4) + "<OO>" + MetricsFormat.toFormattedMetrics(jPackage.getObjectOriented()) + "</OO>");
+		getWriter().println(
+				tab(4) + "<Balance>" + MetricsFormat.toFormattedMetrics(jPackage.getBalance()) + "</Balance>");
 		getWriter().println(tab(3) + "</Stats>");
 	}
 

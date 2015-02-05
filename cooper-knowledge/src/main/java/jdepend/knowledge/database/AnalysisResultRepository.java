@@ -75,7 +75,7 @@ public final class AnalysisResultRepository {
 			ps.setFloat(12, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
+			ps.setFloat(15, 0F);
 			ps.setInt(16, feature.getComponentCount());
 			if (!result.getRunningContext().isLocalRunning()) {
 				ps.setString(17, result.getRunningContext().getClient());
@@ -110,7 +110,7 @@ public final class AnalysisResultRepository {
 			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(17, MetricsFormat.toFormattedMetrics(feature.getObjectOriented()));
+			ps.setFloat(17, 0F);
 			ps.setInt(18, feature.getComponentCount());
 			if (!result.getRunningContext().isLocalRunning()) {
 				ps.setString(19, result.getRunningContext().getClient());
@@ -235,7 +235,6 @@ public final class AnalysisResultRepository {
 				analysisSummry.setEncapsulation(MetricsFormat.toFormattedMetrics(rs.getFloat("encapsulation")));
 				analysisSummry.setDistance(MetricsFormat.toFormattedMetrics(rs.getFloat("d")));
 				analysisSummry.setInstability(MetricsFormat.toFormattedMetrics(rs.getFloat("i")));
-				analysisSummry.setObjectOriented(MetricsFormat.toFormattedMetrics(rs.getFloat("oo")));
 				analysisSummry.setComponentCount(rs.getInt("uc"));
 
 				executeSummry.setSummry(analysisSummry);

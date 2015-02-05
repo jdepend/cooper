@@ -86,7 +86,6 @@ public final class ScoreRepository {
 			ps.setFloat(7, score.balance);
 			ps.setFloat(8, score.encapsulation);
 			ps.setFloat(9, score.relation);
-			ps.setFloat(10, score.oo);
 			ps.execute();
 
 			conn.commit();
@@ -164,7 +163,7 @@ public final class ScoreRepository {
 			ps.setFloat(7, score.balance);
 			ps.setFloat(8, score.encapsulation);
 			ps.setFloat(9, score.relation);
-			ps.setFloat(10, score.oo);
+			ps.setFloat(10, 0F);
 			ps.execute();
 
 			data = result.getBytes();
@@ -229,7 +228,6 @@ public final class ScoreRepository {
 				score.balance = rs.getFloat("balance");
 				score.encapsulation = rs.getFloat("encapsulation");
 				score.relation = rs.getFloat("relation");
-				score.oo = rs.getFloat("oo");
 				score.createDate = rs.getTimestamp("createDate");
 
 				ps1 = conn.prepareStatement(findScoreExtSql);
@@ -294,7 +292,6 @@ public final class ScoreRepository {
 				score.balance = rs.getFloat("balance");
 				score.encapsulation = rs.getFloat("encapsulation");
 				score.relation = rs.getFloat("relation");
-				score.oo = rs.getFloat("oo");
 				score.createDate = rs.getTimestamp("createDate");
 
 				ps1 = conn.prepareStatement(findScoreExtSql);
@@ -451,7 +448,6 @@ public final class ScoreRepository {
 				score.balance = rs.getFloat("balance");
 				score.encapsulation = rs.getFloat("encapsulation");
 				score.relation = rs.getFloat("relation");
-				score.oo = rs.getFloat("oo");
 				score.createDate = rs.getTimestamp("createDate");
 
 				return score;

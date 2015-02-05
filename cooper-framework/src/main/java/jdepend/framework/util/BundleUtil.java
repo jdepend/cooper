@@ -178,7 +178,6 @@ public class BundleUtil {
 	public static final String Metrics_Balance = "Metrics_Balance";// 内聚性
 	public static final String Metrics_Encapsulation = "Metrics_Encapsulation";// 封装性
 	public static final String Metrics_RelationRationality = "Metrics_RelationRationality";// 关系合理性
-	public static final String Metrics_OO = "Metrics_OO";// 面向对象指数
 
 	public static final String Metrics_Place = "Metrics_Place";
 	public static final String Metrics_Name = "Metrics_Name";

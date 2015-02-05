@@ -47,8 +47,6 @@ public class ScoreByItemComparator implements Comparator {
 				rtn = a.relation.compareTo(b.relation);
 			} else if (this.metrics.equals(AnalysisResult.Metrics_TotalScore)) {
 				rtn = a.score.compareTo(b.score);
-			} else if (this.metrics.equals(AnalysisResult.Metrics_OO)) {
-				rtn = a.oo.compareTo(b.oo);
 			} else if (this.metrics.equals(AnalysisResult.Metrics_Encapsulation)) {
 				rtn = a.encapsulation.compareTo(b.encapsulation);
 			} else {

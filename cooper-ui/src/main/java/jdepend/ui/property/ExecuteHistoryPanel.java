@@ -223,8 +223,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		histroyModel.addColumn(ReportConstant.Cohesion);
 		histroyModel.addColumn(ReportConstant.Balance);
 		histroyModel.addColumn(ReportConstant.Encapsulation);
-		histroyModel.addColumn(ReportConstant.OO);
-
+		
 		histroyTable.getColumn("ID").setMaxWidth(0);
 		histroyTable.getColumn("ID").setMinWidth(0);
 
@@ -279,7 +278,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		List<ExecuteResultSummry> summrys = AnalysisResultRepository.getResultSummrys(group, command);
 
 		for (ExecuteResultSummry summry : summrys) {
-			row = new Object[16];
+			row = new Object[15];
 			row[0] = summry.getId();
 			row[1] = summry.getCreateDate();
 			row[2] = summry.getSummry().getLineCount();
@@ -295,8 +294,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			row[12] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCohesion());
 			row[13] = MetricsFormat.toFormattedMetrics(summry.getSummry().getBalance());
 			row[14] = MetricsFormat.toFormattedMetrics(summry.getSummry().getEncapsulation());
-			row[15] = MetricsFormat.toFormattedMetrics(summry.getSummry().getObjectOriented());
-
+		
 			histroyModel.addRow(row);
 		}
 	}

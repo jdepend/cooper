@@ -155,7 +155,6 @@ public abstract class PackageNode {
 		label.append("D: " + format(getPackage().getDistance()) + "  ");
 		label.append("Coupling: " + format(jPackage.getCoupling()) + "  ");
 		label.append("Cohesion: " + format(jPackage.getCohesion()) + "  ");
-		label.append("OO: " + format(jPackage.getObjectOriented()) + "  ");
 		if (getPackage().getContainsCycle()) {
 			label.append(" Cyclic");
 		}

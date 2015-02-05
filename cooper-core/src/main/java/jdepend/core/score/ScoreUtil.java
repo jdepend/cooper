@@ -20,7 +20,6 @@ public final class ScoreUtil {
 		score.d = result.getD();
 		score.balance = result.getBalance();
 		score.relation = result.getRelationRationality();
-		score.oo = result.getSummary().getObjectOriented();
 		score.encapsulation = result.getEncapsulation();
 
 		if (ScoreAndResult.equals(mode)) {

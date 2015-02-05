@@ -78,8 +78,6 @@ public class JDependUnitByMetricsComparator implements Comparator {
 				} else {
 					rtn = a.getEncapsulation().compareTo(b.getEncapsulation());
 				}
-			} else if (this.metrics.equals(MetricsMgr.OO)) {
-				rtn = new Float(a.getObjectOriented()).compareTo(new Float(b.getObjectOriented()));
 			} else if (a.extendMetrics(metrics) != null) {
 				rtn = new Float(a.extendMetrics(metrics).getMetrics()).compareTo(new Float(b.extendMetrics(metrics)
 						.getMetrics()));

@@ -14,14 +14,14 @@ public interface Measurable extends Named {
 	 * @return
 	 */
 	public String getTitle();
-	
+
 	/**
 	 * 区域
 	 * 
 	 * @return
 	 */
 	public String getArea();
-	
+
 	/**
 	 * 代码行数
 	 * 
@@ -121,13 +121,6 @@ public interface Measurable extends Named {
 	public Float getEncapsulation();
 
 	/**
-	 * 面向对象指数（0~）
-	 * 
-	 * @return
-	 */
-	public float getObjectOriented();
-
-	/**
 	 * 是否存在循环依赖
 	 * 
 	 * @return
@@ -141,7 +134,7 @@ public interface Measurable extends Named {
 	 * @return
 	 */
 	public MetricsInfo extendMetrics(String metrics);
-	
+
 	/**
 	 * 得到指定指标的值
 	 * 

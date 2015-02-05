@@ -145,12 +145,6 @@ public class CompareInfo {
 				} else {
 					return true;
 				}
-			} else if (metrics.equals(MetricsMgr.OO)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
 			} else if (metrics.equals(MetricsMgr.Encapsulation)) {
 				if (result < 0) {
 					return false;

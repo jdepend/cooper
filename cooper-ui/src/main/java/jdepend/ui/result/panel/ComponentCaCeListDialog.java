@@ -77,7 +77,7 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 			units = this.component.getEfferents();
 		}
 		for (JDependUnit unit : units) {
-			row = new Object[13];
+			row = new Object[12];
 			row[0] = unit.getName();
 			row[1] = unit.getLineCount();
 			row[2] = unit.getClassCount();
@@ -89,12 +89,11 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 			row[8] = MetricsFormat.toFormattedMetrics(unit.getDistance());
 			row[9] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCoupling()));
 			row[10] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
-			row[11] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
 
 			if (unit.getContainsCycle()) {
-				row[12] = MetricsMgr.Cyclic;
+				row[11] = MetricsMgr.Cyclic;
 			} else {
-				row[12] = MetricsMgr.NoValue;
+				row[11] = MetricsMgr.NoValue;
 			}
 
 			listModel.addRow(row);
@@ -128,7 +127,6 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 		listModel.addColumn(ReportConstant.D);
 		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
-		listModel.addColumn(ReportConstant.OO);
 		listModel.addColumn(ReportConstant.Cycle);
 
 		listTable.addMouseListener(new MouseAdapter() {

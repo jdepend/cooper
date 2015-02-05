@@ -141,7 +141,6 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().println(tab() + "Coupling: " + MetricsFormat.toFormattedMetrics(unit.getCoupling()));
 		getWriter().println(tab() + "Cohesion: " + MetricsFormat.toFormattedMetrics(unit.getCohesion()));
 		getWriter().println(tab() + "Balance: " + MetricsFormat.toFormattedMetrics(unit.getBalance()));
-		getWriter().println(tab() + "OO: " + MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
 	}
 
 	@Override
@@ -239,7 +238,6 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().print(ReportConstant.Coupling + "	");
 		getWriter().print(ReportConstant.Cohesion + "	");
 		getWriter().print(ReportConstant.Balance + "	");
-		getWriter().print(ReportConstant.OO + "	");
 		getWriter().print(ReportConstant.Cycle);
 
 		getWriter().println(":\n");
@@ -264,7 +262,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 			row[10] = unit.getCoupling();
 			row[11] = unit.getCohesion();
 			row[12] = unit.getBalance();
-			row[13] = unit.getObjectOriented();
+			row[13] = 0F;
 			if (unit.getContainsCycle()) {
 				row[14] = MetricsMgr.Cyclic;
 			} else {
@@ -300,7 +298,6 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCoupling()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCohesion()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getBalance()) + "	");
-		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getObjectOriented()) + "	");
 		getWriter().print("\n");
 	}
 

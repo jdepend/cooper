@@ -28,7 +28,6 @@ public class ReportConstant {
 	public static final String Coupling = BundleUtil.getString(BundleUtil.Metrics_Coupling);
 	public static final String Cohesion = BundleUtil.getString(BundleUtil.Metrics_Cohesion);
 	public static final String Balance = BundleUtil.getString(BundleUtil.Metrics_Balance);
-	public static final String OO = BundleUtil.getString(BundleUtil.Metrics_OO);
 	public static final String Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
 	public static final String Cycle = BundleUtil.getString(BundleUtil.Metrics_Cycle);
 
@@ -54,7 +53,6 @@ public class ReportConstant {
 	public static final String Result_Metrics_Balance = BundleUtil.getString(BundleUtil.Metrics_Balance);
 	public static final String Result_Metrics_RelationRationality = BundleUtil
 			.getString(BundleUtil.Metrics_RelationRationality);
-	public static final String Result_Metrics_OO = BundleUtil.getString(BundleUtil.Metrics_OO);
 	public static final String Result_Metrics_Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
 
 	public static final String DependInterface = BundleUtil.getString(BundleUtil.TableHead_DependInterface);
@@ -83,7 +81,6 @@ public class ReportConstant {
 		Tips.put(D, "abs(抽象程度 + 易变性 + 稳定性 - 1)，值越接近零越合理");
 		Tips.put(Coupling, "sum(依赖的JavaClass * Relation强度)，值越小越好");
 		Tips.put(Cohesion, "sum(内部的JavaClass * Relation强度)，值越大越好");
-		Tips.put(OO, "私有属性 / 公开方法，值越大越好");
 		Tips.put(Encapsulation, "私有类比例，值越大越好");
 		Tips.put(Balance, "内聚值/(内聚值+分组耦合最大顺序差值)，分析单元内聚性指标。值越大越好");
 		Tips.put(Relation_Balance, "关系双方内聚值 - 关系耦合值，关系的平衡指数。值越大越好");
@@ -111,7 +108,6 @@ public class ReportConstant {
 		toMetricses.put(Cohesion, MetricsMgr.Cohesion);
 		toMetricses.put(Balance, MetricsMgr.Balance);
 		toMetricses.put(Encapsulation, MetricsMgr.Encapsulation);
-		toMetricses.put(OO, MetricsMgr.OO);
 		toMetricses.put(Cycle, MetricsMgr.Cycle);
 
 		toMetricses.put(Component_Area, Component.Area);
@@ -138,7 +134,6 @@ public class ReportConstant {
 		toMetricsNames.put(AnalysisResult.Metrics_D, Result_Metrics_D);
 		toMetricsNames.put(AnalysisResult.Metrics_Balance, Result_Metrics_Balance);
 		toMetricsNames.put(AnalysisResult.Metrics_RelationRationality, Result_Metrics_RelationRationality);
-		toMetricsNames.put(AnalysisResult.Metrics_OO, Result_Metrics_OO);
 		toMetricsNames.put(AnalysisResult.Metrics_Encapsulation, Result_Metrics_Encapsulation);
 	}
 

@@ -164,12 +164,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		scoreItemPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JLabel scoreTitle = new JLabel();
 		scoreTitle.setFont(new java.awt.Font("宋体", 1, 18));
-		String title = null;
-		if (itemName.equals(AnalysisResult.Metrics_OO)) {
-			title = itemName + ":";
-		} else {
-			title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":";
-		}
+		String title = BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score) + ":";
 		scoreTitle.setText(title);
 		scoreItemPanel.add(scoreTitle);
 
@@ -213,9 +208,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		fullScore.setBackground(new java.awt.Color(153, 153, 153));
 		fullScore.setFont(new java.awt.Font("宋体", 0, 10));
 		fullScore.setForeground(new java.awt.Color(204, 204, 204));
-		if (itemName.equals(AnalysisResult.Metrics_OO)) {
-			fullScore.setText(BundleUtil.getString(BundleUtil.Metrics_OO_Desc));
-		} else if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
+		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.FullScore);
 		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
@@ -733,9 +726,6 @@ public final class ScorePanel extends SubResultTabPanel {
 		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
 			lScore = lScoreInfo.relation;
 			hScore = hScoreInfo.relation;
-		} else if (itemName.equals(AnalysisResult.Metrics_OO)) {
-			lScore = lScoreInfo.oo;
-			hScore = hScoreInfo.oo;
 		}
 
 		return this.createScope(lScore, lScoreId, hScore, hScoreId);

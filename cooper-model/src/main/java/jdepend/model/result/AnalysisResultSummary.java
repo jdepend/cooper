@@ -42,8 +42,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private float instability;
 
-	private float objectOriented;
-
 	private float volatility;
 
 	private int javaPackageCount;
@@ -55,7 +53,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	private static MetricsSummaryInfo[] metricsSummaryInfos;
 
 	static {
-		metricsSummaryInfos = new MetricsSummaryInfo[15];
+		metricsSummaryInfos = new MetricsSummaryInfo[14];
 		metricsSummaryInfos[0] = new MetricsSummaryInfo(MetricsMgr.LC, MetricsSummaryInfo.TypeInteger,
 				MetricsSummaryInfo.LogicSUM);
 		metricsSummaryInfos[1] = new MetricsSummaryInfo(MetricsMgr.CN, MetricsSummaryInfo.TypeInteger,
@@ -82,9 +80,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 				MetricsSummaryInfo.LogicSUM);
 		metricsSummaryInfos[12] = new MetricsSummaryInfo(MetricsMgr.Balance, MetricsSummaryInfo.TypeFloat,
 				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.OO, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[14] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat,
+		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat,
 				MetricsSummaryInfo.LogicAVE);
 	}
 
@@ -169,11 +165,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float getObjectOriented() {
-		return this.objectOriented;
-	}
-
-	@Override
 	public float getVolatility() {
 		return this.volatility;
 	}
@@ -226,10 +217,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	public void setInstability(float instability) {
 		this.instability = instability;
-	}
-
-	public void setObjectOriented(float objectOriented) {
-		this.objectOriented = objectOriented;
 	}
 
 	public void setVolatility(float volatility) {
@@ -352,9 +339,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		resultSummry.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]) / 2);
 		resultSummry.setCohesion(MetricsFormat.toFormattedMetrics((Float) summry[11]));
 		resultSummry.setBalance(MetricsFormat.toFormattedMetrics((Float) summry[12]));
-		resultSummry.setObjectOriented(MetricsFormat.toFormattedMetrics((Float) summry[13]));
+		resultSummry.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[13]));
 		resultSummry.setComponentCount(objs.size());
-		resultSummry.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[14]));
 
 		resultSummry.setRelationCount(result.getRelations().size());
 
@@ -384,7 +370,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 				+ " [sum(内部的JavaClass * Relation强度)，值越大越好]\n");
 		info.append("   内聚性指数" + MetricsFormat.toFormattedMetrics(this.getBalance())
 				+ " [内聚值/(内聚值+分组耦合最大顺序差值），值越大越好]\n");
-		info.append("   面向对象指数" + MetricsFormat.toFormattedMetrics(this.getObjectOriented()) + " [私有属性 / 公开方法，值越大越好]\n");
 		info.append("   封装性" + MetricsFormat.toFormattedMetrics(this.getEncapsulation()) + " [私有类比例，值越大越好]\n");
 
 		return info.toString();

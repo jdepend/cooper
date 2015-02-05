@@ -22,11 +22,9 @@ public final class ScoreInfo implements Serializable, Comparable<ScoreInfo> {
 
 	public Float relation;
 
-	public Date createDate;
-
-	public Float oo;
-	
 	public Float encapsulation;
+
+	public Date createDate;
 
 	public Date getCreateDate() {
 		return new Date(createDate.getTime()) {

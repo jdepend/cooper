@@ -801,50 +801,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	@Override
-	public synchronized float getObjectOriented() {
-		if (this.objectOriented == null) {
-			int attributeCount = this.countAttributes();
-			int methodCount = this.countMethods();
-			if (methodCount != 0) {
-				this.objectOriented = new Float(attributeCount) / new Float(methodCount);
-			} else {
-				this.objectOriented = 0F;
-			}
-		}
-		return this.objectOriented;
-	}
-
-	/**
-	 * 计算非公开属性
-	 * 
-	 * @return
-	 */
-	protected int countAttributes() {
-		int count = 0;
-		for (Attribute attribute : this.getAttributes()) {
-			if (!attribute.isPublic() && !attribute.isStatic()) {
-				count += 1;
-			}
-		}
-		return count;
-	}
-
-	/**
-	 * 计算公开方法
-	 * 
-	 * @return
-	 */
-	protected int countMethods() {
-		int count = 0;
-		for (Method method : this.getSelfMethods()) {
-			if (method.isPublic() && !method.isConstruction()) {
-				count += 1;
-			}
-		}
-		return count;
-	}
-
-	@Override
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
 		if (!this.getComponent().getContainsCycle()) {

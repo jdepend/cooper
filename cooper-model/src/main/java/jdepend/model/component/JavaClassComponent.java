@@ -28,11 +28,6 @@ public final class JavaClassComponent extends Component {
 	public JavaClassComponent(String name) {
 		super(name);
 	}
-	
-	@Override
-	public float getObjectOriented() {
-		return this.getClasses().iterator().next().getObjectOriented();
-	}
 
 	@Override
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {

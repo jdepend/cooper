@@ -24,7 +24,6 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 		this.printTableHeadElement(ReportConstant.Coupling);
 		this.printTableHeadElement(ReportConstant.Cohesion);
 		this.printTableHeadElement(ReportConstant.Balance);
-		this.printTableHeadElement(ReportConstant.OO);
 		this.printTableHeadElement(ReportConstant.Cycle);
 		getWriter().println("\n</tr>");
 
@@ -43,7 +42,6 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getCoupling()));
 			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
 			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getBalance()));
-			this.printTableRowElement(MetricsFormat.toFormattedMetrics(unit.getObjectOriented()));
 			if (unit.getContainsCycle()) {
 				this.printTableRowElement(MetricsMgr.Cyclic);
 			} else {
@@ -65,7 +63,6 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCoupling()));
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCohesion()));
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getBalance()));
-		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getObjectOriented()));
 		getWriter().println("\n</tr>");
 		getWriter().println("</table>");
 

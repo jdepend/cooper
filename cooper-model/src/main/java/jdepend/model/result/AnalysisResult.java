@@ -75,7 +75,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public static final String Metrics_RelationRationality = "Result_Metrics_RelationRationality";
 	public static final String Metrics_Encapsulation = "Result_Metrics_Encapsulation";
 
-	public static final String Metrics_OO = "Result_Metrics_OO";
 	public static final String Metrics_TotalScore = "Result_Metrics_TotalScore";
 
 	public static final String Metrics_LC = "Result_Metrics_LC";
