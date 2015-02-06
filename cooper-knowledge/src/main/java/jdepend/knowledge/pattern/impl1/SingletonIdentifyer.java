@@ -16,6 +16,9 @@ public final class SingletonIdentifyer extends AbstractPatternIdentifyer {
 		boolean isSingleton;
 		boolean getter;
 		for (JavaClass javaClass : javaClasses) {
+			if(javaClass.getName().equals("jdepend.model.MetricsMgr")){
+				System.out.print("");
+			}
 			if (!javaClass.isEnum()) {
 				isSingleton = true;
 				getter = false;
@@ -37,8 +40,8 @@ public final class SingletonIdentifyer extends AbstractPatternIdentifyer {
 						if (attribute.isStatic()) {
 							if (attribute.getTypes().contains(javaClass.getName())) {
 								rtn.add(new PatternInfo(javaClass, javaClass.getName()));
+								break;
 							}
-							break;
 						}
 					}
 				}
