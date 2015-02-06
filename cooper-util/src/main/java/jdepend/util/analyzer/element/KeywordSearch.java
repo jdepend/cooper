@@ -14,8 +14,6 @@ import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
-import jdepend.model.component.JavaClassComponent;
-import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -91,7 +89,7 @@ public class KeywordSearch extends AbstractAnalyzer {
 					}
 				}
 			}
-			if (!exist && units.size() > 0 && !(units.iterator().next() instanceof JavaPackageComponent)) {
+			if (!exist && units.size() > 0) {
 				for (JavaPackage javaPackage : result.getJavaPackages()) {
 					if (this.match(javaPackage.getName(), keyword.content)) {
 						keywordUnit = new KeywordUnit(javaPackage, keyword);
@@ -101,8 +99,6 @@ public class KeywordSearch extends AbstractAnalyzer {
 						}
 					}
 				}
-			}
-			if (!exist && units.size() > 0 && !(units.iterator().next() instanceof JavaClassComponent)) {
 				for (JavaClass javaClass : result.getClasses()) {
 					if (this.match(javaClass.getName(), keyword.content)) {
 						keywordUnit = new KeywordUnit(javaClass, keyword);
