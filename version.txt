@@ -10,6 +10,8 @@ d）改进对LocalInvokeItem的收集策略（提升性能）
 
 e）修正JavaClass.getMethods中的bug
 
+f）修正识别单例模式算法中的bug
+
 1.2.4_05 2015-01-29
 
 a）改进ui组件中弹出窗口构造函数参数的数据结构（String->Component\JavaClass\JDependUnit）
