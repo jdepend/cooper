@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,6 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.Candidate;
-import jdepend.model.component.modelconf.CandidateComparator;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.util.SearchUtil;
@@ -158,7 +158,12 @@ public class CandidateListTable extends JTable {
 
 		candidates = new ArrayList<Candidate>(this.getCandidates(this.path));
 
-		Collections.sort(candidates, new CandidateComparator());
+		Collections.sort(candidates, new Comparator<Candidate>() {
+			@Override
+			public int compare(Candidate o1, Candidate o2) {
+				return o1.getId().compareTo(o2.getId());
+			}
+		});
 
 		this.candidateForIds = new HashMap<String, Candidate>();
 		for (Candidate candidate : candidates) {
