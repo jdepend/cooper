@@ -16,8 +16,6 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
-import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
 import jdepend.service.remote.AnalyseDataDTO;
@@ -169,16 +167,6 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	}
 
 	public void setLogWriter(PrintWriter printWriter) {
-	}
-
-	public void registMetrics(String key, Metrics metrics) {
-		this.data.getMetricses().put(key, metrics);
-
-	}
-
-	public void registRelationType(JavaClassRelationType type) {
-		this.data.getJavaClassRelationTypes().put(type.getName(), type);
-
 	}
 
 	public void addParseListener(ParseListener listener) {

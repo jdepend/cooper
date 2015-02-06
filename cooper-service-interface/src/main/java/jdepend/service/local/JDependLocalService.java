@@ -87,23 +87,6 @@ public interface JDependLocalService {
 	public void addAnalyseListener(AnalyseListener listener);
 
 	/**
-	 * 注册指标
-	 * 
-	 * @param key
-	 * @param metrics
-	 * @throws JDependException
-	 */
-	public void registMetrics(String key, Metrics metrics) throws JDependException;
-
-	/**
-	 * 注册类关系
-	 * 
-	 * @param type
-	 * @throws JDependException
-	 */
-	public void registRelationType(JavaClassRelationType type) throws JDependException;
-
-	/**
 	 * 增加过滤掉的包
 	 * 
 	 * @param filteredPackages

@@ -6,8 +6,6 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
-import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
@@ -88,22 +86,6 @@ public interface JDependServiceProxy {
 	 * @param listener
 	 */
 	void addAnalyseListener(AnalyseListener listener);
-
-	/**
-	 * 注册新的指标
-	 * 
-	 * @param key
-	 * @param metrics
-	 */
-	void registMetrics(String key, Metrics metrics);
-
-	/**
-	 * 注册新的关系类型
-	 * 
-	 * @param type
-	 */
-	void registRelationType(JavaClassRelationType type);
-
 	/**
 	 * 设置filteredPackages
 	 * 

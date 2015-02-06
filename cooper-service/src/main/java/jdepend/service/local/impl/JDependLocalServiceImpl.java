@@ -172,15 +172,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this.parse.setAnalyseData(data);
 	}
 
-	public void registMetrics(String key, Metrics metrics) throws JDependException {
-		MetricsMgr.getInstance().addMetrics(key, metrics);
-	}
-
-	public void registRelationType(JavaClassRelationType type) throws JDependException {
-		JavaClassRelationTypeMgr.getInstance().registType(type);
-
-	}
-
 	public void addFilteredPackages(List<String> filteredPackages) {
 		this.parse.addFilteredPackages(filteredPackages);
 

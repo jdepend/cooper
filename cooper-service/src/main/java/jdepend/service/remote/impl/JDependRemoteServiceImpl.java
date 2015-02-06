@@ -58,14 +58,6 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 
 			// 设置FileterPackages
 			localService.addFilteredPackages(data.getFilteredPackages());
-			// 注册外部指标
-			for (String key : data.getMetricses().keySet()) {
-				localService.registMetrics(key, data.getMetricses().get(key));
-			}
-			// 注册类关系
-			for (JavaClassRelationType JavaClassRelationType : data.getJavaClassRelationTypes().values()) {
-				localService.registRelationType(JavaClassRelationType);
-			}
 			// 增加解析监听器
 			localService.addParseListener(new RemoteParseListener(JDependSessionMgr.getInstance().getSession(request)));
 			// 设置运行环境

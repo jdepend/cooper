@@ -29,10 +29,6 @@ public class AnalyseDataDTO implements Serializable {
 
 	private List<String> filteredPackages;
 
-	private Map<String, Metrics> metricses = new HashMap<String, Metrics>();
-
-	private Map<String, JavaClassRelationType> javaClassRelationTypes = new HashMap<String, JavaClassRelationType>();
-
 	public List<String> getDirectories() {
 		return directories;
 	}
@@ -90,26 +86,10 @@ public class AnalyseDataDTO implements Serializable {
 		this.filteredPackages = filteredPackages;
 	}
 
-	public Map<String, Metrics> getMetricses() {
-		return metricses;
-	}
-
-	public void setMetricses(Map<String, Metrics> metricses) {
-		this.metricses = metricses;
-	}
-
-	public Map<String, JavaClassRelationType> getJavaClassRelationTypes() {
-		return javaClassRelationTypes;
-	}
-
-	public void setJavaClassRelationTypes(Map<String, JavaClassRelationType> javaClassRelationTypes) {
-		this.javaClassRelationTypes = javaClassRelationTypes;
-	}
-
 	@Override
 	public String toString() {
 		return "AnalyseData [classes=" + data.getClasses().size() + ", component=" + component + ", configs="
 				+ data.getConfigs().size() + ", directories=" + directories + ", filteredPackages=" + filteredPackages
-				+ ", javaClassRelationTypes=" + javaClassRelationTypes + ", metricses=" + metricses + "]";
+				+ "]";
 	}
 }

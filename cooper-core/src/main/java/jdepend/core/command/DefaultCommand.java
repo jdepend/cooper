@@ -2,15 +2,12 @@ package jdepend.core.command;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.core.serviceproxy.JDependServiceProxy;
 import jdepend.core.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
 import jdepend.service.local.AnalyseListener;
@@ -32,9 +29,7 @@ public class DefaultCommand implements Command {
 	private String group;
 
 	private String name;
-	// 扩展指标
-	private Map<String, Metrics> extendMetrics = new LinkedHashMap<String, Metrics>();
-
+	
 	public DefaultCommand() {
 	}
 
@@ -50,10 +45,6 @@ public class DefaultCommand implements Command {
 	 * @throws JDependException
 	 */
 	public void prepareAnalyze() throws JDependException {
-		// 设置外部指标
-		for (String name : extendMetrics.keySet()) {
-			this.serviceProxy.registMetrics(name, extendMetrics.get(name));
-		}
 	}
 
 	public void addFilteredPackages(List<String> filteredPackages) {
@@ -109,7 +100,6 @@ public class DefaultCommand implements Command {
 	 * 
 	 * 2、可以通过-components设置以输入的字符串开头的一组package为一个组件，组件间以;分开
 	 * 
-	 * 3、可以通过-metrics设置定制的指标
 	 */
 	public void initArgs(String[] args) throws JDependException {
 		if (args != null) {
@@ -135,18 +125,6 @@ public class DefaultCommand implements Command {
 						usage("Components not specified.");
 					}
 					serviceProxy.setComponent(SimpleComponent.calSimpleComponent(args[++i], ";"));
-				} else if (args[i].equalsIgnoreCase("-metrics")) {
-					if (args.length <= i + 1) {
-						usage("metrics not specified.");
-					}
-					try {
-						Metrics metrics = (Metrics) DefaultCommand.class.getClassLoader().loadClass(args[++i])
-								.newInstance();
-						serviceProxy.registMetrics(args[i], metrics);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
 				} else {
 					i++;
 				}

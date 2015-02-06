@@ -8,8 +8,6 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
-import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
@@ -70,22 +68,6 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 	public void setLogWriter(PrintWriter printWriter) {
 		service.setParseLogWriter(printWriter);
 
-	}
-
-	public void registMetrics(String key, Metrics metrics) {
-		try {
-			service.registMetrics(key, metrics);
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void registRelationType(JavaClassRelationType type) {
-		try {
-			service.registRelationType(type);
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void addFilteredPackages(List<String> filteredPackages) {
