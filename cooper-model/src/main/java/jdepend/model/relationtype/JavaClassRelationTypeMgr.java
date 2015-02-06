@@ -87,17 +87,17 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 	public void registType(JavaClassRelationType type) throws JDependException {
 
 		if (type instanceof FieldRelation) {
-			JavaClassRelationTypeMgr.getInstance().setFieldRelation((FieldRelation) type);
+			setFieldRelation((FieldRelation) type);
 		} else if (type instanceof ParamRelation) {
-			JavaClassRelationTypeMgr.getInstance().setParamRelation((ParamRelation) type);
+			setParamRelation((ParamRelation) type);
 		} else if (type instanceof VariableRelation) {
-			JavaClassRelationTypeMgr.getInstance().setVariableRelation((VariableRelation) type);
+			setVariableRelation((VariableRelation) type);
 		} else if (type instanceof InheritRelation) {
-			JavaClassRelationTypeMgr.getInstance().setInheritRelation((InheritRelation) type);
+			setInheritRelation((InheritRelation) type);
 		} else if (type instanceof TableRelation) {
-			JavaClassRelationTypeMgr.getInstance().setTableRelation((TableRelation) type);
+			setTableRelation((TableRelation) type);
 		} else if (type instanceof HttpRelation) {
-			JavaClassRelationTypeMgr.getInstance().setHttpRelation((HttpRelation) type);
+			setHttpRelation((HttpRelation) type);
 		} else {
 			if (types.containsKey(type.getName()))
 				throw new JDependException("类型[" + type.getName() + "]已经注册了。");
