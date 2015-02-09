@@ -72,13 +72,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 
 		popupMenu.addSeparator();
 
-		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
-		saveAsItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JTableUtil.exportTableToExcel(classListTable);
-			}
-		});
-		popupMenu.add(saveAsItem);
+		popupMenu.add(this.createSaveAsItem());
 
 		classListTable.addMouseListener(new MouseAdapter() {
 			@Override

@@ -113,13 +113,7 @@ public class ClassListPanel extends JPanel {
 
 		popupMenu.add(this.createMoveToItem(listener));
 
-		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
-		saveAsItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JTableUtil.exportTableToExcel(getClassListTable());
-			}
-		});
-		popupMenu.add(saveAsItem);
+		popupMenu.add(this.createSaveAsItem());
 
 		this.getClassListTable().addMouseListener(new MouseAdapter() {
 			@Override
@@ -342,6 +336,17 @@ public class ClassListPanel extends JPanel {
 		});
 
 		return moveToItem;
+	}
+
+	protected JMenuItem createSaveAsItem() {
+		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
+		saveAsItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTableUtil.exportTableToExcel(classListTable);
+			}
+		});
+
+		return saveAsItem;
 	}
 
 	private void moveTo(JavaClassMoveToDialogListener listener) {
