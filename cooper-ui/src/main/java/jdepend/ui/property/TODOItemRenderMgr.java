@@ -3,7 +3,7 @@ package jdepend.ui.property;
 import java.util.HashMap;
 import java.util.Map;
 
-import jdepend.util.todolist.RelationData;
+import jdepend.util.todolist.TODORelationData;
 
 public class TODOItemRenderMgr {
 
@@ -21,7 +21,7 @@ public class TODOItemRenderMgr {
 
 	private void init() {
 		renders.put(StringBuilder.class, new TXTTODOItemRender());
-		renders.put(RelationData.class, new RelationDataTODOItemRender());
+		renders.put(TODORelationData.class, new RelationDataTODOItemRender());
 	}
 
 	public TODOItemRender getItemRender(Object info) {

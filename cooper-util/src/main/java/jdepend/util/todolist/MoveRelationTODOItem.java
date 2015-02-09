@@ -13,11 +13,11 @@ import jdepend.util.refactor.RefactorToolFactory;
 
 public abstract class MoveRelationTODOItem extends TODOItem {
 
-	private RelationData relationData;
+	private TODORelationData relationData;
 
 	protected MoveRelationInfo moveRelationInfo;
 
-	public MoveRelationTODOItem(RelationData relationData) {
+	public MoveRelationTODOItem(TODORelationData relationData) {
 		super();
 		this.relationData = relationData;
 	}
@@ -46,7 +46,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		return moveRelationInfo.isChangeDir();
 	}
 
-	public RelationData getRelationData() {
+	public TODORelationData getRelationData() {
 		return relationData;
 	}
 

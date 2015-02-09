@@ -20,7 +20,7 @@ public class TODOListIdentify {
 
 	private AnalysisResult result;
 
-	private List<RelationData> relationDatas;
+	private List<TODORelationData> relationDatas;
 
 	private Collection<Component> splitComponents;
 
@@ -57,16 +57,16 @@ public class TODOListIdentify {
 		list = new ArrayList<TODOItem>();
 		this.result = result;
 
-		relationDatas = new ArrayList<RelationData>();
+		relationDatas = new ArrayList<TODORelationData>();
 		for (Relation relation : this.result.getRelations()) {
-			relationDatas.add(new RelationData(relation));
+			relationDatas.add(new TODORelationData(relation));
 		}
 
 		splitComponents = new HashSet<Component>();
 	}
 
-	private RelationData getRelationData(Relation relation) {
-		for (RelationData relationData : relationDatas) {
+	private TODORelationData getRelationData(Relation relation) {
+		for (TODORelationData relationData : relationDatas) {
 			if (relationData.getRelation().equals(relation)) {
 				return relationData;
 			}
@@ -77,9 +77,9 @@ public class TODOListIdentify {
 	private void identifyMoveJavaClass() {
 		Float attentionLevel = null;
 		MoveRelationTODOItem item = null;
-		RelationData cycleDepend = null;
+		TODORelationData cycleDepend = null;
 		Relation relation;
-		for (RelationData relationData : relationDatas) {
+		for (TODORelationData relationData : relationDatas) {
 			relation = relationData.getRelation();
 			try {
 				if (relation.isAttention()) {
@@ -165,7 +165,7 @@ public class TODOListIdentify {
 		Float attentionLevel = null;
 		TODOItem item = null;
 		Relation relation;
-		for (RelationData relationData : relationDatas) {
+		for (TODORelationData relationData : relationDatas) {
 			if (!relationData.isTodo()) {
 				relation = relationData.getRelation();
 				if (relation.isAttention()) {
@@ -226,7 +226,7 @@ public class TODOListIdentify {
 			Ce = component.getEfferentCoupling();
 			if (Ce == 1 && Ca > Ce) {
 				relation = component.getCeTheRelation(component.getEfferents().iterator().next());
-				RelationData relationData = this.getRelationData(relation);
+				TODORelationData relationData = this.getRelationData(relation);
 				if (!relationData.isTodo()) {
 					item = new ComponentUniteTODOItem(relation);
 					item.setContent("合并组件[" + relation.getCurrent().getName() + "]和[" + relation.getDepend().getName()

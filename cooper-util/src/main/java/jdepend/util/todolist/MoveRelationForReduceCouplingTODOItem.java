@@ -7,7 +7,7 @@ public final class MoveRelationForReduceCouplingTODOItem extends MoveRelationTOD
 
 	private boolean deleteRelation = false;
 
-	public MoveRelationForReduceCouplingTODOItem(RelationData relationData) {
+	public MoveRelationForReduceCouplingTODOItem(TODORelationData relationData) {
 		super(relationData);
 	}
 

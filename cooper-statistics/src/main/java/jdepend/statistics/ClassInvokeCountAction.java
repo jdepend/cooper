@@ -10,6 +10,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.model.JavaClass;
+import jdepend.model.JavaClassWrapper;
 import jdepend.model.result.AnalysisResult;
 
 public class ClassInvokeCountAction extends ScoreListAction {
@@ -28,7 +29,7 @@ public class ClassInvokeCountAction extends ScoreListAction {
 			tableData = new TableData();
 			for (JavaClass javaClass : result.getClasses()) {
 				tableData.setData("类名", javaClass.getName());
-				tableData.setData("调用类数量", javaClass.getInvokeClasses().size());
+				tableData.setData("调用类数量", new JavaClassWrapper(javaClass).getInvokeClasses().size());
 			}
 
 			this.progress();

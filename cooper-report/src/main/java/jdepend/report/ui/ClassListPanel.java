@@ -35,7 +35,6 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
-import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.report.util.ReportConstant;
@@ -335,11 +334,7 @@ public class ClassListPanel extends JPanel {
 		moveToItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectedJavaClassId.size() > 0) {
-					if (JDependUnitMgr.getInstance().getComponents().iterator().next() instanceof JavaClassComponent) {
-						JOptionPane.showMessageDialog(frame, "当前的分析单元不能进行移动操作.", "alert", JOptionPane.WARNING_MESSAGE);
-					} else {
-						moveTo(listener);
-					}
+					moveTo(listener);
 				} else {
 					JOptionPane.showMessageDialog(frame, "请选择至少一个JavaClass.", "alert", JOptionPane.WARNING_MESSAGE);
 				}

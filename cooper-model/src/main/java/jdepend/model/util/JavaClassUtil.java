@@ -3,7 +3,6 @@ package jdepend.model.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.util.StringUtil;
@@ -15,10 +14,10 @@ import jdepend.model.Method;
 
 public class JavaClassUtil {
 
-	public static Collection<JavaPackage> getJavaPackages(Collection<Component> units) {
+	public static Collection<JavaPackage> getJavaPackages(Collection<Component> components) {
 		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
-		for (Component unit : units) {
-			for (JavaPackage javaPackage : unit.getJavaPackages()) {
+		for (Component component : components) {
+			for (JavaPackage javaPackage : component.getJavaPackages()) {
 				if (!javaPackages.contains(javaPackage)) {
 					javaPackages.add(javaPackage);
 				}
@@ -29,19 +28,19 @@ public class JavaClassUtil {
 
 	}
 
-	public static Collection<JavaClass> getClasses(Collection<Component> units) {
+	public static Collection<JavaClass> getClasses(Collection<Component> components) {
 		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
-		for (Component unit : units) {
-			javaClasses.addAll(unit.getClasses());
+		for (Component component : components) {
+			javaClasses.addAll(component.getClasses());
 		}
 		return javaClasses;
 	}
 
-	public static Collection<JavaClass> getAllClasses(Collection<Component> units) {
+	public static Collection<JavaClass> getAllClasses(Collection<Component> components) {
 		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
-		for (Component unit : units) {
-			javaClasses.addAll(unit.getClasses());
-			for (JavaClass javaClass : unit.getClasses()) {
+		for (Component component : components) {
+			javaClasses.addAll(component.getClasses());
+			for (JavaClass javaClass : component.getClasses()) {
 				javaClasses.addAll(javaClass.getInnerClasses());
 			}
 		}

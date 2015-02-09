@@ -6,7 +6,7 @@ import jdepend.model.Relation;
 
 public final class MoveRelationForChangeDirTODOItem extends MoveRelationTODOItem {
 
-	public MoveRelationForChangeDirTODOItem(RelationData relationData) {
+	public MoveRelationForChangeDirTODOItem(TODORelationData relationData) {
 		super(relationData);
 	}
 

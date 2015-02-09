@@ -4,13 +4,13 @@ import javax.swing.JComponent;
 
 import jdepend.framework.ui.JDependFrame;
 import jdepend.report.way.mapui.GraphPanel;
-import jdepend.util.todolist.RelationData;
+import jdepend.util.todolist.TODORelationData;
 
 public class RelationDataTODOItemRender implements TODOItemRender {
 
 	@Override
 	public JComponent render(JDependFrame frame, Object info) {
-		RelationData relationData = (RelationData) info;
+		TODORelationData relationData = (TODORelationData) info;
 		relationData.init();
 		relationData.appendRelations();
 		return new GraphPanel(frame, null, relationData.getRelations());

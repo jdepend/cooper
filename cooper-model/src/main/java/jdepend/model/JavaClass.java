@@ -106,8 +106,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private transient Float balance = null;
 	private transient GroupCouplingInfo groupCouplingInfo = null;
 
-	private transient Collection<JavaClass> invokeClasses;
-
 	public static final String Place = "JavaClass_Place";
 	public static final String isPrivateElement = "JavaClass_isPrivateElement";
 	public static final String Stable = "JavaClass_Stable";
@@ -934,15 +932,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public boolean containsClass(JavaClass javaClass) {
 		return this.equals(javaClass);
 	}
-	
-	public synchronized Collection<JavaClass> getInvokeClasses() {
-		if (this.invokeClasses == null) {
-			this.invokeClasses = new HashSet<JavaClass>();
-			this.collectInvokeClasses(this, invokeClasses);
-		}
-		return this.invokeClasses;
-
-	}
 
 	public JavaClass clone() {
 
@@ -1107,7 +1096,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public final boolean isEnum() {
 		return (access_flags & Constants.ACC_ENUM) != 0;
 	}
-	
+
 	/**
 	 * 在组件中是否孤立，与组件中的其他Class都没有关系
 	 * 
@@ -1214,19 +1203,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public int size() {
 		return this.getLineCount();
-	}
-
-	private void collectInvokeClasses(JavaClass javaClass, Collection<JavaClass> invokeClasses) {
-		JavaClass invokeClass;
-		for (Method method : javaClass.getSelfMethods()) {
-			for (InvokeItem invokeItem : method.getInvokeItems()) {
-				invokeClass = invokeItem.getCallee().getJavaClass();
-				if (!invokeClasses.contains(invokeClass)) {
-					invokeClasses.add(invokeClass);
-					collectInvokeClasses(invokeClass, invokeClasses);
-				}
-			}
-		}
 	}
 
 	/**
