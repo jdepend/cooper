@@ -67,8 +67,7 @@ public class ReportConstant {
 	public static final String RelationText = "RelationText";
 	public static final String CouplingText = "CouplingText";
 	public static final String CohesionText = "CohesionText";
-	public static final String NoticesText = "NoticesText";
-
+	
 	public static final Map<String, String> Tips = new HashMap<String, String>();
 
 	static {

@@ -135,12 +135,6 @@ public class JDependReport extends ReportCreator {
 		groupComponents.put("List", new MethodListSubTabPanel(frame));
 		rtn.put(MethodTabName, this.compositeComponent(groupComponents));
 
-		StringBuilder NoticesText = this.reportTexts.get(ReportConstant.NoticesText);
-		if (NoticesText != null) {
-			groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
-			groupComponents.put("Text", this.createTextReport(ReportConstant.NoticesText));
-			rtn.put(NoticeTabName, this.compositeComponent(groupComponents));
-		}
 		LogUtil.getInstance(JDependReport.class).systemLog("create method graph report end!");
 
 		LogUtil.getInstance(JDependReport.class).systemLog("create main graph report finish!");
@@ -170,7 +164,6 @@ public class JDependReport extends ReportCreator {
 		if (printCohesion) {
 			items.add(ReportConstant.CohesionText);
 		}
-		items.add(ReportConstant.NoticesText);
 
 		printer.print(result, items);
 

@@ -15,7 +15,6 @@ import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
-import jdepend.model.util.NoticeMgr;
 import jdepend.report.filter.CouplingReportFilter;
 import jdepend.report.filter.RelationFilter;
 import jdepend.report.filter.ReportFilter;
@@ -83,11 +82,7 @@ public final class JDependPrinter extends Printer {
 			printCohesions(result.getComponents());
 			LogUtil.getInstance(JDependPrinter.class).systemLog("CohesionText report finish!");
 		}
-		if (items.contains(ReportConstant.NoticesText)) {
-			printSplit(ReportConstant.NoticesText);
-			printNotices();
-			LogUtil.getInstance(JDependPrinter.class).systemLog("NoticesText report finish!");
-		}
+
 		getWriter().flush();
 
 		LogUtil.getInstance(JDependPrinter.class).systemLog("create text report finish!");
@@ -202,12 +197,6 @@ public final class JDependPrinter extends Printer {
 		}
 		getWriter().println(tab(4) + "</Ca>");
 
-	}
-
-	protected void printNotices() {
-		for (String notice : NoticeMgr.getInstance().getNotices()) {
-			getWriter().println(notice);
-		}
 	}
 
 	public void printCohesions(Collection<? extends JDependUnit> units1) {
