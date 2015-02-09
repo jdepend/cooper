@@ -203,15 +203,6 @@ public abstract class Component extends AbstractJDependUnit {
 		return path;
 	}
 
-	@Override
-	public String getArea() {
-		if (this.areaComponent == null) {
-			return null;
-		} else {
-			return this.areaComponent.getName();
-		}
-	}
-
 	/**
 	 * 建立组件与类之间的双向关联
 	 * 

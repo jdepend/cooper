@@ -135,7 +135,7 @@ public final class JDependPrinter extends Printer {
 		ceCoupling = unit.ceCoupling();
 		caCoupling = unit.caCoupling();
 
-		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\" title=\"" + unit.getTitle() + "\">");
+		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\">");
 		// 输出摘要信息
 		if (couplingFilter.isComponentSummary()) {
 			getWriter().println(tab(2) + "<Ce>"
@@ -230,7 +230,7 @@ public final class JDependPrinter extends Printer {
 		Float cohesion = 0F;
 		cohesion = unit.getCohesion();
 
-		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\" title=\"" + unit.getTitle() + "\">");
+		getWriter().println(tab() + "<Component name=\"" + unit.getName() + "\">");
 
 		getWriter().println(tab(2) + "<Cohesion>" + MetricsFormat.toFormattedMetrics(cohesion) + "</Cohesion>");
 

@@ -104,7 +104,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	private transient Collection<JavaClass> efferents = null;
 	private transient Float cohesion = null;
 	private transient Float balance = null;
-	private transient Float objectOriented = null;
 	private transient GroupCouplingInfo groupCouplingInfo = null;
 
 	private transient Collection<JavaClass> invokeClasses;
@@ -196,11 +195,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	@Override
 	public String getPath() {
 		return packageName;
-	}
-
-	@Override
-	public String getArea() {
-		return null;
 	}
 
 	public Collection<String> getImportedPackages() {
@@ -1080,7 +1074,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		efferents = null;
 		cohesion = null;
 		balance = null;
-		objectOriented = null;
 		groupCouplingInfo = null;
 	}
 
@@ -1126,8 +1119,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	 * @param types
 	 * @return
 	 */
-	private static boolean exitChangeBaseType(Collection<Attribute> attributes) {
-		for (Attribute attribute : attributes) {
+	private boolean exitChangeBaseType() {
+		for (Attribute attribute : this.getAttributes()) {
 			if (!attribute.isFinal() && !attribute.isStatic()) {
 				for (String baseType : baseTypes) {
 					if (attribute.getInfo().indexOf(baseType) != -1) {
@@ -1256,7 +1249,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		javaClasses.add(this);
 
 		// 判断是否存在可变基本类型
-		if (exitChangeBaseType(this.getAttributes())) {
+		if (exitChangeBaseType()) {
 			// 清空扫描列表
 			JDependContext.setInfo(SCOPE.THREAD_SCOPSE, haveStateJavaClasses, null);
 			return HaveState;

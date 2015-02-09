@@ -15,8 +15,6 @@ public abstract class ObjectMeasured implements Measurable {
 		switch (metrics) {
 		case MetricsMgr.Name:
 			return this.getName();
-		case MetricsMgr.Title:
-			return this.getTitle();
 		case MetricsMgr.LC:
 			return this.getLineCount();
 		case MetricsMgr.CN:

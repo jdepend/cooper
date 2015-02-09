@@ -155,11 +155,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public String getTitle() {
-		return Name;
-	}
-
-	@Override
 	public float getStability() {
 		return this.instability;
 	}
@@ -172,11 +167,6 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	@Override
 	public String getName() {
 		return Name;
-	}
-
-	@Override
-	public String getArea() {
-		return null;
 	}
 
 	public void setAbstractness(float abstractness) {
