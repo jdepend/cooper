@@ -5,7 +5,6 @@ import java.util.List;
 
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.util.JavaClassUtil;
 
 public class JavaClassType {
 
@@ -49,11 +48,30 @@ public class JavaClassType {
 		}
 
 		if (this.superClassNames != null) {
-			if (JavaClassUtil.isJavaClassType(javaClass, superClassNames)) {
+			if (isJavaClassType(javaClass)) {
 				return true;
 			}
 		}
 
+		return false;
+	}
+
+	/**
+	 * 确定指定Class是否属于某一类型
+	 * 
+	 * @param theJavaClass
+	 * @param superClassNames
+	 * @return
+	 */
+	public boolean isJavaClassType(JavaClass theJavaClass) {
+
+		Collection<JavaClass> supers = theJavaClass.getSupers();
+
+		for (JavaClass superClass : supers) {
+			if (superClassNames.contains(superClass.getName())) {
+				return true;
+			}
+		}
 		return false;
 	}
 

@@ -226,20 +226,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		return this.getAfferents().size() != 0;
 	}
 
-	/**
-	 * 在组件中是否孤立，与组件中的其他Class都没有关系
-	 * 
-	 * @return
-	 */
-	public boolean isAlone() {
-		for (JavaClass relationClass : this.getRelationList()) {
-			if (this.getComponent().containsClass(relationClass)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	@Override
 	public AnalysisResult getResult() {
 		return this.getComponent().getResult();
@@ -948,6 +934,15 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public boolean containsClass(JavaClass javaClass) {
 		return this.equals(javaClass);
 	}
+	
+	public synchronized Collection<JavaClass> getInvokeClasses() {
+		if (this.invokeClasses == null) {
+			this.invokeClasses = new HashSet<JavaClass>();
+			this.collectInvokeClasses(this, invokeClasses);
+		}
+		return this.invokeClasses;
+
+	}
 
 	public JavaClass clone() {
 
@@ -1112,6 +1107,20 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	public final boolean isEnum() {
 		return (access_flags & Constants.ACC_ENUM) != 0;
 	}
+	
+	/**
+	 * 在组件中是否孤立，与组件中的其他Class都没有关系
+	 * 
+	 * @return
+	 */
+	public boolean isAlone() {
+		for (JavaClass relationClass : this.getRelationList()) {
+			if (this.getComponent().containsClass(relationClass)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * 是否存在可变基本类型
@@ -1130,15 +1139,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			}
 		}
 		return false;
-	}
-
-	public synchronized Collection<JavaClass> getInvokeClasses() {
-		if (this.invokeClasses == null) {
-			this.invokeClasses = new HashSet<JavaClass>();
-			this.collectInvokeClasses(this, invokeClasses);
-		}
-		return this.invokeClasses;
-
 	}
 
 	public void calImportedPackages() {

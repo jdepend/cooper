@@ -9,31 +9,11 @@ import java.util.concurrent.ExecutorService;
 import jdepend.framework.util.StringUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.Component;
-import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
 
 public class JavaClassUtil {
-
-	/**
-	 * 确定指定Class是否属于某一类型
-	 * 
-	 * @param theJavaClass
-	 * @param superClassNames
-	 * @return
-	 */
-	public static boolean isJavaClassType(JavaClass theJavaClass, List<String> superClassNames) {
-
-		Collection<JavaClass> supers = theJavaClass.getSupers();
-
-		for (JavaClass superClass : supers) {
-			if (superClassNames.contains(superClass.getName())) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public static Collection<JavaPackage> getJavaPackages(Collection<Component> units) {
 		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
