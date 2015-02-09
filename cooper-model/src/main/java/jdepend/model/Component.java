@@ -13,6 +13,7 @@ import java.util.Map;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
@@ -610,6 +611,10 @@ public abstract class Component extends AbstractJDependUnit {
 	@Override
 	public AnalysisResult getResult() {
 		return this.result;
+	}
+
+	public static Component getDefaultComponent() {
+		return new JavaPackageComponent();
 	}
 
 	@Override

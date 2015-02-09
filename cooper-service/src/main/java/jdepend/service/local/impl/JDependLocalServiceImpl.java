@@ -12,12 +12,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
 import jdepend.model.JavaPackage;
-import jdepend.model.Metrics;
-import jdepend.model.MetricsMgr;
-import jdepend.model.component.JavaPackageComponent;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.parse.BuildListener;
@@ -55,7 +50,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this.group = groupName;
 		this.command = commandName;
 		parse = new Parse(conf);
-		component = new JavaPackageComponent();
+		component = Component.getDefaultComponent();
 		this.conf = conf;
 	}
 
@@ -82,15 +77,15 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog(components.size() + " components is created!");
 		// 创建返回结果
 		final AnalysisResult result = new AnalysisResult(components, context);
-		
+
 		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("analysisResult is created!");
 		// 调用分析监听器
 		this.onAnalyse(result);
-		
+
 		LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("onAnalyse is finished!");
 		// 设置End时间
 		AnalyseContextMgr.getContext().setExecuteEndTime(System.currentTimeMillis());
-		
+
 		return result;
 	}
 
