@@ -30,8 +30,8 @@ public class RelationData {
 	public Component current;
 	public Component depend;
 
-	public VirtualComponent currentOther;
-	public VirtualComponent dependOther;
+	public Component currentOther;
+	public Component dependOther;
 
 	private Collection<Relation> relations;
 
@@ -146,11 +146,11 @@ public class RelationData {
 		return depend;
 	}
 
-	public VirtualComponent getCurrentOther() {
+	public Component getCurrentOther() {
 		return currentOther;
 	}
 
-	public VirtualComponent getDependOther() {
+	public Component getDependOther() {
 		return dependOther;
 	}
 }
