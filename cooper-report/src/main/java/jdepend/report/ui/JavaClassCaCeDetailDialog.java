@@ -80,7 +80,11 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 				items = javaClass.getCaItems();
 			} else {
 				for (JavaClass javaClass : javaClasses) {
-					items.addAll(javaClass.getCaItems());
+					for (JavaClassRelationItem item : javaClass.getCaItems()) {
+						if (!javaClasses.contains(item.getDepend())) {
+							items.add(item);
+						}
+					}
 				}
 			}
 		} else if (metrics.equals(ReportConstant.Ce)) {
@@ -88,7 +92,11 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 				items = javaClass.getCeItems();
 			} else {
 				for (JavaClass javaClass : javaClasses) {
-					items.addAll(javaClass.getCeItems());
+					for (JavaClassRelationItem item : javaClass.getCeItems()) {
+						if (!javaClasses.contains(item.getDepend())) {
+							items.add(item);
+						}
+					}
 				}
 			}
 		}
