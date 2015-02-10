@@ -164,6 +164,8 @@ public class BundleUtil {
 	public static final String Command_Copy = "Command_Copy";
 	public static final String Command_ReCalculate = "Command_ReCalculate";// 重新计算
 	public static final String Command_Analyse = "Command_Analyse";// 分析
+	public static final String Command_Ca = "Command_Ca";// 传入
+	public static final String Command_Ce = "Command_Ce";// 传出
 	
 	public static final String RunningModel_Local = "RunningModel_Local";// 单机模式
 	public static final String RunningModel_Remote = "RunningModel_Remote";// 联机模式
