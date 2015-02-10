@@ -68,9 +68,13 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		});
 		popupMenu.add(viewMethodListItem);
 
-		popupMenu.add(this.createMoveToItem(null));
+		popupMenu.add(this.createCasItem());
+
+		popupMenu.add(this.createCesItem());
 
 		popupMenu.addSeparator();
+
+		popupMenu.add(this.createMoveToItem(null));
 
 		popupMenu.add(this.createSaveAsItem());
 

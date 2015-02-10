@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -25,7 +26,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
@@ -33,7 +33,6 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassUtil;
@@ -110,6 +109,12 @@ public class ClassListPanel extends JPanel {
 	public void initPopupMenu(JavaClassMoveToDialogListener listener) {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
+
+		popupMenu.add(this.createCasItem());
+
+		popupMenu.add(this.createCesItem());
+
+		popupMenu.addSeparator();
 
 		popupMenu.add(this.createMoveToItem(listener));
 
@@ -350,7 +355,7 @@ public class ClassListPanel extends JPanel {
 		d.setModal(true);
 		d.setVisible(true);
 	}
-	
+
 	protected JMenuItem createSaveAsItem() {
 		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
@@ -361,16 +366,39 @@ public class ClassListPanel extends JPanel {
 
 		return saveAsItem;
 	}
-	
+
 	protected JMenuItem createCasItem() {
-		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Ca));
-		saveAsItem.addActionListener(new ActionListener() {
+		JMenuItem casItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Ca));
+		casItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JTableUtil.exportTableToExcel(classListTable);
+				Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+				for (String javaClassId : selectedJavaClassId) {
+					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+				}
+				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ca);
+				d.setModal(true);
+				d.setVisible(true);
 			}
 		});
 
-		return saveAsItem;
+		return casItem;
+	}
+
+	protected JMenuItem createCesItem() {
+		JMenuItem cesItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Ce));
+		cesItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+				for (String javaClassId : selectedJavaClassId) {
+					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+				}
+				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ce);
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+
+		return cesItem;
 	}
 
 	class JavaClassTableRenderer extends JPanel implements TableCellRenderer {

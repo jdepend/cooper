@@ -20,6 +20,8 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 	private JavaClass javaClass;
 
+	private Collection<JavaClass> javaClasses;
+
 	private String metrics;
 
 	private JTable listTable;
@@ -36,6 +38,18 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		this.metrics = metrics;
 		this.includeInner = includeInner;
 
+		init();
+
+	}
+
+	public JavaClassCaCeDetailDialog(Collection<JavaClass> javaClasses, String metrics) {
+		this.javaClasses = javaClasses;
+		this.metrics = metrics;
+
+		init();
+	}
+
+	private void init() {
 		getContentPane().setLayout(new BorderLayout());
 
 		initList();
@@ -62,16 +76,28 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 
 		if (metrics.equals(ReportConstant.Ca)) {
-			items = javaClass.getCaItems();
+			if (javaClass != null) {
+				items = javaClass.getCaItems();
+			} else {
+				for (JavaClass javaClass : javaClasses) {
+					items.addAll(javaClass.getCaItems());
+				}
+			}
 		} else if (metrics.equals(ReportConstant.Ce)) {
-			items = javaClass.getCeItems();
+			if (javaClass != null) {
+				items = javaClass.getCeItems();
+			} else {
+				for (JavaClass javaClass : javaClasses) {
+					items.addAll(javaClass.getCeItems());
+				}
+			}
 		}
 		boolean isInner;
 		String metrics1 = null;
 		for (JavaClassRelationItem item : items) {
-			isInner = javaClass.getComponent().containsClass(item.getDepend());
+			isInner = item.getCurrent().getComponent().containsClass(item.getDepend());
 			// 判断是否是环境外的
-			if (includeInner || !isInner) {
+			if ((javaClass != null && (includeInner || !isInner)) || (javaClasses != null)) {
 				row = new Object[listTable.getColumnCount()];
 				for (int i = 0; i < listTable.getColumnCount(); i++) {
 					if (i == 2) {
