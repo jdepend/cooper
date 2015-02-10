@@ -1,10 +1,14 @@
 package jdepend.report.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
+import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.report.util.ReportConstant;
@@ -23,6 +28,8 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 	private Collection<JavaClass> javaClasses;
 
 	private String metrics;
+
+	private JLabel couplingLabel;
 
 	private JTable listTable;
 
@@ -52,24 +59,29 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 	private void init() {
 		getContentPane().setLayout(new BorderLayout());
 
+		this.add(BorderLayout.NORTH, this.createTitlePanel());
+
 		initList();
-
 		showList();
-
-		List<String> fitColNames = new ArrayList<String>();
-		fitColNames.add(ReportConstant.Name);
-		fitColNames.add(ReportConstant.DependType);
-		JTableUtil.fitTableColumns(listTable, fitColNames);
-
-		this.add(new JScrollPane(listTable));
+		this.add(BorderLayout.CENTER, new JScrollPane(listTable));
 	}
 
-	public void showList() {
+	private JPanel createTitlePanel() {
+		JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+		titlePanel.add(new JLabel("耦合值："));
+		this.couplingLabel = new JLabel();
+		titlePanel.add(this.couplingLabel);
+
+		return titlePanel;
+	}
+
+	private void showList() {
 		listModel.setRowCount(0);
 		this.loadList();
 	}
 
-	public void loadList() {
+	private void loadList() {
 
 		Object[] row;
 
@@ -100,8 +112,10 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 				}
 			}
 		}
+
 		boolean isInner;
 		String metrics1 = null;
+		float coupling = 0F;
 		for (JavaClassRelationItem item : items) {
 			isInner = item.getCurrent().getComponent().containsClass(item.getDepend());
 			// 判断是否是环境外的
@@ -118,8 +132,18 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 					}
 				}
 				listModel.addRow(row);
+
+				coupling += item.getRelationIntensity();
 			}
 		}
+
+		List<String> fitColNames = new ArrayList<String>();
+		fitColNames.add(ReportConstant.Name);
+		fitColNames.add(ReportConstant.DependType);
+		JTableUtil.fitTableColumns(listTable, fitColNames);
+
+		this.couplingLabel.setText(MetricsFormat.toFormattedMetrics(coupling).toString());
+
 	}
 
 	private void initList() {
