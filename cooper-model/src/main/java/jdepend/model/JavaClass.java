@@ -1,5 +1,7 @@
 package jdepend.model;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -73,6 +75,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private transient Collection<JavaClass> subClasses;
 
+	private transient Collection<JavaClass> subAllClasses;
+
 	private transient Collection<JavaClassRelationItem> allCaItems;
 
 	private transient Collection<JavaClassRelationItem> allCeItems;
@@ -123,6 +127,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		this.detail = new JavaClassDetail(this);
 		this.isInner = isInner;
 		this.isIncludeTransactionalAnnotation = false;
+		this.subClasses = new HashSet<JavaClass>();
 	}
 
 	public String getPlace() {
@@ -264,21 +269,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	/**
-	 * 得到类的构造函数列表
-	 * 
-	 * @return
-	 */
-	public Collection<Method> getConstructorMethods() {
-		Collection<Method> constructors = new HashSet<Method>();
-		for (Method method : this.getMethods()) {
-			if (method.isConstruction()) {
-				constructors.add(method);
-			}
-		}
-		return constructors;
-	}
-
-	/**
 	 * 得到覆盖了父类方法的方法列表
 	 * 
 	 * @return
@@ -409,6 +399,21 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	/**
+	 * 得到类的构造函数列表
+	 * 
+	 * @return
+	 */
+	public Collection<Method> getConstructorMethods() {
+		Collection<Method> constructors = new HashSet<Method>();
+		for (Method method : this.getMethods()) {
+			if (method.isConstruction()) {
+				constructors.add(method);
+			}
+		}
+		return constructors;
+	}
+
+	/**
 	 * 得到其他类可以使用的方法列表（包含继承父类的方法）
 	 * 
 	 * @return
@@ -506,16 +511,18 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	public synchronized Collection<JavaClass> getSubClasses() {
-		if (this.subClasses == null) {
-			this.subClasses = new HashSet<JavaClass>();
-			for (JavaClassRelationItem item : this.getCaItems()) {
-				if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getInheritRelation())) {
-					this.subClasses.add(item.getDepend());
-					this.subClasses.addAll(item.getDepend().getSubClasses());
-				}
+		if (this.subAllClasses == null) {
+			this.subAllClasses = new HashSet<JavaClass>();
+			this.subAllClasses.addAll(this.subClasses);
+			for (JavaClass subClass : subClasses) {
+				this.subAllClasses.addAll(subClass.getSubClasses());
 			}
 		}
-		return this.subClasses;
+		return this.subAllClasses;
+	}
+
+	public void addSubClass(JavaClass javaClass) {
+		this.subClasses.add(javaClass);
 	}
 
 	public Collection<JavaClassRelationItem> getCaItems() {
@@ -1264,5 +1271,10 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		} else {
 			return false;
 		}
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		ois.defaultReadObject();
+		this.subClasses = new HashSet<JavaClass>();
 	}
 }

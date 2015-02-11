@@ -169,10 +169,15 @@ public class JavaClassDetail implements Serializable {
 
 	public void setSuperClass(JavaClass superClass) {
 		this.superClass = superClass;
+		this.superClass.addSubClass(this.javaClass);
 	}
 
 	public void setInterfaces(Collection<JavaClass> interfaces) {
 		this.interfaces = interfaces;
+
+		for (JavaClass interfaceClass : this.interfaces) {
+			interfaceClass.addSubClass(this.javaClass);
+		}
 	}
 
 	public void setInterfaceNames(Collection<String> interfaceNames) {

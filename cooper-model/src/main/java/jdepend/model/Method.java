@@ -139,7 +139,7 @@ public class Method extends AccessFlags {
 		return invokedItems;
 	}
 
-	public synchronized void addInvokedItem(InvokeItem invokeItem) {
+	public void addInvokedItem(InvokeItem invokeItem) {
 		invokedItems.add(invokeItem);
 	}
 
@@ -368,12 +368,7 @@ public class Method extends AccessFlags {
 	}
 
 	public boolean isOverride(Method method) {
-		if (this.getJavaClass().equals(method.getJavaClass())) {
-			return false;
-		}
-		if (!this.getJavaClass().getSupers().contains(method.getJavaClass())) {
-			return false;
-		}
+
 		if (!this.name.equals(method.name)) {
 			return false;
 		}
