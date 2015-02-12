@@ -1,7 +1,6 @@
 package jdepend.report.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,6 +29,10 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 	private String metrics;
 
 	private JLabel couplingLabel;
+
+	private JLabel outerCouplingLabel;
+
+	private JLabel inCouplingLabel;
 
 	private JTable listTable;
 
@@ -72,6 +75,14 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		titlePanel.add(new JLabel("耦合值："));
 		this.couplingLabel = new JLabel();
 		titlePanel.add(this.couplingLabel);
+
+		titlePanel.add(new JLabel("外部耦合值："));
+		this.outerCouplingLabel = new JLabel();
+		titlePanel.add(this.outerCouplingLabel);
+
+		titlePanel.add(new JLabel("内部耦合值："));
+		this.inCouplingLabel = new JLabel();
+		titlePanel.add(this.inCouplingLabel);
 
 		return titlePanel;
 	}
@@ -116,6 +127,8 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		boolean isInner;
 		String metrics1 = null;
 		float coupling = 0F;
+		float inCoupling = 0F;
+		float outerCoupling = 0F;
 		for (JavaClassRelationItem item : items) {
 			isInner = item.getCurrent().getComponent().containsClass(item.getDepend());
 			// 判断是否是环境外的
@@ -125,7 +138,13 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 					if (i == 2) {
 						row[2] = item.getType().getName();
 					} else if (i == 3) {
-						row[3] = isInner ? "否" : "是";
+						if (isInner) {
+							inCoupling += item.getRelationIntensity();
+							row[3] = "否";
+						} else {
+							outerCoupling += item.getRelationIntensity();
+							row[3] = "是";
+						}
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
 						row[i] = item.getDepend().getValue(metrics1);
@@ -143,6 +162,8 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		JTableUtil.fitTableColumns(listTable, fitColNames);
 
 		this.couplingLabel.setText(MetricsFormat.toFormattedMetrics(coupling).toString());
+		this.inCouplingLabel.setText(MetricsFormat.toFormattedMetrics(inCoupling).toString());
+		this.outerCouplingLabel.setText(MetricsFormat.toFormattedMetrics(outerCoupling).toString());
 
 	}
 
