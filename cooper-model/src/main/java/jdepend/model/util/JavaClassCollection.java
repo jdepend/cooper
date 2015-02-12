@@ -1,9 +1,11 @@
 package jdepend.model.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import jdepend.framework.util.ThreadPool;
 import jdepend.model.JavaClass;
 import jdepend.model.Method;
 import jdepend.model.component.modelconf.CandidateUtil;
@@ -18,6 +20,8 @@ public class JavaClassCollection {
 
 	private Map<String, Collection<JavaClass>> unitJavaClasses;
 
+	private final static int unitCount = ThreadPool.ThreadCount;
+
 	public JavaClassCollection(Collection<JavaClass> javaClasses) {
 		super();
 		this.javaClasses = javaClasses;
@@ -30,7 +34,7 @@ public class JavaClassCollection {
 			javaClassesForName.put(javaClass.getName(), javaClass);
 		}
 
-		unitJavaClasses = TheadClassCollection.unitTheadClassCollection(javaClasses);
+		unitJavaClasses = unitTheadClassCollection(javaClasses);
 
 	}
 
@@ -69,5 +73,22 @@ public class JavaClassCollection {
 			}
 		}
 		return this.httpMethods;
+	}
+
+	public static Map<String, Collection<JavaClass>> unitTheadClassCollection(Collection<JavaClass> javaClasses) {
+
+		Map<String, Collection<JavaClass>> unitJavaClasses = new HashMap<String, Collection<JavaClass>>();
+
+		for (int unitIndex = 0; unitIndex < unitCount; unitIndex++) {
+			unitJavaClasses.put("unit" + unitIndex, new ArrayList<JavaClass>());
+		}
+		int unitIndex = 0;
+		for (JavaClass javaClass : javaClasses) {
+			unitJavaClasses.get("unit" + unitIndex % unitCount).add(javaClass);
+			unitIndex++;
+		}
+
+		return unitJavaClasses;
+
 	}
 }
