@@ -37,4 +37,11 @@ public interface JavaClassRelationType extends Serializable {
 	 */
 	public float getRationality(JavaClass depend, JavaClass current, String direction);
 
+	/**
+	 * 是否可以在关系上采用抽象化技术
+	 * 
+	 * @return
+	 */
+	public boolean canAbstraction();
+
 }

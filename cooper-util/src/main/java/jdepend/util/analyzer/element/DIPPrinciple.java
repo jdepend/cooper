@@ -2,7 +2,6 @@ package jdepend.util.analyzer.element;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,8 +11,7 @@ import jdepend.model.InvokeItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Method;
-import jdepend.model.relationtype.FieldRelation;
-import jdepend.model.relationtype.ParamRelation;
+import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -53,51 +51,42 @@ public class DIPPrinciple extends AbstractAnalyzer {
 
 	private void collectDIP(Component component) {
 
-		List<JavaClass> members = new ArrayList<JavaClass>(component.getClasses());
-
-		Collections.sort(members);
-		Iterator<JavaClass> memberIter = members.iterator();
 		boolean found;
-		while (memberIter.hasNext()) {
-			JavaClass current = memberIter.next();
-			if (!current.isAbstract()) {
-				for (JavaClassRelationItem item : current.getCeItems()) {
-					if (item.getType() instanceof FieldRelation || item.getType() instanceof ParamRelation) {
-						JavaClass depend = item.getDepend();
-						// 识别组件外依赖的JavaClass是否是抽象的
-						if (!component.containsClass(depend) && !depend.isAbstract() && depend.getSupers().size() > 0) {
-							found = true;
-							L: for (Method method : current.getSelfMethods()) {
-								if (method.getReturnClassTypes().contains(depend)) {
+		for (Relation relation : component.getRelations()) {
+			for (JavaClassRelationItem item : relation.getDetail().getItems()) {
+				if (item.getType().canAbstraction()) {
+					JavaClass current = item.getCurrent();
+					JavaClass depend = item.getDepend();
+					// 识别组件外依赖的JavaClass是否是抽象的
+					if (!depend.isAbstract() && depend.getSupers().size() > 0) {
+						found = true;
+						L: for (Method method : current.getSelfMethods()) {
+							if (method.getReturnClassTypes().contains(depend)) {
+								found = false;
+								break L;
+							}
+							for (InvokeItem invokeItem : method.getInvokeItems()) {
+								if (invokeItem.getCallee().getArgClassTypes().contains(depend)) {
 									found = false;
 									break L;
 								}
-								for (InvokeItem invokeItem : method.getInvokeItems()) {
-									if (invokeItem.getCallee().getArgClassTypes().contains(depend)) {
+								if (invokeItem.getCallee().getJavaClass().equals(depend)) {
+									if (depend.getSelfMethods().contains(invokeItem.getCallee())) {
 										found = false;
 										break L;
 									}
-									if (invokeItem.getCallee().getJavaClass().equals(depend)) {
-										if (depend.getSelfMethods().contains(invokeItem.getCallee())) {
-											found = false;
-											break L;
-										}
-									}
 								}
 							}
-							if (found) {
-								this.dipInfos.add(new DIPInfo(current.getName(), depend.getName(), this
-										.getSuperNames(depend.getSupers())));
-							}
+						}
+						if (found) {
+							this.dipInfos.add(new DIPInfo(current.getName(), depend.getName(), this
+									.getSuperNames(depend.getSupers())));
 						}
 					}
 				}
 			}
 		}
-
 	}
-	
-	
 
 	@Override
 	public String getExplain() {

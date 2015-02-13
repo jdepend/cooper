@@ -7,4 +7,9 @@ public class HttpRelation extends BaseJavaClassRelationType {
 	public HttpRelation(float intensity) {
 		super(JavaClassRelationTypeMgr.Http, intensity);
 	}
+	
+	@Override
+	public boolean canAbstraction() {
+		return false;
+	}
 }

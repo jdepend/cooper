@@ -10,4 +10,9 @@ public class VariableRelation extends BaseJavaClassRelationType {
 	public VariableRelation(float intensity) {
 		super(JavaClassRelationTypeMgr.Variable, intensity);
 	}
+	
+	@Override
+	public boolean canAbstraction() {
+		return false;
+	}
 }

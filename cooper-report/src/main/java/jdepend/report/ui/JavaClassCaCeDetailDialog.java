@@ -130,7 +130,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		float inCoupling = 0F;
 		float outerCoupling = 0F;
 		for (JavaClassRelationItem item : items) {
-			isInner = item.getCurrent().getComponent().containsClass(item.getDepend());
+			isInner = !item.crossComponent();
 			// 判断是否是环境外的
 			if ((javaClass != null && (includeInner || !isInner)) || (javaClasses != null)) {
 				row = new Object[listTable.getColumnCount()];

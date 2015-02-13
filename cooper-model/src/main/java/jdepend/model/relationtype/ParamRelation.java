@@ -10,4 +10,9 @@ public class ParamRelation extends BaseJavaClassRelationType {
 	public ParamRelation(float intensity) {
 		super(JavaClassRelationTypeMgr.Param, intensity);
 	}
+	
+	@Override
+	public boolean canAbstraction() {
+		return true;
+	}
 }

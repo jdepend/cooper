@@ -22,5 +22,10 @@ public class InheritRelation extends BaseJavaClassRelationType {
 			return super.getRationality(depend, current, direction);
 		}
 	}
+	
+	@Override
+	public boolean canAbstraction() {
+		return false;
+	}
 
 }

@@ -10,4 +10,9 @@ public class FieldRelation extends BaseJavaClassRelationType {
 	public FieldRelation(float intensity) {
 		super(JavaClassRelationTypeMgr.Field, intensity);
 	}
+
+	@Override
+	public boolean canAbstraction() {
+		return true;
+	}
 }

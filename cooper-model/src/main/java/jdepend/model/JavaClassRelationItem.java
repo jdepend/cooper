@@ -131,6 +131,15 @@ public class JavaClassRelationItem implements Serializable {
 		this.typeName = typeName;
 	}
 
+	/**
+	 * 判断该关系是否是组件间的类关系
+	 * 
+	 * @return
+	 */
+	public boolean crossComponent() {
+		return !this.current.getComponent().containsClass(this.depend);
+	}
+
 	public JavaClassRelationItem clone() {
 		JavaClassRelationItem newItem = new JavaClassRelationItem();
 
