@@ -44,6 +44,8 @@ public abstract class InvokeItem implements Serializable {
 	 * @return
 	 */
 	public abstract boolean math2(Method method);
+	
+	public abstract String getName();
 
 	/**
 	 * 该调用类型需要转化为其他调用的类型

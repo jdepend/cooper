@@ -97,6 +97,11 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 	}
 
 	@Override
+	public String getName() {
+		return "Http";
+	}
+	
+	@Override
 	public int hashCode() {
 		if (this.getCallee() != null && this.getCaller() != null) {
 			final int prime = 31;

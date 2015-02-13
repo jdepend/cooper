@@ -101,6 +101,11 @@ public final class LocalInvokeItem extends InvokeItem {
 			return null;
 		}
 	}
+	
+	@Override
+	public String getName() {
+		return "Local";
+	}
 
 	@Override
 	public int hashCode() {

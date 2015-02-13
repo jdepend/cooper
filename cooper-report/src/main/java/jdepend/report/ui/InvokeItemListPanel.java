@@ -10,9 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.TableSorter;
-import jdepend.model.HttpInvokeItem;
 import jdepend.model.InvokeItem;
-import jdepend.model.LocalInvokeItem;
 import jdepend.model.Method;
 
 import org.apache.bcel.classfile.Utility;
@@ -69,8 +67,7 @@ public class InvokeItemListPanel extends JPanel {
 			row[7] = method.getCascadeInvokedMethods().size();
 			row[8] = method.getInvokeMethods().size();
 			row[9] = method.containRemoteInvokeItem() ? "是" : "否";
-			row[10] = invokeItem instanceof LocalInvokeItem ? "Local" : invokeItem instanceof HttpInvokeItem ? "Http"
-					: "RMI";
+			row[10] = invokeItem.getName();
 
 			invokeItemListModel.addRow(row);
 

@@ -73,6 +73,11 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 	}
 
 	@Override
+	public String getName() {
+		return "RMI";
+	}
+
+	@Override
 	public int hashCode() {
 		if (this.getCallee() != null && this.getCaller() != null) {
 			final int prime = 31;
