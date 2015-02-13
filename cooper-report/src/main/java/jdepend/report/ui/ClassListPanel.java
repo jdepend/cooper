@@ -213,7 +213,8 @@ public class ClassListPanel extends JPanel {
 		TableSorter sorter = new TableSorter(classListModel) {
 			@Override
 			protected Comparator getComparator(int column) {
-				if (column == 5 || column == 6) {
+				String currentCol = (String) classListTable.getColumnModel().getColumn(column).getHeaderValue();
+				if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 					return new CaCeComparator();
 				} else {
 					return super.getComparator(column);
