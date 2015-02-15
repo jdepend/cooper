@@ -15,6 +15,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUtil;
@@ -243,7 +244,11 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		return this.javaClassesForId.containsKey(javaClass.getId());
+		if (javaClass.isInnerClass()) {
+			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
+		} else {
+			return this.javaClassesForId.containsKey(javaClass.getId());
+		}
 	}
 
 	@Override

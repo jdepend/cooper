@@ -61,6 +61,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 
 	private List<JavaClass> innerClasses = new ArrayList<JavaClass>();
 
+	private JavaClass hostClass;
+
 	private transient Collection<Method> methods;
 
 	private transient Map<Method, Collection<Method>> overrideMethods;
@@ -149,7 +151,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	 * @return
 	 */
 	public boolean isInnerClass() {
-		if (this.getName().toLowerCase().indexOf("$") > 0) {
+		if (this.getName().indexOf("$") > 0) {
 			return true;
 		} else {
 			return false;
@@ -176,6 +178,11 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 		if (!this.innerClasses.contains(javaClass)) {
 			this.innerClasses.add(javaClass);
 		}
+		javaClass.hostClass = this;
+	}
+
+	public JavaClass getHostClass() {
+		return hostClass;
 	}
 
 	public Collection<JavaClass> getInnerClasses() {
