@@ -182,7 +182,11 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 	}
 
 	public JavaClass getHostClass() {
-		return hostClass;
+		if (this.hostClass.isInnerClass()) {
+			return this.hostClass.getHostClass();
+		} else {
+			return hostClass;
+		}
 	}
 
 	public Collection<JavaClass> getInnerClasses() {
