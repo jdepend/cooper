@@ -1,11 +1,7 @@
 package jdepend.service;
 
 import java.rmi.RemoteException;
-import java.util.Collection;
 
-import jdepend.model.JavaClass;
-import jdepend.model.util.ClassSearchUtil;
-import jdepend.parse.util.SearchUtil;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
 import jdepend.service.remote.JDependRemoteService;
@@ -20,22 +16,6 @@ import jdepend.service.remote.user.UserRemoteService;
 import jdepend.service.remote.user.UserRemoteServiceImpl;
 
 public class ServiceFactory {
-
-	public static void init() {
-
-		// initClassList();
-	}
-
-	private static int initClassList() {
-		SearchUtil search = new SearchUtil();
-		for (String path : ClassSearchUtil.getSelfPath()) {
-			search.addPath(path);
-		}
-		Collection<JavaClass> javaClasses = search.getClasses();
-		ClassSearchUtil.getInstance().setClassList(javaClasses);
-
-		return javaClasses.size();
-	}
 
 	public static JDependLocalService createJDependLocalService() {
 		return createJDependLocalService(null, null);
