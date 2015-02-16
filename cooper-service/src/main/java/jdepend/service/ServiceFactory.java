@@ -10,6 +10,7 @@ import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependSessionService;
+import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
 import jdepend.service.remote.impl.JDependRemoteServiceImpl;
 import jdepend.service.remote.impl.JDependSessionServiceImpl;
@@ -22,7 +23,7 @@ public class ServiceFactory {
 
 	public static void init() {
 
-//		initClassList();
+		// initClassList();
 	}
 
 	private static int initClassList() {
@@ -44,7 +45,7 @@ public class ServiceFactory {
 		return new JDependLocalServiceImpl(groupName, commandName);
 	}
 
-	public static AnalyzerServiceImpl createAnalyzerService() throws RemoteException {
+	public static AnalyzerService createAnalyzerService() throws RemoteException {
 		return new AnalyzerServiceImpl();
 	}
 

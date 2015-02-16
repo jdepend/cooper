@@ -21,14 +21,15 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.ServiceFactory;
-import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
+import jdepend.service.remote.analyzer.AnalyzerRepository;
+import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerMgrPanel extends JPanel {
 
 	private JDependServer server;
 
-	private AnalyzerServiceImpl analyzerService;
+	private AnalyzerService analyzerService;
 
 	private List<AnalyzerSummaryDTO> analyzers;
 
@@ -136,7 +137,7 @@ public final class AnalyzerMgrPanel extends JPanel {
 		if (this.currentClassName == null) {
 			throw new JDependException("请选择分析器。");
 		} else {
-			analyzerService.delete(this.currentClassName);
+			(new AnalyzerRepository()).delete(this.currentClassName);
 		}
 	}
 
@@ -144,7 +145,7 @@ public final class AnalyzerMgrPanel extends JPanel {
 
 		model.setRowCount(0);
 
-		analyzers = analyzerService.queryAll();
+		analyzers = (new AnalyzerRepository()).queryAll();
 
 		Object[] row;
 		for (AnalyzerSummaryDTO analyzer : analyzers) {
