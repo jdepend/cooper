@@ -77,21 +77,21 @@ public final class AboutDialog extends JDialog {
 		JLabel companyLabel = new JLabel("Neusoft, Inc.");
 		companyLabel.setFont(new Font("dialog", Font.PLAIN, 12));
 
-		final JLabel httpLabel = new JLabel("<html><a href='http://code.google.com/p/jdepend-cooper/'>jdepend-cooper</a></html>");
+		final JLabel httpLabel = new JLabel(
+				"<html><a href='https://github.com/jdepend/cooper'>jdepend-cooper</a></html>");
+		httpLabel.setFont(new Font("dialog", Font.PLAIN, 12));
 		httpLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		httpLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Desktop desktop = Desktop.getDesktop();
 				try {
-					desktop.browse(new URI("http://code.google.com/p/jdepend-cooper/"));
+					desktop.browse(new URI("https://github.com/jdepend/cooper"));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-
-		httpLabel.setFont(new Font("dialog", Font.PLAIN, 12));
 
 		JButton closeButton = createButton(BundleUtil.getString(BundleUtil.Command_Close));
 
@@ -117,9 +117,17 @@ public final class AboutDialog extends JDialog {
 
 		ImageIcon background = new ImageIcon(JDependUIUtil.getImage("about.png"));// 背景图片
 		JLabel label = new JLabel(background);// 把背景图片显示在一个标签里面
-
 		// 把标签的大小位置设置为图片刚好填充整个面板
 		label.setBounds(230, 0, background.getIconWidth(), background.getIconHeight());
+		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				VersionDialog d = new VersionDialog();
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
 		// 把内容窗格转化为JPanel，否则不能用方法setOpaque()来使内容窗格透明
 		((JPanel) this.getContentPane()).setOpaque(false);
 		this.getLayeredPane().setLayout(null);
