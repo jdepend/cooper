@@ -37,7 +37,7 @@ public class VersionDialog extends JDialog {
 
 	public VersionDialog() {
 		getContentPane().setLayout(new BorderLayout());
-		setSize(800, 400);
+		setSize(800, 200);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		this.data = getVersionData();
@@ -81,19 +81,22 @@ public class VersionDialog extends JDialog {
 	}
 
 	private void play() {
+		if (data.length - current > 5) {
 
-		l1.setText(data[data.length - current - 5]);
-		l2.setText(data[data.length - current - 4]);
-		l3.setText(data[data.length - current - 3]);
-		l4.setText(data[data.length - current - 2]);
-		l5.setText(data[data.length - current - 1]);
+			l1.setText(data[data.length - current - 5]);
+			l2.setText(data[data.length - current - 4]);
+			l3.setText(data[data.length - current - 3]);
+			l4.setText(data[data.length - current - 2]);
+			l5.setText(data[data.length - current - 1]);
 
-		current++;
-
-		this.slider.setValue(current);
-
-		if (data.length - current <= 5) {
-			timer.cancel();
+			current++;
+			this.slider.setValue(current);
+		} else {
+			l1.setText(data[0]);
+			l2.setText(data[1]);
+			l3.setText(data[2]);
+			l4.setText(data[3]);
+			l5.setText(data[4]);
 		}
 	}
 
