@@ -29,6 +29,11 @@ public class VersionDialog extends JDialog {
 	private Label l3;
 	private Label l4;
 	private Label l5;
+	private Label l6;
+	private Label l7;
+	private Label l8;
+	private Label l9;
+	private Label l10;
 
 	private JSlider slider;
 
@@ -38,7 +43,7 @@ public class VersionDialog extends JDialog {
 
 	public VersionDialog() {
 		getContentPane().setLayout(new BorderLayout());
-		setSize(800, 200);
+		setSize(800, 300);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		this.data = getVersionData();
@@ -46,35 +51,55 @@ public class VersionDialog extends JDialog {
 		getContentPane().add(BorderLayout.CENTER, this.createContentPanel());
 		getContentPane().add(BorderLayout.SOUTH, this.createJSlider());
 
+		PlayTask playTask = new PlayTask();
+
 		timer = new Timer();
-		timer.schedule(new PlayTask(), 0, 1000);
+		timer.schedule(playTask, 0, 1000);
 	}
 
 	private JPanel createContentPanel() {
-		JPanel contentPanel = new JPanel(new GridLayout(5, 1));
-	
+		JPanel contentPanel = new JPanel(new GridLayout(10, 1));
+
 		l1 = new Label();
 		l2 = new Label();
 		l3 = new Label();
 		l4 = new Label();
 		l5 = new Label();
+		l6 = new Label();
+		l7 = new Label();
+		l8 = new Label();
+		l9 = new Label();
+		l10 = new Label();
 
 		contentPanel.add(l1);
 		contentPanel.add(l2);
 		contentPanel.add(l3);
 		contentPanel.add(l4);
 		contentPanel.add(l5);
+		contentPanel.add(l6);
+		contentPanel.add(l7);
+		contentPanel.add(l8);
+		contentPanel.add(l9);
+		contentPanel.add(l10);
 
 		return contentPanel;
 	}
 
 	private JSlider createJSlider() {
-		this.slider = new JSlider(0, data.length - 5, 0);
+		this.slider = new JSlider(0, data.length - 10, 0);
 
 		this.slider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				current = slider.getValue();
+				if (data.length - current > 10) {
+					if (timer == null) {
+						PlayTask playTask = new PlayTask();
+
+						timer = new Timer();
+						timer.schedule(playTask, 0, 1000);
+					}
+				}
 			}
 		});
 
@@ -82,13 +107,18 @@ public class VersionDialog extends JDialog {
 	}
 
 	private void play() {
-		if (data.length - current > 5) {
+		if (data.length - current > 10) {
 
-			l1.setText(data[data.length - current - 5]);
-			l2.setText(data[data.length - current - 4]);
-			l3.setText(data[data.length - current - 3]);
-			l4.setText(data[data.length - current - 2]);
-			l5.setText(data[data.length - current - 1]);
+			l1.setText(data[data.length - current - 10]);
+			l2.setText(data[data.length - current - 9]);
+			l3.setText(data[data.length - current - 8]);
+			l4.setText(data[data.length - current - 7]);
+			l5.setText(data[data.length - current - 6]);
+			l6.setText(data[data.length - current - 5]);
+			l7.setText(data[data.length - current - 4]);
+			l8.setText(data[data.length - current - 3]);
+			l9.setText(data[data.length - current - 2]);
+			l10.setText(data[data.length - current - 1]);
 
 			current++;
 			this.slider.setValue(current);
@@ -98,6 +128,14 @@ public class VersionDialog extends JDialog {
 			l3.setText(data[2]);
 			l4.setText(data[3]);
 			l5.setText(data[4]);
+			l6.setText(data[5]);
+			l7.setText(data[6]);
+			l8.setText(data[7]);
+			l9.setText(data[8]);
+			l10.setText(data[9]);
+
+			timer.cancel();
+			timer = null;
 		}
 	}
 
