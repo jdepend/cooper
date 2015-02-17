@@ -1,6 +1,7 @@
 package jdepend.framework.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +24,11 @@ public class VersionDialog extends JDialog {
 
 	private String[] data;
 
-	private JLabel l1;
-	private JLabel l2;
-	private JLabel l3;
-	private JLabel l4;
-	private JLabel l5;
+	private Label l1;
+	private Label l2;
+	private Label l3;
+	private Label l4;
+	private Label l5;
 
 	private JSlider slider;
 
@@ -51,12 +52,12 @@ public class VersionDialog extends JDialog {
 
 	private JPanel createContentPanel() {
 		JPanel contentPanel = new JPanel(new GridLayout(5, 1));
-
-		l1 = new JLabel();
-		l2 = new JLabel();
-		l3 = new JLabel();
-		l4 = new JLabel();
-		l5 = new JLabel();
+	
+		l1 = new Label();
+		l2 = new Label();
+		l3 = new Label();
+		l4 = new Label();
+		l5 = new Label();
 
 		contentPanel.add(l1);
 		contentPanel.add(l2);
@@ -132,4 +133,22 @@ public class VersionDialog extends JDialog {
 		}
 	}
 
+	class Label extends AlphaPane {
+
+		private String text;
+
+		public Label() {
+		}
+
+		public void setText(String text) {
+			this.text = text;
+			this.repaint();
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawString(text, 20, 10);
+		}
+	}
 }
