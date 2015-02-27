@@ -42,6 +42,27 @@ public class VirtualComponent extends Component {
 		this.setResult(component.getResult());
 	}
 
+	/**
+	 * 建立组件与类之间的单向关联
+	 * 
+	 * @param javaClass
+	 */
+	public synchronized void joinJavaClass(JavaClass javaClass) {
+		if (!this.javaClasses.contains(javaClass)) {
+			this.javaClasses.add(javaClass);
+			this.javaClassesForId.put(javaClass.getId(), javaClass);
+		}
+	}
+
+	@Override
+	public boolean containsClass(JavaClass javaClass) {
+		if (javaClass.isInnerClass()) {
+			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
+		} else {
+			return this.javaClassesForId.containsKey(javaClass.getId());
+		}
+	}
+
 	@Override
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
 		throw new JDependException("虚拟组件不进行组件的识别");

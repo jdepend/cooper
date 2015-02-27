@@ -65,6 +65,11 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 		return infos;
 
 	}
+	
+	@Override
+	public String getAccording() {
+		return "违反稳定抽象等价原则";
+	}
 
 	@Override
 	public List<Object> getInfo() {

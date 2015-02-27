@@ -40,7 +40,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private int layer;
 
-	private List<JavaClass> javaClasses = new ArrayList<JavaClass>();
+	protected List<JavaClass> javaClasses = new ArrayList<JavaClass>();
 
 	private transient AnalysisResult result;
 
@@ -48,7 +48,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
 
-	private transient Map<String, JavaClass> javaClassesForId = new HashMap<String, JavaClass>();// 缓存
+	protected transient Map<String, JavaClass> javaClassesForId = new HashMap<String, JavaClass>();// 缓存
 
 	protected transient Collection<Component> afferents = null;// 缓存
 
@@ -174,18 +174,16 @@ public abstract class Component extends AbstractJDependUnit {
 		return this.javaClasses;
 	}
 
-	public JavaClass getTheClass(String current) {
-		return this.javaClassesForId.get(current);
+	public JavaClass getTheClass(String classId) {
+		return this.javaClassesForId.get(classId);
 	}
 
 	@Override
 	public synchronized Collection<JavaPackage> getJavaPackages() {
 		if (this.javaPackages == null) {
-			this.javaPackages = new ArrayList<JavaPackage>();
+			this.javaPackages = new HashSet<JavaPackage>();
 			for (JavaClass javaClass : this.javaClasses) {
-				if (!this.javaPackages.contains(javaClass.getJavaPackage())) {
-					this.javaPackages.add(javaClass.getJavaPackage());
-				}
+				this.javaPackages.add(javaClass.getJavaPackage());
 			}
 		}
 		return this.javaPackages;
@@ -212,18 +210,6 @@ public abstract class Component extends AbstractJDependUnit {
 	public synchronized void addJavaClass(JavaClass javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
-			this.javaClasses.add(javaClass);
-			this.javaClassesForId.put(javaClass.getId(), javaClass);
-		}
-	}
-
-	/**
-	 * 建立组件与类之间的单向关联
-	 * 
-	 * @param javaClass
-	 */
-	public synchronized void joinJavaClass(JavaClass javaClass) {
-		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}

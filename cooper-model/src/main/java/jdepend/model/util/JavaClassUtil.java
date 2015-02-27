@@ -15,14 +15,11 @@ import jdepend.model.Method;
 public class JavaClassUtil {
 
 	public static Collection<JavaPackage> getJavaPackages(Collection<Component> components) {
-		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
+		Collection<JavaPackage> javaPackages = new HashSet<JavaPackage>();
 		for (Component component : components) {
 			for (JavaPackage javaPackage : component.getJavaPackages()) {
-				if (!javaPackages.contains(javaPackage)) {
-					javaPackages.add(javaPackage);
-				}
+				javaPackages.add(javaPackage);
 			}
-
 		}
 		return javaPackages;
 

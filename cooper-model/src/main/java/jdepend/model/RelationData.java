@@ -27,11 +27,11 @@ public class RelationData {
 	public float dependCeIntensity;
 	public float dependCaIntensity;
 
-	public Component current;
-	public Component depend;
+	public VirtualComponent current;
+	public VirtualComponent depend;
 
-	public Component currentOther;
-	public Component dependOther;
+	public VirtualComponent currentOther;
+	public VirtualComponent dependOther;
 
 	private Collection<Relation> relations;
 

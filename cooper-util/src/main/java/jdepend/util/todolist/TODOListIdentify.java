@@ -307,7 +307,6 @@ public class TODOListIdentify {
 					item.setContent("组件[" + component.getName() + "]的抽象程度过大");
 				}
 
-				item.setAccording("稳定抽象等价原则");
 				item.setOrder(AdjustAbstractTODOItemOrder + component.getDistance());
 
 				this.list.add(item);

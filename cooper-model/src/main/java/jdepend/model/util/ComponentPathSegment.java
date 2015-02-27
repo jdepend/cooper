@@ -1,6 +1,7 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ComponentPathSegment implements Comparable<ComponentPathSegment> {
 	 * @param paths
 	 * @return
 	 */
-	public static List<ComponentPathSegment> create(List<String> paths) {
+	public static List<ComponentPathSegment> create(Collection<String> paths) {
 
 		List<ComponentPathSegment> segments = new ArrayList<ComponentPathSegment>();
 		ComponentPathSegment st1 = null;

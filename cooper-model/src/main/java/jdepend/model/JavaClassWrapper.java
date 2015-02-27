@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.model.component.JavaClassComponent;
+import jdepend.model.component.VirtualComponent;
 import jdepend.model.util.RelationCreator;
 
 public class JavaClassWrapper {
@@ -31,23 +32,20 @@ public class JavaClassWrapper {
 
 		Collection<Component> components = new ArrayList<Component>();
 
-		JavaClassComponent javaClassComponent = new JavaClassComponent(javaClass.getName());
-		javaClassComponent.joinJavaClass(javaClass);
+		VirtualComponent javaClassComponent = new VirtualComponent(javaClass);
 		components.add(javaClassComponent);
 
 		Collection<Component> componentCas = new ArrayList<Component>();
 
 		for (JavaClass relJavaClass : javaClass.getCaList()) {
-			javaClassComponent = new JavaClassComponent(relJavaClass.getName());
-			javaClassComponent.joinJavaClass(relJavaClass);
+			javaClassComponent = new VirtualComponent(relJavaClass);
 			componentCas.add(javaClassComponent);
 		}
 
 		Collection<Component> componentCes = new ArrayList<Component>();
 
 		for (JavaClass relJavaClass : javaClass.getCeList()) {
-			javaClassComponent = new JavaClassComponent(relJavaClass.getName());
-			javaClassComponent.joinJavaClass(relJavaClass);
+			javaClassComponent = new VirtualComponent(relJavaClass);
 			componentCes.add(javaClassComponent);
 		}
 
