@@ -9,7 +9,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -145,8 +144,8 @@ public class VersionDialog extends JDialog {
 			input = VersionDialog.class.getResourceAsStream(VERSION_FILE);
 			byte[] data = StreamUtil.getData(input);
 
-			return new String(data).split("\n");
-		} catch (JDependException e) {
+			return new String(data, "UTF-8").split("\n");
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		} finally {
