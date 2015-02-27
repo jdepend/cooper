@@ -53,7 +53,7 @@ public class VirtualComponent extends Component {
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}
 	}
-
+	
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
 		if (javaClass.isInnerClass()) {

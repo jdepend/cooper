@@ -43,7 +43,7 @@ public class SecondComponentIdentifyer {
 		// 以coreClass为中心聚集直接Class形成组件
 		Iterator<CaCountClass> it = javaClasses.iterator();
 		Collection<Component> components = new ArrayList<Component>();
-		Component component;
+		VirtualComponent component;
 		JavaClass javaClass;
 		CaCountClass caClass2;
 		CaCountClass caClass3;
@@ -53,21 +53,20 @@ public class SecondComponentIdentifyer {
 			if (!caClass.isRelationed()) {
 				caClass.setRelationed();
 				javaClass = caClass.getJavaClass();
-				component = new VirtualComponent(javaClass.getName());
-				component.addJavaClass(javaClass);
+				component = new VirtualComponent(javaClass);
 				//一级搜索
 				for (JavaClass javaClass2 : javaClass.getCaList()) {
 					if (current.containsClass(javaClass2)) {
 						caClass2 = mapJavaClasses.get(javaClass2);
 						if (!caClass2.isRelationed() && !caClass2.isCore()) {
-							component.addJavaClass(javaClass2);
+							component.joinJavaClass(javaClass2);
 							caClass2.setRelationed();
 							//二级搜索
 							for (JavaClass javaClass3 : javaClass2.getCaList()) {
 								if (current.containsClass(javaClass3)) {
 									caClass3 = mapJavaClasses.get(javaClass3);
 									if (!caClass3.isRelationed() && !caClass3.isCore()) {
-										component.addJavaClass(javaClass3);
+										component.joinJavaClass(javaClass3);
 										caClass3.setRelationed();
 									}
 								}
