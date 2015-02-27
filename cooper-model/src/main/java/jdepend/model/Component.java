@@ -18,6 +18,7 @@ import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUtil;
+import jdepend.model.util.RelationCreator;
 
 /**
  * 组件抽象类
@@ -388,6 +389,18 @@ public abstract class Component extends AbstractJDependUnit {
 		return null;
 	}
 
+	public Collection<Component> getRelationComponents() {
+		Collection<Component> relationComponents = new HashSet<Component>();
+		for (Relation relation : this.relations) {
+			if (relation.getCurrent().getComponent().equals(this)) {
+				relationComponents.add(relation.getDepend().getComponent());
+			} else {
+				relationComponents.add(relation.getCurrent().getComponent());
+			}
+		}
+		return relationComponents;
+	}
+
 	@Override
 	public synchronized float caCoupling() {
 		if (caCoupling == null) {
@@ -431,54 +444,28 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	public Collection<Relation> open() {
-		List<Component> components = new ArrayList<Component>();
-		for (Element element : Relation.calElements(relations)) {
-			components.add(element.getComponent());
-		}
-		Collection<Component> allComponents = new ArrayList<Component>();
+
+		Collection<Relation> allRelations = new HashSet<Relation>();
+
 		Collection<Component> innerComponents = new HashSet<Component>();
 		Component virtualComponent;
-		for (Component component : components) {
-			if (component.equals(this)) {
-				for (JavaClass javaClass : this.getClasses()) {
-					virtualComponent = new VirtualComponent(javaClass);
-					allComponents.add(virtualComponent);
-					innerComponents.add(virtualComponent);
-				}
-			} else {
-				allComponents.add(new VirtualComponent(component));
-			}
+		for (JavaClass javaClass : this.getClasses()) {
+			virtualComponent = new VirtualComponent(javaClass);
+			innerComponents.add(virtualComponent);
 		}
 
-		Collection<Relation> relations = new ArrayList<Relation>();
-		Relation r;
-		RelationDetail detail;
-		Map<String, Element> elements = new HashMap<String, Element>();
-		for (Component left : allComponents) {
-			for (Component right : allComponents) {
-				if (innerComponents.contains(left) || innerComponents.contains(right)) {
-					detail = left.calCeCouplingDetail(right);
-					if (detail.getIntensity() != 0) {
-						r = new Relation();
-						r.setCurrent(this.createElement(left, elements));
-						r.setDepend(this.createElement(right, elements));
-						r.setDetail(detail);
-						relations.add(r);
-					}
-				}
-			}
-		}
+		Collection<Relation> innerRelations = new RelationCreator().create(innerComponents);
+		allRelations.addAll(innerRelations);
 
-		return relations;
-	}
+		Collection<Component> outerComponents = this.getRelationComponents();
 
-	private Element createElement(Component unit, Map<String, Element> elements) {
-		Element element = elements.get(unit.getName());
-		if (element == null) {
-			element = new Element(unit);
-			elements.put(unit.getName(), element);
-		}
-		return element;
+		Collection<Relation> ceRelations = new RelationCreator().create(innerComponents, outerComponents);
+		allRelations.addAll(ceRelations);
+
+		Collection<Relation> caRelations = new RelationCreator().create(outerComponents, innerComponents);
+		allRelations.addAll(caRelations);
+
+		return allRelations;
 	}
 
 	@Override

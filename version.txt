@@ -8,6 +8,8 @@ c）在关于窗口中增加浏览release note功能
 
 d）改进Component.containsClass的算法
 
+e）改进Component.open的算法
+
 1.2.4_06 2015-02-10
 
 a）修改了识别类级别循环依赖的算法缺陷
