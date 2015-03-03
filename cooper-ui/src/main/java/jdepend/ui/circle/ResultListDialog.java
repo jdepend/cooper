@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import jdepend.core.score.ScoreRepository;
 import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.ScoreListPanel;
 

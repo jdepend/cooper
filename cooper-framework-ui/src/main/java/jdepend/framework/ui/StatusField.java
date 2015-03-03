@@ -44,7 +44,7 @@ public class StatusField extends JPanel {
 		statusLeft.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		// Textfeld mit dem Panel verbinden
 		this.add(statusLeft);
-		statusLeft.setPreferredSize(new Dimension(((int) (width * 0.8F) - 3), 20));
+		statusLeft.setPreferredSize(new Dimension(((int) (width * 0.8F) - 2), 20));
 
 		// Mittleres Textfeld ist die Anzeige, wenn ein Wert gespeichert wird
 		statusCenter = new JTextField();
@@ -97,5 +97,9 @@ public class StatusField extends JPanel {
 
 	public JTextField getStatusRight() {
 		return statusRight;
+	}
+
+	public void refresh() {
+
 	}
 }

@@ -49,6 +49,7 @@ import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
+import jdepend.util.shoppingcart.ShoppingCart;
 
 public final class ScorePanel extends SubResultTabPanel {
 
@@ -99,11 +100,13 @@ public final class ScorePanel extends SubResultTabPanel {
 		content.add(BorderLayout.WEST, executeInfo);
 
 		JLabel addResultButton = new JLabel();
-		addResultButton.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, 10));
+		addResultButton.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, 14));
 		addResultButton.setText("  +  ");
 		addResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				ShoppingCart.getInstance().addProduct(JDependUnitMgr.getInstance().getResult());
+				frame.getStatusField().refresh();
 			}
 		});
 		JDependUIUtil.addClickTipEffect(addResultButton);

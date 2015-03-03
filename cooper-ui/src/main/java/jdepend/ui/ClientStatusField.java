@@ -1,6 +1,7 @@
 package jdepend.ui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -8,6 +9,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+
+import shoppingcart.ShoppingCartPanel;
 
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.serverconf.ServerConfigurator;
@@ -20,8 +23,15 @@ import jdepend.framework.util.FileUtil;
 
 public class ClientStatusField extends StatusField {
 
+	private ShoppingCartPanel resultContainerPanel;
+
 	public ClientStatusField(JDependFrame frame) {
 		super(frame);
+
+		this.getStatusLeft().setPreferredSize(new Dimension(this.getStatusLeft().getPreferredSize().width - 20, 20));
+
+		resultContainerPanel = new ShoppingCartPanel(frame);
+		this.add(resultContainerPanel);
 
 		// 单机版运行模式可以切换单机或联机运行模式
 		if (JDependContext.isStandaloneMode()) {
@@ -67,6 +77,11 @@ public class ClientStatusField extends StatusField {
 				}
 			});
 		}
+	}
+
+	@Override
+	public void refresh() {
+		this.resultContainerPanel.refreshState();
 	}
 
 	private void synServiceConf() throws JDependException {
