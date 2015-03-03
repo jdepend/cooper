@@ -77,12 +77,16 @@ public final class ScorePanel extends SubResultTabPanel {
 		this.setBackground(new java.awt.Color(255, 255, 255));
 		this.setBorder(new EmptyBorder(2, 2, 2, 2));
 
-		this.add(BorderLayout.NORTH, this.createExecuteInfo());
+		this.add(BorderLayout.NORTH, this.createTitleInfo());
 
 		this.add(BorderLayout.CENTER, this.createWorkspacePanel());
 	}
 
-	private JComponent createExecuteInfo() {
+	private JComponent createTitleInfo() {
+
+		JPanel content = new JPanel(new BorderLayout());
+		content.setBackground(new java.awt.Color(255, 255, 255));
+
 		JLabel executeInfo = new JLabel();
 
 		executeInfo.setFont(new java.awt.Font("宋体", 0, 10));
@@ -92,7 +96,21 @@ public final class ScorePanel extends SubResultTabPanel {
 				+ VersionUtil.getBuildDate() + " Group:" + this.result.getRunningContext().getGroup() + " Command:"
 				+ this.result.getRunningContext().getCommand());
 
-		return executeInfo;
+		content.add(BorderLayout.WEST, executeInfo);
+
+		JLabel addResultButton = new JLabel();
+		addResultButton.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, 10));
+		addResultButton.setText("  +  ");
+		addResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+			}
+		});
+		JDependUIUtil.addClickTipEffect(addResultButton);
+
+		content.add(BorderLayout.EAST, addResultButton);
+
+		return content;
 	}
 
 	private JPanel createWorkspacePanel() {

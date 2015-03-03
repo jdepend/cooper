@@ -2,6 +2,7 @@ package jdepend.framework.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +25,7 @@ public class StatusField extends JPanel {
 
 		this.frame = frame;
 		// Keinen Layout-Manager verwenden
-		this.setLayout(new BorderLayout());
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		// Aussehen des Randes des Panels setzen
 		this.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
@@ -42,8 +43,8 @@ public class StatusField extends JPanel {
 		// Aussehen wie Panel
 		statusLeft.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		// Textfeld mit dem Panel verbinden
-		this.add(BorderLayout.WEST, statusLeft);
-		statusLeft.setPreferredSize(new Dimension(((int) (width * 0.8F)), 20));
+		this.add(statusLeft);
+		statusLeft.setPreferredSize(new Dimension(((int) (width * 0.8F) - 3), 20));
 
 		// Mittleres Textfeld ist die Anzeige, wenn ein Wert gespeichert wird
 		statusCenter = new JTextField();
@@ -51,7 +52,7 @@ public class StatusField extends JPanel {
 		statusCenter.setFocusable(false);
 		statusCenter.setHorizontalAlignment(JTextField.CENTER);
 		statusCenter.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-		this.add(BorderLayout.CENTER, statusCenter);
+		this.add(statusCenter);
 		statusCenter.setPreferredSize(new Dimension(((int) (width * 0.1F)), 20));
 
 		// Rechtes Textfeld gibt Meldungen aus
@@ -60,7 +61,7 @@ public class StatusField extends JPanel {
 		statusRight.setFocusable(false);
 		statusRight.setHorizontalAlignment(JTextField.CENTER);
 		statusRight.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-		this.add(BorderLayout.EAST, statusRight);
+		this.add(statusRight);
 		statusRight.setPreferredSize(new Dimension(((int) (width * 0.1F)), 20));
 	}
 
