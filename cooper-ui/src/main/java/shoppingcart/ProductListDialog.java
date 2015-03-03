@@ -1,7 +1,12 @@
 package shoppingcart;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -11,14 +16,17 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
+import jdepend.ui.ScoreListDialog;
 import jdepend.util.shoppingcart.Product;
 import jdepend.util.shoppingcart.ShoppingCart;
 
 public final class ProductListDialog extends CooperDialog {
 
+	private CooperTable productListTable;
+
 	public ProductListDialog(final JDependFrame frame) {
 
-		super("结果列表");
+		super("购物车");
 
 		this.setSize(500, 600);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
@@ -31,14 +39,35 @@ public final class ProductListDialog extends CooperDialog {
 		}
 
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(this.createClearButton());
 		buttonPanel.add(this.createCloseButton());
 		this.add(BorderLayout.SOUTH, buttonPanel);
 
 	}
 
+	protected JButton createClearButton() {
+		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Clear));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ShoppingCart.getInstance().clear();
+					refresh();
+				} catch (JDependException ex) {
+					JOptionPane.showMessageDialog(ProductListDialog.this, ex.getMessage(), "alert",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		return button;
+	}
+
 	protected JScrollPane initTable() throws JDependException {
-		CooperTable scoreListTable = new CooperTable(this.calTableData());
-		return new JScrollPane(scoreListTable);
+		productListTable = new CooperTable(this.calTableData());
+		return new JScrollPane(productListTable);
+	}
+
+	protected void refresh() throws JDependException {
+		productListTable.refresh(this.calTableData());
 	}
 
 	private TableData calTableData() throws JDependException {
