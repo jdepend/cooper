@@ -20,7 +20,8 @@ public final class ProductListDialog extends CooperDialog {
 
 		super("结果列表");
 
-		this.setLayout(new BorderLayout());
+		this.setSize(500, 600);
+		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		try {
 			this.add(BorderLayout.CENTER, this.initTable());
