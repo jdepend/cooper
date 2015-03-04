@@ -1,4 +1,4 @@
-package shoppingcart;
+package jdepend.ui.shoppingcart;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

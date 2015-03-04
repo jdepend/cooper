@@ -18,7 +18,6 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import shoppingcart.ProductListDialog;
 
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.score.ScoreByItemComparator;
@@ -49,6 +48,7 @@ import jdepend.ui.componentconf.ChangedElementListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
 import jdepend.ui.result.framework.SubResultTabPanel;
+import jdepend.ui.shoppingcart.ProductListDialog;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
