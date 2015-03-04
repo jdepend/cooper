@@ -12,10 +12,13 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import shoppingcart.ProductListDialog;
 
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.score.ScoreByItemComparator;
@@ -105,8 +108,12 @@ public final class ScorePanel extends SubResultTabPanel {
 		addResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				ShoppingCart.getInstance().addProduct(JDependUnitMgr.getInstance().getResult());
-				frame.getStatusField().refresh();
+				try {
+					ShoppingCart.getInstance().addProduct(JDependUnitMgr.getInstance().getResult());
+					frame.getStatusField().refresh();
+				} catch (JDependException e) {
+					JOptionPane.showMessageDialog(ScorePanel.this, e.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		JDependUIUtil.addClickTipEffect(addResultButton);

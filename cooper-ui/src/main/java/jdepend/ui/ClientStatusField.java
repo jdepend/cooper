@@ -28,7 +28,7 @@ public class ClientStatusField extends StatusField {
 	public ClientStatusField(JDependFrame frame) {
 		super(frame);
 
-		this.getStatusLeft().setPreferredSize(new Dimension(this.getStatusLeft().getPreferredSize().width - 20, 20));
+		this.getStatusLeft().setPreferredSize(new Dimension(this.getStatusLeft().getPreferredSize().width - 32, 20));
 
 		resultContainerPanel = new ShoppingCartPanel(frame);
 		this.add(resultContainerPanel);

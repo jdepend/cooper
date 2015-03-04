@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.refactor.AdjustHistory;
@@ -25,8 +26,12 @@ public class ShoppingCart {
 		return products;
 	}
 
-	public void addProduct(AnalysisResult result) {
-		this.products.add(new Product(result));
+	public void addProduct(AnalysisResult result) throws JDependException {
+		if (this.products.size() < 9) {
+			this.products.add(new Product(result));
+		} else {
+			throw new JDependException("购物车中最多只能添加10个分析结果");
+		}
 	}
 
 	public Product getTheProduct(Date createDate) {

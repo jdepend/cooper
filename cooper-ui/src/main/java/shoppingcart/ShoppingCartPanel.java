@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 import jdepend.framework.ui.JDependFrame;
@@ -21,6 +22,8 @@ public class ShoppingCartPanel extends JPanel {
 		this.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
 		state = new JLabel();
+		state.setFocusable(false);
+		state.setHorizontalAlignment(JTextField.LEFT);
 		JDependUIUtil.addClickTipEffect(state);
 
 		state.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -40,8 +43,10 @@ public class ShoppingCartPanel extends JPanel {
 	public void refreshState() {
 		if (ShoppingCart.getInstance().isEmpty()) {
 			state.setIcon(new ImageIcon(JDependUIUtil.getImage("cart/default.png")));
+			state.setText("  ");
 		} else {
 			state.setIcon(new ImageIcon(JDependUIUtil.getImage("cart/have.png")));
+			state.setText(String.valueOf(ShoppingCart.getInstance().getProducts().size()));
 		}
 	}
 

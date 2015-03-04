@@ -24,12 +24,16 @@ public final class ProductListDialog extends CooperDialog {
 
 	private CooperTable productListTable;
 
-	public ProductListDialog(final JDependFrame frame) {
+	private JDependFrame frame;
+
+	public ProductListDialog(JDependFrame frame) {
 
 		super("购物车");
 
 		this.setSize(500, 600);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
+
+		this.frame = frame;
 
 		try {
 			this.add(BorderLayout.CENTER, this.initTable());
@@ -68,6 +72,7 @@ public final class ProductListDialog extends CooperDialog {
 
 	protected void refresh() throws JDependException {
 		productListTable.refresh(this.calTableData());
+		frame.getStatusField().refresh();
 	}
 
 	private TableData calTableData() throws JDependException {
