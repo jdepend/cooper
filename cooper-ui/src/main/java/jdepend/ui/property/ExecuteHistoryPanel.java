@@ -131,10 +131,10 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		JMenuItem compareItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Compare));
 		compareItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedIDs.size() == 2) {
-					compare(selectedIDs.get(0), selectedIDs.get(1));
-				} else {
+				if (selectedIDs == null || selectedIDs.size() != 2) {
 					JOptionPane.showMessageDialog(frame, "请选择2条需要比较的记录", "alert", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					compare(selectedIDs.get(0), selectedIDs.get(1));
 				}
 			}
 		});
@@ -223,7 +223,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		histroyModel.addColumn(ReportConstant.Cohesion);
 		histroyModel.addColumn(ReportConstant.Balance);
 		histroyModel.addColumn(ReportConstant.Encapsulation);
-		
+
 		histroyTable.getColumn("ID").setMaxWidth(0);
 		histroyTable.getColumn("ID").setMinWidth(0);
 
@@ -294,7 +294,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			row[12] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCohesion());
 			row[13] = MetricsFormat.toFormattedMetrics(summry.getSummry().getBalance());
 			row[14] = MetricsFormat.toFormattedMetrics(summry.getSummry().getEncapsulation());
-		
+
 			histroyModel.addRow(row);
 		}
 	}

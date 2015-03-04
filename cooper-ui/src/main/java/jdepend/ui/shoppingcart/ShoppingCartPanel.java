@@ -24,7 +24,6 @@ public class ShoppingCartPanel extends JPanel {
 		state = new JLabel();
 		state.setFocusable(false);
 		state.setHorizontalAlignment(JTextField.LEFT);
-		JDependUIUtil.addClickTipEffect(state);
 
 		state.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override

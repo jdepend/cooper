@@ -94,10 +94,11 @@ public final class ProductListDialog extends CooperDialog {
 		JMenuItem compareItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Compare));
 		compareItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedIDs.size() == 2) {
-					compare(selectedIDs.get(0), selectedIDs.get(1));
+				if (selectedIDs == null || selectedIDs.size() != 2) {
+					JOptionPane.showMessageDialog(ProductListDialog.this, "请选择2条需要比较的记录", "alert",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(frame, "请选择2条需要比较的记录", "alert", JOptionPane.INFORMATION_MESSAGE);
+					compare(selectedIDs.get(0), selectedIDs.get(1));
 				}
 			}
 		});
