@@ -554,7 +554,7 @@ public class MotiveOperationPanel extends MotivePanel {
 					execute();
 					JDependUnitMgr.getInstance().getResult().clearScore();
 					JDependUnitMgr.getInstance().getResult().clearRelationCache();
-					frame.getResultPanelWrapper().showResults();
+					frame.getResultPanelWrapper().showResults(false);
 					motiveDialog.dispose();
 				} catch (IOException e1) {
 					e1.printStackTrace();

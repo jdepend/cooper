@@ -303,20 +303,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		try {
 			AnalysisResult result = AnalysisResultRepository.getResult(currentId);
 			JDependUnitMgr.getInstance().setResult(result);
-			frame.getResultPanelWrapper().showResults();
-			// 刷新TODOList
-			new Thread() {
-				@Override
-				public void run() {
-					try {
-						frame.getPropertyPanel().getToDoListPanel().refresh();
-					} catch (JDependException e) {
-						e.printStackTrace();
-						frame.getResultPanel().showError(e);
-					}
-				}
-			}.start();
-
+			frame.getResultPanelWrapper().showResults(true);
 		} catch (JDependException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame, "读取执行历史失败！", "alert", JOptionPane.ERROR_MESSAGE);
@@ -331,7 +318,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			AdjustHistory.getInstance().addMemento();
 			AnalysisResult result2 = AnalysisResultRepository.getResult(id2);
 			JDependUnitMgr.getInstance().setResult(result2);
-			frame.getResultPanelWrapper().showResults();
+			frame.getResultPanelWrapper().showResults(false);
 		} catch (JDependException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(frame, "读取执行历史失败！", "alert", JOptionPane.ERROR_MESSAGE);

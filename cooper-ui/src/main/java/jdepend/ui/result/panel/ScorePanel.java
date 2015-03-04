@@ -18,7 +18,6 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.score.ScoreByItemComparator;
 import jdepend.core.score.ScoreInfo;
@@ -810,7 +809,7 @@ public final class ScorePanel extends SubResultTabPanel {
 			JDependUnitMgr.getInstance().setResult(result);
 			CommandAdapterMgr.setCurrentGroup(group);
 			CommandAdapterMgr.setCurrentCommand(command);
-			frame.getResultPanelWrapper().showResults();
+			frame.getResultPanelWrapper().showResults(false);
 		}
 	}
 }

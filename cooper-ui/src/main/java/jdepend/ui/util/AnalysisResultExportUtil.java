@@ -71,21 +71,8 @@ public class AnalysisResultExportUtil {
 						CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
 
 						frame.getStatusField().setText(" 正在显示分析结果。。。。");
-						frame.getResultPanelWrapper().showResults();
-						// 刷新TODOList
-						new Thread() {
-							@Override
-							public void run() {
-								try {
-									frame.getStatusField().setText(" 正在创建改进建议。。。。");
-									frame.getPropertyPanel().getToDoListPanel().refresh();
-									frame.getStatusField().setText("");
-								} catch (JDependException e) {
-									e.printStackTrace();
-									frame.getResultPanel().showError(e);
-								}
-							}
-						}.start();
+						frame.getResultPanelWrapper().showResults(true);
+						frame.getStatusField().setText("");
 					} catch (Exception e) {
 						e.printStackTrace();
 						frame.getResultPanel().showError(e);

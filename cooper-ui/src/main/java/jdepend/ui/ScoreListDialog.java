@@ -166,9 +166,7 @@ public final class ScoreListDialog extends CooperDialog {
 								JDependUnitMgr.getInstance().setResult(result);
 								CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
 								CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
-								frame.getResultPanelWrapper().showResults();
-								// 刷新TODOList
-								frame.getPropertyPanel().getToDoListPanel().refresh();
+								frame.getResultPanelWrapper().showResults(true);
 							} catch (JDependException e) {
 								e.printStackTrace();
 								frame.showStatusError(e.getMessage());

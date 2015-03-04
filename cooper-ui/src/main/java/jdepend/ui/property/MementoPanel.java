@@ -208,6 +208,6 @@ public class MementoPanel extends JPanel {
 		}
 		JDependUnitMgr.getInstance().setResult(result);
 
-		frame.getResultPanelWrapper().showResults();
+		frame.getResultPanelWrapper().showResults(false);
 	}
 }

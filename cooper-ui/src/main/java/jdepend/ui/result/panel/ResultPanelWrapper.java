@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.result.framework.ResultPanel;
@@ -19,7 +20,7 @@ public class ResultPanelWrapper {
 	/**
 	 * 显示内存中JDependUnitMgr中的结果（不弹出分数窗口）
 	 */
-	public void showResults() {
+	public void showResults(boolean isRefreshTodoList) {
 
 		resultPanel.removeAll();
 
@@ -41,6 +42,21 @@ public class ResultPanelWrapper {
 			resultPanel.showError(ex);
 		}
 		resultPanel.getFrame().getPropertyPanel().getClassPanel().clearClassList();
+
+		if (isRefreshTodoList) {
+			// 刷新TODOList
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						resultPanel.getFrame().getPropertyPanel().getToDoListPanel().refresh();
+					} catch (JDependException e) {
+						e.printStackTrace();
+						resultPanel.getFrame().getResultPanel().showError(e);
+					}
+				}
+			}.start();
+		}
 	}
 
 	/**
@@ -50,7 +66,7 @@ public class ResultPanelWrapper {
 		int defaultOneIndex = resultPanel.getOneIndex();
 		int defaultTwoIndex = resultPanel.getTwoIndex();
 
-		this.showResults();
+		this.showResults(false);
 
 		if (defaultOneIndex != -1 && defaultTwoIndex != -1) {
 			resultPanel.setDefaultTab(defaultOneIndex, defaultTwoIndex);

@@ -19,7 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
@@ -169,19 +168,7 @@ public final class ProductListDialog extends CooperDialog {
 	private void view() {
 		AnalysisResult result = ShoppingCart.getInstance().getTheProduct(currentId).getResult();
 		JDependUnitMgr.getInstance().setResult(result);
-		frame.getResultPanelWrapper().showResults();
-		// 刷新TODOList
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					frame.getPropertyPanel().getToDoListPanel().refresh();
-				} catch (JDependException e) {
-					e.printStackTrace();
-					frame.getResultPanel().showError(e);
-				}
-			}
-		}.start();
+		frame.getResultPanelWrapper().showResults(true);
 	}
 
 	private void compare(Date id1, Date id2) {
@@ -191,6 +178,6 @@ public final class ProductListDialog extends CooperDialog {
 		AdjustHistory.getInstance().addMemento();
 		AnalysisResult result2 = ShoppingCart.getInstance().getTheProduct(id2).getResult();
 		JDependUnitMgr.getInstance().setResult(result2);
-		frame.getResultPanelWrapper().showResults();
+		frame.getResultPanelWrapper().showResults(false);
 	}
 }
