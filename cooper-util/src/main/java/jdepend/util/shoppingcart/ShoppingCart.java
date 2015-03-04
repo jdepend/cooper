@@ -43,15 +43,6 @@ public class ShoppingCart {
 		return null;
 	}
 
-	public void compare(Date date1, Date date2) {
-		AdjustHistory.getInstance().clear();
-		AnalysisResult result1 = this.getTheProduct(date1).getResult();
-		JDependUnitMgr.getInstance().setResult(result1);
-		AdjustHistory.getInstance().addMemento();
-		AnalysisResult result2 = this.getTheProduct(date2).getResult();
-		JDependUnitMgr.getInstance().setResult(result2);
-	}
-
 	public boolean isEmpty() {
 		return this.products.size() == 0;
 	}

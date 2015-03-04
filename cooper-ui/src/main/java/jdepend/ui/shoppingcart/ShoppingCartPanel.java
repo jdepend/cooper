@@ -8,15 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JDependUIUtil;
+import jdepend.ui.JDependCooper;
 import jdepend.util.shoppingcart.ShoppingCart;
 
 public class ShoppingCartPanel extends JPanel {
 
 	private JLabel state;
 
-	public ShoppingCartPanel(final JDependFrame frame) {
+	public ShoppingCartPanel(final JDependCooper frame) {
 
 		this.setLayout(new BorderLayout());
 		this.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.LOWERED));

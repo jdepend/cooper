@@ -10,13 +10,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-
 import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.serverconf.ServerConfigurator;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.util.FileUtil;
 import jdepend.ui.shoppingcart.ShoppingCartPanel;
@@ -25,7 +23,7 @@ public class ClientStatusField extends StatusField {
 
 	private ShoppingCartPanel resultContainerPanel;
 
-	public ClientStatusField(JDependFrame frame) {
+	public ClientStatusField(JDependCooper frame) {
 		super(frame);
 
 		this.getStatusLeft().setPreferredSize(new Dimension(this.getStatusLeft().getPreferredSize().width - 32, 20));
