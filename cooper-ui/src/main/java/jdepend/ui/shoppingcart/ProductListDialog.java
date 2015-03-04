@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -16,14 +17,20 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.TableSorter;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
+import jdepend.framework.util.MetricsFormat;
+import jdepend.knowledge.database.AnalysisResultRepository;
+import jdepend.knowledge.database.ExecuteResultSummry;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.shoppingcart.Product;
@@ -31,7 +38,9 @@ import jdepend.util.shoppingcart.ShoppingCart;
 
 public final class ProductListDialog extends CooperDialog {
 
-	private CooperTable productListTable;
+	private JTable productListTable;
+
+	private DefaultTableModel productListModel;
 
 	private JDependCooper frame;
 
@@ -48,12 +57,9 @@ public final class ProductListDialog extends CooperDialog {
 
 		this.frame = frame;
 
-		try {
-			this.add(BorderLayout.CENTER, this.initTable());
-		} catch (JDependException e) {
-			e.printStackTrace();
-			frame.showStatusError(e.getMessage());
-		}
+		this.add(BorderLayout.CENTER, this.initTable());
+
+		this.refresh();
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(this.createClearButton());
@@ -66,21 +72,25 @@ public final class ProductListDialog extends CooperDialog {
 		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Clear));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ShoppingCart.getInstance().clear();
-					refresh();
-				} catch (JDependException ex) {
-					JOptionPane.showMessageDialog(ProductListDialog.this, ex.getMessage(), "alert",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				ShoppingCart.getInstance().clear();
+				refresh();
 			}
 		});
 		return button;
 	}
 
-	protected JScrollPane initTable() throws JDependException {
+	protected JScrollPane initTable() {
 
-		productListTable = new CooperTable(this.calTableData());
+		productListModel = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+		};
+
+		TableSorter sorter = new TableSorter(productListModel);
+		productListTable = new JTable(sorter);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem viewItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_View));
@@ -128,25 +138,36 @@ public final class ProductListDialog extends CooperDialog {
 			}
 		});
 
-		return new JScrollPane(productListTable);
+		sorter.setTableHeader(productListTable.getTableHeader());
+
+		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_ExecuteDate));
+		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_GroupName));
+		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_CommandName));
+
+		sorter.setSortingStatus(0, TableSorter.ASCENDING);
+
+		JScrollPane pane = new JScrollPane(productListTable);
+		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		return pane;
 	}
 
-	protected void refresh() throws JDependException {
-		productListTable.refresh(this.calTableData());
-		frame.getStatusField().refresh();
-	}
+	private void refresh() {
 
-	private TableData calTableData() throws JDependException {
+		productListModel.setRowCount(0);
 
-		TableData tableData = new TableData();
+		Object[] row;
+
 		for (Product product : ShoppingCart.getInstance().getProducts()) {
-			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_ExecuteDate), product.getCreateDate());
-			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_GroupName), product.getResult()
-					.getRunningContext().getGroup());
-			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_CommandName), product.getResult()
-					.getRunningContext().getCommand());
+			row = new Object[3];
+			row[0] = product.getCreateDate();
+			row[1] = product.getResult().getRunningContext().getGroup();
+			row[2] = product.getResult().getRunningContext().getCommand();
+
+			productListModel.addRow(row);
 		}
-		return tableData;
+
+		frame.getStatusField().refresh();
 	}
 
 	private void view() {
