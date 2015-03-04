@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,6 +36,7 @@ import jdepend.knowledge.AdviseInfo;
 import jdepend.knowledge.ExpertFactory;
 import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
@@ -48,6 +50,7 @@ import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
 import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.ui.shoppingcart.ProductListDialog;
+import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
@@ -101,9 +104,12 @@ public final class ScorePanel extends SubResultTabPanel {
 
 		content.add(BorderLayout.WEST, executeInfo);
 
+		JPanel buttons = new JPanel(new FlowLayout(FlowLayout.LEFT, 2, 0));
+		buttons.setBackground(new java.awt.Color(255, 255, 255));
+
 		JLabel addResultButton = new JLabel();
-		addResultButton.setFont(new java.awt.Font("宋体", java.awt.Font.BOLD, 14));
-		addResultButton.setText("  +  ");
+		addResultButton.setIcon(new ImageIcon(JDependUIUtil.getImage("cart/add.png")));
+		addResultButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		addResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,9 +121,28 @@ public final class ScorePanel extends SubResultTabPanel {
 				}
 			}
 		});
-		JDependUIUtil.addClickTipEffect(addResultButton);
+		
+		buttons.add(addResultButton);
 
-		content.add(BorderLayout.EAST, addResultButton);
+		JLabel exportResultButton = new JLabel();
+		exportResultButton.setIcon(new ImageIcon(JDependUIUtil.getImage("export.png")));
+		exportResultButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		exportResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				try {
+					AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+					AnalysisResultExportUtil.exportResult(frame, result);
+				} catch (Exception e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(frame, "导出失败！", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		buttons.add(exportResultButton);
+
+		content.add(BorderLayout.EAST, buttons);
 
 		return content;
 	}
