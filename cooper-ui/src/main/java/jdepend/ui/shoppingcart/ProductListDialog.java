@@ -22,15 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TableSorter;
-import jdepend.framework.ui.graph.CooperTable;
-import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
-import jdepend.framework.util.MetricsFormat;
-import jdepend.knowledge.database.AnalysisResultRepository;
-import jdepend.knowledge.database.ExecuteResultSummry;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.shoppingcart.Product;
@@ -97,6 +91,7 @@ public final class ProductListDialog extends CooperDialog {
 		viewItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				view();
+				dispose();
 			}
 		});
 		popupMenu.add(viewItem);
@@ -109,6 +104,7 @@ public final class ProductListDialog extends CooperDialog {
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					compare(selectedIDs.get(0), selectedIDs.get(1));
+					dispose();
 				}
 			}
 		});
