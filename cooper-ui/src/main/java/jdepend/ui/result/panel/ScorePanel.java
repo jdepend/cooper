@@ -36,7 +36,6 @@ import jdepend.knowledge.AdviseInfo;
 import jdepend.knowledge.ExpertFactory;
 import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
-import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
@@ -49,7 +48,6 @@ import jdepend.ui.componentconf.ChangedElementListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
 import jdepend.ui.motive.MotiveDialog;
 import jdepend.ui.result.framework.SubResultTabPanel;
-import jdepend.ui.shoppingcart.ProductListDialog;
 import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
@@ -110,6 +108,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JLabel addResultButton = new JLabel();
 		addResultButton.setIcon(new ImageIcon(JDependUIUtil.getImage("cart/add.png")));
 		addResultButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		addResultButton.setToolTipText("将当前结果加入到购物车");
 		addResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -127,6 +126,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JLabel exportResultButton = new JLabel();
 		exportResultButton.setIcon(new ImageIcon(JDependUIUtil.getImage("export.png")));
 		exportResultButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		exportResultButton.setToolTipText("将当前结果导出");
 		exportResultButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
