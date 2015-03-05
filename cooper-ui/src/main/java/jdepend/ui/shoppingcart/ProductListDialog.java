@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.core.shoppingcart.Product;
+import jdepend.core.shoppingcart.ShoppingCart;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
@@ -26,8 +28,6 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.util.refactor.AdjustHistory;
-import jdepend.util.shoppingcart.Product;
-import jdepend.util.shoppingcart.ShoppingCart;
 
 public final class ProductListDialog extends CooperDialog {
 

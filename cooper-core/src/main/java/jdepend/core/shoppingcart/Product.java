@@ -1,4 +1,4 @@
-package jdepend.util.shoppingcart;
+package jdepend.core.shoppingcart;
 
 import java.util.Date;
 

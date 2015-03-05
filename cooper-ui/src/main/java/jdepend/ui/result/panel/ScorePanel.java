@@ -23,6 +23,7 @@ import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.score.ScoreByItemComparator;
 import jdepend.core.score.ScoreInfo;
 import jdepend.core.score.ScoreRepository;
+import jdepend.core.shoppingcart.ShoppingCart;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.framework.ui.graph.GraphData;
@@ -52,7 +53,6 @@ import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
-import jdepend.util.shoppingcart.ShoppingCart;
 
 public final class ScorePanel extends SubResultTabPanel {
 
