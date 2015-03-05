@@ -1,10 +1,10 @@
-package jdepend.service.avertcheat.abstractClassQualificationConfirmer;
+package jdepend.service.local.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
 
 import jdepend.model.JavaClass;
 import jdepend.model.result.AnalysisRunningContext;
-import jdepend.service.avertcheat.framework.JavaClassAvertCheat;
+import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
 
 public final class AbstractClassQualificationConfirmer extends JavaClassAvertCheat {
 

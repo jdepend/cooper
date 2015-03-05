@@ -1,4 +1,4 @@
-package jdepend.service.avertcheat.framework;
+package jdepend.service.local.avertcheat.framework;
 
 import java.util.Collection;
 import java.util.Map;

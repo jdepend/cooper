@@ -15,7 +15,7 @@ import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.JDependUtil;
 import jdepend.framework.util.VersionUtil;
 import jdepend.service.ServiceFactory;
-import jdepend.service.persistent.ServerConnectionProvider;
+import jdepend.service.framework.persistent.ServerConnectionProvider;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependSessionService;
 import jdepend.service.remote.analyzer.AnalyzerService;

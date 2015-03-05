@@ -1,4 +1,4 @@
-package jdepend.service.context;
+package jdepend.service.framework.context;
 
 /**
  * 服务上下文

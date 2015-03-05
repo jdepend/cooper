@@ -10,7 +10,7 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.service.persistent.ServerConnectionProvider;
+import jdepend.service.framework.persistent.ServerConnectionProvider;
 
 import org.apache.log4j.Logger;
 

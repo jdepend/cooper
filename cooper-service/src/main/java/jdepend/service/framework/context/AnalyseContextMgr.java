@@ -1,4 +1,4 @@
-package jdepend.service.context;
+package jdepend.service.framework.context;
 
 /**
  * 分析上下文管理器

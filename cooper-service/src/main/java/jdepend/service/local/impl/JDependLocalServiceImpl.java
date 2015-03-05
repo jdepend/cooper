@@ -19,12 +19,12 @@ import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
-import jdepend.service.avertcheat.framework.AvertCheat;
-import jdepend.service.avertcheat.framework.AvertCheatMgr;
-import jdepend.service.context.AnalyseContext;
-import jdepend.service.context.AnalyseContextMgr;
+import jdepend.service.framework.context.AnalyseContext;
+import jdepend.service.framework.context.AnalyseContextMgr;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
+import jdepend.service.local.avertcheat.framework.AvertCheat;
+import jdepend.service.local.avertcheat.framework.AvertCheatMgr;
 
 public final class JDependLocalServiceImpl implements JDependLocalService {
 
