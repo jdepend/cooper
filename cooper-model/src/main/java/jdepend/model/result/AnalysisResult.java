@@ -637,7 +637,26 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return result;
 	}
 
-	public StringBuilder equals(AnalysisResult result) throws JDependException {
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AnalysisResult other = (AnalysisResult) obj;
+
+		if (!runningContext.equals(other.runningContext))
+			return false;
+
+		if (!this.getSummary().equals(other.getSummary()))
+			return false;
+
+		return true;
+	}
+
+	public StringBuilder compare(AnalysisResult result) throws JDependException {
 		if (result == null) {
 			throw new JDependException("参数不能为空");
 		}

@@ -338,6 +338,79 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + abstractClassCount;
+		result = prime * result + Float.floatToIntBits(abstractness);
+		result = prime * result + afferentCoupling;
+		result = prime * result + Float.floatToIntBits(balance);
+		result = prime * result + classCount;
+		result = prime * result + Float.floatToIntBits(cohesion);
+		result = prime * result + componentCount;
+		result = prime * result + concreteClassCount;
+		result = prime * result + Float.floatToIntBits(coupling);
+		result = prime * result + Float.floatToIntBits(distance);
+		result = prime * result + efferentCoupling;
+		result = prime * result + ((encapsulation == null) ? 0 : encapsulation.hashCode());
+		result = prime * result + Float.floatToIntBits(instability);
+		result = prime * result + javaPackageCount;
+		result = prime * result + lineCount;
+		result = prime * result + relationCount;
+		result = prime * result + Float.floatToIntBits(volatility);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AnalysisResultSummary other = (AnalysisResultSummary) obj;
+		if (abstractClassCount != other.abstractClassCount)
+			return false;
+		if (Float.floatToIntBits(abstractness) != Float.floatToIntBits(other.abstractness))
+			return false;
+		if (afferentCoupling != other.afferentCoupling)
+			return false;
+		if (Float.floatToIntBits(balance) != Float.floatToIntBits(other.balance))
+			return false;
+		if (classCount != other.classCount)
+			return false;
+		if (Float.floatToIntBits(cohesion) != Float.floatToIntBits(other.cohesion))
+			return false;
+		if (componentCount != other.componentCount)
+			return false;
+		if (concreteClassCount != other.concreteClassCount)
+			return false;
+		if (Float.floatToIntBits(coupling) != Float.floatToIntBits(other.coupling))
+			return false;
+		if (Float.floatToIntBits(distance) != Float.floatToIntBits(other.distance))
+			return false;
+		if (efferentCoupling != other.efferentCoupling)
+			return false;
+		if (encapsulation == null) {
+			if (other.encapsulation != null)
+				return false;
+		} else if (!encapsulation.equals(other.encapsulation))
+			return false;
+		if (Float.floatToIntBits(instability) != Float.floatToIntBits(other.instability))
+			return false;
+		if (javaPackageCount != other.javaPackageCount)
+			return false;
+		if (lineCount != other.lineCount)
+			return false;
+		if (relationCount != other.relationCount)
+			return false;
+		if (Float.floatToIntBits(volatility) != Float.floatToIntBits(other.volatility))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 
 		StringBuilder info = new StringBuilder();
