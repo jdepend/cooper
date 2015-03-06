@@ -19,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import jdepend.core.command.CommandAdapterMgr;
 import jdepend.core.config.CommandConfMgr;
 import jdepend.core.config.GroupConf;
 import jdepend.framework.exception.JDependException;
@@ -354,7 +353,8 @@ public final class ComponentListPanel extends SubResultTabPanel {
 
 	protected void addIgnoreList(boolean incluedsub) throws JDependException {
 
-		GroupConf group = CommandConfMgr.getInstance().getTheGroup(CommandAdapterMgr.getCurrentGroup());
+		GroupConf group = CommandConfMgr.getInstance().getTheGroup(
+				JDependUnitMgr.getInstance().getResult().getRunningContext().getGroup());
 
 		for (String ingorePackage : this.calPackages(incluedsub)) {
 			group.addFilteredPackage(ingorePackage);

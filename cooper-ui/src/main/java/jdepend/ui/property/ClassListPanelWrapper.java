@@ -92,8 +92,8 @@ public class ClassListPanelWrapper extends ClassListPanel {
 
 	private void viewSrc() {
 		try {
-			StringBuilder src = CommandConfMgr.getInstance().getTheGroup(CommandAdapterMgr.getCurrentGroup())
-					.getSrcContent(current);
+			String group = JDependUnitMgr.getInstance().getResult().getRunningContext().getGroup();
+			StringBuilder src = CommandConfMgr.getInstance().getTheGroup(group).getSrcContent(current);
 			frame.getResultPanel().addResult(current, src);
 			frame.getResultPanel().setLastedTab();
 		} catch (JDependException e) {

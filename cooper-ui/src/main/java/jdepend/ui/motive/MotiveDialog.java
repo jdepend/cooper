@@ -2,7 +2,6 @@ package jdepend.ui.motive;
 
 import javax.swing.JTabbedPane;
 
-import jdepend.core.command.CommandAdapterMgr;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.knowledge.motive.MotiveContainer;
 import jdepend.knowledge.motive.MotiveContainerMgr;
@@ -40,10 +39,11 @@ public class MotiveDialog extends CooperDialog {
 	}
 
 	private void initMotiveContainer() {
-		String group = CommandAdapterMgr.getCurrentGroup();
-		String command = CommandAdapterMgr.getCurrentCommand();
-		motiveContainer = MotiveContainerMgr.getInstance().getMotiveContainer(group, command);
 		AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+		String group = result.getRunningContext().getGroup();
+		String command = result.getRunningContext().getCommand();
+		motiveContainer = MotiveContainerMgr.getInstance().getMotiveContainer(group, command);
+
 		if (!motiveContainer.isExist()) {
 			motiveContainer.createInfo(result);
 		} else {

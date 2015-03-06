@@ -94,9 +94,6 @@ public final class CommandAction extends AsynAction {
 		reportRender = new JDependReport(group, command);
 		reportRender.setFrame(frame);
 		reportRender.addReportListener(frame);
-		// 设置正在运行的group和command名称
-		CommandAdapterMgr.setCurrentGroup(group);
-		CommandAdapterMgr.setCurrentCommand(command);
 	}
 
 	@Override

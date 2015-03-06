@@ -120,7 +120,7 @@ public final class ScorePanel extends SubResultTabPanel {
 				}
 			}
 		});
-		
+
 		buttons.add(addResultButton);
 
 		JLabel exportResultButton = new JLabel();
@@ -827,14 +827,7 @@ public final class ScorePanel extends SubResultTabPanel {
 
 	private void scoreScopeMouseClicked(String id) throws JDependException {
 		AnalysisResult result = ScoreRepository.getTheResult(id);
-		String group = result.getRunningContext().getGroup();
-		String command = result.getRunningContext().getCommand();
-		if (!CommandAdapterMgr.getCurrentGroup().equals(group)
-				|| !CommandAdapterMgr.getCurrentCommand().equals(command)) {
-			JDependUnitMgr.getInstance().setResult(result);
-			CommandAdapterMgr.setCurrentGroup(group);
-			CommandAdapterMgr.setCurrentCommand(command);
-			frame.getResultPanelWrapper().showResults(false);
-		}
+		JDependUnitMgr.getInstance().setResult(result);
+		frame.getResultPanelWrapper().showResults(false);
 	}
 }

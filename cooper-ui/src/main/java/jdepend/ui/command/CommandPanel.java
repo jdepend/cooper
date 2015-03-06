@@ -170,7 +170,6 @@ public class CommandPanel extends JPanel {
 					index = theList.locationToIndex(e.getPoint());
 					command = (String) model.getElementAt(index);
 					theList.setSelectedIndex(index);
-					CommandAdapterMgr.setCurrentCommand(command);
 				}
 			}
 

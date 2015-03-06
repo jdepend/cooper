@@ -60,7 +60,6 @@ public class GroupPanel extends JPanel {
 				index = obj.getSelectedIndex();
 				if (index != -1 && obj.getComponentAt(index) instanceof CommandPanel) {
 					currentGroup = ((CommandPanel) obj.getComponentAt(index)).group;
-					CommandAdapterMgr.setCurrentGroup(currentGroup);
 				}
 				UIPropertyConfigurator.getInstance().setGroupIndex(index);
 				if (e.getButton() == 3)
@@ -170,8 +169,8 @@ public class GroupPanel extends JPanel {
 
 	public void refreshGroup() throws JDependException {
 
-		if (UIPropertyConfigurator.getInstance().getGroupTabLayoutPolicy().equals(
-				UIPropertyConfigurator.GroupTabLayoutPolicy_SCROLL_TAB_LAYOUT)) {
+		if (UIPropertyConfigurator.getInstance().getGroupTabLayoutPolicy()
+				.equals(UIPropertyConfigurator.GroupTabLayoutPolicy_SCROLL_TAB_LAYOUT)) {
 			tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		} else {
 			tabPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
@@ -221,7 +220,6 @@ public class GroupPanel extends JPanel {
 			if (index != -1 && tabPane.getTabCount() > index) {
 				tabPane.setSelectedIndex(index);
 				currentGroup = ((CommandPanel) tabPane.getComponentAt(index)).group;
-				CommandAdapterMgr.setCurrentGroup(currentGroup);
 			}
 			UIPropertyConfigurator.getInstance().setGroupIndex(index);
 		} else {
@@ -231,9 +229,6 @@ public class GroupPanel extends JPanel {
 			content.setBackground(new Color(255, 255, 255));
 
 			tabPane.addTab("提示", content);
-			// 设置当前组和命令为空
-			CommandAdapterMgr.setCurrentGroup(null);
-			CommandAdapterMgr.setCurrentCommand(null);
 		}
 		tabPane.setVisible(true);
 	}

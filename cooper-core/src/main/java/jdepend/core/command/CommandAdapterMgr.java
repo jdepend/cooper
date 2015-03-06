@@ -25,10 +25,6 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 	// 命名 group label adapter
 	private Map<String, LinkedHashMap<String, CommandAdapter>> commands = new LinkedHashMap<String, LinkedHashMap<String, CommandAdapter>>();
 
-	private static String currentGroup;
-
-	private static String currentCommand;
-
 	private CommandAdapterMgr() throws JDependException {
 		this.refresh();
 	}
@@ -73,22 +69,6 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 			mgr = new CommandAdapterMgr();
 		}
 		return mgr;
-	}
-
-	public static String getCurrentGroup() {
-		return currentGroup;
-	}
-
-	public static void setCurrentGroup(String group) {
-		currentGroup = group;
-	}
-
-	public static String getCurrentCommand() {
-		return currentCommand;
-	}
-
-	public static void setCurrentCommand(String command) {
-		currentCommand = command;
 	}
 
 	public Map<String, CommandAdapter> getCommands(String group) {

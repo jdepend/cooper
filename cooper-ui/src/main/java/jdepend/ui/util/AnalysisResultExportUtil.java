@@ -67,9 +67,6 @@ public class AnalysisResultExportUtil {
 						frame.clearPriorResult();
 						// 显示结果
 						JDependUnitMgr.getInstance().setResult(result);
-						CommandAdapterMgr.setCurrentGroup(result.getRunningContext().getGroup());
-						CommandAdapterMgr.setCurrentCommand(result.getRunningContext().getCommand());
-
 						frame.getStatusField().setText(" 正在显示分析结果。。。。");
 						frame.getResultPanelWrapper().showResults(true);
 						frame.getStatusField().setText("");
