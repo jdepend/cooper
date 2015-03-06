@@ -15,8 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.remote.analyzer.AnalyzerMgr;
-import jdepend.core.remote.analyzer.AnalyzerSummaryInfo;
+import jdepend.core.local.analyzer.AnalyzerMgr;
+import jdepend.core.local.analyzer.AnalyzerSummaryInfo;
+import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.util.BundleUtil;
@@ -36,8 +37,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 
 	private AnalyzerPanel analyzerPanel;
 
-	public AnalyzerDownloadDialog(JDependCooper frame,
-			AnalyzerPanel analyzerPanel, String type) {
+	public AnalyzerDownloadDialog(JDependCooper frame, AnalyzerPanel analyzerPanel, String type) {
 		super();
 
 		this.frame = frame;
@@ -60,8 +60,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 			public void mouseClicked(MouseEvent e) {
 				JTable table = (JTable) e.getSource();
 				int currentRow = table.rowAtPoint(e.getPoint());
-				currentClassName = (String) table.getModel().getValueAt(
-						currentRow, 2);
+				currentClassName = (String) table.getModel().getValueAt(currentRow, 2);
 				if (currentRow >= 0) {
 					table.setRowSelectionInterval(currentRow, currentRow);
 				}
@@ -94,17 +93,14 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 					dispose();
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					JOptionPane
-							.showMessageDialog(AnalyzerDownloadDialog.this,
-									ex.getMessage(), "alert",
-									JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(AnalyzerDownloadDialog.this, ex.getMessage(), "alert",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		buttonBar.add(downButton);
 
-		JButton closeButton = new JButton(
-				BundleUtil.getString(BundleUtil.Command_Close));
+		JButton closeButton = new JButton(BundleUtil.getString(BundleUtil.Command_Close));
 		closeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -119,7 +115,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 		if (this.currentClassName == null) {
 			throw new JDependException("请选择下载的分析器。");
 		} else {
-			AnalyzerMgr.getInstance().download(this.currentClassName);
+			AnalyzerRemoteMgr.download(this.currentClassName);
 		}
 
 	}
@@ -128,7 +124,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 
 		model.setRowCount(0);
 
-		analyzers = AnalyzerMgr.getInstance().getRemoteAnalyzers(type);
+		analyzers = AnalyzerRemoteMgr.getRemoteAnalyzers(type);
 
 		Object[] row;
 		for (AnalyzerSummaryInfo analyzer : analyzers) {

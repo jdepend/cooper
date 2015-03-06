@@ -8,13 +8,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
+import jdepend.core.local.analyzer.AnalyzerConvertUtil;
+import jdepend.core.local.analyzer.AnalyzerMgr;
+import jdepend.core.local.analyzer.AnalyzerSummaryInfo;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.StreamUtil;
 import jdepend.service.remote.analyzer.AnalyzerDTO;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
@@ -22,90 +22,9 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-/**
- * 客户端分析管理器
- * 
- * @author wangdg
- * 
- */
-public final class AnalyzerMgr {
+public class AnalyzerRemoteMgr {
 
-	private static AnalyzerMgr mgr;
-
-	private List<String> types;
-
-	private Map<String, List<Analyzer>> analyzers;
-
-	private AnalyzerLocalRepository repository;
-
-	private AnalyzerMgr() {
-		this.init();
-	}
-
-	public static AnalyzerMgr getInstance() {
-		if (mgr == null) {
-			mgr = new AnalyzerMgr();
-		}
-		return mgr;
-	}
-
-	public void refresh() {
-		this.init();
-	}
-
-	public void save() {
-		for (String type : types) {
-			for (Analyzer analyzer : this.analyzers.get(type)) {
-				if (!analyzer.needSave()) {
-					continue;
-				}
-				LogUtil.getInstance(AnalyzerMgr.class).systemLog("保存分析器[" + analyzer.getName() + "]配置。。。");
-				try {
-					analyzer.save();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	protected void init() {
-
-		this.repository = new AnalyzerLocalRepository();
-		analyzers = this.repository.getAnalyzers();
-
-		this.types = new ArrayList<String>();
-		for (String type : analyzers.keySet()) {
-			this.types.add(type);
-			for (Analyzer analyzer : analyzers.get(type)) {
-				try {
-					analyzer.init();
-				} catch (JDependException e) {
-					e.printStackTrace();
-					LogUtil.getInstance(AnalyzerMgr.class).systemError("分析器[" + analyzer.getName() + "]启动失败");
-				}
-			}
-		}
-
-		// 按热度排序
-		for (String type : types) {
-			Collections.sort(this.analyzers.get(type));
-		}
-	}
-
-	public List<String> getTypes() {
-		return this.types;
-	}
-
-	public List<Analyzer> getAnalyzers(String type) {
-		return this.analyzers.get(type);
-	}
-
-	public Map<String, List<Analyzer>> getAnalyzers() {
-		return analyzers;
-	}
-
-	public void upload(Analyzer analyzer) throws JDependException {
+	public static void upload(Analyzer analyzer) throws JDependException {
 
 		// List<String> importPackages = this.getImportedPackages(analyzer);
 		// if (importPackages.size() > 0) {
@@ -129,7 +48,7 @@ public final class AnalyzerMgr {
 
 			className = analyzer.getClass().getCanonicalName();
 
-			defInputStream = this.repository.getDef(analyzer);
+			defInputStream = AnalyzerMgr.getInstance().getDef(analyzer);
 			def = StreamUtil.getData(defInputStream);
 
 			AnalyzerDTO analyzerDTO = new AnalyzerDTO();
@@ -172,7 +91,7 @@ public final class AnalyzerMgr {
 		}
 	}
 
-	public List<AnalyzerSummaryInfo> getRemoteAnalyzers(String type) throws JDependException {
+	public static List<AnalyzerSummaryInfo> getRemoteAnalyzers(String type) throws JDependException {
 		try {
 			List<AnalyzerSummaryDTO> analyzerSummaryDTOs = RemoteAnalyzerProxy.getInstance().getAnalyzerService()
 					.getAnalyzsers(type);
@@ -193,19 +112,16 @@ public final class AnalyzerMgr {
 		}
 	}
 
-	public void download(String className) throws JDependException {
+	public static void download(String className) throws JDependException {
 		try {
 			AnalyzerDTO analyzerDTO = RemoteAnalyzerProxy.getInstance().getAnalyzerService().download(className);
 			Analyzer analyzer = AnalyzerConvertUtil.createAnalyzer(analyzerDTO);
-			for (String type : this.analyzers.keySet()) {
-				for (Analyzer obj : this.analyzers.get(type)) {
-					if (obj.equals(analyzer)) {
-						throw new JDependException("分析器已经存在");
-					}
-				}
+			if (AnalyzerMgr.getInstance().containsAnalyzer(analyzer)) {
+				throw new JDependException("分析器已经存在");
+			} else {
+				AnalyzerMgr.getInstance().save(analyzerDTO);
+				AnalyzerMgr.getInstance().addAnalyzer(analyzer);
 			}
-			this.repository.save(analyzerDTO);
-			this.analyzers.get(analyzer.getType()).add(analyzer);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new JDependException(e);
@@ -216,18 +132,5 @@ public final class AnalyzerMgr {
 			e.printStackTrace();
 			throw new JDependException(e);
 		}
-	}
-
-	public void delete(String className) throws JDependException {
-		for (String type : this.types) {
-			for (Analyzer analyzer : this.analyzers.get(type)) {
-				if (analyzer.getClass().getName().equals(className)) {
-					analyzer.release();
-					this.getAnalyzers(type).remove(analyzer);
-					break;
-				}
-			}
-		}
-		this.repository.delete(className);
 	}
 }

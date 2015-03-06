@@ -29,7 +29,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
-import jdepend.core.remote.analyzer.AnalyzerMgr;
+import jdepend.core.local.analyzer.AnalyzerMgr;
+import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.domain.PersistentBean;
@@ -410,7 +411,7 @@ public class AnalyzerPanel extends JPanel {
 			throw new JDependException("会话状态有问题，请重新登陆");
 		} else {
 			Analyzer analyzer = this.analyzers.get(this.currentGroup).get(this.currentRow);
-			AnalyzerMgr.getInstance().upload(analyzer);
+			AnalyzerRemoteMgr.upload(analyzer);
 		}
 	}
 

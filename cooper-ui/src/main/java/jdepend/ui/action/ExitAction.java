@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 import javax.swing.AbstractAction;
 
-import jdepend.core.remote.analyzer.AnalyzerMgr;
+import jdepend.core.local.analyzer.AnalyzerMgr;
 import jdepend.core.remote.score.ScoreUpload;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.core.remote.userproxy.UserActionGather;

@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import jdepend.core.remote.analyzer.AnalyzerMgr;
+import jdepend.core.local.analyzer.AnalyzerMgr;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.analyzer.AnalyzerPanel;
