@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.serverconf.ServerConfigurator;
+import jdepend.core.framework.serverconf.ServerConfigurator;
+import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;

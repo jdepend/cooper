@@ -19,8 +19,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
+import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.config.GroupConf;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;

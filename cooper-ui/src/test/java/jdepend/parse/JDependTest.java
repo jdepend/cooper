@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.core.command.SimpleComponent;
+import jdepend.core.local.command.SimpleComponent;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;

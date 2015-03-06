@@ -2,7 +2,7 @@ package jdepend.ui.wizard;
 
 import java.util.List;
 
-import jdepend.core.config.CommandConf;
+import jdepend.core.local.config.CommandConf;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 

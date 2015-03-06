@@ -25,8 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
+import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.config.GroupConf;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.exception.JDependException;

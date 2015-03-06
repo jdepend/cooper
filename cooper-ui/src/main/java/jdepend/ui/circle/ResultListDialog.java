@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jdepend.core.score.ScoreRepository;
+import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.ScoreListPanel;

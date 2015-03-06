@@ -29,8 +29,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
-import jdepend.core.analyzer.remote.AnalyzerMgr;
-import jdepend.core.session.RemoteSessionProxy;
+import jdepend.core.remote.analyzer.AnalyzerMgr;
+import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;

@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.config.CommandConfMgr;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;

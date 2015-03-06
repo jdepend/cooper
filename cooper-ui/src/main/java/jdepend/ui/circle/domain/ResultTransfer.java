@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import jdepend.core.command.CommandAdapterMgr;
+import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
 import jdepend.model.JDependUnitMgr;

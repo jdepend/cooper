@@ -6,10 +6,10 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
-import jdepend.core.score.ScoreInfo;
-import jdepend.core.score.ScoreRepository;
+import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.config.GroupConf;
+import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;

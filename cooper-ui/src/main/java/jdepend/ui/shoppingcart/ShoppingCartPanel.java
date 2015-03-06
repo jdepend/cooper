@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-import jdepend.core.shoppingcart.ShoppingCart;
+import jdepend.core.local.shoppingcart.ShoppingCart;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.ui.JDependCooper;
 

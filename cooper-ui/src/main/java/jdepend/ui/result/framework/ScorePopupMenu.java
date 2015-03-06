@@ -7,7 +7,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
-import jdepend.core.score.ScoreUtil;
+import jdepend.core.local.score.ScoreUtil;
 import jdepend.framework.exception.JDependException;
 import jdepend.ui.ScoreListDialog;
 

@@ -15,8 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.analyzer.remote.AnalyzerMgr;
-import jdepend.core.analyzer.remote.AnalyzerSummaryInfo;
+import jdepend.core.remote.analyzer.AnalyzerMgr;
+import jdepend.core.remote.analyzer.AnalyzerSummaryInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.util.BundleUtil;

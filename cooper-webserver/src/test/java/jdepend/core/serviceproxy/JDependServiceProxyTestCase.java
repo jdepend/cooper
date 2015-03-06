@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import jdepend.core.local.serviceproxy.JDependServiceProxy;
+import jdepend.core.local.serviceproxy.JDependServiceProxyFactory;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;

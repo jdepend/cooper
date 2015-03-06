@@ -22,10 +22,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import jdepend.core.command.CommandAdapter;
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.score.ScoreInfo;
-import jdepend.core.score.ScoreRepository;
+import jdepend.core.local.command.CommandAdapter;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.util.BundleUtil;

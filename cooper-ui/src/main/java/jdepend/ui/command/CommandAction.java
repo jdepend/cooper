@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 
-import jdepend.core.command.CommandAdapter;
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.score.ScoreUtil;
+import jdepend.core.local.command.CommandAdapter;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.score.ScoreUtil;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;

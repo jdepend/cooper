@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.config.CommandConf;
-import jdepend.core.config.CommandConfMgr;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.config.CommandConf;
+import jdepend.core.local.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;

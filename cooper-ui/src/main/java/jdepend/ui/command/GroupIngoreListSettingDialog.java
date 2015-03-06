@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
+import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.config.GroupConf;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;

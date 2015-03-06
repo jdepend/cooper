@@ -12,8 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jdepend.core.config.CommandConfMgr;
-import jdepend.core.config.GroupConf;
+import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.config.GroupConf;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ComponentModelPanel;

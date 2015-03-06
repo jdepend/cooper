@@ -11,7 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JMenuBar;
 
-import jdepend.core.persistent.ClientConnectionProvider;
+import jdepend.core.framework.persistent.ClientConnectionProvider;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;

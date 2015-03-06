@@ -19,11 +19,11 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import jdepend.core.command.CommandAdapterMgr;
-import jdepend.core.score.ScoreByItemComparator;
-import jdepend.core.score.ScoreInfo;
-import jdepend.core.score.ScoreRepository;
-import jdepend.core.shoppingcart.ShoppingCart;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.score.ScoreByItemComparator;
+import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.local.score.ScoreRepository;
+import jdepend.core.local.shoppingcart.ShoppingCart;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.framework.ui.graph.GraphData;

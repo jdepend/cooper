@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.shoppingcart.Product;
-import jdepend.core.shoppingcart.ShoppingCart;
+import jdepend.core.local.shoppingcart.Product;
+import jdepend.core.local.shoppingcart.ShoppingCart;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;

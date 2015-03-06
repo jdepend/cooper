@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
-import jdepend.core.session.RemoteSessionProxy;
+import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.context.ClientContext;
 import jdepend.framework.ui.StatusField;
 import jdepend.ui.JDependCooper;

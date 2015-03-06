@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import jdepend.core.session.RemoteSessionProxy;
+import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.context.ClientContext;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;

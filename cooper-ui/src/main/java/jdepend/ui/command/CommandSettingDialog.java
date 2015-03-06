@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import jdepend.core.config.CommandConf;
-import jdepend.core.config.CommandConfMgr;
+import jdepend.core.local.config.CommandConf;
+import jdepend.core.local.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.AptitudeComponent;

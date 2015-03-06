@@ -3,7 +3,7 @@ package jdepend.ui;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import jdepend.core.serverconf.ServerConfigurator;
+import jdepend.core.framework.serverconf.ServerConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.SettingDialog;

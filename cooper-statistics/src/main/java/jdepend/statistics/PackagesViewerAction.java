@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 
-import jdepend.core.score.ScoreInfo;
+import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.JDependFrame;

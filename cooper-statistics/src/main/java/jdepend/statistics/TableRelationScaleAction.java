@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import jdepend.core.score.ScoreInfo;
+import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
