@@ -1,6 +1,5 @@
 package jdepend.core.score;
 
-import jdepend.core.command.CommandAdapterMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
@@ -13,8 +12,8 @@ public final class ScoreUtil {
 	public static void saveScore(AnalysisResult result, String mode) throws JDependException {
 		ScoreInfo score = new ScoreInfo();
 
-		score.group = CommandAdapterMgr.getCurrentGroup();
-		score.command = CommandAdapterMgr.getCurrentCommand();
+		score.group = result.getRunningContext().getGroup();
+		score.command = result.getRunningContext().getCommand();
 		score.lc = result.getSummary().getLineCount();
 		score.score = result.getScore();
 		score.d = result.getD();
