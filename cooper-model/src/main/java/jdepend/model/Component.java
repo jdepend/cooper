@@ -301,15 +301,13 @@ public abstract class Component extends AbstractJDependUnit {
 			}
 		}
 
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
 		for (JavaClass javaClass : this.getClasses()) {
 			RelationDetail relationDetail = javaClass.ceCouplingDetail(dependUnit);
 			intensity += relationDetail.getIntensity();
-			items.addAll(relationDetail.getItems());
+			detail.addItems(relationDetail.getItems());
 		}
 		detail.setIntensity(intensity);
-		detail.setItems(items);
 
 		return detail;
 	}
@@ -328,15 +326,13 @@ public abstract class Component extends AbstractJDependUnit {
 			}
 		}
 
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
 		for (JavaClass javaClass : this.getClasses()) {
 			RelationDetail relationDetail = javaClass.caCouplingDetail(dependUnit);
 			intensity += relationDetail.getIntensity();
-			items.addAll(relationDetail.getItems());
+			detail.addItems(relationDetail.getItems());
 		}
 		detail.setIntensity(intensity);
-		detail.setItems(items);
 
 		return detail;
 	}
@@ -350,7 +346,6 @@ public abstract class Component extends AbstractJDependUnit {
 	public RelationDetail calCeCouplingDetail(Component component) {
 
 		RelationDetail detail = new RelationDetail();
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		if (this.equals(component)) {
 			return detail;
 		}
@@ -359,14 +354,13 @@ public abstract class Component extends AbstractJDependUnit {
 		for (JavaClass javaClass : this.getClasses()) {
 			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 				if (component.containsClass(relationItem.getDepend())) {
-					items.add(relationItem);
+					detail.addItem(relationItem);
 					intensity += relationItem.getRelationIntensity();
 				}
 			}
 		}
 
 		detail.setIntensity(intensity);
-		detail.setItems(items);
 
 		return detail;
 	}

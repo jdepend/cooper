@@ -24,8 +24,11 @@ public class RelationDetail implements Serializable {
 		return items;
 	}
 
-	public void setItems(Collection<JavaClassRelationItem> items) {
-		this.items = items;
+	public void addItem(JavaClassRelationItem item) {
+		this.items.add(item);
 	}
 
+	public void addItems(Collection<JavaClassRelationItem> items) {
+		this.items.addAll(items);
+	}
 }

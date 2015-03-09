@@ -681,16 +681,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			return detail;
 		}
 
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCeItems()) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
-				items.add(relationItem);
+				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		detail.setIntensity(intensity);
-		detail.setItems(items);
 
 		return detail;
 	}
@@ -703,16 +701,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate {
 			return detail;
 		}
 
-		Collection<JavaClassRelationItem> items = new ArrayList<JavaClassRelationItem>();
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCaItems()) {
 			if (dependUnit.containsClass(relationItem.getDepend())) {
-				items.add(relationItem);
+				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
 		}
 		detail.setIntensity(intensity);
-		detail.setItems(items);
 
 		return detail;
 	}
