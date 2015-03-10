@@ -14,7 +14,7 @@ import java.util.List;
  */
 public final class GroupCouplingMaxDifferenceCalculator {
 
-	private List<GroupCouplingItem> groupCouplingInfos = new ArrayList<GroupCouplingItem>();
+	private List<GroupCouplingItem> groupCouplingItems = new ArrayList<GroupCouplingItem>();
 
 	private List<Float> differences = new ArrayList<Float>();
 
@@ -48,18 +48,18 @@ public final class GroupCouplingMaxDifferenceCalculator {
 			if (ceCoupling > 0F) {
 				info.addDetail(ceCouplingDetail.getItems());
 			}
-			groupCouplingInfos.add(info);
+			groupCouplingItems.add(info);
 		}
 
 		// 计算分组最大顺序差值
-		if (groupCouplingInfos.size() == 1) {
-			differences.add(groupCouplingInfos.get(0).coupling);
-			maxDifference = groupCouplingInfos.get(0).coupling;
+		if (groupCouplingItems.size() == 1) {
+			differences.add(groupCouplingItems.get(0).coupling);
+			maxDifference = groupCouplingItems.get(0).coupling;
 		} else {
-			Collections.sort(groupCouplingInfos);
+			Collections.sort(groupCouplingItems);
 			float difference;
-			for (int i = 0; i < groupCouplingInfos.size() - 1; i++) {
-				difference = groupCouplingInfos.get(i + 1).coupling - groupCouplingInfos.get(i).coupling;
+			for (int i = 0; i < groupCouplingItems.size() - 1; i++) {
+				difference = groupCouplingItems.get(i + 1).coupling - groupCouplingItems.get(i).coupling;
 				this.differences.add(difference);
 				if (difference > maxDifference) {
 					maxDifference = difference;
@@ -69,7 +69,7 @@ public final class GroupCouplingMaxDifferenceCalculator {
 	}
 
 	public List<GroupCouplingItem> getGroupCouplingItems() {
-		return groupCouplingInfos;
+		return groupCouplingItems;
 	}
 
 	public List<Float> getDifferences() {

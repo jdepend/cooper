@@ -23,11 +23,12 @@ public class RelationCreator {
 
 	private Map<String, Element> elements;
 
-	public Collection<Relation> create(final Collection<Component> components) {
+	public Collection<Relation> create(final Collection<? extends Component> components) {
 		return create(components, components);
 	}
 
-	public Collection<Relation> create(Collection<Component> lefts, final Collection<Component> rights) {
+	public Collection<Relation> create(Collection<? extends Component> lefts,
+			final Collection<? extends Component> rights) {
 		this.init();
 
 		final Collection<Relation> relations = new Vector<Relation>();
