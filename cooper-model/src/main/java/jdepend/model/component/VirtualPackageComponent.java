@@ -42,6 +42,7 @@ public class VirtualPackageComponent extends VirtualComponent {
 		return this.getJavaPackages().iterator().next();
 	}
 
+	@Override
 	public float getCohesion() {
 		if (this.cohesion == null) {
 			this.calculate();
