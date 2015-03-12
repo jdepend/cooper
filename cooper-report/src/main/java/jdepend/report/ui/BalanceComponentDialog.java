@@ -7,14 +7,13 @@ import jdepend.report.way.mapui.GraphPanel;
 
 public final class BalanceComponentDialog extends CooperDialog {
 
-	private String componentName;
-
 	public BalanceComponentDialog(JDependFrame frame, Component component) {
 		super(component.getName() + "内聚性");
-		this.componentName = componentName;
 
-		this.add(new GraphPanel(frame, this, component.open()));
-
+		if (component.getJavaPackages().size() == 0 || component.getJavaPackages().size() == 1) {
+			this.add(new GraphPanel(frame, this, component.open()));
+		} else {
+			this.add(new JavaPackageListPanel(frame, component));
+		}
 	}
-
 }

@@ -15,6 +15,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.component.VirtualPackageComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUtil;
@@ -63,6 +64,8 @@ public abstract class Component extends AbstractJDependUnit {
 	private transient Float ceCoupling = null;
 
 	private transient Collection<Relation> relations = new ArrayList<Relation>();
+
+	private transient Collection<VirtualPackageComponent> packageComponents = null;// 缓存
 
 	public static final int UndefinedComponentLevel = 0;
 
@@ -475,25 +478,58 @@ public abstract class Component extends AbstractJDependUnit {
 		this.ceCoupling = null;
 		this.relations = new ArrayList<Relation>();
 
+		this.packageComponents = null;
+
 		this.areaComponent = null;
 		this.steadyType = null;
 	}
 
 	@Override
 	public float getBalance() {
-		if (this.javaClasses.size() > 0) {
-			if (this.javaClasses.size() == 1) {
-				return 1F;
-			} else {
-				float balance = 0F;
-				for (JavaClass javaClass : this.javaClasses) {
-					balance += javaClass.getBalance();
+		if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
+			if (this.javaClasses.size() > 0) {
+				if (this.javaClasses.size() == 1) {
+					return 1F;
+				} else {
+					float balance = 0F;
+					for (JavaClass javaClass : this.javaClasses) {
+						balance += javaClass.getBalance();
+					}
+					return balance / this.javaClasses.size();
 				}
-				return balance / this.javaClasses.size();
+			} else {
+				return 0F;
 			}
 		} else {
-			return 0F;
+			float balance = 0F;
+			for (VirtualPackageComponent packageComponent : this.getPackageComponents()) {
+				balance += packageComponent.getBalance();
+			}
+			return balance / packageComponents.size();
 		}
+	}
+
+	public Collection<VirtualPackageComponent> getPackageComponents() {
+		if (this.packageComponents == null) {
+			this.packageComponents = new HashSet<VirtualPackageComponent>();
+			for (JavaPackage javaPackage : this.getJavaPackages()) {
+				packageComponents.add(new VirtualPackageComponent(javaPackage));
+			}
+			Collection<Component> outerComponents = this.getRelationComponents();
+			new RelationCreator().create(packageComponents);
+			new RelationCreator().create(outerComponents, packageComponents);
+			new RelationCreator().create(packageComponents, outerComponents);
+		}
+		return this.packageComponents;
+	}
+
+	public VirtualPackageComponent getThePackageComponent(String name) {
+		for (VirtualPackageComponent packageComponent : this.getPackageComponents()) {
+			if (packageComponent.getName().equals(name)) {
+				return packageComponent;
+			}
+		}
+		return null;
 	}
 
 	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {

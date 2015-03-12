@@ -1,4 +1,4 @@
-package jdepend.ui.result.panel;
+package jdepend.report.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -25,7 +25,6 @@ import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;
-import jdepend.report.ui.RelationDetailPanel;
 import jdepend.report.util.ReportConstant;
 
 public final class ComponentCaCeListDialog extends CooperDialog {
