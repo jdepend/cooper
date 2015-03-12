@@ -20,7 +20,6 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
-import jdepend.framework.util.MetricsFormat;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
@@ -76,23 +75,24 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 			units = this.component.getEfferents();
 		}
 		for (JDependUnit unit : units) {
-			row = new Object[12];
+			row = new Object[13];
 			row[0] = unit.getName();
 			row[1] = unit.getLineCount();
 			row[2] = unit.getClassCount();
 			row[3] = unit.getAbstractClassCount();
 			row[4] = unit.getAfferentCoupling();
 			row[5] = unit.getEfferentCoupling();
-			row[6] = MetricsFormat.toFormattedMetrics(unit.getAbstractness());
-			row[7] = MetricsFormat.toFormattedMetrics(unit.getStability());
-			row[8] = MetricsFormat.toFormattedMetrics(unit.getDistance());
-			row[9] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCoupling()));
-			row[10] = MetricsFormat.toFormattedMetrics(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+			row[6] = unit.getValue(MetricsMgr.A);
+			row[7] = unit.getValue(MetricsMgr.I);
+			row[8] = unit.getValue(MetricsMgr.D);
+			row[9] = unit.getValue(MetricsMgr.Coupling);
+			row[10] = unit.getValue(MetricsMgr.Cohesion);
+			row[11] = unit.getValue(MetricsMgr.Balance);
 
 			if (unit.getContainsCycle()) {
-				row[11] = MetricsMgr.Cyclic;
+				row[12] = MetricsMgr.Cyclic;
 			} else {
-				row[11] = MetricsMgr.NoValue;
+				row[12] = MetricsMgr.NoValue;
 			}
 
 			listModel.addRow(row);
@@ -126,6 +126,8 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 		listModel.addColumn(ReportConstant.D);
 		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
+		listModel.addColumn(ReportConstant.Balance);
+
 		listModel.addColumn(ReportConstant.Cycle);
 
 		listTable.addMouseListener(new MouseAdapter() {

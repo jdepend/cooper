@@ -51,13 +51,20 @@ public class JavaPackageListPanel extends JPanel {
 		Object[] row;
 
 		for (VirtualPackageComponent packageComponent : packageComponents) {
-			row = new Object[5];
+			row = new Object[12];
 
 			row[0] = packageComponent.getName();
-			row[1] = packageComponent.getAfferentCoupling();
-			row[2] = packageComponent.getEfferentCoupling();
-			row[3] = packageComponent.getValue(MetricsMgr.Cohesion);
-			row[4] = packageComponent.getValue(MetricsMgr.Balance);
+			row[1] = packageComponent.getLineCount();
+			row[2] = packageComponent.getClassCount();
+			row[3] = packageComponent.getAbstractClassCount();
+			row[4] = packageComponent.getAfferentCoupling();
+			row[5] = packageComponent.getEfferentCoupling();
+			row[6] = packageComponent.getValue(MetricsMgr.A);
+			row[7] = packageComponent.getValue(MetricsMgr.I);
+			row[8] = packageComponent.getValue(MetricsMgr.D);
+			row[9] = packageComponent.getValue(MetricsMgr.Coupling);
+			row[10] = packageComponent.getValue(MetricsMgr.Cohesion);
+			row[11] = packageComponent.getValue(MetricsMgr.Balance);
 
 			listModel.addRow(row);
 		}
@@ -109,8 +116,16 @@ public class JavaPackageListPanel extends JPanel {
 		sorter.setTableHeader(listTable.getTableHeader());
 
 		listModel.addColumn(ReportConstant.Name);
+		listModel.addColumn(ReportConstant.LC);
+		listModel.addColumn(ReportConstant.CC);
+		listModel.addColumn(ReportConstant.AC);
 		listModel.addColumn(ReportConstant.Ca);
 		listModel.addColumn(ReportConstant.Ce);
+		listModel.addColumn(ReportConstant.Ce);
+		listModel.addColumn(ReportConstant.A);
+		listModel.addColumn(ReportConstant.I);
+		listModel.addColumn(ReportConstant.D);
+		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
 		listModel.addColumn(ReportConstant.Balance);
 	}
