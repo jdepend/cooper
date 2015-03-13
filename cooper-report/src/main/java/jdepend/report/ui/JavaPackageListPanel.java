@@ -100,10 +100,6 @@ public class JavaPackageListPanel extends JPanel {
 						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, packageComponent, currentCol);
 						d.setModal(true);
 						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionDialog d = new CohesionDialog(packageComponent);
-						d.setModal(true);
-						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
 						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(packageComponent);
 						d.setModal(true);
