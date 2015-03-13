@@ -105,7 +105,7 @@ public class JavaPackageListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceComponentDialog d = new BalanceComponentDialog(frame, packageComponent);
+						BalanceJavaClassDialog d = new BalanceJavaClassDialog(packageComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					}
@@ -120,7 +120,6 @@ public class JavaPackageListPanel extends JPanel {
 		listModel.addColumn(ReportConstant.CC);
 		listModel.addColumn(ReportConstant.AC);
 		listModel.addColumn(ReportConstant.Ca);
-		listModel.addColumn(ReportConstant.Ce);
 		listModel.addColumn(ReportConstant.Ce);
 		listModel.addColumn(ReportConstant.A);
 		listModel.addColumn(ReportConstant.I);

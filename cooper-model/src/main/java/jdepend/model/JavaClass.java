@@ -29,7 +29,7 @@ import org.apache.bcel.Constants;
  * 
  */
 
-public final class JavaClass extends AbstractJDependUnit implements Candidate {
+public final class JavaClass extends AbstractJDependUnit implements Candidate, SubJDependUnit {
 
 	/**
 	 * 

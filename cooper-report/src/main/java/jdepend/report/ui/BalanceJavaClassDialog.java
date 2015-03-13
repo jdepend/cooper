@@ -8,51 +8,51 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.GroupCouplingItem;
-import jdepend.model.JavaClass;
+import jdepend.model.SubJDependUnit;
 
 public final class BalanceJavaClassDialog extends CooperDialog {
 
-	public BalanceJavaClassDialog(JavaClass javaClass) {
-		super(javaClass.getName() + "内聚性指数明细");
+	public BalanceJavaClassDialog(SubJDependUnit subUnit) {
+		super(subUnit.getName() + "内聚性指数明细");
 
 		getContentPane().setLayout(new BorderLayout());
 		TextViewer balance = new TextViewer();
 
-		balance.setText(getBalance(javaClass));
+		balance.setText(getBalance(subUnit));
 		balance.setCaretPosition(0);
 
 		this.add(new JScrollPane(balance));
 	}
 
-	private String getBalance(JavaClass unit) {
+	private String getBalance(SubJDependUnit subUnit) {
 
 		StringBuilder info = new StringBuilder();
 
 		info.append("内聚性指数（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.getBalance()));
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getBalance()));
 		info.append("）=内聚值（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getCohesion()));
 		info.append("）/内聚值（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.getCohesion()));
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getCohesion()));
 		info.append("）+分组耦合最大顺序差值（");
-		info.append(MetricsFormat.toFormattedMetrics(unit.getGroupCouplingInfo().getMaxDifference()));
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getMaxDifference()));
 		info.append("）；\n");
 
 		info.append("分组耦合顺序值为：\n");
 
-		for (GroupCouplingItem groupCouplingInfo : unit.getGroupCouplingInfo().getGroupCouplingItems()) {
+		for (GroupCouplingItem groupCouplingInfo : subUnit.getGroupCouplingInfo().getGroupCouplingItems()) {
 			info.append(groupCouplingInfo);
 			info.append("\n");
 		}
 
 		info.append("分组耦合顺序差值为：\n");
-		for (Float difference : unit.getGroupCouplingInfo().getDifferences()) {
+		for (Float difference : subUnit.getGroupCouplingInfo().getDifferences()) {
 			info.append(MetricsFormat.toFormattedMetrics(difference));
 			info.append("\n");
 		}
 
 		info.append("分组耦合最大顺序差值为：");
-		info.append(MetricsFormat.toFormattedMetrics(unit.getGroupCouplingInfo().getMaxDifference()));
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getMaxDifference()));
 
 		return info.toString();
 	}

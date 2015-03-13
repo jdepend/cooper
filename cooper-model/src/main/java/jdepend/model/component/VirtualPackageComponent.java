@@ -10,8 +10,9 @@ import jdepend.model.GroupCouplingItem;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.model.Relation;
+import jdepend.model.SubJDependUnit;
 
-public class VirtualPackageComponent extends VirtualComponent {
+public class VirtualPackageComponent extends VirtualComponent implements SubJDependUnit {
 
 	private Float cohesion;
 
@@ -50,6 +51,7 @@ public class VirtualPackageComponent extends VirtualComponent {
 		return cohesion;
 	}
 
+	@Override
 	public GroupCouplingInfo getGroupCouplingInfo() {
 		if (this.groupCouplingInfo == null) {
 			this.calculate();
