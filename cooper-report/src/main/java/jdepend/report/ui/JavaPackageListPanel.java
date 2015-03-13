@@ -105,7 +105,7 @@ public class JavaPackageListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceJavaClassDialog d = new BalanceJavaClassDialog(packageComponent);
+						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(packageComponent);
 						d.setModal(true);
 						d.setVisible(true);
 					}

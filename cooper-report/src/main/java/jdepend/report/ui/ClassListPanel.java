@@ -277,7 +277,7 @@ public class ClassListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceJavaClassDialog d = new BalanceJavaClassDialog(currentClass);
+						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					}

@@ -10,9 +10,9 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.model.GroupCouplingItem;
 import jdepend.model.SubJDependUnit;
 
-public final class BalanceJavaClassDialog extends CooperDialog {
+public final class BalanceSubJDependUnitDialog extends CooperDialog {
 
-	public BalanceJavaClassDialog(SubJDependUnit subUnit) {
+	public BalanceSubJDependUnitDialog(SubJDependUnit subUnit) {
 		super(subUnit.getName() + "内聚性指数明细");
 
 		getContentPane().setLayout(new BorderLayout());
