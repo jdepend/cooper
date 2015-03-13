@@ -23,6 +23,24 @@ public class RelationCreator {
 
 	private Map<String, Element> elements;
 
+	private boolean leftRelation = true;
+	private boolean rightRelation = true;
+
+	public RelationCreator() {
+
+	}
+
+	/**
+	 * @param left
+	 *            是否向左侧组件增加关系
+	 * @param right
+	 *            是否向右侧组件增加关系
+	 */
+	public RelationCreator(boolean leftRelation, boolean rightRelation) {
+		this.leftRelation = leftRelation;
+		this.rightRelation = rightRelation;
+	}
+
 	public Collection<Relation> create(final Collection<? extends Component> components) {
 		return create(components, components);
 	}
@@ -47,6 +65,12 @@ public class RelationCreator {
 							r = new Relation();
 							r.setCurrent(createElement(left));
 							r.setDepend(createElement(right));
+							if (leftRelation) {
+								r.getCurrent().getComponent().addRelation(r);
+							}
+							if (rightRelation) {
+								r.getDepend().getComponent().addRelation(r);
+							}
 							r.setDetail(detail);
 							relations.add(r);
 						}

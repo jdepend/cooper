@@ -456,10 +456,10 @@ public abstract class Component extends AbstractJDependUnit {
 
 		Collection<Component> outerComponents = this.getRelationComponents();
 
-		Collection<Relation> ceRelations = new RelationCreator().create(innerComponents, outerComponents);
+		Collection<Relation> ceRelations = new RelationCreator(true, false).create(innerComponents, outerComponents);
 		allRelations.addAll(ceRelations);
 
-		Collection<Relation> caRelations = new RelationCreator().create(outerComponents, innerComponents);
+		Collection<Relation> caRelations = new RelationCreator(false, true).create(outerComponents, innerComponents);
 		allRelations.addAll(caRelations);
 
 		return allRelations;
@@ -517,8 +517,8 @@ public abstract class Component extends AbstractJDependUnit {
 			}
 			Collection<Component> outerComponents = this.getRelationComponents();
 			new RelationCreator().create(packageComponents);
-			new RelationCreator().create(outerComponents, packageComponents);
-			new RelationCreator().create(packageComponents, outerComponents);
+			new RelationCreator(false, true).create(outerComponents, packageComponents);
+			new RelationCreator(true, false).create(packageComponents, outerComponents);
 		}
 		return this.packageComponents;
 	}

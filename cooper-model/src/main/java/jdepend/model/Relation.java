@@ -66,12 +66,10 @@ public final class Relation implements Comparable<Relation>, Serializable {
 
 	public void setCurrent(Element current) {
 		this.current = current;
-		this.current.getComponent().addRelation(this);
 	}
 
 	public void setDepend(Element depend) {
 		this.depend = depend;
-		this.depend.getComponent().addRelation(this);
 	}
 
 	public float getIntensity() {
@@ -175,7 +173,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		} else if (metrics.equals(AttentionLevel)) {
 			return this.getAttentionLevel();
 		} else if (metrics.equals(isProblem)) {
-			return this.isNormality() ? "":"是";
+			return this.isNormality() ? "" : "是";
 		} else {
 			return null;
 		}
