@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.model.MetricsMgr;
@@ -71,6 +72,10 @@ public class JavaPackageListPanel extends JPanel {
 
 			listModel.addRow(row);
 		}
+
+		List<String> fitColNames = new ArrayList<String>();
+		fitColNames.add(ReportConstant.Name);
+		JTableUtil.fitTableColumns(listTable, fitColNames);
 
 		return listModel.getRowCount();
 

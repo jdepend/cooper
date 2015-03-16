@@ -69,7 +69,7 @@ public class VirtualPackageComponent extends VirtualComponent implements SubJDep
 
 		for (Relation relation : this.getRelations()) {
 			// 判断关系的目标端是否在所属的组件中，在就计算内聚值，外就计算分组耦合值
-			if (javaPackages.contains(relation.getDepend().getComponent().getJavaPackages().iterator().next())) {
+			if (javaPackages.contains(relation.getOpposite(this).getJavaPackages().iterator().next())) {
 				cohesion += relation.getIntensity();
 			} else {
 				GroupCouplingItem info = new GroupCouplingItem(relation.getDepend().getName(), relation.getIntensity());

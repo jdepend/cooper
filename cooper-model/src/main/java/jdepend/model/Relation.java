@@ -113,6 +113,14 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		return depend;
 	}
 
+	public Component getOpposite(Component component) {
+		if (this.current.getComponent().equals(component)) {
+			return this.depend.getComponent();
+		} else {
+			return this.current.getComponent();
+		}
+	}
+
 	public int getAttentionType() {
 		if (!this.isAttention) {
 			return DefaultAttentionType;
