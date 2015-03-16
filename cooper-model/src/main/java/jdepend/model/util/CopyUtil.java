@@ -44,8 +44,10 @@ public final class CopyUtil {
 		// 关联JavaClass和JavaPackage
 		JavaPackage javaPackage;
 		for (JavaClass javaClass : jClasses.getJavaClasses()) {
-			javaPackage = javaPackages.get(CandidateUtil.getId(javaClass.getPlace(), javaClass.getPackageName()));
-			javaPackage.addClass(javaClass);
+			if (!javaClass.isInnerClass()) {
+				javaPackage = javaPackages.get(CandidateUtil.getId(javaClass.getPlace(), javaClass.getPackageName()));
+				javaPackage.addClass(javaClass);
+			}
 		}
 
 		// 创建Component
