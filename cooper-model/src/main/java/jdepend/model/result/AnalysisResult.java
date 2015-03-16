@@ -473,7 +473,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public AnalysisResult clone() {
-		return new AnalysisResult((new CopyUtil()).copy(this.components), this.runningContext);
+		List<Component> newComponents = (new CopyUtil()).copy(this.components);
+		return new AnalysisResult(newComponents, this.runningContext);
 	}
 
 	public byte[] getBytes() throws IOException {

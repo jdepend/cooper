@@ -9,12 +9,10 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
-import jdepend.model.component.modelconf.CandidateUtil;
 
 public final class CopyUtil {
 
 	private List<Component> targets = new ArrayList<Component>();
-	private Map<String, JavaPackage> javaPackages = new HashMap<String, JavaPackage>();
 	private Map<String, JavaClass> javaClasses = new HashMap<String, JavaClass>();
 
 	public List<Component> copy(List<Component> components) {
@@ -53,16 +51,6 @@ public final class CopyUtil {
 		}
 		return targets;
 
-	}
-
-	private JavaPackage newJavaPackage(JavaPackage javaPackage) {
-
-		JavaPackage newjavaPackage = javaPackages.get(javaPackage.getId());
-		if (newjavaPackage == null) {
-			newjavaPackage = new JavaPackage(javaPackage.getPlace(), javaPackage.getName());
-			javaPackages.put(newjavaPackage.getId(), newjavaPackage);
-		}
-		return newjavaPackage;
 	}
 
 	private JavaClass newJavaClass(JavaClass javaClass) {

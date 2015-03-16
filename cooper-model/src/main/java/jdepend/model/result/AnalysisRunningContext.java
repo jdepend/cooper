@@ -1,12 +1,14 @@
 package jdepend.model.result;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.DateUtil;
 import jdepend.framework.util.VersionUtil;
 import jdepend.model.Component;
@@ -191,8 +193,30 @@ public final class AnalysisRunningContext implements Serializable {
 		}
 		return this.diffElements;
 	}
-	
-	
+
+	public AnalysisRunningContext clone(Map<String, JavaClass> javaClasses) throws JDependException {
+
+		AnalysisRunningContext obj = new AnalysisRunningContext();
+		obj.analyseDate = this.analyseDate;
+		obj.analyzeInnerClasses = this.analyzeInnerClasses;
+		obj.client = this.client;
+		obj.command = this.command;
+		obj.component = this.component;
+		obj.diffElements = this.diffElements;
+		obj.enableAbstractClassCountQualificationConfirmer = this.enableAbstractClassCountQualificationConfirmer;
+		obj.group = this.group;
+		obj.isLocalRunning = this.isLocalRunning;
+		obj.isSaveResult = this.isLocalRunning;
+		obj.path = this.path;
+		obj.userName = this.userName;
+
+		obj.javaPackages = new ArrayList<JavaPackage>();
+		for (JavaPackage javaPackage : this.javaPackages) {
+			obj.javaPackages.add(javaPackage.clone(javaClasses));
+		}
+
+		return obj;
+	}
 
 	@Override
 	public int hashCode() {
