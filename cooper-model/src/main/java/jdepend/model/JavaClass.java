@@ -1073,6 +1073,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		cohesion = null;
 		balance = null;
 		groupCouplingInfo = null;
+		
+		supers = null;
+		superClasses = null;
+		interfaces = null;
+		subAllClasses = null;
+		
+		allCeItems = null;
+		allCaItems = null;
 	}
 
 	public final boolean isPublic() {
