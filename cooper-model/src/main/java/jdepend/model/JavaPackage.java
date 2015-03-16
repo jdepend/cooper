@@ -3,6 +3,7 @@ package jdepend.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.component.modelconf.Candidate;
@@ -68,13 +69,13 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 		return false;
 	}
 
-	public JavaPackage clone(Collection<JavaClass> javaClasses) throws JDependException {
-		for (JavaClass javaClass : javaClasses) {
-			if (javaClass.getJavaPackage().equals(this)) {
-				return javaClass.getJavaPackage();
-			}
+	public JavaPackage clone(Map<String, JavaClass> javaClasses) throws JDependException {
+
+		JavaPackage obj = new JavaPackage(place, name);
+		for (JavaClass javaClass : this.classes) {
+			obj.addClass(javaClasses.get(javaClass.getId()));
 		}
-		throw new JDependException("克隆" + this.getName() + "出错");
+		return obj;
 	}
 
 	public String getName() {

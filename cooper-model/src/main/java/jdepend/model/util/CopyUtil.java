@@ -34,19 +34,12 @@ public final class CopyUtil {
 
 		// 创建JavaPackage
 		for (Component component : components) {
-			for (JavaClass javaClass : component.getClasses()) {
-				if (javaPackages.get(javaClass.getJavaPackage().getId()) == null) {
-					newJavaPackage(javaClass.getJavaPackage());
+			for (JavaPackage javaPackage : component.getJavaPackages()) {
+				try {
+					javaPackage.clone(javaClasses);
+				} catch (JDependException e) {
+					e.printStackTrace();
 				}
-			}
-		}
-
-		// 关联JavaClass和JavaPackage
-		JavaPackage javaPackage;
-		for (JavaClass javaClass : jClasses.getJavaClasses()) {
-			if (!javaClass.isInnerClass()) {
-				javaPackage = javaPackages.get(CandidateUtil.getId(javaClass.getPlace(), javaClass.getPackageName()));
-				javaPackage.addClass(javaClass);
 			}
 		}
 
