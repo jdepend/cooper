@@ -18,6 +18,7 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.model.MetricsMgr;
+import jdepend.model.SubJDependUnit;
 import jdepend.model.component.VirtualPackageComponent;
 import jdepend.report.util.ReportConstant;
 
@@ -40,7 +41,7 @@ public class JavaPackageListPanel extends JPanel {
 		this.frame = frame;
 		this.component = component;
 
-		this.loadList(component.getPackageComponents());
+		this.loadList(component.getSubJDependUnits());
 
 		JScrollPane pane = new JScrollPane(listTable);
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -48,27 +49,27 @@ public class JavaPackageListPanel extends JPanel {
 		this.add(pane);
 	}
 
-	public int loadList(Collection<VirtualPackageComponent> packageComponents) {
+	public int loadList(Collection<? extends SubJDependUnit> subJDependUnits) {
 
 		listModel.setRowCount(0);
 
 		Object[] row;
 
-		for (VirtualPackageComponent packageComponent : packageComponents) {
+		for (SubJDependUnit subJDependUnit : subJDependUnits) {
 			row = new Object[12];
 
-			row[0] = packageComponent.getName();
-			row[1] = packageComponent.getLineCount();
-			row[2] = packageComponent.getClassCount();
-			row[3] = packageComponent.getAbstractClassCount();
-			row[4] = packageComponent.getAfferentCoupling();
-			row[5] = packageComponent.getEfferentCoupling();
-			row[6] = packageComponent.getValue(MetricsMgr.A);
-			row[7] = packageComponent.getValue(MetricsMgr.I);
-			row[8] = packageComponent.getValue(MetricsMgr.D);
-			row[9] = packageComponent.getValue(MetricsMgr.Coupling);
-			row[10] = packageComponent.getValue(MetricsMgr.Cohesion);
-			row[11] = packageComponent.getValue(MetricsMgr.Balance);
+			row[0] = subJDependUnit.getName();
+			row[1] = subJDependUnit.getLineCount();
+			row[2] = subJDependUnit.getClassCount();
+			row[3] = subJDependUnit.getAbstractClassCount();
+			row[4] = subJDependUnit.getAfferentCoupling();
+			row[5] = subJDependUnit.getEfferentCoupling();
+			row[6] = subJDependUnit.getValue(MetricsMgr.A);
+			row[7] = subJDependUnit.getValue(MetricsMgr.I);
+			row[8] = subJDependUnit.getValue(MetricsMgr.D);
+			row[9] = subJDependUnit.getValue(MetricsMgr.Coupling);
+			row[10] = subJDependUnit.getValue(MetricsMgr.Cohesion);
+			row[11] = subJDependUnit.getValue(MetricsMgr.Balance);
 
 			listModel.addRow(row);
 		}
@@ -103,17 +104,17 @@ public class JavaPackageListPanel extends JPanel {
 				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
-					VirtualPackageComponent packageComponent = component.getThePackageComponent(current);
+					SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
-						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, packageComponent, currentCol);
-						d.setModal(true);
-						d.setVisible(true);
+//						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, subJDependUnit, currentCol);
+//						d.setModal(true);
+//						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionDialog d = new CohesionDialog(packageComponent);
+						CohesionDialog d = new CohesionDialog(subJDependUnit);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(packageComponent);
+						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(subJDependUnit);
 						d.setModal(true);
 						d.setVisible(true);
 					}

@@ -65,7 +65,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private transient Collection<Relation> relations = new ArrayList<Relation>();
 
-	private transient Collection<VirtualPackageComponent> packageComponents = null;// 缓存
+	private transient Collection<? extends SubJDependUnit> subJDependUnits = null;// 缓存
 
 	public static final int UndefinedComponentLevel = 0;
 
@@ -478,7 +478,7 @@ public abstract class Component extends AbstractJDependUnit {
 		this.ceCoupling = null;
 		this.relations = new ArrayList<Relation>();
 
-		this.packageComponents = null;
+		this.subJDependUnits = null;
 
 		this.areaComponent = null;
 		this.steadyType = null;
@@ -486,47 +486,46 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public float getBalance() {
-		if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
-			if (this.javaClasses.size() > 0) {
-				if (this.javaClasses.size() == 1) {
-					return 1F;
-				} else {
-					float balance = 0F;
-					for (JavaClass javaClass : this.javaClasses) {
-						balance += javaClass.getBalance();
-					}
-					return balance / this.javaClasses.size();
-				}
+		Collection<? extends SubJDependUnit> subJDependUnits = this.getSubJDependUnits();
+		if (subJDependUnits.size() > 0) {
+			if (subJDependUnits.size() == 1) {
+				return 1F;
 			} else {
-				return 0F;
+				float balance = 0F;
+				for (SubJDependUnit subJDependUnit : subJDependUnits) {
+					balance += subJDependUnit.getBalance();
+				}
+				return balance / subJDependUnits.size();
 			}
 		} else {
-			float balance = 0F;
-			for (VirtualPackageComponent packageComponent : this.getPackageComponents()) {
-				balance += packageComponent.getBalance();
-			}
-			return balance / packageComponents.size();
+			return 0F;
 		}
 	}
 
-	public Collection<VirtualPackageComponent> getPackageComponents() {
-		if (this.packageComponents == null) {
-			this.packageComponents = new HashSet<VirtualPackageComponent>();
-			for (JavaPackage javaPackage : this.getJavaPackages()) {
-				packageComponents.add(new VirtualPackageComponent(javaPackage));
+	public Collection<? extends SubJDependUnit> getSubJDependUnits() {
+		if (this.subJDependUnits == null) {
+			if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
+				this.subJDependUnits = this.javaClasses;
+			} else {
+				Collection<VirtualPackageComponent> packageComponents = new HashSet<VirtualPackageComponent>();
+				for (JavaPackage javaPackage : this.getJavaPackages()) {
+					packageComponents.add(new VirtualPackageComponent(javaPackage));
+				}
+				Collection<Component> outerComponents = this.getRelationComponents();
+				new RelationCreator().create(packageComponents);
+				new RelationCreator(false, true).create(outerComponents, packageComponents);
+				new RelationCreator(true, false).create(packageComponents, outerComponents);
+
+				this.subJDependUnits = packageComponents;
 			}
-			Collection<Component> outerComponents = this.getRelationComponents();
-			new RelationCreator().create(packageComponents);
-			new RelationCreator(false, true).create(outerComponents, packageComponents);
-			new RelationCreator(true, false).create(packageComponents, outerComponents);
 		}
-		return this.packageComponents;
+		return this.subJDependUnits;
 	}
 
-	public VirtualPackageComponent getThePackageComponent(String name) {
-		for (VirtualPackageComponent packageComponent : this.getPackageComponents()) {
-			if (packageComponent.getName().equals(name)) {
-				return packageComponent;
+	public SubJDependUnit getTheSubJDependUnit(String name) {
+		for (SubJDependUnit subJDependUnit : this.getSubJDependUnits()) {
+			if (subJDependUnit.getName().equals(name)) {
+				return subJDependUnit;
 			}
 		}
 		return null;
