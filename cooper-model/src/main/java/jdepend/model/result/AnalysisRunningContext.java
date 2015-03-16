@@ -194,7 +194,7 @@ public final class AnalysisRunningContext implements Serializable {
 		return this.diffElements;
 	}
 
-	public AnalysisRunningContext clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	private AnalysisRunningContext clone(Map<String, JavaClass> javaClasses) throws JDependException {
 
 		AnalysisRunningContext obj = new AnalysisRunningContext();
 		obj.analyseDate = this.analyseDate;
