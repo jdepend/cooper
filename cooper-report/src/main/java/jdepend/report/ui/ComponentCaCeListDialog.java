@@ -22,7 +22,6 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
 
@@ -37,6 +36,8 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 	private JTable listTable;
 
 	private DefaultTableModel listModel;
+
+	private Collection<Component> listData;
 
 	public ComponentCaCeListDialog(JDependFrame frame, Component component, String metrics) {
 
@@ -67,14 +68,14 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 
 		Object[] row;
 
-		Collection<? extends JDependUnit> units = new ArrayList<JDependUnit>();
+		listData = new ArrayList<Component>();
 
 		if (metrics.equals(ReportConstant.Ca)) {
-			units = this.component.getAfferents();
+			listData = this.component.getAfferents();
 		} else if (metrics.equals(ReportConstant.Ce)) {
-			units = this.component.getEfferents();
+			listData = this.component.getEfferents();
 		}
-		for (JDependUnit unit : units) {
+		for (JDependUnit unit : listData) {
 			row = new Object[13];
 			row[0] = unit.getName();
 			row[1] = unit.getLineCount();
@@ -138,7 +139,7 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 					String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
-					Component currentComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(current);
+					Component currentComponent = getTheComponent(current);
 					if (currentCol.equals(ReportConstant.Name)) {
 						Component left = null;
 						Component right = null;
@@ -168,6 +169,15 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 		detailColumnNames.add(ReportConstant.Name);
 
 		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, detailColumnNames));
+	}
+
+	private Component getTheComponent(String name) {
+		for (Component component : this.listData) {
+			if (component.getName().equals(name)) {
+				return component;
+			}
+		}
+		return null;
 	}
 
 	private JLabel createBackButton() {

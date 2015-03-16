@@ -3,7 +3,9 @@ package jdepend.report.ui;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.VirtualPackageComponent;
@@ -100,6 +103,10 @@ public class JavaPackageListPanel extends JPanel {
 						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, packageComponent, currentCol);
 						d.setModal(true);
 						d.setVisible(true);
+					} else if (currentCol.equals(ReportConstant.Cohesion)) {
+						CohesionDialog d = new CohesionDialog(packageComponent);
+						d.setModal(true);
+						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {
 						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(packageComponent);
 						d.setModal(true);
@@ -123,5 +130,14 @@ public class JavaPackageListPanel extends JPanel {
 		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
 		listModel.addColumn(ReportConstant.Balance);
+
+		// 增加点击图标
+		List<String> colNames = new ArrayList<String>();
+		colNames.add(ReportConstant.Ca);
+		colNames.add(ReportConstant.Ce);
+		colNames.add(ReportConstant.Cohesion);
+		colNames.add(ReportConstant.Balance);
+
+		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, colNames));
 	}
 }
