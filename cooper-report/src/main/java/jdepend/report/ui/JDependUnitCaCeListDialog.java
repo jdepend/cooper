@@ -75,7 +75,7 @@ public final class JDependUnitCaCeListDialog extends CooperDialog {
 			listData = this.component.getEfferents();
 		}
 		for (JDependUnit unit : listData) {
-			row = new Object[13];
+			row = new Object[12];
 			row[0] = unit.getName();
 			row[1] = unit.getLineCount();
 			row[2] = unit.getClassCount();
@@ -88,12 +88,6 @@ public final class JDependUnitCaCeListDialog extends CooperDialog {
 			row[9] = unit.getValue(MetricsMgr.Coupling);
 			row[10] = unit.getValue(MetricsMgr.Cohesion);
 			row[11] = unit.getValue(MetricsMgr.Balance);
-
-			if (unit.getContainsCycle()) {
-				row[12] = MetricsMgr.Cyclic;
-			} else {
-				row[12] = MetricsMgr.NoValue;
-			}
 
 			listModel.addRow(row);
 		}
@@ -127,8 +121,6 @@ public final class JDependUnitCaCeListDialog extends CooperDialog {
 		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
 		listModel.addColumn(ReportConstant.Balance);
-
-		listModel.addColumn(ReportConstant.Cycle);
 
 		listTable.addMouseListener(new MouseAdapter() {
 			@Override
