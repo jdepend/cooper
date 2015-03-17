@@ -193,8 +193,6 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		listModel.addColumn(ReportConstant.Ce);
 		listModel.addColumn(ReportConstant.Coupling);
 		listModel.addColumn(ReportConstant.Cohesion);
-		listModel.addColumn(ReportConstant.Balance);
-		// listModel.addColumn(ReportConstant.OO);
 		listModel.addColumn(ReportConstant.Cycle);
 		listModel.addColumn(ReportConstant.JavaClass_State);
 		listModel.addColumn(ReportConstant.JavaClass_Stable);

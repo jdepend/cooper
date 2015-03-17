@@ -276,10 +276,6 @@ public class ClassListPanel extends JPanel {
 						CouplingDialog d = new CouplingDialog(currentClass);
 						d.setModal(true);
 						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(currentClass);
-						d.setModal(true);
-						d.setVisible(true);
 					}
 				}
 			}
@@ -295,8 +291,6 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.Ce);
 		classListModel.addColumn(ReportConstant.Coupling);
 		classListModel.addColumn(ReportConstant.Cohesion);
-		classListModel.addColumn(ReportConstant.Balance);
-		// classListModel.addColumn(ReportConstant.OO);
 		classListModel.addColumn(ReportConstant.Cycle);
 		classListModel.addColumn(ReportConstant.JavaClass_State);
 		classListModel.addColumn(ReportConstant.JavaClass_Stable);
@@ -309,7 +303,6 @@ public class ClassListPanel extends JPanel {
 		colNames.add(ReportConstant.Ce);
 		colNames.add(ReportConstant.Coupling);
 		colNames.add(ReportConstant.Cohesion);
-		colNames.add(ReportConstant.Balance);
 		colNames.add(ReportConstant.Cycle);
 
 		classListTable.addMouseMotionListener(new TableMouseMotionAdapter(classListTable, colNames));
