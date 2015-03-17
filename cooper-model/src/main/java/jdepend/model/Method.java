@@ -139,7 +139,7 @@ public class Method extends AccessFlags {
 		return invokedItems;
 	}
 
-	public void addInvokedItem(InvokeItem invokeItem) {
+	public synchronized void addInvokedItem(InvokeItem invokeItem) {
 		invokedItems.add(invokeItem);
 	}
 
