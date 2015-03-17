@@ -532,7 +532,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		return this.subAllClasses;
 	}
 
-	public void addSubClass(JavaClass javaClass) {
+	public synchronized void addSubClass(JavaClass javaClass) {
 		this.subClasses.add(javaClass);
 	}
 
