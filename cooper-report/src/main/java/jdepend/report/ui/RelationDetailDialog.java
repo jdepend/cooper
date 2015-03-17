@@ -54,7 +54,7 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation.getDetail()));
 	}
 
 	public RelationDetailDialog(GraphJDepend display, String current, String depend) {
@@ -71,7 +71,7 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation.getDetail()));
 
 	}
 

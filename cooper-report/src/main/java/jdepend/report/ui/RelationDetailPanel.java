@@ -26,10 +26,11 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
-import jdepend.model.Relation;
+import jdepend.model.RelationDetail;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.TableRelation;
 import jdepend.report.util.ReportConstant;
@@ -42,15 +43,15 @@ public final class RelationDetailPanel extends JPanel {
 
 	private DefaultTableModel listModel;
 
-	private Relation currentRelation;
+	private RelationDetail currentRelation;
 
 	private List<String> extendUnits = new ArrayList<String>();
 
-	public RelationDetailPanel(JDependFrame frame, jdepend.model.Component current, jdepend.model.Component depend) {
+	public RelationDetailPanel(JDependFrame frame, JDependUnit current, JDependUnit depend) {
 
 		this.frame = frame;
 
-		this.currentRelation = current.getCeTheRelation(depend);
+		this.currentRelation = current.ceCouplingDetail(depend);
 
 		if (this.currentRelation == null) {
 			return;
@@ -58,7 +59,7 @@ public final class RelationDetailPanel extends JPanel {
 		display();
 	}
 
-	public RelationDetailPanel(JDependFrame frame, Relation relation) {
+	public RelationDetailPanel(JDependFrame frame, RelationDetail relation) {
 
 		this.frame = frame;
 

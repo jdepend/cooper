@@ -20,16 +20,15 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
-import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;
 
-public final class ComponentCaCeListDialog extends CooperDialog {
+public final class JDependUnitCaCeListDialog extends CooperDialog {
 
 	private JDependFrame frame;
 
-	private Component component;
+	private JDependUnit component;
 
 	private String metrics;
 
@@ -37,9 +36,9 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 
 	private DefaultTableModel listModel;
 
-	private Collection<Component> listData;
+	private Collection<? extends JDependUnit> listData;
 
-	public ComponentCaCeListDialog(JDependFrame frame, Component component, String metrics) {
+	public JDependUnitCaCeListDialog(JDependFrame frame, JDependUnit component, String metrics) {
 
 		super(component.getName() + " " + metrics + " list");
 
@@ -68,7 +67,7 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 
 		Object[] row;
 
-		listData = new ArrayList<Component>();
+		listData = new ArrayList<JDependUnit>();
 
 		if (metrics.equals(ReportConstant.Ca)) {
 			listData = this.component.getAfferents();
@@ -139,10 +138,10 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 					String current = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 					String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
-					Component currentComponent = getTheComponent(current);
+					JDependUnit currentComponent = getTheComponent(current);
 					if (currentCol.equals(ReportConstant.Name)) {
-						Component left = null;
-						Component right = null;
+						JDependUnit left = null;
+						JDependUnit right = null;
 						if (metrics.equals(ReportConstant.Ca)) {
 							left = currentComponent;
 							right = component;
@@ -151,15 +150,15 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 							right = currentComponent;
 						}
 						RelationDetailPanel relationDetailPanel = new RelationDetailPanel(frame, left, right);
-						ComponentCaCeListDialog.this.getContentPane().removeAll();
-						ComponentCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, relationDetailPanel);
+						JDependUnitCaCeListDialog.this.getContentPane().removeAll();
+						JDependUnitCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, relationDetailPanel);
 						FlowLayout buttonFlowLayout = new FlowLayout();
 						buttonFlowLayout.setAlignment(FlowLayout.RIGHT);
 						JPanel buttonBar = new JPanel(buttonFlowLayout);
 						buttonBar.add(createBackButton());
-						ComponentCaCeListDialog.this.add(BorderLayout.SOUTH, buttonBar);
+						JDependUnitCaCeListDialog.this.add(BorderLayout.SOUTH, buttonBar);
 
-						ComponentCaCeListDialog.this.setVisible(true);
+						JDependUnitCaCeListDialog.this.setVisible(true);
 					}
 				}
 			}
@@ -171,8 +170,8 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, detailColumnNames));
 	}
 
-	private Component getTheComponent(String name) {
-		for (Component component : this.listData) {
+	private JDependUnit getTheComponent(String name) {
+		for (JDependUnit component : this.listData) {
 			if (component.getName().equals(name)) {
 				return component;
 			}
@@ -187,9 +186,9 @@ public final class ComponentCaCeListDialog extends CooperDialog {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ComponentCaCeListDialog.this.getContentPane().removeAll();
-				ComponentCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, new JScrollPane(listTable));
-				ComponentCaCeListDialog.this.setVisible(true);
+				JDependUnitCaCeListDialog.this.getContentPane().removeAll();
+				JDependUnitCaCeListDialog.this.getContentPane().add(BorderLayout.CENTER, new JScrollPane(listTable));
+				JDependUnitCaCeListDialog.this.setVisible(true);
 			}
 		});
 

@@ -19,10 +19,9 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.model.MetricsMgr;
 import jdepend.model.SubJDependUnit;
-import jdepend.model.component.VirtualPackageComponent;
 import jdepend.report.util.ReportConstant;
 
-public class JavaPackageListPanel extends JPanel {
+public class SubJDependUnitListPanel extends JPanel {
 
 	private JDependFrame frame;
 
@@ -32,7 +31,7 @@ public class JavaPackageListPanel extends JPanel {
 
 	private jdepend.model.Component component;
 
-	public JavaPackageListPanel(JDependFrame frame, jdepend.model.Component component) {
+	public SubJDependUnitListPanel(JDependFrame frame, jdepend.model.Component component) {
 		super();
 		this.setLayout(new BorderLayout());
 
@@ -106,9 +105,9 @@ public class JavaPackageListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
-//						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, subJDependUnit, currentCol);
-//						d.setModal(true);
-//						d.setVisible(true);
+						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit, currentCol);
+						d.setModal(true);
+						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
 						CohesionDialog d = new CohesionDialog(subJDependUnit);
 						d.setModal(true);
