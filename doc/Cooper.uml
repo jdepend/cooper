@@ -4623,7 +4623,7 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">1404,1143;1404,1220;1760,1220;1760,1392</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">1464,1084;1760,1084;1760,1392</XPD:ATTR>
 <XPD:REF name="Model">X9r8zRG3t0q7YDFB2Jtj1gAA</XPD:REF>
 <XPD:REF name="Head">pU7nfOtyNkucwDezuvwjBgAA</XPD:REF>
 <XPD:REF name="Tail">2/ggmLZ3/EeZ5GPU908CeQAA</XPD:REF>
@@ -8537,8 +8537,8 @@
 <XPD:OBJ name="OwnedViews[123]" type="UMLClassView" guid="4gbaeoTITU+URoF27MhglwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">1252</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">1192</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">1500</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">1256</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">80</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">66</XPD:ATTR>
 <XPD:ATTR name="StereotypeDisplay" type="UMLStereotypeDisplayKind">sdkIcon</XPD:ATTR>
@@ -8571,7 +8571,7 @@
 <XPD:OBJ name="OwnedViews[124]" type="UMLGeneralizationView" guid="6phpX6GCMEiQYsUgo5ZwigAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">1331,1217;1636,1164</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">1574,1256;1648,1189</XPD:ATTR>
 <XPD:REF name="Model">7TyVocVG+kec2JWPAu54vwAA</XPD:REF>
 <XPD:REF name="Head">FgVQmvjUC0C/BLmzd7DsSAAA</XPD:REF>
 <XPD:REF name="Tail">4gbaeoTITU+URoF27MhglwAA</XPD:REF>
