@@ -7,11 +7,13 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
+import jdepend.model.SubJDependUnit;
 
 /**
  * 一种组织类的方式，不改变Class所属组件的性质
  * 
  * 在 {@link MoveRelationTODOItem}中用于聚合相关的类
+ * 在 {@link Component}中用于计算内聚性
  * 
  * @author user
  * 
@@ -67,4 +69,11 @@ public class VirtualComponent extends Component {
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
 		throw new JDependException("虚拟组件不进行组件的识别");
 	}
+
+	@Override
+	public Collection<? extends SubJDependUnit> getSubJDependUnits() {
+		throw new RuntimeException("虚拟组件不能再次获得子组件元素");
+	}
+	
+	
 }
