@@ -40,6 +40,7 @@ import jdepend.knowledge.StructureCategory;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
+import jdepend.report.ui.BalanceComponentDialog;
 import jdepend.report.ui.ClassListDialog;
 import jdepend.report.ui.CohesionDialog;
 import jdepend.report.ui.CouplingDialog;
@@ -694,7 +695,7 @@ public final class ScorePanel extends SubResultTabPanel {
 						public void mouseClicked(java.awt.event.MouseEvent evt) {
 							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
 									.getTheComponent(((JLabel) evt.getSource()).getText());
-							CohesionDialog d = new CohesionDialog(component);
+							BalanceComponentDialog d = new BalanceComponentDialog(frame, component);
 							d.setModal(true);
 							d.setVisible(true);
 						}
