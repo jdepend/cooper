@@ -19,7 +19,6 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.core.local.score.ScoreByItemComparator;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.core.local.score.ScoreRepository;

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -251,16 +252,12 @@ public final class ChangedElementListDialog extends JDialog {
 	}
 
 	private void deleteSelectedElements() {
-		List<String> elements;
-		if (this.selectedElements.containsKey(NEW)) {
-			elements = this.selectedElements.get(NEW);
+		int[] rows = listTable.getSelectedRows();
+		if (rows == null || rows.length == 0) {
+			return;
 		} else {
-			elements = this.selectedElements.get(DELETED);
-		}
-		for (int row = listModel.getRowCount() - 1; row >= 0; row--) {
-			if (elements.contains(CandidateUtil.getId((String) listTable.getValueAt(row, 0),
-					(String) listTable.getValueAt(row, 1)))) {
-				listModel.removeRow(row);
+			for (int index = rows.length - 1; index >= 0; index--) {
+				listModel.removeRow(rows[index]);
 			}
 		}
 		this.selectedElements = new HashMap<String, ArrayList<String>>();
