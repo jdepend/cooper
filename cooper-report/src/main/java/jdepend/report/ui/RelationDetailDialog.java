@@ -5,12 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -19,10 +22,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
@@ -197,15 +200,28 @@ public class RelationDetailDialog extends CooperDialog {
 
 			};
 
-			TableSorter sorter = new TableSorter(classListModel);
-
-			classListTable = new JTable(sorter);
-
-			sorter.setTableHeader(classListTable.getTableHeader());
+			classListTable = new JTable(classListModel);
 
 			classListModel.addColumn("是否移动");
 			classListModel.addColumn(ReportConstant.JavaClass_Place);
 			classListModel.addColumn(ReportConstant.Name);
+
+			final CheckBoxRenderer check = new CheckBoxRenderer("是否移动");
+			classListTable.getColumn("是否移动").setHeaderRenderer(check);
+
+			classListTable.getTableHeader().addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (classListTable.getColumnModel().getColumnIndexAtX(e.getX()) == 0) {// 如果点击的是第0列，即checkbox这一列
+						boolean b = !check.isSelected();
+						check.setSelected(b);
+						classListTable.getTableHeader().repaint();
+						for (int i = 0; i < classListTable.getRowCount(); i++) {
+							classListTable.getModel().setValueAt(b, i, 0);// 把这一列都设成和表头一样
+						}
+					}
+				}
+			});
 
 			Object[] row;
 			for (String className : calSelectedJavaClass()) {
@@ -279,5 +295,19 @@ public class RelationDetailDialog extends CooperDialog {
 			d.setVisible(true);
 		}
 
+		class CheckBoxRenderer extends JCheckBox implements TableCellRenderer {
+
+			public CheckBoxRenderer(String name) {
+				this.setText(name);
+				this.setBorderPainted(true);
+				this.setSelected(true);
+			}
+
+			@Override
+			public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				return this;
+			}
+		}
 	}
 }
