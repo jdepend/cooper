@@ -104,7 +104,11 @@ public class SubJDependUnitListPanel extends JPanel {
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
 					SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
-					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
+					if (currentCol.equals(ReportConstant.Name)) {
+						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit, currentCol);
+						d.setModal(true);
+						d.setVisible(true);
+					} else if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit, currentCol);
 						d.setModal(true);
 						d.setVisible(true);

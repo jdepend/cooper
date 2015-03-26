@@ -51,7 +51,7 @@ public class ClassListPanel extends JPanel {
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
 
-	private List<jdepend.model.Component> components;
+	private Collection<JavaClass> javaClasses;
 
 	protected JDependFrame frame;
 
@@ -73,8 +73,7 @@ public class ClassListPanel extends JPanel {
 	public int showClassList(jdepend.model.Component component) {
 		clearClassList();
 
-		components = new ArrayList<jdepend.model.Component>();
-		components.add(component);
+		this.javaClasses = component.getClasses();
 		this.loadClassList();
 
 		this.fitCol();
@@ -84,7 +83,7 @@ public class ClassListPanel extends JPanel {
 
 	public int showAllClassList() {
 		clearClassList();
-		components = JDependUnitMgr.getInstance().getComponents();
+		this.javaClasses = JDependUnitMgr.getInstance().getResult().getClasses();
 		this.loadClassList();
 
 		this.fitCol();
@@ -141,17 +140,15 @@ public class ClassListPanel extends JPanel {
 
 		Object[] row;
 		String metrics = null;
-		for (jdepend.model.Component component : components) {
-			for (JavaClass javaClass : component.getClasses()) {
-				row = new Object[classListTable.getColumnCount()];
-				for (int i = 0; i < classListTable.getColumnCount(); i++) {
-					metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
-					row[i] = javaClass.getValue(metrics);
-				}
-				classListModel.addRow(row);
-				if (!javaClass.isInner()) {
-					this.extendUnits.add(javaClass.getId());
-				}
+		for (JavaClass javaClass : this.javaClasses) {
+			row = new Object[classListTable.getColumnCount()];
+			for (int i = 0; i < classListTable.getColumnCount(); i++) {
+				metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+				row[i] = javaClass.getValue(metrics);
+			}
+			classListModel.addRow(row);
+			if (!javaClass.isInner()) {
+				this.extendUnits.add(javaClass.getId());
 			}
 		}
 	}
@@ -161,22 +158,20 @@ public class ClassListPanel extends JPanel {
 		Object[] row;
 
 		String metrics = null;
-		for (jdepend.model.Component component : components) {
-			for (JavaClass javaClass : component.getClasses()) {
-				if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter, javaClass))
-						&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
-								javaClass))
-						&& (calleeFilter == null || calleeFilter.length() == 0 || this.matchCalleeFilter(calleeFilter,
-								javaClass))) {
-					row = new Object[classListTable.getColumnCount()];
-					for (int i = 0; i < classListTable.getColumnCount(); i++) {
-						metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
-						row[i] = javaClass.getValue(metrics);
-					}
-					classListModel.addRow(row);
-					if (!javaClass.isInner()) {
-						this.extendUnits.add(javaClass.getId());
-					}
+		for (JavaClass javaClass : this.javaClasses) {
+			if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter, javaClass))
+					&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
+							javaClass))
+					&& (calleeFilter == null || calleeFilter.length() == 0 || this.matchCalleeFilter(calleeFilter,
+							javaClass))) {
+				row = new Object[classListTable.getColumnCount()];
+				for (int i = 0; i < classListTable.getColumnCount(); i++) {
+					metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
+					row[i] = javaClass.getValue(metrics);
+				}
+				classListModel.addRow(row);
+				if (!javaClass.isInner()) {
+					this.extendUnits.add(javaClass.getId());
 				}
 			}
 		}
