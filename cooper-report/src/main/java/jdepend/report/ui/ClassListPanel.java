@@ -70,6 +70,17 @@ public class ClassListPanel extends JPanel {
 		this.add(pane);
 	}
 
+	public int showClassList(Collection<JavaClass> javaClasses) {
+		clearClassList();
+
+		this.javaClasses = javaClasses;
+		this.loadClassList();
+
+		this.fitCol();
+
+		return classListModel.getRowCount();
+	}
+
 	public int showClassList(jdepend.model.Component component) {
 		clearClassList();
 

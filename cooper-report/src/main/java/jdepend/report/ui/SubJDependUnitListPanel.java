@@ -105,7 +105,7 @@ public class SubJDependUnitListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
 					if (currentCol.equals(ReportConstant.Name)) {
-						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit, currentCol);
+						ClassListDialog d = new ClassListDialog(frame, subJDependUnit.getClasses());
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
@@ -142,6 +142,7 @@ public class SubJDependUnitListPanel extends JPanel {
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();
+		colNames.add(ReportConstant.Name);
 		colNames.add(ReportConstant.Ca);
 		colNames.add(ReportConstant.Ce);
 		colNames.add(ReportConstant.Cohesion);
