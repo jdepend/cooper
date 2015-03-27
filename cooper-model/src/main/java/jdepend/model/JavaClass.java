@@ -544,7 +544,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		if (this.allCaItems == null) {
 			this.allCaItems = new HashSet<JavaClassRelationItem>(this.caItems);
 			for (JavaClass innerClass : this.getInnerClasses()) {
-				this.allCaItems.addAll(innerClass.getSelfCaItems());
+				for (JavaClassRelationItem item : innerClass.getSelfCaItems()) {
+					this.allCaItems.add(item.clone2());
+				}
 			}
 		}
 		return allCaItems;
@@ -587,7 +589,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 			this.allCeItems = new HashSet<JavaClassRelationItem>(this.ceItems);
 			for (JavaClass innerClass : this.getInnerClasses()) {
 				for (JavaClassRelationItem item : innerClass.getSelfCeItems()) {
-					this.allCeItems.add(item.clone());
+					this.allCeItems.add(item.clone2());
 				}
 			}
 		}

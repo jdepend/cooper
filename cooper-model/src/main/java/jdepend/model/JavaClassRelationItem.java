@@ -3,6 +3,7 @@ package jdepend.model;
 import java.io.IOException;
 import java.io.Serializable;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.model.component.modelconf.CandidateUtil;
 
 /**
@@ -154,6 +155,35 @@ public class JavaClassRelationItem implements Serializable {
 		newItem.dependJavaClass = this.dependJavaClass;
 
 		return newItem;
+	}
+
+	/**
+	 * 创建一个以宿主类为current的relationItem
+	 * 
+	 * @return
+	 * @throws JDependException
+	 */
+	public JavaClassRelationItem clone2() {
+
+		if (!this.current.isInnerClass()) {
+			return this;
+		} else {
+			JavaClassRelationItem newItem = new JavaClassRelationItem();
+
+			newItem.direction = this.direction;
+			newItem.type = this.type;
+			newItem.typeName = this.typeName;
+
+			newItem.currentJavaClassPlace = this.current.getHostClass().getPlace();
+			newItem.currentJavaClass = this.current.getHostClass().getName();
+			newItem.current = this.current.getHostClass();
+
+			newItem.dependJavaClassPlace = this.dependJavaClassPlace;
+			newItem.dependJavaClass = this.dependJavaClass;
+			newItem.depend = this.depend;
+
+			return newItem;
+		}
 	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
