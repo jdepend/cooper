@@ -178,6 +178,9 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			javaClassForIds = new HashMap<String, JavaClass>();
 			for (JavaClass javaClass : getClasses()) {
 				javaClassForIds.put(javaClass.getId(), javaClass);
+				for(JavaClass innerClass : javaClass.getInnerClasses()){
+					javaClassForIds.put(innerClass.getId(), innerClass);
+				}
 			}
 		}
 		return javaClassForIds.get(id);

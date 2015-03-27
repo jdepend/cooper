@@ -83,6 +83,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 
 	private transient Collection<JavaClassRelationItem> allCeItems;
 
+	private transient Collection<JavaClass> allInnerClasses;
+
 	private final static int UnCalculate = -2;
 	private final static int HaveState = 1;
 	private final static int NoHaveState = 0;
@@ -190,12 +192,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	}
 
 	public Collection<JavaClass> getInnerClasses() {
-		Collection<JavaClass> innerAllClasses = new HashSet<JavaClass>();
-		innerAllClasses.addAll(this.innerClasses);
-		for (JavaClass innerClass : this.innerClasses) {
-			innerAllClasses.addAll(innerClass.getInnerClasses());
+		if (this.allInnerClasses == null) {
+			this.allInnerClasses = new HashSet<JavaClass>();
+			this.allInnerClasses.addAll(this.innerClasses);
+			for (JavaClass innerClass : this.innerClasses) {
+				this.allInnerClasses.addAll(innerClass.getInnerClasses());
+			}
 		}
-		return innerAllClasses;
+		return this.allInnerClasses;
 	}
 
 	public void setPackageName(String name) {
@@ -582,7 +586,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		if (this.allCeItems == null) {
 			this.allCeItems = new HashSet<JavaClassRelationItem>(this.ceItems);
 			for (JavaClass innerClass : this.getInnerClasses()) {
-				this.allCeItems.addAll(innerClass.getSelfCeItems());
+				for (JavaClassRelationItem item : innerClass.getSelfCeItems()) {
+					this.allCeItems.add(item.clone());
+				}
 			}
 		}
 		return allCeItems;
@@ -1073,14 +1079,15 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		cohesion = null;
 		balance = null;
 		groupCouplingInfo = null;
-		
+
 		supers = null;
 		superClasses = null;
 		interfaces = null;
 		subAllClasses = null;
-		
+
 		allCeItems = null;
 		allCaItems = null;
+		allInnerClasses = null;
 	}
 
 	public final boolean isPublic() {
