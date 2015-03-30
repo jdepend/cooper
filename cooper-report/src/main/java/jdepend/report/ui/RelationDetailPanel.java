@@ -106,10 +106,10 @@ public final class RelationDetailPanel extends JPanel {
 			for (JavaClassRelationItem item : items) {
 				row = new Object[6];
 
-				row[0] = item.getCurrent().getPlace();
-				row[1] = item.getCurrent().getName();
-				row[2] = item.getDepend().getPlace();
-				row[3] = item.getDepend().getName();
+				row[0] = item.getSource().getPlace();
+				row[1] = item.getSource().getName();
+				row[2] = item.getTarget().getPlace();
+				row[3] = item.getTarget().getName();
 				row[4] = item.getType().getName();
 				row[5] = item.getRelationIntensity();
 
@@ -182,7 +182,7 @@ public final class RelationDetailPanel extends JPanel {
 					String current = (String) listTable.getValueAt(row, 1);
 					String depend = (String) listTable.getValueAt(row, 3);
 					for (JavaClassRelationItem item : currentRelation.getItems()) {
-						if (item.getCurrent().getName().equals(current) && item.getDepend().getName().equals(depend)) {
+						if (item.getSource().getName().equals(current) && item.getTarget().getName().equals(depend)) {
 							if (item.getType() instanceof TableRelation) {
 								listTable.setToolTipText(((TableRelation) item.getType()).getTableName());
 							}

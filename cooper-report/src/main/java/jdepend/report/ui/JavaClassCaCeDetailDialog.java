@@ -104,7 +104,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClass javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getCaItems()) {
-						if (!javaClasses.contains(item.getDepend())) {
+						if (!javaClasses.contains(item.getSource())) {
 							items.add(item);
 						}
 					}
@@ -116,7 +116,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClass javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getCeItems()) {
-						if (!javaClasses.contains(item.getDepend())) {
+						if (!javaClasses.contains(item.getTarget())) {
 							items.add(item);
 						}
 					}
@@ -147,7 +147,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 						}
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
-						row[i] = item.getDepend().getValue(metrics1);
+						row[i] = item.getTarget().getValue(metrics1);
 					}
 				}
 				listModel.addRow(row);

@@ -30,7 +30,7 @@ public class JavaClassRelationUtil {
 		// 收集TableRelationInfo
 		for (JavaClass javaClass : result.getClasses()) {
 			for (JavaClassRelationItem item : javaClass.getCeItems()) {
-				tableInfo = new JavaClassRelationInfo(item.getCurrent().getName(), item.getDepend().getName(), item
+				tableInfo = new JavaClassRelationInfo(item.getSource().getName(), item.getTarget().getName(), item
 						.getType().getName(), item.isInner(), item.getRelationIntensity());
 				relationInfos.add(tableInfo);
 			}

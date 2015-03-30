@@ -23,23 +23,21 @@ public class JavaClassRelationItem implements Serializable {
 
 	public static final String CE_DIRECTION = "CE";
 
-	private transient JavaClass depend = null;// 关联的javaclass
+	private transient JavaClass target = null;// 目标javaclass
 
-	private transient JavaClass current = null;// 当前javaClass
+	private transient JavaClass source = null;// 源javaClass
 
-	private String dependJavaClassPlace = null;// 序列化和反序列化时使用
+	private String targetJavaClassPlace = null;// 序列化和反序列化时使用
 
-	private String dependJavaClass = null;// 序列化和反序列化时使用
+	private String targetJavaClass = null;// 序列化和反序列化时使用
 
-	private String currentJavaClassPlace = null;// 序列化和反序列化时使用
+	private String sourceJavaClassPlace = null;// 序列化和反序列化时使用
 
-	private String currentJavaClass = null;// 序列化和反序列化时使用
+	private String sourceJavaClass = null;// 序列化和反序列化时使用
 
 	private transient JavaClassRelationType type = null;// 关联类型
 
 	private String typeName = null; // 序列化和反序列化时使用
-
-	private String direction = null;// 关联方向
 
 	/**
 	 * 得到该关联项关联强度
@@ -47,81 +45,67 @@ public class JavaClassRelationItem implements Serializable {
 	 * @return
 	 */
 	public float getRelationIntensity() {
-		// 计算耦合
-		// float intensity = this.type.getIntensity();
-		// float rationality = this.type.getRationality(this.depend,
-		// this.current, this.direction);
-		//
-		// return intensity * rationality;
 		return this.type.getIntensity();
 	}
 
 	public boolean isInner() {
-		return this.current.getComponent().equals(this.depend.getComponent());
+		return this.source.getComponent().equals(this.target.getComponent());
 	}
 
-	public JavaClass getDepend() {
-		return depend;
+	public JavaClass getTarget() {
+		return target;
 	}
 
-	public void setDepend(JavaClass depend) {
-		this.depend = depend;
+	public void setTarget(JavaClass target) {
+		this.target = target;
 	}
 
 	public JavaClassRelationType getType() {
 		return type;
 	}
 
-	public String getDependJavaClass() {
-		return dependJavaClass;
+	public String getTargetJavaClass() {
+		return targetJavaClass;
 	}
 
-	public String getCurrentJavaClass() {
-		return currentJavaClass;
+	public String getSourceJavaClass() {
+		return sourceJavaClass;
 	}
 
 	public void setType(JavaClassRelationType type) {
 		this.type = type;
 	}
 
-	public JavaClass getCurrent() {
-		return current;
+	public JavaClass getSource() {
+		return source;
 	}
 
-	public void setCurrent(JavaClass current) {
-		this.current = current;
+	public void setSource(JavaClass source) {
+		this.source = source;
 	}
 
-	public String getDirection() {
-		return direction;
+	public void setTargetJavaClass(String targetJavaClass) {
+		this.targetJavaClass = targetJavaClass;
 	}
 
-	public void setDirection(String direction) {
-		this.direction = direction;
+	public void setSourceJavaClass(String sourceJavaClass) {
+		this.sourceJavaClass = sourceJavaClass;
 	}
 
-	public void setDependJavaClass(String dependJavaClass) {
-		this.dependJavaClass = dependJavaClass;
+	public String getTargetJavaClassPlace() {
+		return targetJavaClassPlace;
 	}
 
-	public void setCurrentJavaClass(String currentJavaClass) {
-		this.currentJavaClass = currentJavaClass;
+	public String getSourceJavaClassPlace() {
+		return sourceJavaClassPlace;
 	}
 
-	public String getDependJavaClassPlace() {
-		return dependJavaClassPlace;
+	public void setTargetJavaClassPlace(String targetJavaClassPlace) {
+		this.targetJavaClassPlace = targetJavaClassPlace;
 	}
 
-	public String getCurrentJavaClassPlace() {
-		return currentJavaClassPlace;
-	}
-
-	public void setDependJavaClassPlace(String dependJavaClassPlace) {
-		this.dependJavaClassPlace = dependJavaClassPlace;
-	}
-
-	public void setCurrentJavaClassPlace(String currentJavaClassPlace) {
-		this.currentJavaClassPlace = currentJavaClassPlace;
+	public void setSourceJavaClassPlace(String sourceJavaClassPlace) {
+		this.sourceJavaClassPlace = sourceJavaClassPlace;
 	}
 
 	public String getTypeName() {
@@ -138,21 +122,20 @@ public class JavaClassRelationItem implements Serializable {
 	 * @return
 	 */
 	public boolean crossComponent() {
-		return !this.current.getComponent().containsClass(this.depend);
+		return !this.source.getComponent().containsClass(this.target);
 	}
 
 	public JavaClassRelationItem clone() {
 		JavaClassRelationItem newItem = new JavaClassRelationItem();
 
-		newItem.direction = this.direction;
 		newItem.type = this.type;
 		newItem.typeName = this.typeName;
 
-		newItem.currentJavaClassPlace = this.currentJavaClassPlace;
-		newItem.currentJavaClass = this.currentJavaClass;
+		newItem.sourceJavaClassPlace = this.sourceJavaClassPlace;
+		newItem.sourceJavaClass = this.sourceJavaClass;
 
-		newItem.dependJavaClassPlace = this.dependJavaClassPlace;
-		newItem.dependJavaClass = this.dependJavaClass;
+		newItem.targetJavaClassPlace = this.targetJavaClassPlace;
+		newItem.targetJavaClass = this.targetJavaClass;
 
 		return newItem;
 	}
@@ -165,22 +148,21 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	public JavaClassRelationItem clone2() {
 
-		if (!this.current.isInnerClass()) {
+		if (!this.source.isInnerClass()) {
 			return this;
 		} else {
 			JavaClassRelationItem newItem = new JavaClassRelationItem();
 
-			newItem.direction = this.direction;
 			newItem.type = this.type;
 			newItem.typeName = this.typeName;
 
-			newItem.currentJavaClassPlace = this.current.getHostClass().getPlace();
-			newItem.currentJavaClass = this.current.getHostClass().getName();
-			newItem.current = this.current.getHostClass();
+			newItem.sourceJavaClassPlace = this.source.getHostClass().getPlace();
+			newItem.sourceJavaClass = this.source.getHostClass().getName();
+			newItem.source = this.source.getHostClass();
 
-			newItem.dependJavaClassPlace = this.dependJavaClassPlace;
-			newItem.dependJavaClass = this.dependJavaClass;
-			newItem.depend = this.depend;
+			newItem.targetJavaClassPlace = this.targetJavaClassPlace;
+			newItem.targetJavaClass = this.targetJavaClass;
+			newItem.target = this.target;
 
 			return newItem;
 		}
@@ -189,10 +171,10 @@ public class JavaClassRelationItem implements Serializable {
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 
 		// 准备序列化数据
-		this.dependJavaClassPlace = this.depend.getPlace();
-		this.dependJavaClass = this.depend.getName();
-		this.currentJavaClassPlace = this.current.getPlace();
-		this.currentJavaClass = this.current.getName();
+		this.targetJavaClassPlace = this.target.getPlace();
+		this.targetJavaClass = this.target.getName();
+		this.sourceJavaClassPlace = this.source.getPlace();
+		this.sourceJavaClass = this.source.getName();
 		this.typeName = this.type.getName();
 
 		out.defaultWriteObject();// 序列化对象
@@ -200,8 +182,7 @@ public class JavaClassRelationItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "JavaClassRelationItem [current=" + current.getName() + ", depend=" + depend.getName() + ", direction="
-				+ direction + ", type=" + type + "]";
+		return "JavaClassRelationItem [current=" + source.getName() + ", depend=" + target.getName() + ", type=" + type + "]";
 	}
 
 	@Override
@@ -210,13 +191,12 @@ public class JavaClassRelationItem implements Serializable {
 		int result = 1;
 		result = prime
 				* result
-				+ ((current == null) ? CandidateUtil.getId(currentJavaClassPlace, currentJavaClass).hashCode()
-						: current.getName().hashCode());
+				+ ((source == null) ? CandidateUtil.getId(sourceJavaClassPlace, sourceJavaClass).hashCode()
+						: source.getName().hashCode());
 		result = prime
 				* result
-				+ ((depend == null) ? CandidateUtil.getId(dependJavaClassPlace, dependJavaClass).hashCode() : depend
+				+ ((target == null) ? CandidateUtil.getId(targetJavaClassPlace, targetJavaClass).hashCode() : target
 						.getName().hashCode());
-		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((type == null) ? typeName.hashCode() : type.hashCode());
 		return result;
 	}
@@ -229,23 +209,21 @@ public class JavaClassRelationItem implements Serializable {
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
 
-		if (current != null && other.current != null) {
-			if (!current.equals(other.current))
+		if (source != null && other.source != null) {
+			if (!source.equals(other.source))
 				return false;
-			if (!depend.equals(other.depend))
+			if (!target.equals(other.target))
 				return false;
 		} else {
-			if (!currentJavaClassPlace.equals(other.currentJavaClassPlace))
+			if (!sourceJavaClassPlace.equals(other.sourceJavaClassPlace))
 				return false;
-			if (!dependJavaClassPlace.equals(other.dependJavaClassPlace))
+			if (!targetJavaClassPlace.equals(other.targetJavaClassPlace))
 				return false;
-			if (!currentJavaClass.equals(other.currentJavaClass))
+			if (!sourceJavaClass.equals(other.sourceJavaClass))
 				return false;
-			if (!dependJavaClass.equals(other.dependJavaClass))
+			if (!targetJavaClass.equals(other.targetJavaClass))
 				return false;
 		}
-		if (!direction.equals(other.direction))
-			return false;
 		if (!type.equals(other.type))
 			return false;
 

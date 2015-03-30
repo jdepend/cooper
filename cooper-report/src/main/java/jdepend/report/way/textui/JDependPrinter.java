@@ -183,7 +183,7 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {
 			getWriter().println(
-					tab(5) + "<CouplingJavaClass name=\"" + ceItem.getDepend().getName() + "\" DependType=\""
+					tab(5) + "<CouplingJavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
 							+ ceItem.getType().getName() + "\" Intensity=\""
 							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(ceItem)) + "\"/>");
 		}
@@ -191,7 +191,7 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ca>");
 		for (JavaClassRelationItem caItem : javaClass.getCaItems()) {
 			getWriter().println(
-					tab(5) + "<CouplingJavaClass name=\"" + caItem.getDepend().getName() + "\" DependType=\""
+					tab(5) + "<CouplingJavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
 							+ caItem.getType().getName() + "\" Intensity=\""
 							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(caItem)) + "\"/>");
 		}
@@ -259,7 +259,7 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {
 			getWriter().println(
-					tab(5) + "<CohesionjavaClass name=\"" + ceItem.getDepend().getName() + "\" DependType=\""
+					tab(5) + "<CohesionjavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
 							+ ceItem.getType().getName() + "\" Intensity=\""
 							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(ceItem)) + "\"/>");
 		}
@@ -267,7 +267,7 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ca>");
 		for (JavaClassRelationItem caItem : javaClass.getCaItems()) {
 			getWriter().println(
-					tab(5) + "<CohesionjavaClass name=\"" + caItem.getDepend().getName() + "\" DependType=\""
+					tab(5) + "<CohesionjavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
 							+ caItem.getType().getName() + "\" Intensity=\""
 							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(caItem)) + "\"/>");
 		}
@@ -300,8 +300,8 @@ public final class JDependPrinter extends Printer {
 		if (items != null && items.size() != 0) {
 			for (JavaClassRelationItem item : items) {
 				getWriter().println(
-						"\n #javaClassName: " + item.getCurrent().getName() + " #DependJavaClassName: "
-								+ item.getDepend().getName() + " #DependType: " + item.getType().getName()
+						"\n #javaClassName: " + item.getSource().getName() + " #DependJavaClassName: "
+								+ item.getTarget().getName() + " #DependType: " + item.getType().getName()
 								+ " #Intensity: " + item.getRelationIntensity());
 			}
 		}

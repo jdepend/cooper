@@ -58,8 +58,8 @@ public class DAOCallService extends AbstractAnalyzer {
 
 		for (JavaClass daoClass : daoLayer.getClasses()) {
 			for (JavaClassRelationItem relationItem : daoClass.getCeItems()) {
-				if (ServiceClassType.isMember(relationItem.getDepend())) {
-					this.print(daoClass.getName() + " Call " + relationItem.getDepend().getName());
+				if (ServiceClassType.isMember(relationItem.getTarget())) {
+					this.print(daoClass.getName() + " Call " + relationItem.getTarget().getName());
 				}
 			}
 		}

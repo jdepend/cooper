@@ -188,38 +188,32 @@ public class JavaClassRelationCreator {
 		ThreadPool.awaitTermination(pool);
 	}
 
-	private void setDependInfo(JavaClass current, JavaClass depend, JavaClassRelationType type) {
+	private void setDependInfo(JavaClass source, JavaClass target, JavaClassRelationType type) {
 
-		if (depend == null) {
+		if (target == null) {
 			return;
 		}
 
-		if (current.equals(depend)) {
+		if (source.equals(target)) {
 			return;
 		}
 
-		if (current.containsInnerClass(depend)) {
-			current.addInnerClass(depend);
+		if (source.containsInnerClass(target)) {
+			source.addInnerClass(target);
 			return;
 		}
 
-		if (current.containedInnerClass(depend)) {
+		if (source.containedInnerClass(target)) {
 			return;
 		}
 
 		JavaClassRelationItem item = new JavaClassRelationItem();
 		item.setType(type);
-		item.setDirection(JavaClassRelationItem.CE_DIRECTION);
-		item.setDepend(depend);
-		item.setCurrent(current);
-		current.addCeItems(item);
+		item.setTarget(target);
+		item.setSource(source);
 
-		item = new JavaClassRelationItem();
-		item.setType(type);
-		item.setDirection(JavaClassRelationItem.CA_DIRECTION);
-		item.setDepend(current);
-		item.setCurrent(depend);
-		depend.addCaItems(item);
+		source.addCeItems(item);
+		target.addCaItems(item);
 	}
 
 	private List<JavaClass> getWriteAndDefineToTableClasses(TableInfo tableInfo) {

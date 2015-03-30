@@ -147,9 +147,9 @@ public class RelationDetailDialog extends CooperDialog {
 		List<String> selectedJavaClass = new ArrayList<String>();
 		for (JavaClassRelationItem item : this.relation.getItems()) {
 			if (current.isSelected()) {
-				selectedJavaClass.add(CandidateUtil.getId(item.getCurrent().getPlace(), item.getCurrent().getName()));
+				selectedJavaClass.add(CandidateUtil.getId(item.getSource().getPlace(), item.getSource().getName()));
 			} else {
-				selectedJavaClass.add(CandidateUtil.getId(item.getDepend().getPlace(), item.getDepend().getName()));
+				selectedJavaClass.add(CandidateUtil.getId(item.getTarget().getPlace(), item.getTarget().getName()));
 			}
 		}
 		return selectedJavaClass;

@@ -55,8 +55,8 @@ public class DIPPrinciple extends AbstractAnalyzer {
 		for (Relation relation : component.getRelations()) {
 			for (JavaClassRelationItem item : relation.getDetail().getItems()) {
 				if (item.getType().canAbstraction()) {
-					JavaClass current = item.getCurrent();
-					JavaClass depend = item.getDepend();
+					JavaClass current = item.getSource();
+					JavaClass depend = item.getTarget();
 					// 识别组件外依赖的JavaClass是否是抽象的
 					if (!depend.isAbstract() && depend.getSupers().size() > 0) {
 						found = true;

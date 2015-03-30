@@ -141,13 +141,13 @@ public abstract class Component extends AbstractJDependUnit {
 		for (JavaClass javaClass : javaClasses) {
 			it = javaClass.getSelfCaItems().iterator();
 			while (it.hasNext()) {
-				if (!javaClasses.contains(it.next().getDepend())) {
+				if (!javaClasses.contains(it.next().getSource())) {
 					it.remove();
 				}
 			}
 			it = javaClass.getSelfCeItems().iterator();
 			while (it.hasNext()) {
-				if (!javaClasses.contains(it.next().getDepend())) {
+				if (!javaClasses.contains(it.next().getTarget())) {
 					it.remove();
 				}
 			}
@@ -356,7 +356,7 @@ public abstract class Component extends AbstractJDependUnit {
 		float intensity = 0;
 		for (JavaClass javaClass : this.getClasses()) {
 			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
-				if (component.containsClass(relationItem.getDepend())) {
+				if (component.containsClass(relationItem.getTarget())) {
 					detail.addItem(relationItem);
 					intensity += relationItem.getRelationIntensity();
 				}

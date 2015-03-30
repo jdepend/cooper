@@ -560,7 +560,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		if (this.caList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCaItems()) {
-				javaClasses.add(item.getDepend());
+				javaClasses.add(item.getSource());
 			}
 			this.caList = javaClasses;
 		}
@@ -604,7 +604,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		if (this.ceList == null) {
 			Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 			for (JavaClassRelationItem item : getCeItems()) {
-				javaClasses.add(item.getDepend());
+				javaClasses.add(item.getTarget());
 			}
 			this.ceList = javaClasses;
 		}
@@ -691,7 +691,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCeItems()) {
-			if (dependUnit.containsClass(relationItem.getDepend())) {
+			if (dependUnit.containsClass(relationItem.getTarget())) {
 				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -711,7 +711,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCaItems()) {
-			if (dependUnit.containsClass(relationItem.getDepend())) {
+			if (dependUnit.containsClass(relationItem.getSource())) {
 				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -725,7 +725,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	public float caCoupling() {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCaItems()) {
-			if (!this.component.containsClass(relationItem.getDepend())) {
+			if (!this.component.containsClass(relationItem.getSource())) {
 				intensity += relationItem.getRelationIntensity();
 			}
 		}
@@ -736,7 +736,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	public float ceCoupling() {
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.getCeItems()) {
-			if (!this.component.containsClass(relationItem.getDepend())) {
+			if (!this.component.containsClass(relationItem.getTarget())) {
 				intensity += relationItem.getRelationIntensity();
 			}
 		}
@@ -754,12 +754,12 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		if (this.cohesion == null) {
 			float intensity = 0;
 			for (JavaClassRelationItem relationItem : this.getCeItems()) {
-				if (this.component.containsClass(relationItem.getDepend())) {
+				if (this.component.containsClass(relationItem.getTarget())) {
 					intensity += relationItem.getRelationIntensity();
 				}
 			}
 			for (JavaClassRelationItem relationItem : this.getCaItems()) {
-				if (this.component.containsClass(relationItem.getDepend())) {
+				if (this.component.containsClass(relationItem.getSource())) {
 					intensity += relationItem.getRelationIntensity();
 				}
 			}
@@ -1012,11 +1012,11 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		it = this.getSelfCaItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();
-			dependClass = javaClasses.getTheClass(relationItem.getCurrentJavaClassPlace(),
-					relationItem.getDependJavaClass());
+			dependClass = javaClasses.getTheClass(relationItem.getSourceJavaClassPlace(),
+					relationItem.getSourceJavaClass());
 			if (dependClass != null) {
-				relationItem.setDepend(dependClass);
-				relationItem.setCurrent(this);
+				relationItem.setTarget(this);
+				relationItem.setSource(dependClass);
 				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();
@@ -1025,11 +1025,11 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		it = this.getSelfCeItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();
-			dependClass = javaClasses.getTheClass(relationItem.getDependJavaClassPlace(),
-					relationItem.getDependJavaClass());
+			dependClass = javaClasses.getTheClass(relationItem.getTargetJavaClassPlace(),
+					relationItem.getTargetJavaClass());
 			if (dependClass != null) {
-				relationItem.setDepend(dependClass);
-				relationItem.setCurrent(this);
+				relationItem.setTarget(dependClass);
+				relationItem.setSource(this);
 				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();

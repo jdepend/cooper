@@ -226,7 +226,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 				for (JavaClass dependClass : javaClass.getCaList()) {
 					it = dependClass.getSelfCeItems().iterator();
 					while (it.hasNext()) {
-						if (it.next().getDepend().equals(javaClass)) {
+						if (it.next().getTarget().equals(javaClass)) {
 							it.remove();
 						}
 					}
@@ -234,7 +234,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 				for (JavaClass dependClass : javaClass.getCeList()) {
 					it = dependClass.getSelfCaItems().iterator();
 					while (it.hasNext()) {
-						if (it.next().getDepend().equals(javaClass)) {
+						if (it.next().getSource().equals(javaClass)) {
 							it.remove();
 						}
 					}

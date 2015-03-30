@@ -35,15 +35,15 @@ public abstract class JavaClassTreeCreator {
 			javaClasses.contains(javaClass);
 			unite = false;
 			for (JavaClassRelationItem relationItem : this.getRelationItem(javaClass)) {
-				if (!javaClasses.contains(relationItem.getDepend()) && classes.contains(relationItem.getDepend())) {
-					javaClasses.add(relationItem.getDepend());
+				if (!javaClasses.contains(relationItem.getTarget()) && classes.contains(relationItem.getTarget())) {
+					javaClasses.add(relationItem.getTarget());
 					// 判断是否要合并到其它树上
 					for (JavaClassTree currentTree : trees) {
-						if (currentTree.contains(relationItem.getDepend())) {
-							if (currentTree.getJavaClassRoots().contains(relationItem.getDepend())) {
-								currentTree.setRoot(relationItem.getCurrent(), relationItem.getDepend());
+						if (currentTree.contains(relationItem.getTarget())) {
+							if (currentTree.getJavaClassRoots().contains(relationItem.getTarget())) {
+								currentTree.setRoot(relationItem.getSource(), relationItem.getTarget());
 							} else {
-								currentTree.insertNode(relationItem.getCurrent(), relationItem.getDepend());
+								currentTree.insertNode(relationItem.getSource(), relationItem.getTarget());
 							}
 							unite = true;
 						}
@@ -76,10 +76,10 @@ public abstract class JavaClassTreeCreator {
 		JavaClass currentClass = tree.getCurrent();
 		javaClasses.add(currentClass);
 		for (JavaClassRelationItem relationItem : getRelationItem(currentClass)) {// 广度搜索
-			if (classes.contains(relationItem.getDepend())) {
-				if (!javaClasses.contains(relationItem.getDepend())) {
-					javaClasses.add(relationItem.getDepend());
-					tree.addNode(relationItem.getCurrent(), relationItem.getDepend());
+			if (classes.contains(relationItem.getTarget())) {
+				if (!javaClasses.contains(relationItem.getTarget())) {
+					javaClasses.add(relationItem.getTarget());
+					tree.addNode(relationItem.getSource(), relationItem.getTarget());
 					rout(tree, classes);// 深度搜索
 				} else {
 					// 判断是否要合并到其它树上
@@ -87,14 +87,14 @@ public abstract class JavaClassTreeCreator {
 					JavaClassTree currentTree;
 					while (it.hasNext()) {
 						currentTree = it.next();
-						if (currentTree.contains(relationItem.getDepend())) {
-							if (currentTree.getJavaClassRoots().contains(relationItem.getDepend())) {
+						if (currentTree.contains(relationItem.getTarget())) {
+							if (currentTree.getJavaClassRoots().contains(relationItem.getTarget())) {
 								tree.appendTree(currentClass, currentTree);
 								it.remove();
 							} else {
 								// 只对继承关系进行合并
 								if (this.type instanceof InheritRelation) {
-									tree.mergeTree(currentTree, currentClass, relationItem.getDepend());
+									tree.mergeTree(currentTree, currentClass, relationItem.getTarget());
 									it.remove();
 								}
 							}

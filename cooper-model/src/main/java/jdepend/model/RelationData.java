@@ -50,8 +50,8 @@ public class RelationData {
 		Component dependComponent = relation.getDepend().getComponent();
 		// 计算需要分析的组件
 		for (JavaClassRelationItem item : relation.getItems()) {
-			current.joinJavaClass(item.getCurrent());
-			depend.joinJavaClass(item.getDepend());
+			current.joinJavaClass(item.getSource());
+			depend.joinJavaClass(item.getTarget());
 		}
 
 		for (JavaClass javaClass : currentComponent.getClasses()) {
