@@ -1,6 +1,5 @@
 package jdepend.util.analyzer.element;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -11,7 +10,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
-public class IdentifyAppService extends AbstractAnalyzer {
+public class IdentifyDomainService extends AbstractAnalyzer {
 
 	private static final long serialVersionUID = -8083874482518842003L;
 
@@ -19,36 +18,37 @@ public class IdentifyAppService extends AbstractAnalyzer {
 
 	private transient Collection<String> serviceNames;
 
-	public IdentifyAppService() {
-		super("识别AppService", Analyzer.Attention, "识别AppService");
+	public IdentifyDomainService() {
+		super("识别DomainService", Analyzer.Attention, "识别DomainService");
 	}
 
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		Collection<String> attributes;
+		int count;
+		boolean domain;
 		for (JavaClass javaClass : result.getClasses()) {
 			if (isService(javaClass)) {
-				attributes = new ArrayList<String>();
+				domain = true;
+				count = 0;
 				L: for (Attribute attribute : javaClass.getAttributes()) {
 					for (JavaClass type : attribute.getTypeClasses()) {
 						if (isService(type)) {
 							if (!javaClass.getComponent().equals(type.getComponent())) {
-								this.printTable("Service名", javaClass.getName());
-								this.printTable("Attribute名", type.getName());
+								domain = false;
 								break L;
 							} else {
-								attributes.add(type.getName());
-								if (attributes.size() > 1) {
-									for (String attr : attributes) {
-										this.printTable("Service名", javaClass.getName());
-										this.printTable("Attribute名", attr);
-									}
+								count++;
+								if (count > 1) {
+									domain = false;
 									break L;
 								}
 							}
 						}
 					}
+				}
+				if (domain) {
+					this.printTable("Service名", javaClass.getName());
 				}
 			}
 		}
@@ -96,10 +96,10 @@ public class IdentifyAppService extends AbstractAnalyzer {
 	@Override
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
-		explain.append("识别具有协调其他Service的Service，规则：<br>");
+		explain.append("识别具有原子性质的Service，规则：<br>");
 		explain.append("1、该类名以Facade、Service、BO、Stub結尾。<br>");
-		explain.append("2、该类注入了其他组件的Facade或Service。<br>");
-		explain.append("3、该类注入了本组件两个以上其他Service。<br>");
+		explain.append("2、该类没有注入了其他组件的Facade或Service。<br>");
+		explain.append("3、该类仅注入了本组件零个或一个其他Service。<br>");
 		return explain.toString();
 	}
 }
