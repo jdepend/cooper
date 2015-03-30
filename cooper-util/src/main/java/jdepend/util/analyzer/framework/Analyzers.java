@@ -16,6 +16,7 @@ import jdepend.util.analyzer.element.DAOCallService;
 import jdepend.util.analyzer.element.DIPPrinciple;
 import jdepend.util.analyzer.element.DesignPatternIdentifyer;
 import jdepend.util.analyzer.element.FieldTreeAnalyse;
+import jdepend.util.analyzer.element.IdentifyAppService;
 import jdepend.util.analyzer.element.IdentifyCallback;
 import jdepend.util.analyzer.element.IdentifyWillMoveJavaClass;
 import jdepend.util.analyzer.element.IdentifyWillMoveMethod;
@@ -71,6 +72,7 @@ public final class Analyzers {
 		allAnalyzers.add(new RepeatClassAnalyzer());
 		allAnalyzers.add(new TogetherInvokeMethod());
 		allAnalyzers.add(new IdentifyCallback());
+		allAnalyzers.add(new IdentifyAppService());
 
 		List<Analyzer> analyzerTypes;
 		for (Analyzer analyzer : allAnalyzers) {

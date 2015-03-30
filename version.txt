@@ -4,6 +4,10 @@ a）向组件内聚性明细窗口中的包列表上的名称增加点击动作�
 
 b）修正AnalysisResult.getTheClass方法中的bug
 
+c）取消向JavaClass双向创建JavaClassRelationItem的设计，采用双方持有一个item的设计（current->source;depend->target）
+
+d）增加分析器：识别AppService
+
 
 1.2.4_08 2015-03-25
 
