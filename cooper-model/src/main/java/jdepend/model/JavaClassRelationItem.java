@@ -19,10 +19,6 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	private static final long serialVersionUID = -6332298811666212021L;
 
-	public static final String CA_DIRECTION = "CA";
-
-	public static final String CE_DIRECTION = "CE";
-
 	private transient JavaClass target = null;// 目标javaclass
 
 	private transient JavaClass source = null;// 源javaClass

@@ -1,7 +1,6 @@
 package jdepend.model.relationtype;
 
 import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
 
 public class InheritRelation extends BaseJavaClassRelationType {
 
@@ -14,15 +13,14 @@ public class InheritRelation extends BaseJavaClassRelationType {
 		super(JavaClassRelationTypeMgr.Inherit, intensity);
 	}
 
-	public float getRationality(JavaClass depend, JavaClass current, String direction) {
-		if (direction.equals(JavaClassRelationItem.CE_DIRECTION) && depend.isAbstract()
-				|| direction.equals(JavaClassRelationItem.CA_DIRECTION) && current.isAbstract()) {
+	public float getRationality(JavaClass target, JavaClass source, String direction) {
+		if (target.isAbstract()) {
 			return 0.4F;
 		} else {
-			return super.getRationality(depend, current, direction);
+			return super.getRationality(target, source, direction);
 		}
 	}
-	
+
 	@Override
 	public boolean canAbstraction() {
 		return false;
