@@ -178,7 +178,7 @@ public class JavaClassRelationItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "JavaClassRelationItem [current=" + source.getName() + ", depend=" + target.getName() + ", type=" + type + "]";
+		return "JavaClassRelationItem [source=" + source.getName() + ", target=" + target.getName() + ", type=" + type + "]";
 	}
 
 	@Override
