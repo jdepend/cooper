@@ -8,6 +8,8 @@ c）取消向JavaClass双向创建JavaClassRelationItem的设计，采用双方�
 
 d）增加分析器：识别AppService
 
+e）增加分析器：识别DomainService
+
 
 1.2.4_08 2015-03-25
 
