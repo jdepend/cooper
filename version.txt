@@ -10,6 +10,8 @@ d）增加分析器：识别AppService
 
 e）增加分析器：识别DomainService
 
+f）进一步完善【过滤掉不被组件包含的JavaClass】
+
 
 1.2.4_08 2015-03-25
 
