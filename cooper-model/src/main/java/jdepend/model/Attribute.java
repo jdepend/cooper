@@ -179,6 +179,14 @@ public class Attribute implements Serializable {
 		this.setTypeClasses(attributeTypes);
 	}
 
+	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
+		for (JavaClass typeClass : this.typeClasses) {
+			if (!javaClasses.contains(typeClass)) {
+				this.typeClasses.remove(typeClass);
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder rtn = new StringBuilder();
@@ -216,5 +224,4 @@ public class Attribute implements Serializable {
 			return false;
 		return true;
 	}
-
 }

@@ -1037,6 +1037,30 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		}
 	}
 
+	/**
+	 * 删除没有包含在javaClasses中的JavaClass引用
+	 * 
+	 * @param javaClasses
+	 */
+	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
+		Iterator<JavaClassRelationItem> it;
+		for (JavaClass javaClass : javaClasses) {
+			it = javaClass.getSelfCaItems().iterator();
+			while (it.hasNext()) {
+				if (!javaClasses.contains(it.next().getSource())) {
+					it.remove();
+				}
+			}
+			it = javaClass.getSelfCeItems().iterator();
+			while (it.hasNext()) {
+				if (!javaClasses.contains(it.next().getTarget())) {
+					it.remove();
+				}
+			}
+			this.getDetail().filterExternalJavaClass(javaClasses);
+		}
+	}
+
 	@Override
 	public int compareTo(JDependUnit o) {
 		return this.getId().compareTo(((JavaClass) o).getId());

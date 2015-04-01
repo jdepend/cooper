@@ -33,19 +33,23 @@ public class IdentifyAppService extends AbstractAnalyzer {
 				L: for (Attribute attribute : javaClass.getAttributes()) {
 					for (JavaClass type : attribute.getTypeClasses()) {
 						if (isService(type)) {
-							if (!javaClass.getComponent().equals(type.getComponent())) {
-								this.printTable("Service名", javaClass.getName());
-								this.printTable("Attribute名", type.getName());
-								break L;
-							} else {
-								attributes.add(type.getName());
-								if (attributes.size() > 1) {
-									for (String attr : attributes) {
-										this.printTable("Service名", javaClass.getName());
-										this.printTable("Attribute名", attr);
-									}
+							try {
+								if (!javaClass.getComponent().equals(type.getComponent())) {
+									this.printTable("Service名", javaClass.getName());
+									this.printTable("Attribute名", type.getName());
 									break L;
+								} else {
+									attributes.add(type.getName());
+									if (attributes.size() > 1) {
+										for (String attr : attributes) {
+											this.printTable("Service名", javaClass.getName());
+											this.printTable("Attribute名", attr);
+										}
+										break L;
+									}
 								}
+							} catch (Exception e) {
+								System.out.print("");
 							}
 						}
 					}

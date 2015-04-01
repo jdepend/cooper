@@ -282,6 +282,26 @@ public class JavaClassDetail implements Serializable {
 		}
 	}
 
+	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
+		if (!javaClasses.contains(this.superClass)) {
+			this.superClass = null;
+		}
+
+		for (JavaClass interfaceClass : this.interfaces) {
+			if (!javaClasses.contains(interfaceClass)) {
+				this.interfaces.remove(interfaceClass);
+			}
+		}
+		
+		for (Attribute attribute : this.getAttributes()) {
+			attribute.filterExternalJavaClass(javaClasses);
+		}
+
+		for (Method method : this.getMethods()) {
+			method.filterExternalJavaClass(javaClasses);
+		}
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder content = new StringBuilder(500);
@@ -426,5 +446,4 @@ public class JavaClassDetail implements Serializable {
 			return false;
 		return true;
 	}
-
 }

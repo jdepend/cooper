@@ -126,31 +126,19 @@ public abstract class Component extends AbstractJDependUnit {
 	 */
 	public final List<Component> list(Collection<JavaPackage> javaPackages) throws JDependException {
 		List<Component> components = this.doList(javaPackages);
-		this.filterExternalJavaClassRelationItems(components);
+		this.filterExternalJavaClass(components);
 		return components;
 	}
 
 	/**
-	 * 过滤掉不被组件包含的JavaClassRelationItems
+	 * 过滤掉不被组件包含的JavaClass
 	 * 
 	 * @param components
 	 */
-	protected void filterExternalJavaClassRelationItems(Collection<Component> components) {
+	protected void filterExternalJavaClass(Collection<Component> components) {
 		Collection<JavaClass> javaClasses = JavaClassUtil.getAllClasses(components);
-		Iterator<JavaClassRelationItem> it;
 		for (JavaClass javaClass : javaClasses) {
-			it = javaClass.getSelfCaItems().iterator();
-			while (it.hasNext()) {
-				if (!javaClasses.contains(it.next().getSource())) {
-					it.remove();
-				}
-			}
-			it = javaClass.getSelfCeItems().iterator();
-			while (it.hasNext()) {
-				if (!javaClasses.contains(it.next().getTarget())) {
-					it.remove();
-				}
-			}
+			javaClass.filterExternalJavaClass(javaClasses);
 		}
 	}
 

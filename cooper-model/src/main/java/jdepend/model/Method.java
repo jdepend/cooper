@@ -466,6 +466,30 @@ public class Method extends AccessFlags {
 		}
 	}
 
+	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
+		for (JavaClass typeClass : this.argClassTypes) {
+			if (!javaClasses.contains(typeClass)) {
+				this.argClassTypes.remove(typeClass);
+			}
+		}
+
+		for (JavaClass typeClass : this.returnClassTypes) {
+			if (!javaClasses.contains(typeClass)) {
+				this.returnClassTypes.remove(typeClass);
+			}
+		}
+
+		InvokeItem invokeItem;
+		Iterator<InvokeItem> it = this.getInvokeItems().iterator();
+		while (it.hasNext()) {
+			invokeItem = it.next();
+			if (!javaClasses.contains(invokeItem.getCallee().getJavaClass())) {
+				it.remove();
+			}
+		}
+
+	}
+
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 
@@ -569,4 +593,5 @@ public class Method extends AccessFlags {
 
 		return true;
 	}
+
 }
