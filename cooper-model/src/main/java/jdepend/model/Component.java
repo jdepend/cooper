@@ -220,7 +220,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClass javaClass) {
-		return javaClass.getComponent().equals(this);
+		return javaClass.containedComponent() && javaClass.getComponent().equals(this);
 	}
 
 	@Override
