@@ -922,6 +922,10 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		}
 	}
 
+	public boolean containedComponent() {
+		return this.component != null;
+	}
+
 	public void setStable(boolean b) {
 		this.stable = b;
 	}
@@ -1057,7 +1061,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 					it.remove();
 				}
 			}
-			this.getDetail().filterExternalJavaClass(javaClasses);
+			// this.getDetail().filterExternalJavaClass(javaClasses);
 		}
 	}
 

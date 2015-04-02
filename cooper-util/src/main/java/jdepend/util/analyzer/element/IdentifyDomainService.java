@@ -34,7 +34,7 @@ public class IdentifyDomainService extends AbstractAnalyzer {
 				L: for (Attribute attribute : javaClass.getAttributes()) {
 					for (JavaClass type : attribute.getTypeClasses()) {
 						if (isService(type)) {
-							if (!javaClass.getComponent().equals(type.getComponent())) {
+							if (!type.containedComponent() || !javaClass.getComponent().equals(type.getComponent())) {
 								domain = false;
 								break L;
 							} else {
