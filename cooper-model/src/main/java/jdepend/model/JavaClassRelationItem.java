@@ -44,6 +44,11 @@ public class JavaClassRelationItem implements Serializable {
 		return this.type.getIntensity();
 	}
 
+	/**
+	 * 该关系是同一个组件内的关系
+	 * 
+	 * @return
+	 */
 	public boolean isInner() {
 		return this.source.getComponent().equals(this.target.getComponent());
 	}
