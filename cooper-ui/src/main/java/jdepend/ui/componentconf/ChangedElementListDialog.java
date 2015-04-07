@@ -143,6 +143,29 @@ public final class ChangedElementListDialog extends JDialog {
 		});
 		addPopupMenu.add(createItem);
 
+		JMenuItem ignoreItem = new JMenuItem("加入忽略列表");
+		ignoreItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(listTable, "您是否确认？") == JOptionPane.OK_OPTION) {
+					final GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
+							.getTheGroupComponentModelConf(group);
+					ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
+							componentModelConfName);
+					for (String ignoreItem : selectedElements.get(NEW)) {
+						componentModelConf.addIgnoreItem(ignoreItem);
+					}
+					try {
+						groupComponentModelConf.save();
+						deleteSelectedElements();
+					} catch (JDependException e1) {
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		addPopupMenu.add(ignoreItem);
+
 		final JPopupMenu deletePopupMenu = new JPopupMenu();
 		JMenuItem deleteItem = new JMenuItem("从组件模型中清除这些包");
 		deleteItem.addActionListener(new ActionListener() {

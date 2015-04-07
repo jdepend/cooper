@@ -26,7 +26,6 @@ public final class GroupCouplingMaxDifferenceCalculator {
 		for (JavaClass javaClass : self.getEfferents()) {
 			if (!relationComponents.contains(javaClass.getComponent())) {
 				relationComponents.add(javaClass.getComponent());
-
 			}
 		}
 		for (JavaClass javaClass : self.getAfferents()) {

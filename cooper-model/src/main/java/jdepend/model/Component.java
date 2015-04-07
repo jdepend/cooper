@@ -489,6 +489,11 @@ public abstract class Component extends AbstractJDependUnit {
 		}
 	}
 
+	/**
+	 * 获取用于计算内聚性的子元素集合
+	 * 
+	 * @return
+	 */
 	public Collection<? extends SubJDependUnit> getSubJDependUnits() {
 		if (this.subJDependUnits == null) {
 			if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {

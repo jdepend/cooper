@@ -128,7 +128,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		this.ignoreItems = ignoreItems;
 	}
 
-	protected void addIgnoreItem(String ignoreItem) {
+	public void addIgnoreItem(String ignoreItem) {
 		if (!this.ignoreItems.contains(ignoreItem)) {
 			this.ignoreItems.add(ignoreItem);
 		}
