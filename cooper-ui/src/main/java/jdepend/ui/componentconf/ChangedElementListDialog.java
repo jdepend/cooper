@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
-import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaPackage;
@@ -71,12 +69,7 @@ public final class ChangedElementListDialog extends JDialog {
 
 		};
 
-		TableSorter sorter = new TableSorter(listModel);
-
-		listTable = new JTable(sorter);
-
-		sorter.setTableHeader(listTable.getTableHeader());
-
+		listTable = new JTable(listModel);
 		listModel.addColumn("位置");
 		listModel.addColumn("元素名");
 		listModel.addColumn("变动");
@@ -213,8 +206,6 @@ public final class ChangedElementListDialog extends JDialog {
 			row[2] = diffElements.get(elementName).equals(ComponentModelConf.ADD) ? NEW : DELETED;
 			listModel.addRow(row);
 		}
-
-		sorter.setSortingStatus(1, TableSorter.DESCENDING);
 
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add("元素名");
