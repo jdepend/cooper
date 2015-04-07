@@ -14,7 +14,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
 
 public class VersionDialog extends JDialog {
