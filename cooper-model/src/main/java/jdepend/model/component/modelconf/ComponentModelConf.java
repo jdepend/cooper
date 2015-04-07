@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 
 	public final static String ComponentModelType_Package = "package";
 	public final static String ComponentModelType_Class = "class";
-	
+
 	public final static String ADD = "ADD";
 	public final static String DELETE = "DELETE";
 
@@ -140,7 +141,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 	 * @return
 	 */
 	public Collection<String> getContainItems() {
-		Collection<String> containItems = new HashSet<String>();
+		Collection<String> containItems = new ArrayList<String>();
 		for (ComponentConf componentConf : this.getComponentConfs()) {
 			for (String itemName : componentConf.getItemIds()) {
 				containItems.add(itemName);
@@ -168,11 +169,11 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 
 	public Map<String, String> calDiffElements(Collection<JavaPackage> packages) {
 
-		Map<String, String> diffElements = new HashMap<String, String>();
+		Map<String, String> diffElements = new LinkedHashMap<String, String>();
 
 		Collection<String> containItems = this.getContainItems();
 		Collection<String> ignoreItems = this.getIgnoreItems();
-		Collection<String> runItems = new HashSet<String>();
+		Collection<String> runItems = new ArrayList<String>();
 
 		Map<String, Candidate> candidateForId = new HashMap<String, Candidate>();
 		for (Candidate candidate : this.getCandidates(packages)) {
