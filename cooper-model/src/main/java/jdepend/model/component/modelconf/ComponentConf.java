@@ -1,9 +1,10 @@
 package jdepend.model.component.modelconf;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import jdepend.model.JavaClass;
 
@@ -18,7 +19,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 	private String name;
 	private int layer;
 
-	private Collection<String> itemIds = new HashSet<String>();
+	private List<String> itemIds = new ArrayList<String>();
 
 	public ComponentConf(String name) {
 		super();
@@ -31,7 +32,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		this.layer = layer;
 	}
 
-	public ComponentConf(String name, Collection<String> itemIds) {
+	public ComponentConf(String name, List<String> itemIds) {
 		super();
 		this.name = name;
 		this.itemIds = itemIds;
@@ -53,7 +54,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		return itemIds;
 	}
 
-	public void addItemIds(Collection<String> joinItemIds) {
+	public void addItemIds(List<String> joinItemIds) {
 		for (String itemid : joinItemIds) {
 			this.addItemId(itemid);
 		}
@@ -65,7 +66,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		}
 	}
 
-	public void deleteItemIds(Collection<String> deleteItemIds) {
+	public void deleteItemIds(List<String> deleteItemIds) {
 		Iterator<String> iterator = this.itemIds.iterator();
 		while (iterator.hasNext()) {
 			if (deleteItemIds.contains(iterator.next())) {
