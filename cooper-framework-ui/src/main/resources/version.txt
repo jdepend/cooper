@@ -1,4 +1,20 @@
-﻿1.2.4_08 2015-03-25
+﻿1.2.4_09 2015-04-07
+
+a）向组件内聚性明细窗口中的包列表上的名称增加点击动作，可以浏览包下的类列表
+
+b）修正AnalysisResult.getTheClass方法中的bug
+
+c）取消向JavaClass双向创建JavaClassRelationItem的设计，采用双方持有一个item的设计（current->source;depend->target）
+
+d）增加分析器：识别AppService
+
+e）增加分析器：识别DomainService
+
+f）进一步完善【过滤掉不被组件包含的JavaClass】
+
+g）修正识别包变动窗口bug
+
+1.2.4_08 2015-03-25
 
 a）增加【购物车】功能，基于它可以实现不同分析命令的分析结果对比
 
