@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="4.4.1" transformSequenceNumber="1">
-  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib" />
-  <application name="Server" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper/build/server/ui">
+  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper3/cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib" />
+  <application name="Server" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper3/build/server/ui">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
@@ -31,7 +31,7 @@
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-service-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model/lib/bcel.jar" failOnError="false" />
+      <archive location="../../../cooper-model/lib/bcel.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />

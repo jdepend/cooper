@@ -7,8 +7,6 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
-import jdepend.model.Metrics;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
