@@ -20,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.service.ServiceFactory;
+import jdepend.service.local.ServiceFactory;
+import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.analyzer.AnalyzerRepository;
 import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
@@ -164,7 +165,7 @@ public final class AnalyzerMgrPanel extends JPanel {
 
 	public void bindService() throws JDependException {
 		try {
-			this.analyzerService = ServiceFactory.createAnalyzerService();
+			this.analyzerService = RemoteServiceFactory.createAnalyzerService();
 			Naming.rebind("rmi://localhost:1099/AnalyzerService", analyzerService);
 		} catch (Exception e) {
 			throw new JDependException("绑定分析器服务错误！", e);

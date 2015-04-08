@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.service.ServiceFactory;
+import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.user.User;
 import jdepend.service.remote.user.UserDomainService;
 import jdepend.service.remote.user.UserRemoteService;
@@ -147,7 +147,7 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 
 	public void bindService() throws JDependException {
 		try {
-			this.userRemoteService = ServiceFactory.createUserRemoteService();
+			this.userRemoteService = RemoteServiceFactory.createUserRemoteService();
 			this.userRemoteService.setUserStateChangeListener(this);
 			Naming.rebind("rmi://localhost:1099/UserRemoteService", userRemoteService);
 		} catch (Exception e) {

@@ -21,10 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.ui.TableSorter;
-import jdepend.service.ServiceFactory;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 import jdepend.service.remote.JDependSession;
+import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.ServiceMonitor;
 import jdepend.service.remote.impl.JDependSessionMgr;
 
@@ -200,7 +200,7 @@ public class ServiceMonitorPanel extends JPanel implements ServiceMonitor {
 
 	private void bindService() throws JDependException {
 		try {
-			this.service = ServiceFactory.createJDependRemoteService();
+			this.service = RemoteServiceFactory.createJDependRemoteService();
 			this.service.addMonitor(this);
 			Naming.rebind("rmi://localhost:1099/JDependRemoteService", service);
 		} catch (Exception e) {

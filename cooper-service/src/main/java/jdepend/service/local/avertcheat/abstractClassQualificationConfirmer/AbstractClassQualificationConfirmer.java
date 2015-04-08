@@ -27,15 +27,15 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		if (subClasses.size() >= ChildJavaClassCount) {
 			return true;
 		} else {
-			// 子类不在一个组件中也具备抽象类计数资格
-			for (JavaClass subClass : subClasses) {
-				if (!subClass.getComponent().equals(javaClass.getComponent())) {
-					return true;
-				}
-			}
 			// 存在一个子类，又存在父类也具备抽象类计数资格
 			if (subClasses.size() >= 1 && javaClass.getSupers().size() > 0) {
 				return true;
+			}
+			// 子类不在一个组件中也具备抽象类计数资格
+			for (JavaClass subClass : subClasses) {
+				if (!subClass.containedComponent() || !subClass.getComponent().equals(javaClass.getComponent())) {
+					return true;
+				}
 			}
 			return false;
 		}

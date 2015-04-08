@@ -21,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.service.ServiceFactory;
 import jdepend.service.remote.JDependSession;
 import jdepend.service.remote.JDependSessionService;
+import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.SessionListener;
 import jdepend.service.remote.impl.JDependSessionMgr;
 
@@ -155,7 +155,7 @@ public class SessionMgrPanel extends JPanel implements SessionListener {
 
 	public void bindService() throws JDependException {
 		try {
-			this.sessionService = ServiceFactory.createJDependSessionService();
+			this.sessionService = RemoteServiceFactory.createJDependSessionService();
 			JDependSessionMgr.getInstance().addListener(this);
 			Naming.rebind("rmi://localhost:1099/JDependSessionService", sessionService);
 		} catch (Exception e) {

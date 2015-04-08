@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.service.ServiceFactory;
+import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.score.ScoreDTO;
 import jdepend.service.remote.score.ScoreListRepository;
 import jdepend.service.remote.score.ScoreRemoteService;
@@ -164,7 +164,7 @@ public final class ScoreMgrPanel extends JPanel {
 
 	public void bindService() throws JDependException {
 		try {
-			this.scoreRemoteService = ServiceFactory.createScoreRemoteService();
+			this.scoreRemoteService = RemoteServiceFactory.createScoreRemoteService();
 			Naming.rebind("rmi://localhost:1099/ScoreRemoteService", scoreRemoteService);
 		} catch (Exception e) {
 			throw new JDependException("绑定分数服务错误！", e);

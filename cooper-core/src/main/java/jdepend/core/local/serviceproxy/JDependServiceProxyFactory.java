@@ -1,7 +1,7 @@
 package jdepend.core.local.serviceproxy;
 
 import jdepend.core.framework.serverconf.ServerConfigurator;
-import jdepend.core.remote.serviceproxy.JDependServiceRemoteProxy;
+//import jdepend.core.remote.serviceproxy.JDependServiceRemoteProxy;
 import jdepend.framework.context.JDependContext;
 
 /**
@@ -21,22 +21,22 @@ public class JDependServiceProxyFactory {
 	 * @return
 	 */
 	public JDependServiceProxy getJDependServiceProxy(String groupName, String commandName) {
-		if (isLocalService() || groupName == null || commandName == null)
+//		if (isLocalService() || groupName == null || commandName == null)
 			return new JDependServiceLocalProxy(groupName, commandName);
-		else {
-			return new JDependServiceRemoteProxy(groupName, commandName);
-		}
+//		else {
+//			return new JDependServiceRemoteProxy(groupName, commandName);
+//		}
 	}
 
 	public JDependServiceProxy getJDependServiceProxy() {
 		return getJDependServiceProxy(null, null);
 	}
 
-	private boolean isLocalService() {
-		if (JDependContext.isLocalService() != null) {
-			return JDependContext.isLocalService();
-		} else {
-			return (new ServerConfigurator()).isLocalService();
-		}
-	}
+//	private boolean isLocalService() {
+//		if (JDependContext.isLocalService() != null) {
+//			return JDependContext.isLocalService();
+//		} else {
+//			return (new ServerConfigurator()).isLocalService();
+//		}
+//	}
 }

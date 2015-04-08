@@ -171,8 +171,6 @@ public class JDependServer extends JDependFrame {
 	}
 
 	public static void initEnv(String[] args) {
-		// 设置运行环境
-		JDependContext.setRunEnv(JDependContext.Server);
 		// 设置workspacePath
 		String workspacePath = JDependUtil.getArg(args, "-workspacePath");
 		if (workspacePath != null) {

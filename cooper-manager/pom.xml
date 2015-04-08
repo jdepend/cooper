@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
     	<groupId>cooper</groupId>
-    	<artifactId>cooper-service</artifactId>
+    	<artifactId>cooper-service-remote</artifactId>
     	<version>${project.version}</version>
     	<scope>compile</scope>
     </dependency>
