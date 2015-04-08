@@ -44,6 +44,7 @@
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-util-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
   </java>
