@@ -17,12 +17,8 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
 import jdepend.core.framework.persistent.ClientConnectionProvider;
-import jdepend.core.framework.serverconf.ServerConfigurator;
 import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.core.local.config.CommandConfMgr;
-import jdepend.core.remote.score.ScoreUpload;
-import jdepend.core.remote.userproxy.UserActionGather;
-import jdepend.core.remote.userproxy.UserCredits;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
@@ -36,7 +32,6 @@ import jdepend.framework.ui.StatusField;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.ui.UIProperty;
 import jdepend.framework.util.BundleUtil;
-import jdepend.framework.util.JDependUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.ParseListener;
@@ -45,8 +40,6 @@ import jdepend.ui.action.AddGroupWizardAction;
 import jdepend.ui.action.ExitAction;
 import jdepend.ui.action.ImportResultAction;
 import jdepend.ui.action.IntroduceAction;
-import jdepend.ui.action.LoginAction;
-import jdepend.ui.action.LogoutAction;
 import jdepend.ui.action.MetricsAction;
 import jdepend.ui.action.ScoreAction;
 import jdepend.ui.action.ScoreAndMetricsAction;
@@ -128,7 +121,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 				"menubar",
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_File) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Service) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Data) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Help));
 		resourceStrings.put(
@@ -140,11 +132,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace) + "/-/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr));
-		resourceStrings.put(
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_Service),
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Login) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout));
+
 		resourceStrings.put(
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList) + "/"
@@ -161,14 +149,10 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_File), "F");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting), "S");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), "K");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Service), "V");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Help), "H");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup), "G");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit), "E");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting), "P");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting), "R");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), "L");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), "O");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data), "D");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), "U");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), "J");
@@ -192,9 +176,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr),
 				new SettingClassRelationMgAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting), new ServiceSettingAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), new LoginAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), new LogoutAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), new ImportResultAction(this));
 
@@ -360,13 +341,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		horizontalSplitPane.setDividerLocation(0);
 	}
 
-	/**
-	 * 
-	 * @param args
-	 *            -RunMode（0：单机版运行模式；1：客户端运行模式）
-	 *            -isLocalService（true：本地运行模式；false：远程运行模式）
-	 *            -startUploadScore（true：启动自动上传分数服务；false：不启动）
-	 */
 	public static void main(String[] args) {
 
 		System.setProperty("sun.zip.encoding", "default");
@@ -395,44 +369,15 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		frame.display();
 		// 初始化
 		frame.init(args);
-
-		// 设置状态条信息
-		if (JDependContext.isLocalService()) {
-			frame.getStatusField().setText(JDependContext.Local, StatusField.Center);
-		} else {
-			frame.getStatusField().setText(JDependContext.Remote, StatusField.Center);
-		}
-		frame.getStatusField().setText(LoginDialog.Logout, StatusField.Right);
-
 		// 记录日志
 		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}
 
 	public static void initEnv(String[] args, WorkspaceSetting setting) {
-		// 设置运行环境
-		JDependContext.setRunEnv(JDependContext.Client);
 		// 设置workspacePath
 		JDependContext.setWorkspacePath(setting.getWorkspacePath());
 		// 设置运行路径（Web or 非Web）
 		JDependContext.setRunningPath(System.getProperty("user.dir"));
-		// 设置运行模式（单机版运行模式or客户端运行模式）
-		String runMode = JDependUtil.getArg(args, "-RunMode");
-		if (runMode != null) {
-			JDependContext.setRunMode(Integer.parseInt(runMode));
-		}
-		if (JDependContext.isStandaloneMode()) {
-			// 设置是否本地模式运行
-			String isLocalService = JDependUtil.getArg(args, "-isLocalService");
-			if (isLocalService != null) {
-				JDependContext.setIsLocalService(Boolean.parseBoolean(isLocalService));
-			}
-
-			if (JDependContext.isLocalService() == null) {
-				JDependContext.setIsLocalService(((new ServerConfigurator()).isLocalService()));
-			}
-		} else {
-			JDependContext.setIsLocalService(false);
-		}
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ClientConnectionProvider());
 		// 设置日志是否打印
@@ -445,22 +390,13 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		UIProperty.setSize(UIPropertyConfigurator.getInstance().getTextFontSize());
 	}
 
-	private void init(String[] args) {
+	protected void init(String[] args) {
 		// 向命令组配置组件增加监听器
 		try {
 			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
 		} catch (JDependException e) {
 			e.printStackTrace();
 			JDependCooper.this.showStatusError(e.getMessage());
-		}
-		// 向日志组件注册用户积分监听器
-		BusiLogUtil.getInstance().addLogListener(new UserCredits());
-		// 向日志组件注册用户行为收集监听器
-		BusiLogUtil.getInstance().addLogListener(UserActionGather.getInstance());
-		// 启动分数收集器
-		String startUploadScore = JDependUtil.getArg(args, "-startUploadScore");
-		if (Boolean.parseBoolean(startUploadScore)) {
-			ScoreUpload.getInstance().start();
 		}
 	}
 

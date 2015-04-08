@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,9 +29,6 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
 import jdepend.core.local.analyzer.AnalyzerMgr;
-import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
-import jdepend.core.remote.session.RemoteSessionProxy;
-import jdepend.framework.context.JDependContext;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
@@ -57,15 +53,15 @@ import jdepend.util.analyzer.framework.AnalyzerResult;
 
 public class AnalyzerPanel extends JPanel {
 
-	private JDependCooper frame;
+	protected JDependCooper frame;
 
-	private Map<String, List<Analyzer>> analyzers;
+	protected Map<String, List<Analyzer>> analyzers;
 
 	private Map<String, DefaultTableModel> models;
 
-	private int currentRow;
+	protected int currentRow;
 
-	private String currentGroup;
+	protected String currentGroup;
 
 	private Map<String, String> tips = new HashMap<String, String>();
 
@@ -123,93 +119,7 @@ public class AnalyzerPanel extends JPanel {
 				}
 			};
 
-			final JPopupMenu popupMenu = new JPopupMenu();
-
-			JMenuItem runItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Run));
-			runItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						run();
-					} catch (JDependException e1) {
-						e1.printStackTrace();
-						JOptionPane.showConfirmDialog(frame, e1.getMessage(), "提示", JOptionPane.CLOSED_OPTION);
-					}
-				}
-			});
-			popupMenu.add(runItem);
-			popupMenu.addSeparator();
-
-			JMenuItem settingItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Setting));
-			settingItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					setting();
-				}
-			});
-			popupMenu.add(settingItem);
-
-			JMenuItem explainItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Explain));
-			explainItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					explain();
-				}
-			});
-			popupMenu.add(explainItem);
-
-			JMenuItem refreshItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
-			refreshItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						refresh();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu.add(refreshItem);
-			popupMenu.addSeparator();
-
-			JMenuItem uploadItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Upload));
-			uploadItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						upload();
-						JOptionPane.showMessageDialog(frame, "上传成功", "alert", JOptionPane.ERROR_MESSAGE);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu.add(uploadItem);
-
-			JMenuItem downloadItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Download));
-			downloadItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						download();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu.add(downloadItem);
-
-			JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
-			deleteItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
-							delete();
-						}
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu.add(deleteItem);
+			final JPopupMenu popupMenu = this.getPopupMenu();
 
 			table.addMouseListener(new MouseAdapter() {
 				@Override
@@ -240,32 +150,7 @@ public class AnalyzerPanel extends JPanel {
 			model.addColumn(BundleUtil.getString(BundleUtil.TableHead_Name));
 			this.refresh(group);
 
-			final JPopupMenu popupMenu1 = new JPopupMenu();
-			JMenuItem downloadItem1 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Download));
-			downloadItem1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						download();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu1.add(downloadItem1);
-
-			JMenuItem refreshItem1 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
-			refreshItem1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						refresh();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-			popupMenu1.add(refreshItem1);
+			final JPopupMenu popupMenu1 = this.getPopupMenu1();
 
 			final JScrollPane pane = new JScrollPane(table);
 			pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -284,6 +169,92 @@ public class AnalyzerPanel extends JPanel {
 		}
 
 		return tab;
+	}
+
+	protected JPopupMenu getPopupMenu() {
+
+		JPopupMenu popupMenu = new JPopupMenu();
+
+		JMenuItem runItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Run));
+		runItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					run();
+				} catch (JDependException e1) {
+					e1.printStackTrace();
+					JOptionPane.showConfirmDialog(frame, e1.getMessage(), "提示", JOptionPane.CLOSED_OPTION);
+				}
+			}
+		});
+		popupMenu.add(runItem);
+		popupMenu.addSeparator();
+
+		JMenuItem settingItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Setting));
+		settingItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setting();
+			}
+		});
+		popupMenu.add(settingItem);
+
+		JMenuItem explainItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Explain));
+		explainItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				explain();
+			}
+		});
+		popupMenu.add(explainItem);
+
+		JMenuItem refreshItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
+		refreshItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					refresh();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		popupMenu.add(refreshItem);
+		
+		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
+		deleteItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
+						delete();
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		popupMenu.add(deleteItem);
+
+		return popupMenu;
+
+	}
+
+	protected JPopupMenu getPopupMenu1() {
+
+		final JPopupMenu popupMenu1 = new JPopupMenu();
+		
+		JMenuItem refreshItem1 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
+		refreshItem1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					refresh();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		popupMenu1.add(refreshItem1);
+
+		return popupMenu1;
 	}
 
 	private void setDefaultTab(JTabbedPane tab) {
@@ -402,30 +373,6 @@ public class AnalyzerPanel extends JPanel {
 
 	private JComponent createTree(Node root) {
 		return (new TreeGraphUtil()).createTree(root);
-	}
-
-	private void upload() throws RemoteException, JDependException {
-		if (JDependContext.isLocalService()) {
-			throw new JDependException("当前运行在单机模式下，不能够上传关注与反模式");
-		} else if (!RemoteSessionProxy.getInstance().isValid()) {
-			throw new JDependException("会话状态有问题，请重新登陆");
-		} else {
-			Analyzer analyzer = this.analyzers.get(this.currentGroup).get(this.currentRow);
-			AnalyzerRemoteMgr.upload(analyzer);
-		}
-	}
-
-	private void download() throws RemoteException, JDependException {
-		if (JDependContext.isLocalService()) {
-			throw new JDependException("当前运行在单机模式下，不能够下载关注与反模式");
-		} else if (!RemoteSessionProxy.getInstance().isValid()) {
-			throw new JDependException("会话状态有问题，请重新登陆");
-		} else {
-			AnalyzerDownloadDialog d = new AnalyzerDownloadDialog(frame, this, currentGroup);
-
-			d.setModal(true);
-			d.setVisible(true);
-		}
 	}
 
 	private void setting() {
