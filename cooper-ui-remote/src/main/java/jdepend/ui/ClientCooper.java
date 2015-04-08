@@ -5,6 +5,7 @@ import jdepend.core.remote.userproxy.UserActionGather;
 import jdepend.core.remote.userproxy.UserCredits;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;
+import jdepend.framework.log.Operation;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.JDependUtil;
@@ -85,6 +86,19 @@ public class ClientCooper extends JDependCooper {
 			start(setting, welcomeDialog, args);
 			welcomeDialog.dispose();
 		}
+	}
+	
+	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
+		// 初始化ClassList
+		// initClassList(welcomeDialog);
+		// 启动主窗口
+		ClientCooper frame = new ClientCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
+		// 显示
+		frame.display();
+		// 初始化
+		frame.init(args);
+		// 记录日志
+		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}
 
 }
