@@ -14,8 +14,4 @@ public class JDependServiceRemoteProxyFactory implements JDependServiceProxyFact
 	public JDependServiceProxy getJDependServiceProxy(String groupName, String commandName) {
 		return new JDependServiceRemoteProxy(groupName, commandName);
 	}
-
-	public JDependServiceProxy getJDependServiceProxy() {
-		return getJDependServiceProxy(null, null);
-	}
 }

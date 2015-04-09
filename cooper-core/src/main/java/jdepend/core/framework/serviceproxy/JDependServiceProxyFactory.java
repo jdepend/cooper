@@ -16,6 +16,4 @@ public interface JDependServiceProxyFactory {
 	 * @return
 	 */
 	public JDependServiceProxy getJDependServiceProxy(String groupName, String commandName);
-
-	public JDependServiceProxy getJDependServiceProxy();
 }

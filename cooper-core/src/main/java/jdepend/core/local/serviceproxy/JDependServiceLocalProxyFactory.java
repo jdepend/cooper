@@ -14,8 +14,4 @@ public class JDependServiceLocalProxyFactory implements JDependServiceProxyFacto
 	public JDependServiceProxy getJDependServiceProxy(String groupName, String commandName) {
 		return new JDependServiceLocalProxy(groupName, commandName);
 	}
-
-	public JDependServiceProxy getJDependServiceProxy() {
-		return getJDependServiceProxy(null, null);
-	}
 }

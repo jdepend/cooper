@@ -1,7 +1,6 @@
 package jdepend.ui;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
-import jdepend.core.local.serviceproxy.JDependServiceLocalProxyFactory;
 import jdepend.core.remote.score.ScoreUpload;
 import jdepend.core.remote.serviceproxy.JDependServiceRemoteProxyFactory;
 import jdepend.core.remote.userproxy.UserActionGather;
