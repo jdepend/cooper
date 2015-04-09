@@ -16,6 +16,8 @@ public class CulturePanel extends JPanel {
 
 	private AnalyzerPanel analyzerPanel;
 
+	private DesignPrinciplePanel designPrinciplePanel;
+
 	private JTabbedPane tabPane = new JTabbedPane();
 
 	public CulturePanel(JDependCooper frame) {
@@ -27,8 +29,8 @@ public class CulturePanel extends JPanel {
 
 		tabPane.addTab("MINICooper", new JImagePane(frame));
 
-		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Culture_DesignPrinciple), new DesignPrinciplePanel(
-				frame));
+		designPrinciplePanel = new DesignPrinciplePanel(frame);
+		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Culture_DesignPrinciple), designPrinciplePanel);
 
 		analyzerPanel = new AnalyzerPanel(frame);
 		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Culture_Analyzer), analyzerPanel);
