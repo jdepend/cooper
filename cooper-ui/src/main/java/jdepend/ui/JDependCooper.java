@@ -358,12 +358,12 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			d.setVisible(true);
 		} else {
 			initEnv(args, setting);
-			start(setting, welcomeDialog, args);
+			start(args);
 			welcomeDialog.dispose();
 		}
 	}
 
-	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
+	public static void start(String[] args) {
 		// 初始化ClassList
 		// initClassList(welcomeDialog);
 		// 启动主窗口
