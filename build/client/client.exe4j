@@ -16,7 +16,7 @@
       <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
     </text>
   </splashScreen>
-  <java mainClass="jdepend.ui.JDependCooper" vmParameters="-Xms256m -Xmx1500m" arguments="-RunMode 1 -startUploadScore true" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.4" maxVersion="1.7" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="jdepend.ui.ClientCooper" vmParameters="-Xms256m -Xmx1500m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.4" maxVersion="1.7" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
@@ -38,10 +38,11 @@
       <archive location="../../cooper-model/lib/bcel.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-ui/target/cooper-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-ui-remote/target/cooper-ui-remote-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core-remote/target/cooper-core-remote-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/jxl-2.6.10.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-service-interface-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-util-1.2.5_01-SNAPSHOT.jar" failOnError="false" />

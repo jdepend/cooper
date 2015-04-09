@@ -24,6 +24,7 @@
     </searchSequence>
     <classPath>
       <archive location="../../../cooper-manager/target/cooper-manager-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../../cooper-service-remote/target/cooper-service-remote-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-knowledge-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
