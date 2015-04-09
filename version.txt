@@ -1,6 +1,7 @@
 ﻿1.2.5_01
 
-a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-core-remote、cooper-ui-remote、cooper-service-remote
+a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote
+  （三个modules为逐一依赖关系，并同时成为cooper-ui、cooper-core、cooper-service的扩展）
 
 1.2.4_09 2015-04-07
 
