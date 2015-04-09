@@ -8,9 +8,6 @@ public class JDependContext {
 	private static final AppliationScope appScope = new AppliationScope();
 	private static final ThreadScope threadScope = new ThreadScope();
 
-	public static final String Local = BundleUtil.getString(BundleUtil.RunningModel_Local);
-	public static final String Remote = BundleUtil.getString(BundleUtil.RunningModel_Remote);
-
 	public static final String RunEnv = "RunEnv";
 	public static final String Client = "Client";
 	public static final String Server = "Server";

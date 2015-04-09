@@ -64,7 +64,6 @@ public class ClientCooper extends JDependCooper {
 		}
 
 		// 设置状态条信息
-		this.getStatusField().setText(JDependContext.Remote, StatusField.Center);
 		this.getStatusField().setText(LoginDialog.Logout, StatusField.Right);
 	}
 
