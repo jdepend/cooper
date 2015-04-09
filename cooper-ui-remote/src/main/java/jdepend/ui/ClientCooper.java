@@ -9,7 +9,6 @@ import jdepend.core.remote.userproxy.UserActionGather;
 import jdepend.core.remote.userproxy.UserCredits;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
-import jdepend.framework.log.Operation;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.JDependUtil;
