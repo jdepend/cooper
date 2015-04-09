@@ -348,7 +348,9 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 		System.setProperty("sun.zip.encoding", "default");
 
-		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog();
+		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
+
+		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog(frame);
 		welcomeDialog.setVisible(true);
 
 		WorkspaceSetting setting = new WorkspaceSetting();
@@ -358,20 +360,18 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			d.setVisible(true);
 		} else {
 			initEnv(args, setting);
-			start(args);
+			frame.start(args);
 			welcomeDialog.dispose();
 		}
 	}
 
-	public static void start(String[] args) {
+	public void start(String[] args) {
 		// 初始化ClassList
 		// initClassList(welcomeDialog);
-		// 启动主窗口
-		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
 		// 初始化
-		frame.init(args);
+		this.init(args);
 		// 显示
-		frame.display();
+		this.display();
 		// 记录日志
 		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}

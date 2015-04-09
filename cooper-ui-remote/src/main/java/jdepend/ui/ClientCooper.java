@@ -87,7 +87,9 @@ public class ClientCooper extends JDependCooper {
 
 		System.setProperty("sun.zip.encoding", "default");
 
-		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog();
+		ClientCooper frame = new ClientCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
+
+		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog(frame);
 		welcomeDialog.setVisible(true);
 
 		WorkspaceSetting setting = new WorkspaceSetting();
@@ -97,22 +99,8 @@ public class ClientCooper extends JDependCooper {
 			d.setVisible(true);
 		} else {
 			initEnv(args, setting);
-			start(setting, welcomeDialog, args);
+			frame.start(args);
 			welcomeDialog.dispose();
 		}
 	}
-
-	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
-		// 初始化ClassList
-		// initClassList(welcomeDialog);
-		// 启动主窗口
-		ClientCooper frame = new ClientCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
-		// 初始化
-		frame.init(args);
-		// 显示
-		frame.display();
-		// 记录日志
-		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
-	}
-
 }

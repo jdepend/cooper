@@ -12,6 +12,7 @@ import javax.swing.JProgressBar;
 import jdepend.framework.ui.WelcomeDialog;
 import jdepend.model.JavaClass;
 import jdepend.parse.ParseListener;
+import jdepend.ui.JDependCooper;
 
 public class ClientWelcomeDialog extends WelcomeDialog implements ParseListener {
 
@@ -19,8 +20,12 @@ public class ClientWelcomeDialog extends WelcomeDialog implements ParseListener 
 
 	private int process;
 
-	public ClientWelcomeDialog() {
+	private JDependCooper frame;
+
+	public ClientWelcomeDialog(JDependCooper frame) {
 		super();
+
+		this.frame = frame;
 
 		JPanel welcomePanel = new JPanel() {
 			@Override
@@ -30,6 +35,10 @@ public class ClientWelcomeDialog extends WelcomeDialog implements ParseListener 
 		};
 		this.add(BorderLayout.CENTER, welcomePanel);
 		(new Timer()).schedule(new ChangeTask(this), 400, 400);
+	}
+
+	public JDependCooper getFrame() {
+		return frame;
 	}
 
 	public void startProgressMonitor(final int maxValue) {
