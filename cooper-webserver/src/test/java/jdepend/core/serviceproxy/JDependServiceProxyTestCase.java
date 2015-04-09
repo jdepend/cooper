@@ -8,6 +8,7 @@ import java.util.List;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxy;
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;
@@ -18,10 +19,10 @@ import jdepend.parse.util.SearchUtil;
 import junit.framework.TestCase;
 
 public class JDependServiceProxyTestCase extends TestCase {
-	
+
 	@Override
 	protected void setUp() throws Exception {
-		
+
 		SearchUtil search = new SearchUtil();
 		for (String path : ClassSearchUtil.getSelfPath()) {
 			search.addPath(path);
@@ -30,9 +31,8 @@ public class JDependServiceProxyTestCase extends TestCase {
 	}
 
 	public void testSetAnalyzeData() throws JDependException {
-		
-		
-		JDependServiceProxy proxy = new JDependServiceProxyFactory()
+
+		JDependServiceProxy proxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
 				.getJDependServiceProxy("无", "以包为单位输出分析报告");
 
 		AnalyzeData data = new AnalyzeData();
@@ -40,7 +40,7 @@ public class JDependServiceProxyTestCase extends TestCase {
 		File jarFile = new File("C:\\dom4j-1.6.1.jar");
 
 		JarFileReader reader = new JarFileReader(true);
-		List<TargetFileInfo>  fileDatases = null;
+		List<TargetFileInfo> fileDatases = null;
 		try {
 			InputStream in = new FileInputStream(jarFile);
 			fileDatases = reader.readDatas(in);
@@ -51,7 +51,7 @@ public class JDependServiceProxyTestCase extends TestCase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		proxy.setAnalyseData(data);
 		// 调用分析服务
 		AnalysisResult result = proxy.analyze();
