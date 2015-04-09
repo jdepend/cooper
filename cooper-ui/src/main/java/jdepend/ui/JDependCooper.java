@@ -359,13 +359,14 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			d.setModal(true);
 			d.setVisible(true);
 		} else {
-			initEnv(args, setting);
-			frame.start(args);
+			frame.start(args, setting);
 			welcomeDialog.dispose();
 		}
 	}
 
-	public void start(String[] args) {
+	public void start(String[] args, WorkspaceSetting setting) {
+		// 初始化环境信息
+		this.initEnv(args, setting);
 		// 初始化ClassList
 		// initClassList(welcomeDialog);
 		// 初始化
@@ -376,7 +377,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}
 
-	public static void initEnv(String[] args, WorkspaceSetting setting) {
+	private void initEnv(String[] args, WorkspaceSetting setting) {
 		// 设置workspacePath
 		JDependContext.setWorkspacePath(setting.getWorkspacePath());
 		// 设置运行路径（Web or 非Web）

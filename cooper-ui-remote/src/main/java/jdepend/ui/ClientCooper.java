@@ -97,8 +97,7 @@ public class ClientCooper extends JDependCooper {
 			d.setModal(true);
 			d.setVisible(true);
 		} else {
-			initEnv(args, setting);
-			frame.start(args);
+			frame.start(args, setting);
 			welcomeDialog.dispose();
 		}
 	}

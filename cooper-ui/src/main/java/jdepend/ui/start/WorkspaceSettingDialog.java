@@ -144,8 +144,7 @@ public class WorkspaceSettingDialog extends JDialog {
 						setting.save();
 					}
 					if (welcomeDialog != null) {// 客户端启动时
-						JDependCooper.initEnv(args, setting);
-						welcomeDialog.getFrame().start(args);
+						welcomeDialog.getFrame().start(args, setting);
 						welcomeDialog.dispose();
 					} else {// 切换工作区时
 						// 保存原UI信息
