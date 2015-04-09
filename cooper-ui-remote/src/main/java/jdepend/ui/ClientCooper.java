@@ -1,11 +1,13 @@
 package jdepend.ui;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.local.command.CommandAdapterMgr;
+import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.remote.score.ScoreUpload;
 import jdepend.core.remote.serviceproxy.JDependServiceRemoteProxyFactory;
 import jdepend.core.remote.userproxy.UserActionGather;
 import jdepend.core.remote.userproxy.UserCredits;
-import jdepend.framework.context.JDependContext;
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.ui.StatusField;
@@ -14,6 +16,8 @@ import jdepend.framework.util.JDependUtil;
 import jdepend.ui.action.LoginAction;
 import jdepend.ui.action.LogoutAction;
 import jdepend.ui.action.ServiceSettingAction;
+import jdepend.ui.analyzer.ClientAnalyzerPanel;
+import jdepend.ui.framework.PanelMgr;
 import jdepend.ui.start.ClientWelcomeDialog;
 import jdepend.ui.start.WorkspaceSetting;
 import jdepend.ui.start.WorkspaceSettingDialog;
@@ -49,10 +53,17 @@ public class ClientCooper extends JDependCooper {
 
 	@Override
 	protected void init(String[] args) {
-		super.init(args);
-
 		// 设置ServiceProxyFactory
 		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceRemoteProxyFactory());
+		// 向命令组配置组件增加监听器
+		try {
+			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
+		} catch (JDependException e) {
+			e.printStackTrace();
+			ClientCooper.this.showStatusError(e.getMessage());
+		}
+		// 设置AnalyzerPanel
+		PanelMgr.getInstance().setAnalyzerPanel(new ClientAnalyzerPanel(this));
 		// 向日志组件注册用户积分监听器
 		BusiLogUtil.getInstance().addLogListener(new UserCredits());
 		// 向日志组件注册用户行为收集监听器
@@ -96,10 +107,10 @@ public class ClientCooper extends JDependCooper {
 		// initClassList(welcomeDialog);
 		// 启动主窗口
 		ClientCooper frame = new ClientCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
-		// 显示
-		frame.display();
 		// 初始化
 		frame.init(args);
+		// 显示
+		frame.display();
 		// 记录日志
 		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}

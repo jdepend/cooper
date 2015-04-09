@@ -49,10 +49,12 @@ import jdepend.ui.action.ScoreIntroduceAction;
 import jdepend.ui.action.SettingAction;
 import jdepend.ui.action.SettingClassRelationMgAction;
 import jdepend.ui.action.SettingWorkspaceAction;
+import jdepend.ui.analyzer.AnalyzerPanel;
 import jdepend.ui.circle.CirclePanel;
 import jdepend.ui.command.GroupIngoreListSettingDialog;
 import jdepend.ui.command.GroupPanel;
 import jdepend.ui.culture.CulturePanel;
+import jdepend.ui.framework.PanelMgr;
 import jdepend.ui.framework.UIPropertyConfigurator;
 import jdepend.ui.property.PropertyPanel;
 import jdepend.ui.result.framework.ReportListener;
@@ -366,10 +368,10 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		// initClassList(welcomeDialog);
 		// 启动主窗口
 		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
-		// 显示
-		frame.display();
 		// 初始化
 		frame.init(args);
+		// 显示
+		frame.display();
 		// 记录日志
 		BusiLogUtil.getInstance().businessLog(Operation.startCooper);
 	}
@@ -401,6 +403,9 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			e.printStackTrace();
 			JDependCooper.this.showStatusError(e.getMessage());
 		}
+		// 设置AnalyzerPanel
+		PanelMgr.getInstance().setAnalyzerPanel(new AnalyzerPanel(this));
+
 	}
 
 	private static void initClassList(ClientWelcomeDialog welcomeDialog) {

@@ -6,7 +6,7 @@ package jdepend.core.framework.serviceproxy;
  * @author <b>Abner</b>
  * 
  */
-public class JDependServiceProxyFactoryMgr {
+public final class JDependServiceProxyFactoryMgr {
 
 	private static JDependServiceProxyFactoryMgr mgr = new JDependServiceProxyFactoryMgr();
 

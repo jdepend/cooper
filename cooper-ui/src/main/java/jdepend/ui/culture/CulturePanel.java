@@ -9,6 +9,7 @@ import jdepend.core.local.analyzer.AnalyzerMgr;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.analyzer.AnalyzerPanel;
+import jdepend.ui.framework.PanelMgr;
 
 public class CulturePanel extends JPanel {
 
@@ -32,7 +33,7 @@ public class CulturePanel extends JPanel {
 		designPrinciplePanel = new DesignPrinciplePanel(frame);
 		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Culture_DesignPrinciple), designPrinciplePanel);
 
-		analyzerPanel = new AnalyzerPanel(frame);
+		analyzerPanel = PanelMgr.getInstance().getAnalyzerPanel();
 		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Culture_Analyzer), analyzerPanel);
 
 		this.add(tabPane);
