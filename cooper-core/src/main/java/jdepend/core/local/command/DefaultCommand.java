@@ -4,8 +4,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-import jdepend.core.local.serviceproxy.JDependServiceProxy;
-import jdepend.core.local.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.framework.serviceproxy.JDependServiceProxy;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
@@ -29,14 +30,15 @@ public class DefaultCommand implements Command {
 	private String group;
 
 	private String name;
-	
+
 	public DefaultCommand() {
 	}
 
 	public DefaultCommand(String group, String name) {
 		this.group = group;
 		this.name = name;
-		this.serviceProxy = new JDependServiceProxyFactory().getJDependServiceProxy(group, name);
+		this.serviceProxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
+				.getJDependServiceProxy(group, name);
 	}
 
 	/**

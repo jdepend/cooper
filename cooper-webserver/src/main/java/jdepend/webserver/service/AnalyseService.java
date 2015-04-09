@@ -8,8 +8,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.core.local.serviceproxy.JDependServiceProxy;
-import jdepend.core.local.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.framework.serviceproxy.JDependServiceProxy;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
@@ -40,13 +41,14 @@ public class AnalyseService {
 		return innerJavaPackages;
 	}
 
-	public AnalysisResult analyze(String group, String command, AnalyzeData data,
-			ComponentModelConf componentModelConf) throws JDependException {
+	public AnalysisResult analyze(String group, String command, AnalyzeData data, ComponentModelConf componentModelConf)
+			throws JDependException {
 
 		CustomComponent component = new CustomComponent();
 		component.setComponentInfo(componentModelConf);
 
-		JDependServiceProxy proxy = new JDependServiceProxyFactory().getJDependServiceProxy(group, command);
+		JDependServiceProxy proxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
+				.getJDependServiceProxy(group, command);
 
 		proxy.setAnalyseData(data);
 

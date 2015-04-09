@@ -1,6 +1,9 @@
 package jdepend.ui;
 
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.local.serviceproxy.JDependServiceLocalProxyFactory;
 import jdepend.core.remote.score.ScoreUpload;
+import jdepend.core.remote.serviceproxy.JDependServiceRemoteProxyFactory;
 import jdepend.core.remote.userproxy.UserActionGather;
 import jdepend.core.remote.userproxy.UserCredits;
 import jdepend.framework.context.JDependContext;
@@ -49,6 +52,8 @@ public class ClientCooper extends JDependCooper {
 	protected void init(String[] args) {
 		super.init(args);
 
+		// 设置ServiceProxyFactory
+		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceRemoteProxyFactory());
 		// 向日志组件注册用户积分监听器
 		BusiLogUtil.getInstance().addLogListener(new UserCredits());
 		// 向日志组件注册用户行为收集监听器
@@ -87,7 +92,7 @@ public class ClientCooper extends JDependCooper {
 			welcomeDialog.dispose();
 		}
 	}
-	
+
 	public static void start(WorkspaceSetting setting, ClientWelcomeDialog welcomeDialog, String[] args) {
 		// 初始化ClassList
 		// initClassList(welcomeDialog);

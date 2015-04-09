@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import jdepend.core.framework.serviceproxy.AbstractJDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.model.Component;

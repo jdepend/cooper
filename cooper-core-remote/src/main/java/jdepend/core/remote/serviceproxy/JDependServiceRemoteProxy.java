@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import jdepend.core.framework.serverconf.ServerConfigurator;
-import jdepend.core.local.serviceproxy.AbstractJDependServiceProxy;
+import jdepend.core.framework.serviceproxy.AbstractJDependServiceProxy;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;

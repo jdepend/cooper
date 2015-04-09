@@ -17,8 +17,10 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
 import jdepend.core.framework.persistent.ClientConnectionProvider;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.core.local.config.CommandConfMgr;
+import jdepend.core.local.serviceproxy.JDependServiceLocalProxyFactory;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
@@ -44,7 +46,6 @@ import jdepend.ui.action.MetricsAction;
 import jdepend.ui.action.ScoreAction;
 import jdepend.ui.action.ScoreAndMetricsAction;
 import jdepend.ui.action.ScoreIntroduceAction;
-import jdepend.ui.action.ServiceSettingAction;
 import jdepend.ui.action.SettingAction;
 import jdepend.ui.action.SettingClassRelationMgAction;
 import jdepend.ui.action.SettingWorkspaceAction;
@@ -391,6 +392,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	}
 
 	protected void init(String[] args) {
+		// 设置ServiceProxyFactory
+		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceLocalProxyFactory());
 		// 向命令组配置组件增加监听器
 		try {
 			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
