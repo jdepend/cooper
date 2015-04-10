@@ -38,7 +38,7 @@ public class DefaultCommand implements Command {
 		this.group = group;
 		this.name = name;
 		this.serviceProxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
-				.getJDependServiceProxy(group, name);
+				.createJDependServiceProxy(group, name);
 	}
 
 	/**

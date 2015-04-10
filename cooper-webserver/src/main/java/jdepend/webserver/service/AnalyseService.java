@@ -48,7 +48,7 @@ public class AnalyseService {
 		component.setComponentInfo(componentModelConf);
 
 		JDependServiceProxy proxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
-				.getJDependServiceProxy(group, command);
+				.createJDependServiceProxy(group, command);
 
 		proxy.setAnalyseData(data);
 

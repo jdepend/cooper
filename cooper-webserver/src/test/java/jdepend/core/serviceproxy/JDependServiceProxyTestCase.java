@@ -33,7 +33,7 @@ public class JDependServiceProxyTestCase extends TestCase {
 	public void testSetAnalyzeData() throws JDependException {
 
 		JDependServiceProxy proxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
-				.getJDependServiceProxy("无", "以包为单位输出分析报告");
+				.createJDependServiceProxy("无", "以包为单位输出分析报告");
 
 		AnalyzeData data = new AnalyzeData();
 

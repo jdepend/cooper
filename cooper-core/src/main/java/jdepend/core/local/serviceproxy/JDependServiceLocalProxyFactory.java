@@ -11,7 +11,7 @@ import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
  */
 public class JDependServiceLocalProxyFactory implements JDependServiceProxyFactory {
 
-	public JDependServiceProxy getJDependServiceProxy(String groupName, String commandName) {
+	public JDependServiceProxy createJDependServiceProxy(String groupName, String commandName) {
 		return new JDependServiceLocalProxy(groupName, commandName);
 	}
 }
