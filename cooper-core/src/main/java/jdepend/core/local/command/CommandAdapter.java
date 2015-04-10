@@ -82,15 +82,13 @@ public class CommandAdapter {
 	 */
 	public AnalysisResult execute() throws JDependException {
 
-		AnalysisResult result;
-
 		ByteArrayOutputStream logStream = new ByteArrayOutputStream();
 
 		getCommand().setLogStream(logStream);
 
 		LogUtil.getInstance(CommandAdapter.class).systemLog("开始执行分析");
 		long start = System.currentTimeMillis();
-		result = getCommand().execute();
+		AnalysisResult result = getCommand().execute();
 		LogUtil.getInstance(CommandAdapter.class).systemLog(
 				"Command " + info.label + " execute : "
 						+ (System.currentTimeMillis() - start));
