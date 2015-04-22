@@ -59,7 +59,7 @@ public class ClientCooper extends JDependCooper {
 			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
 		} catch (JDependException e) {
 			e.printStackTrace();
-			ClientCooper.this.showStatusError(e.getMessage());
+			this.showStatusError(e.getMessage());
 		}
 		// 设置AnalyzerPanel
 		PanelMgr.getInstance().setAnalyzerPanel(new ClientAnalyzerPanel(this));

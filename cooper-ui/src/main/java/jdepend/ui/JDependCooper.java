@@ -402,7 +402,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
 		} catch (JDependException e) {
 			e.printStackTrace();
-			JDependCooper.this.showStatusError(e.getMessage());
+			this.showStatusError(e.getMessage());
 		}
 		// 设置AnalyzerPanel
 		PanelMgr.getInstance().setAnalyzerPanel(new AnalyzerPanel(this));
