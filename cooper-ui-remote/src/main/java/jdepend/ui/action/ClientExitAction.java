@@ -18,17 +18,6 @@ public class ClientExitAction extends ExitAction {
 	@Override
 	protected void exit() {
 		super.exit();
-		// 注销（从服务端登出）
-		try {
-			if (RemoteSessionProxy.getInstance().isValid()) {
-				RemoteSessionProxy.getInstance().logout();
-			}
-		} catch (RemoteException e1) {
-			e1.printStackTrace();
-		} catch (JDependException e1) {
-			e1.printStackTrace();
-		}
-
 		// 保存用户行为收集器
 		try {
 			UserActionGather.getInstance().save();
@@ -41,6 +30,17 @@ public class ClientExitAction extends ExitAction {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		// 注销（从服务端登出）
+		try {
+			if (RemoteSessionProxy.getInstance().isValid()) {
+				RemoteSessionProxy.getInstance().logout();
+			}
+		} catch (RemoteException e1) {
+			e1.printStackTrace();
+		} catch (JDependException e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
 }

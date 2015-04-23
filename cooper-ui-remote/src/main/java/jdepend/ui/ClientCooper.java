@@ -12,6 +12,7 @@ import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.JDependUtil;
+import jdepend.ui.action.ClientExitAction;
 import jdepend.ui.action.LoginAction;
 import jdepend.ui.action.LogoutAction;
 import jdepend.ui.action.ServiceSettingAction;
@@ -45,6 +46,7 @@ public class ClientCooper extends JDependCooper {
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), "L");
 		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), "O");
 
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit), new ClientExitAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ServiceParamSetting), new ServiceSettingAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Login), new LoginAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Logout), new LogoutAction(this));
