@@ -72,7 +72,7 @@ public class VirtualPackageComponent extends VirtualComponent implements SubJDep
 			if (javaPackages.contains(relation.getOpposite(this).getJavaPackages().iterator().next())) {
 				cohesion += relation.getIntensity();
 			} else {
-				GroupCouplingItem info = new GroupCouplingItem(relation.getDepend().getName(), relation.getIntensity());
+				GroupCouplingItem info = new GroupCouplingItem(relation.getOpposite(this).getName(), relation.getIntensity());
 				info.addDetail(relation.getItems());
 				groupCouplingItems.add(info);
 			}
