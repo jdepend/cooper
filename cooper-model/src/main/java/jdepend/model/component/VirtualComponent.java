@@ -69,11 +69,4 @@ public class VirtualComponent extends Component {
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
 		throw new JDependException("虚拟组件不进行组件的识别");
 	}
-
-	@Override
-	public Collection<? extends SubJDependUnit> getSubJDependUnits() {
-		throw new RuntimeException("虚拟组件不能再次获得子组件元素");
-	}
-	
-	
 }
