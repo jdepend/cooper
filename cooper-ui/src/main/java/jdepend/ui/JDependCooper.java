@@ -457,12 +457,16 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		// 刷新TODOList
 		this.getPropertyPanel().getToDoListPanel().refresh();
 	}
+	
+	@Override
+	public void onExecute(Analyzer analyzer) {
+		this.progress();
+	}
 
 	@Override
 	public void refresh() throws JDependException {
-		// 刷新Commads
+		// 刷新Commands
 		this.getLeftPanel().getGroupPanel().refreshGroup();
-
 	}
 
 	@Override
@@ -487,10 +491,5 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		this.getPropertyPanel().getExecuteHistroyPanel().clearHistory();
 		// 清空TODOList
 		this.getPropertyPanel().getToDoListPanel().clear();
-	}
-
-	@Override
-	public void onExecute(Analyzer analyzer) {
-		this.progress();
 	}
 }

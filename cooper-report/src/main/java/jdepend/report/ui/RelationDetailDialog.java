@@ -49,7 +49,7 @@ public class RelationDetailDialog extends CooperDialog {
 	private GraphJDepend display;
 
 	public RelationDetailDialog(JDependFrame frame, Component current, Component depend) {
-		super(current + " 依赖于 " + depend);
+		super(current.getName() + " 依赖于 " + depend.getName());
 
 		this.frame = frame;
 
