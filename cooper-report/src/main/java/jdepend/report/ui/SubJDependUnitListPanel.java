@@ -113,7 +113,7 @@ public class SubJDependUnitListPanel extends JPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionDialog d = new CohesionDialog(subJDependUnit);
+						CohesionSubJDependUnitDialog d = new CohesionSubJDependUnitDialog(subJDependUnit);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Balance)) {

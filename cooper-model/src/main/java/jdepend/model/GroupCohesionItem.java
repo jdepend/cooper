@@ -18,6 +18,18 @@ public final class GroupCohesionItem implements Comparable<GroupCohesionItem> {
 		this.cohesion = cohesion;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public float getCohesion() {
+		return cohesion;
+	}
+
+	public Collection<JavaClassRelationItem> getJavaClassRelationItems() {
+		return javaClassRelationItems;
+	}
+
 	public void addDetail(Collection<JavaClassRelationItem> javaClassRelationItems) {
 		this.javaClassRelationItems.addAll(javaClassRelationItems);
 	}

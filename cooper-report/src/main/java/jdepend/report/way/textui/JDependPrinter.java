@@ -8,11 +8,13 @@ import java.util.Set;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.model.GroupCohesionItem;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
+import jdepend.model.SubJDependUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 import jdepend.report.filter.CouplingReportFilter;
@@ -273,6 +275,47 @@ public final class JDependPrinter extends Printer {
 		}
 		getWriter().println(tab(4) + "</Ca>");
 
+	}
+
+	public float printCohesion(SubJDependUnit unit) {
+
+		Float cohesion = 0F;
+		cohesion = unit.getGroupCohesionInfo().getCohesion();
+
+		getWriter().println(tab() + "<SubJDependUnit name=\"" + unit.getName() + "\">");
+
+		getWriter().println(tab(2) + "<Cohesion>" + MetricsFormat.toFormattedMetrics(cohesion) + "</Cohesion>");
+
+		printGroupCohesionItem(unit.getGroupCohesionInfo().getGroupCohesionItems());
+
+		getWriter().println(tab() + "</SubJDependUnit>");
+
+		return cohesion;
+	}
+
+	private void printGroupCohesionItem(List<GroupCohesionItem> items) {
+
+		for (GroupCohesionItem item : items) {
+			getWriter().println(
+					tab(3) + "<SubJDependUnit name=\"" + item.getName() + "\" Cohesion=\""
+							+ MetricsFormat.toFormattedMetrics(item.getCohesion()) + "\">");
+			// 打印细节
+			this.printJavaClassRelationItems(item.getJavaClassRelationItems());
+
+			getWriter().println(tab(3) + "</SubJDependUnit>");
+
+		}
+	}
+
+	private void printJavaClassRelationItems(Collection<JavaClassRelationItem> javaClassRelationItems) {
+
+		for (JavaClassRelationItem item : javaClassRelationItems) {
+			getWriter().println(
+					tab(4) + "<CohesionjavaClass source=\"" + item.getSource().getName() + "\" target=\""
+							+ item.getTarget().getName() + "\" DependType=\"" + item.getType().getName()
+							+ "\" Intensity=\"" + MetricsFormat.toFormattedMetrics(item.getRelationIntensity())
+							+ "\"/>");
+		}
 	}
 
 	protected void printRelations(Collection<Relation> relations) {
