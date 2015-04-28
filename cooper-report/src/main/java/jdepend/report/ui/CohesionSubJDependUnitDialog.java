@@ -34,7 +34,7 @@ public class CohesionSubJDependUnitDialog extends CooperDialog {
 
 		printer.setStream(info);
 
-		printer.printCohesion(unit);
+		printer.printSubJDependUnitCohesion(unit);
 
 		printer.getWriter().flush();
 

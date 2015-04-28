@@ -277,7 +277,7 @@ public final class JDependPrinter extends Printer {
 
 	}
 
-	public float printCohesion(SubJDependUnit unit) {
+	public float printSubJDependUnitCohesion(SubJDependUnit unit) {
 
 		Float cohesion = 0F;
 		cohesion = unit.getGroupCohesionInfo().getCohesion();
