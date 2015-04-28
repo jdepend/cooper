@@ -110,8 +110,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	private transient Collection<JavaClass> relationList = null;
 	private transient Collection<JavaClass> afferents = null;
 	private transient Collection<JavaClass> efferents = null;
-	private transient Float cohesion = null;
+
 	private transient Float balance = null;
+	private transient GroupCohesionInfo groupCohesionInfo = null;
 	private transient GroupCouplingInfo groupCouplingInfo = null;
 
 	public static final String Place = "JavaClass_Place";
@@ -751,22 +752,38 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	 */
 	@Override
 	public synchronized float getCohesion() {
-		if (this.cohesion == null) {
-			float intensity = 0;
-			for (JavaClassRelationItem relationItem : this.getCeItems()) {
-				if (this.component.containsClass(relationItem.getTarget())) {
-					intensity += relationItem.getRelationIntensity();
-				}
-			}
-			for (JavaClassRelationItem relationItem : this.getCaItems()) {
-				if (this.component.containsClass(relationItem.getSource())) {
-					intensity += relationItem.getRelationIntensity();
-				}
-			}
-
-			this.cohesion = intensity;
+		if (this.groupCohesionInfo == null) {
+			this.calGroupCohesionInfo();
 		}
-		return this.cohesion;
+		return this.groupCohesionInfo.getCohesion();
+	}
+
+	private void calGroupCohesionInfo() {
+		this.groupCohesionInfo = new GroupCohesionInfo();
+		List<GroupCohesionItem> groupCohesionItems = new ArrayList<GroupCohesionItem>();
+		float intensity = 0;
+		for (JavaClassRelationItem relationItem : this.getCeItems()) {
+			if (this.component.containsClass(relationItem.getTarget())) {
+				intensity += relationItem.getRelationIntensity();
+
+				GroupCohesionItem item = new GroupCohesionItem(relationItem.getTarget().getName(),
+						relationItem.getRelationIntensity());
+				item.addItem(relationItem);
+				groupCohesionItems.add(item);
+			}
+		}
+		for (JavaClassRelationItem relationItem : this.getCaItems()) {
+			if (this.component.containsClass(relationItem.getSource())) {
+				intensity += relationItem.getRelationIntensity();
+
+				GroupCohesionItem item = new GroupCohesionItem(relationItem.getSource().getName(),
+						relationItem.getRelationIntensity());
+				item.addItem(relationItem);
+				groupCohesionItems.add(item);
+			}
+		}
+
+		this.groupCohesionInfo.setCohesion(intensity);
 	}
 
 	@Override
@@ -798,6 +815,14 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 			this.groupCouplingInfo = info;
 		}
 		return this.groupCouplingInfo;
+	}
+
+	@Override
+	public GroupCohesionInfo getGroupCohesionInfo() {
+		if (this.groupCohesionInfo == null) {
+			this.calGroupCohesionInfo();
+		}
+		return this.groupCohesionInfo;
 	}
 
 	@Override
@@ -1106,8 +1131,8 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		relationList = null;
 		afferents = null;
 		efferents = null;
-		cohesion = null;
 		balance = null;
+		groupCohesionInfo = null;
 		groupCouplingInfo = null;
 
 		supers = null;
@@ -1329,4 +1354,5 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		ois.defaultReadObject();
 		this.subClasses = new HashSet<JavaClass>();
 	}
+
 }

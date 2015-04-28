@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import jdepend.model.GroupCohesionInfo;
+import jdepend.model.GroupCohesionItem;
 import jdepend.model.GroupCouplingInfo;
 import jdepend.model.GroupCouplingItem;
 import jdepend.model.JavaClass;
@@ -14,11 +16,11 @@ import jdepend.model.SubJDependUnit;
 
 public class VirtualPackageComponent extends VirtualComponent implements SubJDependUnit {
 
-	private Float cohesion;
-
 	private Float balance;
 
 	private GroupCouplingInfo groupCouplingInfo;
+
+	private GroupCohesionInfo groupCohesionInfo;
 
 	public VirtualPackageComponent(JavaPackage javaPackage) {
 		super(javaPackage.getName());
@@ -45,10 +47,10 @@ public class VirtualPackageComponent extends VirtualComponent implements SubJDep
 
 	@Override
 	public float getCohesion() {
-		if (this.cohesion == null) {
+		if (this.groupCohesionInfo == null) {
 			this.calculate();
 		}
-		return cohesion;
+		return this.groupCohesionInfo.getCohesion();
 	}
 
 	@Override
@@ -59,27 +61,44 @@ public class VirtualPackageComponent extends VirtualComponent implements SubJDep
 		return groupCouplingInfo;
 	}
 
+	public GroupCohesionInfo getGroupCohesionInfo() {
+		if (this.groupCohesionInfo == null) {
+			this.calculate();
+		}
+		return groupCohesionInfo;
+	}
+
 	private void calculate() {
 		// 得到包所属的组件包含的包集合
 		Collection<JavaPackage> javaPackages = this.getJavaPackage().getClasses().iterator().next().getComponent()
 				.getJavaPackages();
 
-		cohesion = 0F;
+		Float cohesion = 0F;
+		List<GroupCohesionItem> groupCohesionItems = new ArrayList<GroupCohesionItem>();
 		List<GroupCouplingItem> groupCouplingItems = new ArrayList<GroupCouplingItem>();
 
 		for (Relation relation : this.getRelations()) {
 			// 判断关系的目标端是否在所属的组件中，在就计算内聚值，外就计算分组耦合值
 			if (javaPackages.contains(relation.getOpposite(this).getJavaPackages().iterator().next())) {
 				cohesion += relation.getIntensity();
+				GroupCohesionItem item = new GroupCohesionItem(relation.getOpposite(this).getName(),
+						relation.getIntensity());
+				item.addDetail(relation.getItems());
+				groupCohesionItems.add(item);
 			} else {
-				GroupCouplingItem info = new GroupCouplingItem(relation.getOpposite(this).getName(), relation.getIntensity());
-				info.addDetail(relation.getItems());
-				groupCouplingItems.add(info);
+				GroupCouplingItem item = new GroupCouplingItem(relation.getOpposite(this).getName(),
+						relation.getIntensity());
+				item.addDetail(relation.getItems());
+				groupCouplingItems.add(item);
 			}
 		}
 
-		groupCouplingInfo = new GroupCouplingInfo();
-		groupCouplingInfo.setGroupCouplingItems(groupCouplingItems);
+		this.groupCohesionInfo = new GroupCohesionInfo();
+		this.groupCohesionInfo.setGroupCohesionItems(groupCohesionItems);
+		this.groupCohesionInfo.setCohesion(cohesion);
+
+		this.groupCouplingInfo = new GroupCouplingInfo();
+		this.groupCouplingInfo.setGroupCouplingItems(groupCouplingItems);
 
 		List<Float> differences = new ArrayList<Float>();
 		Float maxDifference = 0F;

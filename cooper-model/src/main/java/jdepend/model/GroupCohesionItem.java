@@ -5,23 +5,23 @@ import java.util.Collection;
 
 import jdepend.framework.util.MetricsFormat;
 
-public final class GroupCouplingItem implements Comparable<GroupCouplingItem> {
+public final class GroupCohesionItem implements Comparable<GroupCohesionItem> {
 
 	public String name;
-	public float coupling;
+	public float cohesion;
 
 	public Collection<JavaClassRelationItem> javaClassRelationItems = new ArrayList<JavaClassRelationItem>();
 
-	public GroupCouplingItem(String name, float coupling) {
+	public GroupCohesionItem(String name, float cohesion) {
 		super();
 		this.name = name;
-		this.coupling = coupling;
+		this.cohesion = cohesion;
 	}
 
 	public void addDetail(Collection<JavaClassRelationItem> javaClassRelationItems) {
 		this.javaClassRelationItems.addAll(javaClassRelationItems);
 	}
-	
+
 	public void addItem(JavaClassRelationItem item) {
 		this.javaClassRelationItems.add(item);
 	}
@@ -30,8 +30,8 @@ public final class GroupCouplingItem implements Comparable<GroupCouplingItem> {
 	public String toString() {
 		StringBuilder info = new StringBuilder();
 
-		info.append("GroupCouplingInfo [coupling=");
-		info.append(MetricsFormat.toFormattedMetrics(coupling));
+		info.append("GroupCohesionItem [cohesion=");
+		info.append(MetricsFormat.toFormattedMetrics(cohesion));
 		info.append(", name=");
 		info.append(name);
 		info.append("]");
@@ -44,7 +44,7 @@ public final class GroupCouplingItem implements Comparable<GroupCouplingItem> {
 	}
 
 	@Override
-	public int compareTo(GroupCouplingItem o) {
-		return new Float(coupling).compareTo(o.coupling);
+	public int compareTo(GroupCohesionItem o) {
+		return new Float(cohesion).compareTo(o.cohesion);
 	}
 }

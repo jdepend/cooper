@@ -13,5 +13,12 @@ public interface SubJDependUnit extends JDependUnit {
 	 * @return
 	 */
 	public GroupCouplingInfo getGroupCouplingInfo();
+	
+	/**
+	 * 获取分组内聚信息
+	 * 
+	 * @return
+	 */
+	public GroupCohesionInfo getGroupCohesionInfo();
 
 }
