@@ -6933,9 +6933,9 @@
 <XPD:REF name="Head">BM4GOMo48kaiIX2pnG6jigAA</XPD:REF>
 <XPD:REF name="Tail">FgVQmvjUC0C/BLmzd7DsSAAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="oU0SmQsH8EGjqppaVKRzcQAA">
-<XPD:ATTR name="Alpha" type="real">-4.99528587815784</XPD:ATTR>
-<XPD:ATTR name="Distance" type="real">89.5600357302296</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">∑当前元素与其他组件包含的元素关系强度</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">0.739974667481077</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">31.1448230047949</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">∑当前元素与其他组件关系强度</XPD:ATTR>
 <XPD:REF name="Model">KEwlGz5JSU2M6hysi07lJQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="0ITmJXrC/ESO1Jn+tFCMZQAA">
@@ -7012,16 +7012,16 @@
 <XPD:OBJ name="OwnedViews[94]" type="UMLClassView" guid="Q+O4avtW3E2rTPl/fcTJ7wAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">2312</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">2296</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">1112</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">275</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">305</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">66</XPD:ATTR>
 <XPD:ATTR name="StereotypeDisplay" type="UMLStereotypeDisplayKind">sdkIcon</XPD:ATTR>
 <XPD:REF name="Model">EiGxU2Mx/EWZnpQYl4eWRAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="PoVdv17lAU+yO+5jJie1wQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="bN2PiXipcUisAfpmN00MzgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">分组耦合最大顺序差值(MaxDifference)</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">分组耦合顺序差值均值(AverageDifference)</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="a56weE94K0KGB4JHKL1ZkwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -7047,14 +7047,14 @@
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">2161,1132;2312,1132</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">2161,1132;2296,1132</XPD:ATTR>
 <XPD:REF name="Model">J9LsoX0ZGEa+Nf2bhS+VjgAA</XPD:REF>
 <XPD:REF name="Head">Q+O4avtW3E2rTPl/fcTJ7wAA</XPD:REF>
 <XPD:REF name="Tail">BM4GOMo48kaiIX2pnG6jigAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="n9ka+RBWzECSlNseUhJiigAA">
 <XPD:ATTR name="Alpha" type="real">0.817644713192473</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">21.9317121994613</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">分组耦合值排序后取最大差值</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">分组耦合值排序后取差值均值</XPD:ATTR>
 <XPD:REF name="Model">J9LsoX0ZGEa+Nf2bhS+VjgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="HFgsyZ3NV0ONN+u7mwlwGQAA">
@@ -7139,7 +7139,7 @@
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="/CLoYGx0L0m1MFBy+AsFbgAA">
 <XPD:ATTR name="Alpha" type="real">-1.53081758942088</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">25.0199920063936</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">子元素内聚值(Cohesion)/(子元素内聚值(Cohesion)+最大耦合顺序差值)</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">子元素内聚值(Cohesion)/(子元素内聚值(Cohesion)+分组耦合顺序差值均值)</XPD:ATTR>
 <XPD:REF name="Model">3GUudiTZpEaTODzuSbzz3QAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="KkIwEyZ+xUau8lH0b6x6dwAA">
@@ -7472,7 +7472,7 @@
 <XPD:OBJ name="OwnedViews[102]" type="UMLGeneralizationView" guid="/6hNWzWCZ0WhvACgSyQILgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">2394,1112;2121,953</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">2393,1112;2121,953</XPD:ATTR>
 <XPD:REF name="Model">2sPZKfFXH02YQiEmOt0reQAA</XPD:REF>
 <XPD:REF name="Head">zwFMrGxc1kyh0mZ59tiVrAAA</XPD:REF>
 <XPD:REF name="Tail">Q+O4avtW3E2rTPl/fcTJ7wAA</XPD:REF>
@@ -10435,7 +10435,7 @@
 <XPD:REF name="Associations[1]">6l3tOFQVeUuwl2A5HzWNJAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[93]" type="UMLAssociation" guid="KEwlGz5JSU2M6hysi07lJQAA">
-<XPD:ATTR name="Name" type="string">∑当前元素与其他组件包含的元素关系强度</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">∑当前元素与其他组件关系强度</XPD:ATTR>
 <XPD:REF name="Namespace">PYKtY+R9KUOkeThrC8XGAgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">Ew0FbjicR0qsBZH+MzhKjgAA</XPD:REF>
@@ -10465,7 +10465,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[94]" type="UMLClass" guid="EiGxU2Mx/EWZnpQYl4eWRAAA">
-<XPD:ATTR name="Name" type="string">分组耦合最大顺序差值(MaxDifference)</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">分组耦合顺序差值均值(AverageDifference)</XPD:ATTR>
 <XPD:ATTR name="StereotypeProfile" type="string">UMLStandard</XPD:ATTR>
 <XPD:ATTR name="StereotypeName" type="string">entity</XPD:ATTR>
 <XPD:REF name="Namespace">PYKtY+R9KUOkeThrC8XGAgAA</XPD:REF>
@@ -10481,7 +10481,7 @@
 <XPD:REF name="Associations[1]">zQOGSqGqV06vzhMIraJdGAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[95]" type="UMLAssociation" guid="J9LsoX0ZGEa+Nf2bhS+VjgAA">
-<XPD:ATTR name="Name" type="string">分组耦合值排序后取最大差值</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">分组耦合值排序后取差值均值</XPD:ATTR>
 <XPD:REF name="Namespace">PYKtY+R9KUOkeThrC8XGAgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">CGiq4CqpdEGUalZUjVQ7VQAA</XPD:REF>
@@ -10511,7 +10511,7 @@
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[96]" type="UMLAssociation" guid="3GUudiTZpEaTODzuSbzz3QAA">
-<XPD:ATTR name="Name" type="string">子元素内聚值(Cohesion)/(子元素内聚值(Cohesion)+最大耦合顺序差值)</XPD:ATTR>
+<XPD:ATTR name="Name" type="string">子元素内聚值(Cohesion)/(子元素内聚值(Cohesion)+分组耦合顺序差值均值)</XPD:ATTR>
 <XPD:REF name="Namespace">PYKtY+R9KUOkeThrC8XGAgAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">ylmQLRvptkC8ggopVUD/8wAA</XPD:REF>
@@ -14949,7 +14949,7 @@
 <XPD:ATTR name="Text" type="string">JDependCooper</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="N7gNeJaWREaAe2KQcNN1jAAA">
-<XPD:ATTR name="Text" type="string">&lt;&lt;active&gt;&gt;</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">&lt;&lt;frame&gt;&gt;</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="PropertyLabel" type="LabelView" guid="UQRg3Q1DK0Wk3flL6fIVUgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -26381,6 +26381,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="EkBMXIJ0VECJSakeqMqp4QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">&lt;&lt;Singleton&gt;&gt;</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="PropertyLabel" type="LabelView" guid="ZzyBsehSlUaGgRvXZGJkOgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -29400,8 +29401,8 @@
 <XPD:REF name="Participant">4C2KO5499UiP2eq7793EXQAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">nzu7Zc8LAkqOTQ2co3eVfQAA</XPD:REF>
-<XPD:REF name="Views[1]">ggzjOL328USDw7AiyOPNRAAA</XPD:REF>
-<XPD:REF name="Views[2]">muRPW0dhYkiLTmxp1XB29wAA</XPD:REF>
+<XPD:REF name="Views[1]">muRPW0dhYkiLTmxp1XB29wAA</XPD:REF>
+<XPD:REF name="Views[2]">ggzjOL328USDw7AiyOPNRAAA</XPD:REF>
 <XPD:REF name="Views[3]">/gU48b20VkuWPN1aHb2haQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="X3VPyA9MtkyBWxSAGniViAAA">
@@ -29411,8 +29412,8 @@
 <XPD:REF name="Participant">2BcuZHc9okCW7eQyvJqwdAAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">HzmuPHqNQk2q0VX4MhczwwAA</XPD:REF>
-<XPD:REF name="Views[1]">oWDRK/LVKk2i9779YcFyLAAA</XPD:REF>
-<XPD:REF name="Views[2]">frIGM3Crskym/qQUn8U5mAAA</XPD:REF>
+<XPD:REF name="Views[1]">frIGM3Crskym/qQUn8U5mAAA</XPD:REF>
+<XPD:REF name="Views[2]">oWDRK/LVKk2i9779YcFyLAAA</XPD:REF>
 <XPD:REF name="Views[3]">Jc0/8BKaC0isIXdndMy5tQAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
