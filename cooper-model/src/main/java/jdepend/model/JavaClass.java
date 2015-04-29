@@ -807,7 +807,7 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 
 	public synchronized GroupCouplingInfo getGroupCouplingInfo() {
 		if (this.groupCouplingInfo == null) {
-			GroupCouplingMaxDifferenceCalculator calculator = new GroupCouplingMaxDifferenceCalculator(this);
+			GroupCouplingInfoCalculator calculator = new GroupCouplingInfoCalculator(this);
 			GroupCouplingInfo info = new GroupCouplingInfo();
 			info.setGroupCouplingItems(calculator.getGroupCouplingItems());
 			info.setDifferences(calculator.getDifferences());

@@ -12,13 +12,13 @@ import java.util.List;
  * @author wangdg
  * 
  */
-public final class GroupCouplingMaxDifferenceCalculator {
+public final class GroupCouplingInfoCalculator {
 
 	private List<GroupCouplingItem> groupCouplingItems = new ArrayList<GroupCouplingItem>();
 
 	private List<Float> differences = new ArrayList<Float>();
 
-	public GroupCouplingMaxDifferenceCalculator(JavaClass self) {
+	public GroupCouplingInfoCalculator(JavaClass self) {
 		// 收集有关系的分析单元
 		Collection<Component> relationComponents = new HashSet<Component>();
 		for (JavaClass javaClass : self.getEfferents()) {
