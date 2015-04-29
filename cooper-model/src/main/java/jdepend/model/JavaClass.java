@@ -13,6 +13,7 @@ import java.util.Map;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.log.LogUtil;
+import jdepend.framework.util.MathUtil;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
@@ -790,9 +791,9 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	public synchronized float getBalance() {
 		if (this.balance == null) {
 			float numerator = this.getCohesion();
-			float denominatorPart = this.getGroupCouplingInfo().getMaxDifference();
+			float denominatorPart = this.getGroupCouplingInfo().getAverageDifference();
 			if (numerator == 0F) {
-				if (denominatorPart == 0F) {
+				if (MathUtil.isZero(denominatorPart)) {
 					this.balance = 0.5F;
 				} else {
 					this.balance = 0F;
@@ -810,7 +811,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 			GroupCouplingInfo info = new GroupCouplingInfo();
 			info.setGroupCouplingItems(calculator.getGroupCouplingItems());
 			info.setDifferences(calculator.getDifferences());
-			info.setMaxDifference(calculator.getMaxDifference());
 
 			this.groupCouplingInfo = info;
 		}

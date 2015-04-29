@@ -34,8 +34,8 @@ public final class BalanceSubJDependUnitDialog extends CooperDialog {
 		info.append(MetricsFormat.toFormattedMetrics(subUnit.getCohesion()));
 		info.append("）/内聚值（");
 		info.append(MetricsFormat.toFormattedMetrics(subUnit.getCohesion()));
-		info.append("）+分组耦合最大顺序差值（");
-		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getMaxDifference()));
+		info.append("）+分组耦合顺序差值均值（");
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getAverageDifference()));
 		info.append("）；\n");
 
 		info.append("分组耦合顺序值为：\n");
@@ -51,8 +51,8 @@ public final class BalanceSubJDependUnitDialog extends CooperDialog {
 			info.append("\n");
 		}
 
-		info.append("分组耦合最大顺序差值为：");
-		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getMaxDifference()));
+		info.append("分组耦合顺序差值均值为：");
+		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getAverageDifference()));
 
 		return info.toString();
 	}

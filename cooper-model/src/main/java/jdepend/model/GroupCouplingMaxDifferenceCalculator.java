@@ -18,8 +18,6 @@ public final class GroupCouplingMaxDifferenceCalculator {
 
 	private List<Float> differences = new ArrayList<Float>();
 
-	private Float maxDifference = 0F;
-
 	public GroupCouplingMaxDifferenceCalculator(JavaClass self) {
 		// 收集有关系的分析单元
 		Collection<Component> relationComponents = new HashSet<Component>();
@@ -53,16 +51,12 @@ public final class GroupCouplingMaxDifferenceCalculator {
 		// 计算分组最大顺序差值
 		if (groupCouplingItems.size() == 1) {
 			differences.add(groupCouplingItems.get(0).coupling);
-			maxDifference = groupCouplingItems.get(0).coupling;
 		} else {
 			Collections.sort(groupCouplingItems);
 			float difference;
 			for (int i = 0; i < groupCouplingItems.size() - 1; i++) {
 				difference = groupCouplingItems.get(i + 1).coupling - groupCouplingItems.get(i).coupling;
 				this.differences.add(difference);
-				if (difference > maxDifference) {
-					maxDifference = difference;
-				}
 			}
 		}
 	}
@@ -73,9 +67,5 @@ public final class GroupCouplingMaxDifferenceCalculator {
 
 	public List<Float> getDifferences() {
 		return differences;
-	}
-
-	public Float getMaxDifference() {
-		return maxDifference;
 	}
 }

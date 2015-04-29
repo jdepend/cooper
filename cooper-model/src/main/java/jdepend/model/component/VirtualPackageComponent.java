@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import jdepend.framework.util.MathUtil;
 import jdepend.model.GroupCohesionInfo;
 import jdepend.model.GroupCohesionItem;
 import jdepend.model.GroupCouplingInfo;
@@ -101,33 +102,28 @@ public class VirtualPackageComponent extends VirtualComponent implements SubJDep
 		this.groupCouplingInfo.setGroupCouplingItems(groupCouplingItems);
 
 		List<Float> differences = new ArrayList<Float>();
-		Float maxDifference = 0F;
 		// 计算分组最大顺序差值
 		if (groupCouplingItems.size() == 1) {
 			differences.add(groupCouplingItems.get(0).coupling);
-			maxDifference = groupCouplingItems.get(0).coupling;
 		} else {
 			Collections.sort(groupCouplingItems);
 			float difference;
 			for (int i = 0; i < groupCouplingItems.size() - 1; i++) {
 				difference = groupCouplingItems.get(i + 1).coupling - groupCouplingItems.get(i).coupling;
 				differences.add(difference);
-				if (difference > maxDifference) {
-					maxDifference = difference;
-				}
 			}
 		}
-		groupCouplingInfo.setMaxDifference(maxDifference);
 		groupCouplingInfo.setDifferences(differences);
 
+		Float averageDifference = groupCouplingInfo.getAverageDifference();
 		if (cohesion == 0F) {
-			if (maxDifference == 0F) {
+			if (MathUtil.isZero(averageDifference)) {
 				balance = 0.5F;
 			} else {
 				balance = 0F;
 			}
 		} else {
-			balance = cohesion / (cohesion + maxDifference);
+			balance = cohesion / (cohesion + groupCouplingInfo.getAverageDifference());
 		}
 	}
 }
