@@ -8,21 +8,26 @@ import jdepend.framework.util.MetricsFormat;
 public final class GroupCohesionItem implements Comparable<GroupCohesionItem> {
 
 	public String name;
-	public float cohesion;
+	public Float cohesion;
 
 	public Collection<JavaClassRelationItem> javaClassRelationItems = new ArrayList<JavaClassRelationItem>();
 
-	public GroupCohesionItem(String name, float cohesion) {
+	public GroupCohesionItem(String name) {
 		super();
 		this.name = name;
-		this.cohesion = cohesion;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public float getCohesion() {
+	public Float getCohesion() {
+		if (this.cohesion == null) {
+			this.cohesion = 0F;
+			for (JavaClassRelationItem item : javaClassRelationItems) {
+				this.cohesion += item.getRelationIntensity();
+			}
+		}
 		return cohesion;
 	}
 

@@ -13,7 +13,6 @@ import java.util.Map;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.util.MathUtil;
 import jdepend.model.component.modelconf.Candidate;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
@@ -30,7 +29,7 @@ import org.apache.bcel.Constants;
  * 
  */
 
-public final class JavaClass extends AbstractJDependUnit implements Candidate, SubJDependUnit {
+public final class JavaClass extends AbstractSubJDependUnit implements Candidate {
 
 	/**
 	 * 
@@ -111,10 +110,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	private transient Collection<JavaClass> relationList = null;
 	private transient Collection<JavaClass> afferents = null;
 	private transient Collection<JavaClass> efferents = null;
-
-	private transient Float balance = null;
-	private transient GroupCohesionInfo groupCohesionInfo = null;
-	private transient GroupCouplingInfo groupCouplingInfo = null;
 
 	public static final String Place = "JavaClass_Place";
 	public static final String isPrivateElement = "JavaClass_isPrivateElement";
@@ -752,77 +747,18 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 	 * @return
 	 */
 	@Override
-	public synchronized float getCohesion() {
-		if (this.groupCohesionInfo == null) {
-			this.calGroupCohesionInfo();
-		}
-		return this.groupCohesionInfo.getCohesion();
+	public float getCohesion() {
+		return this.getGroupCohesionInfo().getCohesion();
 	}
-
-	private void calGroupCohesionInfo() {
-		this.groupCohesionInfo = new GroupCohesionInfo();
-		List<GroupCohesionItem> groupCohesionItems = new ArrayList<GroupCohesionItem>();
-		float intensity = 0;
-		for (JavaClassRelationItem relationItem : this.getCeItems()) {
-			if (this.component.containsClass(relationItem.getTarget())) {
-				intensity += relationItem.getRelationIntensity();
-
-				GroupCohesionItem item = new GroupCohesionItem(relationItem.getTarget().getName(),
-						relationItem.getRelationIntensity());
-				item.addItem(relationItem);
-				groupCohesionItems.add(item);
-			}
-		}
-		for (JavaClassRelationItem relationItem : this.getCaItems()) {
-			if (this.component.containsClass(relationItem.getSource())) {
-				intensity += relationItem.getRelationIntensity();
-
-				GroupCohesionItem item = new GroupCohesionItem(relationItem.getSource().getName(),
-						relationItem.getRelationIntensity());
-				item.addItem(relationItem);
-				groupCohesionItems.add(item);
-			}
-		}
-
-		this.groupCohesionInfo.setCohesion(intensity);
+	
+	@Override
+	public float getBalance() {
+		return this.getGroupInfoCalculator().getBalance();
 	}
 
 	@Override
-	public synchronized float getBalance() {
-		if (this.balance == null) {
-			float numerator = this.getCohesion();
-			float denominatorPart = this.getGroupCouplingInfo().getAverageDifference();
-			if (numerator == 0F) {
-				if (MathUtil.isZero(denominatorPart)) {
-					this.balance = 0.5F;
-				} else {
-					this.balance = 0F;
-				}
-			} else {
-				this.balance = numerator / (numerator + denominatorPart);
-			}
-		}
-		return this.balance;
-	}
-
-	public synchronized GroupCouplingInfo getGroupCouplingInfo() {
-		if (this.groupCouplingInfo == null) {
-			GroupCouplingInfoCalculator calculator = new GroupCouplingInfoCalculator(this);
-			GroupCouplingInfo info = new GroupCouplingInfo();
-			info.setGroupCouplingItems(calculator.getGroupCouplingItems());
-			info.setDifferences(calculator.getDifferences());
-
-			this.groupCouplingInfo = info;
-		}
-		return this.groupCouplingInfo;
-	}
-
-	@Override
-	public GroupCohesionInfo getGroupCohesionInfo() {
-		if (this.groupCohesionInfo == null) {
-			this.calGroupCohesionInfo();
-		}
-		return this.groupCohesionInfo;
+	protected GroupInfoCalculator createGroupInfoCalculator() {
+		return new GroupInfoCalculator(this);
 	}
 
 	@Override
@@ -1131,9 +1067,6 @@ public final class JavaClass extends AbstractJDependUnit implements Candidate, S
 		relationList = null;
 		afferents = null;
 		efferents = null;
-		balance = null;
-		groupCohesionInfo = null;
-		groupCouplingInfo = null;
 
 		supers = null;
 		superClasses = null;

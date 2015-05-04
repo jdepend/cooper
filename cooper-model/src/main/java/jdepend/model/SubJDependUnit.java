@@ -1,7 +1,7 @@
 package jdepend.model;
 
 /**
- * 用于计算JDependUnit.Balance 的子元素
+ * 二级分析单元
  * 
  * @author user
  * 

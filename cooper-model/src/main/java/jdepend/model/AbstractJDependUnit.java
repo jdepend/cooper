@@ -24,7 +24,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	private transient List<? extends JDependUnit> cycles = null;
 
-	private transient Float cohesion = null;
 	private transient Float coupling = null;
 	private transient Float encapsulation = null;
 
@@ -191,17 +190,6 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		return coupling;
 	}
 
-	public synchronized float getCohesion() {
-		if (cohesion == null) {
-			float intensity = 0;
-			for (JavaClass javaClass : this.getClasses()) {
-				intensity += javaClass.getCohesion();
-			}
-			cohesion = intensity / 2;
-		}
-		return cohesion;
-	}
-
 	public synchronized Float getEncapsulation() {
 		if (this.encapsulation == null) {
 			this.encapsulation = new CalculateMetricsTool(this).encapsulation();
@@ -212,7 +200,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	@Override
 	public synchronized void clear() {
 		this.cycles = null;
-		this.cohesion = null;
+		
 		this.coupling = null;
 		this.encapsulation = null;
 

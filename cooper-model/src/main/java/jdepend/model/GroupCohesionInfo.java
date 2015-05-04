@@ -1,13 +1,12 @@
 package jdepend.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupCohesionInfo {
 
-	private List<GroupCohesionItem> groupCohesionItems = new ArrayList<GroupCohesionItem>();
+	private List<GroupCohesionItem> groupCohesionItems;
 
-	private Float cohesion = 0F;
+	private Float cohesion;
 
 	public List<GroupCohesionItem> getGroupCohesionItems() {
 		return groupCohesionItems;
@@ -18,10 +17,12 @@ public class GroupCohesionInfo {
 	}
 
 	public Float getCohesion() {
-		return cohesion;
-	}
-
-	public void setCohesion(Float cohesion) {
-		this.cohesion = cohesion;
+		if (this.cohesion == null) {
+			this.cohesion = 0F;
+			for (GroupCohesionItem item : groupCohesionItems) {
+				this.cohesion += item.getCohesion();
+			}
+		}
+		return this.cohesion;
 	}
 }

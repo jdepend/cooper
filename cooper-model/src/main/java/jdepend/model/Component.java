@@ -14,7 +14,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.component.VirtualComponent;
-import jdepend.model.component.VirtualPackageComponent;
+import jdepend.model.component.PackageSubJDependUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUtil;
@@ -30,7 +30,7 @@ import jdepend.model.util.RelationCreator;
  * @author <b>Abner</b>
  * 
  */
-public abstract class Component extends AbstractJDependUnit {
+public abstract class Component extends AbstractSubJDependUnit {
 
 	/**
 	 * 
@@ -59,6 +59,7 @@ public abstract class Component extends AbstractJDependUnit {
 
 	private transient String path = null;// 缓存
 
+	private transient Float cohesion = null;
 	private transient Float caCoupling = null;
 	private transient Float ceCoupling = null;
 
@@ -453,6 +454,11 @@ public abstract class Component extends AbstractJDependUnit {
 	}
 
 	@Override
+	protected GroupInfoCalculator createGroupInfoCalculator() {
+		throw new RuntimeException("子类需要复写该方法");
+	}
+
+	@Override
 	public void clear() {
 		super.clear();
 
@@ -461,6 +467,7 @@ public abstract class Component extends AbstractJDependUnit {
 		this.javaPackages = null;
 		this.path = null;
 
+		this.cohesion = null;
 		this.caCoupling = null;
 		this.ceCoupling = null;
 		this.relations = new ArrayList<Relation>();
@@ -469,6 +476,18 @@ public abstract class Component extends AbstractJDependUnit {
 
 		this.areaComponent = null;
 		this.steadyType = null;
+	}
+
+	@Override
+	public synchronized float getCohesion() {
+		if (cohesion == null) {
+			float intensity = 0;
+			for (JavaClass javaClass : this.getClasses()) {
+				intensity += javaClass.getCohesion();
+			}
+			cohesion = intensity / 2;
+		}
+		return cohesion;
 	}
 
 	@Override
@@ -499,9 +518,9 @@ public abstract class Component extends AbstractJDependUnit {
 			if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
 				this.subJDependUnits = this.javaClasses;
 			} else {
-				Collection<VirtualPackageComponent> packageComponents = new HashSet<VirtualPackageComponent>();
+				Collection<PackageSubJDependUnit> packageComponents = new HashSet<PackageSubJDependUnit>();
 				for (JavaPackage javaPackage : this.getJavaPackages()) {
-					packageComponents.add(new VirtualPackageComponent(javaPackage));
+					packageComponents.add(new PackageSubJDependUnit(javaPackage));
 				}
 				Collection<Component> outerComponents = this.getRelationComponents();
 				new RelationCreator().create(packageComponents);

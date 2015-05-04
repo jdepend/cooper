@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 指标计算针对的单元
+ * 分析单元
  * 
  * @author <b>Abner</b>
  * 

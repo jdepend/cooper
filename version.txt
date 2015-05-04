@@ -7,6 +7,12 @@ b）改进对组件内聚性明细窗口中内聚值列的钻取内容展示
 
 c）将计算组件内聚性的【分组耦合最大顺序差值】改为【分组耦合顺序差值均值】
 
+d）创建GroupInfoCalculator用于创建分组耦合信息和分组内聚信息
+
+e）创建SubJDependUnit接口，以及AbstractSubJDependUnit抽象类，并将其融入到原有的JDependUnit体系中
+
+f）将cohesion属性由AbstractJDependUnit下移到Component中
+
 1.2.4_09 2015-04-07
 
 a）向组件内聚性明细窗口中的包列表上的名称增加点击动作，可以浏览包下的类列表

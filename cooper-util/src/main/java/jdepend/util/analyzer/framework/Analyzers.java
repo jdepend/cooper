@@ -19,6 +19,7 @@ import jdepend.util.analyzer.element.FieldTreeAnalyse;
 import jdepend.util.analyzer.element.IdentifyAppService;
 import jdepend.util.analyzer.element.IdentifyCallback;
 import jdepend.util.analyzer.element.IdentifyDomainService;
+import jdepend.util.analyzer.element.IdentifyJavaClassType;
 import jdepend.util.analyzer.element.IdentifyWillMoveJavaClass;
 import jdepend.util.analyzer.element.IdentifyWillMoveMethod;
 import jdepend.util.analyzer.element.InheritTreeAnalyse;
@@ -75,6 +76,7 @@ public final class Analyzers {
 		allAnalyzers.add(new IdentifyCallback());
 		allAnalyzers.add(new IdentifyAppService());
 		allAnalyzers.add(new IdentifyDomainService());
+		allAnalyzers.add(new IdentifyJavaClassType());
 
 		List<Analyzer> analyzerTypes;
 		for (Analyzer analyzer : allAnalyzers) {
