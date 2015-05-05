@@ -51,7 +51,6 @@ public class Attribute implements Serializable {
 		if (field.isStatic() && field.getConstantValue() != null) {
 			staticValue = field.getConstantValue().toString();
 		}
-
 	}
 
 	public Attribute(String javaClassId, Attribute attribute) {

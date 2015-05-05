@@ -92,19 +92,6 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 
 	private final static String haveStateJavaClasses = "haveStateJavaClasses";
 
-	private final static List<String> baseTypes = new ArrayList<String>(8);
-
-	static {
-		baseTypes.add("boolean");
-		baseTypes.add("byte");
-		baseTypes.add("char");
-		baseTypes.add("double");
-		baseTypes.add("float");
-		baseTypes.add("int");
-		baseTypes.add("long");
-		baseTypes.add("short");
-	}
-
 	private transient Collection<JavaClass> caList = null;
 	private transient Collection<JavaClass> ceList = null;
 	private transient Collection<JavaClass> relationList = null;
@@ -750,7 +737,7 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 	public float getCohesion() {
 		return this.getGroupCohesionInfo().getCohesion();
 	}
-	
+
 	@Override
 	public float getBalance() {
 		return this.getGroupInfoCalculator().getBalance();
@@ -1137,8 +1124,8 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 	private boolean exitChangeBaseType() {
 		for (Attribute attribute : this.getAttributes()) {
 			if (!attribute.isFinal() && !attribute.isStatic()) {
-				for (String baseType : baseTypes) {
-					if (attribute.getInfo().indexOf(baseType) != -1) {
+				for (String type : attribute.getTypes()) {
+					if (ParseUtil.isBaseType(type) || ParseUtil.isStateClassType(type)) {
 						return true;
 					}
 				}
@@ -1275,7 +1262,7 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 	}
 
 	private boolean addImportedPackage(String jPackage) {
-		if (!jPackage.equals(packageName) && !imports.contains(jPackage)) {
+		if (jPackage != null && !jPackage.equals(packageName) && !imports.contains(jPackage)) {
 			imports.add(jPackage);
 			return true;
 		} else {

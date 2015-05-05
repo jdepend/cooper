@@ -2,9 +2,43 @@ package jdepend.model.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public final class ParseUtil {
+
+	private final static Map<String, String> baseTypes = new HashMap<String, String>();
+
+	static {
+		baseTypes.put("Z", "boolean");
+		baseTypes.put("B", "byte");
+		baseTypes.put("C", "char");
+		baseTypes.put("D", "double");
+		baseTypes.put("F", "float");
+		baseTypes.put("I", "int");
+		baseTypes.put("J", "long");
+		baseTypes.put("S", "short");
+		baseTypes.put("V", "void");
+	}
+
+	private final static Collection<String> stateClassTypes = new HashSet<String>();
+
+	static {
+		stateClassTypes.add("java.lang.String");
+		stateClassTypes.add("java.lang.Boolean");
+		stateClassTypes.add("java.lang.Byte");
+		stateClassTypes.add("java.lang.Double");
+		stateClassTypes.add("java.lang.Enum");
+		stateClassTypes.add("java.lang.Float");
+		stateClassTypes.add("java.lang.Integer");
+		stateClassTypes.add("java.lang.Long");
+		stateClassTypes.add("java.lang.Number");
+		stateClassTypes.add("java.lang.Short");
+		stateClassTypes.add("java.lang.StringBuffer");
+		stateClassTypes.add("java.lang.StringBuilder");
+		stateClassTypes.add("java.lang.Void");
+	}
 
 	public static final char CLASS_DESCRIPTOR = 'L';
 	public static final char CLASS_DESCRIPTOR1 = 'I';
@@ -70,28 +104,6 @@ public final class ParseUtil {
 		return s;
 	}
 
-	public static List<String> getPackageNames(String s) {
-		List<String> packages = new ArrayList<String>();
-		if ((s.length() > 0) && (s.charAt(0) == '[')) {
-			for (String type : signatureToTypes(s)) {
-				int index = type.lastIndexOf(".");
-				if (index > 0) {
-					packages.add(type.substring(0, index));
-				}
-			}
-		} else {
-			int index = s.lastIndexOf(".");
-			if (index > 0) {
-				packages.add(s.substring(0, index));
-			}
-		}
-
-		if (packages.size() == 0) {
-			packages.add("Default");
-		}
-		return packages;
-	}
-
 	public static String getPackageName(String className) {
 		int index = className.lastIndexOf(".");
 		if (index > 0) {
@@ -101,7 +113,11 @@ public final class ParseUtil {
 			}
 			return className.substring(startPos, index);
 		} else {
-			return "Default";
+			if (isBaseType(className)) {
+				return null;
+			} else {
+				return "Default";
+			}
 		}
 	}
 
@@ -110,16 +126,28 @@ public final class ParseUtil {
 	}
 
 	public static Collection<String> signatureToTypes(String signature) {
+		Collection<String> rtnTypes = new ArrayList<String>();
+
+		if (signature == null || signature.length() == 0) {
+			return rtnTypes;
+		}
+
 		// 预处理 分离集合类型
 		if (signature.indexOf('<') != -1) {
 			signature = signature.replaceAll("<", ";");
 			signature = signature.replaceAll(">", ";");
 		}
+
 		String[] types = signature.split(";");
 
-		Collection<String> rtnTypes = new ArrayList<String>();
 		for (String type : types) {
 			if (type.length() > 0) {
+				// 处理简单类型
+				String baseType = baseTypes.get(signature.substring(0, 1));
+				if (baseType != null) {
+					rtnTypes.add(baseType);
+				}
+				// 处理普通类型
 				int startIndex = type.indexOf(CLASS_DESCRIPTOR);
 				if (startIndex != -1) {
 					rtnTypes.add(slashesToDots(type.substring(startIndex + 1)));
@@ -153,6 +181,34 @@ public final class ParseUtil {
 			return info;
 		} else {
 			return info.substring(0, pos);
+		}
+	}
+
+	/**
+	 * 是否为基本类型
+	 * 
+	 * @param types
+	 * @return
+	 */
+	public static boolean isBaseType(String type) {
+		if (baseTypes.values().contains(type)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * 是否为有状态的对象类型
+	 * 
+	 * @param types
+	 * @return
+	 */
+	public static boolean isStateClassType(String type) {
+		if (stateClassTypes.contains(type)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
