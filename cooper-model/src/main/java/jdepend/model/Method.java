@@ -525,6 +525,21 @@ public class Method extends AccessFlags {
 		info1.append("Method [" + info + " Class=" + this.getJavaClass().getName() + "]");
 		info1.append("\n		Signature : " + this.signature + "]");
 		info1.append("\n		selfLineCount : " + this.selfLineCount);
+		info1.append("\n		argumentCount : " + this.getArgumentCount());
+
+		if (this.getArgumentTypes().size() > 0) {
+			info1.append("\n		argumentTypes:");
+			for (String type : this.getArgumentTypes()) {
+				info1.append("\n			" + type);
+			}
+		}
+
+		if (this.getReturnTypes().size() > 0) {
+			info1.append("\n		returnTypes:");
+			for (String type : this.getReturnTypes()) {
+				info1.append("\n			" + type);
+			}
+		}
 
 		if (this.isIncludeTransactionalAnnotation) {
 			info1.append("\n		isIncludeTransactionalAnnotation : true");

@@ -147,7 +147,11 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 						}
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
-						row[i] = item.getTarget().getValue(metrics1);
+						if (metrics.equals(ReportConstant.Ca)) {
+							row[i] = item.getSource().getValue(metrics1);
+						} else {
+							row[i] = item.getTarget().getValue(metrics1);
+						}
 					}
 				}
 				listModel.addRow(row);

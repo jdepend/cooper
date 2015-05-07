@@ -2,6 +2,8 @@ package jdepend.util.analyzer.element;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClass;
+import jdepend.model.JavaClassRelationItem;
+import jdepend.model.relationtype.ParamRelation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -21,14 +23,46 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
+		String type;
 		for (JavaClass javaClass : result.getClasses()) {
+			type = Unensure_TYPE;
 			if (!javaClass.isState()) {
-				this.printTable("类名", javaClass.getName());
-				this.printTable("类型", Service_TYPE);
+				L1: for (JavaClass subClass : javaClass.getSubClasses()) {
+					if (subClass.isState()) {
+						type = VO_TYPE;
+						break L1;
+					}
+				}
+				if (type.equals(Unensure_TYPE)) {
+					L2: for (JavaClass superClass : javaClass.getSupers()) {
+						if (superClass.isState()) {
+							type = VO_TYPE;
+							break L2;
+						}
+					}
+				}
+				if (type.equals(Unensure_TYPE)) {
+					type = Service_TYPE;
+				}
 			} else {
-				this.printTable("类名", javaClass.getName());
-				this.printTable("类型", Unensure_TYPE);
+				type = VO_TYPE;
 			}
+
+			if (type.equals(VO_TYPE)) {
+				boolean isParamRelation = false;
+				M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
+					if (item.getType() instanceof ParamRelation) {
+						isParamRelation = true;
+						break M;
+					}
+				}
+				if (!isParamRelation) {
+					type = Service_TYPE;
+				}
+			}
+
+			this.printTable("类名", javaClass.getName());
+			this.printTable("类型", type);
 		}
 	}
 
@@ -36,10 +70,8 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
 		explain.append("识别JavaClass是Service还是VO，规则：<br>");
-		explain.append("1、该类直接或间接实现了Serializable接口为VO。<br>");
-		explain.append("2、该类没有作为返回值类型或其子类型的为Service，否则为VO。<br>");
-		explain.append("3、该类只有get和set方法的为VO。<br>");
-		explain.append("4、该类无状态的为Seivice。<br>");
+		explain.append("1、Service : 本身无状态+子类或父类没也没有状态。<br>");
+		explain.append("2、VO：有状态+作为其他方法的参数或返回值。<br>");
 		return explain.toString();
 	}
 }

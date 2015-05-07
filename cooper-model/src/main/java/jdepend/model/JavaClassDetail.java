@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 
 import jdepend.model.util.JavaClassCollection;
@@ -81,7 +82,7 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public void addInterfaceName(String interfaceName) {
-		if (!this.interfaceNames.contains(interfaceName) && !this.javaClass.getName().equals(interfaceName)) {
+		if (!this.interfaceNames.contains(interfaceName)) {
 			this.interfaceNames.add(interfaceName);
 		}
 	}
@@ -114,8 +115,7 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public void addVariableType(String variableType) {
-		if (!this.javaClass.getName().equals(variableType) && !this.variableTypes.contains(variableType)
-				&& !this.getAttributeTypes().contains(variableType) && !this.getParamTypes().contains(variableType)) {
+		if (!this.variableTypes.contains(variableType)) {
 			this.variableTypes.add(variableType);
 		}
 	}
@@ -292,7 +292,7 @@ public class JavaClassDetail implements Serializable {
 				this.interfaces.remove(interfaceClass);
 			}
 		}
-		
+
 		for (Attribute attribute : this.getAttributes()) {
 			attribute.filterExternalJavaClass(javaClasses);
 		}
