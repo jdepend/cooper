@@ -24,45 +24,91 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
 		String type;
+		boolean ensure_VO_TYPE;
+		String index;
+
 		for (JavaClass javaClass : result.getClasses()) {
 			type = Unensure_TYPE;
-			if (!javaClass.isState()) {
-				L1: for (JavaClass subClass : javaClass.getSubClasses()) {
-					if (subClass.isState()) {
+			ensure_VO_TYPE = false;
+			index = "";
+			if (javaClass.isInner()) {
+				if (!javaClass.isState()) {
+					if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
 						type = VO_TYPE;
-						break L1;
+						index = "1";
+						ensure_VO_TYPE = true;
 					}
-				}
-				if (type.equals(Unensure_TYPE)) {
-					L2: for (JavaClass superClass : javaClass.getSupers()) {
-						if (superClass.isState()) {
-							type = VO_TYPE;
-							break L2;
+					if (type.equals(Unensure_TYPE)) {
+						L1: for (JavaClass subClass : javaClass.getSubClasses()) {
+							if (subClass.isState()) {
+								type = VO_TYPE;
+								index = "2";
+								break L1;
+							}
 						}
 					}
-				}
-				if (type.equals(Unensure_TYPE)) {
-					type = Service_TYPE;
-				}
-			} else {
-				type = VO_TYPE;
-			}
-
-			if (type.equals(VO_TYPE)) {
-				boolean isParamRelation = false;
-				M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
-					if (item.getType() instanceof ParamRelation) {
-						isParamRelation = true;
-						break M;
+					if (type.equals(Unensure_TYPE)) {
+						L2: for (JavaClass superClass : javaClass.getSupers()) {
+							if (superClass.isState()) {
+								type = VO_TYPE;
+								index = "3";
+								break L2;
+							}
+						}
 					}
+					if (type.equals(Unensure_TYPE)) {
+						type = Service_TYPE;
+						index = "4";
+					}
+				} else {
+					type = VO_TYPE;
+					index = "5";
 				}
-				if (!isParamRelation) {
-					type = Service_TYPE;
+
+				if (type.equals(VO_TYPE) && !ensure_VO_TYPE) {
+
+					L1: for (JavaClass superClass : javaClass.getSupers()) {
+						if (superClass.isState()) {
+							type = VO_TYPE;
+							index += "6";
+							ensure_VO_TYPE = true;
+							break L1;
+						}
+					}
+
+					if (!ensure_VO_TYPE) {
+						L2: for (JavaClass subClass : javaClass.getSubClasses()) {
+							if (subClass.isState()) {
+								type = VO_TYPE;
+								index += "7";
+								ensure_VO_TYPE = true;
+								break L2;
+							}
+						}
+					}
+
+					if (!ensure_VO_TYPE) {
+						boolean isParamRelation = false;
+						M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
+							if (item.getType() instanceof ParamRelation) {
+								isParamRelation = true;
+								break M;
+							}
+						}
+						if (!isParamRelation) {
+							type = Service_TYPE;
+							index += "8";
+						} else {
+							type = VO_TYPE;
+							index += "9";
+							ensure_VO_TYPE = true;
+						}
+					}
 				}
 			}
 
 			this.printTable("类名", javaClass.getName());
-			this.printTable("类型", type);
+			this.printTable("类型", type + index);
 		}
 	}
 
