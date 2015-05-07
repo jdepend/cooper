@@ -5,7 +5,7 @@ a）为了区分单机模式和客户端服务器模式创建了新的maven modu
   
 b）改进对组件内聚性明细窗口中内聚值列的钻取内容展示
 
-c）将计算组件内聚性的【分组耦合最大顺序差值】改为【分组耦合顺序差值均值】
+c）将计算组件内聚性的【分组耦合最大顺序差值】改为【分组耦合顺序差值均值】（动机：鼓励一下复用）
 
 d）创建GroupInfoCalculator用于创建分组耦合信息和分组内聚信息
 
@@ -14,6 +14,8 @@ e）创建SubJDependUnit接口，以及AbstractSubJDependUnit抽象类，并将�
 f）将cohesion属性由AbstractJDependUnit下移到Component中
 
 g）修正JavaClass.isState中的bug
+
+h）两个类之间的关系类型由单一类型改为同时可以有多种类型（对类关系的强度有一定影响）
 
 1.2.4_09 2015-04-07
 
