@@ -3,6 +3,7 @@ package jdepend.util.analyzer.element;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
+import jdepend.model.Method;
 import jdepend.model.relationtype.ParamRelation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -67,22 +68,27 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 
 				if (type.equals(VO_TYPE) && !ensure_VO_TYPE) {
 
-					L1: for (JavaClass superClass : javaClass.getSupers()) {
-						if (superClass.isState()) {
-							type = VO_TYPE;
-							index += "6";
-							ensure_VO_TYPE = true;
-							break L1;
+					boolean haveBusinessMethod = false;
+					O: for (Method method : javaClass.getMethods()) {
+						if (!method.isConstruction() && !method.getName().startsWith("get")
+								&& !method.getName().startsWith("set")) {
+							haveBusinessMethod = true;
+							break O;
 						}
+					}
+					if (!haveBusinessMethod) {
+						type = VO_TYPE;
+						index += "6";
+						ensure_VO_TYPE = true;
 					}
 
 					if (!ensure_VO_TYPE) {
-						L2: for (JavaClass subClass : javaClass.getSubClasses()) {
-							if (subClass.isState()) {
+						L1: for (JavaClass superClass : javaClass.getSupers()) {
+							if (superClass.isState()) {
 								type = VO_TYPE;
 								index += "7";
 								ensure_VO_TYPE = true;
-								break L2;
+								break L1;
 							}
 						}
 					}
@@ -97,10 +103,10 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 						}
 						if (!isParamRelation) {
 							type = Service_TYPE;
-							index += "8";
+							index += "9";
 						} else {
 							type = VO_TYPE;
-							index += "9";
+							index += "10";
 							ensure_VO_TYPE = true;
 						}
 					}
