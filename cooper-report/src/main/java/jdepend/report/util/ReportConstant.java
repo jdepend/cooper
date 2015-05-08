@@ -38,6 +38,7 @@ public class ReportConstant {
 	public static final String JavaClass_Stable = BundleUtil.getString(BundleUtil.Metrics_Stable);
 	public static final String JavaClass_isPrivateElement = BundleUtil.getString(BundleUtil.Metrics_isPrivateElement);
 	public static final String JavaClass_isExt = BundleUtil.getString(BundleUtil.Metrics_isExt);
+	public static final String JavaClass_ClassType = BundleUtil.getString(BundleUtil.Metrics_ClassType);
 
 	public static final String Relation_CurrentName = BundleUtil.getString(BundleUtil.Relation_CurrentElement);
 	public static final String Relation_DependName = BundleUtil.getString(BundleUtil.Relation_DependElement);
@@ -115,6 +116,7 @@ public class ReportConstant {
 		toMetricses.put(JavaClass_State, JavaClass.State);
 		toMetricses.put(JavaClass_Stable, JavaClass.Stable);
 		toMetricses.put(JavaClass_isPrivateElement, JavaClass.isPrivateElement);
+		toMetricses.put(JavaClass_ClassType, JavaClass.ClassType);
 
 		toMetricses.put(Relation_CurrentName, Relation.CurrentName);
 		toMetricses.put(Relation_DependName, Relation.DependName);

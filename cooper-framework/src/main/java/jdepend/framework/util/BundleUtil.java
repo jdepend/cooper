@@ -201,6 +201,7 @@ public class BundleUtil {
 	public static final String Metrics_Stable = "Metrics_Stable";
 	public static final String Metrics_isPrivateElement = "Metrics_isPrivateElement";
 	public static final String Metrics_isExt = "Metrics_isExt";
+	public static final String Metrics_ClassType = "Metrics_ClassType";
 
 	public static final String Metrics_ComponentCount = "Metrics_ComponentCount";
 	public static final String Metrics_RelationCount = "Metrics_RelationCount";

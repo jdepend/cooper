@@ -301,6 +301,7 @@ public class ClassListPanel extends JPanel {
 		classListModel.addColumn(ReportConstant.JavaClass_State);
 		classListModel.addColumn(ReportConstant.JavaClass_Stable);
 		classListModel.addColumn(ReportConstant.JavaClass_isPrivateElement);
+		classListModel.addColumn(ReportConstant.JavaClass_ClassType);
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();

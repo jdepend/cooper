@@ -18,6 +18,7 @@ import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassCollection;
+import jdepend.model.util.JavaClassUtil;
 import jdepend.model.util.ParseUtil;
 
 import org.apache.bcel.Constants;
@@ -63,6 +64,12 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 
 	private JavaClass hostClass;
 
+	private transient String classType;
+
+	public final static String Service_TYPE = "Service";
+	public final static String VO_TYPE = "VO";
+	public final static String Unensure_TYPE = "Unensure";
+
 	private transient Collection<Method> methods;
 
 	private transient Map<Method, Collection<Method>> overrideMethods;
@@ -102,6 +109,7 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 	public static final String isPrivateElement = "JavaClass_isPrivateElement";
 	public static final String Stable = "JavaClass_Stable";
 	public static final String State = "JavaClass_State";
+	public static final String ClassType = "JavaClass_Type";
 
 	public JavaClass(String name, boolean isInner, int access_flags) {
 		this(name, isInner);
@@ -265,6 +273,13 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 			}
 		}
 		return null;
+	}
+
+	public synchronized String getClassType() {
+		if (this.classType == null) {
+			this.classType = JavaClassUtil.getType(this).getType();
+		}
+		return this.classType;
 	}
 
 	/**
@@ -1063,6 +1078,8 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 		allCeItems = null;
 		allCaItems = null;
 		allInnerClasses = null;
+
+		classType = null;
 	}
 
 	public final boolean isPublic() {
@@ -1197,6 +1214,9 @@ public final class JavaClass extends AbstractSubJDependUnit implements Candidate
 
 		case MetricsMgr.Ce:
 			return this.getEfferentCoupling() + "|" + this.getCeList().size();
+
+		case JavaClass.ClassType:
+			return this.getClassType();
 
 		default:
 			return super.getValue(metrics);

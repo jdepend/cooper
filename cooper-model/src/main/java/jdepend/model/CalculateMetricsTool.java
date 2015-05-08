@@ -104,6 +104,21 @@ public final class CalculateMetricsTool {
 			return null;
 		} else {
 			int privates = 0;
+//			int count = 0;
+//			for (JavaClass javaClass : this.unit.getClasses()) {
+//				if (javaClass.getClassType().equals(JavaClass.Service_TYPE)) {
+//					count += 1;
+//					if (!javaClass.isUsedByExternal()) {
+//						privates += 1;
+//					}
+//				}
+//			}
+//			if (count > 0) {
+//				return privates * 1F / count;
+//			} else {
+//				return 1F;
+//			}
+
 			for (JavaClass javaClass : this.unit.getClasses()) {
 				if (!javaClass.isUsedByExternal()) {
 					privates += 1;
