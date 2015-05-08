@@ -26,7 +26,7 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 		ServiceOrVO sov;
 		for (JavaClass javaClass : result.getClasses()) {
-			if (javaClass.isInner()) {
+			if (!javaClass.isInner()) {
 				continue;
 			}
 			
