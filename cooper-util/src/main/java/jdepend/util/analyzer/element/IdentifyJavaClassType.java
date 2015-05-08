@@ -1,21 +1,22 @@
 package jdepend.util.analyzer.element;
 
+import java.util.Collection;
+
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Method;
 import jdepend.model.relationtype.ParamRelation;
 import jdepend.model.result.AnalysisResult;
+import jdepend.util.analyzer.element.helper.ServiceOrVO;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+
+import static jdepend.util.analyzer.element.helper.ServiceOrVO.*;
 
 public class IdentifyJavaClassType extends AbstractAnalyzer {
 
 	private static final long serialVersionUID = 4752453696439145223L;
-
-	private final static String Service_TYPE = "Service";
-	private final static String VO_TYPE = "VO";
-	private final static String Unensure_TYPE = "不确定";
 
 	public IdentifyJavaClassType() {
 		super("识别JavaClass是Service还是VO", Analyzer.Attention, "识别JavaClass是Service还是VO");
@@ -23,99 +24,85 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
-
-		String type;
-		boolean ensure_VO_TYPE;
-		String index;
-
+		ServiceOrVO sov;
 		for (JavaClass javaClass : result.getClasses()) {
-			type = Unensure_TYPE;
-			ensure_VO_TYPE = false;
-			index = "";
-			if (javaClass.isInner()) {
-				if (!javaClass.isState()) {
-					if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
-						type = VO_TYPE;
-						index = "1";
-						ensure_VO_TYPE = true;
-					}
-					if (type.equals(Unensure_TYPE)) {
-						L1: for (JavaClass subClass : javaClass.getSubClasses()) {
-							if (subClass.isState()) {
-								type = VO_TYPE;
-								index = "2";
-								break L1;
-							}
-						}
-					}
-					if (type.equals(Unensure_TYPE)) {
-						L2: for (JavaClass superClass : javaClass.getSupers()) {
-							if (superClass.isState()) {
-								type = VO_TYPE;
-								index = "3";
-								break L2;
-							}
-						}
-					}
-					if (type.equals(Unensure_TYPE)) {
-						type = Service_TYPE;
-						index = "4";
-					}
+			if (!javaClass.isInner()) {
+				continue;
+			}
+			
+			sov = researchServiceOrVO(javaClass);
+			
+			this.printTable("类名", javaClass.getName());
+			this.printTable("类型", sov.getType() + sov.getIndex());
+		}
+	}
+	
+	private ServiceOrVO researchServiceOrVO(JavaClass javaClass) {
+		if (!javaClass.isState()) {
+			if (isOnlyConstructors(javaClass.getMethods())) {
+				return ONLY_CONSTRUCTION;
+			} else {
+				if(isState(javaClass.getSubClasses())) {
+					return doMoreAnalysis(javaClass, 
+										  SUB_NO_BIZ_METHOD, SUB_STATE_SUPER_STATE, SUB_STATE_NOT_PR, SUB_STATE_IS_PR);
+				} else if(isState(javaClass.getSupers())) {
+					return doMoreAnalysis(javaClass, 
+										  SUPER_NO_BIZ_METHOD, SUPER_STATE_TWICE, SUPER_STATE_NOT_PR, SUPER_STATE_IS_PR);
 				} else {
-					type = VO_TYPE;
-					index = "5";
-				}
-
-				if (type.equals(VO_TYPE) && !ensure_VO_TYPE) {
-
-					boolean haveBusinessMethod = false;
-					O: for (Method method : javaClass.getMethods()) {
-						if (!method.isConstruction() && !method.getName().startsWith("get")
-								&& !method.getName().startsWith("set")) {
-							haveBusinessMethod = true;
-							break O;
-						}
-					}
-					if (!haveBusinessMethod) {
-						type = VO_TYPE;
-						index += "6";
-						ensure_VO_TYPE = true;
-					}
-
-					if (!ensure_VO_TYPE) {
-						L1: for (JavaClass superClass : javaClass.getSupers()) {
-							if (superClass.isState()) {
-								type = VO_TYPE;
-								index += "7";
-								ensure_VO_TYPE = true;
-								break L1;
-							}
-						}
-					}
-
-					if (!ensure_VO_TYPE) {
-						boolean isParamRelation = false;
-						M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
-							if (item.getType() instanceof ParamRelation) {
-								isParamRelation = true;
-								break M;
-							}
-						}
-						if (!isParamRelation) {
-							type = Service_TYPE;
-							index += "9";
-						} else {
-							type = VO_TYPE;
-							index += "10";
-							ensure_VO_TYPE = true;
-						}
-					}
+					return ServiceOrVO.UNSURE_SERVICE;
 				}
 			}
-
-			this.printTable("类名", javaClass.getName());
-			this.printTable("类型", type + index);
+		} else {
+			return doMoreAnalysis(javaClass, 
+								  UNSURE_NO_BIZ_METHOD, UNSURE_SUPER_STATE, UNSURE_NOT_PR, UNSURE_IS_PR);
 		}
+	}
+	
+	private boolean isOnlyConstructors(Collection<Method> methods) {
+		for(Method method : methods) {
+			if(!method.isConstruction()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isState(Collection<JavaClass> collection) {
+		for (JavaClass javaClass : collection) {
+			if (javaClass.isState()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private ServiceOrVO doMoreAnalysis(JavaClass javaClass, ServiceOrVO s1, ServiceOrVO s2, ServiceOrVO s3, ServiceOrVO s4) {
+		return !hasBizMethod(javaClass.getMethods()) ? 
+					s1 : 
+					isState(javaClass.getSupers()) ? 
+							s2 : 
+							isParamRelation(javaClass.getCaItems()) ? 
+									s3 : 
+									s4;
+	}
+	
+	private boolean hasBizMethod(Collection<Method> methods) {
+		for (Method method : methods) {
+			if (!method.isConstruction() && !method.getName().startsWith("get")
+					&& !method.getName().startsWith("set")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean isParamRelation(Collection<JavaClassRelationItem> items) {
+		for (JavaClassRelationItem item : items) {
+			if (item.getType() instanceof ParamRelation) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
