@@ -1,4 +1,4 @@
-﻿1.2.5_01
+﻿1.2.5_01 2015-05-08
 
 a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote
   （三个modules为逐一依赖关系，并同时成为cooper-ui、cooper-core、cooper-service的扩展）
@@ -16,6 +16,8 @@ f）将cohesion属性由AbstractJDependUnit下移到Component中
 g）修正JavaClass.isState中的bug
 
 h）两个类之间的关系类型由单一类型改为同时可以有多种类型（对类关系的强度有一定影响）
+
+i）创建识别类类型的分析器
 
 1.2.4_09 2015-04-07
 

@@ -122,8 +122,8 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	public String getExplain() {
 		StringBuilder explain = new StringBuilder();
 		explain.append("识别JavaClass是Service还是VO，规则：<br>");
-		explain.append("1、Service : 本身无状态+子类或父类没也没有状态。<br>");
-		explain.append("2、VO：有状态+作为其他方法的参数或返回值。<br>");
+		explain.append("1、Service : 本身无状态+子类或父类没也没有状态，等等。<br>");
+		explain.append("2、VO：有状态+作为其他方法的参数或返回值，等等。<br>");
 		return explain.toString();
 	}
 }
