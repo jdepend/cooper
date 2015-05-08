@@ -32,83 +32,86 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 			type = Unensure_TYPE;
 			ensure_VO_TYPE = false;
 			index = "";
+			
 			if (javaClass.isInner()) {
-				if (!javaClass.isState()) {
-					if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
-						type = VO_TYPE;
-						index = "1";
-						ensure_VO_TYPE = true;
-					}
-					if (type.equals(Unensure_TYPE)) {
-						L1: for (JavaClass subClass : javaClass.getSubClasses()) {
-							if (subClass.isState()) {
-								type = VO_TYPE;
-								index = "2";
-								break L1;
-							}
-						}
-					}
-					if (type.equals(Unensure_TYPE)) {
-						L2: for (JavaClass superClass : javaClass.getSupers()) {
-							if (superClass.isState()) {
-								type = VO_TYPE;
-								index = "3";
-								break L2;
-							}
-						}
-					}
-					if (type.equals(Unensure_TYPE)) {
-						type = Service_TYPE;
-						index = "4";
-					}
-				} else {
+				continue;
+			}
+
+			if (!javaClass.isState()) {
+				if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
 					type = VO_TYPE;
-					index = "5";
+					index = "1";
+					ensure_VO_TYPE = true;
+				}
+				if (type.equals(Unensure_TYPE)) {
+					L1: for (JavaClass subClass : javaClass.getSubClasses()) {
+						if (subClass.isState()) {
+							type = VO_TYPE;
+							index = "2";
+							break L1;
+						}
+					}
+				}
+				if (type.equals(Unensure_TYPE)) {
+					L2: for (JavaClass superClass : javaClass.getSupers()) {
+						if (superClass.isState()) {
+							type = VO_TYPE;
+							index = "3";
+							break L2;
+						}
+					}
+				}
+				if (type.equals(Unensure_TYPE)) {
+					type = Service_TYPE;
+					index = "4";
+				}
+			} else {
+				type = VO_TYPE;
+				index = "5";
+			}
+
+			if (type.equals(VO_TYPE) && !ensure_VO_TYPE) {
+
+				boolean haveBusinessMethod = false;
+				O: for (Method method : javaClass.getMethods()) {
+					if (!method.isConstruction() && !method.getName().startsWith("get")
+							&& !method.getName().startsWith("set")) {
+						haveBusinessMethod = true;
+						break O;
+					}
+				}
+				if (!haveBusinessMethod) {
+					type = VO_TYPE;
+					index += "6";
+					ensure_VO_TYPE = true;
 				}
 
-				if (type.equals(VO_TYPE) && !ensure_VO_TYPE) {
-
-					boolean haveBusinessMethod = false;
-					O: for (Method method : javaClass.getMethods()) {
-						if (!method.isConstruction() && !method.getName().startsWith("get")
-								&& !method.getName().startsWith("set")) {
-							haveBusinessMethod = true;
-							break O;
-						}
-					}
-					if (!haveBusinessMethod) {
-						type = VO_TYPE;
-						index += "6";
-						ensure_VO_TYPE = true;
-					}
-
-					if (!ensure_VO_TYPE) {
-						L1: for (JavaClass superClass : javaClass.getSupers()) {
-							if (superClass.isState()) {
-								type = VO_TYPE;
-								index += "7";
-								ensure_VO_TYPE = true;
-								break L1;
-							}
-						}
-					}
-
-					if (!ensure_VO_TYPE) {
-						boolean isParamRelation = false;
-						M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
-							if (item.getType() instanceof ParamRelation) {
-								isParamRelation = true;
-								break M;
-							}
-						}
-						if (!isParamRelation) {
-							type = Service_TYPE;
-							index += "9";
-						} else {
+				if (!ensure_VO_TYPE) {
+					L1: for (JavaClass superClass : javaClass.getSupers()) {
+						if (superClass.isState()) {
 							type = VO_TYPE;
-							index += "10";
+							index += "7";
 							ensure_VO_TYPE = true;
+							break L1;
 						}
+					}
+				}
+
+				if (!ensure_VO_TYPE) {
+					boolean isParamRelation = false;
+					M: for (JavaClassRelationItem item : javaClass.getCaItems()) {
+						if (item.getType() instanceof ParamRelation) {
+							isParamRelation = true;
+							break M;
+						}
+					}
+					if (!isParamRelation) {
+						type = Service_TYPE;
+						index += "9";
+					} else {
+						type = VO_TYPE;
+						index += "10";
+						ensure_VO_TYPE = true;
 					}
 				}
 			}
