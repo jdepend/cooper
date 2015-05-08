@@ -29,26 +29,42 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 			if (javaClass.isInner()) {
 				continue;
 			}
-			sov = INIT;
-			if (!javaClass.isState()) {
-				if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
-					sov = ONLY_CONSTRUCTION;
-				} else {
-					if(isState(javaClass.getSubClasses())) {
-						sov = doMoreAnalysis(javaClass, SUB_NO_BIZ_METHOD, SUB_STATE_SUPER_STATE, SUB_STATE_NOT_PR, SUB_STATE_IS_PR);
-					} else if(isState(javaClass.getSupers())) {
-						sov = doMoreAnalysis(javaClass, SUPER_NO_BIZ_METHOD, SUPER_STATE_TWICE, SUPER_STATE_NOT_PR, SUPER_STATE_IS_PR);
-					} else {
-						sov = ServiceOrVO.UNSURE_SERVICE;
-					}
-				}
-			} else {
-				sov = doMoreAnalysis(javaClass, UNSURE_NO_BIZ_METHOD, UNSURE_SUPER_STATE, UNSURE_NOT_PR, UNSURE_IS_PR);
-			}
-
+			
+			sov = researchServiceOrVO(javaClass);
+			
 			this.printTable("类名", javaClass.getName());
 			this.printTable("类型", sov.getType() + sov.getIndex());
 		}
+	}
+	
+	private ServiceOrVO researchServiceOrVO(JavaClass javaClass) {
+		if (!javaClass.isState()) {
+			if (isOnlyConstructors(javaClass.getMethods())) {
+				return ONLY_CONSTRUCTION;
+			} else {
+				if(isState(javaClass.getSubClasses())) {
+					return doMoreAnalysis(javaClass, 
+										  SUB_NO_BIZ_METHOD, SUB_STATE_SUPER_STATE, SUB_STATE_NOT_PR, SUB_STATE_IS_PR);
+				} else if(isState(javaClass.getSupers())) {
+					return doMoreAnalysis(javaClass, 
+										  SUPER_NO_BIZ_METHOD, SUPER_STATE_TWICE, SUPER_STATE_NOT_PR, SUPER_STATE_IS_PR);
+				} else {
+					return ServiceOrVO.UNSURE_SERVICE;
+				}
+			}
+		} else {
+			return doMoreAnalysis(javaClass, 
+								  UNSURE_NO_BIZ_METHOD, UNSURE_SUPER_STATE, UNSURE_NOT_PR, UNSURE_IS_PR);
+		}
+	}
+	
+	private boolean isOnlyConstructors(Collection<Method> methods) {
+		for(Method method : methods) {
+			if(!method.isConstruction()) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private boolean isState(Collection<JavaClass> collection) {
@@ -61,19 +77,13 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	}
 	
 	private ServiceOrVO doMoreAnalysis(JavaClass javaClass, ServiceOrVO s1, ServiceOrVO s2, ServiceOrVO s3, ServiceOrVO s4) {
-		if (!hasBizMethod(javaClass.getMethods())) {
-			return s1;
-		} else {
-			if(isState(javaClass.getSupers())) {
-				return s2;
-			} else {
-				if(isParamRelation(javaClass.getCaItems())) {
-					return s3;
-				} else {
-					return s4;
-				}
-			}
-		}
+		return !hasBizMethod(javaClass.getMethods()) ? 
+					s1 : 
+					isState(javaClass.getSupers()) ? 
+							s2 : 
+							isParamRelation(javaClass.getCaItems()) ? 
+									s3 : 
+									s4;
 	}
 	
 	private boolean hasBizMethod(Collection<Method> methods) {

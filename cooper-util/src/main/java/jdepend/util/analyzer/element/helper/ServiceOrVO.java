@@ -9,8 +9,6 @@ import static jdepend.util.analyzer.element.helper.ServiceOrVOType.*;
 
 public enum ServiceOrVO {
 	
-	INIT(UNSURE, false, ""),
-	
 	ONLY_CONSTRUCTION(VO, true, "1"),
 	
 	SUB_NO_BIZ_METHOD(VO, true, "26"),
