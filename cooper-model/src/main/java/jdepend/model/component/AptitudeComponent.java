@@ -6,7 +6,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.ComponentJudgeFactory;
@@ -73,7 +73,7 @@ public final class AptitudeComponent extends Component {
 		AptitudeComponent component = new AptitudeComponent(name);
 		for (JavaPackage javaPackage : javaPackages) {
 			if (javaPackage.getName().startsWith(name)) {
-				for (JavaClass javaClass : javaPackage.getClasses()) {
+				for (JavaClassUnit javaClass : javaPackage.getClasses()) {
 					component.addJavaClass(javaClass);
 				}
 			}

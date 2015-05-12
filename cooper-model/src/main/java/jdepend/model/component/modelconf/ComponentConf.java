@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 /**
  * 组件模型下一个组件的配置信息
@@ -79,7 +79,7 @@ public abstract class ComponentConf implements Serializable, Cloneable {
 		this.itemIds.remove(deleteItemId);
 	}
 
-	public abstract boolean isMember(JavaClass javaClass);
+	public abstract boolean isMember(JavaClassUnit javaClass);
 
 	protected boolean containPlace() {
 		if (itemIds.isEmpty()) {

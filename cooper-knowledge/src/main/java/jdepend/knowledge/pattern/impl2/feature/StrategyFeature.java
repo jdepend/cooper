@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class StrategyFeature extends AbstractFeature {
@@ -10,7 +10,7 @@ public class StrategyFeature extends AbstractFeature {
 	@Override
 	protected boolean have(FeatureCheckContext context) {
 		if (context.getAbstractMethods() != null && context.getSubClasses() != null) {
-			for (JavaClass subClass : context.getSubClasses()) {
+			for (JavaClassUnit subClass : context.getSubClasses()) {
 				for (Method method : subClass.getSelfMethods()) {
 					if (!method.isConstruction() && method.getSelfLineCount() >= 5) {
 						for (Method superMethod : context.getAbstractMethods()) {

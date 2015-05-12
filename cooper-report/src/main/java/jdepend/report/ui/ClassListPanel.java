@@ -32,7 +32,7 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.util.JavaClassUtil;
@@ -51,7 +51,7 @@ public class ClassListPanel extends JPanel {
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
 
-	private Collection<JavaClass> javaClasses;
+	private Collection<JavaClassUnit> javaClasses;
 
 	protected JDependFrame frame;
 
@@ -70,7 +70,7 @@ public class ClassListPanel extends JPanel {
 		this.add(pane);
 	}
 
-	public int showClassList(Collection<JavaClass> javaClasses) {
+	public int showClassList(Collection<JavaClassUnit> javaClasses) {
 		clearClassList();
 
 		this.javaClasses = javaClasses;
@@ -151,7 +151,7 @@ public class ClassListPanel extends JPanel {
 
 		Object[] row;
 		String metrics = null;
-		for (JavaClass javaClass : this.javaClasses) {
+		for (JavaClassUnit javaClass : this.javaClasses) {
 			row = new Object[classListTable.getColumnCount()];
 			for (int i = 0; i < classListTable.getColumnCount(); i++) {
 				metrics = ReportConstant.toMetrics(classListTable.getColumnName(i));
@@ -169,7 +169,7 @@ public class ClassListPanel extends JPanel {
 		Object[] row;
 
 		String metrics = null;
-		for (JavaClass javaClass : this.javaClasses) {
+		for (JavaClassUnit javaClass : this.javaClasses) {
 			if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter, javaClass))
 					&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
 							javaClass))
@@ -188,8 +188,8 @@ public class ClassListPanel extends JPanel {
 		}
 	}
 
-	private boolean matchCallerFilter(String callerFilter, JavaClass javaClass) {
-		for (JavaClass caClass : javaClass.getCaList()) {
+	private boolean matchCallerFilter(String callerFilter, JavaClassUnit javaClass) {
+		for (JavaClassUnit caClass : javaClass.getCaList()) {
 			if (JavaClassUtil.match(callerFilter, caClass)) {
 				return true;
 			}
@@ -197,8 +197,8 @@ public class ClassListPanel extends JPanel {
 		return false;
 	}
 
-	private boolean matchCalleeFilter(String calleeFilter, JavaClass javaClass) {
-		for (JavaClass ceClass : javaClass.getCeList()) {
+	private boolean matchCalleeFilter(String calleeFilter, JavaClassUnit javaClass) {
+		for (JavaClassUnit ceClass : javaClass.getCeList()) {
 			if (JavaClassUtil.match(calleeFilter, ceClass)) {
 				return true;
 			}
@@ -245,7 +245,7 @@ public class ClassListPanel extends JPanel {
 							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
-					JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+					JavaClassUnit currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						Rectangle rec = table.getCellRect(row, col, false);
 						Component comp = table.getComponentAt(p);
@@ -345,7 +345,7 @@ public class ClassListPanel extends JPanel {
 	}
 
 	private void moveTo(JavaClassMoveToDialogListener listener) {
-		Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
+		Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 		for (String javaClassId : selectedJavaClassId) {
 			javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
 		}
@@ -372,7 +372,7 @@ public class ClassListPanel extends JPanel {
 		JMenuItem casItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Ca));
 		casItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
 					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
 				}
@@ -389,7 +389,7 @@ public class ClassListPanel extends JPanel {
 		JMenuItem cesItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Ce));
 		cesItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
 					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
 				}

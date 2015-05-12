@@ -7,7 +7,7 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.util.refactor.RefactorToolFactory;
 
@@ -55,7 +55,7 @@ public abstract class MoveRelationTODOItem extends TODOItem {
 		if (moveRelationInfo.getMoveClasses() != null && moveRelationInfo.getMoveClasses().size() > 0) {
 			StringBuilder info = new StringBuilder();
 
-			for (JavaClass javaClass : moveRelationInfo.getMoveClasses()) {
+			for (JavaClassUnit javaClass : moveRelationInfo.getMoveClasses()) {
 				info.append(javaClass.getName());
 				info.append(" 将从 ");
 				info.append(javaClass.getComponent().getName());

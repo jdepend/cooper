@@ -7,7 +7,7 @@ import java.util.HashSet;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
@@ -21,14 +21,14 @@ public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<Method> observereMethods;
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			observereMethods = new HashSet<Method>();
 			// 识别observers
 			for (Attribute attribute : javaClass.getAttributes()) {
-				for (JavaClass observer : attribute.getTypeClasses()) {
+				for (JavaClassUnit observer : attribute.getTypeClasses()) {
 					if (observer.isInterface()) {// 1、属性有接口
 						L: for (Method method : observer.getSelfMethods()) {
 							for (String argType : method.getArgumentTypes()) {// 2、方法参数将调用者作为参数

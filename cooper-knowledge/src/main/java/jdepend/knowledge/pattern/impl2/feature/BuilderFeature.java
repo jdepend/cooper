@@ -4,7 +4,7 @@ import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class BuilderFeature extends AbstractFeature {
@@ -13,11 +13,11 @@ public class BuilderFeature extends AbstractFeature {
 	protected boolean have(FeatureCheckContext context) {
 		if (context.getHaveSubClassesAbstractAttributes() != null) {
 			for (Attribute attribute : context.getHaveSubClassesAbstractAttributes()) {
-				for (JavaClass builder : attribute.getTypeClasses()) {
+				for (JavaClassUnit builder : attribute.getTypeClasses()) {
 					for (Method method : context.getCurrent().getSelfMethods()) {
 						// 识别builderMethod
 						if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
-							JavaClass productType = method.getReturnClassTypes().iterator().next();
+							JavaClassUnit productType = method.getReturnClassTypes().iterator().next();
 							for (InvokeItem invokeItem : method.getInvokeItems()) {
 								Method invokeMethod = invokeItem.getCallee();
 								if (invokeMethod.getJavaClass().equals(builder)

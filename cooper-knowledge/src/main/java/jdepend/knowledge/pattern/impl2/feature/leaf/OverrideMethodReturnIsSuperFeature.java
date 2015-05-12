@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class OverrideMethodReturnIsSuperFeature extends AbstractFeature {
@@ -15,7 +15,7 @@ public class OverrideMethodReturnIsSuperFeature extends AbstractFeature {
 		if (context.getOverrideMethods() != null) {
 			Collection<Method> methods = new ArrayList<Method>();
 			for (Method method : context.getOverrideMethods().keySet()) {
-				for (JavaClass javaClass : method.getReturnClassTypes()) {
+				for (JavaClassUnit javaClass : method.getReturnClassTypes()) {
 					if (javaClass.getSubClasses().size() > 0) {
 						methods.add(method);
 					}

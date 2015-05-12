@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
@@ -29,7 +29,7 @@ public abstract class AbstractClassBuilder {
 	
 	private boolean isParseConfigs = true;
 
-	protected void onClassBuild(Collection<JavaClass> classes) {
+	protected void onClassBuild(Collection<JavaClassUnit> classes) {
 		for (Iterator<BuildListener> i = buildListeners.iterator(); i.hasNext();) {
 			i.next().onBuildJavaClasses(classes);
 		}
@@ -74,7 +74,7 @@ public abstract class AbstractClassBuilder {
 		this.isParseConfigs = isParseConfigs;
 	}
 
-	public abstract Collection<JavaClass> build(AnalyzeData data);
+	public abstract Collection<JavaClassUnit> build(AnalyzeData data);
 
 	public abstract PackageFilter getFilter();
 

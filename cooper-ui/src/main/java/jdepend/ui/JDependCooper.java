@@ -34,7 +34,7 @@ import jdepend.framework.ui.StatusField;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.ui.UIProperty;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.ParseListener;
 import jdepend.parse.util.SearchUtil;
@@ -419,11 +419,11 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
-	public synchronized void onParsedJavaClass(JavaClass jClass, int process) {
+	public synchronized void onParsedJavaClass(JavaClassUnit jClass, int process) {
 		this.progress(process);
 	}
 
-	public void onBuildJavaClasses(List<JavaClass> parsedClasses) {
+	public void onBuildJavaClasses(List<JavaClassUnit> parsedClasses) {
 	}
 
 	public void onSaveReport(String group, String command) {

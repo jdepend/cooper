@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		Collection<JavaClass> superClasses;
+		Collection<JavaClassUnit> superClasses;
 		boolean found;
 		Method cloneMethod;
 		Collection<String> returns;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			found = false;
 			cloneMethod = null;
 			// 计算存在父类的JavaClass
@@ -28,7 +28,7 @@ public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 					returns = method.getReturnTypes();
 					if (returns != null && returns.size() > 0) {
 						for (String returnT : returns) {
-							for (JavaClass returnType : javaClasses) {
+							for (JavaClassUnit returnType : javaClasses) {
 								if (returnType.getName().equals(returnT)) {
 									if (javaClass.getSupers().contains(returnType)) {
 										found = true;

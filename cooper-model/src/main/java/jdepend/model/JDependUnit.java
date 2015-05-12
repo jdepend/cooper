@@ -29,9 +29,9 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 
 	public void setType(JDependUnitType type);
 
-	public Collection<JavaClass> getClasses();
+	public Collection<JavaClassUnit> getClasses();
 
-	public boolean containsClass(JavaClass javaClass);
+	public boolean containsClass(JavaClassUnit javaClass);
 
 	public Collection<JavaPackage> getJavaPackages();
 

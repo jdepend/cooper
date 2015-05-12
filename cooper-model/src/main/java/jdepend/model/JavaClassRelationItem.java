@@ -19,9 +19,9 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	private static final long serialVersionUID = -6332298811666212021L;
 
-	private transient JavaClass target = null;// 目标javaclass
+	private transient JavaClassUnit target = null;// 目标javaclass
 
-	private transient JavaClass source = null;// 源javaClass
+	private transient JavaClassUnit source = null;// 源javaClass
 
 	private String targetJavaClassPlace = null;// 序列化和反序列化时使用
 
@@ -53,11 +53,11 @@ public class JavaClassRelationItem implements Serializable {
 		return this.source.getComponent().equals(this.target.getComponent());
 	}
 
-	public JavaClass getTarget() {
+	public JavaClassUnit getTarget() {
 		return target;
 	}
 
-	public void setTarget(JavaClass target) {
+	public void setTarget(JavaClassUnit target) {
 		this.target = target;
 	}
 
@@ -77,11 +77,11 @@ public class JavaClassRelationItem implements Serializable {
 		this.type = type;
 	}
 
-	public JavaClass getSource() {
+	public JavaClassUnit getSource() {
 		return source;
 	}
 
-	public void setSource(JavaClass source) {
+	public void setSource(JavaClassUnit source) {
 		this.source = source;
 	}
 

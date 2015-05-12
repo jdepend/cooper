@@ -1,6 +1,6 @@
 package jdepend.service.local.avertcheat.stabilityClassIdentifyer;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
@@ -23,7 +23,7 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 	}
 
 	@Override
-	protected void handle(JavaClass javaClass) {
+	protected void handle(JavaClassUnit javaClass) {
 		if (!javaClass.isInnerClass()) {
 			boolean stability = true;
 			for (Method method : javaClass.getSelfMethods()) {

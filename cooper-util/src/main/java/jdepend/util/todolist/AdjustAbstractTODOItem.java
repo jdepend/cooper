@@ -7,7 +7,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.MetricsMgr;
 import jdepend.model.util.JDependUnitByMetricsComparator;
@@ -29,13 +29,13 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 	public List<Object> execute() throws JDependException {
 		StringBuilder info = new StringBuilder();
 		if (unit.getStability() < 0.5) {
-			Collection<JavaClass> abstractnessClasses = new ArrayList<JavaClass>();
+			Collection<JavaClassUnit> abstractnessClasses = new ArrayList<JavaClassUnit>();
 			// 抽象程度不够
-			List<JavaClass> javaClasses = new ArrayList<JavaClass>(unit.getClasses());
+			List<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>(unit.getClasses());
 			// 按传入耦合倒序排序
 			Collections.sort(javaClasses, new JDependUnitByMetricsComparator(MetricsMgr.CaCoupling, false));
 			// 搜索代码行数超过500，方法超过200的JavaClass
-			L: for (JavaClass javaClass : javaClasses) {
+			L: for (JavaClassUnit javaClass : javaClasses) {
 				if (!javaClass.isAbstract() && javaClass.getLineCount() > 500) {
 					for (Method method : javaClass.getSelfMethods()) {
 						if (method.getSelfLineCount() > 200 && !method.isStatic()) {
@@ -51,7 +51,7 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 			}
 
 			if (abstractnessClasses.size() > 0) {
-				for (JavaClass javaClass : abstractnessClasses) {
+				for (JavaClassUnit javaClass : abstractnessClasses) {
 					info.append("建议将[" + javaClass.getName() + "]设计成接口或抽象类，并采用多个子类分散其逻辑\n");
 				}
 			} else {

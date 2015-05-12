@@ -3,7 +3,7 @@ package jdepend.model.tree;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.relationtype.InheritRelation;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
@@ -21,7 +21,7 @@ public class JavaClassInheritTreeCreator extends JavaClassTreeCreator {
 	 * @return
 	 */
 	@Override
-	protected Collection<JavaClassRelationItem> getRelationItem(JavaClass javaClass) {
+	protected Collection<JavaClassRelationItem> getRelationItem(JavaClassUnit javaClass) {
 
 		Collection<JavaClassRelationItem> relationTypeItems = new ArrayList<JavaClassRelationItem>();
 

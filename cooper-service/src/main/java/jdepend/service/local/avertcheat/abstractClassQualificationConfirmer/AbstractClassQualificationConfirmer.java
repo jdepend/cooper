@@ -2,7 +2,7 @@ package jdepend.service.local.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
 
@@ -11,7 +11,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	private static int ChildJavaClassCount = 2;
 
 	@Override
-	protected void handle(JavaClass javaClass) {
+	protected void handle(JavaClassUnit javaClass) {
 		if (this.confirmAbstractQualification(javaClass)) {
 			javaClass.setAbstractClassQualification(true);
 		} else {
@@ -19,11 +19,11 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		}
 	}
 
-	private boolean confirmAbstractQualification(JavaClass javaClass) {
+	private boolean confirmAbstractQualification(JavaClassUnit javaClass) {
 		// if (!javaClass.isAbstract())
 		// return false;
 
-		Collection<JavaClass> subClasses = javaClass.getSubClasses();
+		Collection<JavaClassUnit> subClasses = javaClass.getSubClasses();
 		if (subClasses.size() >= ChildJavaClassCount) {
 			return true;
 		} else {
@@ -32,7 +32,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 				return true;
 			}
 			// 子类不在一个组件中也具备抽象类计数资格
-			for (JavaClass subClass : subClasses) {
+			for (JavaClassUnit subClass : subClasses) {
 				if (!subClass.containedComponent() || !subClass.getComponent().equals(javaClass.getComponent())) {
 					return true;
 				}

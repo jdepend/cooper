@@ -1,7 +1,7 @@
 package jdepend.util.analyzer.element;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -28,7 +28,7 @@ public class SearchDAONoPageMethod extends AbstractAnalyzer {
 		if (pageType == null || pageType.length() == 0) {
 			throw new JDependException("没有pageType参数的定义");
 		}
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			if (javaClass.getName().endsWith(daoEndClassName)) {
 				for (Method method : javaClass.getSelfMethods()) {
 					if (method.existReturn()) {

@@ -12,7 +12,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -99,7 +99,7 @@ public class KeywordSearch extends AbstractAnalyzer {
 						}
 					}
 				}
-				for (JavaClass javaClass : result.getClasses()) {
+				for (JavaClassUnit javaClass : result.getClasses()) {
 					if (this.match(javaClass.getName(), keyword.content)) {
 						keywordUnit = new KeywordUnit(javaClass, keyword);
 						if (!keywordUnits.contains(keywordUnit)) {
@@ -117,8 +117,8 @@ public class KeywordSearch extends AbstractAnalyzer {
 				if (keyword.equals(ku.keyword)) {
 					exist = true;
 
-					if (ku.unit instanceof JavaClass) {
-						this.printTable("分析单元", ((JavaClass) ku.unit).getName());
+					if (ku.unit instanceof JavaClassUnit) {
+						this.printTable("分析单元", ((JavaClassUnit) ku.unit).getName());
 						this.printTable("单元类型", "类");
 					} else if (ku.unit instanceof JavaPackage) {
 						this.printTable("分析单元", ((JavaPackage) ku.unit).getName());

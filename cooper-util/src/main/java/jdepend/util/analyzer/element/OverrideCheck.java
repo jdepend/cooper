@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.tree.JavaClassInheritTreeCreator;
@@ -60,7 +60,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 
 	}
 
-	private void search(JavaClass javaClass, JavaClassTree tree) {
+	private void search(JavaClassUnit javaClass, JavaClassTree tree) {
 		boolean found;
 		boolean override;
 		ArrayList<Method> theMethods;
@@ -175,11 +175,11 @@ public class OverrideCheck extends AbstractAnalyzer {
 	 * @param current
 	 * @return
 	 */
-	private boolean isSubJavaClass(JavaClass current, JavaClass javaClass, JavaClassTree tree) {
+	private boolean isSubJavaClass(JavaClassUnit current, JavaClassUnit javaClass, JavaClassTree tree) {
 		return this.getNode(current, tree).getLayer() > this.getNode(javaClass, tree).getLayer();
 	}
 
-	private Node getNode(JavaClass javaClass, JavaClassTree tree) {
+	private Node getNode(JavaClassUnit javaClass, JavaClassTree tree) {
 		for (JavaClassNode node : tree.getNodes()) {
 			if (node.getJavaClass().equals(javaClass)) {
 				return node;
@@ -188,7 +188,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 		return null;
 	}
 
-	private List<Method> getCheckingMethods(JavaClass javaClass) {
+	private List<Method> getCheckingMethods(JavaClassUnit javaClass) {
 		List<Method> theMethods = new ArrayList<Method>();
 		for (Method method : javaClass.getSelfMethods()) {
 			if (!method.isConstruction()// 初始化方法 不检查

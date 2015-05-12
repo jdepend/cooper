@@ -5,11 +5,11 @@ import java.util.Collection;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public class ClassListDialog extends CooperDialog {
 
-	public ClassListDialog(JDependFrame frame, Collection<JavaClass> javaClasses) {
+	public ClassListDialog(JDependFrame frame, Collection<JavaClassUnit> javaClasses) {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
 

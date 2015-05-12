@@ -7,7 +7,7 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -34,7 +34,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 		boolean sameInvokeClass;
 		boolean selfInvokeClass;
 
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			for (Method method : javaClass.getSelfMethods()) {
 				if (method.getSelfLineCount() > 10) {
 					if (method.getWriteFields().size() == 0 && method.getReadFields().size() == 0) {

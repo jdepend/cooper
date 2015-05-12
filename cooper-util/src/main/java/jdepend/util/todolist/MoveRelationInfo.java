@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 
 public class MoveRelationInfo {
@@ -38,7 +38,7 @@ public class MoveRelationInfo {
 		this.isChangeDir = isChangeDir;
 	}
 
-	public Collection<JavaClass> getMoveClasses() {
+	public Collection<JavaClassUnit> getMoveClasses() {
 		return this.from.getClasses();
 	}
 

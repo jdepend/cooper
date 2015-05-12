@@ -11,7 +11,7 @@ import jdepend.framework.domain.notPersistent;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
@@ -23,7 +23,7 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 
 	private transient Map<Object, Object> data;
 
-	private transient Collection<JavaClass> javaClasses;
+	private transient Collection<JavaClassUnit> javaClasses;
 
 	public ClassLineCountAnalyzer() {
 		super("类规模分析", Attention, "类规模分析");
@@ -58,7 +58,7 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 		data1.put("0~200", 0);
 
 		int classCount = 0;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (javaClass.getLineCount() != 0) {
 				if (javaClass.getLineCount() > 10000) {
 					data1.put("10000~100000", (Integer) data1.get("10000~100000") + 1);
@@ -98,9 +98,9 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 	}
 
 	private void printList() {
-		List<JavaClass> jces = new ArrayList<JavaClass>(this.javaClasses);
+		List<JavaClassUnit> jces = new ArrayList<JavaClassUnit>(this.javaClasses);
 		Collections.sort(jces, new JDependUnitByMetricsComparator(MetricsMgr.LC, false));
-		for (JavaClass javaClass : jces) {
+		for (JavaClassUnit javaClass : jces) {
 			this.printTable("类名", javaClass.getName());
 			this.printTable("类行数", javaClass.getLineCount());
 			this.printTable("所属组件", javaClass.getComponent().getName());

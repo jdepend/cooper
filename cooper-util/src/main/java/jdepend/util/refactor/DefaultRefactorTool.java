@@ -7,7 +7,7 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 final class DefaultRefactorTool implements RefactorTool {
 
@@ -42,9 +42,9 @@ final class DefaultRefactorTool implements RefactorTool {
 	}
 
 	@Override
-	public void moveClass(Collection<JavaClass> javaClasses, Component target) throws JDependException {
+	public void moveClass(Collection<JavaClassUnit> javaClasses, Component target) throws JDependException {
 		boolean adjust = false;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (!javaClass.getComponent().equals(target)) {
 				adjust = true;
 				break;
@@ -59,7 +59,7 @@ final class DefaultRefactorTool implements RefactorTool {
 
 		List<String> actions = new ArrayList<String>();
 		StringBuilder action;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			action = new StringBuilder();
 			action.append(javaClass.getName());
 			action.append(" 从 ");
@@ -72,7 +72,7 @@ final class DefaultRefactorTool implements RefactorTool {
 
 		AdjustHistory.getInstance().setActions(actions);
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (!javaClass.getComponent().equals(target)) {
 				// 删除执行的JavaClass
 				javaClass.getComponent().removeJavaClass(javaClass);

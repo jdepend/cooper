@@ -29,7 +29,7 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.modelconf.CandidateUtil;
@@ -280,7 +280,7 @@ public class RelationDetailDialog extends CooperDialog {
 		}
 
 		private void openJavaClassMoveToDialog(Collection<String> moveToClassList) {
-			Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
+			Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 			for (String javaClassId : moveToClassList) {
 				javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
 			}

@@ -25,7 +25,7 @@ import jdepend.model.AreaComponent;
 import jdepend.model.CalculateMetricsTool;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
@@ -51,7 +51,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<Relation> relations;
 
-	private transient Collection<JavaClass> javaClasses;
+	private transient Collection<JavaClassUnit> javaClasses;
 
 	private transient Collection<JavaPackage> javaPackages;// 包含在Component中的包集合
 
@@ -61,7 +61,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Map<String, Component> componentForNames;
 
-	private transient Map<String, JavaClass> javaClassForIds;
+	private transient Map<String, JavaClassUnit> javaClassForIds;
 
 	private transient List<AreaComponent> areaComponents;
 
@@ -153,7 +153,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.runningContext = runningContext;
 	}
 
-	public synchronized Collection<JavaClass> getClasses() {
+	public synchronized Collection<JavaClassUnit> getClasses() {
 		if (javaClasses == null) {
 			javaClasses = JavaClassUtil.getClasses(components);
 		}
@@ -174,10 +174,10 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return javaPackageTree;
 	}
 
-	public synchronized JavaClass getTheClass(String id) {
+	public synchronized JavaClassUnit getTheClass(String id) {
 		if (javaClassForIds == null) {
-			javaClassForIds = new HashMap<String, JavaClass>();
-			for (JavaClass javaClass : getClasses()) {
+			javaClassForIds = new HashMap<String, JavaClassUnit>();
+			for (JavaClassUnit javaClass : getClasses()) {
 				javaClassForIds.put(javaClass.getId(), javaClass);
 			}
 		}
@@ -187,7 +187,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public synchronized Collection<Method> getMethods() {
 		if (this.methods == null) {
 			this.methods = new HashSet<Method>();
-			for (JavaClass javaClass : this.getClasses()) {
+			for (JavaClassUnit javaClass : this.getClasses()) {
 				for (Method method : javaClass.getSelfMethods()) {
 					this.methods.add(method);
 				}
@@ -223,8 +223,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 				this.componentForNames.remove(deleteComponent.getName());
 			}
 			Iterator<JavaClassRelationItem> it;
-			for (JavaClass javaClass : deleteComponent.getClasses()) {
-				for (JavaClass dependClass : javaClass.getCaList()) {
+			for (JavaClassUnit javaClass : deleteComponent.getClasses()) {
+				for (JavaClassUnit dependClass : javaClass.getCaList()) {
 					it = dependClass.getSelfCeItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getTarget().equals(javaClass)) {
@@ -232,7 +232,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 						}
 					}
 				}
-				for (JavaClass dependClass : javaClass.getCeList()) {
+				for (JavaClassUnit dependClass : javaClass.getCeList()) {
 					it = dependClass.getSelfCaItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getSource().equals(javaClass)) {
@@ -356,7 +356,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 */
 	public int calClassSize() {
 		int classCount = 0;
-		for (JavaClass JavaClass : this.getClasses()) {
+		for (JavaClassUnit JavaClass : this.getClasses()) {
 			if (JavaClass.getLineCount() != 0) {
 				classCount += 1;
 			}
@@ -445,7 +445,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			unit.clear();
 		}
 		// 清空JavaClass的缓存信息
-		for (JavaClass javaClass : getClasses()) {
+		for (JavaClassUnit javaClass : getClasses()) {
 			javaClass.clear();
 		}
 

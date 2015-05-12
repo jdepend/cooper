@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.element.layer.JavaClassType;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -33,12 +33,12 @@ public class ServiceHaveState extends AbstractAnalyzer {
 		supers.add(ServiceSuperClassName);
 		JavaClassType serviceClassType = new JavaClassType("Service", supers, this.endWith);
 
-		Collection<JavaClass> javaClasses = result.getClasses();
+		Collection<JavaClassUnit> javaClasses = result.getClasses();
 		serviceClassType.setJavaClasses(javaClasses);
 
 		int totalService = 0;
 		int printService = 0;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (serviceClassType.isMember(javaClass)) {
 				totalService++;
 				if (javaClass.isState()) {

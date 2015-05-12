@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public class FacadeIdentifyer extends AbstractPatternIdentifyer {
 
@@ -18,14 +18,14 @@ public class FacadeIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 
 		Float extCaCallScale;
 		Float innerCellScale;
 		int innerCellCount;
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (javaClass.getCaList().size() > 0) {
 				extCaCallScale = javaClass.getAfferents().size() / javaClass.getCaList().size() * 1F;
 				if (extCaCallScale >= 0.9) {

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public class JavaClassType {
 
@@ -12,7 +12,7 @@ public class JavaClassType {
 
 	private List<String> superClassNames;
 
-	private transient Collection<JavaClass> javaClasses;
+	private transient Collection<JavaClassUnit> javaClasses;
 
 	private String endWith;
 
@@ -40,7 +40,7 @@ public class JavaClassType {
 		return name;
 	}
 
-	public boolean isMember(JavaClass javaClass) {
+	public boolean isMember(JavaClassUnit javaClass) {
 		if (this.endWith != null && this.endWith.length() != 0) {
 			if (javaClass.getName().endsWith(this.endWith)) {
 				return true;
@@ -63,11 +63,11 @@ public class JavaClassType {
 	 * @param superClassNames
 	 * @return
 	 */
-	public boolean isJavaClassType(JavaClass theJavaClass) {
+	public boolean isJavaClassType(JavaClassUnit theJavaClass) {
 
-		Collection<JavaClass> supers = theJavaClass.getSupers();
+		Collection<JavaClassUnit> supers = theJavaClass.getSupers();
 
-		for (JavaClass superClass : supers) {
+		for (JavaClassUnit superClass : supers) {
 			if (superClassNames.contains(superClass.getName())) {
 				return true;
 			}
@@ -79,11 +79,11 @@ public class JavaClassType {
 		return superClassNames;
 	}
 
-	public void setJavaClasses(Collection<JavaClass> javaClasses) {
+	public void setJavaClasses(Collection<JavaClassUnit> javaClasses) {
 		this.javaClasses = javaClasses;
 	}
 
-	public Collection<JavaClass> getJavaClasses() {
+	public Collection<JavaClassUnit> getJavaClasses() {
 		if (this.javaClasses == null) {
 			this.javaClasses = JDependUnitMgr.getInstance().getResult().getClasses();
 		}

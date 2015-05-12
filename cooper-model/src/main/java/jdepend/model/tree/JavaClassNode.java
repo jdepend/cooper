@@ -3,11 +3,11 @@ package jdepend.model.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public class JavaClassNode implements Node {
 
-	private JavaClass javaClass;
+	private JavaClassUnit javaClass;
 
 	private Integer layer;
 
@@ -15,7 +15,7 @@ public class JavaClassNode implements Node {
 
 	private List<Node> children = new ArrayList<Node>();
 
-	public JavaClassNode(JavaClass javaClass, int layer) {
+	public JavaClassNode(JavaClassUnit javaClass, int layer) {
 		this.javaClass = javaClass;
 		this.layer = layer;
 	}
@@ -33,11 +33,11 @@ public class JavaClassNode implements Node {
 		return this.javaClass.getName();
 	}
 
-	public JavaClass getJavaClass() {
+	public JavaClassUnit getJavaClass() {
 		return javaClass;
 	}
 
-	public void setJavaClass(JavaClass javaClass) {
+	public void setJavaClass(JavaClassUnit javaClass) {
 		this.javaClass = javaClass;
 	}
 

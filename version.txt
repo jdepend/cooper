@@ -1,4 +1,8 @@
-﻿1.2.5_01 2015-05-08
+﻿1.2.5_02
+
+a）将JavaClass改名为JavaClassUnit
+
+1.2.5_01 2015-05-08
 
 a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote
   （三个modules为逐一依赖关系，并同时成为cooper-ui、cooper-core、cooper-service的扩展）

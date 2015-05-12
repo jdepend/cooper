@@ -40,7 +40,7 @@ import jdepend.knowledge.pattern.impl2.feature.leaf.StaticAttributeFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.StaticMethodFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SubClassesFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SuperHaveOtherSubClassFeature;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 
 public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
@@ -314,7 +314,7 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 	protected Map<String, Collection<PatternInfo>> doIdentify(AnalysisResult result) {
 
 		FeatureCheckContext context;
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			context = new FeatureCheckContext(javaClass);
 			for (Feature feature : this.features) {
 				feature.check(context);
@@ -325,8 +325,8 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 
 		for (Identifyer identifyer : this.identifyers) {
 			patternInfos = new ArrayList<PatternInfo>();
-			Map<JavaClass, String> resultData = identifyer.getResult();
-			for (JavaClass javaClass : resultData.keySet()) {
+			Map<JavaClassUnit, String> resultData = identifyer.getResult();
+			for (JavaClassUnit javaClass : resultData.keySet()) {
 				patternInfos.add(new PatternInfo(javaClass, resultData.get(javaClass)));
 			}
 			results.put(identifyer.getName(), patternInfos);

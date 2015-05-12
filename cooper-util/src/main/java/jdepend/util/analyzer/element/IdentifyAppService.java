@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Attribute;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -27,11 +27,11 @@ public class IdentifyAppService extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
 		Collection<String> attributes;
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			if (isService(javaClass)) {
 				attributes = new ArrayList<String>();
 				L: for (Attribute attribute : javaClass.getAttributes()) {
-					for (JavaClass type : attribute.getTypeClasses()) {
+					for (JavaClassUnit type : attribute.getTypeClasses()) {
 						if (isService(type)) {
 							if (!type.containedComponent() || !javaClass.getComponent().equals(type.getComponent())) {
 								this.printTable("Service名", javaClass.getName());
@@ -76,7 +76,7 @@ public class IdentifyAppService extends AbstractAnalyzer {
 		}
 	}
 
-	private boolean isService(JavaClass javaClass) {
+	private boolean isService(JavaClassUnit javaClass) {
 		for (String serviceName : serviceNames) {
 			if (javaClass.getName().endsWith(serviceName)) {
 				return true;

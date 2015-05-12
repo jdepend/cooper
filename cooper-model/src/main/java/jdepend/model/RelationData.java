@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.VirtualComponent;
@@ -54,13 +54,13 @@ public class RelationData {
 			depend.joinJavaClass(item.getTarget());
 		}
 
-		for (JavaClass javaClass : currentComponent.getClasses()) {
+		for (JavaClassUnit javaClass : currentComponent.getClasses()) {
 			if (!current.containsClass(javaClass)) {
 				currentOther.joinJavaClass(javaClass);
 			}
 		}
 
-		for (JavaClass javaClass : dependComponent.getClasses()) {
+		for (JavaClassUnit javaClass : dependComponent.getClasses()) {
 			if (!depend.containsClass(javaClass)) {
 				dependOther.joinJavaClass(javaClass);
 			}

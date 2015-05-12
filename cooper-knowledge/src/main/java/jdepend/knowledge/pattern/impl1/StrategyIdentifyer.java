@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class StrategyIdentifyer extends AbstractPatternIdentifyer {
@@ -18,13 +18,13 @@ public final class StrategyIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (javaClass.isAbstract()) {
-				Collection<JavaClass> subClasses = javaClass.getSubClasses();
+				Collection<JavaClassUnit> subClasses = javaClass.getSubClasses();
 				if (subClasses.size() > 1) {
-					L: for (JavaClass subClass : subClasses) {
+					L: for (JavaClassUnit subClass : subClasses) {
 						for (Method method : subClass.getSelfMethods()) {
 							if (!method.isConstruction() && method.getSelfLineCount() >= 5) {
 								for (Method superMethod : javaClass.getSelfMethods()) {

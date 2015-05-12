@@ -7,7 +7,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -50,7 +50,7 @@ public final class JavaClassView extends AbstractAnalyzer {
 		boolean found;
 		for (JDependUnit unit : result.getComponents()) {
 			totalCounts.put(unit.getName(), unit.getClassCount());
-			for (JavaClass javaClass : unit.getClasses()) {
+			for (JavaClassUnit javaClass : unit.getClasses()) {
 				found = false;
 				if (javaClass.getAfferents().size() > 0) {
 					count = caCounts.get(unit.getName());

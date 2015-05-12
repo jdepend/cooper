@@ -6,7 +6,7 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.element.layer.JEELayer;
@@ -56,7 +56,7 @@ public class DAOCallService extends AbstractAnalyzer {
 			}
 		}
 
-		for (JavaClass daoClass : daoLayer.getClasses()) {
+		for (JavaClassUnit daoClass : daoLayer.getClasses()) {
 			for (JavaClassRelationItem relationItem : daoClass.getCeItems()) {
 				if (ServiceClassType.isMember(relationItem.getTarget())) {
 					this.print(daoClass.getName() + " Call " + relationItem.getTarget().getName());

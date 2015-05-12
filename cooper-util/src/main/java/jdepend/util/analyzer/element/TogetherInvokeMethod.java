@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -24,14 +24,14 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		Map<JavaClass, Collection<Method>> invokedMethods;
+		Map<JavaClassUnit, Collection<Method>> invokedMethods;
 
 		CollectionMethod cm;
 		Map<CollectionMethod, Collection<Method>> cms = new HashMap<CollectionMethod, Collection<Method>>();
 
 		for (Method method : result.getMethods()) {
 			// 对方法中调用的方法按着类进行分组
-			invokedMethods = new HashMap<JavaClass, Collection<Method>>();
+			invokedMethods = new HashMap<JavaClassUnit, Collection<Method>>();
 			for (Method invokeMethod1 : method.getInvokeMethods()) {
 				if (!invokeMethod1.getJavaClass().equals(method.getJavaClass())) {
 					if (!invokedMethods.containsKey(invokeMethod1.getJavaClass())) {
@@ -41,7 +41,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 				}
 			}
 			// 收集分组后大于一个方法的方法集合
-			for (JavaClass javaClass : invokedMethods.keySet()) {
+			for (JavaClassUnit javaClass : invokedMethods.keySet()) {
 				if (invokedMethods.get(javaClass).size() > 1) {
 					cm = new CollectionMethod(invokedMethods.get(javaClass));
 					// 收集方法集合大于1处调用的情况
@@ -92,7 +92,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 			return methods;
 		}
 
-		public JavaClass getJavaClass() {
+		public JavaClassUnit getJavaClass() {
 			return methods.iterator().next().getJavaClass();
 		}
 

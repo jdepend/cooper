@@ -6,11 +6,11 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public class JavaClassDetailDialog extends CooperDialog {
 
-	public JavaClassDetailDialog(JavaClass javaClass) {
+	public JavaClassDetailDialog(JavaClassUnit javaClass) {
 
 		super(javaClass.getName());
 

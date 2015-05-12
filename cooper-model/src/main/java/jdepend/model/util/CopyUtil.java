@@ -7,18 +7,18 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
 public final class CopyUtil {
 
 	private List<Component> targets = new ArrayList<Component>();
-	private Map<String, JavaClass> javaClasses = new HashMap<String, JavaClass>();
+	private Map<String, JavaClassUnit> javaClasses = new HashMap<String, JavaClassUnit>();
 
 	public List<Component> copy(List<Component> components) {
 		// 创建JavaClass
 		for (Component component : components) {
-			for (JavaClass javaClass : component.getClasses()) {
+			for (JavaClassUnit javaClass : component.getClasses()) {
 				if (javaClasses.get(javaClass.getId()) == null) {
 					newJavaClass(javaClass);
 				}
@@ -53,14 +53,14 @@ public final class CopyUtil {
 
 	}
 
-	private JavaClass newJavaClass(JavaClass javaClass) {
-		JavaClass newJavaClass = javaClasses.get(javaClass.getId());
+	private JavaClassUnit newJavaClass(JavaClassUnit javaClass) {
+		JavaClassUnit newJavaClass = javaClasses.get(javaClass.getId());
 
 		if (newJavaClass == null) {
 			newJavaClass = javaClass.clone();
 			javaClasses.put(newJavaClass.getId(), newJavaClass);
 			// 添加内部类
-			for (JavaClass innerClass : newJavaClass.getInnerClasses()) {
+			for (JavaClassUnit innerClass : newJavaClass.getInnerClasses()) {
 				javaClasses.put(innerClass.getId(), innerClass);
 			}
 		}

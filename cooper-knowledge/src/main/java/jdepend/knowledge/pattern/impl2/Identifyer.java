@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2;
 
 import java.util.Map;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 /**
  * 设计模式识别器
@@ -30,7 +30,7 @@ public interface Identifyer {
 
 	public String getExplain();
 
-	public Map<JavaClass, String> getResult();
+	public Map<JavaClassUnit, String> getResult();
 	
 	public void clear();
 

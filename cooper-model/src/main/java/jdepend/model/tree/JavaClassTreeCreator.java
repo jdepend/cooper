@@ -6,14 +6,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
 import jdepend.model.relationtype.InheritRelation;
 
 public abstract class JavaClassTreeCreator {
 
-	private Collection<JavaClass> javaClasses = new HashSet<JavaClass>();// 记录扫描过的JavaClass
+	private Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();// 记录扫描过的JavaClass
 
 	private List<JavaClassTree> trees;
 
@@ -23,7 +23,7 @@ public abstract class JavaClassTreeCreator {
 		this.type = type;
 	}
 
-	public List<JavaClassTree> create(Collection<JavaClass> classes) {
+	public List<JavaClassTree> create(Collection<JavaClassUnit> classes) {
 
 		trees = new ArrayList<JavaClassTree>();
 
@@ -31,7 +31,7 @@ public abstract class JavaClassTreeCreator {
 
 		boolean unite = false;// 合并到其他树上
 
-		for (JavaClass javaClass : classes) {
+		for (JavaClassUnit javaClass : classes) {
 			javaClasses.contains(javaClass);
 			unite = false;
 			for (JavaClassRelationItem relationItem : this.getRelationItem(javaClass)) {
@@ -71,9 +71,9 @@ public abstract class JavaClassTreeCreator {
 		return trees;
 	}
 
-	private void rout(JavaClassTree tree, Collection<JavaClass> classes) {
+	private void rout(JavaClassTree tree, Collection<JavaClassUnit> classes) {
 
-		JavaClass currentClass = tree.getCurrent();
+		JavaClassUnit currentClass = tree.getCurrent();
 		javaClasses.add(currentClass);
 		for (JavaClassRelationItem relationItem : getRelationItem(currentClass)) {// 广度搜索
 			if (classes.contains(relationItem.getTarget())) {
@@ -111,5 +111,5 @@ public abstract class JavaClassTreeCreator {
 	 * @param javaClass
 	 * @return
 	 */
-	protected abstract Collection<JavaClassRelationItem> getRelationItem(JavaClass javaClass);
+	protected abstract Collection<JavaClassRelationItem> getRelationItem(JavaClassUnit javaClass);
 }

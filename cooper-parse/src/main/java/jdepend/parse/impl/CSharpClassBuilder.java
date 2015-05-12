@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 
@@ -18,7 +18,7 @@ public class CSharpClassBuilder extends AbstractClassBuilder {
 
 	private int countClasses = -1;
 
-	private List<JavaClass> classes;
+	private List<JavaClassUnit> classes;
 
 	public CSharpClassBuilder(ParseConfigurator conf) {
 		this.setConf(conf);
@@ -26,13 +26,13 @@ public class CSharpClassBuilder extends AbstractClassBuilder {
 	}
 
 	@Override
-	public List<JavaClass> build(AnalyzeData data) {
+	public List<JavaClassUnit> build(AnalyzeData data) {
 		if (this.classes == null || this.getConf().getEveryClassBuild()) {
-			classes = new ArrayList<JavaClass>();
+			classes = new ArrayList<JavaClassUnit>();
 
 			// 调用C#代码
 			ActiveXComponent builder = new ActiveXComponent("parse.Builder");
-			this.classes = (List<JavaClass>) Dispatch.call(builder, "build", new Object[] { classes }).toJavaObject();
+			this.classes = (List<JavaClassUnit>) Dispatch.call(builder, "build", new Object[] { classes }).toJavaObject();
 
 			// (new JavaClassRelationCreator(this.getConf())).create(classes);
 

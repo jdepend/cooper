@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.result.AnalysisResult;
 
@@ -28,7 +28,7 @@ public class JavaClassRelationUtil {
 		this.relationInfos = new ArrayList<JavaClassRelationInfo>();
 		JavaClassRelationInfo tableInfo;
 		// 收集TableRelationInfo
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			for (JavaClassRelationItem item : javaClass.getCeItems()) {
 				tableInfo = new JavaClassRelationInfo(item.getSource().getName(), item.getTarget().getName(), item
 						.getType().getName(), item.isInner(), item.getRelationIntensity());

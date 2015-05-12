@@ -6,24 +6,24 @@ import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		Collection<JavaClass> interfaces;
-		Collection<JavaClass> supers;
-		JavaClass theInterfaceClass;
-		JavaClass theSuperClass;
+		Collection<JavaClassUnit> interfaces;
+		Collection<JavaClassUnit> supers;
+		JavaClassUnit theInterfaceClass;
+		JavaClassUnit theSuperClass;
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			// 收集接口和抽象类
-			interfaces = new HashSet<JavaClass>();
-			supers = new HashSet<JavaClass>();
-			for (JavaClass superClass : javaClass.getSupers()) {
+			interfaces = new HashSet<JavaClassUnit>();
+			supers = new HashSet<JavaClassUnit>();
+			for (JavaClassUnit superClass : javaClass.getSupers()) {
 				if (superClass.isInterface()) {
 					interfaces.add(superClass);
 				} else {

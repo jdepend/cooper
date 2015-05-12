@@ -24,7 +24,7 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public class JavaClassMoveToDialog extends JDialog {
@@ -33,13 +33,13 @@ public class JavaClassMoveToDialog extends JDialog {
 
 	private JTable componentTable;
 
-	private Collection<JavaClass> javaClasses;
+	private Collection<JavaClassUnit> javaClasses;
 
 	private JPanel content;
 
 	private JavaClassMoveToDialogListener listener;
 
-	public JavaClassMoveToDialog(JDependFrame frame, Collection<JavaClass> javaClasses) {
+	public JavaClassMoveToDialog(JDependFrame frame, Collection<JavaClassUnit> javaClasses) {
 		this(frame);
 		this.javaClasses = javaClasses;
 	}
@@ -137,7 +137,7 @@ public class JavaClassMoveToDialog extends JDialog {
 			jdepend.model.Component targetComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(target);
 
 			boolean adjust = false;
-			L: for (JavaClass javaClass : javaClasses) {
+			L: for (JavaClassUnit javaClass : javaClasses) {
 				if (!adjust && !targetComponent.containsClass(javaClass)) {
 					adjust = true;
 					break L;

@@ -8,7 +8,7 @@ import java.util.Map;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
 public final class UniteComponent extends Component {
@@ -45,14 +45,14 @@ public final class UniteComponent extends Component {
 		Component component;
 		for (String componentName : subComponents) {
 			component = JDependUnitMgr.getInstance().getResult().getTheComponent(componentName);
-			for (JavaClass javaClass : component.getClasses()) {
+			for (JavaClassUnit javaClass : component.getClasses()) {
 				this.addJavaClass(javaClass);
 			}
 		}
 	}
 
 	@Override
-	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
 		UniteComponent obj = (UniteComponent) super.clone(javaClasses);
 		obj.setSubComponents(this.subComponents);
 

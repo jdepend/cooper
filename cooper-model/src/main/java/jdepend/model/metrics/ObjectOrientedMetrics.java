@@ -3,7 +3,7 @@ package jdepend.model.metrics;
 import jdepend.model.Attribute;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.MetricsInfo;
 
@@ -13,8 +13,8 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 	public MetricsInfo getMetrics(JDependUnit unit) {
 		MetricsInfo info = new MetricsInfo();
 
-		if (unit instanceof JavaClass) {
-			info.setMetrics(getObjectOriented((JavaClass) unit));
+		if (unit instanceof JavaClassUnit) {
+			info.setMetrics(getObjectOriented((JavaClassUnit) unit));
 		} else if (unit instanceof Component) {
 			info.setMetrics(getObjectOriented((Component) unit));
 		}
@@ -22,7 +22,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 		return info;
 	}
 
-	public float getObjectOriented(JavaClass javaClass) {
+	public float getObjectOriented(JavaClassUnit javaClass) {
 		Float objectOriented = null;
 		int attributeCount = countAttributes(javaClass);
 		int methodCount = countMethods(javaClass);
@@ -40,7 +40,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 			return 0.0F;
 		}
 		Float oo = 0.0F;
-		for (JavaClass javaClass : component.getClasses()) {
+		for (JavaClassUnit javaClass : component.getClasses()) {
 			oo += getObjectOriented(javaClass);
 		}
 		return oo / component.getClassCount();
@@ -51,7 +51,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 	 * 
 	 * @return
 	 */
-	private int countAttributes(JavaClass javaClass) {
+	private int countAttributes(JavaClassUnit javaClass) {
 		int count = 0;
 		for (Attribute attribute : javaClass.getAttributes()) {
 			if (!attribute.isPublic() && !attribute.isStatic()) {
@@ -66,7 +66,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 	 * 
 	 * @return
 	 */
-	private int countMethods(JavaClass javaClass) {
+	private int countMethods(JavaClassUnit javaClass) {
 		int count = 0;
 		for (Method method : javaClass.getSelfMethods()) {
 			if (method.isPublic() && !method.isConstruction()) {

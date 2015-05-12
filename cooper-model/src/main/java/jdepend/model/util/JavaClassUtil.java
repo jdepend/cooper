@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import jdepend.framework.util.StringUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaPackage;
 import jdepend.model.Method;
@@ -27,77 +27,77 @@ public class JavaClassUtil {
 
 	}
 
-	public static Collection<JavaClass> getClasses(Collection<Component> components) {
-		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+	public static Collection<JavaClassUnit> getClasses(Collection<Component> components) {
+		Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 		for (Component component : components) {
 			javaClasses.addAll(component.getClasses());
 		}
 		return javaClasses;
 	}
 
-	public static Collection<JavaClass> getAllClasses(Collection<Component> components) {
-		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
+	public static Collection<JavaClassUnit> getAllClasses(Collection<Component> components) {
+		Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 		for (Component component : components) {
 			javaClasses.addAll(component.getClasses());
-			for (JavaClass javaClass : component.getClasses()) {
+			for (JavaClassUnit javaClass : component.getClasses()) {
 				javaClasses.addAll(javaClass.getInnerClasses());
 			}
 		}
 		return javaClasses;
 	}
 
-	public static Collection<JavaClass> getClassesForJavaPackages(Collection<JavaPackage> javaPackages) {
-		Collection<JavaClass> javaClasses = new ArrayList<JavaClass>();
+	public static Collection<JavaClassUnit> getClassesForJavaPackages(Collection<JavaPackage> javaPackages) {
+		Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 		for (JavaPackage javaPackage : javaPackages) {
 			javaClasses.addAll(javaPackage.getClasses());
 		}
 		return javaClasses;
 	}
 
-	public static ClassTypeInfo getType(JavaClass javaClass) {
+	public static ClassTypeInfo getType(JavaClassUnit javaClass) {
 
 		String type;
 		boolean ensure_VO_TYPE;
 		String path;
 
-		type = JavaClass.Unensure_TYPE;
+		type = JavaClassUnit.Unensure_TYPE;
 		ensure_VO_TYPE = false;
 		path = "";
 		if (javaClass.isInner()) {
 			if (!javaClass.isState()) {
 				if (javaClass.getMethods().size() == 1 && javaClass.getMethods().iterator().next().isConstruction()) {
-					type = JavaClass.VO_TYPE;
+					type = JavaClassUnit.VO_TYPE;
 					path = "1";
 					ensure_VO_TYPE = true;
 				}
-				if (type.equals(JavaClass.Unensure_TYPE)) {
-					L1: for (JavaClass subClass : javaClass.getSubClasses()) {
+				if (type.equals(JavaClassUnit.Unensure_TYPE)) {
+					L1: for (JavaClassUnit subClass : javaClass.getSubClasses()) {
 						if (subClass.isState()) {
-							type = JavaClass.VO_TYPE;
+							type = JavaClassUnit.VO_TYPE;
 							path = "2";
 							break L1;
 						}
 					}
 				}
-				if (type.equals(JavaClass.Unensure_TYPE)) {
-					L2: for (JavaClass superClass : javaClass.getSupers()) {
+				if (type.equals(JavaClassUnit.Unensure_TYPE)) {
+					L2: for (JavaClassUnit superClass : javaClass.getSupers()) {
 						if (superClass.isState()) {
-							type = JavaClass.VO_TYPE;
+							type = JavaClassUnit.VO_TYPE;
 							path = "3";
 							break L2;
 						}
 					}
 				}
-				if (type.equals(JavaClass.Unensure_TYPE)) {
-					type = JavaClass.Service_TYPE;
+				if (type.equals(JavaClassUnit.Unensure_TYPE)) {
+					type = JavaClassUnit.Service_TYPE;
 					path = "4";
 				}
 			} else {
-				type = JavaClass.VO_TYPE;
+				type = JavaClassUnit.VO_TYPE;
 				path = "5";
 			}
 
-			if (type.equals(JavaClass.VO_TYPE) && !ensure_VO_TYPE) {
+			if (type.equals(JavaClassUnit.VO_TYPE) && !ensure_VO_TYPE) {
 
 				boolean haveBusinessMethod = false;
 				O: for (Method method : javaClass.getMethods()) {
@@ -108,15 +108,15 @@ public class JavaClassUtil {
 					}
 				}
 				if (!haveBusinessMethod) {
-					type = JavaClass.VO_TYPE;
+					type = JavaClassUnit.VO_TYPE;
 					path += "6";
 					ensure_VO_TYPE = true;
 				}
 
 				if (!ensure_VO_TYPE) {
-					L1: for (JavaClass superClass : javaClass.getSupers()) {
+					L1: for (JavaClassUnit superClass : javaClass.getSupers()) {
 						if (superClass.isState()) {
-							type = JavaClass.VO_TYPE;
+							type = JavaClassUnit.VO_TYPE;
 							path += "7";
 							ensure_VO_TYPE = true;
 							break L1;
@@ -133,10 +133,10 @@ public class JavaClassUtil {
 						}
 					}
 					if (!isParamRelation) {
-						type = JavaClass.Service_TYPE;
+						type = JavaClassUnit.Service_TYPE;
 						path += "9";
 					} else {
-						type = JavaClass.VO_TYPE;
+						type = JavaClassUnit.VO_TYPE;
 						path += "10";
 						ensure_VO_TYPE = true;
 					}
@@ -155,7 +155,7 @@ public class JavaClassUtil {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+					for (JavaClassUnit javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
 						javaClass.supplyJavaClassRelationItem(javaClasses);
 					}
 				}
@@ -182,7 +182,7 @@ public class JavaClassUtil {
 	 * @param javaClass
 	 * @return
 	 */
-	public static boolean match(String pattern, JavaClass javaClass) {
+	public static boolean match(String pattern, JavaClassUnit javaClass) {
 		return match(pattern, javaClass.getName());
 	}
 
@@ -221,7 +221,7 @@ public class JavaClassUtil {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+					for (JavaClassUnit javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
 						javaClass.supplyDetail(javaClasses);
 					}
 				}
@@ -244,7 +244,7 @@ public class JavaClassUtil {
 			pool.execute(new Runnable() {
 				@Override
 				public void run() {
-					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+					for (JavaClassUnit javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
 						// 填充Method中的InvokeItem
 						for (Method method : javaClass.getSelfMethods()) {
 							method.supplyInvokeItem(javaClasses);

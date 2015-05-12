@@ -22,17 +22,17 @@ public final class GroupInfoCalculator {
 
 	private Float balance;
 
-	public GroupInfoCalculator(JavaClass self) {
+	public GroupInfoCalculator(JavaClassUnit self) {
 
 		List<GroupCouplingItem> groupCouplingItems = new ArrayList<GroupCouplingItem>();
 		// 收集有关系的分析单元
 		Collection<Component> relationComponents = new HashSet<Component>();
-		for (JavaClass javaClass : self.getEfferents()) {
+		for (JavaClassUnit javaClass : self.getEfferents()) {
 			if (!relationComponents.contains(javaClass.getComponent())) {
 				relationComponents.add(javaClass.getComponent());
 			}
 		}
-		for (JavaClass javaClass : self.getAfferents()) {
+		for (JavaClassUnit javaClass : self.getAfferents()) {
 			if (!relationComponents.contains(javaClass.getComponent())) {
 				relationComponents.add(javaClass.getComponent());
 			}

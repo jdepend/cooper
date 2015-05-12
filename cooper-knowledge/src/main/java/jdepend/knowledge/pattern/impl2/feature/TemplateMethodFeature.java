@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class TemplateMethodFeature extends AbstractFeature {
@@ -19,7 +19,7 @@ public class TemplateMethodFeature extends AbstractFeature {
 							for (InvokeItem item : publicMethod.getInvokeItems()) {
 								if (item.getCallee().equals(abstractMethod)) {
 									// 子类覆盖了抽象方法
-									for (JavaClass subClass : context.getSubClasses()) {
+									for (JavaClassUnit subClass : context.getSubClasses()) {
 										if (subClass.getOverridedMethods().contains(abstractMethod)) {
 											this.setPatternInfo(publicMethod.getName());
 											return true;

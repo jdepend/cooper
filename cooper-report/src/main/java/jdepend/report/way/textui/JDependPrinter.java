@@ -10,7 +10,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.GroupCohesionItem;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -157,11 +157,11 @@ public final class JDependPrinter extends Printer {
 			return;
 		}
 
-		List<JavaClass> javaClasses = new ArrayList<JavaClass>(unit.getClasses());
+		List<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>(unit.getClasses());
 		Collections.sort(javaClasses, new JDependUnitByMetricsComparator(MetricsMgr.Coupling, false));
 		Float coupling = 0.0F;
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			coupling = javaClass.getCoupling();
 			if (couplingFilter.isInnerClass() && coupling.equals(0.0F) || couplingFilter.isExpertClass()
 					&& !coupling.equals(0.0F)) {
@@ -180,7 +180,7 @@ public final class JDependPrinter extends Printer {
 		}
 	}
 
-	private void printJavaClassCouplingInfoDetail(JavaClass javaClass) {
+	private void printJavaClassCouplingInfoDetail(JavaClassUnit javaClass) {
 
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {
@@ -240,10 +240,10 @@ public final class JDependPrinter extends Printer {
 			return;
 		}
 
-		List<JavaClass> javaClasses = new ArrayList<JavaClass>(unit.getClasses());
+		List<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>(unit.getClasses());
 		Collections.sort(javaClasses, new JDependUnitByMetricsComparator(MetricsMgr.Cohesion));
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			getWriter().println(
 					tab(3) + "<JavaClass name=\"" + javaClass.getName() + "\" Cohesion=\""
 							+ MetricsFormat.toFormattedMetrics(javaClass.getCohesion()) + "\">");
@@ -256,7 +256,7 @@ public final class JDependPrinter extends Printer {
 		}
 	}
 
-	private void printJavaClassCohesionInfoDetail(JavaClass javaClass) {
+	private void printJavaClassCohesionInfoDetail(JavaClassUnit javaClass) {
 
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {

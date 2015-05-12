@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import jdepend.framework.util.ThreadPool;
 import jdepend.knowledge.pattern.AbstractPatternIdentifyerMgr;
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 
 public final class PatternIdentifyerMgrImpl extends AbstractPatternIdentifyerMgr {
@@ -21,7 +21,7 @@ public final class PatternIdentifyerMgrImpl extends AbstractPatternIdentifyerMgr
 	}
 
 	protected Map<String, Collection<PatternInfo>> doIdentify(AnalysisResult result) {
-		final Collection<JavaClass> javaClasses = result.getClasses();
+		final Collection<JavaClassUnit> javaClasses = result.getClasses();
 		final Map<String, Collection<PatternInfo>> rtn = new HashMap<String, Collection<PatternInfo>>();
 
 		ExecutorService pool = ThreadPool.getPool();

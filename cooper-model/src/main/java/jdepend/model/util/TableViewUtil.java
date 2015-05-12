@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.TableInfo;
 import jdepend.model.result.AnalysisResult;
 
@@ -15,7 +15,7 @@ public class TableViewUtil {
 		TableViewInfo tableInfo;
 
 		// 收集TableInfo
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			for (TableInfo info : javaClass.getTables()) {
 				tableInfo = new TableViewInfo(info.getTableName(), info.getType(), javaClass.getName(), javaClass
 						.getComponent().getName());

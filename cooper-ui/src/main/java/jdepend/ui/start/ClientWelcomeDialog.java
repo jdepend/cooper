@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import jdepend.framework.ui.WelcomeDialog;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.parse.ParseListener;
 import jdepend.ui.JDependCooper;
 
@@ -80,7 +80,7 @@ public class ClientWelcomeDialog extends WelcomeDialog implements ParseListener 
 	}
 
 	@Override
-	public void onParsedJavaClass(JavaClass parsedClass, int process) {
+	public void onParsedJavaClass(JavaClassUnit parsedClass, int process) {
 		this.process += process;
 	}
 }

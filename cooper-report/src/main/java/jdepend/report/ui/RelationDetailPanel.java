@@ -28,7 +28,7 @@ import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.RelationDetail;
 import jdepend.model.component.modelconf.CandidateUtil;
@@ -69,7 +69,7 @@ public final class RelationDetailPanel extends JPanel {
 
 	private void display() {
 
-		for (JavaClass unit : JDependUnitMgr.getInstance().getResult().getClasses()) {
+		for (JavaClassUnit unit : JDependUnitMgr.getInstance().getResult().getClasses()) {
 			if (!unit.isInner()) {
 				extendUnits.add(unit.getName());
 			}
@@ -160,7 +160,7 @@ public final class RelationDetailPanel extends JPanel {
 							current = CandidateUtil.getId((String) table.getValueAt(row, 2),
 									(String) table.getValueAt(row, 3));
 						}
-						JavaClass currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+						JavaClassUnit currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 						JavaClassRelationGraphDialog d = new JavaClassRelationGraphDialog(frame, currentClass);
 						d.setModal(true);
 						d.setVisible(true);

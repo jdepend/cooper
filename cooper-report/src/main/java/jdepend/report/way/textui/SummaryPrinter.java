@@ -8,7 +8,7 @@ import java.util.List;
 
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
 
@@ -79,11 +79,11 @@ public abstract class SummaryPrinter extends Printer {
 	protected void printAbstractClasses(JDependUnit unit) {
 		printAbstractClassesHeader();
 
-		List<JavaClass> members = new ArrayList<JavaClass>(unit.getClasses());
+		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(unit.getClasses());
 		Collections.sort(members);
-		Iterator<JavaClass> memberIter = members.iterator();
+		Iterator<JavaClassUnit> memberIter = members.iterator();
 		while (memberIter.hasNext()) {
-			JavaClass jClass = memberIter.next();
+			JavaClassUnit jClass = memberIter.next();
 			if (jClass.isAbstract()) {
 				printClassName(jClass);
 			}
@@ -95,11 +95,11 @@ public abstract class SummaryPrinter extends Printer {
 	protected void printConcreteClasses(JDependUnit unit) {
 		printConcreteClassesHeader();
 
-		List<JavaClass> members = new ArrayList<JavaClass>(unit.getClasses());
+		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(unit.getClasses());
 		Collections.sort(members);
-		Iterator<JavaClass> memberIter = members.iterator();
+		Iterator<JavaClassUnit> memberIter = members.iterator();
 		while (memberIter.hasNext()) {
-			JavaClass concrete = (JavaClass) memberIter.next();
+			JavaClassUnit concrete = (JavaClassUnit) memberIter.next();
 			if (!concrete.isAbstract()) {
 				printClassName(concrete);
 			}
@@ -215,7 +215,7 @@ public abstract class SummaryPrinter extends Printer {
 	protected void printStatistics(JDependUnit unit) {
 	}
 
-	protected void printClassName(JavaClass jClass) {
+	protected void printClassName(JavaClassUnit jClass) {
 	}
 
 	protected void printPackageName(JDependUnit unit) {

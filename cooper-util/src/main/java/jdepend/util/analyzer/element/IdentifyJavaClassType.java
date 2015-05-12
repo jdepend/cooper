@@ -1,7 +1,7 @@
 package jdepend.util.analyzer.element;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ClassTypeInfo;
 import jdepend.model.util.JavaClassUtil;
@@ -19,7 +19,7 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			ClassTypeInfo classTypeInfo = JavaClassUtil.getType(javaClass);
 
 			this.printTable("类名", javaClass.getName());

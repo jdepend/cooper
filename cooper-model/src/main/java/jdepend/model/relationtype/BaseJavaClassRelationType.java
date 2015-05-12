@@ -1,6 +1,6 @@
 package jdepend.model.relationtype;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationType;
 
 public abstract class BaseJavaClassRelationType implements JavaClassRelationType {
@@ -31,7 +31,7 @@ public abstract class BaseJavaClassRelationType implements JavaClassRelationType
 		this.intensity = intensity;
 	}
 
-	public float getRationality(JavaClass depend, JavaClass current, String direction) {
+	public float getRationality(JavaClassUnit depend, JavaClassUnit current, String direction) {
 		return 1F;
 	}
 

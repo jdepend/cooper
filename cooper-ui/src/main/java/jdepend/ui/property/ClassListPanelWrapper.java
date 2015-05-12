@@ -17,7 +17,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.report.ui.ClassListPanel;
 import jdepend.report.ui.MethodListDialog;
 import jdepend.ui.JDependCooper;
@@ -112,7 +112,7 @@ public class ClassListPanelWrapper extends ClassListPanel {
 	}
 
 	private void viewMethodList() {
-		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+		JavaClassUnit javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);

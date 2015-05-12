@@ -3,13 +3,13 @@ package jdepend.knowledge.pattern.impl2;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public abstract class AbstractFeature implements Feature {
 
 	private List<Identifyer> identifyers;
 
-	private JavaClass current;
+	private JavaClassUnit current;
 
 	private String patternInfo;
 
@@ -46,7 +46,7 @@ public abstract class AbstractFeature implements Feature {
 	}
 
 	@Override
-	public JavaClass getCurrent() {
+	public JavaClassUnit getCurrent() {
 		return this.current;
 	}
 

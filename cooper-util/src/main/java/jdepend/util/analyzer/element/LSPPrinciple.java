@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -23,13 +23,13 @@ public class LSPPrinciple extends AbstractAnalyzer {
 	}
 
 	protected void doSearch(AnalysisResult result) throws JDependException {
-		List<JavaClass> members = new ArrayList<JavaClass>(result.getClasses());
+		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(result.getClasses());
 
 		Collections.sort(members);
-		Iterator<JavaClass> memberIter = members.iterator();
+		Iterator<JavaClassUnit> memberIter = members.iterator();
 		Method overridedMethod;
 		while (memberIter.hasNext()) {
-			JavaClass current = memberIter.next();
+			JavaClassUnit current = memberIter.next();
 			if (!current.isAbstract()) {
 				for (Method method : current.getOverrideMethods()) {
 					if (method.getSelfLineCount() == 0) {

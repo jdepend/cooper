@@ -6,24 +6,24 @@ import java.util.Collection;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class BuilderIdentifyer extends AbstractPatternIdentifyer {
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			L: for (Attribute attribute : javaClass.getAttributes()) {
-				for (JavaClass builder : attribute.getTypeClasses()) {
+				for (JavaClassUnit builder : attribute.getTypeClasses()) {
 					// 识别builder接口
 					if (!builder.equals(javaClass) && builder.isAbstract() && builder.getSubClasses().size() > 1) {
 						for (Method method : javaClass.getSelfMethods()) {
 							// 识别builderMethod
 							if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
-								JavaClass productType = method.getReturnClassTypes().iterator().next();
+								JavaClassUnit productType = method.getReturnClassTypes().iterator().next();
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
 									Method invokeMethod = invokeItem.getCallee();
 									if (invokeMethod.getJavaClass().equals(builder)

@@ -61,7 +61,7 @@ public final class CalculateMetricsTool {
 	float volatility() {
 		if (unit.getClassCount() > 0) {
 			int stability = 0;
-			for (JavaClass javaClass : unit.getClasses()) {
+			for (JavaClassUnit javaClass : unit.getClasses()) {
 				if (javaClass.isStable()) {
 					stability++;
 				}
@@ -119,7 +119,7 @@ public final class CalculateMetricsTool {
 //				return 1F;
 //			}
 
-			for (JavaClass javaClass : this.unit.getClasses()) {
+			for (JavaClassUnit javaClass : this.unit.getClasses()) {
 				if (!javaClass.isUsedByExternal()) {
 					privates += 1;
 				}
@@ -134,11 +134,11 @@ public final class CalculateMetricsTool {
 	 * @param javaClasses
 	 * @return
 	 */
-	public static Float tableRelationScale(Collection<JavaClass> javaClasses) {
+	public static Float tableRelationScale(Collection<JavaClassUnit> javaClasses) {
 		if (javaClasses != null && javaClasses.size() > 0) {
 			int tableRelations = 0;
 			int relations = 0;
-			for (JavaClass javaClass : javaClasses) {
+			for (JavaClassUnit javaClass : javaClasses) {
 				for (JavaClassRelationItem item : javaClass.getCeItems()) {
 					if (!item.isInner()) {
 						if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getTableRelation())) {

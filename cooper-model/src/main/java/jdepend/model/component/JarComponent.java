@@ -8,7 +8,7 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
 public final class JarComponent extends Component {
@@ -35,7 +35,7 @@ public final class JarComponent extends Component {
 				component = new JarComponent(javaPackage.getPlace());
 				components.put(javaPackage.getPlace(), component);
 			}
-			for (JavaClass javaClass : javaPackage.getClasses()) {
+			for (JavaClassUnit javaClass : javaPackage.getClasses()) {
 				component.addJavaClass(javaClass);
 			}
 		}

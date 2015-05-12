@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 
@@ -65,8 +65,8 @@ public abstract class AbstractParser {
 	 * Registered parser listeners are informed that the resulting
 	 * <code>JavaClass</code> was parsed.
 	 */
-	public final JavaClass parse(String place, InputStream is) throws ParseJDependException {
-		JavaClass jClass = null;
+	public final JavaClassUnit parse(String place, InputStream is) throws ParseJDependException {
+		JavaClassUnit jClass = null;
 		try {
 			return this.doParse(place, is);
 		} finally {
@@ -74,7 +74,7 @@ public abstract class AbstractParser {
 		}
 	}
 
-	protected abstract JavaClass doParse(String place, InputStream is) throws ParseJDependException;
+	protected abstract JavaClassUnit doParse(String place, InputStream is) throws ParseJDependException;
 
 	/**
 	 * Informs registered parser listeners that the specified
@@ -83,7 +83,7 @@ public abstract class AbstractParser {
 	 * @param jClass
 	 *            Parsed Java class.
 	 */
-	protected void onParsedJavaClass(JavaClass jClass) {
+	protected void onParsedJavaClass(JavaClassUnit jClass) {
 		for (ParseListener listener : parseListeners) {
 			listener.onParsedJavaClass(jClass, 1);
 		}

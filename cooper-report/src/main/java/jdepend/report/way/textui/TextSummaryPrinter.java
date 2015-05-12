@@ -11,7 +11,7 @@ import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
@@ -144,7 +144,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printClassName(JavaClass jClass) {
+	protected void printClassName(JavaClassUnit jClass) {
 		getWriter().println(tab() + jClass.getName());
 	}
 

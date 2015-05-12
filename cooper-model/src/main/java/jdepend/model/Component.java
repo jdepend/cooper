@@ -41,7 +41,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 	private int layer;
 
-	protected List<JavaClass> javaClasses = new ArrayList<JavaClass>();
+	protected List<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 
 	private transient AnalysisResult result;
 
@@ -49,7 +49,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
 
-	protected transient Map<String, JavaClass> javaClassesForId = new HashMap<String, JavaClass>();// 缓存
+	protected transient Map<String, JavaClassUnit> javaClassesForId = new HashMap<String, JavaClassUnit>();// 缓存
 
 	protected transient Collection<Component> afferents = null;// 缓存
 
@@ -136,8 +136,8 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * @param components
 	 */
 	protected void filterExternalJavaClass(Collection<Component> components) {
-		Collection<JavaClass> javaClasses = JavaClassUtil.getAllClasses(components);
-		for (JavaClass javaClass : javaClasses) {
+		Collection<JavaClassUnit> javaClasses = JavaClassUtil.getAllClasses(components);
+		for (JavaClassUnit javaClass : javaClasses) {
 			javaClass.filterExternalJavaClass(javaClasses);
 		}
 	}
@@ -153,7 +153,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 	@Override
 	public boolean isInner() {
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			if (javaClass.isInner()) {
 				return true;
 			}
@@ -162,11 +162,11 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	@Override
-	public Collection<JavaClass> getClasses() {
+	public Collection<JavaClassUnit> getClasses() {
 		return this.javaClasses;
 	}
 
-	public JavaClass getTheClass(String classId) {
+	public JavaClassUnit getTheClass(String classId) {
 		return this.javaClassesForId.get(classId);
 	}
 
@@ -174,7 +174,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	public synchronized Collection<JavaPackage> getJavaPackages() {
 		if (this.javaPackages == null) {
 			this.javaPackages = new HashSet<JavaPackage>();
-			for (JavaClass javaClass : this.javaClasses) {
+			for (JavaClassUnit javaClass : this.javaClasses) {
 				this.javaPackages.add(javaClass.getJavaPackage());
 			}
 		}
@@ -199,7 +199,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * 
 	 * @param javaClass
 	 */
-	public synchronized void addJavaClass(JavaClass javaClass) {
+	public synchronized void addJavaClass(JavaClassUnit javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
@@ -207,7 +207,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		}
 	}
 
-	public synchronized boolean removeJavaClass(JavaClass javaClass) {
+	public synchronized boolean removeJavaClass(JavaClassUnit javaClass) {
 		if (this.javaClasses.remove(javaClass)) {
 			if (javaClass.getComponent().equals(this)) {
 				javaClass.setComponent(null);
@@ -220,7 +220,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	@Override
-	public boolean containsClass(JavaClass javaClass) {
+	public boolean containsClass(JavaClassUnit javaClass) {
 		return javaClass.containedComponent() && javaClass.getComponent().equals(this);
 	}
 
@@ -234,7 +234,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 		int rtn = 0;
 
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			rtn += javaClass.getAbstractClassCount();
 		}
 
@@ -293,7 +293,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		}
 
 		float intensity = 0;
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			RelationDetail relationDetail = javaClass.ceCouplingDetail(dependUnit);
 			intensity += relationDetail.getIntensity();
 			detail.addItems(relationDetail.getItems());
@@ -318,7 +318,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		}
 
 		float intensity = 0;
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			RelationDetail relationDetail = javaClass.caCouplingDetail(dependUnit);
 			intensity += relationDetail.getIntensity();
 			detail.addItems(relationDetail.getItems());
@@ -342,7 +342,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		}
 
 		float intensity = 0;
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 				if (component.containsClass(relationItem.getTarget())) {
 					detail.addItem(relationItem);
@@ -434,7 +434,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 		Collection<Component> innerComponents = new HashSet<Component>();
 		Component virtualComponent;
-		for (JavaClass javaClass : this.getClasses()) {
+		for (JavaClassUnit javaClass : this.getClasses()) {
 			virtualComponent = new VirtualComponent(javaClass);
 			innerComponents.add(virtualComponent);
 		}
@@ -482,7 +482,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	public synchronized float getCohesion() {
 		if (cohesion == null) {
 			float intensity = 0;
-			for (JavaClass javaClass : this.getClasses()) {
+			for (JavaClassUnit javaClass : this.getClasses()) {
 				intensity += javaClass.getCohesion();
 			}
 			cohesion = intensity / 2;
@@ -542,7 +542,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		return null;
 	}
 
-	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
 		try {
 			Component obj = this.getClass().newInstance();
 			obj.setName(this.getName());
@@ -551,7 +551,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 			obj.setLayer(this.getLayer());
 			obj.setAreaComponent(this.getAreaComponent());
 
-			for (JavaClass javaClass : this.javaClasses) {
+			for (JavaClassUnit javaClass : this.javaClasses) {
 				obj.addJavaClass(javaClasses.get(javaClass.getId()));
 			}
 			return obj;
@@ -634,7 +634,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	public int collectCycle(List<JDependUnit> list, Map<JDependUnit, Integer> knowledge) {
 
 		if (list.size() > 20) {
-			LogUtil.getInstance(JavaClass.class).systemWarning(
+			LogUtil.getInstance(JavaClassUnit.class).systemWarning(
 					"Component[" + list.get(0).getName() + "][" + this.getName() + "] collectCycle 搜索深度大于20停止搜索");
 			return StopCheckCycle;// 搜索深度大于20时停止
 		}
@@ -705,8 +705,8 @@ public abstract class Component extends AbstractSubJDependUnit {
 		ois.defaultReadObject();
 		this.relations = new ArrayList<Relation>();
 
-		this.javaClassesForId = new HashMap<String, JavaClass>();
-		for (JavaClass javaClass : this.javaClasses) {
+		this.javaClassesForId = new HashMap<String, JavaClassUnit>();
+		for (JavaClassUnit javaClass : this.javaClasses) {
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
 		}
 	}

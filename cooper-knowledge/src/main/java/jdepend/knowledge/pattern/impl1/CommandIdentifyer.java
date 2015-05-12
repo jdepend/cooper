@@ -6,7 +6,7 @@ import java.util.Collection;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class CommandIdentifyer extends AbstractPatternIdentifyer {
@@ -21,14 +21,14 @@ public class CommandIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 		PatternInfo rtnItem;
 		Collection<Attribute> params;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (javaClass.isAbstract()) {
-				for (JavaClass subClass : javaClass.getSubClasses()) {
+				for (JavaClassUnit subClass : javaClass.getSubClasses()) {
 					params = subClass.getAttributes();
 					if (params.size() > 0) {
 						for (Method method : subClass.getOverrideMethods()) {

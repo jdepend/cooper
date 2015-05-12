@@ -16,15 +16,15 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.report.util.ReportConstant;
 
 public class JavaClassCaCeDetailDialog extends CooperDialog {
 
-	private JavaClass javaClass;
+	private JavaClassUnit javaClass;
 
-	private Collection<JavaClass> javaClasses;
+	private Collection<JavaClassUnit> javaClasses;
 
 	private String metrics;
 
@@ -40,7 +40,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 	private boolean includeInner;
 
-	public JavaClassCaCeDetailDialog(JavaClass javaClass, String metrics, boolean includeInner) {
+	public JavaClassCaCeDetailDialog(JavaClassUnit javaClass, String metrics, boolean includeInner) {
 
 		super(javaClass.getName() + " " + metrics + " list" + (includeInner ? "（全部）" : "（组件外）"));
 
@@ -52,7 +52,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 	}
 
-	public JavaClassCaCeDetailDialog(Collection<JavaClass> javaClasses, String metrics) {
+	public JavaClassCaCeDetailDialog(Collection<JavaClassUnit> javaClasses, String metrics) {
 		this.javaClasses = javaClasses;
 		this.metrics = metrics;
 
@@ -102,7 +102,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			if (javaClass != null) {
 				items = javaClass.getCaItems();
 			} else {
-				for (JavaClass javaClass : javaClasses) {
+				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getCaItems()) {
 						if (!javaClasses.contains(item.getSource())) {
 							items.add(item);
@@ -114,7 +114,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			if (javaClass != null) {
 				items = javaClass.getCeItems();
 			} else {
-				for (JavaClass javaClass : javaClasses) {
+				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getCeItems()) {
 						if (!javaClasses.contains(item.getTarget())) {
 							items.add(item);

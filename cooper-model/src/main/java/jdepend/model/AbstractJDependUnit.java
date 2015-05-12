@@ -172,7 +172,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	public synchronized int getLineCount() {
 		if (this.lineCount == -1) {
 			this.lineCount = 0;
-			for (JavaClass jClass : this.getClasses()) {
+			for (JavaClassUnit jClass : this.getClasses()) {
 				this.lineCount += jClass.getLineCount();
 			}
 		}

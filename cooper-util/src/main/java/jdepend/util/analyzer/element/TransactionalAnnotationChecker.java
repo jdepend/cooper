@@ -1,7 +1,7 @@
 package jdepend.util.analyzer.element;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -27,7 +27,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 		if (controllerEndClassName != null && controllerEndClassName.length() > 0) {
 			this.print("Controller方法上标注了事务注解：\n");
-			L1: for (JavaClass javaClass : result.getClasses()) {
+			L1: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(controllerEndClassName)) {
 					if (!javaClass.isInterface()) {
 						if (javaClass.isIncludeTransactionalAnnotation()) {
@@ -48,7 +48,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 		}
 		if (facadeEndClassName != null && facadeEndClassName.length() > 0) {
 			this.print("Facade方法上沒有标注事务注解：\n");
-			L2: for (JavaClass javaClass : result.getClasses()) {
+			L2: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(facadeEndClassName)) {
 					if (!javaClass.isInterface()) {
 						if (javaClass.isIncludeTransactionalAnnotation()) {
@@ -68,7 +68,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 		}
 		if (serviceEndClassName != null && serviceEndClassName.length() > 0) {
 			this.print("Service方法上沒有标注事务注解：\n");
-			L3: for (JavaClass javaClass : result.getClasses()) {
+			L3: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(serviceEndClassName)) {
 					if (!javaClass.isInterface()) {
 						if (javaClass.isIncludeTransactionalAnnotation()) {
@@ -88,7 +88,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 		}
 		if (daoEndClassName != null && daoEndClassName.length() > 0) {
 			this.print("DAO方法上标注了事务注解：\n");
-			L4: for (JavaClass javaClass : result.getClasses()) {
+			L4: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(daoEndClassName)) {
 					if (!javaClass.isInterface()) {
 						if (javaClass.isIncludeTransactionalAnnotation()) {

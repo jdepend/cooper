@@ -5,7 +5,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.SubJDependUnit;
 
@@ -30,7 +30,7 @@ public class VirtualComponent extends Component {
 		super(name);
 	}
 
-	public VirtualComponent(JavaClass javaClass) {
+	public VirtualComponent(JavaClassUnit javaClass) {
 		super(javaClass.getName());
 		this.joinJavaClass(javaClass);
 		this.setResult(javaClass.getResult());
@@ -38,7 +38,7 @@ public class VirtualComponent extends Component {
 
 	public VirtualComponent(Component component) {
 		super(component.getName());
-		for (JavaClass javaClass : component.getClasses()) {
+		for (JavaClassUnit javaClass : component.getClasses()) {
 			this.joinJavaClass(javaClass);
 		}
 		this.setResult(component.getResult());
@@ -49,7 +49,7 @@ public class VirtualComponent extends Component {
 	 * 
 	 * @param javaClass
 	 */
-	public synchronized void joinJavaClass(JavaClass javaClass) {
+	public synchronized void joinJavaClass(JavaClassUnit javaClass) {
 		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
@@ -57,7 +57,7 @@ public class VirtualComponent extends Component {
 	}
 
 	@Override
-	public boolean containsClass(JavaClass javaClass) {
+	public boolean containsClass(JavaClassUnit javaClass) {
 		if (javaClass.isInnerClass()) {
 			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
 		} else {

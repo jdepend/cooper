@@ -5,7 +5,7 @@ import java.util.Map;
 
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
@@ -112,11 +112,11 @@ public class ReportConstant {
 
 		toMetricses.put(Component_Area, Component.Area);
 
-		toMetricses.put(JavaClass_Place, JavaClass.Place);
-		toMetricses.put(JavaClass_State, JavaClass.State);
-		toMetricses.put(JavaClass_Stable, JavaClass.Stable);
-		toMetricses.put(JavaClass_isPrivateElement, JavaClass.isPrivateElement);
-		toMetricses.put(JavaClass_ClassType, JavaClass.ClassType);
+		toMetricses.put(JavaClass_Place, JavaClassUnit.Place);
+		toMetricses.put(JavaClass_State, JavaClassUnit.State);
+		toMetricses.put(JavaClass_Stable, JavaClassUnit.Stable);
+		toMetricses.put(JavaClass_isPrivateElement, JavaClassUnit.isPrivateElement);
+		toMetricses.put(JavaClass_ClassType, JavaClassUnit.ClassType);
 
 		toMetricses.put(Relation_CurrentName, Relation.CurrentName);
 		toMetricses.put(Relation_DependName, Relation.DependName);

@@ -31,11 +31,11 @@ public class Attribute implements Serializable {
 
 	private List<String> types;
 
-	private transient JavaClass javaClass;
+	private transient JavaClassUnit javaClass;
 
-	private transient Collection<JavaClass> typeClasses;
+	private transient Collection<JavaClassUnit> typeClasses;
 
-	public Attribute(JavaClass javaClass, Field field) {
+	public Attribute(JavaClassUnit javaClass, Field field) {
 		this.javaClass = javaClass;
 		this.javaClassId = javaClass.getId();
 
@@ -67,11 +67,11 @@ public class Attribute implements Serializable {
 		this.staticValue = attribute.staticValue;
 	}
 
-	public JavaClass getJavaClass() {
+	public JavaClassUnit getJavaClass() {
 		return javaClass;
 	}
 
-	public void setJavaClass(JavaClass javaClass) {
+	public void setJavaClass(JavaClassUnit javaClass) {
 		this.javaClass = javaClass;
 	}
 
@@ -87,11 +87,11 @@ public class Attribute implements Serializable {
 		return types;
 	}
 
-	public Collection<JavaClass> getTypeClasses() {
+	public Collection<JavaClassUnit> getTypeClasses() {
 		return this.typeClasses;
 	}
 
-	public void setTypeClasses(Collection<JavaClass> typeClasses) {
+	public void setTypeClasses(Collection<JavaClassUnit> typeClasses) {
 		this.typeClasses = typeClasses;
 	}
 
@@ -128,7 +128,7 @@ public class Attribute implements Serializable {
 	}
 
 	public final boolean isInterface() {
-		for (JavaClass javaClass : this.typeClasses) {
+		for (JavaClassUnit javaClass : this.typeClasses) {
 			if (javaClass.isInterface()) {
 				return true;
 			}
@@ -137,7 +137,7 @@ public class Attribute implements Serializable {
 	}
 
 	public final boolean isAbstract() {
-		for (JavaClass javaClass : this.typeClasses) {
+		for (JavaClassUnit javaClass : this.typeClasses) {
 			if (javaClass.isAbstract()) {
 				return true;
 			}
@@ -150,7 +150,7 @@ public class Attribute implements Serializable {
 	}
 
 	public final boolean isEnum() {
-		for (JavaClass javaClass : this.typeClasses) {
+		for (JavaClassUnit javaClass : this.typeClasses) {
 			if (javaClass.isEnum()) {
 				return true;
 			}
@@ -160,15 +160,15 @@ public class Attribute implements Serializable {
 
 	public void supply(JavaClassCollection javaClasses) {
 
-		Collection<JavaClass> attributeTypes;
-		JavaClass attributeTypeClass;
+		Collection<JavaClassUnit> attributeTypes;
+		JavaClassUnit attributeTypeClass;
 
 		// 填充JavaClass
 		if (this.javaClass == null) {
 			this.javaClass = javaClasses.getTheClass(this.javaClassId);
 		}
 
-		attributeTypes = new HashSet<JavaClass>();
+		attributeTypes = new HashSet<JavaClassUnit>();
 		for (String type : this.getTypes()) {
 			attributeTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 			if (attributeTypeClass != null) {
@@ -178,8 +178,8 @@ public class Attribute implements Serializable {
 		this.setTypeClasses(attributeTypes);
 	}
 
-	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
-		for (JavaClass typeClass : this.typeClasses) {
+	public void filterExternalJavaClass(Collection<JavaClassUnit> javaClasses) {
+		for (JavaClassUnit typeClass : this.typeClasses) {
 			if (!javaClasses.contains(typeClass)) {
 				this.typeClasses.remove(typeClass);
 			}

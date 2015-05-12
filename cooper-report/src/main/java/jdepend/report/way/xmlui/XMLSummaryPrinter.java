@@ -2,7 +2,7 @@ package jdepend.report.way.xmlui;
 
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.way.textui.SummaryPrinter;
@@ -66,7 +66,7 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printClassName(JavaClass jClass) {
+	protected void printClassName(JavaClassUnit jClass) {
 		getWriter().println(tab(4) + "<Class>");
 		getWriter().println(tab(5) + jClass.getName());
 		getWriter().println(tab(4) + "</Class>");

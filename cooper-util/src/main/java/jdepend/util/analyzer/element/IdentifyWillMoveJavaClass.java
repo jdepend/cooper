@@ -7,7 +7,7 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -28,12 +28,12 @@ public class IdentifyWillMoveJavaClass extends AbstractAnalyzer {
 		List<JavaClassMoveInfo> infos = new ArrayList<JavaClassMoveInfo>();
 
 		for (Component unit : units) {
-			for (JavaClass javaClass : unit.getClasses()) {
+			for (JavaClassUnit javaClass : unit.getClasses()) {
 				// Class是孤立的，又不是私有的
 				if (javaClass.isAlone() && !javaClass.isPrivateElement()) {
 					Collection<JDependUnit> targets = new ArrayList<JDependUnit>();
 					// 收集目标组件
-					for (JavaClass relationJavaClass : javaClass.getRelationList()) {
+					for (JavaClassUnit relationJavaClass : javaClass.getRelationList()) {
 						if (!targets.contains(relationJavaClass.getComponent())) {
 							targets.add(relationJavaClass.getComponent());
 						}
@@ -65,11 +65,11 @@ public class IdentifyWillMoveJavaClass extends AbstractAnalyzer {
 
 	class JavaClassMoveInfo {
 
-		public JavaClass javaClass;
+		public JavaClassUnit javaClass;
 		public String source;
 		public String target;
 
-		public JavaClassMoveInfo(JavaClass javaClass, String source, String target) {
+		public JavaClassMoveInfo(JavaClassUnit javaClass, String source, String target) {
 			super();
 			this.javaClass = javaClass;
 			this.source = source;

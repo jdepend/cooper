@@ -4,7 +4,7 @@ import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class ObserverFeature extends AbstractFeature {
@@ -16,7 +16,7 @@ public class ObserverFeature extends AbstractFeature {
 			for (Attribute attribute : context.getAbstractAttributes()) {
 				attributeHaveSubClass = false;
 				if (attribute.isInterface()) {
-					L: for (JavaClass attributeClass : attribute.getTypeClasses()) {
+					L: for (JavaClassUnit attributeClass : attribute.getTypeClasses()) {
 						if (attributeClass.getSubClasses().size() > 0) {
 							attributeHaveSubClass = true;
 							break L;

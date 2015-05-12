@@ -6,7 +6,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.TableCallBack;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -24,7 +24,7 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 
 		List<BalanceJavaClassWrapper> wrappers = new ArrayList<BalanceJavaClassWrapper>();
 
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			wrappers.add(new BalanceJavaClassWrapper(javaClass));
 		}
 		Collections.sort(wrappers);
@@ -53,7 +53,7 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 
 	class BalanceJavaClassWrapper implements Comparable<BalanceJavaClassWrapper> {
 
-		public JavaClass javaClass;
+		public JavaClassUnit javaClass;
 
 		public float balance;
 
@@ -61,7 +61,7 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 
 		public float gcmd;
 
-		public BalanceJavaClassWrapper(JavaClass javaClass) {
+		public BalanceJavaClassWrapper(JavaClassUnit javaClass) {
 			this.javaClass = javaClass;
 			this.balance = this.javaClass.getBalance();
 			this.cohesion = this.javaClass.getCohesion();

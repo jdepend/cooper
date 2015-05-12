@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class FactoryMethodIdentifyer extends AbstractPatternIdentifyer {
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		Collection<JavaClass> superClasses;
+		Collection<JavaClassUnit> superClasses;
 		boolean found;
 		Method factoryMethod;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			found = false;
 			factoryMethod = null;
 			// 计算存在父类的JavaClass
@@ -25,7 +25,7 @@ public final class FactoryMethodIdentifyer extends AbstractPatternIdentifyer {
 				L: for (Method method : javaClass.getOverrideMethods()) {
 					// 判断返回值是否是某一类型的父类，又不是所在的Class的父类
 					if (method.getReturnTypes().size() == 1) {
-						for (JavaClass returnType : method.getReturnClassTypes()) {
+						for (JavaClassUnit returnType : method.getReturnClassTypes()) {
 							if (returnType.getSubClasses().size() > 0 && !javaClass.getSupers().contains(returnType)) {
 								found = true;
 								factoryMethod = method;

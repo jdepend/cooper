@@ -2,7 +2,7 @@ package jdepend.parse;
 
 import java.util.Collection;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 /**
  * The <code>BuildListener</code> interface defines a listener notified upon the
@@ -21,6 +21,6 @@ public interface BuildListener {
 	 * 
 	 * @param parsedClasses
 	 */
-	public void onBuildJavaClasses(Collection<JavaClass> javaClasses);
+	public void onBuildJavaClasses(Collection<JavaClassUnit> javaClasses);
 
 }

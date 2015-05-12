@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
 /**
@@ -50,7 +50,7 @@ public final class SimpleComponent extends Component {
 			for (JavaPackage javaPackage : javaPackages) {
 				if (javaPackage.getName().startsWith(componentName + ".")
 						|| javaPackage.getName().startsWith(componentName)) {
-					for (JavaClass javaClass : javaPackage.getClasses()) {
+					for (JavaClassUnit javaClass : javaPackage.getClasses()) {
 						component.addJavaClass(javaClass);
 					}
 				}
@@ -62,7 +62,7 @@ public final class SimpleComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
 
 		SimpleComponent obj = (SimpleComponent) super.clone(javaClasses);
 		obj.setComponentNames(this.componentNames);

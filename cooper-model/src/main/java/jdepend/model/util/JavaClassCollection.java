@@ -6,30 +6,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.util.ThreadPool;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.component.modelconf.CandidateUtil;
 
 public class JavaClassCollection {
 
-	private Collection<JavaClass> javaClasses;
-	private Map<String, JavaClass> javaClassesForId;
-	private Map<String, JavaClass> javaClassesForName;
+	private Collection<JavaClassUnit> javaClasses;
+	private Map<String, JavaClassUnit> javaClassesForId;
+	private Map<String, JavaClassUnit> javaClassesForName;
 
 	private Map<String, Method> httpMethods;
 
-	private Map<String, Collection<JavaClass>> unitJavaClasses;
+	private Map<String, Collection<JavaClassUnit>> unitJavaClasses;
 
 	private final static int unitCount = ThreadPool.ThreadCount;
 
-	public JavaClassCollection(Collection<JavaClass> javaClasses) {
+	public JavaClassCollection(Collection<JavaClassUnit> javaClasses) {
 		super();
 		this.javaClasses = javaClasses;
 
-		javaClassesForId = new HashMap<String, JavaClass>();
-		javaClassesForName = new HashMap<String, JavaClass>();
+		javaClassesForId = new HashMap<String, JavaClassUnit>();
+		javaClassesForName = new HashMap<String, JavaClassUnit>();
 
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			javaClassesForId.put(javaClass.getId(), javaClass);
 			javaClassesForName.put(javaClass.getName(), javaClass);
 		}
@@ -38,16 +38,16 @@ public class JavaClassCollection {
 
 	}
 
-	public Collection<JavaClass> getJavaClasses() {
+	public Collection<JavaClassUnit> getJavaClasses() {
 		return javaClasses;
 	}
 
-	public JavaClass getTheClass(String id) {
+	public JavaClassUnit getTheClass(String id) {
 		return javaClassesForId.get(id);
 	}
 
-	public JavaClass getTheClass(String place, String name) {
-		JavaClass javaClass = this.javaClassesForId.get(CandidateUtil.getId(place, name));
+	public JavaClassUnit getTheClass(String place, String name) {
+		JavaClassUnit javaClass = this.javaClassesForId.get(CandidateUtil.getId(place, name));
 		if (javaClass == null) {
 			return this.javaClassesForName.get(name);
 		} else {
@@ -55,14 +55,14 @@ public class JavaClassCollection {
 		}
 	}
 
-	public Map<String, Collection<JavaClass>> getUnitJavaClasses() {
+	public Map<String, Collection<JavaClassUnit>> getUnitJavaClasses() {
 		return unitJavaClasses;
 	}
 
 	public synchronized Map<String, Method> getHttpMethod() {
 		if (this.httpMethods == null) {
 			this.httpMethods = new HashMap<String, Method>();
-			for (JavaClass javaClass : javaClasses) {
+			for (JavaClassUnit javaClass : javaClasses) {
 				if (javaClass.getDetail().getRequestMapping() != null) {
 					for (Method method : javaClass.getSelfMethods()) {
 						if (method.getRequestMapping() != null) {
@@ -75,15 +75,15 @@ public class JavaClassCollection {
 		return this.httpMethods;
 	}
 
-	public static Map<String, Collection<JavaClass>> unitTheadClassCollection(Collection<JavaClass> javaClasses) {
+	public static Map<String, Collection<JavaClassUnit>> unitTheadClassCollection(Collection<JavaClassUnit> javaClasses) {
 
-		Map<String, Collection<JavaClass>> unitJavaClasses = new HashMap<String, Collection<JavaClass>>();
+		Map<String, Collection<JavaClassUnit>> unitJavaClasses = new HashMap<String, Collection<JavaClassUnit>>();
 
 		for (int unitIndex = 0; unitIndex < unitCount; unitIndex++) {
-			unitJavaClasses.put("unit" + unitIndex, new ArrayList<JavaClass>());
+			unitJavaClasses.put("unit" + unitIndex, new ArrayList<JavaClassUnit>());
 		}
 		int unitIndex = 0;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			unitJavaClasses.get("unit" + unitIndex % unitCount).add(javaClass);
 			unitIndex++;
 		}

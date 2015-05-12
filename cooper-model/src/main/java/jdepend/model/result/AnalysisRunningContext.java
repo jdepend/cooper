@@ -12,7 +12,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.DateUtil;
 import jdepend.framework.util.VersionUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -57,7 +57,7 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private transient Map<String, String> diffElements;
 
-	private transient Collection<JavaClass> javaClasses;
+	private transient Collection<JavaClassUnit> javaClasses;
 
 	private transient Map<String, JavaPackage> javaPackagesForId;
 
@@ -171,7 +171,7 @@ public final class AnalysisRunningContext implements Serializable {
 
 	}
 
-	public Collection<JavaClass> getJavaClasses() {
+	public Collection<JavaClassUnit> getJavaClasses() {
 		if (this.javaClasses == null) {
 			this.javaClasses = JavaClassUtil.getClassesForJavaPackages(javaPackages);
 		}
@@ -194,7 +194,7 @@ public final class AnalysisRunningContext implements Serializable {
 		return this.diffElements;
 	}
 
-	private AnalysisRunningContext clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	private AnalysisRunningContext clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
 
 		AnalysisRunningContext obj = new AnalysisRunningContext();
 		obj.analyseDate = this.analyseDate;

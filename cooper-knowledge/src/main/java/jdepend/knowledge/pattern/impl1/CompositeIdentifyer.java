@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public final class CompositeIdentifyer extends AbstractPatternIdentifyer {
 
@@ -18,11 +18,11 @@ public final class CompositeIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
-		Collection<JavaClass> superClasses;
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
+		Collection<JavaClassUnit> superClasses;
 		Attribute compositeAttribute;
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			// 计算存在父类的JavaClasses
 			superClasses = javaClass.getSupers();
 			if (superClasses != null && superClasses.size() > 0) {
@@ -30,7 +30,7 @@ public final class CompositeIdentifyer extends AbstractPatternIdentifyer {
 				// 搜索属性
 				for (Attribute attribute : javaClass.getAttributes()) {
 					if (attribute.existCollectionType()) {
-						for (JavaClass superClass : superClasses) {
+						for (JavaClassUnit superClass : superClasses) {
 							if (attribute.getTypes().contains(superClass.getName())) {
 								compositeAttribute = attribute;
 							}
@@ -39,7 +39,7 @@ public final class CompositeIdentifyer extends AbstractPatternIdentifyer {
 				}
 				// 搜索其他子类
 				if (compositeAttribute != null) {
-					L: for (JavaClass superClass : superClasses) {
+					L: for (JavaClassUnit superClass : superClasses) {
 						if (!superClass.getSubClasses().contains(javaClass)) {
 							rtn.add(new PatternInfo(javaClass, javaClass.getName() + "[" + compositeAttribute.getName()
 									+ "]"));

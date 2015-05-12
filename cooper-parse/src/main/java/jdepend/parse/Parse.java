@@ -12,7 +12,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.Metrics;
 import jdepend.model.MetricsMgr;
@@ -69,10 +69,10 @@ public class Parse {
 
 		this.beforeAnalyze();
 
-		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
+		Collection<JavaClassUnit> javaClasses = getClassBuilder().build(getAnalyseData());
 
 		LogUtil.getInstance(Parse.class).systemLog("开始建立Package");
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (!javaClass.isInnerClass()) {
 				createPackage(javaClass);
 			}
@@ -242,7 +242,7 @@ public class Parse {
 		return pkg;
 	}
 
-	private void createPackage(JavaClass clazz) {
+	private void createPackage(JavaClassUnit clazz) {
 
 		String packageName = clazz.getPackageName();
 

@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
@@ -19,11 +19,11 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 		Method abstractMethod;
 		PatternInfo rtnItem;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			// 判断是否是抽象类
 			if (javaClass.isAbstract()) {
 				// 查找抽象方法
@@ -37,7 +37,7 @@ public class TemplateMethodIdentifyer extends AbstractPatternIdentifyer {
 								for (InvokeItem item : publicMethod.getInvokeItems()) {
 									if (item.getCallee().equals(abstractMethod)) {
 										// 查找是否存在子类，并覆盖了抽象方法
-										for (JavaClass subClass : javaClass.getSubClasses()) {
+										for (JavaClassUnit subClass : javaClass.getSubClasses()) {
 											if (subClass.getOverridedMethods().contains(abstractMethod)) {
 												rtnItem = new PatternInfo(javaClass, javaClass.getName() + "."
 														+ publicMethod.getName());

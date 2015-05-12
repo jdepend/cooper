@@ -9,7 +9,7 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.knowledge.pattern.PatternIdentifyerMgr;
 import jdepend.knowledge.pattern.PatternIdentifyerMgrFactory;
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
@@ -23,7 +23,7 @@ public class Skill {
 
 	private Map<Integer, Float> bigClassScales;
 
-	private Collection<JavaClass> bigClasses;
+	private Collection<JavaClassUnit> bigClasses;
 
 	private Map<Object, Object> classRelations;
 
@@ -58,7 +58,7 @@ public class Skill {
 		bigClassScales = new HashMap<Integer, Float>();
 		bigClassScales.put(500, 0F);
 		bigClassScales.put(0, 0F);
-		bigClasses = new ArrayList<JavaClass>();
+		bigClasses = new ArrayList<JavaClassUnit>();
 		bigArgumentMethods = new ArrayList<Method>();
 		bigLineCountMethods = new ArrayList<Method>();
 
@@ -66,7 +66,7 @@ public class Skill {
 		int bigArgumentMethodCount = 0;
 		int bigLineCountMethodCount = 0;
 		int methodCount = 0;
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			if (javaClass.getLineCount() != 0) {
 				if (javaClass.getLineCount() > 500) {
 					bigClassScales.put(500, bigClassScales.get(500) + 1);
@@ -124,7 +124,7 @@ public class Skill {
 		return this.bigClassScales.get(500);
 	}
 
-	public Collection<JavaClass> getBigClasses() {
+	public Collection<JavaClassUnit> getBigClasses() {
 		return bigClasses;
 	}
 

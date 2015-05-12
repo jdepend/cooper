@@ -2,7 +2,7 @@ package jdepend.parse.impl;
 
 import java.io.InputStream;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.parse.ParseConfigurator;
 
 import org.apache.bcel.classfile.ClassParser;
@@ -15,16 +15,16 @@ public class BCELClassFileParser extends AbstractParser {
 	}
 
 	@Override
-	protected JavaClass doParse(String place, InputStream is) throws ParseJDependException {
+	protected JavaClassUnit doParse(String place, InputStream is) throws ParseJDependException {
 
-		JavaClass jClass = null;
+		JavaClassUnit jClass = null;
 		try {
 
 			ClassParser parser = new ClassParser(is, null);
 
 			org.apache.bcel.classfile.JavaClass javaClass = parser.parse();
 
-			jClass = new JavaClass("Unknown", true, javaClass.getAccessFlags());
+			jClass = new JavaClassUnit("Unknown", true, javaClass.getAccessFlags());
 			jClass.setPlace(place);
 
 			JDependClassFileVisitor visitor = new JDependClassFileVisitor(jClass);

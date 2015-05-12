@@ -12,16 +12,16 @@ import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.report.ui.MethodListDialog;
 
 public final class BigClassDialog extends CooperDialog {
 
-	public BigClassDialog(Collection<JavaClass> bigClasses) {
+	public BigClassDialog(Collection<JavaClassUnit> bigClasses) {
 
 		TableData tableData = new TableData();
 
-		for (JavaClass bigClass : bigClasses) {
+		for (JavaClassUnit bigClass : bigClasses) {
 			tableData.setData("类名", bigClass.getName());
 			tableData.setData("行数", bigClass.getLineCount());
 			tableData.setData("所属组件", bigClass.getComponent().getName());
@@ -43,7 +43,7 @@ public final class BigClassDialog extends CooperDialog {
 	}
 
 	private void viewMethodList(String current) {
-		JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+		JavaClassUnit javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);

@@ -3,7 +3,7 @@ package jdepend.util.analyzer.element.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
 public final class LayerType {
@@ -31,7 +31,7 @@ public final class LayerType {
 		if (unit.getName().endsWith(layerInfo.packageEndsWith)) {
 			return true;
 		} else {
-			for (JavaClass javaClass : unit.getClasses()) {
+			for (JavaClassUnit javaClass : unit.getClasses()) {
 				if (this.layerClassType.isMember(javaClass)) {
 					return true;
 				}

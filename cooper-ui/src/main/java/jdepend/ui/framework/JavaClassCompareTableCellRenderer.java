@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Measurable;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.result.AnalysisResult;
@@ -51,13 +51,13 @@ public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer 
 
 			@Override
 			public Boolean evaluate(int result, String metrics) {
-				if (metrics.equals(JavaClass.Stable)) {
+				if (metrics.equals(JavaClassUnit.Stable)) {
 					if (result < 0) {
 						return true;
 					} else {
 						return false;
 					}
-				} else if (metrics.equals(JavaClass.isPrivateElement)) {
+				} else if (metrics.equals(JavaClassUnit.isPrivateElement)) {
 					if (result < 0) {
 						return false;
 					} else {

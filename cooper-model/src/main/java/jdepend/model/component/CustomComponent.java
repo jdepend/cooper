@@ -7,7 +7,7 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -61,7 +61,7 @@ public final class CustomComponent extends Component {
 			component.setLayer(componentConf.getLayer());
 
 			for (JavaPackage javaPackage : javaPackages) {
-				for (JavaClass javaClass : javaPackage.getClasses()) {
+				for (JavaClassUnit javaClass : javaPackage.getClasses()) {
 					if (componentConf.isMember(javaClass)) {
 						component.addJavaClass(javaClass);
 					}
@@ -74,7 +74,7 @@ public final class CustomComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Map<String, JavaClass> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
 
 		CustomComponent obj = (CustomComponent) super.clone(javaClasses);
 		obj.setComponentInfo(this.componentModelConf);

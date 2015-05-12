@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.element.layer.JavaClassType;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -33,12 +33,12 @@ public class ActionHaveState extends AbstractAnalyzer {
 		supers.add(ActionSuperClassName);
 		JavaClassType actionClassType = new JavaClassType("Action", supers, this.endWith);
 
-		Collection<JavaClass> javaClasses = result.getClasses();
+		Collection<JavaClassUnit> javaClasses = result.getClasses();
 		actionClassType.setJavaClasses(javaClasses);
 
 		int totalAction = 0;
 		int printAction = 0;
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (actionClassType.isMember(javaClass)) {
 				totalAction++;
 				if (javaClass.isState()) {

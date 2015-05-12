@@ -12,7 +12,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.model.HttpInvokeItem;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassDetail;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassRelationType;
@@ -40,7 +40,7 @@ public class JavaClassRelationCreator {
 		Map<String, String> entryMapTableName = new HashMap<String, String>();
 		String littleClassName;
 
-		for (JavaClass javaClass : this.javaClasses.getJavaClasses()) {
+		for (JavaClassUnit javaClass : this.javaClasses.getJavaClasses()) {
 			// 收集Entry和TableName对应关系信息
 			L: for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
 				if (tableInfo.isDefine()) {
@@ -54,7 +54,7 @@ public class JavaClassRelationCreator {
 		}
 		// 更新TableName
 		if (entryMapTableName.size() > 0) {
-			for (JavaClass javaClass : this.javaClasses.getJavaClasses()) {
+			for (JavaClassUnit javaClass : this.javaClasses.getJavaClasses()) {
 				for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
 					if (!tableInfo.isDefine()) {
 						if (entryMapTableName.containsKey(tableInfo.getTableName())) {
@@ -81,10 +81,10 @@ public class JavaClassRelationCreator {
 				@Override
 				public void run() {
 					JavaClassDetail info = null;
-					JavaClass dependJavaClass = null;
+					JavaClassUnit dependJavaClass = null;
 					Collection<String> returnTypes;
 
-					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
+					for (JavaClassUnit javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
 
 						if (javaClass.isInner()) {
 							LogUtil.getInstance(JavaClassRelationCreator.class).systemLog(
@@ -100,7 +100,7 @@ public class JavaClassRelationCreator {
 							// 处理接口
 							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)
 									&& info.getInterfaceNames().size() != 0) {
-								for (JavaClass interfaceClass : info.getInterfaces()) {
+								for (JavaClassUnit interfaceClass : info.getInterfaces()) {
 									setDependInfo(javaClass, interfaceClass, mgr.getInheritRelation());
 								}
 							}
@@ -118,7 +118,7 @@ public class JavaClassRelationCreator {
 							// 2.建立包含或者调用关系
 							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Field)
 									&& info.getAttributeClasses().size() != 0) {
-								for (JavaClass attributeClass : info.getAttributeClasses()) {
+								for (JavaClassUnit attributeClass : info.getAttributeClasses()) {
 									// 分析该属性是包含关系还是调用关系
 									if (returnTypes.contains(attributeClass.getName())) {
 										setDependInfo(javaClass, attributeClass, mgr.getFieldRelation());
@@ -152,8 +152,8 @@ public class JavaClassRelationCreator {
 									if (!tableInfo.isDefine()) {
 										// 判断是否忽略指定表的关系建立
 										if (!JavaClassRelationTypeMgr.getInstance().isIgnoreTableInfo(tableInfo)) {
-											List<JavaClass> dependJavaClasses = getWriteAndDefineToTableClasses(tableInfo);
-											for (JavaClass dependJavaClass1 : dependJavaClasses) {
+											List<JavaClassUnit> dependJavaClasses = getWriteAndDefineToTableClasses(tableInfo);
+											for (JavaClassUnit dependJavaClass1 : dependJavaClasses) {
 												setDependInfo(javaClass, dependJavaClass1, mgr.getTableRelation()
 														.clone(tableInfo.getTableName()));
 											}
@@ -164,7 +164,7 @@ public class JavaClassRelationCreator {
 							// 处理Http调用
 							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Http) && info.isHttpCaller()) {
 								// 收集Http调用的类集合
-								Collection<JavaClass> dependClasses = new HashSet<JavaClass>();
+								Collection<JavaClassUnit> dependClasses = new HashSet<JavaClassUnit>();
 								for (Method method : javaClass.getSelfMethods()) {
 									for (InvokeItem invokeItem : method.getInvokeItems()) {
 										if (invokeItem instanceof HttpInvokeItem) {
@@ -175,7 +175,7 @@ public class JavaClassRelationCreator {
 									}
 								}
 								// 建立Http类关系
-								for (JavaClass dependClass : dependClasses) {
+								for (JavaClassUnit dependClass : dependClasses) {
 									setDependInfo(javaClass, dependClass, mgr.getHttpRelation());
 								}
 							}
@@ -188,7 +188,7 @@ public class JavaClassRelationCreator {
 		ThreadPool.awaitTermination(pool);
 	}
 
-	private void setDependInfo(JavaClass source, JavaClass target, JavaClassRelationType type) {
+	private void setDependInfo(JavaClassUnit source, JavaClassUnit target, JavaClassRelationType type) {
 
 		if (target == null) {
 			return;
@@ -216,10 +216,10 @@ public class JavaClassRelationCreator {
 		target.addCaItems(item);
 	}
 
-	private List<JavaClass> getWriteAndDefineToTableClasses(TableInfo tableInfo) {
+	private List<JavaClassUnit> getWriteAndDefineToTableClasses(TableInfo tableInfo) {
 
-		List<JavaClass> rtn = new ArrayList<JavaClass>();
-		for (JavaClass javaClass : this.javaClasses.getJavaClasses()) {
+		List<JavaClassUnit> rtn = new ArrayList<JavaClassUnit>();
+		for (JavaClassUnit javaClass : this.javaClasses.getJavaClasses()) {
 			for (TableInfo currentTableInfo : javaClass.getDetail().getTables()) {
 				if (currentTableInfo.getTableName().equalsIgnoreCase(tableInfo.getTableName())
 						&& (currentTableInfo.isWrite()// 目标为写

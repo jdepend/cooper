@@ -10,18 +10,18 @@ import jdepend.model.util.RelationCreator;
 
 public class JavaClassWrapper {
 
-	private JavaClass javaClass;
+	private JavaClassUnit javaClass;
 
-	private transient Collection<JavaClass> invokeClasses;
+	private transient Collection<JavaClassUnit> invokeClasses;
 
-	public JavaClassWrapper(JavaClass javaClass) {
+	public JavaClassWrapper(JavaClassUnit javaClass) {
 		super();
 		this.javaClass = javaClass;
 	}
 
-	public synchronized Collection<JavaClass> getInvokeClasses() {
+	public synchronized Collection<JavaClassUnit> getInvokeClasses() {
 		if (this.invokeClasses == null) {
-			this.invokeClasses = new HashSet<JavaClass>();
+			this.invokeClasses = new HashSet<JavaClassUnit>();
 			this.collectInvokeClasses(javaClass, invokeClasses);
 		}
 		return this.invokeClasses;
@@ -37,14 +37,14 @@ public class JavaClassWrapper {
 
 		Collection<Component> componentCas = new ArrayList<Component>();
 
-		for (JavaClass relJavaClass : javaClass.getCaList()) {
+		for (JavaClassUnit relJavaClass : javaClass.getCaList()) {
 			javaClassComponent = new VirtualComponent(relJavaClass);
 			componentCas.add(javaClassComponent);
 		}
 
 		Collection<Component> componentCes = new ArrayList<Component>();
 
-		for (JavaClass relJavaClass : javaClass.getCeList()) {
+		for (JavaClassUnit relJavaClass : javaClass.getCeList()) {
 			javaClassComponent = new VirtualComponent(relJavaClass);
 			componentCes.add(javaClassComponent);
 		}
@@ -57,8 +57,8 @@ public class JavaClassWrapper {
 		return relations;
 	}
 
-	private void collectInvokeClasses(JavaClass javaClass, Collection<JavaClass> invokeClasses) {
-		JavaClass invokeClass;
+	private void collectInvokeClasses(JavaClassUnit javaClass, Collection<JavaClassUnit> invokeClasses) {
+		JavaClassUnit invokeClass;
 		for (Method method : javaClass.getSelfMethods()) {
 			for (InvokeItem invokeItem : method.getInvokeItems()) {
 				invokeClass = invokeItem.getCallee().getJavaClass();

@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature.leaf;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public class ConstructorArgIsSuperFeature extends AbstractFeature {
@@ -14,7 +14,7 @@ public class ConstructorArgIsSuperFeature extends AbstractFeature {
 		} else {
 			for (Method method : context.getCurrent().getSelfMethods()) {
 				if (method.isConstruction()) {
-					for (JavaClass argClass : method.getArgClassTypes()) {
+					for (JavaClassUnit argClass : method.getArgClassTypes()) {
 						if (context.getSupers().contains(argClass)) {
 							return true;
 						}

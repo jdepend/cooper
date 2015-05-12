@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 
@@ -19,14 +19,14 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 	@Override
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		List<JavaClass> repeatClasses = new ArrayList<JavaClass>();
+		List<JavaClassUnit> repeatClasses = new ArrayList<JavaClassUnit>();
 
 		boolean firstRecord;
 		boolean needCheck;
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			// 检查是否已经检测过（被检查时已经收集到repeatClasses中，不必再检查）
 			needCheck = true;
-			L: for (JavaClass repeatClass : repeatClasses) {
+			L: for (JavaClassUnit repeatClass : repeatClasses) {
 				if (repeatClass.equals(javaClass)) {
 					needCheck = false;
 					break L;
@@ -34,7 +34,7 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 			}
 			if (needCheck) {
 				firstRecord = true;
-				for (JavaClass javaClass1 : result.getClasses()) {
+				for (JavaClassUnit javaClass1 : result.getClasses()) {
 					if (this.repeat(javaClass, javaClass1)) {
 						if (firstRecord) {
 							repeatClasses.add(javaClass);
@@ -46,13 +46,13 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 			}
 		}
 
-		for (JavaClass javaClass : repeatClasses) {
+		for (JavaClassUnit javaClass : repeatClasses) {
 			this.printTable("类名", javaClass.getName());
 			this.printTable("位置", javaClass.getPlace());
 		}
 	}
 
-	private boolean repeat(JavaClass javaClass, JavaClass javaClass1) {
+	private boolean repeat(JavaClassUnit javaClass, JavaClassUnit javaClass1) {
 		if (javaClass.getName().equals(javaClass1.getName())) {
 			if (javaClass.getPlace() == null && javaClass1.getPlace() != null) {
 				return true;

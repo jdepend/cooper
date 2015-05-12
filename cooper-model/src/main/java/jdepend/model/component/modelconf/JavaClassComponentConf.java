@@ -2,7 +2,7 @@ package jdepend.model.component.modelconf;
 
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 
 public final class JavaClassComponentConf extends ComponentConf {
 
@@ -21,7 +21,7 @@ public final class JavaClassComponentConf extends ComponentConf {
 	}
 
 	@Override
-	public boolean isMember(JavaClass javaClass) {
+	public boolean isMember(JavaClassUnit javaClass) {
 		if (this.containPlace()) {
 			return this.getItemIds().contains(javaClass.getId());
 		} else {

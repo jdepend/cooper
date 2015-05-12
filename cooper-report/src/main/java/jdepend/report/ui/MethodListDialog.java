@@ -17,7 +17,7 @@ public class MethodListDialog extends CooperDialog {
 		this.add(methodListPanel);
 	}
 
-	public MethodListDialog(jdepend.model.JavaClass javaClass) {
+	public MethodListDialog(jdepend.model.JavaClassUnit javaClass) {
 		this(javaClass.getMethods());
 
 	}

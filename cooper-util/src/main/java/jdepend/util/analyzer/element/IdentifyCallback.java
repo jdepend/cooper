@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -27,10 +27,10 @@ public class IdentifyCallback extends AbstractAnalyzer {
 
 		Method callbackMethod = null;
 		Method method1 = null;
-		JavaClass subClass2 = null;
+		JavaClassUnit subClass2 = null;
 		Collection<Method> method3s = null;
 
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			isCallback1 = false;
 			if (javaClass.isInterface()) {
 				L: for (Method method : javaClass.getSelfMethods()) {
@@ -49,7 +49,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 			isCallback2 = false;
 			isCallback3 = false;
 			if (isCallback1) {
-				M: for (JavaClass subClass : javaClass.getSubClasses()) {
+				M: for (JavaClassUnit subClass : javaClass.getSubClasses()) {
 					if (!subClass.getComponent().equals(javaClass.getComponent())) {
 						isCallback2 = true;
 						subClass2 = subClass;

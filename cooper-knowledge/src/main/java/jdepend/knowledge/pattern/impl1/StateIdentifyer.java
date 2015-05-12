@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
 public final class StateIdentifyer extends AbstractPatternIdentifyer {
@@ -19,13 +19,13 @@ public final class StateIdentifyer extends AbstractPatternIdentifyer {
 	}
 
 	@Override
-	public Collection<PatternInfo> identify(Collection<JavaClass> javaClasses) {
+	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		for (JavaClass javaClass : javaClasses) {
+		for (JavaClassUnit javaClass : javaClasses) {
 			if (javaClass.isAbstract() && javaClass.isState()) {
-				Collection<JavaClass> subClasses = javaClass.getSubClasses();
+				Collection<JavaClassUnit> subClasses = javaClass.getSubClasses();
 				if (subClasses.size() > 1) {
-					L: for (JavaClass subClass : subClasses) {
+					L: for (JavaClassUnit subClass : subClasses) {
 						for (Method method : subClass.getSelfMethods()) {
 							if (!method.isConstruction() && method.getReturnTypes().size() == 1
 									&& method.getReturnClassTypes().size() == 1

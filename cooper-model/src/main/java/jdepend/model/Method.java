@@ -47,9 +47,9 @@ public class Method extends AccessFlags {
 
 	private transient Collection<String> returnTypes;
 
-	private transient Collection<JavaClass> argClassTypes;
+	private transient Collection<JavaClassUnit> argClassTypes;
 
-	private transient Collection<JavaClass> returnClassTypes;
+	private transient Collection<JavaClassUnit> returnClassTypes;
 
 	private transient Collection<Method> invokeMethods;
 
@@ -61,12 +61,12 @@ public class Method extends AccessFlags {
 
 	private transient Collection<Method> cascadeInvokedMethods;
 
-	private transient JavaClass javaClass;
+	private transient JavaClassUnit javaClass;
 
 	public Method() {
 	}
 
-	public Method(JavaClass javaClass, org.apache.bcel.classfile.Method method) {
+	public Method(JavaClassUnit javaClass, org.apache.bcel.classfile.Method method) {
 		this.javaClass = javaClass;
 		this.javaClassId = javaClass.getId();
 		this.access_flags = method.getAccessFlags();
@@ -109,11 +109,11 @@ public class Method extends AccessFlags {
 		return name;
 	}
 
-	public JavaClass getJavaClass() {
+	public JavaClassUnit getJavaClass() {
 		return javaClass;
 	}
 
-	public void setJavaClass(JavaClass javaClass) {
+	public void setJavaClass(JavaClassUnit javaClass) {
 		this.javaClass = javaClass;
 	}
 
@@ -269,19 +269,19 @@ public class Method extends AccessFlags {
 		return this.returnTypes;
 	}
 
-	public Collection<JavaClass> getArgClassTypes() {
+	public Collection<JavaClassUnit> getArgClassTypes() {
 		return argClassTypes;
 	}
 
-	public void setArgClassTypes(Collection<JavaClass> argClassTypes) {
+	public void setArgClassTypes(Collection<JavaClassUnit> argClassTypes) {
 		this.argClassTypes = argClassTypes;
 	}
 
-	public Collection<JavaClass> getReturnClassTypes() {
+	public Collection<JavaClassUnit> getReturnClassTypes() {
 		return returnClassTypes;
 	}
 
-	public void setReturnClassTypes(Collection<JavaClass> returnClassTypes) {
+	public void setReturnClassTypes(Collection<JavaClassUnit> returnClassTypes) {
 		this.returnClassTypes = returnClassTypes;
 	}
 
@@ -400,11 +400,11 @@ public class Method extends AccessFlags {
 
 	public void supply(JavaClassCollection javaClasses) {
 
-		Collection<JavaClass> argumentTypes;
-		JavaClass argumentTypeClass;
+		Collection<JavaClassUnit> argumentTypes;
+		JavaClassUnit argumentTypeClass;
 
-		Collection<JavaClass> returnTypes;
-		JavaClass returnTypeClass;
+		Collection<JavaClassUnit> returnTypes;
+		JavaClassUnit returnTypeClass;
 
 		// 填充JavaClass
 		if (this.javaClass == null) {
@@ -412,7 +412,7 @@ public class Method extends AccessFlags {
 		}
 
 		// 填充参数
-		argumentTypes = new HashSet<JavaClass>();
+		argumentTypes = new HashSet<JavaClassUnit>();
 		for (String type : this.getArgumentTypes()) {
 			argumentTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 			if (argumentTypeClass != null) {
@@ -421,7 +421,7 @@ public class Method extends AccessFlags {
 		}
 		this.setArgClassTypes(argumentTypes);
 		// 填充返回值
-		returnTypes = new HashSet<JavaClass>();
+		returnTypes = new HashSet<JavaClassUnit>();
 		for (String type : this.getReturnTypes()) {
 			returnTypeClass = javaClasses.getTheClass(javaClass.getPlace(), type);
 			if (returnTypeClass != null) {
@@ -466,14 +466,14 @@ public class Method extends AccessFlags {
 		}
 	}
 
-	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
-		for (JavaClass typeClass : this.argClassTypes) {
+	public void filterExternalJavaClass(Collection<JavaClassUnit> javaClasses) {
+		for (JavaClassUnit typeClass : this.argClassTypes) {
 			if (!javaClasses.contains(typeClass)) {
 				this.argClassTypes.remove(typeClass);
 			}
 		}
 
-		for (JavaClass typeClass : this.returnClassTypes) {
+		for (JavaClassUnit typeClass : this.returnClassTypes) {
 			if (!javaClasses.contains(typeClass)) {
 				this.returnClassTypes.remove(typeClass);
 			}

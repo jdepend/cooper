@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -31,7 +31,7 @@ public final class ArgumentCount extends AbstractAnalyzer {
 		ArgumentInfo argumentInfo;
 		int arguments;
 
-		for (JavaClass javaClass : result.getClasses()) {
+		for (JavaClassUnit javaClass : result.getClasses()) {
 			for (Method method : javaClass.getSelfMethods()) {
 				arguments = method.getArgumentCount();
 				if (arguments >= count) {
