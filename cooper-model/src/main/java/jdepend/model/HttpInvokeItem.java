@@ -75,7 +75,7 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 
 	private void calUrl(JavaClassCollection javaClasses) {
 		if (this.constantClassName != null && this.constantAttributeName != null) {
-			JavaClassUnit urlClass = javaClasses.getTheClass(this.getCaller().getJavaClass().getPlace(),
+			JavaClass urlClass = javaClasses.getTheClass(this.getCaller().getJavaClass().getPlace(),
 					this.constantClassName);
 			if (urlClass != null) {
 				L: for (Attribute attribute : urlClass.getAttributes()) {
@@ -100,7 +100,7 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 	public String getName() {
 		return "Http";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		if (this.getCallee() != null && this.getCaller() != null) {

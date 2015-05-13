@@ -36,8 +36,8 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 			Collections.sort(javaClasses, new JDependUnitByMetricsComparator(MetricsMgr.CaCoupling, false));
 			// 搜索代码行数超过500，方法超过200的JavaClass
 			L: for (JavaClassUnit javaClass : javaClasses) {
-				if (!javaClass.isAbstract() && javaClass.getLineCount() > 500) {
-					for (Method method : javaClass.getSelfMethods()) {
+				if (!javaClass.getJavaClass().isAbstract() && javaClass.getLineCount() > 500) {
+					for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 						if (method.getSelfLineCount() > 200 && !method.isStatic()) {
 							if (!abstractnessClasses.contains(javaClass)) {
 								abstractnessClasses.add(javaClass);
@@ -65,7 +65,7 @@ public final class AdjustAbstractTODOItem extends TODOItem {
 		return infos;
 
 	}
-	
+
 	@Override
 	public String getAccording() {
 		return "违反稳定抽象等价原则";

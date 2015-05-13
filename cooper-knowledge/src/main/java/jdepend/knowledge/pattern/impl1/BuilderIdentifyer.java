@@ -6,6 +6,7 @@ import java.util.Collection;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
@@ -16,21 +17,21 @@ public final class BuilderIdentifyer extends AbstractPatternIdentifyer {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
 
 		for (JavaClassUnit javaClass : javaClasses) {
-			L: for (Attribute attribute : javaClass.getAttributes()) {
-				for (JavaClassUnit builder : attribute.getTypeClasses()) {
+			L: for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
+				for (JavaClass builder : attribute.getTypeClasses()) {
 					// 识别builder接口
 					if (!builder.equals(javaClass) && builder.isAbstract() && builder.getSubClasses().size() > 1) {
-						for (Method method : javaClass.getSelfMethods()) {
+						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 							// 识别builderMethod
 							if (method.getReturnTypes().size() == 1 && method.getReturnClassTypes().size() == 1) {
-								JavaClassUnit productType = method.getReturnClassTypes().iterator().next();
+								JavaClass productType = method.getReturnClassTypes().iterator().next();
 								for (InvokeItem invokeItem : method.getInvokeItems()) {
 									Method invokeMethod = invokeItem.getCallee();
 									if (invokeMethod.getJavaClass().equals(builder)
 											&& invokeMethod.getReturnTypes().size() == 1
 											&& invokeMethod.getReturnClassTypes().size() == 1) {
 										if (invokeMethod.getReturnClassTypes().iterator().next().equals(productType)) {
-											rtn.add(new PatternInfo(javaClass, attribute.getName() + "."
+											rtn.add(new PatternInfo(javaClass.getJavaClass(), attribute.getName() + "."
 													+ invokeItem.getCallee().getName()));
 											break L;
 										}

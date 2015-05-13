@@ -15,7 +15,7 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.util.JavaClassCollection;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
@@ -33,7 +33,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	private AbstractParser parser;
 
-	private Collection<JavaClassUnit> javaClasses;
+	private Collection<JavaClass> javaClasses;
 
 	public JavaClassBuilder(ParseConfigurator conf) {
 		this.setConf(conf);
@@ -42,9 +42,9 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	}
 
 	@Override
-	public Collection<JavaClassUnit> build(AnalyzeData data) {
+	public Collection<JavaClass> build(AnalyzeData data) {
 		if (this.javaClasses == null || this.getConf().getEveryClassBuild()) {
-			javaClasses = new HashSet<JavaClassUnit>();
+			javaClasses = new HashSet<JavaClass>();
 			//设置本次分析的classNames
 			this.parser.getConf().getPackageFilter().setClassNames(data.getClassNames());
 			// 解析Config
@@ -92,7 +92,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 						InputStream is = null;
 						try {
 							is = new ByteArrayInputStream(classData.getContent());
-							JavaClassUnit javaClass = parser.parse(place, is);
+							JavaClass javaClass = parser.parse(place, is);
 							if (parser.getConf().getPackageFilter().accept(javaClass.getPackageName())) {
 								synchronized (javaClasses) {
 									javaClasses.add(javaClass);
@@ -118,7 +118,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	}
 
 	private void appendExtClasses() {
-		Collection<JavaClassUnit> extClasses = new IdentifyExtClassesUtil(this.parser.getConf().getPackageFilter())
+		Collection<JavaClass> extClasses = new IdentifyExtClassesUtil(this.parser.getConf().getPackageFilter())
 				.identify(this.javaClasses);
 		this.javaClasses.addAll(extClasses);
 	}

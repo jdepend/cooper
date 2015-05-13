@@ -24,9 +24,9 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 
 	@Override
 	protected void handle(JavaClassUnit javaClass) {
-		if (!javaClass.isInnerClass()) {
+		if (!javaClass.getJavaClass().isInnerClass()) {
 			boolean stability = true;
-			for (Method method : javaClass.getSelfMethods()) {
+			for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 				if (!method.isConstruction() && !method.isStatic()) {
 					stability = false;
 					break;

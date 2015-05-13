@@ -29,13 +29,13 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			this.print("Controller方法上标注了事务注解：\n");
 			L1: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(controllerEndClassName)) {
-					if (!javaClass.isInterface()) {
-						if (javaClass.isIncludeTransactionalAnnotation()) {
+					if (!javaClass.getJavaClass().isInterface()) {
+						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
 							this.print(javaClass.getName());
 							this.print("\n");
 							break L1;
 						}
-						for (Method method : javaClass.getSelfMethods()) {
+						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 							if (method.isIncludeTransactionalAnnotation() && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");
@@ -50,11 +50,11 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			this.print("Facade方法上沒有标注事务注解：\n");
 			L2: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(facadeEndClassName)) {
-					if (!javaClass.isInterface()) {
-						if (javaClass.isIncludeTransactionalAnnotation()) {
+					if (!javaClass.getJavaClass().isInterface()) {
+						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
 							break L2;
 						}
-						for (Method method : javaClass.getSelfMethods()) {
+						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 							if (!method.isIncludeTransactionalAnnotation() && method.isPublic()
 									&& !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
@@ -70,11 +70,11 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			this.print("Service方法上沒有标注事务注解：\n");
 			L3: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(serviceEndClassName)) {
-					if (!javaClass.isInterface()) {
-						if (javaClass.isIncludeTransactionalAnnotation()) {
+					if (!javaClass.getJavaClass().isInterface()) {
+						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
 							break L3;
 						}
-						for (Method method : javaClass.getSelfMethods()) {
+						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 							if (!method.isIncludeTransactionalAnnotation() && method.isPublic()
 									&& !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
@@ -90,13 +90,13 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			this.print("DAO方法上标注了事务注解：\n");
 			L4: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(daoEndClassName)) {
-					if (!javaClass.isInterface()) {
-						if (javaClass.isIncludeTransactionalAnnotation()) {
+					if (!javaClass.getJavaClass().isInterface()) {
+						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
 							this.print(javaClass.getName());
 							this.print("\n");
 							break L4;
 						}
-						for (Method method : javaClass.getSelfMethods()) {
+						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 							if (method.isIncludeTransactionalAnnotation() && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");

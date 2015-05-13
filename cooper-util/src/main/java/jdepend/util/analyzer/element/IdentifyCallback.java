@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
@@ -27,16 +29,17 @@ public class IdentifyCallback extends AbstractAnalyzer {
 
 		Method callbackMethod = null;
 		Method method1 = null;
-		JavaClassUnit subClass2 = null;
+		JavaClass subClass2 = null;
 		Collection<Method> method3s = null;
 
 		for (JavaClassUnit javaClass : result.getClasses()) {
 			isCallback1 = false;
-			if (javaClass.isInterface()) {
-				L: for (Method method : javaClass.getSelfMethods()) {
+			if (javaClass.getJavaClass().isInterface()) {
+				L: for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 					if (method.existReturn()) {
 						for (Method invokedMethod : method.getInvokedMethods()) {
-							if (invokedMethod.getJavaClass().getComponent().equals(javaClass.getComponent())) {
+							if (JavaClassUnitUtil.getJavaClassUnit(invokedMethod.getJavaClass()).getComponent()
+									.equals(javaClass.getComponent())) {
 								callbackMethod = method;
 								method1 = invokedMethod;
 								isCallback1 = true;
@@ -49,8 +52,8 @@ public class IdentifyCallback extends AbstractAnalyzer {
 			isCallback2 = false;
 			isCallback3 = false;
 			if (isCallback1) {
-				M: for (JavaClassUnit subClass : javaClass.getSubClasses()) {
-					if (!subClass.getComponent().equals(javaClass.getComponent())) {
+				M: for (JavaClass subClass : javaClass.getJavaClass().getSubClasses()) {
+					if (!JavaClassUnitUtil.getJavaClassUnit(subClass).getComponent().equals(javaClass.getComponent())) {
 						isCallback2 = true;
 						subClass2 = subClass;
 
@@ -58,7 +61,8 @@ public class IdentifyCallback extends AbstractAnalyzer {
 						method3s = new HashSet<Method>();
 						for (Method method : subClass.getConstructorMethods()) {
 							for (Method invokedMethod : method.getInvokedMethods()) {
-								if (invokedMethod.getJavaClass().getComponent().equals(javaClass.getComponent())) {
+								if (JavaClassUnitUtil.getJavaClassUnit(invokedMethod.getJavaClass()).getComponent()
+										.equals(javaClass.getComponent())) {
 									isCallback3 = false;
 									break M;
 								}
@@ -78,8 +82,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 				for (Method method : method3s) {
 					this.printTab();
 					this.printTab();
-					this.print("Invoked Method : " + method.getJavaClass().getName() + "."
-							+ method.getName() + "\n");
+					this.print("Invoked Method : " + method.getJavaClass().getName() + "." + method.getName() + "\n");
 				}
 
 			}

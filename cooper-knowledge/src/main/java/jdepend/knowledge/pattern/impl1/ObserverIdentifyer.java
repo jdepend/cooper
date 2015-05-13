@@ -7,6 +7,7 @@ import java.util.HashSet;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
 import jdepend.model.InvokeItem;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
@@ -27,8 +28,8 @@ public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
 		for (JavaClassUnit javaClass : javaClasses) {
 			observereMethods = new HashSet<Method>();
 			// 识别observers
-			for (Attribute attribute : javaClass.getAttributes()) {
-				for (JavaClassUnit observer : attribute.getTypeClasses()) {
+			for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
+				for (JavaClass observer : attribute.getTypeClasses()) {
 					if (observer.isInterface()) {// 1、属性有接口
 						L: for (Method method : observer.getSelfMethods()) {
 							for (String argType : method.getArgumentTypes()) {// 2、方法参数将调用者作为参数
@@ -43,10 +44,10 @@ public final class ObserverIdentifyer extends AbstractPatternIdentifyer {
 				}
 			}
 			// 判断是否在当前Class调用该方法
-			M: for (Method method : javaClass.getSelfMethods()) {
+			M: for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 				for (InvokeItem invokeItem : method.getInvokeItems()) {
 					if (observereMethods.contains(invokeItem.getCallee())) {
-						rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
+						rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName() + "." + method.getName()));
 						break M;
 					}
 				}

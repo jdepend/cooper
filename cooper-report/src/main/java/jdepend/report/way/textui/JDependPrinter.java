@@ -183,7 +183,7 @@ public final class JDependPrinter extends Printer {
 	private void printJavaClassCouplingInfoDetail(JavaClassUnit javaClass) {
 
 		getWriter().println(tab(4) + "<Ce>");
-		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {
+		for (JavaClassRelationItem ceItem : javaClass.getJavaClass().getCeItems()) {
 			getWriter().println(
 					tab(5) + "<CouplingJavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
 							+ ceItem.getType().getName() + "\" Intensity=\""
@@ -191,7 +191,7 @@ public final class JDependPrinter extends Printer {
 		}
 		getWriter().println(tab(4) + "</Ce>");
 		getWriter().println(tab(4) + "<Ca>");
-		for (JavaClassRelationItem caItem : javaClass.getCaItems()) {
+		for (JavaClassRelationItem caItem : javaClass.getJavaClass().getCaItems()) {
 			getWriter().println(
 					tab(5) + "<CouplingJavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
 							+ caItem.getType().getName() + "\" Intensity=\""
@@ -259,7 +259,7 @@ public final class JDependPrinter extends Printer {
 	private void printJavaClassCohesionInfoDetail(JavaClassUnit javaClass) {
 
 		getWriter().println(tab(4) + "<Ce>");
-		for (JavaClassRelationItem ceItem : javaClass.getCeItems()) {
+		for (JavaClassRelationItem ceItem : javaClass.getJavaClass().getCeItems()) {
 			getWriter().println(
 					tab(5) + "<CohesionjavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
 							+ ceItem.getType().getName() + "\" Intensity=\""
@@ -267,7 +267,7 @@ public final class JDependPrinter extends Printer {
 		}
 		getWriter().println(tab(4) + "</Ce>");
 		getWriter().println(tab(4) + "<Ca>");
-		for (JavaClassRelationItem caItem : javaClass.getCaItems()) {
+		for (JavaClassRelationItem caItem : javaClass.getJavaClass().getCaItems()) {
 			getWriter().println(
 					tab(5) + "<CohesionjavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
 							+ caItem.getType().getName() + "\" Intensity=\""

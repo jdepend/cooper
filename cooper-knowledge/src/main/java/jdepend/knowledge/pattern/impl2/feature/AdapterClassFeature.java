@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.InvokeItem;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
 public class AdapterClassFeature extends AbstractFeature {
@@ -11,8 +11,8 @@ public class AdapterClassFeature extends AbstractFeature {
 	@Override
 	protected boolean have(FeatureCheckContext context) {
 		if (context.getInterfaces() != null && context.getSupers() != null) {
-			JavaClassUnit theInterfaceClass;
-			JavaClassUnit theSuperClass;
+			JavaClass theInterfaceClass;
+			JavaClass theSuperClass;
 			for (Method method : context.getCurrent().getOverrideMethods()) {
 				for (Method overrideMethod : context.getCurrent().getOverridedMethods(method)) {
 					theInterfaceClass = overrideMethod.getJavaClass();

@@ -84,7 +84,7 @@ public abstract class SummaryPrinter extends Printer {
 		Iterator<JavaClassUnit> memberIter = members.iterator();
 		while (memberIter.hasNext()) {
 			JavaClassUnit jClass = memberIter.next();
-			if (jClass.isAbstract()) {
+			if (jClass.getJavaClass().isAbstract()) {
 				printClassName(jClass);
 			}
 		}
@@ -100,7 +100,7 @@ public abstract class SummaryPrinter extends Printer {
 		Iterator<JavaClassUnit> memberIter = members.iterator();
 		while (memberIter.hasNext()) {
 			JavaClassUnit concrete = (JavaClassUnit) memberIter.next();
-			if (!concrete.isAbstract()) {
+			if (!concrete.getJavaClass().isAbstract()) {
 				printClassName(concrete);
 			}
 		}

@@ -6,7 +6,7 @@ import java.util.Collection;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class AbstractAttributeHaveSubClassesFeature extends AbstractFeature {
 
@@ -17,7 +17,7 @@ public class AbstractAttributeHaveSubClassesFeature extends AbstractFeature {
 		} else {
 			Collection<Attribute> attributes = new ArrayList<Attribute>();
 			for (Attribute attribute : context.getAbstractAttributes()) {
-				L: for (JavaClassUnit javaClass : attribute.getTypeClasses()) {
+				L: for (JavaClass javaClass : attribute.getTypeClasses()) {
 					if (javaClass.getSubClasses().size() > 1) {
 						attributes.add(attribute);
 						break L;

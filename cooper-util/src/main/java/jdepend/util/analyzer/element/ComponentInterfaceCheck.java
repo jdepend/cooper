@@ -54,14 +54,14 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 		for (JavaClassUnit javaClass : result.getClasses()) {
 			for (String key : this.keys) {
 				if (key.equals("{root}")) {
-					if (javaClass.getPackageName().equals(javaClass.getComponent().getPath())) {
+					if (javaClass.getJavaClass().getPackageName().equals(javaClass.getComponent().getPath())) {
 						if (!javaClass.isUsedByExternal()) {
 							privateElements.add(javaClass);
 							break;
 						}
 					}
 				}
-				if (javaClass.getPackageName().endsWith(key)) {
+				if (javaClass.getJavaClass().getPackageName().endsWith(key)) {
 					if (!javaClass.isUsedByExternal()) {
 						privateElements.add(javaClass);
 						break;
@@ -84,12 +84,12 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 		boolean isAttention = true;
 		for (String key : this.keys) {
 			if (key.equals("{root}")) {
-				if (javaClass.getPackageName().equals(javaClass.getComponent().getPath())) {
+				if (javaClass.getJavaClass().getPackageName().equals(javaClass.getComponent().getPath())) {
 					isAttention = false;
 					break;
 				}
 			}
-			if (javaClass.getPackageName().endsWith(key)) {
+			if (javaClass.getJavaClass().getPackageName().endsWith(key)) {
 				isAttention = false;
 				break;
 			}

@@ -16,8 +16,9 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
+import jdepend.model.JavaClassUnit;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.report.util.ReportConstant;
 
 public class JavaClassCaCeDetailDialog extends CooperDialog {
@@ -100,10 +101,10 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 		if (metrics.equals(ReportConstant.Ca)) {
 			if (javaClass != null) {
-				items = javaClass.getCaItems();
+				items = javaClass.getJavaClass().getCaItems();
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
-					for (JavaClassRelationItem item : javaClass.getCaItems()) {
+					for (JavaClassRelationItem item : javaClass.getJavaClass().getCaItems()) {
 						if (!javaClasses.contains(item.getSource())) {
 							items.add(item);
 						}
@@ -112,10 +113,10 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			}
 		} else if (metrics.equals(ReportConstant.Ce)) {
 			if (javaClass != null) {
-				items = javaClass.getCeItems();
+				items = javaClass.getJavaClass().getCeItems();
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
-					for (JavaClassRelationItem item : javaClass.getCeItems()) {
+					for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
 						if (!javaClasses.contains(item.getTarget())) {
 							items.add(item);
 						}
@@ -130,7 +131,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		float inCoupling = 0F;
 		float outerCoupling = 0F;
 		for (JavaClassRelationItem item : items) {
-			isInner = !item.crossComponent();
+			isInner = !JavaClassUnitUtil.crossComponent(item);
 			// 判断是否是环境外的
 			if ((javaClass != null && (includeInner || !isInner)) || (javaClasses != null)) {
 				row = new Object[listTable.getColumnCount()];
@@ -148,9 +149,9 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
 						if (metrics.equals(ReportConstant.Ca)) {
-							row[i] = item.getSource().getValue(metrics1);
+							row[i] = JavaClassUnitUtil.getJavaClassUnit(item.getSource()).getValue(metrics1);
 						} else {
-							row[i] = item.getTarget().getValue(metrics1);
+							row[i] = JavaClassUnitUtil.getJavaClassUnit(item.getTarget()).getValue(metrics1);
 						}
 					}
 				}

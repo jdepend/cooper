@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
@@ -12,7 +13,7 @@ public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 	@Override
 	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		Collection<JavaClassUnit> superClasses;
+		Collection<JavaClass> superClasses;
 		boolean found;
 		Method cloneMethod;
 		Collection<String> returns;
@@ -20,17 +21,17 @@ public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 			found = false;
 			cloneMethod = null;
 			// 计算存在父类的JavaClass
-			superClasses = javaClass.getSupers();
+			superClasses = javaClass.getJavaClass().getSupers();
 			if (superClasses != null && superClasses.size() > 0) {
 				// 查找克隆方法
-				L: for (Method method : javaClass.getOverrideMethods()) {
+				L: for (Method method : javaClass.getJavaClass().getOverrideMethods()) {
 					// 判断返回值是否是所在的Class的父类
 					returns = method.getReturnTypes();
 					if (returns != null && returns.size() > 0) {
 						for (String returnT : returns) {
 							for (JavaClassUnit returnType : javaClasses) {
 								if (returnType.getName().equals(returnT)) {
-									if (javaClass.getSupers().contains(returnType)) {
+									if (javaClass.getJavaClass().getSupers().contains(returnType)) {
 										found = true;
 										cloneMethod = method;
 										break L;
@@ -42,7 +43,7 @@ public class PrototypeIdentifyer extends AbstractPatternIdentifyer {
 				}
 			}
 			if (found) {
-				rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + cloneMethod.getName()));
+				rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName() + "." + cloneMethod.getName()));
 			}
 		}
 		return rtn;

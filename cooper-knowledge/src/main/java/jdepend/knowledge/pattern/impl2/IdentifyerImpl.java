@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class IdentifyerImpl implements Identifyer {
 
@@ -14,9 +14,9 @@ public class IdentifyerImpl implements Identifyer {
 
 	private List<String> featureNames = new ArrayList<String>();
 
-	private Map<JavaClassUnit, List<String>> javaClasses = new LinkedHashMap<JavaClassUnit, List<String>>();
+	private Map<JavaClass, List<String>> javaClasses = new LinkedHashMap<JavaClass, List<String>>();
 
-	private Map<JavaClassUnit, String> patternInfos = new HashMap<JavaClassUnit, String>();
+	private Map<JavaClass, String> patternInfos = new HashMap<JavaClass, String>();
 
 	public IdentifyerImpl(String name) {
 		super();
@@ -45,9 +45,9 @@ public class IdentifyerImpl implements Identifyer {
 		}
 	}
 
-	public Map<JavaClassUnit, String> getResult() {
-		Map<JavaClassUnit, String> results = new LinkedHashMap<JavaClassUnit, String>();
-		for (JavaClassUnit javaClass : this.javaClasses.keySet()) {
+	public Map<JavaClass, String> getResult() {
+		Map<JavaClass, String> results = new LinkedHashMap<JavaClass, String>();
+		for (JavaClass javaClass : this.javaClasses.keySet()) {
 			if (this.javaClasses.get(javaClass).size() == featureNames.size()) {
 				results.put(javaClass, this.patternInfos.get(javaClass));
 			}
@@ -69,7 +69,7 @@ public class IdentifyerImpl implements Identifyer {
 
 	@Override
 	public void clear() {
-		this.javaClasses = new LinkedHashMap<JavaClassUnit, List<String>>();
-		this.patternInfos = new HashMap<JavaClassUnit, String>();
+		this.javaClasses = new LinkedHashMap<JavaClass, List<String>>();
+		this.patternInfos = new HashMap<JavaClass, String>();
 	}
 }

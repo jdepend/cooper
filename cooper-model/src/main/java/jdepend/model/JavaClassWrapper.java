@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
 public class JavaClassWrapper {
@@ -59,9 +60,9 @@ public class JavaClassWrapper {
 
 	private void collectInvokeClasses(JavaClassUnit javaClass, Collection<JavaClassUnit> invokeClasses) {
 		JavaClassUnit invokeClass;
-		for (Method method : javaClass.getSelfMethods()) {
+		for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 			for (InvokeItem invokeItem : method.getInvokeItems()) {
-				invokeClass = invokeItem.getCallee().getJavaClass();
+				invokeClass = JavaClassUnitUtil.getJavaClassUnit(invokeItem.getCallee().getJavaClass());
 				if (!invokeClasses.contains(invokeClass)) {
 					invokeClasses.add(invokeClass);
 					collectInvokeClasses(invokeClass, invokeClasses);

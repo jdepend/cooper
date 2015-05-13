@@ -1,6 +1,6 @@
 package jdepend.parse;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 /**
  * The <code>ParserListener</code> interface defines a listener notified upon
@@ -22,5 +22,5 @@ public interface ParseListener {
 	 * @param parsedClass
 	 *            Parsed Java class.
 	 */
-	public void onParsedJavaClass(JavaClassUnit parsedClass, int process);
+	public void onParsedJavaClass(JavaClass parsedClass, int process);
 }

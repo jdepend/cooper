@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature.leaf;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class CollectionAttributeIsSelfSuperFeature extends AbstractFeature {
 
@@ -13,7 +13,7 @@ public class CollectionAttributeIsSelfSuperFeature extends AbstractFeature {
 			return false;
 		} else {
 			for (Attribute attribute : context.getCollectionAttributes()) {
-				for (JavaClassUnit javaClass : attribute.getTypeClasses()) {
+				for (JavaClass javaClass : attribute.getTypeClasses()) {
 					if (context.getAllSupers().contains(javaClass)) {
 						this.setPatternInfo(attribute.getName());
 						return true;

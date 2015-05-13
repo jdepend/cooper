@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class ClassSearchUtil {
 
-	private Map<String, JavaClassUnit> javaClasses;
+	private Map<String, JavaClass> javaClasses;
 
 	private Map<String, ArrayList<String>> classNames = new HashMap<String, ArrayList<String>>();
 
@@ -38,8 +38,8 @@ public class ClassSearchUtil {
 		synchronized (classNames) {
 			ArrayList<String> currentClassNames = new ArrayList<String>();
 			if (this.javaClasses != null) {
-				JavaClassUnit superClass = this.javaClasses.get(superName);
-				for (JavaClassUnit subClass : superClass.getSubClasses()) {
+				JavaClass superClass = this.javaClasses.get(superName);
+				for (JavaClass subClass : superClass.getSubClasses()) {
 					currentClassNames.add(subClass.getName());
 				}
 
@@ -66,9 +66,9 @@ public class ClassSearchUtil {
 
 	}
 
-	public void setClassList(Collection<JavaClassUnit> classes) {
-		this.javaClasses = new HashMap<String, JavaClassUnit>();
-		for (JavaClassUnit javaClass : classes) {
+	public void setClassList(Collection<JavaClass> classes) {
+		this.javaClasses = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : classes) {
 			this.javaClasses.put(javaClass.getName(), javaClass);
 		}
 

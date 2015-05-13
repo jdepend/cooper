@@ -1,12 +1,15 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
@@ -16,15 +19,21 @@ public final class CopyUtil {
 	private Map<String, JavaClassUnit> javaClasses = new HashMap<String, JavaClassUnit>();
 
 	public List<Component> copy(List<Component> components) {
-		// 创建JavaClass
+		// 创建JavaClassUnit
 		for (Component component : components) {
 			for (JavaClassUnit javaClass : component.getClasses()) {
-				if (javaClasses.get(javaClass.getId()) == null) {
+				if (javaClasses.get(javaClass.getJavaClass().getId()) == null) {
 					newJavaClass(javaClass);
 				}
 			}
 		}
-		JavaClassCollection jClasses = new JavaClassCollection(javaClasses.values());
+		// 生成JavaClasses
+		Map<String, JavaClass> newJavaClasses = new HashMap<String, JavaClass>();
+		for (String id : javaClasses.keySet()) {
+			newJavaClasses.put(id, javaClasses.get(id).getJavaClass());
+		}
+
+		JavaClassCollection jClasses = new JavaClassCollection(newJavaClasses.values());
 		// 补充JavaClassRelationItem的Current和Depend
 		JavaClassUtil.supplyJavaClassRelationItem(jClasses);
 		// 将JavaClassDetail中的字符串信息填充为对象引用
@@ -34,7 +43,7 @@ public final class CopyUtil {
 		for (Component component : components) {
 			for (JavaPackage javaPackage : component.getJavaPackages()) {
 				try {
-					javaPackage.clone(javaClasses);
+					javaPackage.clone(newJavaClasses);
 				} catch (JDependException e) {
 					e.printStackTrace();
 				}
@@ -60,8 +69,8 @@ public final class CopyUtil {
 			newJavaClass = javaClass.clone();
 			javaClasses.put(newJavaClass.getId(), newJavaClass);
 			// 添加内部类
-			for (JavaClassUnit innerClass : newJavaClass.getInnerClasses()) {
-				javaClasses.put(innerClass.getId(), innerClass);
+			for (JavaClass innerClass : newJavaClass.getJavaClass().getInnerClasses()) {
+				javaClasses.put(innerClass.getId(), new JavaClassUnit(innerClass));
 			}
 		}
 		return newJavaClass;

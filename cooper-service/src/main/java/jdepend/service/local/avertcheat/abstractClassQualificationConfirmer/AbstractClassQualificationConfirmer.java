@@ -2,8 +2,11 @@ package jdepend.service.local.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
 
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
 
 public final class AbstractClassQualificationConfirmer extends JavaClassAvertCheat {
@@ -23,17 +26,20 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		// if (!javaClass.isAbstract())
 		// return false;
 
-		Collection<JavaClassUnit> subClasses = javaClass.getSubClasses();
+		AnalysisResult result = javaClass.getResult();
+
+		Collection<JavaClass> subClasses = javaClass.getJavaClass().getSubClasses();
 		if (subClasses.size() >= ChildJavaClassCount) {
 			return true;
 		} else {
 			// 存在一个子类，又存在父类也具备抽象类计数资格
-			if (subClasses.size() >= 1 && javaClass.getSupers().size() > 0) {
+			if (subClasses.size() >= 1 && javaClass.getJavaClass().getSupers().size() > 0) {
 				return true;
 			}
 			// 子类不在一个组件中也具备抽象类计数资格
-			for (JavaClassUnit subClass : subClasses) {
-				if (!subClass.containedComponent() || !subClass.getComponent().equals(javaClass.getComponent())) {
+			for (JavaClass subClass : subClasses) {
+				JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
+				if (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(javaClass.getComponent())) {
 					return true;
 				}
 			}

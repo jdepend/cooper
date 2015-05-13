@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class SuperHaveOtherSubClassFeature extends AbstractFeature {
 
@@ -14,9 +14,9 @@ public class SuperHaveOtherSubClassFeature extends AbstractFeature {
 		if (context.getAllSupers() == null) {
 			return false;
 		} else {
-			Collection<JavaClassUnit> otherSubClasses = new ArrayList<JavaClassUnit>();
-			for (JavaClassUnit superClass : context.getAllSupers()) {
-				for (JavaClassUnit subClass : superClass.getSubClasses()) {
+			Collection<JavaClass> otherSubClasses = new ArrayList<JavaClass>();
+			for (JavaClass superClass : context.getAllSupers()) {
+				for (JavaClass subClass : superClass.getSubClasses()) {
 					if (!subClass.equals(context.getCurrent()) && !otherSubClasses.contains(subClass)) {
 						otherSubClasses.add(subClass);
 					}

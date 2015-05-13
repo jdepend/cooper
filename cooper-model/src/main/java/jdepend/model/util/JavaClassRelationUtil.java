@@ -29,9 +29,9 @@ public class JavaClassRelationUtil {
 		JavaClassRelationInfo tableInfo;
 		// 收集TableRelationInfo
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			for (JavaClassRelationItem item : javaClass.getCeItems()) {
+			for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
 				tableInfo = new JavaClassRelationInfo(item.getSource().getName(), item.getTarget().getName(), item
-						.getType().getName(), item.isInner(), item.getRelationIntensity());
+						.getType().getName(), JavaClassUnitUtil.isInner(item), item.getRelationIntensity());
 				relationInfos.add(tableInfo);
 			}
 		}

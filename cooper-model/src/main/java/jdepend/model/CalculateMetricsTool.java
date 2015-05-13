@@ -5,6 +5,7 @@ import java.util.List;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 计算计算得到的指标的工具 仅仅在model中使用
@@ -104,20 +105,20 @@ public final class CalculateMetricsTool {
 			return null;
 		} else {
 			int privates = 0;
-//			int count = 0;
-//			for (JavaClass javaClass : this.unit.getClasses()) {
-//				if (javaClass.getClassType().equals(JavaClass.Service_TYPE)) {
-//					count += 1;
-//					if (!javaClass.isUsedByExternal()) {
-//						privates += 1;
-//					}
-//				}
-//			}
-//			if (count > 0) {
-//				return privates * 1F / count;
-//			} else {
-//				return 1F;
-//			}
+			// int count = 0;
+			// for (JavaClass javaClass : this.unit.getClasses()) {
+			// if (javaClass.getClassType().equals(JavaClass.Service_TYPE)) {
+			// count += 1;
+			// if (!javaClass.isUsedByExternal()) {
+			// privates += 1;
+			// }
+			// }
+			// }
+			// if (count > 0) {
+			// return privates * 1F / count;
+			// } else {
+			// return 1F;
+			// }
 
 			for (JavaClassUnit javaClass : this.unit.getClasses()) {
 				if (!javaClass.isUsedByExternal()) {
@@ -139,8 +140,8 @@ public final class CalculateMetricsTool {
 			int tableRelations = 0;
 			int relations = 0;
 			for (JavaClassUnit javaClass : javaClasses) {
-				for (JavaClassRelationItem item : javaClass.getCeItems()) {
-					if (!item.isInner()) {
+				for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
+					if (!JavaClassUnitUtil.isInner(item)) {
 						if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getTableRelation())) {
 							tableRelations += 1;
 						}

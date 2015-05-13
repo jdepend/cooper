@@ -5,6 +5,7 @@ import java.util.Collection;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
@@ -35,8 +36,11 @@ public final class InvokeCount extends AbstractAnalyzer {
 					this.printTable("调用者", invokeMethod.getJavaClass().getName() + "." + invokeMethod.getInfo());
 					this.printTable(
 							"是否组件间",
-							method.getJavaClass().getComponent().equals(invokeMethod.getJavaClass().getComponent()) ? "否"
-									: "是");
+							JavaClassUnitUtil
+									.getJavaClassUnit(method.getJavaClass())
+									.getComponent()
+									.equals(JavaClassUnitUtil.getJavaClassUnit(invokeMethod.getJavaClass())
+											.getComponent()) ? "否" : "是");
 				}
 			} else {
 				this.printTable("类名", method.getJavaClass().getName());

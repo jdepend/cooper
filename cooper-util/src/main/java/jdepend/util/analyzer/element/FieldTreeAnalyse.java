@@ -1,12 +1,17 @@
 package jdepend.util.analyzer.element;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.tree.JavaClassFieldTreeCreator;
 import jdepend.model.tree.JavaClassTree;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
@@ -29,7 +34,8 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		List<JavaClassTree> trees = (new JavaClassFieldTreeCreator()).create(result.getClasses());
+		List<JavaClassTree> trees = (new JavaClassFieldTreeCreator()).create(JavaClassUnitUtil.getJavaClasses(result
+				.getClasses()));
 		// 打印包含树
 		this.isPrintTab(false);
 		Collections.sort(trees);
@@ -70,13 +76,10 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 		StringBuilder explain = new StringBuilder();
 		explain.append("<strong>包含关系</strong>是类两种关系（have a和is a）之一，并存在多级包含（a包含b，b包含c）的情况。<br>");
 		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;<strong>包含关系分析</strong>是识别在当前分析结果中规模较大的包含关系体。<br>");
-		explain
-				.append("&nbsp;&nbsp;&nbsp;&nbsp;包含关系有两种形成的原因，一个是领域中固有的关系，在采用软件模拟这种关系时自然的延续下来。另一个是为了实现一些技术上的需要而被程序员“设计”出的包含关系。<br>");
-		explain
-				.append("&nbsp;&nbsp;&nbsp;&nbsp;包含者和被包含者的生命周期的异同是包含关系很重要的一个属性。对于领域形成关系，其生命周期往往取决于对领域的认识 ，而由于技术形成的关系，其被包含的对象的创建时机会设计取决于使用方便性、性能等因素的考虑。<br>");
+		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;包含关系有两种形成的原因，一个是领域中固有的关系，在采用软件模拟这种关系时自然的延续下来。另一个是为了实现一些技术上的需要而被程序员“设计”出的包含关系。<br>");
+		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;包含者和被包含者的生命周期的异同是包含关系很重要的一个属性。对于领域形成关系，其生命周期往往取决于对领域的认识 ，而由于技术形成的关系，其被包含的对象的创建时机会设计取决于使用方便性、性能等因素的考虑。<br>");
 		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;对象是否有状态与该对象包含的对象是否存在状态有关，也就是包含了有状态对象的对象也有状态。<br>");
-		explain
-				.append("&nbsp;&nbsp;&nbsp;&nbsp;对于采用序列化技术持久化或进行网络传输的对象，其状态是否也序列化是一个话题。一般上对于可以通过其他状态计算得到的状态可以不序列化以减轻对网络传输带宽的压力，但会在反序列化时增加对CPU的负担。<br>");
+		explain.append("&nbsp;&nbsp;&nbsp;&nbsp;对于采用序列化技术持久化或进行网络传输的对象，其状态是否也序列化是一个话题。一般上对于可以通过其他状态计算得到的状态可以不序列化以减轻对网络传输带宽的压力，但会在反序列化时增加对CPU的负担。<br>");
 		return explain.toString();
 	}
 

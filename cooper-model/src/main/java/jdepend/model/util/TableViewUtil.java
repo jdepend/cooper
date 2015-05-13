@@ -16,7 +16,7 @@ public class TableViewUtil {
 
 		// 收集TableInfo
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			for (TableInfo info : javaClass.getTables()) {
+			for (TableInfo info : javaClass.getJavaClass().getTables()) {
 				tableInfo = new TableViewInfo(info.getTableName(), info.getType(), javaClass.getName(), javaClass
 						.getComponent().getName());
 				if (!tableInfos.contains(tableInfo)) {

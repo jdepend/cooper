@@ -19,11 +19,11 @@ public final class SingletonIdentifyer extends AbstractPatternIdentifyer {
 			if(javaClass.getName().equals("jdepend.model.MetricsMgr")){
 				System.out.print("");
 			}
-			if (!javaClass.isEnum()) {
+			if (!javaClass.getJavaClass().isEnum()) {
 				isSingleton = true;
 				getter = false;
 				// 查找private构造方法和static的返回类型方法
-				for (Method method : javaClass.getSelfMethods()) {
+				for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 					if (method.isConstruction()) {
 						if (method.isPublic()) {
 							isSingleton = false;
@@ -36,10 +36,10 @@ public final class SingletonIdentifyer extends AbstractPatternIdentifyer {
 				}
 				// 判断是否存在static的实例
 				if (isSingleton && getter) {
-					for (Attribute attribute : javaClass.getAttributes()) {
+					for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
 						if (attribute.isStatic()) {
 							if (attribute.getTypes().contains(javaClass.getName())) {
-								rtn.add(new PatternInfo(javaClass, javaClass.getName()));
+								rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName()));
 								break;
 							}
 						}

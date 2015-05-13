@@ -13,11 +13,11 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.component.JavaPackageComponent;
-import jdepend.model.component.VirtualComponent;
 import jdepend.model.component.PackageSubJDependUnit;
+import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
 /**
@@ -136,8 +136,8 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * @param components
 	 */
 	protected void filterExternalJavaClass(Collection<Component> components) {
-		Collection<JavaClassUnit> javaClasses = JavaClassUtil.getAllClasses(components);
-		for (JavaClassUnit javaClass : javaClasses) {
+		Collection<JavaClass> javaClasses = JavaClassUnitUtil.getAllClasses(components);
+		for (JavaClass javaClass : javaClasses) {
 			javaClass.filterExternalJavaClass(javaClasses);
 		}
 	}
@@ -175,7 +175,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		if (this.javaPackages == null) {
 			this.javaPackages = new HashSet<JavaPackage>();
 			for (JavaClassUnit javaClass : this.javaClasses) {
-				this.javaPackages.add(javaClass.getJavaPackage());
+				this.javaPackages.add(javaClass.getJavaClass().getJavaPackage());
 			}
 		}
 		return this.javaPackages;
@@ -221,7 +221,15 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 	@Override
 	public boolean containsClass(JavaClassUnit javaClass) {
-		return javaClass.containedComponent() && javaClass.getComponent().equals(this);
+		return this.containsClass(javaClass.getJavaClass());
+	}
+
+	public boolean containsClass(JavaClass javaClass) {
+		if (javaClass.isInnerClass()) {
+			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
+		} else {
+			return this.javaClassesForId.containsKey(javaClass.getId());
+		}
 	}
 
 	@Override
@@ -343,7 +351,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 		float intensity = 0;
 		for (JavaClassUnit javaClass : this.getClasses()) {
-			for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
+			for (JavaClassRelationItem relationItem : javaClass.getJavaClass().getCeItems()) {
 				if (component.containsClass(relationItem.getTarget())) {
 					detail.addItem(relationItem);
 					intensity += relationItem.getRelationIntensity();

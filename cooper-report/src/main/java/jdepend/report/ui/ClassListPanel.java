@@ -170,7 +170,8 @@ public class ClassListPanel extends JPanel {
 
 		String metrics = null;
 		for (JavaClassUnit javaClass : this.javaClasses) {
-			if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter, javaClass))
+			if ((nameFilter == null || nameFilter.length() == 0 || JavaClassUtil.match(nameFilter,
+					javaClass.getJavaClass()))
 					&& (callerFilter == null || callerFilter.length() == 0 || this.matchCallerFilter(callerFilter,
 							javaClass))
 					&& (calleeFilter == null || calleeFilter.length() == 0 || this.matchCalleeFilter(calleeFilter,
@@ -190,7 +191,7 @@ public class ClassListPanel extends JPanel {
 
 	private boolean matchCallerFilter(String callerFilter, JavaClassUnit javaClass) {
 		for (JavaClassUnit caClass : javaClass.getCaList()) {
-			if (JavaClassUtil.match(callerFilter, caClass)) {
+			if (JavaClassUtil.match(callerFilter, caClass.getJavaClass())) {
 				return true;
 			}
 		}
@@ -199,7 +200,7 @@ public class ClassListPanel extends JPanel {
 
 	private boolean matchCalleeFilter(String calleeFilter, JavaClassUnit javaClass) {
 		for (JavaClassUnit ceClass : javaClass.getCeList()) {
-			if (JavaClassUtil.match(calleeFilter, ceClass)) {
+			if (JavaClassUtil.match(calleeFilter, ceClass.getJavaClass())) {
 				return true;
 			}
 		}

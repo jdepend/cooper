@@ -36,6 +36,7 @@ import jdepend.model.tree.JavaPackageNode;
 import jdepend.model.tree.JavaPackageTreeCreator;
 import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassCollection;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.JavaClassUtil;
 import jdepend.model.util.RelationCreator;
 
@@ -155,14 +156,14 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	public synchronized Collection<JavaClassUnit> getClasses() {
 		if (javaClasses == null) {
-			javaClasses = JavaClassUtil.getClasses(components);
+			javaClasses = JavaClassUnitUtil.getClasses(components);
 		}
 		return javaClasses;
 	}
 
 	public synchronized Collection<JavaPackage> getJavaPackages() {
 		if (javaPackages == null) {
-			javaPackages = JavaClassUtil.getJavaPackages(components);
+			javaPackages = JavaClassUnitUtil.getJavaPackages(components);
 		}
 		return javaPackages;
 	}
@@ -179,6 +180,9 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			javaClassForIds = new HashMap<String, JavaClassUnit>();
 			for (JavaClassUnit javaClass : getClasses()) {
 				javaClassForIds.put(javaClass.getId(), javaClass);
+				for (JavaClassUnit innerClassUnit : javaClass.getInnerClassUnits()) {
+					javaClassForIds.put(innerClassUnit.getId(), innerClassUnit);
+				}
 			}
 		}
 		return javaClassForIds.get(id);
@@ -188,7 +192,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		if (this.methods == null) {
 			this.methods = new HashSet<Method>();
 			for (JavaClassUnit javaClass : this.getClasses()) {
-				for (Method method : javaClass.getSelfMethods()) {
+				for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 					this.methods.add(method);
 				}
 			}
@@ -225,7 +229,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			Iterator<JavaClassRelationItem> it;
 			for (JavaClassUnit javaClass : deleteComponent.getClasses()) {
 				for (JavaClassUnit dependClass : javaClass.getCaList()) {
-					it = dependClass.getSelfCeItems().iterator();
+					it = dependClass.getJavaClass().getSelfCeItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getTarget().equals(javaClass)) {
 							it.remove();
@@ -233,7 +237,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 					}
 				}
 				for (JavaClassUnit dependClass : javaClass.getCeList()) {
-					it = dependClass.getSelfCaItems().iterator();
+					it = dependClass.getJavaClass().getSelfCaItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getSource().equals(javaClass)) {
 							it.remove();
@@ -570,7 +574,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		if (listener != null) {
 			listener.onUnSequence("正在创建类集合");
 		}
-		JavaClassCollection javaClasses = new JavaClassCollection(JavaClassUtil.getAllClasses(components));
+		JavaClassCollection javaClasses = new JavaClassCollection(JavaClassUnitUtil.getAllClasses(components));
 		// 填充JavaClassRelationItem
 		if (listener != null) {
 			listener.onUnSequence("正在填充类关系");

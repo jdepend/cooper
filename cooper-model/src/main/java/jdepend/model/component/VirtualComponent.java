@@ -12,8 +12,7 @@ import jdepend.model.SubJDependUnit;
 /**
  * 一种组织类的方式，不改变Class所属组件的性质
  * 
- * 在 {@link MoveRelationTODOItem}中用于聚合相关的类
- * 在 {@link Component}中用于计算内聚性
+ * 在 {@link MoveRelationTODOItem}中用于聚合相关的类 在 {@link Component}中用于计算内聚性
  * 
  * @author user
  * 
@@ -53,15 +52,6 @@ public class VirtualComponent extends Component {
 		if (!this.javaClasses.contains(javaClass)) {
 			this.javaClasses.add(javaClass);
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
-		}
-	}
-
-	@Override
-	public boolean containsClass(JavaClassUnit javaClass) {
-		if (javaClass.isInnerClass()) {
-			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
-		} else {
-			return this.javaClassesForId.containsKey(javaClass.getId());
 		}
 	}
 

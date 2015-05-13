@@ -7,7 +7,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseListener;
@@ -18,7 +18,7 @@ public final class SearchUtil {
 
 	private Collection<JavaPackage> javaPackages;
 
-	private Collection<JavaClassUnit> javaClasses;
+	private Collection<JavaClass> javaClasses;
 
 	private Integer classCount;
 
@@ -52,7 +52,7 @@ public final class SearchUtil {
 		return classCount;
 	}
 
-	public Collection<JavaClassUnit> getClasses() {
+	public Collection<JavaClass> getClasses() {
 		if (javaClasses == null) {
 			try {
 				this.analyse();
@@ -78,7 +78,7 @@ public final class SearchUtil {
 
 		this.javaPackages = new ArrayList<JavaPackage>(this.jdepend.execute());
 
-		this.javaClasses = new ArrayList<JavaClassUnit>();
+		this.javaClasses = new ArrayList<JavaClass>();
 		for (JavaPackage javaPackage : javaPackages) {
 			javaClasses.addAll(javaPackage.getClasses());
 		}

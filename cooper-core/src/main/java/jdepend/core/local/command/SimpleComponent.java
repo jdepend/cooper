@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
@@ -50,8 +51,8 @@ public final class SimpleComponent extends Component {
 			for (JavaPackage javaPackage : javaPackages) {
 				if (javaPackage.getName().startsWith(componentName + ".")
 						|| javaPackage.getName().startsWith(componentName)) {
-					for (JavaClassUnit javaClass : javaPackage.getClasses()) {
-						component.addJavaClass(javaClass);
+					for (JavaClass javaClass : javaPackage.getClasses()) {
+						component.addJavaClass(new JavaClassUnit(javaClass));
 					}
 				}
 			}

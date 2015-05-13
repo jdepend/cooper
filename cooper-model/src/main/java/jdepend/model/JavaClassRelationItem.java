@@ -19,9 +19,9 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	private static final long serialVersionUID = -6332298811666212021L;
 
-	private transient JavaClassUnit target = null;// 目标javaclass
+	private transient JavaClass target = null;// 目标javaclass
 
-	private transient JavaClassUnit source = null;// 源javaClass
+	private transient JavaClass source = null;// 源javaClass
 
 	private String targetJavaClassPlace = null;// 序列化和反序列化时使用
 
@@ -44,20 +44,11 @@ public class JavaClassRelationItem implements Serializable {
 		return this.type.getIntensity();
 	}
 
-	/**
-	 * 该关系是同一个组件内的关系
-	 * 
-	 * @return
-	 */
-	public boolean isInner() {
-		return this.source.getComponent().equals(this.target.getComponent());
-	}
-
-	public JavaClassUnit getTarget() {
+	public JavaClass getTarget() {
 		return target;
 	}
 
-	public void setTarget(JavaClassUnit target) {
+	public void setTarget(JavaClass target) {
 		this.target = target;
 	}
 
@@ -77,11 +68,11 @@ public class JavaClassRelationItem implements Serializable {
 		this.type = type;
 	}
 
-	public JavaClassUnit getSource() {
+	public JavaClass getSource() {
 		return source;
 	}
 
-	public void setSource(JavaClassUnit source) {
+	public void setSource(JavaClass source) {
 		this.source = source;
 	}
 
@@ -115,15 +106,6 @@ public class JavaClassRelationItem implements Serializable {
 
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
-	}
-
-	/**
-	 * 判断该关系是否是组件间的类关系
-	 * 
-	 * @return
-	 */
-	public boolean crossComponent() {
-		return !this.source.getComponent().containsClass(this.target);
 	}
 
 	public JavaClassRelationItem clone() {
@@ -183,7 +165,8 @@ public class JavaClassRelationItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "JavaClassRelationItem [source=" + source.getName() + ", target=" + target.getName() + ", type=" + type + "]";
+		return "JavaClassRelationItem [source=" + source.getName() + ", target=" + target.getName() + ", type=" + type
+				+ "]";
 	}
 
 	@Override
@@ -192,8 +175,8 @@ public class JavaClassRelationItem implements Serializable {
 		int result = 1;
 		result = prime
 				* result
-				+ ((source == null) ? CandidateUtil.getId(sourceJavaClassPlace, sourceJavaClass).hashCode()
-						: source.getName().hashCode());
+				+ ((source == null) ? CandidateUtil.getId(sourceJavaClassPlace, sourceJavaClass).hashCode() : source
+						.getName().hashCode());
 		result = prime
 				* result
 				+ ((target == null) ? CandidateUtil.getId(targetJavaClassPlace, targetJavaClass).hashCode() : target

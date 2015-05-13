@@ -14,7 +14,7 @@ public class InheritRelation extends BaseJavaClassRelationType {
 	}
 
 	public float getRationality(JavaClassUnit target, JavaClassUnit source, String direction) {
-		if (target.isAbstract()) {
+		if (target.getJavaClass().isAbstract()) {
 			return 0.4F;
 		} else {
 			return super.getRationality(target, source, direction);

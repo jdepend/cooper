@@ -5,22 +5,22 @@ import java.util.Collection;
 import java.util.Map;
 
 import jdepend.model.Attribute;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
 public class FeatureCheckContext {
 
-	private JavaClassUnit javaClass;
+	private JavaClass javaClass;
 
-	private Collection<JavaClassUnit> interfaces;
+	private Collection<JavaClass> interfaces;
 
-	private Collection<JavaClassUnit> superClasses;
+	private Collection<JavaClass> superClasses;
 
-	private transient Collection<JavaClassUnit> allSuperClasses;
+	private transient Collection<JavaClass> allSuperClasses;
 
-	private Collection<JavaClassUnit> superOtherSubClasses;
+	private Collection<JavaClass> superOtherSubClasses;
 
-	private Collection<JavaClassUnit> subClasses;
+	private Collection<JavaClass> subClasses;
 
 	private Collection<Attribute> collectionAttributes;
 
@@ -40,21 +40,21 @@ public class FeatureCheckContext {
 
 	private Collection<Method> returnIsSuperOverrideMethods;
 
-	public FeatureCheckContext(JavaClassUnit javaClass) {
+	public FeatureCheckContext(JavaClass javaClass) {
 		super();
 		this.javaClass = javaClass;
 	}
 
-	public JavaClassUnit getCurrent() {
+	public JavaClass getCurrent() {
 		return this.javaClass;
 	}
 
-	public Collection<JavaClassUnit> getAllSupers() {
+	public Collection<JavaClass> getAllSupers() {
 		if (this.interfaces == null && this.superClasses == null) {
 			return null;
 		} else {
 			if (allSuperClasses == null) {
-				allSuperClasses = new ArrayList<JavaClassUnit>();
+				allSuperClasses = new ArrayList<JavaClass>();
 				if (this.interfaces != null) {
 					allSuperClasses.addAll(this.interfaces);
 				}
@@ -66,19 +66,19 @@ public class FeatureCheckContext {
 		}
 	}
 
-	public Collection<JavaClassUnit> getSupers() {
+	public Collection<JavaClass> getSupers() {
 		return superClasses;
 	}
 
-	public void setSupers(Collection<JavaClassUnit> superClasses) {
+	public void setSupers(Collection<JavaClass> superClasses) {
 		this.superClasses = superClasses;
 	}
 
-	public void setInterfaces(Collection<JavaClassUnit> interfaces) {
+	public void setInterfaces(Collection<JavaClass> interfaces) {
 		this.interfaces = interfaces;
 	}
 
-	public Collection<JavaClassUnit> getInterfaces() {
+	public Collection<JavaClass> getInterfaces() {
 		return interfaces;
 	}
 
@@ -146,11 +146,11 @@ public class FeatureCheckContext {
 		this.haveSubClassesCollectionAttributes = haveSubClassesCollectionAttributes;
 	}
 
-	public void setSuperOtherSubClasses(Collection<JavaClassUnit> otherSubClasses) {
+	public void setSuperOtherSubClasses(Collection<JavaClass> otherSubClasses) {
 		this.superOtherSubClasses = otherSubClasses;
 	}
 
-	public Collection<JavaClassUnit> getSuperOtherSubClasses() {
+	public Collection<JavaClass> getSuperOtherSubClasses() {
 		return superOtherSubClasses;
 	}
 
@@ -162,11 +162,11 @@ public class FeatureCheckContext {
 		return abstractMethods;
 	}
 
-	public void setSubClasses(Collection<JavaClassUnit> subClasses) {
+	public void setSubClasses(Collection<JavaClass> subClasses) {
 		this.subClasses = subClasses;
 	}
 
-	public Collection<JavaClassUnit> getSubClasses() {
+	public Collection<JavaClass> getSubClasses() {
 		return subClasses;
 	}
 }

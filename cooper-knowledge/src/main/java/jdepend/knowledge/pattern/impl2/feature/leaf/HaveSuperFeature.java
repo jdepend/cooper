@@ -5,17 +5,18 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 
 public class HaveSuperFeature extends AbstractFeature {
 
 	@Override
 	protected boolean have(FeatureCheckContext context) {
-		Collection<JavaClassUnit> superClasses = context.getCurrent().getSupers();
+		Collection<JavaClass> superClasses = context.getCurrent().getSupers();
 		if (superClasses != null && superClasses.size() > 0) {
-			Collection<JavaClassUnit> interfaces = new ArrayList<JavaClassUnit>();
-			Collection<JavaClassUnit> supers = new ArrayList<JavaClassUnit>();
-			for (JavaClassUnit superClass : superClasses) {
+			Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
+			Collection<JavaClass> supers = new ArrayList<JavaClass>();
+			for (JavaClass superClass : superClasses) {
 				if (superClass.isInterface()) {
 					interfaces.add(superClass);
 				} else {

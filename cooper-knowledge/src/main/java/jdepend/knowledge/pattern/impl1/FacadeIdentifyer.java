@@ -33,7 +33,7 @@ public class FacadeIdentifyer extends AbstractPatternIdentifyer {
 						innerCellCount = javaClass.getCeList().size() - javaClass.getEfferents().size();
 						innerCellScale = innerCellCount / javaClass.getCeList().size() * 1F;
 						if (innerCellScale >= 0.8) {
-							rtn.add(new PatternInfo(javaClass, javaClass.getName()));
+							rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName()));
 						}
 					}
 				}

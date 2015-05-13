@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
 import jdepend.model.Attribute;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.Method;
 
 public class FlyweightFeature extends AbstractFeature {
@@ -15,7 +15,7 @@ public class FlyweightFeature extends AbstractFeature {
 		} else {
 			for (Attribute attribute : context.getHaveSubClassesCollectionAttributes()) {
 				for (Method method : context.getCurrent().getSelfMethods()) {
-					for (JavaClassUnit rtnClass : method.getReturnClassTypes()) {
+					for (JavaClass rtnClass : method.getReturnClassTypes()) {
 						if (attribute.getTypeClasses().contains(rtnClass)) {
 							if (method.getArgumentCount() > 0) {
 								if (method.getReadFields().contains(attribute.getName())) {

@@ -35,7 +35,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 		boolean selfInvokeClass;
 
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			for (Method method : javaClass.getSelfMethods()) {
+			for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 				if (method.getSelfLineCount() > 10) {
 					if (method.getWriteFields().size() == 0 && method.getReadFields().size() == 0) {
 						invokeClassName = null;

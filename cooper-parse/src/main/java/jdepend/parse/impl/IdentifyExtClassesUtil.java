@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassDetail;
 import jdepend.model.util.ParseUtil;
 
@@ -13,9 +13,9 @@ class IdentifyExtClassesUtil {
 
 	private PackageFilter filter;
 
-	private Map<String, JavaClassUnit> extendJavaClasses;
+	private Map<String, JavaClass> extendJavaClasses;
 
-	private Map<String, JavaClassUnit> parsedClasses;
+	private Map<String, JavaClass> parsedClasses;
 
 	public IdentifyExtClassesUtil(PackageFilter filter) {
 		super();
@@ -28,16 +28,16 @@ class IdentifyExtClassesUtil {
 	 * @param parsedClasses
 	 * @return
 	 */
-	public Collection<JavaClassUnit> identify(Collection<JavaClassUnit> javaClasses) {
+	public Collection<JavaClass> identify(Collection<JavaClass> javaClasses) {
 
-		this.extendJavaClasses = new HashMap<String, JavaClassUnit>();
-		this.parsedClasses = new HashMap<String, JavaClassUnit>();
-		for (JavaClassUnit javaClass : javaClasses) {
+		this.extendJavaClasses = new HashMap<String, JavaClass>();
+		this.parsedClasses = new HashMap<String, JavaClass>();
+		for (JavaClass javaClass : javaClasses) {
 			this.parsedClasses.put(javaClass.getName(), javaClass);
 		}
 
 		JavaClassDetail info = null;
-		for (JavaClassUnit javaClass : javaClasses) {
+		for (JavaClass javaClass : javaClasses) {
 			if (javaClass.isInner()) {
 				info = javaClass.getDetail();
 				// 处理父类
@@ -67,7 +67,7 @@ class IdentifyExtClassesUtil {
 			}
 		}
 
-		Collection<JavaClassUnit> extJavaClasses = this.extendJavaClasses.values();
+		Collection<JavaClass> extJavaClasses = this.extendJavaClasses.values();
 
 		LogUtil.getInstance(IdentifyExtClassesUtil.class).systemLog(
 				"Identify Ext " + extJavaClasses.size() + " Classes.");
@@ -86,7 +86,7 @@ class IdentifyExtClassesUtil {
 		if (javaClassName.indexOf('$') == -1) {// 不是内部类
 			String packageName = ParseUtil.getPackageName(javaClassName);
 			if (this.filter.accept(packageName)) {
-				JavaClassUnit extendJavaClass = new JavaClassUnit(javaClassName, false);
+				JavaClass extendJavaClass = new JavaClass(javaClassName, false);
 				extendJavaClass.setPlace("outer");
 				extendJavaClass.setPackageName(packageName);
 				this.extendJavaClasses.put(extendJavaClass.getName(), extendJavaClass);

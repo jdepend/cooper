@@ -30,7 +30,7 @@ public class SearchDAONoPageMethod extends AbstractAnalyzer {
 		}
 		for (JavaClassUnit javaClass : result.getClasses()) {
 			if (javaClass.getName().endsWith(daoEndClassName)) {
-				for (Method method : javaClass.getSelfMethods()) {
+				for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 					if (method.existReturn()) {
 						if (method.getReturnTypes().contains("java.util.List")) {
 							if (!method.getArgumentTypes().contains(pageType)) {

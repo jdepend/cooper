@@ -5,8 +5,10 @@ import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Attribute;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
@@ -28,13 +30,15 @@ public class IdentifyDomainService extends AbstractAnalyzer {
 		int count;
 		boolean domain;
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			if (isService(javaClass)) {
+			if (isService(javaClass.getJavaClass())) {
 				domain = true;
 				count = 0;
-				L: for (Attribute attribute : javaClass.getAttributes()) {
-					for (JavaClassUnit type : attribute.getTypeClasses()) {
+				L: for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
+					for (JavaClass type : attribute.getTypeClasses()) {
 						if (isService(type)) {
-							if (!type.containedComponent() || !javaClass.getComponent().equals(type.getComponent())) {
+							JavaClassUnit typeUnit = JavaClassUnitUtil.getJavaClassUnit(type);
+							if (!typeUnit.containedComponent()
+									|| !javaClass.getComponent().equals(typeUnit.getComponent())) {
 								domain = false;
 								break L;
 							} else {
@@ -76,7 +80,7 @@ public class IdentifyDomainService extends AbstractAnalyzer {
 		}
 	}
 
-	private boolean isService(JavaClassUnit javaClass) {
+	private boolean isService(JavaClass javaClass) {
 		for (String serviceName : serviceNames) {
 			if (javaClass.getName().endsWith(serviceName)) {
 				return true;

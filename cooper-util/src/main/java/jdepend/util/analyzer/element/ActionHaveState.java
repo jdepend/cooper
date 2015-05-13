@@ -39,9 +39,9 @@ public class ActionHaveState extends AbstractAnalyzer {
 		int totalAction = 0;
 		int printAction = 0;
 		for (JavaClassUnit javaClass : javaClasses) {
-			if (actionClassType.isMember(javaClass)) {
+			if (actionClassType.isMember(javaClass.getJavaClass())) {
 				totalAction++;
-				if (javaClass.isState()) {
+				if (javaClass.getJavaClass().isState()) {
 					this.print(javaClass.getName() + "\n");
 					printAction++;
 				}

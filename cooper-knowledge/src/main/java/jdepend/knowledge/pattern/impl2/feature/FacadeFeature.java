@@ -2,6 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
+import jdepend.model.util.JavaClassUnitUtil;
 
 public class FacadeFeature extends AbstractFeature {
 
@@ -11,11 +12,12 @@ public class FacadeFeature extends AbstractFeature {
 		Float innerCellScale;
 		int innerCellCount;
 		if (context.getCurrent().getCaList().size() > 0) {
-			extCaCallScale = context.getCurrent().getAfferents().size() / context.getCurrent().getCaList().size() * 1F;
+			extCaCallScale = JavaClassUnitUtil.getJavaClassUnit(context.getCurrent()).getAfferents().size()
+					/ context.getCurrent().getCaList().size() * 1F;
 			if (extCaCallScale >= 0.9) {
 				if (context.getCurrent().getCeList().size() > 0) {
 					innerCellCount = context.getCurrent().getCeList().size()
-							- context.getCurrent().getEfferents().size();
+							- JavaClassUnitUtil.getJavaClassUnit(context.getCurrent()).getEfferents().size();
 					innerCellScale = innerCellCount / context.getCurrent().getCeList().size() * 1F;
 					if (innerCellScale >= 0.8) {
 						return true;

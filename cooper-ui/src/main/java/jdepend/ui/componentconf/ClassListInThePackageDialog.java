@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.component.modelconf.Candidate;
 
 /**
@@ -56,7 +56,7 @@ public class ClassListInThePackageDialog extends JDialog {
 		listModel.addColumn("类名");
 		Object[] row;
 
-		for (JavaClassUnit javaClass : candidate.getClasses()) {
+		for (JavaClass javaClass : candidate.getClasses()) {
 			row = new Object[1];
 			row[0] = javaClass.getName();
 			listModel.addRow(row);

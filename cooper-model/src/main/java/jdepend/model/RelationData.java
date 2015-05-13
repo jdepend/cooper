@@ -9,6 +9,7 @@ import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
 /**
@@ -50,8 +51,8 @@ public class RelationData {
 		Component dependComponent = relation.getDepend().getComponent();
 		// 计算需要分析的组件
 		for (JavaClassRelationItem item : relation.getItems()) {
-			current.joinJavaClass(item.getSource());
-			depend.joinJavaClass(item.getTarget());
+			current.joinJavaClass(JavaClassUnitUtil.getJavaClassUnit(item.getSource()));
+			depend.joinJavaClass(JavaClassUnitUtil.getJavaClassUnit(item.getTarget()));
 		}
 
 		for (JavaClassUnit javaClass : currentComponent.getClasses()) {

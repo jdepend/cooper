@@ -48,19 +48,19 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 
 		for (JavaClassUnit javaClass : repeatClasses) {
 			this.printTable("类名", javaClass.getName());
-			this.printTable("位置", javaClass.getPlace());
+			this.printTable("位置", javaClass.getJavaClass().getPlace());
 		}
 	}
 
 	private boolean repeat(JavaClassUnit javaClass, JavaClassUnit javaClass1) {
 		if (javaClass.getName().equals(javaClass1.getName())) {
-			if (javaClass.getPlace() == null && javaClass1.getPlace() != null) {
+			if (javaClass.getJavaClass().getPlace() == null && javaClass1.getJavaClass().getPlace() != null) {
 				return true;
-			} else if (javaClass.getPlace() != null && javaClass1.getPlace() == null) {
+			} else if (javaClass.getJavaClass().getPlace() != null && javaClass1.getJavaClass().getPlace() == null) {
 				return true;
-			} else if (javaClass.getPlace() == null && javaClass1.getPlace() == null) {
+			} else if (javaClass.getJavaClass().getPlace() == null && javaClass1.getJavaClass().getPlace() == null) {
 				return false;
-			} else if (!javaClass.getPlace().equals(javaClass1.getPlace())) {
+			} else if (!javaClass.getJavaClass().getPlace().equals(javaClass1.getJavaClass().getPlace())) {
 				return true;
 			} else {
 				return false;

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.model.JDependUnitMgr;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 
 public class JavaClassType {
@@ -40,7 +41,7 @@ public class JavaClassType {
 		return name;
 	}
 
-	public boolean isMember(JavaClassUnit javaClass) {
+	public boolean isMember(JavaClass javaClass) {
 		if (this.endWith != null && this.endWith.length() != 0) {
 			if (javaClass.getName().endsWith(this.endWith)) {
 				return true;
@@ -63,11 +64,11 @@ public class JavaClassType {
 	 * @param superClassNames
 	 * @return
 	 */
-	public boolean isJavaClassType(JavaClassUnit theJavaClass) {
+	public boolean isJavaClassType(JavaClass theJavaClass) {
 
-		Collection<JavaClassUnit> supers = theJavaClass.getSupers();
+		Collection<JavaClass> supers = theJavaClass.getSupers();
 
-		for (JavaClassUnit superClass : supers) {
+		for (JavaClass superClass : supers) {
 			if (superClassNames.contains(superClass.getName())) {
 				return true;
 			}

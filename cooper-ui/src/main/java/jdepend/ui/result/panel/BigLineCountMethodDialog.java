@@ -8,6 +8,7 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.model.Method;
+import jdepend.model.util.JavaClassUnitUtil;
 
 public final class BigLineCountMethodDialog extends CooperDialog {
 
@@ -19,7 +20,8 @@ public final class BigLineCountMethodDialog extends CooperDialog {
 			tableData.setData("所属类", bigLineCountMethod.getJavaClass().getName());
 			tableData.setData("方法名", bigLineCountMethod.getInfo());
 			tableData.setData("代码行数", bigLineCountMethod.getSelfLineCount());
-			tableData.setData("所属组件", bigLineCountMethod.getJavaClass().getComponent().getName());
+			tableData.setData("所属组件", JavaClassUnitUtil.getJavaClassUnit(bigLineCountMethod.getJavaClass())
+					.getComponent().getName());
 		}
 		tableData.setSortColName("代码行数");
 

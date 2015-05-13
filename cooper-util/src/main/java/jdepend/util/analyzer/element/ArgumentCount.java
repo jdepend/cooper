@@ -32,7 +32,7 @@ public final class ArgumentCount extends AbstractAnalyzer {
 		int arguments;
 
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			for (Method method : javaClass.getSelfMethods()) {
+			for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 				arguments = method.getArgumentCount();
 				if (arguments >= count) {
 					argumentInfo = new ArgumentInfo(method.getInfo(), javaClass.getName(), arguments);

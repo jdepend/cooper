@@ -77,7 +77,7 @@ public class Skill {
 				classCount++;
 			}
 
-			for (Method method : javaClass.getSelfMethods()) {
+			for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 				if (method.getArgumentCount() >= 6) {
 					bigArgumentMethodCount++;
 					bigArgumentMethods.add(method);

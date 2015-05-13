@@ -35,7 +35,7 @@ public final class MethodTestCase extends TestCase {
 	// }
 
 	public void testGetReturnTypes() {
-		for (JavaClassUnit javaClass : JavaClassUtil.getClassesForJavaPackages(javaPackages)) {
+		for (JavaClass javaClass : JavaClassUtil.getClassesForJavaPackages(javaPackages)) {
 			for (Method method : javaClass.getSelfMethods()) {
 				if (method.getReturnTypes().contains("java.util.Collection")) {
 					System.out.println(method.getInfo());

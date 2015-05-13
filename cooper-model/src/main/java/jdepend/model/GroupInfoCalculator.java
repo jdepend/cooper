@@ -7,6 +7,7 @@ import java.util.List;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.model.component.PackageSubJDependUnit;
+import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 分组信息计算器
@@ -61,14 +62,14 @@ public final class GroupInfoCalculator {
 		this.groupCohesionInfo = new GroupCohesionInfo();
 		List<GroupCohesionItem> groupCohesionItems = new ArrayList<GroupCohesionItem>();
 
-		for (JavaClassRelationItem relationItem : self.getCeItems()) {
+		for (JavaClassRelationItem relationItem : self.getJavaClass().getCeItems()) {
 			if (self.getComponent().containsClass(relationItem.getTarget())) {
 				GroupCohesionItem item = new GroupCohesionItem(relationItem.getTarget().getName());
 				item.addItem(relationItem);
 				groupCohesionItems.add(item);
 			}
 		}
-		for (JavaClassRelationItem relationItem : self.getCaItems()) {
+		for (JavaClassRelationItem relationItem : self.getJavaClass().getCaItems()) {
 			if (self.getComponent().containsClass(relationItem.getSource())) {
 				GroupCohesionItem item = new GroupCohesionItem(relationItem.getSource().getName());
 				item.addItem(relationItem);
@@ -81,7 +82,8 @@ public final class GroupInfoCalculator {
 
 	public GroupInfoCalculator(PackageSubJDependUnit self) {
 		// 得到包所属的组件包含的包集合
-		Collection<JavaPackage> javaPackages = self.getJavaPackage().getClasses().iterator().next().getComponent()
+		Collection<JavaPackage> javaPackages = JavaClassUnitUtil
+				.getJavaClassUnit(self.getJavaPackage().getClasses().iterator().next()).getComponent()
 				.getJavaPackages();
 
 		Float cohesion = 0F;

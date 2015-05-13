@@ -6,6 +6,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 import jdepend.model.component.PrefixComponent;
@@ -49,8 +50,8 @@ public final class JEELayer extends PrefixComponent {
 		for (JavaPackage javaPackage : javaPackages) {
 			for (Component layer : layers) {
 				if (((JEELayer) layer).isMember(javaPackage)) {
-					for (JavaClassUnit javaClass : javaPackage.getClasses()) {
-						layer.addJavaClass(javaClass);
+					for (JavaClass javaClass : javaPackage.getClasses()) {
+						layer.addJavaClass(new JavaClassUnit(javaClass));
 					}
 				}
 			}

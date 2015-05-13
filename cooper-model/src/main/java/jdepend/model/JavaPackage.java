@@ -27,17 +27,17 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 
 	private String place;
 
-	private Collection<JavaClassUnit> classes;
+	private Collection<JavaClass> classes;
 
 	public static final String Default = "Default";
 
 	public JavaPackage(String place, String name) {
 		this.place = place;
 		this.name = name;
-		this.classes = new ArrayList<JavaClassUnit>();
+		this.classes = new ArrayList<JavaClass>();
 	}
 
-	public void addClass(JavaClassUnit clazz) {
+	public void addClass(JavaClass clazz) {
 		classes.add(clazz);
 		clazz.setJavaPackage(this);
 	}
@@ -47,7 +47,7 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 	 * 
 	 * @see jdepend.framework.JDependUnit#getClasses()
 	 */
-	public Collection<JavaClassUnit> getClasses() {
+	public Collection<JavaClass> getClasses() {
 		return classes;
 	}
 
@@ -61,7 +61,7 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 	}
 
 	public boolean isInner() {
-		for (JavaClassUnit javaClass : this.getClasses()) {
+		for (JavaClass javaClass : this.getClasses()) {
 			if (javaClass.isInner()) {
 				return true;
 			}
@@ -69,10 +69,10 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 		return false;
 	}
 
-	public JavaPackage clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
+	public JavaPackage clone(Map<String, JavaClass> javaClasses) throws JDependException {
 
 		JavaPackage obj = new JavaPackage(place, name);
-		for (JavaClassUnit javaClass : this.classes) {
+		for (JavaClass javaClass : this.classes) {
 			obj.addClass(javaClasses.get(javaClass.getId()));
 		}
 		return obj;

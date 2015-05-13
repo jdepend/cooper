@@ -31,7 +31,7 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 	 */
 	@Override
 	public boolean supplyCallee(JavaClassCollection javaClasses) {
-		JavaClassUnit invokeClass = javaClasses.getTheClass(invokeClassPlace, invokeClassName);
+		JavaClass invokeClass = javaClasses.getTheClass(invokeClassPlace, invokeClassName);
 		if (invokeClass != null) {
 			for (Method invokeMethod : invokeClass.getMethods()) {
 				if (this.math2(invokeMethod)) {

@@ -74,7 +74,7 @@ public class ActionFormOutWebLayer extends AbstractAnalyzer {
 		}
 
 		for (JavaClassUnit serviceClass : serviceLayer.getClasses()) {
-			for (JavaClassRelationItem relationItem : serviceClass.getCeItems()) {
+			for (JavaClassRelationItem relationItem : serviceClass.getJavaClass().getCeItems()) {
 				if (ActionFormClassType.isMember(relationItem.getTarget())) {
 					this.print(relationItem.getTarget().getName() + " into " + serviceClass.getName());
 				}
@@ -82,7 +82,7 @@ public class ActionFormOutWebLayer extends AbstractAnalyzer {
 		}
 
 		for (JavaClassUnit daoClass : daoLayer.getClasses()) {
-			for (JavaClassRelationItem relationItem : daoClass.getCeItems()) {
+			for (JavaClassRelationItem relationItem : daoClass.getJavaClass().getCeItems()) {
 				if (ActionFormClassType.isMember(relationItem.getTarget())) {
 					this.print(relationItem.getTarget().getName() + " into " + daoClass.getName());
 				}

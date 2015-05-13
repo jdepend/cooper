@@ -53,7 +53,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 	 */
 	private int countAttributes(JavaClassUnit javaClass) {
 		int count = 0;
-		for (Attribute attribute : javaClass.getAttributes()) {
+		for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
 			if (!attribute.isPublic() && !attribute.isStatic()) {
 				count += 1;
 			}
@@ -68,7 +68,7 @@ public final class ObjectOrientedMetrics extends EmptyMetrics {
 	 */
 	private int countMethods(JavaClassUnit javaClass) {
 		int count = 0;
-		for (Method method : javaClass.getSelfMethods()) {
+		for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 			if (method.isPublic() && !method.isConstruction()) {
 				count += 1;
 			}

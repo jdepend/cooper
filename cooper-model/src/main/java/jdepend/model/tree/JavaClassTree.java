@@ -7,19 +7,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 
 	private List<JavaClassNode> nodes = new ArrayList<JavaClassNode>();
 
-	private transient List<JavaClassUnit> javaClasses;
+	private transient List<JavaClass> javaClasses;
 
 	private boolean close;
 
 	private JavaClassNode currentNode;
 
-	public JavaClassTree(JavaClassUnit javaClass) {
+	public JavaClassTree(JavaClass javaClass) {
 		JavaClassNode node = new JavaClassNode(javaClass, 1);
 		this.nodes.add(node);
 		this.currentNode = node;
@@ -38,7 +38,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 	 * 
 	 * @param javaClass
 	 */
-	public void setRoot(JavaClassUnit javaClass, JavaClassUnit originalRootClass) {
+	public void setRoot(JavaClass javaClass, JavaClass originalRootClass) {
 
 		this.addLayer(1);
 
@@ -63,7 +63,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 	 *            插入的节点
 	 * @param downClass
 	 */
-	public void insertNode(JavaClassUnit javaClass, JavaClassUnit downClass) {
+	public void insertNode(JavaClass javaClass, JavaClass downClass) {
 
 		if (this.contains(javaClass)) {
 			return;
@@ -82,7 +82,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 	 * @param javaClass
 	 *            插入的节点
 	 */
-	public void addNode(JavaClassUnit upClass, JavaClassUnit javaClass) {
+	public void addNode(JavaClass upClass, JavaClass javaClass) {
 
 		if (this.contains(javaClass)) {
 			return;
@@ -97,8 +97,8 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		this.currentNode = addNode;
 	}
 
-	public List<JavaClassUnit> getJavaClassRoots() {
-		List<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
+	public List<JavaClass> getJavaClassRoots() {
+		List<JavaClass> javaClasses = new ArrayList<JavaClass>();
 		for (JavaClassNode node : this.nodes) {
 			if (node.getLayer() == 1) {
 				javaClasses.add(node.getJavaClass());
@@ -117,7 +117,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		return nodes;
 	}
 
-	public Node getTheNode(JavaClassUnit javaClass) {
+	public Node getTheNode(JavaClass javaClass) {
 		for (JavaClassNode node : this.nodes) {
 			if (node.getJavaClass().equals(javaClass)) {
 				return node;
@@ -131,7 +131,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 	 * 
 	 * @return
 	 */
-	public JavaClassUnit getCurrent() {
+	public JavaClass getCurrent() {
 		if (this.currentNode == null) {
 			return null;
 		} else {
@@ -151,9 +151,9 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		return this.nodes;
 	}
 
-	public List<JavaClassUnit> getClasses() {
+	public List<JavaClass> getClasses() {
 		if (this.javaClasses == null) {
-			this.javaClasses = new ArrayList<JavaClassUnit>();
+			this.javaClasses = new ArrayList<JavaClass>();
 			for (JavaClassNode node : this.getNodes()) {
 				this.javaClasses.add(node.getJavaClass());
 			}
@@ -161,7 +161,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		return javaClasses;
 	}
 
-	public boolean contains(JavaClassUnit javaClass) {
+	public boolean contains(JavaClass javaClass) {
 		if (this.close) {
 			return false;
 		}
@@ -207,7 +207,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		return layer;
 	}
 
-	public void appendTree(JavaClassUnit currentClass, JavaClassTree tree) {
+	public void appendTree(JavaClass currentClass, JavaClassTree tree) {
 		JavaClassNode currentNode = (JavaClassNode) this.getTheNode(currentClass);
 		tree.addLayer(currentNode.getLayer());
 		for (JavaClassNode root : tree.getRoots()) {
@@ -219,7 +219,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		tree.close();
 	}
 
-	public void mergeTree(JavaClassTree tree, JavaClassUnit current, JavaClassUnit depend) {
+	public void mergeTree(JavaClassTree tree, JavaClass current, JavaClass depend) {
 		JavaClassNode currentNode = (JavaClassNode) this.getTheNode(current);
 		JavaClassNode theNode = (JavaClassNode) tree.getTheNode(depend);
 		if (currentNode.getLayer() < theNode.getLayer() - 1) {

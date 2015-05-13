@@ -6,6 +6,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
 
@@ -38,8 +39,8 @@ public final class JavaPackageComponent extends Component {
 		for (JavaPackage javaPackage : javaPackages) {
 			component = new JavaPackageComponent(javaPackage.getName());
 			component.setTitle(javaPackage.getName());
-			for (JavaClassUnit javaClass : javaPackage.getClasses()) {
-				component.addJavaClass(javaClass);
+			for (JavaClass javaClass : javaPackage.getClasses()) {
+				component.addJavaClass(new JavaClassUnit(javaClass));
 			}
 			components.add(component);
 		}

@@ -1,20 +1,20 @@
 package jdepend.knowledge.pattern;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class PatternInfo {
 
-	private JavaClassUnit javaClass;
+	private JavaClass javaClass;
 
 	private String info;
 
-	public PatternInfo(JavaClassUnit javaClass, String info) {
+	public PatternInfo(JavaClass javaClass, String info) {
 		super();
 		this.javaClass = javaClass;
 		this.info = info;
 	}
 
-	public JavaClassUnit getJavaClass() {
+	public JavaClass getJavaClass() {
 		return javaClass;
 	}
 

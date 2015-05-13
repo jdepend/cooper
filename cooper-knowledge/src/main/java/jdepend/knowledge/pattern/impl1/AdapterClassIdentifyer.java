@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.InvokeItem;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
@@ -14,16 +15,16 @@ public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 	@Override
 	public Collection<PatternInfo> identify(Collection<JavaClassUnit> javaClasses) {
 		Collection<PatternInfo> rtn = new ArrayList<PatternInfo>();
-		Collection<JavaClassUnit> interfaces;
-		Collection<JavaClassUnit> supers;
-		JavaClassUnit theInterfaceClass;
-		JavaClassUnit theSuperClass;
+		Collection<JavaClass> interfaces;
+		Collection<JavaClass> supers;
+		JavaClass theInterfaceClass;
+		JavaClass theSuperClass;
 
 		for (JavaClassUnit javaClass : javaClasses) {
 			// 收集接口和抽象类
-			interfaces = new HashSet<JavaClassUnit>();
-			supers = new HashSet<JavaClassUnit>();
-			for (JavaClassUnit superClass : javaClass.getSupers()) {
+			interfaces = new HashSet<JavaClass>();
+			supers = new HashSet<JavaClass>();
+			for (JavaClass superClass : javaClass.getJavaClass().getSupers()) {
 				if (superClass.isInterface()) {
 					interfaces.add(superClass);
 				} else {
@@ -32,15 +33,16 @@ public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 			}
 
 			if (interfaces.size() > 0 && supers.size() > 0) {
-				for (Method method : javaClass.getOverrideMethods()) {
-					for (Method overrideMethod : javaClass.getOverridedMethods(method)) {
+				for (Method method : javaClass.getJavaClass().getOverrideMethods()) {
+					for (Method overrideMethod : javaClass.getJavaClass().getOverridedMethods(method)) {
 						theInterfaceClass = overrideMethod.getJavaClass();
 						if (interfaces.contains(theInterfaceClass)) {
 							for (InvokeItem item : method.getInvokeItems()) {
 								theSuperClass = item.getCallee().getJavaClass();
 								if (supers.contains(theSuperClass)) {
 									if (!theSuperClass.getSupers().contains(theInterfaceClass)) {
-										rtn.add(new PatternInfo(javaClass, javaClass.getName() + "." + method.getName()));
+										rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName() + "."
+												+ method.getName()));
 									}
 								}
 							}

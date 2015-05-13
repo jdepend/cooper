@@ -3,6 +3,7 @@ package jdepend.model.component.modelconf;
 import java.util.Collection;
 
 import jdepend.model.Identifyer;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Named;
 
@@ -20,6 +21,6 @@ public interface Candidate extends Named, Identifyer {
 
 	public int size();
 
-	public Collection<JavaClassUnit> getClasses();
+	public Collection<JavaClass> getClasses();
 
 }

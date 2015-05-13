@@ -40,6 +40,7 @@ import jdepend.knowledge.pattern.impl2.feature.leaf.StaticAttributeFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.StaticMethodFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SubClassesFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SuperHaveOtherSubClassFeature;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 
@@ -89,7 +90,7 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 
 		Identifyer stateIdentifyer = new IdentifyerImpl("状态模式");
 		identifyers.add(stateIdentifyer);
-		
+
 		Identifyer observerIdentifyer = new IdentifyerImpl("观察者模式");
 		identifyers.add(observerIdentifyer);
 
@@ -302,7 +303,7 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 		feature.addIdentifyer(stateIdentifyer);
 
 		this.features.add(feature);
-		
+
 		feature = new ObserverFeature();
 		// 将识别器注册到特征中
 		feature.addIdentifyer(observerIdentifyer);
@@ -315,7 +316,7 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 
 		FeatureCheckContext context;
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			context = new FeatureCheckContext(javaClass);
+			context = new FeatureCheckContext(javaClass.getJavaClass());
 			for (Feature feature : this.features) {
 				feature.check(context);
 			}
@@ -325,8 +326,8 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 
 		for (Identifyer identifyer : this.identifyers) {
 			patternInfos = new ArrayList<PatternInfo>();
-			Map<JavaClassUnit, String> resultData = identifyer.getResult();
-			for (JavaClassUnit javaClass : resultData.keySet()) {
+			Map<JavaClass, String> resultData = identifyer.getResult();
+			for (JavaClass javaClass : resultData.keySet()) {
 				patternInfos.add(new PatternInfo(javaClass, resultData.get(javaClass)));
 			}
 			results.put(identifyer.getName(), patternInfos);

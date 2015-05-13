@@ -23,8 +23,8 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 
 		ExecutorService pool = ThreadPool.getPool();
 
-		final Map<String, Collection<JavaClassUnit>> unitJavaClasses = JavaClassCollection.unitTheadClassCollection(result
-				.getClasses());
+		final Map<String, Collection<JavaClassUnit>> unitJavaClasses = JavaClassCollection
+				.unitTheadClassCollection(result.getClasses());
 
 		for (final String unit : unitJavaClasses.keySet()) {
 			pool.execute(new Runnable() {

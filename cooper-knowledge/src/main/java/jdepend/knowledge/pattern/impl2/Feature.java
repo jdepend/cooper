@@ -1,6 +1,6 @@
 package jdepend.knowledge.pattern.impl2;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 /**
  * 特征识别器
@@ -12,7 +12,7 @@ public interface Feature {
 
 	public void check(FeatureCheckContext context);
 
-	public JavaClassUnit getCurrent();
+	public JavaClass getCurrent();
 
 	public String getName();
 

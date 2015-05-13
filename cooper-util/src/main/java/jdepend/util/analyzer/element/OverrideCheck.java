@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.tree.JavaClassInheritTreeCreator;
 import jdepend.model.tree.JavaClassNode;
 import jdepend.model.tree.JavaClassTree;
 import jdepend.model.tree.Node;
+import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 
@@ -43,7 +44,8 @@ public class OverrideCheck extends AbstractAnalyzer {
 
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
-		List<JavaClassTree> trees = (new JavaClassInheritTreeCreator()).create(result.getClasses());
+		List<JavaClassTree> trees = (new JavaClassInheritTreeCreator()).create(JavaClassUnitUtil.getJavaClasses(result
+				.getClasses()));
 
 		for (JavaClassTree tree : trees) {
 			overrideCheck(tree);
@@ -60,7 +62,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 
 	}
 
-	private void search(JavaClassUnit javaClass, JavaClassTree tree) {
+	private void search(JavaClass javaClass, JavaClassTree tree) {
 		boolean found;
 		boolean override;
 		ArrayList<Method> theMethods;
@@ -175,11 +177,11 @@ public class OverrideCheck extends AbstractAnalyzer {
 	 * @param current
 	 * @return
 	 */
-	private boolean isSubJavaClass(JavaClassUnit current, JavaClassUnit javaClass, JavaClassTree tree) {
+	private boolean isSubJavaClass(JavaClass current, JavaClass javaClass, JavaClassTree tree) {
 		return this.getNode(current, tree).getLayer() > this.getNode(javaClass, tree).getLayer();
 	}
 
-	private Node getNode(JavaClassUnit javaClass, JavaClassTree tree) {
+	private Node getNode(JavaClass javaClass, JavaClassTree tree) {
 		for (JavaClassNode node : tree.getNodes()) {
 			if (node.getJavaClass().equals(javaClass)) {
 				return node;
@@ -188,7 +190,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 		return null;
 	}
 
-	private List<Method> getCheckingMethods(JavaClassUnit javaClass) {
+	private List<Method> getCheckingMethods(JavaClass javaClass) {
 		List<Method> theMethods = new ArrayList<Method>();
 		for (Method method : javaClass.getSelfMethods()) {
 			if (!method.isConstruction()// 初始化方法 不检查

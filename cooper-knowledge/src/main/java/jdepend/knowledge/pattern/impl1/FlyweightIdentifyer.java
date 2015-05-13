@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.Attribute;
+import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
 
@@ -24,18 +25,18 @@ public class FlyweightIdentifyer extends AbstractPatternIdentifyer {
 
 		for (JavaClassUnit javaClass : javaClasses) {
 			// 是否存在集合属性
-			M: for (Attribute attribute : javaClass.getAttributes()) {
+			M: for (Attribute attribute : javaClass.getJavaClass().getAttributes()) {
 				if (attribute.existCollectionType()) {
 					// 是否存在子类
-					for (JavaClassUnit attributeClass : attribute.getTypeClasses()) {
+					for (JavaClass attributeClass : attribute.getTypeClasses()) {
 						if (attributeClass.getSubClasses().size() > 1) {
 							// 是否存在返回属性的方法，并且存在参数;方法内部使用了集合属性
-							for (Method method : javaClass.getSelfMethods()) {
-								for (JavaClassUnit rtnClass : method.getReturnClassTypes()) {
+							for (Method method : javaClass.getJavaClass().getSelfMethods()) {
+								for (JavaClass rtnClass : method.getReturnClassTypes()) {
 									if (attribute.getTypeClasses().contains(rtnClass)) {
 										if (method.getArgumentCount() > 0) {
 											if (method.getReadFields().contains(attribute)) {
-												rtn.add(new PatternInfo(javaClass, javaClass.getName() + "."
+												rtn.add(new PatternInfo(javaClass.getJavaClass(), javaClass.getName() + "."
 														+ attribute.getName()));
 												break M;
 											}

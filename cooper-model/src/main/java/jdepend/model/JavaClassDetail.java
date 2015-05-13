@@ -19,7 +19,7 @@ public class JavaClassDetail implements Serializable {
 	 */
 	private static final long serialVersionUID = 3437990183453118207L;
 
-	private final JavaClassUnit javaClass;
+	private final JavaClass javaClass;
 
 	private String superClassName;
 
@@ -37,19 +37,19 @@ public class JavaClassDetail implements Serializable {
 
 	private boolean httpCaller;
 
-	private transient JavaClassUnit superClass;
+	private transient JavaClass superClass;
 
-	private transient Collection<JavaClassUnit> interfaces = new ArrayList<JavaClassUnit>();
+	private transient Collection<JavaClass> interfaces = new ArrayList<JavaClass>();
 
 	private transient Collection<String> attributeTypes;
 
-	private transient Collection<JavaClassUnit> attributeClasses;
+	private transient Collection<JavaClass> attributeClasses;
 
 	private transient Collection<String> paramTypes;
 
 	private transient Map<String, Attribute> attributeForNames = new HashMap<String, Attribute>();
 
-	public JavaClassDetail(JavaClassUnit javaClass) {
+	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
 	}
 
@@ -65,11 +65,11 @@ public class JavaClassDetail implements Serializable {
 		return attributeTypes;
 	}
 
-	public Collection<JavaClassUnit> getAttributeClasses() {
+	public Collection<JavaClass> getAttributeClasses() {
 		if (this.attributeClasses == null) {
-			this.attributeClasses = new HashSet<JavaClassUnit>();
+			this.attributeClasses = new HashSet<JavaClass>();
 			for (Attribute attribute : this.attributes) {
-				for (JavaClassUnit type : attribute.getTypeClasses()) {
+				for (JavaClass type : attribute.getTypeClasses()) {
 					this.attributeClasses.add(type);
 				}
 			}
@@ -167,15 +167,15 @@ public class JavaClassDetail implements Serializable {
 		return supers;
 	}
 
-	public void setSuperClass(JavaClassUnit superClass) {
+	public void setSuperClass(JavaClass superClass) {
 		this.superClass = superClass;
 		this.superClass.addSubClass(this.javaClass);
 	}
 
-	public void setInterfaces(Collection<JavaClassUnit> interfaces) {
+	public void setInterfaces(Collection<JavaClass> interfaces) {
 		this.interfaces = interfaces;
 
-		for (JavaClassUnit interfaceClass : this.interfaces) {
+		for (JavaClass interfaceClass : this.interfaces) {
 			interfaceClass.addSubClass(this.javaClass);
 		}
 	}
@@ -184,11 +184,11 @@ public class JavaClassDetail implements Serializable {
 		this.interfaceNames = interfaceNames;
 	}
 
-	public JavaClassUnit getSuperClass() {
+	public JavaClass getSuperClass() {
 		return superClass;
 	}
 
-	public Collection<JavaClassUnit> getInterfaces() {
+	public Collection<JavaClass> getInterfaces() {
 		return interfaces;
 	}
 
@@ -222,11 +222,11 @@ public class JavaClassDetail implements Serializable {
 
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
-		this.interfaces = new HashSet<JavaClassUnit>();
+		this.interfaces = new HashSet<JavaClass>();
 		this.attributeForNames = new HashMap<String, Attribute>();
 	}
 
-	public JavaClassDetail clone(JavaClassUnit javaClass) {
+	public JavaClassDetail clone(JavaClass javaClass) {
 
 		JavaClassDetail obj = new JavaClassDetail(javaClass);
 
@@ -258,13 +258,13 @@ public class JavaClassDetail implements Serializable {
 	public void supply(JavaClassCollection javaClasses) {
 
 		// 填充superClass和interfaces
-		JavaClassUnit superClass = javaClasses.getTheClass(javaClass.getPlace(), this.getSuperClassName());
+		JavaClass superClass = javaClasses.getTheClass(javaClass.getPlace(), this.getSuperClassName());
 		if (superClass != null) {
 			this.setSuperClass(superClass);
 		}
-		Collection<JavaClassUnit> interfaces = new HashSet<JavaClassUnit>();
+		Collection<JavaClass> interfaces = new HashSet<JavaClass>();
 		for (String interfaceName : this.getInterfaceNames()) {
-			JavaClassUnit interfaceClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
+			JavaClass interfaceClass = javaClasses.getTheClass(javaClass.getPlace(), interfaceName);
 			if (interfaceClass != null) {
 				interfaces.add(interfaceClass);
 			}
@@ -282,12 +282,12 @@ public class JavaClassDetail implements Serializable {
 		}
 	}
 
-	public void filterExternalJavaClass(Collection<JavaClassUnit> javaClasses) {
+	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
 		if (!javaClasses.contains(this.superClass)) {
 			this.superClass = null;
 		}
 
-		for (JavaClassUnit interfaceClass : this.interfaces) {
+		for (JavaClass interfaceClass : this.interfaces) {
 			if (!javaClasses.contains(interfaceClass)) {
 				this.interfaces.remove(interfaceClass);
 			}
@@ -411,7 +411,7 @@ public class JavaClassDetail implements Serializable {
 
 		if (this.javaClass.getInnerClasses().size() > 0) {
 			content.append("innerClasses:\n");
-			for (JavaClassUnit innerClass : this.javaClass.getInnerClasses()) {
+			for (JavaClass innerClass : this.javaClass.getInnerClasses()) {
 				content.append(tab());
 				content.append(innerClass.getName());
 				content.append("\n");

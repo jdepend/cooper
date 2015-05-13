@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 import jdepend.model.RequestMapping;
 import jdepend.model.TableInfo;
 import jdepend.model.util.ParseUtil;
@@ -32,13 +32,13 @@ import org.apache.bcel.classfile.Method;
 
 public class JDependClassFileVisitor extends EmptyVisitor {
 
-	private JavaClassUnit jClass;
+	private JavaClass jClass;
 
 	private AbstractParser parser;
 
 	private ConstantPool cp;
 
-	public JDependClassFileVisitor(JavaClassUnit jClass) {
+	public JDependClassFileVisitor(JavaClass jClass) {
 		this.jClass = jClass;
 	}
 

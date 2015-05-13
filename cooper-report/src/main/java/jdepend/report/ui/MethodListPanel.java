@@ -106,7 +106,7 @@ public class MethodListPanel extends JPanel {
 				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 
 				if (e.getClickCount() == 2) {
-					Method currentMethod = JDependUnitMgr.getInstance().getResult().getTheClass(classId)
+					Method currentMethod = JDependUnitMgr.getInstance().getResult().getTheClass(classId).getJavaClass()
 							.getTheMethod(info);
 					if (currentMethod != null) {
 						if (currentCol.equals("名称")) {

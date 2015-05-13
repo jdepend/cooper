@@ -30,12 +30,12 @@ public class LSPPrinciple extends AbstractAnalyzer {
 		Method overridedMethod;
 		while (memberIter.hasNext()) {
 			JavaClassUnit current = memberIter.next();
-			if (!current.isAbstract()) {
-				for (Method method : current.getOverrideMethods()) {
+			if (!current.getJavaClass().isAbstract()) {
+				for (Method method : current.getJavaClass().getOverrideMethods()) {
 					if (method.getSelfLineCount() == 0) {
 						this.printTable("method", method.getName());
 						this.printTable("Class", method.getJavaClass().getName());
-						overridedMethod = current.getOverridedMethods(method).iterator().next();
+						overridedMethod = current.getJavaClass().getOverridedMethods(method).iterator().next();
 						this.printTable("OverridedMethod", overridedMethod.getName());
 						this.printTable("SuperClass", overridedMethod.getJavaClass().getName());
 					}

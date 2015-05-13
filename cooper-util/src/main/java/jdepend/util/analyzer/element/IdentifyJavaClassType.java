@@ -20,7 +20,7 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	protected void doSearch(AnalysisResult result) throws JDependException {
 
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			ClassTypeInfo classTypeInfo = JavaClassUtil.getType(javaClass);
+			ClassTypeInfo classTypeInfo = JavaClassUtil.getType(javaClass.getJavaClass());
 
 			this.printTable("类名", javaClass.getName());
 			this.printTable("类型", classTypeInfo.toString());
