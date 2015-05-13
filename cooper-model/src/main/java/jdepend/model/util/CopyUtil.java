@@ -1,9 +1,7 @@
 package jdepend.model.util;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +20,7 @@ public final class CopyUtil {
 		// 创建JavaClassUnit
 		for (Component component : components) {
 			for (JavaClassUnit javaClass : component.getClasses()) {
-				if (javaClasses.get(javaClass.getJavaClass().getId()) == null) {
+				if (javaClasses.get(javaClass.getId()) == null) {
 					newJavaClass(javaClass);
 				}
 			}
@@ -69,8 +67,8 @@ public final class CopyUtil {
 			newJavaClass = javaClass.clone();
 			javaClasses.put(newJavaClass.getId(), newJavaClass);
 			// 添加内部类
-			for (JavaClass innerClass : newJavaClass.getJavaClass().getInnerClasses()) {
-				javaClasses.put(innerClass.getId(), new JavaClassUnit(innerClass));
+			for (JavaClassUnit innerClass : newJavaClass.getInnerClassUnits()) {
+				javaClasses.put(innerClass.getId(), innerClass);
 			}
 		}
 		return newJavaClass;
