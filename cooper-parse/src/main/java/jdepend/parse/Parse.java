@@ -14,8 +14,6 @@ import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaPackage;
-import jdepend.model.Metrics;
-import jdepend.model.MetricsMgr;
 import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.parse.impl.AbstractClassBuilder;
 import jdepend.parse.impl.CSharpClassBuilder;
@@ -66,8 +64,6 @@ public class Parse {
 	 * @throws JDependException
 	 */
 	public Collection<JavaPackage> execute() throws JDependException {
-
-		this.beforeAnalyze();
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 
@@ -206,20 +202,6 @@ public class Parse {
 			}
 		}
 		return data;
-	}
-
-	/**
-	 * 分析前的操作
-	 */
-	private void beforeAnalyze() {
-
-		Collection<Metrics> metricses = MetricsMgr.getInstance().getMetricses().values();
-		// 设置定制指标分析之前的操作
-		for (Metrics metricse : metricses) {
-			metricse.beforeAnalyze();
-		}
-		// 清空之前的结果
-		this.packages.clear();
 	}
 
 	/**
