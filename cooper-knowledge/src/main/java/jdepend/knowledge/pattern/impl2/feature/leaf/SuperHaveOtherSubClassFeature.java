@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 public class SuperHaveOtherSubClassFeature extends AbstractFeature {
 

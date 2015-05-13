@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.Attribute;
-import jdepend.model.JavaClass;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 
 public final class CompositeIdentifyer extends AbstractPatternIdentifyer {

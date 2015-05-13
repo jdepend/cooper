@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2.feature.leaf;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 
 public class PrivateConstructorFeature extends AbstractFeature {
 

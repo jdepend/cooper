@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.tree.JavaClassInheritTreeCreator;
+import jdepend.metadata.tree.JavaClassTree;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.tree.JavaClassInheritTreeCreator;
-import jdepend.model.tree.JavaClassTree;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;

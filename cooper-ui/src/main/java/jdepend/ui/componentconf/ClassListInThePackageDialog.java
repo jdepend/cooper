@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaClass;
-import jdepend.model.component.modelconf.Candidate;
+import jdepend.metadata.Candidate;
+import jdepend.metadata.JavaClass;
 
 /**
  * 显示执行Package下的类列表

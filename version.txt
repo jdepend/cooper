@@ -6,6 +6,8 @@ b）将JavaClassUnit中的JavaClass独立出来，并修改周边代码
 
 c）修正重构命令中创建组件中的bug
 
+d）创建新的maven Module：cooper-metadata，用于分离cooper-parse中使用的cooper-model
+
 1.2.5_01 2015-05-08
 
 a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote

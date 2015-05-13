@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 public class IdentifyerImpl implements Identifyer {
 

@@ -2,10 +2,10 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.Attribute;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
-import jdepend.model.Method;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 
 public class ObserverFeature extends AbstractFeature {
 

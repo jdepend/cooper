@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;

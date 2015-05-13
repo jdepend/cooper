@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 
 /**
  * 将基本JavaPackage视为Component

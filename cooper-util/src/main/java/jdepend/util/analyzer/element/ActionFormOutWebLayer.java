@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.element.layer.JEELayer;
 import jdepend.util.analyzer.element.layer.JavaClassType;

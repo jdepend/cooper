@@ -3,8 +3,8 @@ package jdepend.parse.impl;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.model.HttpInvokeItem;
-import jdepend.model.Method;
+import jdepend.metadata.HttpInvokeItem;
+import jdepend.metadata.Method;
 import jdepend.parse.ParseConfigurator;
 
 /**

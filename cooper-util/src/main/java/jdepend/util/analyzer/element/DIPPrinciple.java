@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.Method;
 import jdepend.model.Component;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
-import jdepend.model.Method;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;

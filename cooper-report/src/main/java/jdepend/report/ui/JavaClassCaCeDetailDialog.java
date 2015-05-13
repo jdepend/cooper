@@ -16,7 +16,7 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.model.JavaClassRelationItem;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.report.util.ReportConstant;

@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.util.ThreadPool;
+import jdepend.metadata.util.JavaClassCollection;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassCollection;
 import jdepend.service.local.AbstractAnalyseListener;
 
 /**

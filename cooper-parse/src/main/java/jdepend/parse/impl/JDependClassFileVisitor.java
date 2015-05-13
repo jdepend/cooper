@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.model.JavaClass;
-import jdepend.model.RequestMapping;
-import jdepend.model.TableInfo;
-import jdepend.model.util.ParseUtil;
-import jdepend.model.util.SignatureUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.RequestMapping;
+import jdepend.metadata.TableInfo;
+import jdepend.metadata.util.ParseUtil;
+import jdepend.metadata.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.ArrayElementValue;
@@ -111,7 +111,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitField(Field obj) {
-		this.jClass.getDetail().addAttribute(new jdepend.model.Attribute(this.jClass, obj));
+		this.jClass.getDetail().addAttribute(new jdepend.metadata.Attribute(this.jClass, obj));
 		this.parser.debug("visitField: obj.getSignature() = " + SignatureUtil.getSignature(obj));
 	}
 
@@ -192,7 +192,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	@Override
 	public void visitMethod(Method obj) {
 		if (!obj.isSynthetic()) {// 不采集编译器生成的Method
-			jdepend.model.Method method = new jdepend.model.Method(this.jClass, obj);
+			jdepend.metadata.Method method = new jdepend.metadata.Method(this.jClass, obj);
 			if (!obj.getName().equals("<clinit>")) {
 
 				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);

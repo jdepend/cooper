@@ -2,7 +2,7 @@ package jdepend.service.local.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;

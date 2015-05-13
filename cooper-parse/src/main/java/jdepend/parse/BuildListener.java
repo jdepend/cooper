@@ -2,7 +2,7 @@ package jdepend.parse;
 
 import java.util.Collection;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 /**
  * The <code>BuildListener</code> interface defines a listener notified upon the

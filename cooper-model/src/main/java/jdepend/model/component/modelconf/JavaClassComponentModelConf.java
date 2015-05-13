@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaPackage;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.metadata.Candidate;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.util.JavaClassUtil;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.Attribute;
-import jdepend.model.JavaClass;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;

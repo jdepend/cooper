@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jdepend.model.TableInfo;
+import jdepend.metadata.TableInfo;
 
 public class SqlParserUtil {
 

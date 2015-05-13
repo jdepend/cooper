@@ -2,8 +2,8 @@ package jdepend.knowledge.pattern.impl2.feature.leaf;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
-import jdepend.model.Method;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 
 public class ConstructorArgIsSuperFeature extends AbstractFeature {
 

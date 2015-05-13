@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;

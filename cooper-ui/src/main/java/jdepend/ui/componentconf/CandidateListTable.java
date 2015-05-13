@@ -28,10 +28,10 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.JavaPackage;
-import jdepend.model.component.modelconf.Candidate;
-import jdepend.model.component.modelconf.CandidateUtil;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.metadata.Candidate;
+import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.util.SearchUtil;
 
 public class CandidateListTable extends JTable {

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaClassDetail;
-import jdepend.model.util.ParseUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassDetail;
+import jdepend.metadata.util.ParseUtil;
 
 class IdentifyExtClassesUtil {
 

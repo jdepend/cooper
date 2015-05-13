@@ -8,6 +8,7 @@ import java.util.Map;
 
 import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.JavaClassRelationItem;
 
 /**
  * 两个Element间的关系对象

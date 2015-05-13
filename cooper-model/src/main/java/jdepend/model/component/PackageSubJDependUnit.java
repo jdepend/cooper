@@ -1,9 +1,9 @@
 package jdepend.model.component;
 
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.GroupInfoCalculator;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 

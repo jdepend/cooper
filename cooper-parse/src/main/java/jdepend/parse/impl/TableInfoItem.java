@@ -3,7 +3,7 @@ package jdepend.parse.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.TableInfo;
+import jdepend.metadata.TableInfo;
 
 public class TableInfoItem {
 

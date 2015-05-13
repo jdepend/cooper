@@ -2,7 +2,7 @@ package jdepend.parse.impl;
 
 import java.io.InputStream;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseConfigurator;
 
 import org.apache.bcel.classfile.ClassParser;

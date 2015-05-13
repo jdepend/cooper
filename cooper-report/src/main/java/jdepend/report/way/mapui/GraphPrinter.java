@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import jdepend.framework.ui.JDependFrame;
+import jdepend.metadata.tree.JavaPackageNode;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.tree.JavaPackageNode;
 import jdepend.report.util.TreeGraphUtil;
 import jdepend.report.util.TreePanel;
 

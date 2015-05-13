@@ -9,9 +9,9 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.knowledge.pattern.PatternIdentifyerMgr;
 import jdepend.knowledge.pattern.PatternIdentifyerMgrFactory;
 import jdepend.knowledge.pattern.PatternInfo;
+import jdepend.metadata.Method;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassRelationUtil;
 

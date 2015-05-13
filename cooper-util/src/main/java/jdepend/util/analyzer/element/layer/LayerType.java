@@ -3,8 +3,8 @@ package jdepend.util.analyzer.element.layer;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.JavaClass;
-import jdepend.model.JavaPackage;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
 
 public final class LayerType {
 

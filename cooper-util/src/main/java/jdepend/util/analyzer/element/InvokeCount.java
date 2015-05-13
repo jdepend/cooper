@@ -3,7 +3,7 @@ package jdepend.util.analyzer.element;
 import java.util.Collection;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;

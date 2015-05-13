@@ -35,8 +35,8 @@ import javax.swing.event.ChangeListener;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.component.modelconf.Candidate;
-import jdepend.model.component.modelconf.CandidateUtil;
+import jdepend.metadata.Candidate;
+import jdepend.metadata.CandidateUtil;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;

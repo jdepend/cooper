@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.result.AnalysisResult;
 
 public class JavaClassRelationUtil {

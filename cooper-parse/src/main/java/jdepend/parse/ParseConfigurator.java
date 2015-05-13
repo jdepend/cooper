@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.parse.impl.FilteredPackageConfigurator;
 import jdepend.parse.impl.PackageFilter;
 

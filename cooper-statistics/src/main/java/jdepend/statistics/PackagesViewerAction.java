@@ -9,8 +9,8 @@ import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.JDependFrame;
+import jdepend.metadata.tree.JavaPackageNode;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.tree.JavaPackageNode;
 import jdepend.report.util.TreeGraphUtil;
 
 public final class PackagesViewerAction extends ScoreListAction {

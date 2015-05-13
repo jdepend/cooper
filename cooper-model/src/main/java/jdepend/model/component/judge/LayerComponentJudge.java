@@ -1,6 +1,6 @@
 package jdepend.model.component.judge;
 
-import jdepend.model.tree.JavaPackageNode;
+import jdepend.metadata.tree.JavaPackageNode;
 
 /**
  * 根据Layer判定是否为组件

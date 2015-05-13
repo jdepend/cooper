@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.swing.JTable;
 
+import jdepend.metadata.CandidateUtil;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Measurable;
-import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.refactor.CompareObject;
 

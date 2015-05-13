@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 
 public final class AdapterClassIdentifyer extends AbstractPatternIdentifyer {
 

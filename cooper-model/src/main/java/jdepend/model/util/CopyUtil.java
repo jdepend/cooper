@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.util.JavaClassCollection;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 
 public final class CopyUtil {
 

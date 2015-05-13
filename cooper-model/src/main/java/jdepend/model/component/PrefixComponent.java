@@ -1,7 +1,7 @@
 package jdepend.model.component;
 
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.JavaPackage;
 
 public abstract class PrefixComponent extends Component {
 

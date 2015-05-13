@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.JavaClass;
-import jdepend.model.Method;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 
 public class OverrideMethodReturnIsSuperFeature extends AbstractFeature {
 

@@ -3,7 +3,7 @@ package jdepend.knowledge.pattern.impl2;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 public abstract class AbstractFeature implements Feature {
 

@@ -14,7 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
-import jdepend.model.TableInfo;
+import jdepend.metadata.TableInfo;
 
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;

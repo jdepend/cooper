@@ -5,8 +5,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.TableCallBack;
+import jdepend.metadata.tree.Node;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.tree.Node;
 
 public abstract class AbstractAnalyzer extends PersistentBean implements Analyzer {
 

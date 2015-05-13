@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.tree.JavaClassFieldTreeCreator;
+import jdepend.metadata.tree.JavaClassTree;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.tree.JavaClassFieldTreeCreator;
-import jdepend.model.tree.JavaClassTree;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;

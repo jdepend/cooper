@@ -2,9 +2,9 @@ package jdepend.knowledge.pattern.impl2.feature;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
-import jdepend.model.Method;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 
 public class AdapterClassFeature extends AbstractFeature {
 

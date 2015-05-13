@@ -1,6 +1,6 @@
 package jdepend.knowledge.pattern;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 public class PatternInfo {
 

@@ -18,10 +18,10 @@ import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.framework.util.StringUtil;
-import jdepend.model.InvokeItem;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.Method;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.Method;
-import jdepend.model.util.JavaClassUtil;
 
 import org.apache.bcel.classfile.Utility;
 

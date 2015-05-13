@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.JavaPackage;
 
 public final class MemoryComponent extends Component {
 

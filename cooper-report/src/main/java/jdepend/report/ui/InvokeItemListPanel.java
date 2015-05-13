@@ -10,8 +10,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.TableSorter;
-import jdepend.model.InvokeItem;
-import jdepend.model.Method;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.Method;
 
 import org.apache.bcel.classfile.Utility;
 

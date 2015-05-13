@@ -3,12 +3,12 @@ package jdepend.model.util;
 import java.util.Collection;
 import java.util.HashSet;
 
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 
 public class JavaClassUnitUtil {
 

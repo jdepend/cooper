@@ -7,8 +7,8 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.util.refactor.RefactorToolFactory;
 
 public abstract class MoveRelationTODOItem extends TODOItem {

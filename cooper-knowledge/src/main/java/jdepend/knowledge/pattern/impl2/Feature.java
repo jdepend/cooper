@@ -1,6 +1,6 @@
 package jdepend.knowledge.pattern.impl2;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 /**
  * 特征识别器

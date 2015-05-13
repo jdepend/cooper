@@ -3,8 +3,8 @@ package jdepend.core.local.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.component.CustomComponent;
-import jdepend.model.util.ClassSearchUtil;
 
 public class CommandConf implements Comparable<CommandConf> {
 

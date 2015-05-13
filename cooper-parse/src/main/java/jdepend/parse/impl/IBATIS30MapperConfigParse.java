@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
-import jdepend.model.TableInfo;
+import jdepend.metadata.TableInfo;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -1,9 +1,9 @@
 package jdepend.report.way.xmlui;
 
 import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.Named;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.way.textui.SummaryPrinter;
 

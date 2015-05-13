@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaPackage;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;

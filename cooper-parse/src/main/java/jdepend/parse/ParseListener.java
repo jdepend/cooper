@@ -1,6 +1,6 @@
 package jdepend.parse;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 /**
  * The <code>ParserListener</code> interface defines a listener notified upon

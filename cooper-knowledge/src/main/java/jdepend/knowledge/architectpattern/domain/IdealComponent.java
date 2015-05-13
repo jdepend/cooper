@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.JavaPackage;
 import jdepend.model.Relation;
 
 /**

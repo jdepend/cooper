@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.JavaClassRelationItem;
 
 public final class GroupCohesionItem implements Comparable<GroupCohesionItem> {
 

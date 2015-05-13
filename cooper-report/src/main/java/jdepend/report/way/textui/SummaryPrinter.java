@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import jdepend.metadata.Named;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
 
 public abstract class SummaryPrinter extends Printer {

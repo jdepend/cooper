@@ -7,8 +7,8 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaPackage;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseListener;
 

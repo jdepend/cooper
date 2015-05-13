@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import jdepend.framework.ui.WelcomeDialog;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseListener;
 import jdepend.ui.JDependCooper;
 

@@ -2,7 +2,7 @@ package jdepend.model.component.judge;
 
 import java.io.Serializable;
 
-import jdepend.model.tree.JavaPackageNode;
+import jdepend.metadata.tree.JavaPackageNode;
 
 /**
  * 组件判定器

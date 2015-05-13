@@ -2,7 +2,7 @@ package jdepend.model.component.modelconf;
 
 import java.util.List;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 public final class JavaClassComponentConf extends ComponentConf {
 

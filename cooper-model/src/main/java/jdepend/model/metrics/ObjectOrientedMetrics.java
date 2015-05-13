@@ -1,10 +1,10 @@
 package jdepend.model.metrics;
 
-import jdepend.model.Attribute;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.Method;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.MetricsInfo;
 
 public final class ObjectOrientedMetrics extends EmptyMetrics {

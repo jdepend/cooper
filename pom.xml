@@ -42,6 +42,7 @@
     <module>cooper-core-remote</module>
     <module>cooper-ui-remote</module>
     <module>cooper-service-remote</module>
+    <module>cooper-metadata</module>
   </modules>
 
 	<build>

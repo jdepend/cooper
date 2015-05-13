@@ -5,15 +5,15 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.tree.JavaPackageNode;
+import jdepend.metadata.tree.JavaPackageTreeCreator;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.ComponentJudgeFactory;
 import jdepend.model.component.judge.WisdomLayerComponentJudge;
-import jdepend.model.tree.JavaPackageNode;
-import jdepend.model.tree.JavaPackageTreeCreator;
 
 /**
  * 按规则识别组件

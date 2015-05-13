@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import jdepend.metadata.JavaClassRelationItem;
+
 public class RelationDetail implements Serializable {
 
 	private static final long serialVersionUID = 7682002983026924611L;

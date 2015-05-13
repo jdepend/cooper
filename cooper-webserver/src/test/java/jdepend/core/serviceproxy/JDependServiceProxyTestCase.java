@@ -13,8 +13,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;
 import jdepend.framework.file.TargetFileInfo;
+import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.ClassSearchUtil;
 import jdepend.parse.util.SearchUtil;
 import junit.framework.TestCase;
 

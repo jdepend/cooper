@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.framework.ui.PersistentBeanSettingDialog;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.ui.JDependCooper;
 
 public class SettingClassRelationMgAction extends AbstractAction {

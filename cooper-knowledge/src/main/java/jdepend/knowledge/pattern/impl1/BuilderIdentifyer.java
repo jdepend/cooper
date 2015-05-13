@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.knowledge.pattern.PatternInfo;
-import jdepend.model.Attribute;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 
 public final class BuilderIdentifyer extends AbstractPatternIdentifyer {
 

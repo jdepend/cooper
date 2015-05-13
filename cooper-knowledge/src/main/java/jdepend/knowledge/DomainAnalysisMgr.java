@@ -13,7 +13,7 @@ import jdepend.knowledge.domainanalysis.InheritDomainAnalysis;
 import jdepend.knowledge.domainanalysis.LowScoreItemIdentifier;
 import jdepend.knowledge.domainanalysis.RelationRationalityDomainAnalysis;
 import jdepend.knowledge.domainanalysis.SummaryDomainAnalysis;
-import jdepend.model.util.ClassSearchUtil;
+import jdepend.metadata.util.ClassSearchUtil;
 
 public final class DomainAnalysisMgr {
 

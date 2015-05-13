@@ -11,13 +11,13 @@ import java.util.Map;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.DateUtil;
 import jdepend.framework.util.VersionUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.model.util.JavaClassUtil;
 
 /**
  * 一次解析执行的上下文信息

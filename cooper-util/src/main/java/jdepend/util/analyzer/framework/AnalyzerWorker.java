@@ -3,7 +3,7 @@ package jdepend.util.analyzer.framework;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.TableCallBack;
 import jdepend.framework.ui.graph.TableData;
-import jdepend.model.tree.Node;
+import jdepend.metadata.tree.Node;
 
 public interface AnalyzerWorker {
 

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 
-import jdepend.model.tree.Node;
+import jdepend.metadata.tree.Node;
 import jdepend.report.way.mapui.JDepnedFontAction;
 import prefuse.Constants;
 import prefuse.Display;

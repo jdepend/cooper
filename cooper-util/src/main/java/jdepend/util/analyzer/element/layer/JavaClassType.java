@@ -3,8 +3,8 @@ package jdepend.util.analyzer.element.layer;
 import java.util.Collection;
 import java.util.List;
 
+import jdepend.metadata.JavaClass;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 
 public class JavaClassType {

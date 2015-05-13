@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import jdepend.model.Attribute;
-import jdepend.model.JavaClass;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.result.AnalysisResult;
 
 public class FeatureCheckContext {

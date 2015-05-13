@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 

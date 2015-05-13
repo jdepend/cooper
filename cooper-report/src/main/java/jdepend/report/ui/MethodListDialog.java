@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.util.Collection;
 
 import jdepend.framework.ui.CooperDialog;
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 
 public class MethodListDialog extends CooperDialog {
 

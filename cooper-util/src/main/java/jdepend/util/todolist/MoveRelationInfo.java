@@ -3,9 +3,9 @@ package jdepend.util.todolist;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 
 public class MoveRelationInfo {
 	

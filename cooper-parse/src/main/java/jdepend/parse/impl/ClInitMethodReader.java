@@ -1,7 +1,7 @@
 package jdepend.parse.impl;
 
-import jdepend.model.Attribute;
-import jdepend.model.Method;
+import jdepend.metadata.Attribute;
+import jdepend.metadata.Method;
 
 /**
  * 通過讀取ClInit方法，填充static屬性的值

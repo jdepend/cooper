@@ -26,13 +26,13 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
+import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.relationtype.TableRelation;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.RelationDetail;
-import jdepend.model.component.modelconf.CandidateUtil;
-import jdepend.model.relationtype.TableRelation;
 import jdepend.report.util.ReportConstant;
 
 public final class RelationDetailPanel extends JPanel {

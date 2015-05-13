@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.TableData;
-import jdepend.model.tree.Node;
+import jdepend.metadata.tree.Node;
 
 public class AnalyzerResult implements Serializable {
 

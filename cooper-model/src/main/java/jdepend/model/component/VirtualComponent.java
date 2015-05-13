@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaPackage;
 import jdepend.model.SubJDependUnit;
 
 /**

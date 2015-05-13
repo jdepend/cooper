@@ -20,7 +20,7 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.ui.TabsPanel;
 import jdepend.framework.util.JDependUtil;
-import jdepend.model.util.ClassSearchUtil;
+import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.parse.util.SearchUtil;
 
 public final class StaticsFrame extends JDependFrame {

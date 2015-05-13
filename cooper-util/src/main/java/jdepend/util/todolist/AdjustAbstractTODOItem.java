@@ -6,9 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.Method;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.MetricsMgr;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 

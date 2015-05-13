@@ -10,16 +10,16 @@ import java.util.concurrent.ExecutorService;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
-import jdepend.model.HttpInvokeItem;
-import jdepend.model.InvokeItem;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaClassDetail;
-import jdepend.model.JavaClassRelationItem;
-import jdepend.model.JavaClassRelationType;
-import jdepend.model.Method;
-import jdepend.model.TableInfo;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
-import jdepend.model.util.JavaClassCollection;
+import jdepend.metadata.HttpInvokeItem;
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassDetail;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.JavaClassRelationType;
+import jdepend.metadata.Method;
+import jdepend.metadata.TableInfo;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.util.JavaClassCollection;
 import jdepend.parse.ParseConfigurator;
 
 public class JavaClassRelationCreator {

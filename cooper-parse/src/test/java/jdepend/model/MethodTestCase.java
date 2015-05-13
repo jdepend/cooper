@@ -2,8 +2,11 @@ package jdepend.model;
 
 import java.util.Collection;
 
-import jdepend.model.util.ClassSearchUtil;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaPackage;
+import jdepend.metadata.Method;
+import jdepend.metadata.util.ClassSearchUtil;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.Parse;
 import junit.framework.TestCase;
 

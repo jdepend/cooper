@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;

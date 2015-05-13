@@ -1,5 +1,7 @@
 package jdepend.model;
 
+import jdepend.metadata.Named;
+
 /**
  * 可以被指标评价的
  * 

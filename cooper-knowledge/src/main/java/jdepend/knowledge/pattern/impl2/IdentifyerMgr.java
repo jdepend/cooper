@@ -40,7 +40,7 @@ import jdepend.knowledge.pattern.impl2.feature.leaf.StaticAttributeFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.StaticMethodFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SubClassesFeature;
 import jdepend.knowledge.pattern.impl2.feature.leaf.SuperHaveOtherSubClassFeature;
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 

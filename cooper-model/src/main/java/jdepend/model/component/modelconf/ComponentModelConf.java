@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaPackage;
+import jdepend.metadata.Candidate;
+import jdepend.metadata.JavaPackage;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

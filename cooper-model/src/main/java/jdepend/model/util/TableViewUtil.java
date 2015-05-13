@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jdepend.metadata.TableInfo;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.TableInfo;
 import jdepend.model.result.AnalysisResult;
 
 public class TableViewUtil {

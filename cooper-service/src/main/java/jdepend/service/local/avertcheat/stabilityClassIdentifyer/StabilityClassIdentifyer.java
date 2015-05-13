@@ -1,7 +1,7 @@
 package jdepend.service.local.avertcheat.stabilityClassIdentifyer;
 
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
 

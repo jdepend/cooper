@@ -16,7 +16,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.FileUtil;
-import jdepend.model.util.ClassSearchUtil;
+import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.service.remote.analyzer.AnalyzerDTO;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.Analyzers;

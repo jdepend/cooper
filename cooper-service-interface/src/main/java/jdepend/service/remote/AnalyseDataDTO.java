@@ -9,8 +9,8 @@ import java.util.Map;
 
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
+import jdepend.metadata.JavaClassRelationType;
 import jdepend.model.Component;
-import jdepend.model.JavaClassRelationType;
 import jdepend.model.Metrics;
 
 /**

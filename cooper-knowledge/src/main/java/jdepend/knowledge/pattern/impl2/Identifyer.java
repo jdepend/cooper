@@ -2,7 +2,7 @@ package jdepend.knowledge.pattern.impl2;
 
 import java.util.Map;
 
-import jdepend.model.JavaClass;
+import jdepend.metadata.JavaClass;
 
 /**
  * 设计模式识别器

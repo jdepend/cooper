@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.util.Collection;
 
 import jdepend.framework.ui.CooperDialog;
-import jdepend.model.InvokeItem;
+import jdepend.metadata.InvokeItem;
 
 public class InvokeItemListDialog extends CooperDialog {
 

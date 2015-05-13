@@ -27,12 +27,12 @@ import javax.swing.table.TableCellRenderer;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.util.BundleUtil;
+import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
-import jdepend.model.component.modelconf.CandidateUtil;
 import jdepend.report.util.ReportConstant;
 import jdepend.report.way.mapui.GraphJDepend;
 

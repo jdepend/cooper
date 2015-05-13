@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import jdepend.metadata.InvokeItem;
+import jdepend.metadata.Method;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;

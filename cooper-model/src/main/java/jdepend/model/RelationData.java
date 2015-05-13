@@ -3,10 +3,10 @@ package jdepend.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.JavaClassRelationItem;
 import jdepend.model.Relation;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;

@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.util.MathUtil;
-import jdepend.model.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.util.JavaClassUnitUtil;
 
 /**

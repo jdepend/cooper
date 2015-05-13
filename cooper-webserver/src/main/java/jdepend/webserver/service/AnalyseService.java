@@ -17,7 +17,7 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.knowledge.database.AnalysisResultRepository;
-import jdepend.model.JavaPackage;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;

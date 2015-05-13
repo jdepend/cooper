@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.TextViewer;
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 
 public class MethodDetailDialog extends CooperDialog {
 

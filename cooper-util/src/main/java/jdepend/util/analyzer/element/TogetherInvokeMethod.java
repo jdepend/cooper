@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JavaClass;
-import jdepend.model.Method;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;

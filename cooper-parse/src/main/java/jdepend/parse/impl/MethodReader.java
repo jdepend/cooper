@@ -2,7 +2,7 @@ package jdepend.parse.impl;
 
 import java.io.IOException;
 
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 
 import org.apache.bcel.classfile.Code;
 import org.apache.bcel.classfile.Utility;

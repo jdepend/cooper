@@ -31,11 +31,11 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.BundleUtil;
+import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
-import jdepend.model.component.modelconf.CandidateUtil;
-import jdepend.model.util.JavaClassUtil;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {

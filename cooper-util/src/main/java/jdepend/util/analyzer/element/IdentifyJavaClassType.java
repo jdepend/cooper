@@ -1,10 +1,10 @@
 package jdepend.util.analyzer.element;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.metadata.util.ClassTypeInfo;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.ClassTypeInfo;
-import jdepend.model.util.JavaClassUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import jdepend.framework.util.MathUtil;
+import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.component.PackageSubJDependUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;

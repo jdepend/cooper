@@ -2,7 +2,7 @@ package jdepend.report.way.htmlui;
 
 import java.util.Collection;
 
-import jdepend.model.JavaPackage;
+import jdepend.metadata.JavaPackage;
 
 public class HTMLListPackagePrinter extends HTMLSortTablePrinter {
 

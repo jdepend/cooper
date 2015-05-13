@@ -5,7 +5,7 @@ import java.util.Map;
 
 import jdepend.knowledge.pattern.impl2.AbstractFeature;
 import jdepend.knowledge.pattern.impl2.FeatureCheckContext;
-import jdepend.model.Method;
+import jdepend.metadata.Method;
 
 public class OverrideMethodFeature extends AbstractFeature {
 

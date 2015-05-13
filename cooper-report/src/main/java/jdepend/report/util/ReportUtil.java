@@ -1,6 +1,6 @@
 package jdepend.report.util;
 
-import jdepend.model.JavaClassRelationItem;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.util.JavaClassUnitUtil;
 
 public class ReportUtil {

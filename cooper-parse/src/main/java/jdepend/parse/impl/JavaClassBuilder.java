@@ -15,9 +15,9 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
-import jdepend.model.JavaClass;
-import jdepend.model.util.JavaClassCollection;
-import jdepend.model.util.JavaClassUtil;
+import jdepend.metadata.JavaClass;
+import jdepend.metadata.util.JavaClassCollection;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 

@@ -7,8 +7,8 @@ import javax.swing.JScrollPane;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
+import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Method;
 import jdepend.model.util.JavaClassUnitUtil;
 
 public final class BigArgumentMethodDialog extends CooperDialog {

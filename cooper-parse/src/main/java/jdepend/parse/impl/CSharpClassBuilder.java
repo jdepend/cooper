@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.file.AnalyzeData;
-import jdepend.model.JavaClass;
-import jdepend.model.JavaClassUnit;
+import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 

@@ -9,11 +9,11 @@ import jdepend.knowledge.AdviseInfo;
 import jdepend.knowledge.ExpertFactory;
 import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
+import jdepend.metadata.Named;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
-import jdepend.model.Named;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.util.ReportConstant;
 
