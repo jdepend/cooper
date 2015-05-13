@@ -105,7 +105,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getJavaClass().getCaItems()) {
-						if (!javaClasses.contains(item.getSource())) {
+						if (!javaClasses.contains(JavaClassUnitUtil.getJavaClassUnit(item.getSource()))) {
 							items.add(item);
 						}
 					}
@@ -117,7 +117,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
-						if (!javaClasses.contains(item.getTarget())) {
+						if (!javaClasses.contains(JavaClassUnitUtil.getJavaClassUnit(item.getTarget()))) {
 							items.add(item);
 						}
 					}
