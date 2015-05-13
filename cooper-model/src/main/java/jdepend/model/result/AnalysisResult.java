@@ -250,14 +250,24 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return deleteComponent;
 	}
 
-	public synchronized void addComponent(String componentName, int componentLayer) {
+	public synchronized boolean addComponent(String componentName, int componentLayer) {
 		MemoryComponent newComponent = new MemoryComponent(componentName);
 		newComponent.setLayer(componentLayer);
-		this.components.add(newComponent);
-		if (this.componentForNames != null) {
-			this.componentForNames.put(newComponent.getName(), newComponent);
-		}
 
+		return addComponent(newComponent);
+	}
+
+	public synchronized boolean addComponent(Component component) {
+		if (!this.components.contains(component)) {
+			this.components.add(component);
+			component.setResult(this);
+			if (this.componentForNames != null) {
+				this.componentForNames.put(component.getName(), component);
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public synchronized AnalysisResultSummary getSummary() {
