@@ -35,7 +35,7 @@ public interface JavaClassRelationType extends Serializable {
 	 *            依赖方向
 	 * @return
 	 */
-	public float getRationality(JavaClassUnit depend, JavaClassUnit current, String direction);
+	public float getRationality(JavaClass depend, JavaClass current, String direction);
 
 	/**
 	 * 是否可以在关系上采用抽象化技术

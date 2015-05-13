@@ -1,6 +1,6 @@
 package jdepend.model.relationtype;
 
-import jdepend.model.JavaClassUnit;
+import jdepend.model.JavaClass;
 
 public class InheritRelation extends BaseJavaClassRelationType {
 
@@ -13,8 +13,8 @@ public class InheritRelation extends BaseJavaClassRelationType {
 		super(JavaClassRelationTypeMgr.Inherit, intensity);
 	}
 
-	public float getRationality(JavaClassUnit target, JavaClassUnit source, String direction) {
-		if (target.getJavaClass().isAbstract()) {
+	public float getRationality(JavaClass target, JavaClass source, String direction) {
+		if (target.isAbstract()) {
 			return 0.4F;
 		} else {
 			return super.getRationality(target, source, direction);
