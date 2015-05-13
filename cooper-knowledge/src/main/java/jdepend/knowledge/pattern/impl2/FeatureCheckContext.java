@@ -6,9 +6,13 @@ import java.util.Map;
 
 import jdepend.model.Attribute;
 import jdepend.model.JavaClass;
+import jdepend.model.JavaClassUnit;
 import jdepend.model.Method;
+import jdepend.model.result.AnalysisResult;
 
 public class FeatureCheckContext {
+
+	private AnalysisResult result;
 
 	private JavaClass javaClass;
 
@@ -40,13 +44,18 @@ public class FeatureCheckContext {
 
 	private Collection<Method> returnIsSuperOverrideMethods;
 
-	public FeatureCheckContext(JavaClass javaClass) {
+	public FeatureCheckContext(JavaClassUnit javaClass) {
 		super();
-		this.javaClass = javaClass;
+		this.javaClass = javaClass.getJavaClass();
+		this.result = javaClass.getResult();
 	}
 
 	public JavaClass getCurrent() {
 		return this.javaClass;
+	}
+
+	public AnalysisResult getResult() {
+		return result;
 	}
 
 	public Collection<JavaClass> getAllSupers() {

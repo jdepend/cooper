@@ -12,12 +12,12 @@ public class FacadeFeature extends AbstractFeature {
 		Float innerCellScale;
 		int innerCellCount;
 		if (context.getCurrent().getCaList().size() > 0) {
-			extCaCallScale = JavaClassUnitUtil.getJavaClassUnit(context.getCurrent()).getAfferents().size()
+			extCaCallScale = context.getResult().getTheClass(context.getCurrent().getId()).getAfferents().size()
 					/ context.getCurrent().getCaList().size() * 1F;
 			if (extCaCallScale >= 0.9) {
 				if (context.getCurrent().getCeList().size() > 0) {
 					innerCellCount = context.getCurrent().getCeList().size()
-							- JavaClassUnitUtil.getJavaClassUnit(context.getCurrent()).getEfferents().size();
+							- context.getResult().getTheClass(context.getCurrent().getId()).getEfferents().size();
 					innerCellScale = innerCellCount / context.getCurrent().getCeList().size() * 1F;
 					if (innerCellScale >= 0.8) {
 						return true;

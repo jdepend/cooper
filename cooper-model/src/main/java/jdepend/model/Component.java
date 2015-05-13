@@ -225,6 +225,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	public boolean containsClass(JavaClass javaClass) {
+		//javaClass和JavaClassUnit共用一个Id
 		if (javaClass.isInnerClass()) {
 			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
 		} else {
@@ -528,7 +529,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 			} else {
 				Collection<PackageSubJDependUnit> packageComponents = new HashSet<PackageSubJDependUnit>();
 				for (JavaPackage javaPackage : this.getJavaPackages()) {
-					packageComponents.add(new PackageSubJDependUnit(javaPackage));
+					packageComponents.add(new PackageSubJDependUnit(javaPackage, this.getResult()));
 				}
 				Collection<Component> outerComponents = this.getRelationComponents();
 				new RelationCreator().create(packageComponents);

@@ -109,7 +109,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	public boolean isUsedByExternal() {
 		return this.getAfferents().size() != 0;
 	}
-	
+
 	/**
 	 * 在组件中是否孤立，与组件中的其他Class都没有关系
 	 * 
@@ -153,7 +153,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	public float getAbstractness() {
 		return this.getAbstractClassCount();
 	}
-	
+
 	@Override
 	public Collection<JavaPackage> getJavaPackages() {
 		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
@@ -194,11 +194,16 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		return this.equals(javaClass);
 	}
 
+	@Override
+	public boolean containsClass(JavaClass javaClass) {
+		return this.getJavaClass().equals(javaClass);
+	}
+
 	public synchronized Collection<JavaClassUnit> getCeList() {
 		if (this.ceList == null) {
 			Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 			for (JavaClassRelationItem item : this.javaClass.getCeItems()) {
-				javaClasses.add(JavaClassUnitUtil.getJavaClassUnit(item.getTarget()));
+				javaClasses.add(this.getResult().getTheClass(item.getTarget().getId()));
 			}
 			this.ceList = javaClasses;
 		}
@@ -209,7 +214,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		if (this.caList == null) {
 			Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 			for (JavaClassRelationItem item : this.javaClass.getCaItems()) {
-				javaClasses.add(JavaClassUnitUtil.getJavaClassUnit(item.getSource()));
+				javaClasses.add(this.getResult().getTheClass(item.getSource().getId()));
 			}
 			this.caList = javaClasses;
 		}
@@ -269,7 +274,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.javaClass.getCeItems()) {
-			if (dependUnit.containsClass(JavaClassUnitUtil.getJavaClassUnit(relationItem.getTarget()))) {
+			if (dependUnit.containsClass(relationItem.getTarget())) {
 				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -289,7 +294,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 
 		float intensity = 0;
 		for (JavaClassRelationItem relationItem : this.javaClass.getCaItems()) {
-			if (dependUnit.containsClass(JavaClassUnitUtil.getJavaClassUnit(relationItem.getSource()))) {
+			if (dependUnit.containsClass(relationItem.getSource())) {
 				detail.addItem(relationItem);
 				intensity += relationItem.getRelationIntensity();
 			}
@@ -421,7 +426,6 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 
 		return NoCycle;// 不存在循环依赖
 	}
-
 
 	public JavaClassUnit clone() {
 

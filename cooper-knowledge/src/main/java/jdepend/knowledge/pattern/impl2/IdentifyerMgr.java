@@ -316,7 +316,7 @@ public class IdentifyerMgr extends AbstractPatternIdentifyerMgr {
 
 		FeatureCheckContext context;
 		for (JavaClassUnit javaClass : result.getClasses()) {
-			context = new FeatureCheckContext(javaClass.getJavaClass());
+			context = new FeatureCheckContext(javaClass);
 			for (Feature feature : this.features) {
 				feature.check(context);
 			}

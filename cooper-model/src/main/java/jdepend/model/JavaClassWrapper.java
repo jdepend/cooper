@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.model.component.JavaClassComponent;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
@@ -59,10 +59,12 @@ public class JavaClassWrapper {
 	}
 
 	private void collectInvokeClasses(JavaClassUnit javaClass, Collection<JavaClassUnit> invokeClasses) {
+
+		AnalysisResult result = javaClass.getResult();
 		JavaClassUnit invokeClass;
 		for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 			for (InvokeItem invokeItem : method.getInvokeItems()) {
-				invokeClass = JavaClassUnitUtil.getJavaClassUnit(invokeItem.getCallee().getJavaClass());
+				invokeClass = result.getTheClass(invokeItem.getCallee().getJavaClass().getId());
 				if (!invokeClasses.contains(invokeClass)) {
 					invokeClasses.add(invokeClass);
 					collectInvokeClasses(invokeClass, invokeClasses);

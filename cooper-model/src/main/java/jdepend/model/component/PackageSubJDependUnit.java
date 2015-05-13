@@ -4,6 +4,7 @@ import jdepend.model.GroupInfoCalculator;
 import jdepend.model.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaPackage;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 
 /**
@@ -14,11 +15,11 @@ import jdepend.model.util.JavaClassUnitUtil;
  */
 public class PackageSubJDependUnit extends VirtualComponent {
 
-	public PackageSubJDependUnit(JavaPackage javaPackage) {
+	public PackageSubJDependUnit(JavaPackage javaPackage, AnalysisResult result) {
 		super(javaPackage.getName());
 
 		for (JavaClass javaClass : javaPackage.getClasses()) {
-			JavaClassUnit javaClassUnit = JavaClassUnitUtil.getJavaClassUnit(javaClass);
+			JavaClassUnit javaClassUnit = result.getTheClass(javaClass.getId());
 			this.joinJavaClass(javaClassUnit);
 			if (this.getResult() == null) {
 				this.setResult(javaClassUnit.getResult());

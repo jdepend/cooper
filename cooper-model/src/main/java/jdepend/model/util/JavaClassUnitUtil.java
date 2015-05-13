@@ -42,6 +42,14 @@ public class JavaClassUnitUtil {
 		return javaClasses;
 	}
 
+	/**
+	 * 得到JavaClass对应的JavaClassUnit
+	 * 
+	 * 该方法需要JDependUnitMgr.getInstance().getResult()中已有分析结果
+	 * 
+	 * @param javaClass
+	 * @return
+	 */
 	public static JavaClassUnit getJavaClassUnit(JavaClass javaClass) {
 		return JDependUnitMgr.getInstance().getResult().getTheClass(javaClass.getId());
 	}
