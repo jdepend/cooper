@@ -737,7 +737,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	@Override
 	public int compareTo(JavaClass o) {
-		return this.getId().compareTo(((JavaClass) o).getId());
+		return this.getId().compareTo(o.getId());
 	}
 
 	@Override

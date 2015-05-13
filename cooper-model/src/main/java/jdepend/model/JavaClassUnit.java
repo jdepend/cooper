@@ -11,7 +11,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 
 /**
- * The <code>JavaClassUnit</code> class represents a Java class or interface.
+ * 一个JavaClassUnit代表作为评价体系中的一个单元.
  * 
  * @author <b>Abner</b>
  * 
@@ -109,6 +109,20 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	public boolean isUsedByExternal() {
 		return this.getAfferents().size() != 0;
 	}
+	
+	/**
+	 * 在组件中是否孤立，与组件中的其他Class都没有关系
+	 * 
+	 * @return
+	 */
+	public boolean isAlone() {
+		for (JavaClassUnit relationClass : this.getRelationList()) {
+			if (this.getComponent().containsClass(relationClass)) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public AnalysisResult getResult() {
@@ -138,6 +152,46 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	@Override
 	public float getAbstractness() {
 		return this.getAbstractClassCount();
+	}
+	
+	@Override
+	public Collection<JavaPackage> getJavaPackages() {
+		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
+		javaPackages.add(this.javaClass.getJavaPackage());
+		return javaPackages;
+	}
+
+	public Component getComponent() {
+		return component;
+	}
+
+	public void setComponent(Component component) {
+		this.component = component;
+		for (JavaClassUnit innerClass : this.innerClassUnits) {
+			innerClass.setComponent(component);
+		}
+	}
+
+	public boolean containedComponent() {
+		return this.component != null;
+	}
+
+	public void setStable(boolean b) {
+		this.stable = b;
+	}
+
+	public boolean isStable() {
+		return stable;
+	}
+
+	@Override
+	public int getClassCount() {
+		return 1;
+	}
+
+	@Override
+	public boolean containsClass(JavaClassUnit javaClass) {
+		return this.equals(javaClass);
 	}
 
 	public synchronized Collection<JavaClassUnit> getCeList() {
@@ -368,45 +422,6 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		return NoCycle;// 不存在循环依赖
 	}
 
-	@Override
-	public Collection<JavaPackage> getJavaPackages() {
-		Collection<JavaPackage> javaPackages = new ArrayList<JavaPackage>();
-		javaPackages.add(this.javaClass.getJavaPackage());
-		return javaPackages;
-	}
-
-	public Component getComponent() {
-		return component;
-	}
-
-	public void setComponent(Component component) {
-		this.component = component;
-		for (JavaClassUnit innerClass : this.innerClassUnits) {
-			innerClass.setComponent(component);
-		}
-	}
-
-	public boolean containedComponent() {
-		return this.component != null;
-	}
-
-	public void setStable(boolean b) {
-		this.stable = b;
-	}
-
-	public boolean isStable() {
-		return stable;
-	}
-
-	@Override
-	public int getClassCount() {
-		return 1;
-	}
-
-	@Override
-	public boolean containsClass(JavaClassUnit javaClass) {
-		return this.equals(javaClass);
-	}
 
 	public JavaClassUnit clone() {
 
@@ -454,20 +469,6 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		relationList = null;
 		afferents = null;
 		efferents = null;
-	}
-
-	/**
-	 * 在组件中是否孤立，与组件中的其他Class都没有关系
-	 * 
-	 * @return
-	 */
-	public boolean isAlone() {
-		for (JavaClassUnit relationClass : this.getRelationList()) {
-			if (this.getComponent().containsClass(relationClass)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	@Override
