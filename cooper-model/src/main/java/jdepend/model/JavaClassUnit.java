@@ -11,7 +11,6 @@ import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 一个JavaClassUnit代表作为评价体系中的一个单元.
