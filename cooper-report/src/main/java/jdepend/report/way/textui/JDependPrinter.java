@@ -185,17 +185,27 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getJavaClass().getCeItems()) {
 			getWriter().println(
-					tab(5) + "<CouplingJavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
-							+ ceItem.getType().getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(ceItem)) + "\"/>");
+					tab(5)
+							+ "<CouplingJavaClass name=\""
+							+ ceItem.getTarget().getName()
+							+ "\" DependType=\""
+							+ ceItem.getType().getName()
+							+ "\" Intensity=\""
+							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(ceItem,
+									javaClass.getResult())) + "\"/>");
 		}
 		getWriter().println(tab(4) + "</Ce>");
 		getWriter().println(tab(4) + "<Ca>");
 		for (JavaClassRelationItem caItem : javaClass.getJavaClass().getCaItems()) {
 			getWriter().println(
-					tab(5) + "<CouplingJavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
-							+ caItem.getType().getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(caItem)) + "\"/>");
+					tab(5)
+							+ "<CouplingJavaClass name=\""
+							+ caItem.getSource().getName()
+							+ "\" DependType=\""
+							+ caItem.getType().getName()
+							+ "\" Intensity=\""
+							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCouplingIntensity(caItem,
+									javaClass.getResult())) + "\"/>");
 		}
 		getWriter().println(tab(4) + "</Ca>");
 
@@ -261,17 +271,27 @@ public final class JDependPrinter extends Printer {
 		getWriter().println(tab(4) + "<Ce>");
 		for (JavaClassRelationItem ceItem : javaClass.getJavaClass().getCeItems()) {
 			getWriter().println(
-					tab(5) + "<CohesionjavaClass name=\"" + ceItem.getTarget().getName() + "\" DependType=\""
-							+ ceItem.getType().getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(ceItem)) + "\"/>");
+					tab(5)
+							+ "<CohesionjavaClass name=\""
+							+ ceItem.getTarget().getName()
+							+ "\" DependType=\""
+							+ ceItem.getType().getName()
+							+ "\" Intensity=\""
+							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(ceItem,
+									javaClass.getResult())) + "\"/>");
 		}
 		getWriter().println(tab(4) + "</Ce>");
 		getWriter().println(tab(4) + "<Ca>");
 		for (JavaClassRelationItem caItem : javaClass.getJavaClass().getCaItems()) {
 			getWriter().println(
-					tab(5) + "<CohesionjavaClass name=\"" + caItem.getSource().getName() + "\" DependType=\""
-							+ caItem.getType().getName() + "\" Intensity=\""
-							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(caItem)) + "\"/>");
+					tab(5)
+							+ "<CohesionjavaClass name=\""
+							+ caItem.getSource().getName()
+							+ "\" DependType=\""
+							+ caItem.getType().getName()
+							+ "\" Intensity=\""
+							+ MetricsFormat.toFormattedMetrics(ReportUtil.calCohesionIntensity(caItem,
+									javaClass.getResult())) + "\"/>");
 		}
 		getWriter().println(tab(4) + "</Ca>");
 

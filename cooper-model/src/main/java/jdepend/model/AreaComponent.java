@@ -162,6 +162,11 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 	}
 
 	@Override
+	public String toString() {
+		return "AreaComponent [layer=" + layer + ", name=" + name + ", instability=" + instability + "]";
+	}
+
+	@Override
 	public int compareTo(AreaComponent o) {
 		return o.instability().compareTo(this.instability());
 	}

@@ -50,7 +50,11 @@ public abstract class AnalysisResultScored implements Scored {
 	@Override
 	public synchronized float getEncapsulation() {
 		if (this.encapsulation == null) {
-			this.encapsulation = MetricsFormat.toFormattedMetrics(getSummary().getEncapsulation() * Encapsulation);
+			Float encapsulationSummary = getSummary().getEncapsulation();
+			if (encapsulationSummary == null) {
+				encapsulationSummary = 0.5F;
+			}
+			this.encapsulation = MetricsFormat.toFormattedMetrics(encapsulationSummary * Encapsulation);
 		}
 		return this.encapsulation;
 	}

@@ -38,7 +38,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 				L: for (Method method : javaClass.getJavaClass().getSelfMethods()) {
 					if (method.existReturn()) {
 						for (Method invokedMethod : method.getInvokedMethods()) {
-							if (JavaClassUnitUtil.getJavaClassUnit(invokedMethod.getJavaClass()).getComponent()
+							if (result.getTheClass(invokedMethod.getJavaClass().getId()).getComponent()
 									.equals(javaClass.getComponent())) {
 								callbackMethod = method;
 								method1 = invokedMethod;
@@ -53,7 +53,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 			isCallback3 = false;
 			if (isCallback1) {
 				M: for (JavaClass subClass : javaClass.getJavaClass().getSubClasses()) {
-					if (!JavaClassUnitUtil.getJavaClassUnit(subClass).getComponent().equals(javaClass.getComponent())) {
+					if (!result.getTheClass(subClass.getId()).getComponent().equals(javaClass.getComponent())) {
 						isCallback2 = true;
 						subClass2 = subClass;
 
@@ -61,7 +61,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 						method3s = new HashSet<Method>();
 						for (Method method : subClass.getConstructorMethods()) {
 							for (Method invokedMethod : method.getInvokedMethods()) {
-								if (JavaClassUnitUtil.getJavaClassUnit(invokedMethod.getJavaClass()).getComponent()
+								if (result.getTheClass(invokedMethod.getJavaClass().getId()).getComponent()
 										.equals(javaClass.getComponent())) {
 									isCallback3 = false;
 									break M;

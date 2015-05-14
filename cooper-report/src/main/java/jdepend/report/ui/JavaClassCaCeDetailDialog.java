@@ -17,7 +17,9 @@ import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.JavaClassRelationItem;
+import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.report.util.ReportConstant;
 
@@ -105,7 +107,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getJavaClass().getCaItems()) {
-						if (!javaClasses.contains(JavaClassUnitUtil.getJavaClassUnit(item.getSource()))) {
+						if (!javaClasses.contains(javaClass.getResult().getTheClass(item.getSource().getId()))) {
 							items.add(item);
 						}
 					}
@@ -117,7 +119,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			} else {
 				for (JavaClassUnit javaClass : javaClasses) {
 					for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
-						if (!javaClasses.contains(JavaClassUnitUtil.getJavaClassUnit(item.getTarget()))) {
+						if (!javaClasses.contains(javaClass.getResult().getTheClass(item.getTarget().getId()))) {
 							items.add(item);
 						}
 					}
@@ -125,13 +127,15 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			}
 		}
 
+		AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+
 		boolean isInner;
 		String metrics1 = null;
 		float coupling = 0F;
 		float inCoupling = 0F;
 		float outerCoupling = 0F;
 		for (JavaClassRelationItem item : items) {
-			isInner = !JavaClassUnitUtil.crossComponent(item);
+			isInner = !JavaClassUnitUtil.crossComponent(item, result);
 			// 判断是否是环境外的
 			if ((javaClass != null && (includeInner || !isInner)) || (javaClasses != null)) {
 				row = new Object[listTable.getColumnCount()];
@@ -149,9 +153,9 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
 						if (metrics.equals(ReportConstant.Ca)) {
-							row[i] = JavaClassUnitUtil.getJavaClassUnit(item.getSource()).getValue(metrics1);
+							row[i] = result.getTheClass(item.getSource().getId()).getValue(metrics1);
 						} else {
-							row[i] = JavaClassUnitUtil.getJavaClassUnit(item.getTarget()).getValue(metrics1);
+							row[i] = result.getTheClass(item.getTarget().getId()).getValue(metrics1);
 						}
 					}
 				}

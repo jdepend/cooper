@@ -8,12 +8,14 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.metadata.Method;
-import jdepend.model.JavaClassUnit;
-import jdepend.model.util.JavaClassUnitUtil;
+import jdepend.model.JDependUnitMgr;
+import jdepend.model.result.AnalysisResult;
 
 public final class BigArgumentMethodDialog extends CooperDialog {
 
 	public BigArgumentMethodDialog(Collection<Method> bigArgumentMethods) {
+
+		AnalysisResult result = JDependUnitMgr.getInstance().getResult();
 
 		TableData tableData = new TableData();
 
@@ -21,8 +23,8 @@ public final class BigArgumentMethodDialog extends CooperDialog {
 			tableData.setData("所属类", bigArgumentMethod.getJavaClass().getName());
 			tableData.setData("方法名", bigArgumentMethod.getInfo());
 			tableData.setData("参数个数", bigArgumentMethod.getArgumentCount());
-			tableData.setData("所属组件", JavaClassUnitUtil.getJavaClassUnit(bigArgumentMethod.getJavaClass())
-					.getComponent().getName());
+			tableData.setData("所属组件", result.getTheClass(bigArgumentMethod.getJavaClass().getId()).getComponent()
+					.getName());
 		}
 		tableData.setSortColName("参数个数");
 

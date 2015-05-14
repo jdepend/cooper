@@ -33,4 +33,14 @@ public class JavaClassInheritTreeCreator extends JavaClassTreeCreator {
 
 		return relationTypeItems;
 	}
+
+	@Override
+	protected JavaClass getDepend(JavaClassRelationItem item) {
+		return item.getSource();
+	}
+
+	@Override
+	protected JavaClass getCurrent(JavaClassRelationItem item) {
+		return item.getTarget();
+	}
 }

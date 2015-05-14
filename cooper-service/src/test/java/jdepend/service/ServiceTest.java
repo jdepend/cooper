@@ -1,5 +1,7 @@
 package jdepend.service;
 
+import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
@@ -16,11 +18,9 @@ public class ServiceTest extends TestCase {
 
 		JDependLocalService service = ServiceFactory.createJDependLocalService();
 
-		service.addDirectory("E:\\my_workspace\\project\\Cooper\\projects\\cooper\\targetjar\\spring-data-mongodb-1.1.0.M1.jar");
-		service.addDirectory("E:\\my_workspace\\project\\Cooper\\projects\\cooper\\targetjar\\spring-data-commons-core-1.3.0.RELEASE.jar");
-		service.addDirectory("E:\\my_workspace\\project\\Cooper\\projects\\cooper\\targetjar\\spring-data-jpa-1.1.0.RELEASE.jar");
-		service.addDirectory("E:\\my_workspace\\project\\Cooper\\projects\\cooper\\targetjar\\spring-data-mongodb-cross-store-1.1.0.M1.jar");
-		service.addDirectory("E:\\my_workspace\\project\\Cooper\\projects\\cooper\\targetjar\\spring-data-mongodb-log4j-1.1.0.M1.jar");
+		for (String p : ClassSearchUtil.getSelfPath()) {
+			service.addDirectory(p);
+		}
 
 		Component component = new JarComponent();
 		service.setComponent(component);
@@ -30,6 +30,20 @@ public class ServiceTest extends TestCase {
 
 	public void testPrintResult() {
 		System.out.println(result);
+	}
+
+	public void testComponentList() {
+		for (Component component : result.getComponents()) {
+			System.out.println("\nName:" + component.getName());
+			System.out.println("Area:" + component.getAreaComponent());
+			System.out.println("Stability(稳定性):" + MetricsFormat.toFormattedMetrics(component.getStability()));
+			System.out.println("Abstractness(抽象性):" + MetricsFormat.toFormattedMetrics(component.getAbstractness()));
+			System.out.println("Encapsulation(封装性):" + MetricsFormat.toFormattedMetrics(component.getEncapsulation()));
+			System.out.println("Balance(内聚性):" + MetricsFormat.toFormattedMetrics(component.getBalance()));
+			System.out.println("Distance(抽象程度合理性):" + MetricsFormat.toFormattedMetrics(component.getDistance()));
+			System.out.println("Cohesion(内聚值):" + MetricsFormat.toFormattedMetrics(component.getCohesion()));
+			System.out.println("Coupling(耦合值):" + MetricsFormat.toFormattedMetrics(component.getCoupling()));
+		}
 	}
 
 }

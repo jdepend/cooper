@@ -45,10 +45,6 @@ public final class JDependUnitMgr {
 		this.result = null;
 	}
 
-	public void setComponents(List<Component> components) {
-		this.result.setComponents(components);
-	}
-
 	public void setExecuteResult(AnalysisResult result) {
 		this.setResult(result);
 		result.setExecuteResult(true);

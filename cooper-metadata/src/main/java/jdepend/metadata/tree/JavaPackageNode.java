@@ -96,6 +96,24 @@ public class JavaPackageNode implements Node {
 		return this.getPath() + " ClassCount: " + this.classCount + " isExistJavaClass: " + this.existJavaClass;
 	}
 
+	public StringBuilder getTree() {
+		StringBuilder info = new StringBuilder();
+		this.buildTree(this, info);
+		return info;
+	}
+
+	private void buildTree(Node current, StringBuilder info) {
+		if (current.getChildren() == null || current.getChildren().size() == 0) {
+			return;
+		} else {
+			for (Node child : current.getChildren()) {
+				info.append(child);
+				info.append("\n");
+				buildTree(child, info);
+			}
+		}
+	}
+
 	@Override
 	public Integer getSize() {
 		if (this.size == null) {

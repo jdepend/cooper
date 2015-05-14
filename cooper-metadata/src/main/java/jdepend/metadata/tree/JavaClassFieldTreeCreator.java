@@ -33,4 +33,14 @@ public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
 
 		return relationTypeItems;
 	}
+
+	@Override
+	protected JavaClass getDepend(JavaClassRelationItem item) {
+		return item.getTarget();
+	}
+
+	@Override
+	protected JavaClass getCurrent(JavaClassRelationItem item) {
+		return item.getSource();
+	}
 }

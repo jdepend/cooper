@@ -32,18 +32,19 @@ public abstract class JavaClassTreeCreator {
 		boolean unite = false;// 合并到其他树上
 
 		for (JavaClass javaClass : classes) {
-			javaClasses.contains(javaClass);
+			javaClasses.add(javaClass);
 			unite = false;
 			for (JavaClassRelationItem relationItem : this.getRelationItem(javaClass)) {
-				if (!javaClasses.contains(relationItem.getTarget()) && classes.contains(relationItem.getTarget())) {
-					javaClasses.add(relationItem.getTarget());
+				if (!javaClasses.contains(this.getDepend(relationItem))
+						&& classes.contains(this.getDepend(relationItem))) {
+					javaClasses.add(this.getDepend(relationItem));
 					// 判断是否要合并到其它树上
 					for (JavaClassTree currentTree : trees) {
-						if (currentTree.contains(relationItem.getTarget())) {
-							if (currentTree.getJavaClassRoots().contains(relationItem.getTarget())) {
-								currentTree.setRoot(relationItem.getSource(), relationItem.getTarget());
+						if (currentTree.contains(this.getDepend(relationItem))) {
+							if (currentTree.getJavaClassRoots().contains(this.getDepend(relationItem))) {
+								currentTree.setRoot(this.getCurrent(relationItem), this.getDepend(relationItem));
 							} else {
-								currentTree.insertNode(relationItem.getSource(), relationItem.getTarget());
+								currentTree.insertNode(this.getCurrent(relationItem), this.getDepend(relationItem));
 							}
 							unite = true;
 						}
@@ -76,10 +77,10 @@ public abstract class JavaClassTreeCreator {
 		JavaClass currentClass = tree.getCurrent();
 		javaClasses.add(currentClass);
 		for (JavaClassRelationItem relationItem : getRelationItem(currentClass)) {// 广度搜索
-			if (classes.contains(relationItem.getTarget())) {
-				if (!javaClasses.contains(relationItem.getTarget())) {
-					javaClasses.add(relationItem.getTarget());
-					tree.addNode(relationItem.getSource(), relationItem.getTarget());
+			if (classes.contains(this.getDepend(relationItem))) {
+				if (!javaClasses.contains(this.getDepend(relationItem))) {
+					javaClasses.add(this.getDepend(relationItem));
+					tree.addNode(this.getCurrent(relationItem), this.getDepend(relationItem));
 					rout(tree, classes);// 深度搜索
 				} else {
 					// 判断是否要合并到其它树上
@@ -87,14 +88,14 @@ public abstract class JavaClassTreeCreator {
 					JavaClassTree currentTree;
 					while (it.hasNext()) {
 						currentTree = it.next();
-						if (currentTree.contains(relationItem.getTarget())) {
-							if (currentTree.getJavaClassRoots().contains(relationItem.getTarget())) {
+						if (currentTree.contains(this.getDepend(relationItem))) {
+							if (currentTree.getJavaClassRoots().contains(this.getDepend(relationItem))) {
 								tree.appendTree(currentClass, currentTree);
 								it.remove();
 							} else {
 								// 只对继承关系进行合并
 								if (this.type instanceof InheritRelation) {
-									tree.mergeTree(currentTree, currentClass, relationItem.getTarget());
+									tree.mergeTree(currentTree, currentClass, this.getDepend(relationItem));
 									it.remove();
 								}
 							}
@@ -112,4 +113,21 @@ public abstract class JavaClassTreeCreator {
 	 * @return
 	 */
 	protected abstract Collection<JavaClassRelationItem> getRelationItem(JavaClass javaClass);
+
+	/**
+	 * 得到JavaClassRelationItem中的对方
+	 * 
+	 * @param item
+	 * @return
+	 */
+	protected abstract JavaClass getDepend(JavaClassRelationItem item);
+
+	/**
+	 * 得到JavaClassRelationItem中的自己
+	 * 
+	 * @param item
+	 * @return
+	 */
+	protected abstract JavaClass getCurrent(JavaClassRelationItem item);
+
 }

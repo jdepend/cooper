@@ -17,7 +17,7 @@ public class CouplingTypeIdentifyer {
 
 		for (Relation relation : result.getRelations()) {
 			for (JavaClassRelationItem item : relation.getItems()) {
-				if (!JavaClassUnitUtil.isInner(item)) {
+				if (!JavaClassUnitUtil.isInner(item, result)) {
 
 				}
 			}

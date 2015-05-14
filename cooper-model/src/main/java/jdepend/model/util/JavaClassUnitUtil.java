@@ -7,8 +7,8 @@ import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisResult;
 
 public class JavaClassUnitUtil {
 
@@ -42,18 +42,6 @@ public class JavaClassUnitUtil {
 		return javaClasses;
 	}
 
-	/**
-	 * 得到JavaClass对应的JavaClassUnit
-	 * 
-	 * 该方法需要JDependUnitMgr.getInstance().getResult()中已有分析结果
-	 * 
-	 * @param javaClass
-	 * @return
-	 */
-	public static JavaClassUnit getJavaClassUnit(JavaClass javaClass) {
-		return JDependUnitMgr.getInstance().getResult().getTheClass(javaClass.getId());
-	}
-
 	public static Collection<JavaClass> getJavaClasses(Collection<JavaClassUnit> javaClassUnits) {
 		Collection<JavaClass> classes = new HashSet<JavaClass>();
 		for (JavaClassUnit javaClassUnit : javaClassUnits) {
@@ -68,9 +56,9 @@ public class JavaClassUnitUtil {
 	 * @return
 	 */
 
-	public static boolean isInner(JavaClassRelationItem item) {
-		return getJavaClassUnit(item.getSource()).getComponent().equals(
-				getJavaClassUnit(item.getTarget()).getComponent());
+	public static boolean isInner(JavaClassRelationItem item, AnalysisResult result) {
+		return result.getTheClass(item.getSource().getId()).getComponent()
+				.equals(result.getTheClass(item.getTarget().getId()).getComponent());
 	}
 
 	/**
@@ -78,7 +66,8 @@ public class JavaClassUnitUtil {
 	 * 
 	 * @return
 	 */
-	public static boolean crossComponent(JavaClassRelationItem item) {
-		return !getJavaClassUnit(item.getSource()).getComponent().containsClass(getJavaClassUnit(item.getTarget()));
+	public static boolean crossComponent(JavaClassRelationItem item, AnalysisResult result) {
+		return !result.getTheClass(item.getSource().getId()).getComponent()
+				.containsClass(result.getTheClass(item.getTarget().getId()));
 	}
 }

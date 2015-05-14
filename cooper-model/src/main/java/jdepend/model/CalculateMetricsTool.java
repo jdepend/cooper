@@ -6,6 +6,7 @@ import java.util.List;
 import jdepend.framework.util.MathUtil;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 
 /**
@@ -138,11 +139,12 @@ public final class CalculateMetricsTool {
 	 */
 	public static Float tableRelationScale(Collection<JavaClassUnit> javaClasses) {
 		if (javaClasses != null && javaClasses.size() > 0) {
+			AnalysisResult result = javaClasses.iterator().next().getResult();
 			int tableRelations = 0;
 			int relations = 0;
 			for (JavaClassUnit javaClass : javaClasses) {
 				for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
-					if (!JavaClassUnitUtil.isInner(item)) {
+					if (!JavaClassUnitUtil.isInner(item, result)) {
 						if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getTableRelation())) {
 							tableRelations += 1;
 						}

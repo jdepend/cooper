@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
@@ -140,6 +139,9 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	public void setComponents(List<Component> components) {
 		this.components = components;
+		for (Component component : this.components) {
+			component.setResult(this);
+		}
 		this.componentForNames = null;
 		this.javaClasses = null;
 		this.javaPackages = null;

@@ -124,7 +124,7 @@ final class DefaultRefactorTool implements RefactorTool {
 
 		newUnits.add(newComponent);
 
-		JDependUnitMgr.getInstance().setComponents(newUnits);
+		JDependUnitMgr.getInstance().getResult().setComponents(newUnits);
 		// 清空缓存
 		JDependUnitMgr.getInstance().getResult().clearCache();
 		// 保存调整之后的结果

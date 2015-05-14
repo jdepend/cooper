@@ -95,7 +95,7 @@ public interface Measurable extends Named {
 	public float getDistance();
 
 	/**
-	 * 内聚性指数（0~1）
+	 * 内聚性（0~1）
 	 * 
 	 * @return
 	 */
