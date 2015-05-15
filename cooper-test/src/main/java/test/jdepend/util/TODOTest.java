@@ -3,7 +3,6 @@ package test.jdepend.util;
 import java.util.List;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.core.local.serviceproxy.JDependServiceLocalProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
@@ -11,8 +10,6 @@ import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.ServiceFactory;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.Memento;
 import jdepend.util.todolist.TODOItem;
@@ -58,14 +55,18 @@ public class TODOTest extends TestCase {
 		List<TODOItem> items = identifyer.identify(result);
 
 		if (items.size() > 0) {
-			System.out.println(items.get(0).execute());
+
+			System.out.println(items.get(0).getInfo());
+
+			items.get(0).execute();
 
 			List<Memento> mementos = AdjustHistory.getInstance().getMementos();
-			if (mementos.size() > 1) {
+
+			if (mementos.size() > 0) {
 				System.out
 						.println("调整前分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(0).getResult().getScore()));
-				System.out
-						.println("调整后分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(1).getResult().getScore()));
+				System.out.println("调整后分数 :"
+						+ MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore()));
 			}
 
 		}
