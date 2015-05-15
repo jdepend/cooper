@@ -63,10 +63,10 @@ public class RefactorToolTest extends TestCase {
 			List<Memento> mementos = AdjustHistory.getInstance().getMementos();
 
 			if (mementos.size() > 0) {
-				System.out
-						.println("调整前分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(0).getResult().getScore()));
-				System.out.println("调整后分数 :"
-						+ MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore()));
+				float score1 = MetricsFormat.toFormattedMetrics(mementos.get(0).getResult().getScore());
+				float score2 = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore());
+				System.out.println("调整前分数 :" + score1);
+				System.out.println("调整后分数 :" + score2);
 			}
 		}
 	}
