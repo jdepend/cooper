@@ -23,7 +23,7 @@ import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.Parse;
 import junit.framework.TestCase;
 
-public final class ParseTestCase extends TestCase {
+public final class ParseTest extends TestCase {
 
 	private Collection<JavaPackage> javaPackages;
 	private Collection<JavaClass> javaClasses;
