@@ -1,13 +1,16 @@
 package test.jdepend.util;
 
-import jdepend.framework.util.MetricsFormat;
+import java.util.List;
+
+import jdepend.framework.exception.JDependException;
 import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
-import jdepend.model.Relation;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.ServiceFactory;
+import jdepend.util.todolist.TODOItem;
+import jdepend.util.todolist.TODOListIdentify;
 import junit.framework.TestCase;
 
 public class TODOTest extends TestCase {
@@ -29,6 +32,15 @@ public class TODOTest extends TestCase {
 		result = service.analyze();
 	}
 
-	
+	public void testIdentify() throws JDependException {
+
+		TODOListIdentify identifyer = new TODOListIdentify();
+
+		List<TODOItem> items = identifyer.identify(result);
+
+		for (TODOItem item : items) {
+			System.out.println(item.getInfo());
+		}
+	}
 
 }
