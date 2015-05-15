@@ -111,13 +111,13 @@ public class JavaClassRelationItem implements Serializable {
 		JavaClassRelationItem newItem = new JavaClassRelationItem();
 
 		newItem.type = this.type;
-		newItem.typeName = this.typeName;
+		newItem.typeName = this.type.getName();
 
-		newItem.sourceJavaClassPlace = this.sourceJavaClassPlace;
-		newItem.sourceJavaClass = this.sourceJavaClass;
+		newItem.sourceJavaClassPlace = this.source.getPlace();
+		newItem.sourceJavaClass = this.source.getName();
 
-		newItem.targetJavaClassPlace = this.targetJavaClassPlace;
-		newItem.targetJavaClass = this.targetJavaClass;
+		newItem.targetJavaClassPlace = this.target.getPlace();
+		newItem.targetJavaClass = this.target.getName();
 
 		return newItem;
 	}

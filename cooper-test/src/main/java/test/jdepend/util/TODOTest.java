@@ -2,13 +2,19 @@ package test.jdepend.util;
 
 import java.util.List;
 
+import jdepend.core.framework.serviceproxy.JDependServiceProxy;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.local.serviceproxy.JDependServiceLocalProxy;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.ServiceFactory;
+import jdepend.util.refactor.AdjustHistory;
+import jdepend.util.refactor.Memento;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentify;
 import junit.framework.TestCase;
@@ -20,16 +26,16 @@ public class TODOTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 
-		JDependLocalService service = ServiceFactory.createJDependLocalService();
+		JDependServiceProxy serviceProxy = new JDependServiceLocalProxy("测试组", "测试命令");
 
 		for (String p : ClassSearchUtil.getSelfPath()) {
-			service.addDirectory(p);
+			serviceProxy.addDirectory(p);
 		}
 
 		Component component = new JarComponent();
-		service.setComponent(component);
+		serviceProxy.setComponent(component);
 
-		result = service.analyze();
+		result = serviceProxy.analyze();
 	}
 
 	public void testIdentify() throws JDependException {
@@ -39,8 +45,29 @@ public class TODOTest extends TestCase {
 		List<TODOItem> items = identifyer.identify(result);
 
 		for (TODOItem item : items) {
-			System.out.println(item.getInfo());
+			System.out.println(item.getContent());
+			System.out.println(item.getAccording());
+			System.out.println();
 		}
 	}
 
+	public void testExecute() throws JDependException {
+
+		TODOListIdentify identifyer = new TODOListIdentify();
+
+		List<TODOItem> items = identifyer.identify(result);
+
+		if (items.size() > 0) {
+			System.out.println(items.get(0).execute());
+
+			List<Memento> mementos = AdjustHistory.getInstance().getMementos();
+			if (mementos.size() > 1) {
+				System.out
+						.println("调整前分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(0).getResult().getScore()));
+				System.out
+						.println("调整后分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(1).getResult().getScore()));
+			}
+
+		}
+	}
 }
