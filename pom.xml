@@ -43,6 +43,7 @@
     <module>cooper-ui-remote</module>
     <module>cooper-service-remote</module>
     <module>cooper-metadata</module>
+    <module>cooper-test</module>
   </modules>
 
 	<build>
