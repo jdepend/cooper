@@ -25,6 +25,7 @@ import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
+import jdepend.framework.log.DBBusinessLogWriter;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.persistent.ConnectionFactory;
@@ -36,7 +37,6 @@ import jdepend.framework.ui.UIProperty;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.util.ClassSearchUtil;
-import jdepend.model.JavaClassUnit;
 import jdepend.parse.ParseListener;
 import jdepend.parse.util.SearchUtil;
 import jdepend.ui.action.AddGroupWizardAction;
@@ -396,6 +396,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	}
 
 	protected void init(String[] args) {
+		// 设置业务日志Writer
+		BusiLogUtil.getInstance().setBusiWriter(new DBBusinessLogWriter());
 		// 设置ServiceProxyFactory
 		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceLocalProxyFactory());
 		// 向命令组配置组件增加监听器

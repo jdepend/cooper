@@ -9,6 +9,7 @@ import jdepend.core.remote.userproxy.UserActionGather;
 import jdepend.core.remote.userproxy.UserCredits;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
+import jdepend.framework.log.DBBusinessLogWriter;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.JDependUtil;
@@ -54,6 +55,8 @@ public class ClientCooper extends JDependCooper {
 
 	@Override
 	protected void init(String[] args) {
+		// 设置业务日志Writer
+		BusiLogUtil.getInstance().setBusiWriter(new DBBusinessLogWriter());
 		// 设置ServiceProxyFactory
 		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceRemoteProxyFactory());
 		// 向命令组配置组件增加监听器

@@ -13,31 +13,11 @@ import java.util.UUID;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;
 
-public final class DBBusinessLogWriter implements BusinessLogWriter {
-
-	private List<BusiLogListener> listeners = new ArrayList<BusiLogListener>();
+public final class DBBusinessLogWriter extends AbstractBusinessLogWriter {
 
 	@Override
-	public void businessLog(String userName, Operation operation) throws JDependException {
-		String id = saveLog(userName, operation);
-
-		for (BusiLogListener listener : listeners) {
-			if (listener != null) {
-				listener.onBusiLog(id, userName, operation);
-			}
-		}
-	}
-
-	@Override
-	public void addLogListener(BusiLogListener logListener) {
-		if (!this.listeners.contains(logListener)) {
-			this.listeners.add(logListener);
-		}
-	}
-
-	@Override
-	public void removeLogListener(BusiLogListener logListener) {
-		this.listeners.remove(logListener);
+	protected String doBusinessLog(String userName, Operation operation) throws JDependException {
+		return saveLog(userName, operation);
 	}
 
 	public static List<BusiLogItem> getAllLogItems() throws JDependException {

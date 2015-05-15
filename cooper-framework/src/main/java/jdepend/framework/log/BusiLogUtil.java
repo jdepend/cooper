@@ -21,11 +21,15 @@ public class BusiLogUtil {
 	private BusinessLogWriter busiWriter;
 
 	private BusiLogUtil() {
-		busiWriter = new DBBusinessLogWriter();
+		busiWriter = new ConsoleBusinessLogWriter();
 	}
 
 	public static BusiLogUtil getInstance() {
 		return inst;
+	}
+
+	public void setBusiWriter(BusinessLogWriter busiWriter) {
+		this.busiWriter = busiWriter;
 	}
 
 	public void businessLog(Operation operation) {
