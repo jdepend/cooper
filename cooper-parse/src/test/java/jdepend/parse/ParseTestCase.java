@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.Attribute;
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.JavaClass;
@@ -118,6 +119,32 @@ public final class ParseTestCase extends TestCase {
 			for (JavaClassRelationItem item : javaClass.getCaItems()) {
 				if (item.getType() instanceof TableRelation) {
 					System.out.println("TableRelation :" + item);
+				}
+			}
+		}
+	}
+
+	public void testJavaClassRelationItemDetail() {
+
+		if (this.javaClasses.size() > 0) {
+			JavaClass javaClass = this.javaClasses.iterator().next();
+			for (JavaClassRelationItem item : javaClass.getCaItems()) {
+				if (item.getRelationIntensity() > 0) {
+					System.out.println("Source :" + item.getSource().getName());
+					System.out.println("Target :" + item.getTarget().getName());
+					System.out.println("Type :" + item.getType().getName());
+					System.out.println("RelationIntensity :"
+							+ MetricsFormat.toFormattedMetrics(item.getRelationIntensity()));
+				}
+			}
+
+			for (JavaClassRelationItem item : javaClass.getCeItems()) {
+				if (item.getRelationIntensity() > 0) {
+					System.out.println("Source :" + item.getSource().getName());
+					System.out.println("Target :" + item.getTarget().getName());
+					System.out.println("Type :" + item.getType().getName());
+					System.out.println("RelationIntensity :"
+							+ MetricsFormat.toFormattedMetrics(item.getRelationIntensity()));
 				}
 			}
 		}

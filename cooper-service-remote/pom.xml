@@ -20,5 +20,10 @@
 			<artifactId>cooper-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-knowledge</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

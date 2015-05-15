@@ -21,10 +21,5 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-knowledge</artifactId>
-    	<version>${project.version}</version>
-    </dependency>
   </dependencies>
 </project>
