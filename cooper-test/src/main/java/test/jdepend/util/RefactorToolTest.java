@@ -1,14 +1,20 @@
 package test.jdepend.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import jdepend.core.framework.serviceproxy.JDependServiceProxy;
+import jdepend.core.local.serviceproxy.JDependServiceLocalProxy;
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
+import jdepend.model.Relation;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.ServiceFactory;
+import jdepend.util.refactor.AdjustHistory;
+import jdepend.util.refactor.Memento;
 import jdepend.util.refactor.RefactorTool;
 import jdepend.util.refactor.RefactorToolFactory;
 import junit.framework.TestCase;
@@ -20,26 +26,48 @@ public class RefactorToolTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 
-		JDependLocalService service = ServiceFactory.createJDependLocalService();
+		JDependServiceProxy serviceProxy = new JDependServiceLocalProxy("测试组", "测试命令");
 
 		for (String p : ClassSearchUtil.getSelfPath()) {
-			service.addDirectory(p);
+			serviceProxy.addDirectory(p);
 		}
 
 		Component component = new JarComponent();
-		service.setComponent(component);
+		serviceProxy.setComponent(component);
 
-		result = service.analyze();
+		result = serviceProxy.analyze();
 	}
 
-	public void testIdentify() throws JDependException {
+	public void testUniteComponent() throws JDependException {
 
 		RefactorTool tool = RefactorToolFactory.createTool();
-		
-		List<Component> components = result.getComponents();
-//		if(components.)
-//		tool.moveClass(javaClasses, target)
 
+		Relation maxIntensityRelation = null;
+		for (Relation relation : result.getRelations()) {
+			if (maxIntensityRelation == null || maxIntensityRelation.getIntensity() < relation.getIntensity()) {
+				maxIntensityRelation = relation;
+			}
+		}
+
+		if (maxIntensityRelation != null) {
+
+			Collection<String> components = new ArrayList<String>();
+			components.add(maxIntensityRelation.getCurrent().getComponent().getName());
+			components.add(maxIntensityRelation.getDepend().getComponent().getName());
+
+			String name = maxIntensityRelation.getCurrent().getComponent().getName() + "|"
+					+ maxIntensityRelation.getDepend().getComponent().getName();
+
+			tool.uniteComponent(name, 0, components);
+
+			List<Memento> mementos = AdjustHistory.getInstance().getMementos();
+
+			if (mementos.size() > 0) {
+				System.out
+						.println("调整前分数 :" + MetricsFormat.toFormattedMetrics(mementos.get(0).getResult().getScore()));
+				System.out.println("调整后分数 :"
+						+ MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getScore()));
+			}
+		}
 	}
-
 }
