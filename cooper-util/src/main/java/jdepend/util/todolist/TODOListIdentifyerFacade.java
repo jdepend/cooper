@@ -14,7 +14,7 @@ import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 
-public class TODOListIdentify {
+public class TODOListIdentifyerFacade {
 
 	private List<TODOItem> list;
 
@@ -34,19 +34,19 @@ public class TODOListIdentify {
 		this.init(result);
 		long start = System.currentTimeMillis();
 		this.identifyMoveJavaClass();
-		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+		LogUtil.getInstance(TODOListIdentifyerFacade.class).systemLog(
 				"identifyMoveJavaClass [" + (System.currentTimeMillis() - start) + "]");
 		start = System.currentTimeMillis();
 		this.identifyUniteComponent();
-		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+		LogUtil.getInstance(TODOListIdentifyerFacade.class).systemLog(
 				"identifyUniteComponent [" + (System.currentTimeMillis() - start) + "]");
 		start = System.currentTimeMillis();
 		this.identifySplitCompoent();
-		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+		LogUtil.getInstance(TODOListIdentifyerFacade.class).systemLog(
 				"identifySplitCompoent [" + (System.currentTimeMillis() - start) + "]");
 		start = System.currentTimeMillis();
 		this.identifyAdjustAbstract();
-		LogUtil.getInstance(TODOListIdentify.class).systemLog(
+		LogUtil.getInstance(TODOListIdentifyerFacade.class).systemLog(
 				"identifyAdjustAbstract [" + (System.currentTimeMillis() - start) + "]");
 		// 按Order排序
 		Collections.sort(list);
@@ -131,7 +131,7 @@ public class TODOListIdentify {
 					}
 				}
 			} catch (JDependException e) {
-				LogUtil.getInstance(TODOListIdentify.class).systemError(e.getMessage());
+				LogUtil.getInstance(TODOListIdentifyerFacade.class).systemError(e.getMessage());
 				e.printStackTrace();
 
 			}
@@ -146,7 +146,7 @@ public class TODOListIdentify {
 					this.list.add(item);
 				}
 			} catch (JDependException e) {
-				LogUtil.getInstance(TODOListIdentify.class).systemError(e.getMessage());
+				LogUtil.getInstance(TODOListIdentifyerFacade.class).systemError(e.getMessage());
 				e.printStackTrace();
 			}
 		}

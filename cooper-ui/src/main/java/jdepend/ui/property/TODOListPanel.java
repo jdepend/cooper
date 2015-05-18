@@ -26,7 +26,7 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.JDependCooper;
 import jdepend.util.todolist.TODOItem;
-import jdepend.util.todolist.TODOListIdentify;
+import jdepend.util.todolist.TODOListIdentifyerFacade;
 
 public final class TODOListPanel extends JPanel {
 
@@ -206,7 +206,7 @@ public final class TODOListPanel extends JPanel {
 	}
 
 	public void refresh() throws JDependException {
-		TODOListIdentify identify = new TODOListIdentify();
+		TODOListIdentifyerFacade identify = new TODOListIdentifyerFacade();
 		todoList = identify.identify(JDependUnitMgr.getInstance().getResult());
 
 		listModel.setRowCount(0);

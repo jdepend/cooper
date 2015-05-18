@@ -13,7 +13,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.Memento;
 import jdepend.util.todolist.TODOItem;
-import jdepend.util.todolist.TODOListIdentify;
+import jdepend.util.todolist.TODOListIdentifyerFacade;
 import junit.framework.TestCase;
 
 public class TODOTest extends TestCase {
@@ -37,7 +37,7 @@ public class TODOTest extends TestCase {
 
 	public void testIdentify() throws JDependException {
 
-		TODOListIdentify identifyer = new TODOListIdentify();
+		TODOListIdentifyerFacade identifyer = new TODOListIdentifyerFacade();
 
 		List<TODOItem> items = identifyer.identify(result);
 
@@ -50,7 +50,7 @@ public class TODOTest extends TestCase {
 
 	public void testExecute() throws JDependException {
 
-		TODOListIdentify identifyer = new TODOListIdentify();
+		TODOListIdentifyerFacade identifyer = new TODOListIdentifyerFacade();
 
 		List<TODOItem> items = identifyer.identify(result);
 

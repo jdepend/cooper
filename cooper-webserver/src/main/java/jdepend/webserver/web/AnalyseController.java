@@ -17,7 +17,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.util.todolist.TODOItem;
-import jdepend.util.todolist.TODOListIdentify;
+import jdepend.util.todolist.TODOListIdentifyerFacade;
 import jdepend.webserver.service.AnalyseService;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
@@ -118,7 +118,7 @@ public class AnalyseController {
 		model.addAttribute("result", webResult);
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT, webResult);
 
-		TODOListIdentify identify = new TODOListIdentify();
+		TODOListIdentifyerFacade identify = new TODOListIdentifyerFacade();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
 		
