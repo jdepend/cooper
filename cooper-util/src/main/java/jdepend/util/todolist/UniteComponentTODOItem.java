@@ -10,11 +10,11 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.model.Relation;
 import jdepend.util.refactor.RefactorToolFactory;
 
-public final class ComponentUniteTODOItem extends TODOItem {
+public final class UniteComponentTODOItem extends TODOItem {
 
 	private Relation relation;
 
-	public ComponentUniteTODOItem(Relation relation) {
+	public UniteComponentTODOItem(Relation relation) {
 		super();
 		this.relation = relation;
 	}
