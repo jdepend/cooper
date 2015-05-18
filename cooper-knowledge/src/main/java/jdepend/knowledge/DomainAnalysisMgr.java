@@ -71,4 +71,8 @@ public final class DomainAnalysisMgr {
 		}
 	}
 
+	public void addDomainAnalysis(DomainAnalysis domainAnalysis) {
+		this.domainAnalysises.add(domainAnalysis);
+	}
+
 }

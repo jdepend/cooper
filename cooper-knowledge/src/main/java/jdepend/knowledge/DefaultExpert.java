@@ -9,4 +9,9 @@ public class DefaultExpert implements Expert {
 				.advise(structure.getName(), structure.getData());
 	}
 
+	@Override
+	public void registDomainAnalysis(DomainAnalysis domainAnalysis) {
+		DomainAnalysisMgr.getIntance().addDomainAnalysis(domainAnalysis);
+	}
+
 }
