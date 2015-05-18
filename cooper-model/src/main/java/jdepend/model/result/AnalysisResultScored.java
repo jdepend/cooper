@@ -6,12 +6,12 @@ import jdepend.model.Scored;
 public abstract class AnalysisResultScored implements Scored {
 
 	public static final float FullScore = 100F;// 满分
-	public static final float D = 25F;// 抽象程度合理性得分比例
+	public static final float Distance = 25F;// 抽象程度合理性得分比例
 	public static final float Balance = 25F;// 内聚性得分比例
 	public static final float Encapsulation = 25F;// 封装性得分比例
 	public static final float RelationRationality = 25F;// 关系合理性得分比例
 
-	private transient Float d = null;// 抽象程度合理性
+	private transient Float distance = null;// 抽象程度合理性
 	private transient Float balance = null;// 内聚性
 	private transient Float encapsulation = null;// 组件封装性
 	private transient Float relationRationality = null;// 关系合理性
@@ -22,11 +22,11 @@ public abstract class AnalysisResultScored implements Scored {
 	 * @return
 	 */
 	@Override
-	public synchronized float getD() {
-		if (this.d == null) {
-			this.d = MetricsFormat.toFormattedScore((1 - getSummary().getDistance()) * D);
+	public synchronized float getDistance() {
+		if (this.distance == null) {
+			this.distance = MetricsFormat.toFormattedScore((1 - getSummary().getDistance()) * Distance);
 		}
-		return this.d;
+		return this.distance;
 	}
 
 	/**
@@ -80,11 +80,11 @@ public abstract class AnalysisResultScored implements Scored {
 
 	@Override
 	public float getScore() {
-		return MetricsFormat.toFormattedScore(getD() + getBalance() + getRelationRationality() + getEncapsulation());
+		return MetricsFormat.toFormattedScore(getDistance() + getBalance() + getRelationRationality() + getEncapsulation());
 	}
 
 	public synchronized void clearScore() {
-		this.d = null;
+		this.distance = null;
 		this.balance = null;
 		this.relationRationality = null;
 		this.encapsulation = null;

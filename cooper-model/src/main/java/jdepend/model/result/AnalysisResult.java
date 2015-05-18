@@ -627,8 +627,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		scoreInfo.append("最终得分：");
 		scoreInfo.append(this.getScore());
 		scoreInfo.append("(抽象程度合理性得分：");
-		scoreInfo.append(this.getD());
-		scoreInfo.append("【满分：" + AnalysisResultScored.D + "】 内聚性得分：");
+		scoreInfo.append(this.getDistance());
+		scoreInfo.append("【满分：" + AnalysisResultScored.Distance + "】 内聚性得分：");
 		scoreInfo.append(this.getBalance());
 		scoreInfo.append("【满分：" + AnalysisResultScored.Balance + "】 内聚性得分：】封装性得分：");
 		scoreInfo.append(this.getEncapsulation());
@@ -690,7 +690,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		itemDiffs
 				.add(new ItemDiff("关系个数与组件个数的比值", this.calRelationComponentScale(), result.calRelationComponentScale()));
 		itemDiffs.add(new ItemDiff("总分", this.getScore(), result.getScore()));
-		itemDiffs.add(new ItemDiff("抽象程度合理性得分", this.getD(), result.getD()));
+		itemDiffs.add(new ItemDiff("抽象程度合理性得分", this.getDistance(), result.getDistance()));
 		itemDiffs.add(new ItemDiff("内聚性得分", this.getBalance(), result.getBalance()));
 		itemDiffs.add(new ItemDiff("封装性得分", this.getEncapsulation(), result.getEncapsulation()));
 		itemDiffs.add(new ItemDiff("关系合理性得分", this.getRelationRationality(), result.getRelationRationality()));

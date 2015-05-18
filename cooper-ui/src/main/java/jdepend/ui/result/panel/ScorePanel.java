@@ -170,7 +170,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JPanel dPanel = new JPanel(new BorderLayout());
 		dPanel.setBorder(new TitledBorder(BundleUtil.getString(BundleUtil.Metrics_D)));
 		dPanel.setBackground(new java.awt.Color(255, 255, 255));
-		dPanel.add(this.createItem(AnalysisResult.Metrics_D, result.getD()));
+		dPanel.add(this.createItem(AnalysisResult.Metrics_D, result.getDistance()));
 
 		subitemPanel.add(dPanel);
 
@@ -268,7 +268,7 @@ public final class ScorePanel extends SubResultTabPanel {
 					+ AnalysisResultScored.RelationRationality);
 		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.D);
+					+ AnalysisResultScored.Distance);
 		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
 					+ AnalysisResultScored.Balance);
@@ -305,7 +305,7 @@ public final class ScorePanel extends SubResultTabPanel {
 					if (this.getMetrics().equals(AnalysisResult.Metrics_TotalScore)) {
 						return result.getScore();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_D)) {
-						return result.getD();
+						return result.getDistance();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_Balance)) {
 						return result.getBalance();
 					} else if (this.getMetrics().equals(AnalysisResult.Metrics_RelationRationality)) {
@@ -576,9 +576,9 @@ public final class ScorePanel extends SubResultTabPanel {
 		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getD() / AnalysisResult.D);
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getD()
-				/ AnalysisResult.D);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance() / AnalysisResult.Distance);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getDistance()
+				/ AnalysisResult.Distance);
 		item.setDatas(datas);
 		graph.addItem(item);
 

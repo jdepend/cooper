@@ -29,8 +29,17 @@ public class ServiceTest extends TestCase {
 		result = service.analyze();
 	}
 
-	public void testPrintResult() {
+	public void testResult() {
 		System.out.println(result);
+	}
+
+	public void testScore() {
+		System.out.println("\nScore(总分):" + MetricsFormat.toFormattedMetrics(result.getScore()));
+		System.out.println("D(抽象程度合理性得分):" + MetricsFormat.toFormattedMetrics(result.getDistance()));
+		System.out.println("Balance(內聚性得分):" + MetricsFormat.toFormattedMetrics(result.getBalance()));
+		System.out.println("Encapsulation(封装性得分):" + MetricsFormat.toFormattedMetrics(result.getEncapsulation()));
+		System.out.println("RelationRationality(关系合理性性得分):"
+				+ MetricsFormat.toFormattedMetrics(result.getRelationRationality()));
 	}
 
 	public void testComponentList() {

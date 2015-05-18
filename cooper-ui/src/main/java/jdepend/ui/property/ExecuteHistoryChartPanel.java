@@ -104,7 +104,7 @@ public final class ExecuteHistoryChartPanel extends JPanel {
 			row = new Object[6];
 
 			row[0] = summary.getId();
-			row[1] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getD());
+			row[1] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getDistance());
 			row[2] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getBalance());
 			row[3] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getRelationRationality());
 			row[4] = MetricsFormat.toFormattedMetrics(this.results.get(summary).getScore());
@@ -131,7 +131,7 @@ public final class ExecuteHistoryChartPanel extends JPanel {
 
 			result = this.results.get(summary);
 			scoreSeries.add(new Minute(summary.getCreateDate()), result.getScore());
-			dSeries.add(new Minute(summary.getCreateDate()), result.getD());
+			dSeries.add(new Minute(summary.getCreateDate()), result.getDistance());
 			balanceSeries.add(new Minute(summary.getCreateDate()), result.getBalance());
 			relationSeries.add(new Minute(summary.getCreateDate()), result.getRelationRationality());
 		}

@@ -20,7 +20,7 @@ public interface Scored {
 	 * 
 	 * @return
 	 */
-	public float getD();
+	public float getDistance();
 	
 	/**
 	 * 内聚性得分

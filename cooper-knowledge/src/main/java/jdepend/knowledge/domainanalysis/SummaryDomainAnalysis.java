@@ -47,7 +47,7 @@ public final class SummaryDomainAnalysis extends AbstractDomainAnalysis {
 		} else if (balance >= 18F) {
 			content.append("，内聚性方面做得不错");
 		}
-		Float d = result.getD();
+		Float d = result.getDistance();
 		if (d < 10F) {
 			content.append("，抽象程度设计上表现不好");
 		} else if (d >= 18F) {

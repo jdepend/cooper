@@ -62,7 +62,7 @@ public class MementoPanel extends JPanel {
 			row = new Object[7];
 			row[0] = memento.getCreateDate();
 			row[1] = getAction(memento.getActions());
-			row[2] = MetricsFormat.toFormattedMetrics(memento.getResult().getD());
+			row[2] = MetricsFormat.toFormattedMetrics(memento.getResult().getDistance());
 			row[3] = MetricsFormat.toFormattedMetrics(memento.getResult().getBalance());
 			row[4] = MetricsFormat.toFormattedMetrics(memento.getResult().getEncapsulation());
 			row[5] = MetricsFormat.toFormattedMetrics(memento.getResult().getRelationRationality());
@@ -73,7 +73,7 @@ public class MementoPanel extends JPanel {
 		if (AdjustHistory.getInstance().getMementos().size() > 0) {
 			row = new Object[7];
 			row[1] = getAction(AdjustHistory.getInstance().getActions());
-			row[2] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getD());
+			row[2] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getDistance());
 			row[3] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getBalance());
 			row[4] = MetricsFormat.toFormattedMetrics(AdjustHistory.getInstance().getCurrent().getEncapsulation());
 			row[5] = MetricsFormat

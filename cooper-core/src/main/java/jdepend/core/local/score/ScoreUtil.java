@@ -16,7 +16,7 @@ public final class ScoreUtil {
 		score.command = result.getRunningContext().getCommand();
 		score.lc = result.getSummary().getLineCount();
 		score.score = result.getScore();
-		score.d = result.getD();
+		score.d = result.getDistance();
 		score.balance = result.getBalance();
 		score.relation = result.getRelationRationality();
 		score.encapsulation = result.getEncapsulation();
