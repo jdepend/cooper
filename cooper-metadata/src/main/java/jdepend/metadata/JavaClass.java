@@ -152,6 +152,15 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		}
 	}
 
+	public String getHostClassId() {
+		int pos = this.getName().indexOf("$");
+		if (pos != -1) {
+			return CandidateUtil.getId(this.getPlace(), this.getName().substring(0, pos));
+		} else {
+			return null;
+		}
+	}
+
 	public boolean containsInnerClass(JavaClass javaClass) {
 		if (!javaClass.isInnerClass()) {
 			return false;
@@ -161,29 +170,29 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 	}
 
 	public boolean containedInnerClass(JavaClass javaClass) {
-		if (!this.isInnerClass()) {
+		if (!this.isInnerClass() || this.equals(javaClass)) {
 			return false;
 		} else {
 			return this.getName().startsWith(javaClass.getName());
 		}
 	}
 
-	public void addInnerClass(JavaClass javaClass) {
+	public synchronized void addInnerClass(JavaClass javaClass) {
 		if (!this.innerClasses.contains(javaClass)) {
 			this.innerClasses.add(javaClass);
 		}
 		javaClass.hostClass = this;
 	}
 
-	public JavaClass getHostClass() {
-		if (this.hostClass.isInnerClass()) {
+	public synchronized JavaClass getHostClass() {
+		if (this.hostClass != null && this.hostClass.isInnerClass()) {
 			return this.hostClass.getHostClass();
 		} else {
 			return hostClass;
 		}
 	}
 
-	public Collection<JavaClass> getInnerClasses() {
+	public synchronized Collection<JavaClass> getInnerClasses() {
 		if (this.allInnerClasses == null) {
 			this.allInnerClasses = new HashSet<JavaClass>();
 			this.allInnerClasses.addAll(this.innerClasses);

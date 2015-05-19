@@ -87,6 +87,10 @@ public class JavaClassRelationCreator {
 					for (JavaClass javaClass : javaClasses.getUnitJavaClasses().get(unit)) {
 
 						if (javaClass.isInner()) {
+							// 填充JavaClass.hostClass
+							if (javaClass.isInnerClass()) {
+								javaClasses.getTheClass(javaClass.getHostClassId()).addInnerClass(javaClass);
+							}
 							LogUtil.getInstance(JavaClassRelationCreator.class).systemLog(
 									"开始建立Class的关系:" + javaClass.getName());
 							info = javaClass.getDetail();
@@ -199,7 +203,6 @@ public class JavaClassRelationCreator {
 		}
 
 		if (source.containsInnerClass(target)) {
-			source.addInnerClass(target);
 			return;
 		}
 
