@@ -492,7 +492,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		return this.detail.getInterfaces();
 	}
 
-	private JavaClass getSuperClass() {
+	public JavaClass getSuperClass() {
 		return this.detail.getSuperClass();
 	}
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cooper</groupId>
@@ -39,12 +40,12 @@
 		<module>cooper-framework-ui</module>
 		<module>cooper-service-interface</module>
 		<module>cooper-util</module>
-    <module>cooper-core-remote</module>
-    <module>cooper-ui-remote</module>
-    <module>cooper-service-remote</module>
-    <module>cooper-metadata</module>
-    <module>cooper-test</module>
-  </modules>
+		<module>cooper-core-remote</module>
+		<module>cooper-ui-remote</module>
+		<module>cooper-service-remote</module>
+		<module>cooper-metadata</module>
+		<module>cooper-test</module>
+	</modules>
 
 	<build>
 		<plugins>
@@ -57,6 +58,18 @@
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

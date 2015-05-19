@@ -105,7 +105,7 @@ public class JavaClassUtil {
 						path += "9";
 					} else {
 						type = JavaClass.VO_TYPE;
-						path += "10";
+						path += "a";
 						ensure_VO_TYPE = true;
 					}
 				}
