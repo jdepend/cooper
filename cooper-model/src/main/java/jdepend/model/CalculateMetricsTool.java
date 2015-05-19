@@ -92,7 +92,7 @@ public final class CalculateMetricsTool {
 		if (this.unit.getAfferents().size() == 0 && this.unit.getEfferents().size() == 0) {
 			return 0.5F;
 		} else {
-			return Math.abs(abstractness() + volatility() + stability() - 1);
+			return Math.abs(abstractness() + stability() - 1);
 		}
 	}
 

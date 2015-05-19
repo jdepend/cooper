@@ -80,8 +80,8 @@ public final class ComponentListPanel extends SubResultTabPanel {
 
 		this.headers = new String[] { ReportConstant.Name, ReportConstant.Component_Area, ReportConstant.LC,
 				ReportConstant.CN, ReportConstant.CC, ReportConstant.AC, ReportConstant.Ca, ReportConstant.Ce,
-				ReportConstant.A, ReportConstant.V, ReportConstant.I, ReportConstant.D, ReportConstant.Coupling,
-				ReportConstant.Cohesion, ReportConstant.Balance, ReportConstant.Encapsulation, ReportConstant.Cycle };
+				ReportConstant.A, ReportConstant.I, ReportConstant.D, ReportConstant.Coupling, ReportConstant.Cohesion,
+				ReportConstant.Balance, ReportConstant.Encapsulation, ReportConstant.Cycle };
 
 		DefaultTableModel model = new DefaultTableModel() {
 			@Override

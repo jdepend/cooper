@@ -15,7 +15,7 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 
 	@Override
 	public String getTip() {
-		return "XXXUtil,XXXException等都具有相当的稳定性，对它们的依赖应该不敏感";
+		return "XXXUtil,XXXException、简单VO等都具有相当的稳定性，对它们的依赖应该不敏感";
 	}
 
 	@Override

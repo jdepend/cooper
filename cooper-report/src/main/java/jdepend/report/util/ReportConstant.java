@@ -78,7 +78,7 @@ public class ReportConstant {
 		Tips.put(A, "具有抽象类计数资格的类比例，值越大越抽象");
 		Tips.put(V, "稳定的类比例，值越大越不易变");
 		Tips.put(I, "传出比例，值越小越稳定");
-		Tips.put(D, "abs(抽象程度 + 易变性 + 稳定性 - 1)，值越接近零越合理");
+		Tips.put(D, "abs(抽象程度 + 稳定性 - 1)，值越接近零越合理");
 		Tips.put(Coupling, "sum(依赖的JavaClass * Relation强度)，值越小越好");
 		Tips.put(Cohesion, "sum(内部的JavaClass * Relation强度)，值越大越好");
 		Tips.put(Encapsulation, "私有类比例，值越大越好");
