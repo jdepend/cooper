@@ -1,5 +1,6 @@
 package jdepend.service.local.avertcheat.stabilityClassIdentifyer;
 
+import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisRunningContext;
@@ -34,6 +35,23 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 			}
 			if (stability) {
 				javaClass.setStable(true);
+				return;
+			}
+			if (javaClass.getJavaClass().getCeList().size() == 0
+					&& javaClass.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
+				boolean haveBusinessMethod = false;
+				O: for (Method method : javaClass.getJavaClass().getMethods()) {
+					if (!method.isConstruction() && !method.getName().startsWith("get")
+							&& !method.getName().startsWith("set") && !method.getName().equals("toString")
+							&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
+						haveBusinessMethod = true;
+						break O;
+					}
+				}
+				if (!haveBusinessMethod) {
+					javaClass.setStable(true);
+					return;
+				}
 			}
 		}
 	}

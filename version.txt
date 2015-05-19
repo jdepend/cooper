@@ -14,6 +14,8 @@ f）创建cooper-test Maven Module
 
 g）重构todolist，创建TODOIdentifyer接口，并将原TODOListIdentifyerFacade中的代码移入到各自的TODOIdentifyer中
 
+h）改进类是否稳定的算法
+
 1.2.5_01 2015-05-08
 
 a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote

@@ -70,7 +70,8 @@ public class JavaClassUtil {
 				boolean haveBusinessMethod = false;
 				O: for (Method method : javaClass.getMethods()) {
 					if (!method.isConstruction() && !method.getName().startsWith("get")
-							&& !method.getName().startsWith("set")) {
+							&& !method.getName().startsWith("set") && !method.getName().equals("toString")
+							&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
 						haveBusinessMethod = true;
 						break O;
 					}
