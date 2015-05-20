@@ -682,6 +682,13 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	public void supplyDetail(JavaClassCollection javaClasses) {
 		this.getDetail().supply(javaClasses);
+		// 填充HostClass
+		if (this.isInnerClass()) {
+			JavaClass hostClass = javaClasses.getTheClass(this.getHostClassId());
+			if (hostClass != null) {
+				hostClass.addInnerClass(this);
+			} 
+		}
 	}
 
 	public void supplyJavaClassRelationItem(JavaClassCollection javaClasses) {

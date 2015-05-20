@@ -133,20 +133,25 @@ public class JavaClassRelationItem implements Serializable {
 		if (!this.source.isInnerClass()) {
 			return this;
 		} else {
-			JavaClassRelationItem newItem = new JavaClassRelationItem();
+			JavaClass hostClass = this.source.getHostClass();
+			if (hostClass != null) {
+				JavaClassRelationItem newItem = new JavaClassRelationItem();
 
-			newItem.type = this.type;
-			newItem.typeName = this.typeName;
+				newItem.type = this.type;
+				newItem.typeName = this.typeName;
 
-			newItem.sourceJavaClassPlace = this.source.getHostClass().getPlace();
-			newItem.sourceJavaClass = this.source.getHostClass().getName();
-			newItem.source = this.source.getHostClass();
+				newItem.sourceJavaClassPlace = hostClass.getPlace();
+				newItem.sourceJavaClass = hostClass.getName();
+				newItem.source = hostClass;
 
-			newItem.targetJavaClassPlace = this.targetJavaClassPlace;
-			newItem.targetJavaClass = this.targetJavaClass;
-			newItem.target = this.target;
+				newItem.targetJavaClassPlace = this.targetJavaClassPlace;
+				newItem.targetJavaClass = this.targetJavaClass;
+				newItem.target = this.target;
 
-			return newItem;
+				return newItem;
+			} else {
+				return this;
+			}
 		}
 	}
 

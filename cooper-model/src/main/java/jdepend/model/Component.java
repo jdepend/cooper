@@ -228,9 +228,14 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	public boolean containsClass(JavaClass javaClass) {
-		//javaClass和JavaClassUnit共用一个Id
+		// javaClass和JavaClassUnit共用一个Id
 		if (javaClass.isInnerClass()) {
-			return this.javaClassesForId.containsKey(javaClass.getHostClass().getId());
+			JavaClass hostClass = javaClass.getHostClass();
+			if (hostClass != null) {
+				return this.javaClassesForId.containsKey(hostClass.getId());
+			} else {
+				return this.javaClassesForId.containsKey(javaClass.getId());
+			}
 		} else {
 			return this.javaClassesForId.containsKey(javaClass.getId());
 		}
