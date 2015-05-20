@@ -48,20 +48,10 @@ public final class CommandAction extends AsynAction {
 		result = adapter.execute();
 		// 创建UI结果
 		this.addResults(reportRender.createReport(result));
-
 	}
 
 	@Override
 	protected void showResultLater() {
-		// 输出日志
-		Map<String, JComponent> logReport = new HashMap<String, JComponent>();
-		if (adapter.getLog() != null && adapter.getLog().length() != 0) {
-			logReport.put("log", ResultPanel.createTextViewer(adapter.getLog()));
-		}
-		frame.getResultPanel().appendResult(logReport);
-
-		// 刷新TODOList
-		frame.getPropertyPanel().showTODOList();
 		// 保存分数
 		if ((new PropertyConfigurator()).isAutoSaveScore()) {
 			try {
@@ -71,6 +61,14 @@ public final class CommandAction extends AsynAction {
 				addResults(createErrorResult(e1));
 			}
 		}
+		// 输出日志
+		Map<String, JComponent> logReport = new HashMap<String, JComponent>();
+		if (adapter.getLog() != null && adapter.getLog().length() != 0) {
+			logReport.put("log", ResultPanel.createTextViewer(adapter.getLog()));
+		}
+		frame.getResultPanel().appendResult(logReport);
+		// 刷新TODOList
+		frame.getPropertyPanel().showTODOList();
 		// 清空缓存
 		adapter.clear();
 		reportRender.clear();

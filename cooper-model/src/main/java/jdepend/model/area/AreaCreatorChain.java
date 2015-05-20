@@ -21,7 +21,7 @@ public class AreaCreatorChain {
 		this.creators = new ArrayList<AreaCreator>();
 
 		this.creators.add(new AreaCreatorWithComponentLayer());
-		this.creators.add(new AreaCreatorWithPathInfo());
+		// this.creators.add(new AreaCreatorWithPathInfo());
 		this.creators.add(new AreaCreatorWithInstability());
 	}
 

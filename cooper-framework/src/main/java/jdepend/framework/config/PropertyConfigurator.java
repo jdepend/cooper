@@ -142,6 +142,28 @@ public class PropertyConfigurator implements Serializable {
 
 		return true;
 	}
+	
+	public boolean isCalJavaClassCycle() {
+
+		String key = "isCalJavaClassCycle";
+		if (properties.containsKey(key)) {
+			String value = properties.getProperty(key);
+			return new Boolean(value).booleanValue();
+		}
+
+		return true;
+	}
+	
+	public boolean isCalTODOList() {
+
+		String key = "isCalTODOList";
+		if (properties.containsKey(key)) {
+			String value = properties.getProperty(key);
+			return new Boolean(value).booleanValue();
+		}
+
+		return true;
+	}
 
 	public static File getDefaultPropertyFile() {
 		String home = JDependContext.getWorkspacePath() + "/" + PropertyConfigurator.DEFAULT_PROPERTY_DIR;

@@ -46,12 +46,7 @@ public abstract class ObjectMeasured implements Measurable {
 		case MetricsMgr.Coupling:
 			return MetricsFormat.toFormattedMetrics(this.getCoupling());
 		case MetricsMgr.Balance:
-			try{
 			return MetricsFormat.toFormattedMetrics(this.getBalance());
-			}catch (java.lang.NumberFormatException e) {
-				System.out.print("");
-				return 0F;
-			}
 		case MetricsMgr.Encapsulation:
 			return MetricsFormat.toFormattedMetrics(this.getEncapsulation());
 
