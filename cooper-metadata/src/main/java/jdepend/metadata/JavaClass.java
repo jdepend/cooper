@@ -40,6 +40,8 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	private String place;
 
+	public static final String Extend_PlaceName = "outer";
+
 	private JavaPackage javaPackage;
 
 	private int haveState = UnCalculate;// 缓存是否存在状态
@@ -687,7 +689,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 			JavaClass hostClass = javaClasses.getTheClass(this.getHostClassId());
 			if (hostClass != null) {
 				hostClass.addInnerClass(this);
-			} 
+			}
 		}
 	}
 

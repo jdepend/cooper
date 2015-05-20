@@ -31,13 +31,16 @@ public final class JarComponent extends Component {
 		JarComponent component;
 
 		for (JavaPackage javaPackage : javaPackages) {
-			component = components.get(javaPackage.getPlace());
-			if (component == null) {
-				component = new JarComponent(javaPackage.getPlace());
-				components.put(javaPackage.getPlace(), component);
-			}
-			for (JavaClass javaClass : javaPackage.getClasses()) {
-				component.addJavaClass(new JavaClassUnit(javaClass));
+			String place = javaPackage.getPlace();
+			if (!place.equals(JavaClass.Extend_PlaceName)) {
+				component = components.get(place);
+				if (component == null) {
+					component = new JarComponent(place);
+					components.put(place, component);
+				}
+				for (JavaClass javaClass : javaPackage.getClasses()) {
+					component.addJavaClass(new JavaClassUnit(javaClass));
+				}
 			}
 		}
 
