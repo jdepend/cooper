@@ -189,7 +189,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setComponent(component);
 
 		context.setAnalyzeInnerClasses(parseConf.getAnalyzeInnerClasses());
-		context.setEnableAbstractClassCountQualificationConfirmer(parseConf
+		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
 				.enableAbstractClassCountQualificationConfirmer());
 		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
 

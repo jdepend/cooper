@@ -120,17 +120,6 @@ public class ParseConfigurator {
 
 	}
 
-	public boolean enableAbstractClassCountQualificationConfirmer() {
-
-		String key = "enableAbstractClassCountQualificationConfirmer";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return new Boolean(value).booleanValue();
-		}
-
-		return false;
-	}
-
 	public String[] getHttpInvokeClassNames() {
 
 		String key = "httpInvokeClassNames";
