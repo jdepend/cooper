@@ -25,6 +25,7 @@ import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.avertcheat.framework.AvertCheat;
 import jdepend.service.local.avertcheat.framework.AvertCheatMgr;
+import jdepend.service.local.config.ServiceConfigurator;
 
 public final class JDependLocalServiceImpl implements JDependLocalService {
 
@@ -36,7 +37,9 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 	private Component component;// 组织分析单元的Component
 
-	private ParseConfigurator conf;
+	private ParseConfigurator parseConf;
+
+	private ServiceConfigurator serviceConf;
 
 	public boolean isLocalRunning = true;
 
@@ -46,12 +49,13 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this(groupName, commandName, new ParseConfigurator());
 	}
 
-	private JDependLocalServiceImpl(String groupName, String commandName, ParseConfigurator conf) {
+	private JDependLocalServiceImpl(String groupName, String commandName, ParseConfigurator parseConf) {
 		this.group = groupName;
 		this.command = commandName;
-		parse = new Parse(conf);
+		parse = new Parse(parseConf);
 		component = Component.getDefaultComponent();
-		this.conf = conf;
+		this.parseConf = parseConf;
+		this.serviceConf = new ServiceConfigurator();
 	}
 
 	/*
@@ -184,9 +188,10 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 		context.setComponent(component);
 
-		context.setAnalyzeInnerClasses(conf.getAnalyzeInnerClasses());
-		context.setEnableAbstractClassCountQualificationConfirmer(conf.enableAbstractClassCountQualificationConfirmer());
-		context.setSaveResult((new PropertyConfigurator()).isSaveResult());
+		context.setAnalyzeInnerClasses(parseConf.getAnalyzeInnerClasses());
+		context.setEnableAbstractClassCountQualificationConfirmer(parseConf
+				.enableAbstractClassCountQualificationConfirmer());
+		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
 
 		context.setClient(AnalyseContextMgr.getContext().getClient());
 		context.setUserName(AnalyseContextMgr.getContext().getUserName());

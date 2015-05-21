@@ -21,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.config.GroupConfChangeListener;
-import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
@@ -33,6 +32,7 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultListener;
 import jdepend.report.util.ReportConstant;
+import jdepend.service.local.config.ServiceConfigurator;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
@@ -374,7 +374,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 	public void onExecuted(AnalysisResult result) throws JDependException {
 		// 保存执行结果
 		if (result.getRunningContext().getGroup() != null && result.getRunningContext().getCommand() != null
-				&& (new PropertyConfigurator()).isSaveResult()) {
+				&& (new ServiceConfigurator()).isSaveResult()) {
 			AnalysisResultRepository.save(result);
 		}
 	}

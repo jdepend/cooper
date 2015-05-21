@@ -22,6 +22,7 @@ import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.util.SearchUtil;
+import jdepend.service.local.config.ServiceConfigurator;
 
 import org.springframework.stereotype.Service;
 
@@ -59,7 +60,7 @@ public class AnalyseService {
 		result.getRunningContext().setPath(data.getPath());
 
 		// 保存分析结果
-		if (new PropertyConfigurator().isSaveResult()) {
+		if (new ServiceConfigurator().isSaveResult()) {
 			AnalysisResultRepository.save(result);
 		}
 

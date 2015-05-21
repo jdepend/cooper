@@ -5,13 +5,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.result.AnalysisResult;
 import jdepend.service.framework.context.AnalyseContext;
 import jdepend.service.framework.context.AnalyseContextMgr;
 import jdepend.service.local.JDependLocalService;
+import jdepend.service.local.config.ServiceConfigurator;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
 import jdepend.service.remote.AnalyseDataDTO;
 import jdepend.service.remote.JDependRemoteService;
@@ -64,7 +64,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			// 分析服务
 			AnalysisResult result = localService.analyze();
 			// 保存分析结果
-			if (new PropertyConfigurator().isSaveResult()) {
+			if (new ServiceConfigurator().isSaveResult()) {
 				AnalysisResultRepository.save(result);
 			}
 			// 返回结果

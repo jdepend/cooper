@@ -8,11 +8,11 @@ import jdepend.framework.ui.PersistentBeanSettingDialog;
 import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.ui.JDependCooper;
 
-public class SettingClassRelationMgAction extends AbstractAction {
+public class SettingClassRelationMgrAction extends AbstractAction {
 
 	private JDependCooper frame;
 
-	public SettingClassRelationMgAction(JDependCooper frame) {
+	public SettingClassRelationMgrAction(JDependCooper frame) {
 		super("设置类关系管理器");
 		this.frame = frame;
 	}

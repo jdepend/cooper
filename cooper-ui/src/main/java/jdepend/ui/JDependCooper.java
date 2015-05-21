@@ -48,7 +48,7 @@ import jdepend.ui.action.ScoreAction;
 import jdepend.ui.action.ScoreAndMetricsAction;
 import jdepend.ui.action.ScoreIntroduceAction;
 import jdepend.ui.action.SettingAction;
-import jdepend.ui.action.SettingClassRelationMgAction;
+import jdepend.ui.action.SettingClassRelationMgrAction;
 import jdepend.ui.action.SettingWorkspaceAction;
 import jdepend.ui.analyzer.AnalyzerPanel;
 import jdepend.ui.circle.CirclePanel;
@@ -179,7 +179,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting), new SettingAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr),
-				new SettingClassRelationMgAction(this));
+				new SettingClassRelationMgrAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), new ImportResultAction(this));
 

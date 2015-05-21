@@ -70,17 +70,6 @@ public class PropertyConfigurator implements Serializable {
 		return null;
 	}
 
-	public boolean isSaveResult() {
-
-		String key = "isSaveResult";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return new Boolean(value).booleanValue();
-		}
-
-		return false;
-	}
-
 	public boolean isAutoSaveScore() {
 
 		String key = "isAutoSaveScore";
@@ -135,17 +124,6 @@ public class PropertyConfigurator implements Serializable {
 	public boolean isPrintBusiLog() {
 
 		String key = "isPrintBusiLog";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return new Boolean(value).booleanValue();
-		}
-
-		return true;
-	}
-	
-	public boolean isCalJavaClassCycle() {
-
-		String key = "isCalJavaClassCycle";
 		if (properties.containsKey(key)) {
 			String value = properties.getProperty(key);
 			return new Boolean(value).booleanValue();

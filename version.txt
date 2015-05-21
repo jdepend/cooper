@@ -16,6 +16,8 @@ g）重构todolist，创建TODOIdentifyer接口，并将原TODOListIdentifyerFac
 
 h）改进类是否稳定的算法
 
+i）重新规划配置文件，将parse和jdepend中的个别配置项移入到新创建的service中
+
 1.2.5_01 2015-05-08
 
 a）为了区分单机模式和客户端服务器模式创建了新的maven module：cooper-ui-remote、cooper-core-remote、cooper-service-remote

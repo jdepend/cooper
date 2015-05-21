@@ -38,14 +38,6 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private String path;
 
-	private boolean analyzeInnerClasses;
-
-	private boolean enableAbstractClassCountQualificationConfirmer;
-
-	private boolean isLocalRunning;
-
-	private boolean isSaveResult;
-
 	private String client;
 
 	private String userName;
@@ -55,7 +47,15 @@ public final class AnalysisRunningContext implements Serializable {
 	private Component component;
 
 	private List<JavaPackage> javaPackages;
+	
+	private boolean analyzeInnerClasses = true;
 
+	private boolean enableAbstractClassCountQualificationConfirmer = true;
+
+	private boolean isCalJavaClassCycle = true;
+
+	private boolean isLocalRunning = true;
+	
 	private transient Map<String, String> diffElements;
 
 	private transient Collection<JavaClass> javaClasses;
@@ -108,20 +108,20 @@ public final class AnalysisRunningContext implements Serializable {
 		this.enableAbstractClassCountQualificationConfirmer = enable;
 	}
 
+	public boolean isCalJavaClassCycle() {
+		return isCalJavaClassCycle;
+	}
+
+	public void setCalJavaClassCycle(boolean isCalJavaClassCycle) {
+		this.isCalJavaClassCycle = isCalJavaClassCycle;
+	}
+
 	public boolean isLocalRunning() {
 		return isLocalRunning;
 	}
 
 	public void setLocalRunning(boolean isLocalRunning) {
 		this.isLocalRunning = isLocalRunning;
-	}
-
-	public boolean isSaveResult() {
-		return isSaveResult;
-	}
-
-	public void setSaveResult(boolean isSaveResult) {
-		this.isSaveResult = isSaveResult;
 	}
 
 	public String getClient() {
@@ -199,17 +199,18 @@ public final class AnalysisRunningContext implements Serializable {
 
 		AnalysisRunningContext obj = new AnalysisRunningContext();
 		obj.analyseDate = this.analyseDate;
-		obj.analyzeInnerClasses = this.analyzeInnerClasses;
 		obj.client = this.client;
 		obj.command = this.command;
 		obj.component = this.component;
 		obj.diffElements = this.diffElements;
-		obj.enableAbstractClassCountQualificationConfirmer = this.enableAbstractClassCountQualificationConfirmer;
 		obj.group = this.group;
 		obj.isLocalRunning = this.isLocalRunning;
-		obj.isSaveResult = this.isLocalRunning;
 		obj.path = this.path;
 		obj.userName = this.userName;
+
+		obj.analyzeInnerClasses = this.analyzeInnerClasses;
+		obj.enableAbstractClassCountQualificationConfirmer = this.enableAbstractClassCountQualificationConfirmer;
+		obj.isCalJavaClassCycle = this.isCalJavaClassCycle;
 
 		obj.javaPackages = new ArrayList<JavaPackage>();
 		for (JavaPackage javaPackage : this.javaPackages) {
@@ -281,8 +282,8 @@ public final class AnalysisRunningContext implements Serializable {
 		content.append(getBooleanMsg(enableAbstractClassCountQualificationConfirmer));
 		content.append("\n");
 
-		content.append("是否保存了执行结果:");
-		content.append(getBooleanMsg(isSaveResult));
+		content.append("是否计算类级别的循环依赖:");
+		content.append(getBooleanMsg(isCalJavaClassCycle));
 		content.append("\n");
 
 		content.append("执行时间:");
