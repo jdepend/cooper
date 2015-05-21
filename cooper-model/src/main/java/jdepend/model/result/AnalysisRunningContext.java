@@ -47,7 +47,7 @@ public final class AnalysisRunningContext implements Serializable {
 	private Component component;
 
 	private List<JavaPackage> javaPackages;
-	
+
 	private boolean analyzeInnerClasses = true;
 
 	private boolean enableAbstractClassCountQualificationConfirmer = true;
@@ -55,7 +55,9 @@ public final class AnalysisRunningContext implements Serializable {
 	private boolean isCalJavaClassCycle = true;
 
 	private boolean isLocalRunning = true;
-	
+
+	private boolean isSaveResult = true;
+
 	private transient Map<String, String> diffElements;
 
 	private transient Collection<JavaClass> javaClasses;
@@ -114,6 +116,14 @@ public final class AnalysisRunningContext implements Serializable {
 
 	public void setCalJavaClassCycle(boolean isCalJavaClassCycle) {
 		this.isCalJavaClassCycle = isCalJavaClassCycle;
+	}
+
+	public boolean isSaveResult() {
+		return isSaveResult;
+	}
+
+	public void setSaveResult(boolean isSaveResult) {
+		this.isSaveResult = isSaveResult;
 	}
 
 	public boolean isLocalRunning() {

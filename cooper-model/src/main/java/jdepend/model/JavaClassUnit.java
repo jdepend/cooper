@@ -515,6 +515,17 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		case JavaClassUnit.ClassType:
 			return this.javaClass.getClassType();
 
+		case MetricsMgr.Cycle:
+			if (this.getResult().getRunningContext().isCalJavaClassCycle()) {
+				if (this.getContainsCycle()) {
+					return MetricsMgr.Cyclic;
+				} else {
+					return MetricsMgr.NoValue;
+				}
+			} else {
+				return MetricsMgr.NoValue;
+			}
+
 		default:
 			return super.getValue(metrics);
 		}

@@ -93,6 +93,30 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		return result;
 	}
 
+	private AnalysisRunningContext createRunningContext() throws JDependException {
+
+		AnalysisRunningContext context = new AnalysisRunningContext();
+		context.setLocalRunning(isLocalRunning);
+
+		context.setGroup(group);
+		context.setCommand(command);
+
+		context.setPath(parse.getDirectorys());
+
+		context.setComponent(component);
+
+		context.setAnalyzeInnerClasses(parseConf.getAnalyzeInnerClasses());
+		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
+				.enableAbstractClassCountQualificationConfirmer());
+		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
+		context.setSaveResult(serviceConf.isSaveResult());
+
+		context.setClient(AnalyseContextMgr.getContext().getClient());
+		context.setUserName(AnalyseContextMgr.getContext().getUserName());
+
+		return context;
+	}
+
 	private void startAvertCheat(AnalysisRunningContext context) {
 		for (AvertCheat avertCheat : AvertCheatMgr.getInstance().getAvertCheats()) {
 			if (avertCheat.enable(context)) {
@@ -174,29 +198,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	public void addFilteredPackages(List<String> filteredPackages) {
 		this.parse.addFilteredPackages(filteredPackages);
 
-	}
-
-	private AnalysisRunningContext createRunningContext() throws JDependException {
-
-		AnalysisRunningContext context = new AnalysisRunningContext();
-		context.setLocalRunning(isLocalRunning);
-
-		context.setGroup(group);
-		context.setCommand(command);
-
-		context.setPath(parse.getDirectorys());
-
-		context.setComponent(component);
-
-		context.setAnalyzeInnerClasses(parseConf.getAnalyzeInnerClasses());
-		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
-				.enableAbstractClassCountQualificationConfirmer());
-		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
-
-		context.setClient(AnalyseContextMgr.getContext().getClient());
-		context.setUserName(AnalyseContextMgr.getContext().getUserName());
-
-		return context;
 	}
 
 	@Override

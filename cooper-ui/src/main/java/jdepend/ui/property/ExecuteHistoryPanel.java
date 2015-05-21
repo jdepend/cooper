@@ -374,7 +374,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 	public void onExecuted(AnalysisResult result) throws JDependException {
 		// 保存执行结果
 		if (result.getRunningContext().getGroup() != null && result.getRunningContext().getCommand() != null
-				&& (new ServiceConfigurator()).isSaveResult()) {
+				&& result.getRunningContext().isSaveResult()) {
 			AnalysisResultRepository.save(result);
 		}
 	}
