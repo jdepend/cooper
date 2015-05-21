@@ -17,7 +17,7 @@ public class AdjustAbstractTODOIdentifyer implements TODOIdentifyer {
 
 		TODOItem item = null;
 		for (Component component : info.getResult().getComponents()) {
-			if (component.getDistance() > 0.8F) {
+			if (component.getDistance() != null && component.getDistance() > 0.8F) {
 				item = new AdjustAbstractTODOItem(component);
 				if (component.getStability() < 0.5) {
 					item.setContent("组件[" + component.getName() + "]的抽象程度不够");

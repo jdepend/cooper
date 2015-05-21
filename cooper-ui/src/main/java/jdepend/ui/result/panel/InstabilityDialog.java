@@ -21,15 +21,15 @@ import jdepend.model.util.MetricsTool;
 
 public class InstabilityDialog extends CooperDialog {
 
-	public InstabilityDialog(JDependUnit unit) {
+	public InstabilityDialog(jdepend.model.Component component) {
 
-		super(unit.getName() + " 不稳定性");
+		super(component.getName() + " 不稳定性");
 
 		getContentPane().setLayout(new BorderLayout());
 
 		JTabbedPane pane = new JTabbedPane();
 
-		StringBuilder instabilityText = getText(unit);
+		StringBuilder instabilityText = getText(component);
 
 		final TextViewer resultViewer = new TextViewer();
 		resultViewer.setText(instabilityText.toString());
@@ -38,7 +38,7 @@ public class InstabilityDialog extends CooperDialog {
 		JScrollPane textPane = new JScrollPane(resultViewer);
 		resultViewer.setScrollPane(textPane);
 
-		pane.addTab("图形", this.createGraph(unit));
+		pane.addTab("图形", this.createGraph(component));
 		pane.addTab("文本", textPane);
 
 		this.add(pane);

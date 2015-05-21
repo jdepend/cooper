@@ -55,9 +55,9 @@ public class JDependUnitByMetricsComparator implements Comparator {
 			} else if (this.metrics.equals(MetricsMgr.A)) {
 				rtn = new Float(a.getAbstractness()).compareTo(new Float(b.getAbstractness()));
 			} else if (this.metrics.equals(MetricsMgr.I)) {
-				rtn = new Float(a.getStability()).compareTo(new Float(b.getStability()));
+				rtn = compare(a.getStability(), b.getStability());
 			} else if (this.metrics.equals(MetricsMgr.D)) {
-				rtn = new Float(a.getDistance()).compareTo(new Float(b.getDistance()));
+				rtn = compare(a.getDistance(), b.getDistance());
 			} else if (this.metrics.equals(MetricsMgr.CaCoupling)) {
 				rtn = new Float(a.caCoupling()).compareTo(new Float(b.caCoupling()));
 			} else if (this.metrics.equals(MetricsMgr.CeCoupling)) {
@@ -67,17 +67,9 @@ public class JDependUnitByMetricsComparator implements Comparator {
 			} else if (this.metrics.equals(MetricsMgr.Cohesion)) {
 				rtn = new Float(a.getCohesion()).compareTo(new Float(b.getCohesion()));
 			} else if (this.metrics.equals(MetricsMgr.Balance)) {
-				rtn = new Float(a.getBalance()).compareTo(new Float(b.getBalance()));
+				rtn = compare(a.getBalance(), b.getBalance());
 			} else if (this.metrics.equals(MetricsMgr.Encapsulation)) {
-				if (a.getEncapsulation() == null && b.getEncapsulation() == null) {
-					rtn = 0;
-				} else if (a.getEncapsulation() == null && b.getEncapsulation() != null) {
-					rtn = 1;
-				} else if (a.getEncapsulation() != null && b.getEncapsulation() == null) {
-					rtn = -1;
-				} else {
-					rtn = a.getEncapsulation().compareTo(b.getEncapsulation());
-				}
+				rtn = compare(a.getEncapsulation(), b.getEncapsulation());
 			} else if (a.extendMetrics(metrics) != null) {
 				rtn = new Float(a.extendMetrics(metrics).getMetrics()).compareTo(new Float(b.extendMetrics(metrics)
 						.getMetrics()));
@@ -94,6 +86,18 @@ public class JDependUnitByMetricsComparator implements Comparator {
 			return -rtn;
 		}
 
+	}
+
+	private int compare(Float e1, Float e2) {
+		if (e1 == null && e2 == null) {
+			return 0;
+		} else if (e1 == null && e2 != null) {
+			return 1;
+		} else if (e1 != null && e2 == null) {
+			return -1;
+		} else {
+			return e1.compareTo(e2);
+		}
 	}
 
 }

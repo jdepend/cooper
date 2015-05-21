@@ -508,7 +508,10 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	@Override
-	public float getBalance() {
+	public Float getBalance() {
+		if (this.getCoupling() == 0) {
+			return null;
+		}
 		Collection<? extends SubJDependUnit> subJDependUnits = this.getSubJDependUnits();
 		if (subJDependUnits.size() > 0) {
 			if (subJDependUnits.size() == 1) {

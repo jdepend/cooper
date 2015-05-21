@@ -235,13 +235,17 @@ public final class ComponentListPanel extends SubResultTabPanel {
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.I)) {
-						InstabilityDialog d = new InstabilityDialog(currentComponent);
-						d.setModal(true);
-						d.setVisible(true);
+						if (currentComponent.getStability() != null) {
+							InstabilityDialog d = new InstabilityDialog(currentComponent);
+							d.setModal(true);
+							d.setVisible(true);
+						}
 					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceComponentDialog d = new BalanceComponentDialog(frame, currentComponent);
-						d.setModal(true);
-						d.setVisible(true);
+						if (currentComponent.getBalance() != null) {
+							BalanceComponentDialog d = new BalanceComponentDialog(frame, currentComponent);
+							d.setModal(true);
+							d.setVisible(true);
+						}
 					}
 				} else if (e.getButton() == 3) {
 					popupMenu.show(table, e.getX(), e.getY());

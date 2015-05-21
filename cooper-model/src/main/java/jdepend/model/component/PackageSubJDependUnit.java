@@ -37,7 +37,7 @@ public class PackageSubJDependUnit extends VirtualComponent {
 	}
 
 	@Override
-	public float getBalance() {
+	public Float getBalance() {
 		return this.getGroupInfoCalculator().getBalance();
 	}
 

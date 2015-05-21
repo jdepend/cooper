@@ -37,7 +37,11 @@ public abstract class AnalysisResultScored implements Scored {
 	@Override
 	public synchronized float getBalance() {
 		if (this.balance == null) {
-			balance = MetricsFormat.toFormattedScore(getSummary().getBalance() * Balance);
+			Float balanceSummary = getSummary().getBalance();
+			if (balanceSummary == null) {
+				balanceSummary = 0.5F;
+			}
+			balance = MetricsFormat.toFormattedScore(balanceSummary * Balance);
 		}
 		return this.balance;
 	}
@@ -80,7 +84,8 @@ public abstract class AnalysisResultScored implements Scored {
 
 	@Override
 	public float getScore() {
-		return MetricsFormat.toFormattedScore(getDistance() + getBalance() + getRelationRationality() + getEncapsulation());
+		return MetricsFormat.toFormattedScore(getDistance() + getBalance() + getRelationRationality()
+				+ getEncapsulation());
 	}
 
 	public synchronized void clearScore() {

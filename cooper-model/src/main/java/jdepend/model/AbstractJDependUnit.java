@@ -32,6 +32,9 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	private transient Float distance = null;
 	private transient Float volatility = null;
 
+	private transient boolean stabilityCal = false;
+	private transient boolean distanceCal = false;
+
 	public final static int Cycle = 2;
 	public final static int LocalCycle = 1;
 	public final static int NoCycle = 0;
@@ -70,9 +73,10 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return Instability (0-1).
 	 */
-	public synchronized float getStability() {
-		if (stability == null) {
+	public synchronized Float getStability() {
+		if (!stabilityCal) {
 			stability = new CalculateMetricsTool(this).stability();
+			stabilityCal = true;
 		}
 		return stability;
 	}
@@ -98,9 +102,10 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return The package's distance from the main sequence (D).
 	 */
-	public synchronized float getDistance() {
-		if (distance == null) {
+	public synchronized Float getDistance() {
+		if (!distanceCal) {
 			distance = new CalculateMetricsTool(this).distance();
+			distanceCal = true;
 		}
 		return distance;
 	}
@@ -200,7 +205,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	@Override
 	public synchronized void clear() {
 		this.cycles = null;
-		
+
 		this.coupling = null;
 		this.encapsulation = null;
 
@@ -208,6 +213,9 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		this.distance = null;
 		this.stability = null;
 		this.volatility = null;
+
+		this.distanceCal = false;
+		this.stabilityCal = false;
 	}
 
 	@Override

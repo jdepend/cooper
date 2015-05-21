@@ -293,7 +293,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().print(inputData.getSummary().getAbstractClassCount() + "	");
 		getWriter().print(inputData.getSummary().getEfferentCoupling() + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getAbstractness()) + "	");
-		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getInstability()) + "	");
+		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getStability()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getDistance()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCoupling()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCohesion()) + "	");

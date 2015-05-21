@@ -58,7 +58,7 @@ public final class HTMLSummaryPrinter extends HTMLSortTablePrinter {
 		this.printTableRowElement(inputData.getSummary().getAfferentCoupling());
 		this.printTableRowElement(inputData.getSummary().getEfferentCoupling());
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getAbstractness()));
-		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getInstability()));
+		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getStability()));
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getDistance()));
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCoupling()));
 		this.printTableRowElement(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCohesion()));

@@ -37,7 +37,8 @@ public class SplitComponentTODOIdentifyer implements TODOIdentifyer {
 	private void identifySplitCompoentWithBalance(TODOIdentifyInfo info) {
 		SplitCompoentTODOItem item = null;
 		for (Component component : info.getResult().getComponents()) {
-			if (!this.splitComponents.contains(component) && component.getBalance() < 0.2F) {
+			if (!this.splitComponents.contains(component) && component.getBalance() != null
+					&& component.getBalance() < 0.2F) {
 				item = new SplitCompoentTODOItem(component);
 				if (item.isSplit()) {
 					item.setContent("组件[" + component.getName() + "]内聚性差，需要拆分");

@@ -28,33 +28,35 @@ public final class CalculateMetricsTool {
 	/**
 	 * @return Stability (0-1).
 	 */
-	public float stabilityWithCount() {
+	public Float stabilityWithCount() {
 		int ce = unit.getEfferentCoupling();
 		int ca = unit.getAfferentCoupling();
 		int totalCoupling = ce + ca;
 		if (totalCoupling > 0) {
 			return (float) ce / (float) totalCoupling;
 		} else {
-			return 0.5F;
+			return null;
 		}
 	}
 
 	/**
 	 * @return Instability (0-1).
 	 */
-	public float stabilityWithIntensity() {
+	public Float stabilityWithIntensity() {
 		if (!MathUtil.isZero(unit.getCoupling())) {
 			return unit.ceCoupling() / unit.getCoupling();
 		} else {
-			return 0.5F;
+			return null;
 		}
 	}
 
-	float stability() {
-
-		return stabilityWithCount() * stabilityWithCountScale + stabilityWithIntensity()
-				* (1 - stabilityWithCountScale);
-
+	public Float stability() {
+		if (MathUtil.isZero(unit.getCoupling())) {
+			return null;
+		} else {
+			return stabilityWithCount() * stabilityWithCountScale + stabilityWithIntensity()
+					* (1 - stabilityWithCountScale);
+		}
 	}
 
 	/**
@@ -88,9 +90,9 @@ public final class CalculateMetricsTool {
 	/**
 	 * @return The package's distance from the main sequence (D).
 	 */
-	float distance() {
+	public Float distance() {
 		if (this.unit.getAfferents().size() == 0 && this.unit.getEfferents().size() == 0) {
-			return 0.5F;
+			return null;
 		} else {
 			return Math.abs(abstractness() + stability() - 1);
 		}

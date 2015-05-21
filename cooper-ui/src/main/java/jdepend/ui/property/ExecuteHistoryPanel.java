@@ -288,7 +288,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 			row[6] = summry.getSummry().getAfferentCoupling();
 			row[7] = summry.getSummry().getEfferentCoupling();
 			row[8] = MetricsFormat.toFormattedMetrics(summry.getSummry().getAbstractness());
-			row[9] = MetricsFormat.toFormattedMetrics(summry.getSummry().getInstability());
+			row[9] = MetricsFormat.toFormattedMetrics(summry.getSummry().getStability());
 			row[10] = MetricsFormat.toFormattedMetrics(summry.getSummry().getDistance());
 			row[11] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCoupling());
 			row[12] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCohesion());

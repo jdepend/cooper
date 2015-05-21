@@ -85,21 +85,21 @@ public interface Measurable extends Named {
 	 * 
 	 * @return
 	 */
-	public float getStability();
+	public Float getStability();
 
 	/**
 	 * 抽象程度合理性（0~1）
 	 * 
 	 * @return
 	 */
-	public float getDistance();
+	public Float getDistance();
 
 	/**
 	 * 内聚性（0~1）
 	 * 
 	 * @return
 	 */
-	public float getBalance();
+	public Float getBalance();
 
 	/**
 	 * 封装性（0~1）

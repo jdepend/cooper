@@ -10,7 +10,6 @@ import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.component.PackageSubJDependUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 分组信息计算器

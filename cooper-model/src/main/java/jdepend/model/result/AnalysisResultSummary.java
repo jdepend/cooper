@@ -22,13 +22,13 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private int efferentCoupling;
 
-	private float balance;
+	private Float balance;
 
 	private float cohesion;
 
 	private float coupling;
 
-	private float distance;
+	private Float distance;
 
 	private Float encapsulation;
 
@@ -40,7 +40,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 
 	private int lineCount;
 
-	private float instability;
+	private Float stability;
 
 	private float volatility;
 
@@ -100,7 +100,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float getBalance() {
+	public Float getBalance() {
 		return this.balance;
 	}
 
@@ -120,7 +120,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float getDistance() {
+	public Float getDistance() {
 		return this.distance;
 	}
 
@@ -155,8 +155,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 	}
 
 	@Override
-	public float getStability() {
-		return this.instability;
+	public Float getStability() {
+		return this.stability;
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.efferentCoupling = efferentCoupling;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(Float balance) {
 		this.balance = balance;
 	}
 
@@ -193,7 +193,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.coupling = coupling;
 	}
 
-	public void setDistance(float distance) {
+	public void setDistance(Float distance) {
 		this.distance = distance;
 	}
 
@@ -201,12 +201,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		this.encapsulation = encapsulation;
 	}
 
-	public float getInstability() {
-		return instability;
-	}
-
-	public void setInstability(float instability) {
-		this.instability = instability;
+	public void setStability(Float stability) {
+		this.stability = stability;
 	}
 
 	public void setVolatility(float volatility) {
@@ -324,7 +320,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		resultSummry.setEfferentCoupling((Integer) summry[5]);
 		resultSummry.setAbstractness(MetricsFormat.toFormattedMetrics((Float) summry[6]));
 		resultSummry.setVolatility(MetricsFormat.toFormattedMetrics((Float) summry[7]));
-		resultSummry.setInstability(MetricsFormat.toFormattedMetrics((Float) summry[8]));
+		resultSummry.setStability(MetricsFormat.toFormattedMetrics((Float) summry[8]));
 		resultSummry.setDistance(MetricsFormat.toFormattedMetrics((Float) summry[9]));
 		resultSummry.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]) / 2);
 		resultSummry.setCohesion(MetricsFormat.toFormattedMetrics((Float) summry[11]));
@@ -344,16 +340,16 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		result = prime * result + abstractClassCount;
 		result = prime * result + Float.floatToIntBits(abstractness);
 		result = prime * result + afferentCoupling;
-		result = prime * result + Float.floatToIntBits(balance);
+		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
 		result = prime * result + classCount;
 		result = prime * result + Float.floatToIntBits(cohesion);
 		result = prime * result + componentCount;
 		result = prime * result + concreteClassCount;
 		result = prime * result + Float.floatToIntBits(coupling);
-		result = prime * result + Float.floatToIntBits(distance);
+		result = prime * result + ((distance == null) ? 0 : distance.hashCode());
 		result = prime * result + efferentCoupling;
 		result = prime * result + ((encapsulation == null) ? 0 : encapsulation.hashCode());
-		result = prime * result + Float.floatToIntBits(instability);
+		result = prime * result + ((stability == null) ? 0 : stability.hashCode());
 		result = prime * result + javaPackageCount;
 		result = prime * result + lineCount;
 		result = prime * result + relationCount;
@@ -397,7 +393,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 				return false;
 		} else if (!encapsulation.equals(other.encapsulation))
 			return false;
-		if (Float.floatToIntBits(instability) != Float.floatToIntBits(other.instability))
+		if (Float.floatToIntBits(stability) != Float.floatToIntBits(other.stability))
 			return false;
 		if (javaPackageCount != other.javaPackageCount)
 			return false;
@@ -423,7 +419,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 		info.append("   抽象程度" + MetricsFormat.toFormattedMetrics(this.getAbstractness())
 				+ "	[具有抽象类计数资格的类数量/类总数，值越大越抽象]\n");
 		info.append("   易变性" + MetricsFormat.toFormattedMetrics(this.getVolatility()) + "	[稳定的类数量/类总数，值越大越不易变]\n");
-		info.append("   不稳定性" + MetricsFormat.toFormattedMetrics(this.getInstability())
+		info.append("   不稳定性" + MetricsFormat.toFormattedMetrics(this.getStability())
 				+ "	[传出数量/(传出数量 + 传入数量)，值越小越稳定]\n");
 		info.append("   合理性" + MetricsFormat.toFormattedMetrics(this.getDistance())
 				+ " [abs(抽象程度 + 易变性 + 不稳定性 - 1)，值越接近零越理想]\n");

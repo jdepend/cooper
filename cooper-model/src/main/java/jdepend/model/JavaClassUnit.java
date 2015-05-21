@@ -340,7 +340,7 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	}
 
 	@Override
-	public float getBalance() {
+	public Float getBalance() {
 		return this.getGroupInfoCalculator().getBalance();
 	}
 
