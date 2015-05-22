@@ -22,7 +22,7 @@ import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.util.JDependUtil;
-import jdepend.knowledge.ui.KnowledgePanel;
+import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.service.framework.persistent.ServerConnectionProvider;
 
 /**

@@ -1,6 +1,6 @@
-package jdepend.knowledge.domainanalysis;
+package jdepend.knowledge.domainanalysis.impl;
 
-import jdepend.knowledge.AdviseInfo;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
 
 public class DAdviseInfo extends AdviseInfo {
 

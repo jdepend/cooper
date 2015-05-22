@@ -1,13 +1,13 @@
-package jdepend.knowledge.domainanalysis;
+package jdepend.knowledge.domainanalysis.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.util.BundleUtil;
-import jdepend.knowledge.AbstractDomainAnalysis;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.domainanalysis.AbstractDomainAnalysis;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.RelationByMetricsComparator;

@@ -1,11 +1,11 @@
-package jdepend.knowledge.domainanalysis;
+package jdepend.knowledge.domainanalysis.impl;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.knowledge.AbstractDomainAnalysis;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.StructureCategory;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
+import jdepend.knowledge.domainanalysis.AbstractDomainAnalysis;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.result.AnalysisResult;
 
 public final class ArchitectPatternDomainAnalysis extends AbstractDomainAnalysis {

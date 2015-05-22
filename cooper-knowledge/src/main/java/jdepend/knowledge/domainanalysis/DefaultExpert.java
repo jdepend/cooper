@@ -1,4 +1,4 @@
-package jdepend.knowledge;
+package jdepend.knowledge.domainanalysis;
 
 import jdepend.framework.exception.JDependException;
 

@@ -1,6 +1,6 @@
-package jdepend.knowledge.domainanalysis;
+package jdepend.knowledge.domainanalysis.impl;
 
-import jdepend.knowledge.AdviseInfo;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.model.Relation;
 
 public class RelationAdviseInfo extends AdviseInfo {

@@ -3,10 +3,10 @@ package jdepend.core.local.domain;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
-import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.ExpertFactory;
+import jdepend.knowledge.domainanalysis.Structure;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.result.AnalysisResult;
 
 /**

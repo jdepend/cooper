@@ -10,7 +10,7 @@ import javax.swing.JTabbedPane;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.knowledge.ui.KnowledgePanel;
+import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.CooperTabbedPane;
 import jdepend.ui.JDependCooper;

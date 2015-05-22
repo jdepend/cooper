@@ -20,8 +20,8 @@ import javax.swing.border.LineBorder;
 
 import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;

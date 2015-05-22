@@ -1,4 +1,4 @@
-package jdepend.knowledge;
+package jdepend.knowledge.domainanalysis;
 
 import java.io.Serializable;
 import java.util.ArrayList;

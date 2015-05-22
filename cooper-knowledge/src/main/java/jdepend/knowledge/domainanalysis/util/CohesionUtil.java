@@ -1,4 +1,4 @@
-package jdepend.knowledge.util;
+package jdepend.knowledge.domainanalysis.util;
 
 import java.util.ArrayList;
 import java.util.Collections;

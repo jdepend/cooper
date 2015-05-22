@@ -1,18 +1,18 @@
-package jdepend.knowledge;
+package jdepend.knowledge.domainanalysis;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.knowledge.domainanalysis.ArchitectPatternDomainAnalysis;
-import jdepend.knowledge.domainanalysis.CohesionDomainAnalysis;
-import jdepend.knowledge.domainanalysis.DDomainAnalysis;
-import jdepend.knowledge.domainanalysis.EncapsulationDomainAnalysis;
-import jdepend.knowledge.domainanalysis.InheritDomainAnalysis;
-import jdepend.knowledge.domainanalysis.LowScoreItemIdentifier;
-import jdepend.knowledge.domainanalysis.RelationRationalityDomainAnalysis;
-import jdepend.knowledge.domainanalysis.SummaryDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.ArchitectPatternDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.CohesionDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.DDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.EncapsulationDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.InheritDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.LowScoreItemIdentifier;
+import jdepend.knowledge.domainanalysis.impl.RelationRationalityDomainAnalysis;
+import jdepend.knowledge.domainanalysis.impl.SummaryDomainAnalysis;
 import jdepend.metadata.util.ClassSearchUtil;
 
 public final class DomainAnalysisMgr {

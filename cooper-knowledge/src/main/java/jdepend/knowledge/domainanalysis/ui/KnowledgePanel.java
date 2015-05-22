@@ -1,4 +1,4 @@
-package jdepend.knowledge.ui;
+package jdepend.knowledge.domainanalysis.ui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,8 @@ import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.PersistentBeanSettingDialog;
 import jdepend.framework.util.BundleUtil;
-import jdepend.knowledge.DomainAnalysis;
-import jdepend.knowledge.DomainAnalysisMgr;
+import jdepend.knowledge.domainanalysis.DomainAnalysis;
+import jdepend.knowledge.domainanalysis.DomainAnalysisMgr;
 
 public final class KnowledgePanel extends JPanel {
 

@@ -1,9 +1,9 @@
-package jdepend.knowledge.domainanalysis;
+package jdepend.knowledge.domainanalysis.impl;
 
 import jdepend.framework.util.MetricsFormat;
-import jdepend.knowledge.AbstractDomainAnalysis;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.domainanalysis.AbstractDomainAnalysis;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.result.AnalysisResult;
 
 public final class SummaryDomainAnalysis extends AbstractDomainAnalysis {

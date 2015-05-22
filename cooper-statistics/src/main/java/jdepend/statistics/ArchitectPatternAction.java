@@ -10,8 +10,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.StructureCategory;
+import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.StructureCategory;
 
 public class ArchitectPatternAction extends ScoreListAction {
 
