@@ -81,8 +81,6 @@ public final class StaticsFrame extends JDependFrame {
 		actions.put("类关系内外比例分析", new ClassRelationInnerAction(this));
 		actions.put("类规模比例分析", new ClassLineCountAction(this));
 		actions.put("浏览包结构", new PackagesViewerAction(this));
-		actions.put("设计能力浏览", new CapacityAction(this));
-		actions.put("设计技巧浏览", new SkillAction(this));
 		actions.put("调用类个数排名", new ClassInvokeCountAction(this));
 		actions.put("架构模式分析", new ArchitectPatternAction(this));
 

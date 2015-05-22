@@ -22,6 +22,9 @@ j）孤立组件取消稳定性、抽象程度合理性、内聚性指标的计�
 
 k）在core中创建WisdomAnalysisResult，用于隐藏knowledge.Expert相关逻辑
 
+l）删除了capacity和motive模块
+
+
 
 1.2.5_01 2015-05-08
 

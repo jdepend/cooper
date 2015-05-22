@@ -46,7 +46,6 @@ import jdepend.report.util.ReportConstant;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.componentconf.ChangedElementListDialog;
 import jdepend.ui.framework.CompareInfoWebWarpper;
-import jdepend.ui.motive.MotiveDialog;
 import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
@@ -223,17 +222,6 @@ public final class ScorePanel extends SubResultTabPanel {
 		score.setFont(new java.awt.Font("宋体", 1, 18));
 
 		score.setText(MetricsFormat.toFormattedMetrics(scoreValue).toString());
-		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
-			score.addMouseListener(new java.awt.event.MouseAdapter() {
-				@Override
-				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					MotiveDialog motive = new MotiveDialog(frame);
-					motive.setModal(true);
-					motive.setVisible(true);
-				}
-			});
-			JDependUIUtil.addClickTipEffect(score);
-		}
 
 		scoreItemPanel.add(score);
 		JLabel scoreCompareLabel = this.getComparedLabel(scoreValue, itemName);

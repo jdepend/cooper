@@ -99,7 +99,6 @@ public class JDependReport extends ReportCreator {
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
 		groupComponents.put("Architect", new ArchitectPatternPanel());
-		groupComponents.put("Capacity", new CapacityPanel(frame));
 		rtn.put(SystemTabName, this.compositeComponent(groupComponents));
 		LogUtil.getInstance(JDependReport.class).systemLog("create system graph report end!");
 
