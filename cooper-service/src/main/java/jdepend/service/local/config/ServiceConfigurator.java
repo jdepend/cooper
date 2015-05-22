@@ -44,7 +44,7 @@ public class ServiceConfigurator {
 			return new Boolean(value).booleanValue();
 		}
 
-		return false;
+		return true;
 	}
 
 	public boolean enableAbstractClassCountQualificationConfirmer() {
@@ -55,7 +55,7 @@ public class ServiceConfigurator {
 			return new Boolean(value).booleanValue();
 		}
 
-		return false;
+		return true;
 	}
 
 	public boolean isCalJavaClassCycle() {

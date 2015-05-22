@@ -11,6 +11,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.DBBusinessLogWriter;
 import jdepend.framework.ui.StatusField;
+import jdepend.framework.ui.WelcomeDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.JDependUtil;
 import jdepend.ui.action.ClientExitAction;
@@ -19,7 +20,6 @@ import jdepend.ui.action.LogoutAction;
 import jdepend.ui.action.ServiceSettingAction;
 import jdepend.ui.analyzer.ClientAnalyzerPanel;
 import jdepend.ui.framework.PanelMgr;
-import jdepend.ui.start.ClientWelcomeDialog;
 import jdepend.ui.start.WorkspaceSetting;
 import jdepend.ui.start.WorkspaceSettingDialog;
 
@@ -93,7 +93,7 @@ public class ClientCooper extends JDependCooper {
 
 		ClientCooper frame = new ClientCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
 
-		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog(frame);
+		WelcomeDialog welcomeDialog = new WelcomeDialog();
 		welcomeDialog.setVisible(true);
 
 		WorkspaceSetting setting = new WorkspaceSetting();

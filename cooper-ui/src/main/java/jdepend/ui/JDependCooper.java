@@ -34,11 +34,10 @@ import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusField;
 import jdepend.framework.ui.StatusPanel;
 import jdepend.framework.ui.UIProperty;
+import jdepend.framework.ui.WelcomeDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.JavaClass;
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.parse.ParseListener;
-import jdepend.parse.util.SearchUtil;
 import jdepend.ui.action.AddGroupWizardAction;
 import jdepend.ui.action.ExitAction;
 import jdepend.ui.action.ImportResultAction;
@@ -61,7 +60,6 @@ import jdepend.ui.property.PropertyPanel;
 import jdepend.ui.result.framework.ReportListener;
 import jdepend.ui.result.framework.ResultPanel;
 import jdepend.ui.result.panel.ResultPanelWrapper;
-import jdepend.ui.start.ClientWelcomeDialog;
 import jdepend.ui.start.WorkspaceSetting;
 import jdepend.ui.start.WorkspaceSettingDialog;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -351,7 +349,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
 
-		ClientWelcomeDialog welcomeDialog = new ClientWelcomeDialog(frame);
+		WelcomeDialog welcomeDialog = new WelcomeDialog();
 		welcomeDialog.setVisible(true);
 
 		WorkspaceSetting setting = new WorkspaceSetting();
@@ -412,16 +410,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	}
 
-	private static void initClassList(ClientWelcomeDialog welcomeDialog) {
-		SearchUtil search = new SearchUtil();
-		for (String path : ClassSearchUtil.getSelfPath()) {
-			search.addPath(path);
-		}
-		welcomeDialog.startProgressMonitor(search.getClassCount());
-		search.addParseListener(welcomeDialog);
-		ClassSearchUtil.getInstance().setClassList(search.getClasses());
-	}
-
 	public synchronized void onParsedJavaClass(JavaClass jClass, int process) {
 		this.progress(process);
 	}
@@ -457,7 +445,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		// 刷新TODOList
 		this.getPropertyPanel().getToDoListPanel().refresh();
 	}
-	
+
 	@Override
 	public void onExecute(Analyzer analyzer) {
 		this.progress();

@@ -21,6 +21,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.ui.JDependFrame;
 import jdepend.framework.ui.StatusPanel;
+import jdepend.framework.ui.WelcomeDialog;
 import jdepend.framework.util.JDependUtil;
 import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.service.framework.persistent.ServerConnectionProvider;
@@ -144,7 +145,7 @@ public class JDependServer extends JDependFrame {
 
 	public static void main(String args[]) throws JDependException {
 
-		ServerWelcomeDialog welcomeDialog = new ServerWelcomeDialog();
+		WelcomeDialog welcomeDialog = new WelcomeDialog();
 		welcomeDialog.setVisible(true);
 
 		initEnv(args);
@@ -188,7 +189,7 @@ public class JDependServer extends JDependFrame {
 		LogUtil.SYSTEMLOG = conf.isPrintSystemLog();
 		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
-//		ServiceFactory.initClassList();
+		// ServiceFactory.initClassList();
 	}
 
 	@Override

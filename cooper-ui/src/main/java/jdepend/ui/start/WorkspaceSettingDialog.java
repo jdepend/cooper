@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 
 import jdepend.framework.context.JDependContext;
+import jdepend.framework.ui.WelcomeDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
 import jdepend.ui.JDependCooper;
@@ -31,7 +32,7 @@ public class WorkspaceSettingDialog extends JDialog {
 
 	private WorkspaceSetting setting;
 
-	private ClientWelcomeDialog welcomeDialog;
+	private WelcomeDialog welcomeDialog;
 
 	private String[] args;
 
@@ -42,7 +43,7 @@ public class WorkspaceSettingDialog extends JDialog {
 		this.frame = frame;
 	}
 
-	public WorkspaceSettingDialog(final ClientWelcomeDialog welcomeDialog1, WorkspaceSetting setting, String[] args) {
+	public WorkspaceSettingDialog(final WelcomeDialog welcomeDialog1, WorkspaceSetting setting, String[] args) {
 		setTitle("设置工作区路径");
 
 		this.setting = setting;
@@ -144,7 +145,7 @@ public class WorkspaceSettingDialog extends JDialog {
 						setting.save();
 					}
 					if (welcomeDialog != null) {// 客户端启动时
-						welcomeDialog.getFrame().start(args, setting);
+						frame.start(args, setting);
 						welcomeDialog.dispose();
 					} else {// 切换工作区时
 						// 保存原UI信息
