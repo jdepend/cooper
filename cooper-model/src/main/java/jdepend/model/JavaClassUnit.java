@@ -205,7 +205,10 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		if (this.ceList == null) {
 			Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 			for (JavaClassRelationItem item : this.javaClass.getCeItems()) {
-				javaClasses.add(this.getResult().getTheClass(item.getTarget().getId()));
+				JavaClassUnit javaClassUnit = this.getResult().getTheClass(item.getTarget().getId());
+				if (javaClassUnit != null) {
+					javaClasses.add(javaClassUnit);
+				}
 			}
 			this.ceList = javaClasses;
 		}
@@ -216,7 +219,10 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 		if (this.caList == null) {
 			Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 			for (JavaClassRelationItem item : this.javaClass.getCaItems()) {
-				javaClasses.add(this.getResult().getTheClass(item.getSource().getId()));
+				JavaClassUnit javaClassUnit = this.getResult().getTheClass(item.getSource().getId());
+				if (javaClassUnit != null) {
+					javaClasses.add(javaClassUnit);
+				}
 			}
 			this.caList = javaClasses;
 		}

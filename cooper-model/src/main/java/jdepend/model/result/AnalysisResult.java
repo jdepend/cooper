@@ -231,7 +231,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			Iterator<JavaClassRelationItem> it;
 			for (JavaClassUnit javaClass : deleteComponent.getClasses()) {
 				for (JavaClassUnit dependClass : javaClass.getCaList()) {
-					it = dependClass.getJavaClass().getSelfCeItems().iterator();
+					it = dependClass.getJavaClass().getCeItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getTarget().equals(javaClass)) {
 							it.remove();
@@ -239,7 +239,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 					}
 				}
 				for (JavaClassUnit dependClass : javaClass.getCeList()) {
-					it = dependClass.getJavaClass().getSelfCaItems().iterator();
+					it = dependClass.getJavaClass().getCaItems().iterator();
 					while (it.hasNext()) {
 						if (it.next().getSource().equals(javaClass)) {
 							it.remove();
