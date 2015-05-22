@@ -1,4 +1,4 @@
-package jdepend.ui.result.panel;
+package jdepend.ui.result.framework;
 
 import java.awt.event.MouseEvent;
 
@@ -7,6 +7,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
 import jdepend.report.util.ReportConstant;
+
 
 public class JDependTable extends JTable {
 

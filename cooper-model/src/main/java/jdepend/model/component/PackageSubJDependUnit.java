@@ -5,7 +5,6 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.GroupInfoCalculator;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 以包为单位用于计算组件内聚性的二级元素

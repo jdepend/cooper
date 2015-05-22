@@ -441,6 +441,26 @@ public abstract class Component extends AbstractSubJDependUnit {
 		return this.relations;
 	}
 
+	public Collection<Relation> getAfferentRelations() {
+		Collection<Relation> relations = new HashSet<Relation>();
+		for (Relation relation : this.relations) {
+			if (relation.getDepend().getComponent().equals(this)) {
+				relations.add(relation);
+			}
+		}
+		return relations;
+	}
+
+	public Collection<Relation> getEfferentRelations() {
+		Collection<Relation> relations = new HashSet<Relation>();
+		for (Relation relation : this.relations) {
+			if (relation.getCurrent().getComponent().equals(this)) {
+				relations.add(relation);
+			}
+		}
+		return relations;
+	}
+
 	public boolean stability(Component component) {
 		return this.getStability() + SDPDifference < component.getStability();
 	}

@@ -46,6 +46,7 @@ import jdepend.ui.command.GroupIngoreListSettingDialog;
 import jdepend.ui.componentconf.ComponentConfDialog;
 import jdepend.ui.componentconf.CreateComponentConfDialog;
 import jdepend.ui.framework.CompareTableCellRenderer;
+import jdepend.ui.result.framework.JDependTable;
 import jdepend.ui.result.framework.ReportCreator;
 import jdepend.ui.result.framework.SubResultTabPanel;
 import jdepend.util.refactor.CompareObject;
@@ -212,7 +213,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 							.getTheComponent(current);
 					JTable table = (JTable) e.getSource();
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
-						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, currentComponent, currentCol);
+						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, currentComponent, currentCol);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Cycle)) {

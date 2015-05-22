@@ -14,7 +14,6 @@ import jdepend.util.analyzer.element.ClassLineCountAnalyzer;
 import jdepend.util.analyzer.element.ComponentInterfaceCheck;
 import jdepend.util.analyzer.element.DAOCallService;
 import jdepend.util.analyzer.element.DIPPrinciple;
-import jdepend.util.analyzer.element.DesignPatternIdentifyer;
 import jdepend.util.analyzer.element.FieldTreeAnalyse;
 import jdepend.util.analyzer.element.IdentifyAppService;
 import jdepend.util.analyzer.element.IdentifyCallback;
@@ -53,7 +52,6 @@ public final class Analyzers {
 		allAnalyzers.add(new ClassLineCountAnalyzer());
 		allAnalyzers.add(new ComponentInterfaceCheck());
 		allAnalyzers.add(new DAOCallService());
-		allAnalyzers.add(new DesignPatternIdentifyer());
 		allAnalyzers.add(new DIPPrinciple());
 		allAnalyzers.add(new LSPPrinciple());
 		allAnalyzers.add(new FieldTreeAnalyse());
