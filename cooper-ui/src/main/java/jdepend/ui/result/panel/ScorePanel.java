@@ -19,6 +19,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.core.local.score.ScoreByItemComparator;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.core.local.score.ScoreRepository;
@@ -33,8 +34,6 @@ import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.framework.util.VersionUtil;
 import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
@@ -576,7 +575,8 @@ public final class ScorePanel extends SubResultTabPanel {
 		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
 		item.setType(GraphDataItem.PIE);
 		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance() / AnalysisResult.Distance);
+		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance()
+				/ AnalysisResult.Distance);
 		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getDistance()
 				/ AnalysisResult.Distance);
 		item.setDatas(datas);
@@ -632,16 +632,14 @@ public final class ScorePanel extends SubResultTabPanel {
 		JPanel advisePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		advisePanel.setBackground(new java.awt.Color(255, 255, 255));
 
+		WisdomAnalysisResult wisdomAnalysisResult = new WisdomAnalysisResult(result);
+
 		JLabel adviseLabel = null;
 		JLabel descLabel = null;
-		Structure structure = null;
 		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			adviseLabel = new JLabel();
-			structure = new Structure();
-			structure.setCategory(StructureCategory.LowScoreItemIdentifier);
-			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+				AdviseInfo advise = wisdomAnalysisResult.getAdvise(StructureCategory.LowScoreItemIdentifier);
 				if (advise != null) {
 					adviseLabel.setText(advise.getDesc() + ReportConstant.toMetricsName(advise.getComponentNameInfo()));
 					advisePanel.add(adviseLabel);
@@ -650,11 +648,8 @@ public final class ScorePanel extends SubResultTabPanel {
 				e.printStackTrace();
 			}
 		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
-			structure = new Structure();
-			structure.setCategory(StructureCategory.DDomainAnalysis);
-			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+				AdviseInfo advise = wisdomAnalysisResult.getAdvise(StructureCategory.DDomainAnalysis);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());
@@ -678,11 +673,8 @@ public final class ScorePanel extends SubResultTabPanel {
 				e.printStackTrace();
 			}
 		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
-			structure = new Structure();
-			structure.setCategory(StructureCategory.CohesionDomainAnalysis);
-			structure.setData(result);
 			try {
-				AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+				AdviseInfo advise = wisdomAnalysisResult.getAdvise(StructureCategory.CohesionDomainAnalysis);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());
@@ -706,11 +698,8 @@ public final class ScorePanel extends SubResultTabPanel {
 				e.printStackTrace();
 			}
 		} else if (itemName.equals(AnalysisResult.Metrics_Encapsulation)) {
-			structure = new Structure();
-			structure.setCategory(StructureCategory.EncapsulationDomainAnalysis);
-			structure.setData(result);
 			try {
-				final AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+				final AdviseInfo advise = wisdomAnalysisResult.getAdvise(StructureCategory.EncapsulationDomainAnalysis);
 				if (advise != null) {
 					descLabel = new JLabel();
 					descLabel.setText(advise.getDesc());

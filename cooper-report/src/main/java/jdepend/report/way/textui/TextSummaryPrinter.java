@@ -2,13 +2,9 @@ package jdepend.report.way.textui;
 
 import java.util.Iterator;
 
+import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
-import jdepend.knowledge.StructureCategory;
 import jdepend.metadata.Named;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
@@ -29,7 +25,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 
 		// 建议
 		try {
-			StringBuilder advise = this.getAdviseToResult(result);
+			StringBuilder advise = new WisdomAnalysisResult(result).getAdvise();
 			if (advise != null && advise.length() > 0) {
 				getWriter().println(advise);
 			}
@@ -38,69 +34,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		}
 	}
 
-	private StringBuilder getAdviseToResult(AnalysisResult result) throws JDependException {
-
-		StringBuilder adviseInfo = new StringBuilder();
-		// 分项得分较少的项目
-		Structure structure = new Structure();
-		structure.setCategory(StructureCategory.LowScoreItemIdentifier);
-		structure.setData(result);
-		try {
-			AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
-			if (advise != null) {
-				adviseInfo.append(advise.getDesc());
-				adviseInfo.append(advise.getComponentNameInfo());
-				adviseInfo.append("\n\n");
-			}
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-		// 抽象程度合理性
-		structure = new Structure();
-		structure.setCategory(StructureCategory.DDomainAnalysis);
-		structure.setData(result);
-		try {
-			AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
-			if (advise != null) {
-				adviseInfo.append(advise.getComponentNameInfo());
-				adviseInfo.append(advise.getDesc());
-				adviseInfo.append("\n");
-			}
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-		// 内聚性指数
-		structure = new Structure();
-		structure.setCategory(StructureCategory.CohesionDomainAnalysis);
-		structure.setData(result);
-		try {
-			AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
-			if (advise != null) {
-				adviseInfo.append(advise);
-				adviseInfo.append("\n");
-			}
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-		// 关系合理性
-		Float rs = result.getAttentionRelationScale();
-		if (MathUtil.isZero(rs)) {
-			adviseInfo.append("未发现组件间存在异常的关系");
-		} else {
-			adviseInfo.append("组件间存在异常的关系比例为" + MetricsFormat.toFormattedPercent(rs));
-		}
-		adviseInfo.append("\n");
-		adviseInfo.append("\n");
-
-		structure = new Structure();
-		structure.setName("Summary");
-		structure.setCategory(StructureCategory.Summary);
-		structure.setData(result);
-		adviseInfo.append(new ExpertFactory().createExpert().advise(structure));
-
-		return adviseInfo;
-
-	}
+	
 
 	@Override
 	protected void printNoStats() {

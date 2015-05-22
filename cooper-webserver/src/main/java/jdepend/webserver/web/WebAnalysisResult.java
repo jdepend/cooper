@@ -5,11 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
@@ -18,7 +17,7 @@ import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.RelationByMetricsComparator;
 
-public class WebAnalysisResult extends AnalysisResult {
+public class WebAnalysisResult extends WisdomAnalysisResult {
 
 	private static final long serialVersionUID = 6554084973911277359L;
 
@@ -31,19 +30,19 @@ public class WebAnalysisResult extends AnalysisResult {
 	}
 
 	public String getDAdvise() {
-		return this.getAdvise(StructureCategory.DDomainAnalysis);
+		return this.advise(StructureCategory.DDomainAnalysis);
 	}
 
 	public String getBalanceAdvise() {
-		return this.getAdvise(StructureCategory.CohesionDomainAnalysis);
+		return this.advise(StructureCategory.CohesionDomainAnalysis);
 	}
 
 	public String getEncapsulationAdvise() {
-		return this.getAdvise(StructureCategory.EncapsulationDomainAnalysis);
+		return this.advise(StructureCategory.EncapsulationDomainAnalysis);
 	}
 
 	public String getRelationRationalityAdvise() {
-		return this.getAdvise(StructureCategory.RelationRationalityDomainAnalysis);
+		return this.advise(StructureCategory.RelationRationalityDomainAnalysis);
 	}
 
 	public List<Measurable> getSummarys() {
@@ -60,7 +59,6 @@ public class WebAnalysisResult extends AnalysisResult {
 	}
 
 	public ArchitectPatternResult getArchitectPatternResult() {
-		ArchitectPatternResult apResult = null;
 		try {
 			return ArchitectPatternMgr.getInstance().identify(this);
 		} catch (JDependException e) {
@@ -69,12 +67,9 @@ public class WebAnalysisResult extends AnalysisResult {
 		}
 	}
 
-	private String getAdvise(StructureCategory category) {
-		Structure structure = new Structure();
-		structure.setCategory(category);
-		structure.setData(this);
+	private String advise(StructureCategory category) {
 		try {
-			AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+			AdviseInfo advise = this.getAdvise(category);
 			if (advise != null) {
 				return advise.toString();
 			} else {

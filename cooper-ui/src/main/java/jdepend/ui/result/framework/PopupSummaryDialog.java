@@ -18,13 +18,11 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
+import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
 import jdepend.model.JDependUnitMgr;
-import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 
@@ -40,7 +38,7 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 
 		this.frame = frame;
 
-		AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+		WisdomAnalysisResult result = new WisdomAnalysisResult(JDependUnitMgr.getInstance().getResult());
 
 		setSize(850, 80);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
@@ -48,13 +46,9 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 
 		getContentPane().setLayout(new BorderLayout());
 
-		Structure structure = new Structure();
-		structure.setName("Summary");
-		structure.setCategory(StructureCategory.Summary);
-		structure.setData(result);
 		AdviseInfo advise = null;
 		try {
-			advise = new ExpertFactory().createExpert().advise(structure);
+			advise = result.getAdvise(StructureCategory.Summary);
 		} catch (JDependException e2) {
 			e2.printStackTrace();
 		}

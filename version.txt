@@ -20,6 +20,8 @@ i）重新规划配置文件，将parse和jdepend中的个别配置项移入到�
 
 j）孤立组件取消稳定性、抽象程度合理性、内聚性指标的计算
 
+k）在core中创建WisdomAnalysisResult，用于隐藏knowledge.Expert相关逻辑
+
 
 1.2.5_01 2015-05-08
 

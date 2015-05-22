@@ -4,17 +4,14 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
 
+import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.knowledge.AdviseInfo;
-import jdepend.knowledge.ExpertFactory;
-import jdepend.knowledge.Structure;
 import jdepend.knowledge.StructureCategory;
-import jdepend.knowledge.capacity.Capacity;
-import jdepend.model.result.AnalysisResult;
 
 public class ArchitectPatternAction extends ScoreListAction {
 
@@ -24,19 +21,15 @@ public class ArchitectPatternAction extends ScoreListAction {
 
 	@Override
 	protected void analyse(ActionEvent e) throws JDependException {
-		AnalysisResult result;
+		WisdomAnalysisResult result;
 		TableData tableData = new TableData();
-		Capacity capacity;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			result = scoreCollection.getTheResult(scoreInfo);
+			result = new WisdomAnalysisResult(scoreCollection.getTheResult(scoreInfo));
 			if (result.getComponents().size() != 0) {
 				tableData.setData("组名", result.getRunningContext().getGroup());
 				tableData.setData("命令名", result.getRunningContext().getCommand());
-				Structure structure = new Structure();
-				structure.setCategory(StructureCategory.ArchitectPatternDomainAnalysis);
-				structure.setData(result);
 				try {
-					AdviseInfo advise = new ExpertFactory().createExpert().advise(structure);
+					AdviseInfo advise = result.getAdvise(StructureCategory.ArchitectPatternDomainAnalysis);
 					if (advise != null) {
 						tableData.setData("架构模式", advise.toString());
 					} else {
