@@ -854,34 +854,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		return false;
 	}
 
-	public void calImportedPackages() {
-		String packageName;
 
-		if (this.detail.getSuperClassName() != null) {
-			packageName = ParseUtil.getPackageName(this.detail.getSuperClassName());
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getInterfaceNames()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getAttributeTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getParamTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-
-		for (String name : this.detail.getVariableTypes()) {
-			packageName = ParseUtil.getPackageName(name);
-			addImportedPackage(packageName);
-		}
-	}
 
 	@Override
 	public int size() {
@@ -940,7 +913,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		return NoHaveState;
 	}
 
-	private boolean addImportedPackage(String jPackage) {
+	public boolean addImportedPackage(String jPackage) {
 		if (jPackage != null && !jPackage.equals(packageName) && !imports.contains(jPackage)) {
 			imports.add(jPackage);
 			return true;

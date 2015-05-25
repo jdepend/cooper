@@ -10,6 +10,7 @@ import jdepend.metadata.JavaClass;
 import jdepend.metadata.RequestMapping;
 import jdepend.metadata.TableInfo;
 import jdepend.metadata.util.ParseUtil;
+import jdepend.parse.util.ParseTool;
 
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.ArrayElementValue;
@@ -58,8 +59,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	public void visitConstantClass(ConstantClass obj) {
 		String name1 = obj.getBytes(this.cp);
 		this.parser.debug("visitConstantClass: obj.getBytes(this.cp) = " + name1);
-		String name = ParseUtil.slashesToDots(name1);
-		name = ParseUtil.getType(name);
+		String name = ParseTool.slashesToDots(name1);
+		name = ParseTool.getType(name);
 		if (name != null && name.length() > 0 && !jClass.getDetail().getSupers().contains(name)) {
 			jClass.getDetail().addVariableType(name);
 			this.parser.debug("visitConstantClass: type = " + name);
@@ -120,7 +121,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 		// 基本信息
 		jClass.setName(obj.getClassName());
-		String packageName = ParseUtil.getPackageName(obj.getClassName());
+		String packageName = ParseTool.getPackageName(obj.getClassName());
 		if (packageName != null) {
 			jClass.setPackageName(packageName);
 		}

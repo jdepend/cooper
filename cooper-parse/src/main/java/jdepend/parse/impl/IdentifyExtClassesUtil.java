@@ -7,7 +7,7 @@ import java.util.Map;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassDetail;
-import jdepend.metadata.util.ParseUtil;
+import jdepend.parse.util.ParseTool;
 
 class IdentifyExtClassesUtil {
 
@@ -84,7 +84,7 @@ class IdentifyExtClassesUtil {
 		}
 		// 收集外部JavaClass信息
 		if (javaClassName.indexOf('$') == -1) {// 不是内部类
-			String packageName = ParseUtil.getPackageName(javaClassName);
+			String packageName = ParseTool.getPackageName(javaClassName);
 			if (this.filter.accept(packageName)) {
 				JavaClass extendJavaClass = new JavaClass(javaClassName, false);
 				extendJavaClass.setPlace(JavaClass.Extend_PlaceName);
