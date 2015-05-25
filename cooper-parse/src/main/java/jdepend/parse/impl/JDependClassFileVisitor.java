@@ -10,7 +10,6 @@ import jdepend.metadata.JavaClass;
 import jdepend.metadata.RequestMapping;
 import jdepend.metadata.TableInfo;
 import jdepend.metadata.util.ParseUtil;
-import jdepend.metadata.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.ArrayElementValue;
@@ -111,8 +110,9 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	@Override
 	public void visitField(Field obj) {
-		this.jClass.getDetail().addAttribute(new jdepend.metadata.Attribute(this.jClass, obj));
-		this.parser.debug("visitField: obj.getSignature() = " + SignatureUtil.getSignature(obj));
+		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj);
+		this.jClass.getDetail().addAttribute(attribute);
+		this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				new HttpInvokeMethodReader(method, parser.getConf()).read(obj);
 
 				method.setSelfLineCount(this.calLineCount(obj));
-				
+
 				this.jClass.getDetail().addMethod(method);
 
 				// 处理Annotation

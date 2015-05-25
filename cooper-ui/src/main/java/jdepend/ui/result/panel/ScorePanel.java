@@ -36,6 +36,7 @@ import jdepend.framework.util.VersionUtil;
 import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.JDependUnitMgr;
+import jdepend.model.Scored;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
 import jdepend.report.ui.BalanceComponentDialog;
@@ -221,7 +222,11 @@ public final class ScorePanel extends SubResultTabPanel {
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
 
-		score.setText(MetricsFormat.toFormattedMetrics(scoreValue).toString());
+		if (scoreValue != null) {
+			score.setText(MetricsFormat.toFormattedMetrics(scoreValue).toString());
+		} else {
+			score.setText(Scored.NoValue);
+		}
 
 		scoreItemPanel.add(score);
 		JLabel scoreCompareLabel = this.getComparedLabel(scoreValue, itemName);
@@ -556,52 +561,60 @@ public final class ScorePanel extends SubResultTabPanel {
 
 	private JComponent createGraphScore() {
 		GraphData graph = new GraphData();
-
 		GraphDataItem item = null;
 		Map<Object, Object> datas = null;
-		item = new GraphDataItem();
-		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance()
-				/ AnalysisResult.Distance);
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getDistance()
-				/ AnalysisResult.Distance);
-		item.setDatas(datas);
-		graph.addItem(item);
 
-		item = new GraphDataItem();
-		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Balance));
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getBalance()
-				/ AnalysisResult.Balance);
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference), 1F - this.result.getBalance()
-				/ AnalysisResult.Balance);
-		item.setDatas(datas);
-		graph.addItem(item);
+		if (this.result.getDistance() != null) {
+			item = new GraphDataItem();
+			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance()
+					/ AnalysisResult.Distance);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+					1F - this.result.getDistance() / AnalysisResult.Distance);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
 
-		item = new GraphDataItem();
-		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Encapsulation));
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getEncapsulation()
-				/ AnalysisResult.Encapsulation);
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-				1F - this.result.getEncapsulation() / AnalysisResult.Encapsulation);
-		item.setDatas(datas);
-		graph.addItem(item);
+		if (this.result.getBalance() != null) {
+			item = new GraphDataItem();
+			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Balance));
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getBalance()
+					/ AnalysisResult.Balance);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+					1F - this.result.getBalance() / AnalysisResult.Balance);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
 
-		item = new GraphDataItem();
-		item.setTitle(BundleUtil.getString(BundleUtil.Metrics_RelationRationality));
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getRelationRationality()
-				/ AnalysisResult.RelationRationality);
-		datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-				1F - this.result.getRelationRationality() / AnalysisResult.RelationRationality);
-		item.setDatas(datas);
-		graph.addItem(item);
+		if (this.result.getEncapsulation() != null) {
+			item = new GraphDataItem();
+			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Encapsulation));
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getEncapsulation()
+					/ AnalysisResult.Encapsulation);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+					1F - this.result.getEncapsulation() / AnalysisResult.Encapsulation);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
+
+		if (this.result.getRelationRationality() != null) {
+			item = new GraphDataItem();
+			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_RelationRationality));
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getRelationRationality()
+					/ AnalysisResult.RelationRationality);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
+					1F - this.result.getRelationRationality() / AnalysisResult.RelationRationality);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
 
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(new java.awt.Color(255, 255, 255));

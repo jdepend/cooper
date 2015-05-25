@@ -308,6 +308,8 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 						summry[col] = ((Float) summry[col]) / calComponents[col];
 					}
 				}
+			}else{
+				summry[col] = null;
 			}
 		}
 

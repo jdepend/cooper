@@ -79,6 +79,10 @@ public class Attribute implements Serializable {
 		return info;
 	}
 
+	public String getSignature() {
+		return signature;
+	}
+
 	public String getName() {
 		return name;
 	}

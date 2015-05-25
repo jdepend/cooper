@@ -26,19 +26,30 @@ public final class LowScoreItemIdentifier extends AbstractDomainAnalysis {
 
 		List<ScoreScaleItem> items = new ArrayList<ScoreScaleItem>();
 
-		items.add(new ScoreScaleItem(AnalysisResult.Metrics_D, result.getDistance() / AnalysisResult.Distance));
-		items.add(new ScoreScaleItem(AnalysisResult.Metrics_Balance, result.getBalance() / AnalysisResult.Balance));
-		items.add(new ScoreScaleItem(AnalysisResult.Metrics_Encapsulation, result.getEncapsulation()
-				/ AnalysisResult.Encapsulation));
-		items.add(new ScoreScaleItem(AnalysisResult.Metrics_RelationRationality, result.getRelationRationality()
-				/ AnalysisResult.RelationRationality));
+		if (result.getDistance() != null) {
+			items.add(new ScoreScaleItem(AnalysisResult.Metrics_D, result.getDistance() / AnalysisResult.Distance));
+		}
+		if (result.getBalance() != null) {
+			items.add(new ScoreScaleItem(AnalysisResult.Metrics_Balance, result.getBalance() / AnalysisResult.Balance));
+		}
+		if (result.getEncapsulation() != null) {
+			items.add(new ScoreScaleItem(AnalysisResult.Metrics_Encapsulation, result.getEncapsulation()
+					/ AnalysisResult.Encapsulation));
+		}
+		if (result.getRelationRationality() != null) {
+			items.add(new ScoreScaleItem(AnalysisResult.Metrics_RelationRationality, result.getRelationRationality()
+					/ AnalysisResult.RelationRationality));
+		}
 
-		Collections.sort(items);
-
-		AdviseInfo info = new AdviseInfo();
-		info.setDesc(BundleUtil.getString(BundleUtil.Advise_LessScoreItem));
-		info.addComponentName(items.iterator().next().name);
-		return info;
+		if (items.size() > 0) {
+			Collections.sort(items);
+			AdviseInfo info = new AdviseInfo();
+			info.setDesc(BundleUtil.getString(BundleUtil.Advise_LessScoreItem));
+			info.addComponentName(items.iterator().next().name);
+			return info;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
