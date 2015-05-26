@@ -101,50 +101,10 @@ public final class LocalInvokeItem extends InvokeItem {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Local";
-	}
-
-	@Override
-	public int hashCode() {
-		if (this.getCallee() != null && this.getCaller() != null) {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getCallee().hashCode();
-			result = prime * result + getCaller().hashCode();
-			return result;
-		} else {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((invokeClassName == null) ? 0 : invokeClassName.hashCode());
-			result = prime * result + ((invokeMethodName == null) ? 0 : invokeMethodName.hashCode());
-			result = prime * result + ((invokeMethodSignature == null) ? 0 : invokeMethodSignature.hashCode());
-			return result;
-		}
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		LocalInvokeItem other = (LocalInvokeItem) obj;
-
-		if (this.getCallee() != null && this.getCaller() != null) {
-			return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
-		} else {
-			if (!invokeClassName.equals(other.invokeClassName))
-				return false;
-			if (!invokeMethodName.equals(other.invokeMethodName))
-				return false;
-			if (!invokeMethodSignature.equals(other.invokeMethodSignature))
-				return false;
-			return true;
-		}
 	}
 
 	@Override

@@ -102,56 +102,6 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 	}
 
 	@Override
-	public int hashCode() {
-		if (this.getCallee() != null && this.getCaller() != null) {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getCallee().hashCode();
-			result = prime * result + getCaller().hashCode();
-			return result;
-		} else {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((url == null) ? 0 : url.hashCode());
-			result = prime * result + ((constantClassName == null) ? 0 : constantClassName.hashCode());
-			result = prime * result + ((constantAttributeName == null) ? 0 : constantAttributeName.hashCode());
-
-			return result;
-		}
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj)
-			return true;
-		if (getClass() != obj.getClass())
-			return false;
-		HttpInvokeItem other = (HttpInvokeItem) obj;
-		if (this.getCallee() != null && this.getCaller() != null) {
-			return this.getCaller().equals(other.getCaller()) && this.getCallee().equals(other.getCallee());
-		} else {
-			if (url == null) {
-				if (other.url != null)
-					return false;
-			} else if (!url.equals(other.url))
-				return false;
-			if (constantClassName == null) {
-				if (other.constantClassName != null)
-					return false;
-			} else if (!constantClassName.equals(other.constantClassName))
-				return false;
-			if (constantAttributeName == null) {
-				if (other.constantAttributeName != null)
-					return false;
-			} else if (!constantAttributeName.equals(other.constantAttributeName))
-				return false;
-
-			return true;
-		}
-	}
-
-	@Override
 	public String toString() {
 		if (this.getCallee() != null) {
 			return "InvokeItem [type=HttpInvokeItem, invokeClassName=" + getCallee().getJavaClass().getName()
