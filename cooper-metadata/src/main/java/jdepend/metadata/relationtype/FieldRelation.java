@@ -15,4 +15,9 @@ public class FieldRelation extends BaseJavaClassRelationType {
 	public boolean canAbstraction() {
 		return true;
 	}
+	
+	@Override
+	public boolean invokeRelated() {
+		return true;
+	}
 }

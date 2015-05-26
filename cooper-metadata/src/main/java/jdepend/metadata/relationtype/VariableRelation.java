@@ -15,4 +15,9 @@ public class VariableRelation extends BaseJavaClassRelationType {
 	public boolean canAbstraction() {
 		return false;
 	}
+	
+	@Override
+	public boolean invokeRelated() {
+		return true;
+	}
 }

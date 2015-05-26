@@ -12,4 +12,9 @@ public class HttpRelation extends BaseJavaClassRelationType {
 	public boolean canAbstraction() {
 		return false;
 	}
+	
+	@Override
+	public boolean invokeRelated() {
+		return true;
+	}
 }

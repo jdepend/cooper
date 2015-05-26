@@ -43,5 +43,12 @@ public interface JavaClassRelationType extends Serializable {
 	 * @return
 	 */
 	public boolean canAbstraction();
+	
+	/**
+	 * 是否与方法调用相关
+	 * 
+	 * @return
+	 */
+	public boolean invokeRelated();
 
 }

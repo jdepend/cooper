@@ -15,4 +15,9 @@ public class ParamRelation extends BaseJavaClassRelationType {
 	public boolean canAbstraction() {
 		return true;
 	}
+
+	@Override
+	public boolean invokeRelated() {
+		return true;
+	}
 }

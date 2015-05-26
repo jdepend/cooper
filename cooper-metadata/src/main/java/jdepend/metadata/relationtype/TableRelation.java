@@ -31,6 +31,11 @@ public class TableRelation extends BaseJavaClassRelationType {
 	public boolean canAbstraction() {
 		return false;
 	}
+	
+	@Override
+	public boolean invokeRelated() {
+		return false;
+	}
 
 	@Override
 	public String toString() {

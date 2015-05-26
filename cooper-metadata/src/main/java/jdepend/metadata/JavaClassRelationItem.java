@@ -2,6 +2,7 @@ package jdepend.metadata;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
 
@@ -18,6 +19,8 @@ public class JavaClassRelationItem implements Serializable {
 	 */
 	private static final long serialVersionUID = -6332298811666212021L;
 
+	private String id;
+
 	private transient JavaClass target = null;// 目标javaclass
 
 	private transient JavaClass source = null;// 源javaClass
@@ -33,6 +36,11 @@ public class JavaClassRelationItem implements Serializable {
 	private transient JavaClassRelationType type = null;// 关联类型
 
 	private String typeName = null; // 序列化和反序列化时使用
+
+	public JavaClassRelationItem() {
+		super();
+		this.id = UUID.randomUUID().toString();
+	}
 
 	/**
 	 * 得到该关联项关联强度
@@ -107,9 +115,18 @@ public class JavaClassRelationItem implements Serializable {
 		this.typeName = typeName;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public JavaClassRelationItem clone() {
 		JavaClassRelationItem newItem = new JavaClassRelationItem();
 
+		newItem.id = this.id;
 		newItem.type = this.type;
 		newItem.typeName = this.type.getName();
 
@@ -177,15 +194,7 @@ public class JavaClassRelationItem implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((source == null) ? CandidateUtil.getId(sourceJavaClassPlace, sourceJavaClass).hashCode() : source
-						.getName().hashCode());
-		result = prime
-				* result
-				+ ((target == null) ? CandidateUtil.getId(targetJavaClassPlace, targetJavaClass).hashCode() : target
-						.getName().hashCode());
-		result = prime * result + ((type == null) ? typeName.hashCode() : type.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -193,28 +202,17 @@ public class JavaClassRelationItem implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
+		if (obj == null)
+			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
-
-		if (source != null && other.source != null) {
-			if (!source.equals(other.source))
+		if (id == null) {
+			if (other.id != null)
 				return false;
-			if (!target.equals(other.target))
-				return false;
-		} else {
-			if (!sourceJavaClassPlace.equals(other.sourceJavaClassPlace))
-				return false;
-			if (!targetJavaClassPlace.equals(other.targetJavaClassPlace))
-				return false;
-			if (!sourceJavaClass.equals(other.sourceJavaClass))
-				return false;
-			if (!targetJavaClass.equals(other.targetJavaClass))
-				return false;
-		}
-		if (!type.equals(other.type))
+		} else if (!id.equals(other.id))
 			return false;
-
 		return true;
 	}
+
 }

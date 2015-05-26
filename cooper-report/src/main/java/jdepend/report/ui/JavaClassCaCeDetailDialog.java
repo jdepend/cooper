@@ -2,6 +2,9 @@ package jdepend.report.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +19,9 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
@@ -191,6 +196,20 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		listTable = new JTable(sorter);
 
 		sorter.setTableHeader(listTable.getTableHeader());
+
+		listTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				final JTable table = (JTable) e.getSource();
+				Point p = new Point(e.getX(), e.getY());
+				int col = table.columnAtPoint(p);
+				int row = table.rowAtPoint(p);
+
+				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
+				if (currentCol.equals(ReportConstant.DependType)) {
+
+				}
+			}
+		});
 
 		listModel.addColumn(ReportConstant.JavaClass_Place);
 		listModel.addColumn(ReportConstant.Name);
