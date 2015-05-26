@@ -2,6 +2,8 @@ package jdepend.metadata;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
@@ -121,6 +123,20 @@ public class JavaClassRelationItem implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Collection<InvokeItem> getInvokeDetail() {
+		Collection<InvokeItem> invokedItems = new HashSet<InvokeItem>();
+		if (this.type.invokeRelated()) {
+			for (Method method : target.getMethods()) {
+				for (InvokeItem invokeItem : method.getInvokedItems()) {
+					if (invokeItem.getCaller().getJavaClass().equals(source)) {
+						invokedItems.add(invokeItem);
+					}
+				}
+			}
+		}
+		return invokedItems;
 	}
 
 	public JavaClassRelationItem clone() {

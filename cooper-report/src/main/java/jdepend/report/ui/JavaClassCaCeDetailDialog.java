@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -18,11 +17,11 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
+import jdepend.framework.ui.TableMouseMotionAdapter;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.metadata.JavaClass;
+import jdepend.metadata.InvokeItem;
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.Method;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
@@ -212,24 +211,11 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 					String id = (String) table.getValueAt(row, 0);
 					AnalysisResult result = JDependUnitMgr.getInstance().getResult();
 					JavaClassRelationItem item = result.getTheJavaClassRelationItem(id);
-					if (item.getType().invokeRelated()) {
-						JavaClass currentClass;
-						JavaClass dependClass;
-						if (metrics.equals(ReportConstant.Ca)) {
-							currentClass = result.getTheClass(item.getTarget().getId()).getJavaClass();
-							dependClass = result.getTheClass(item.getSource().getId()).getJavaClass();
-						} else {
-							currentClass = result.getTheClass(item.getSource().getId()).getJavaClass();
-							dependClass = result.getTheClass(item.getTarget().getId()).getJavaClass();
-						}
-						Collection<Method> methods = new HashSet<Method>();
-						for (Method method : currentClass.getMethods()) {
-							for (Method method1 : method.getInvokedMethods()) {
-								if(method1.getJavaClass().equals(dependClass)){
-									methods.add(method1);
-								}
-							}
-						}
+					Collection<InvokeItem> invokedItems = item.getInvokeDetail();
+					if (invokedItems.size() > 0) {
+						InvokeItemListDialog d = new InvokeItemListDialog(invokedItems);
+						d.setModal(true);
+						d.setVisible(true);
 					}
 				}
 			}
@@ -255,5 +241,11 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 		listTable.getColumnModel().getColumn(0).setMaxWidth(0);
 		listTable.getColumnModel().getColumn(1).setMinWidth(0);
 		listTable.getColumnModel().getColumn(1).setMaxWidth(0);
+
+		// 增加点击图标
+		List<String> colNames = new ArrayList<String>();
+		colNames.add(ReportConstant.DependType);
+
+		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, colNames));
 	}
 }
