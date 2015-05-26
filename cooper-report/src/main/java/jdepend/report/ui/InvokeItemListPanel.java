@@ -12,8 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.ui.TableSorter;
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.Method;
-
-import org.apache.bcel.classfile.Utility;
+import jdepend.metadata.RemoteInvokeItem;
 
 public class InvokeItemListPanel extends JPanel {
 
@@ -23,15 +22,11 @@ public class InvokeItemListPanel extends JPanel {
 
 	private Collection<InvokeItem> invokedItems;
 
-	private String type;
-
-	public InvokeItemListPanel(Collection<InvokeItem> invokedItems, String type) {
+	public InvokeItemListPanel(Collection<InvokeItem> invokedItems) {
 		super();
 		this.setLayout(new BorderLayout());
 
 		this.invokedItems = invokedItems;
-
-		this.type = type;
 
 		this.initInvokeItemList();
 
@@ -47,27 +42,19 @@ public class InvokeItemListPanel extends JPanel {
 
 		Object[] row;
 
-		Method method;
+		Method caller;
+		Method Callee;
 
 		for (InvokeItem invokeItem : this.invokedItems) {
-			if (type.equals(InvokeItem.Ca)) {
-				method = invokeItem.getCaller();
-			} else {
-				method = invokeItem.getCallee();
-			}
-			row = new Object[11];
+			caller = invokeItem.getCaller();
+			Callee = invokeItem.getCallee();
 
-			row[0] = method.getJavaClass().getName();
-			row[1] = Utility.accessToString(method.getAccessFlags());
-			row[2] = method.getName();
-			row[3] = method.getArgumentInfo();
-			row[4] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
-			row[5] = method.getSelfLineCount();
-			row[6] = method.getInvokedMethods().size();
-			row[7] = method.getCascadeInvokedMethods().size();
-			row[8] = method.getInvokeMethods().size();
-			row[9] = method.containRemoteInvokeItem() ? "是" : "否";
-			row[10] = invokeItem.getName();
+			row = new Object[4];
+
+			row[0] = caller.getMethodInfo();
+			row[1] = Callee.getMethodInfo();
+			row[2] = invokeItem instanceof RemoteInvokeItem ? "是" : "否";
+			row[3] = invokeItem.getName();
 
 			invokeItemListModel.addRow(row);
 
@@ -93,15 +80,8 @@ public class InvokeItemListPanel extends JPanel {
 
 		sorter.setTableHeader(invokedItemListTable.getTableHeader());
 
-		invokeItemListModel.addColumn("类名");
-		invokeItemListModel.addColumn("访问修饰符");
-		invokeItemListModel.addColumn("名称");
-		invokeItemListModel.addColumn("参数");
-		invokeItemListModel.addColumn("返回值");
-		invokeItemListModel.addColumn("行数");
-		invokeItemListModel.addColumn("传入");
-		invokeItemListModel.addColumn("级联传入");
-		invokeItemListModel.addColumn("传出");
+		invokeItemListModel.addColumn("调用者");
+		invokeItemListModel.addColumn("被调用者");
 		invokeItemListModel.addColumn("是否包含进程间调用");
 		invokeItemListModel.addColumn("调用类型");
 

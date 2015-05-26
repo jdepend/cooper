@@ -71,6 +71,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<Method> methods;
 
+	private transient Map<String, JavaClassRelationItem> javaClassRelationItems;
+
 	public static final String Metrics_D = "Result_Metrics_D";
 	public static final String Metrics_Balance = "Result_Metrics_Balance";
 	public static final String Metrics_RelationRationality = "Result_Metrics_RelationRationality";
@@ -200,6 +202,18 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			}
 		}
 		return this.methods;
+	}
+
+	public synchronized JavaClassRelationItem getTheJavaClassRelationItem(String id) {
+		if (this.javaClassRelationItems == null) {
+			this.javaClassRelationItems = new HashMap<String, JavaClassRelationItem>();
+			for (JavaClassUnit javaClass : this.getClasses()) {
+				for (JavaClassRelationItem item : javaClass.getJavaClass().getRelationItems()) {
+					this.javaClassRelationItems.put(item.getId(), item);
+				}
+			}
+		}
+		return this.javaClassRelationItems.get(id);
 	}
 
 	public boolean isEmpty() {
@@ -453,6 +467,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.componentForNames = null;
 		this.javaClassForIds = null;
 		this.methods = null;
+		this.javaClassRelationItems = null;
 
 		this.clearScore();
 

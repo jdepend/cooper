@@ -84,6 +84,8 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	private transient Collection<JavaClassRelationItem> allCeItems;
 
+	private transient Collection<JavaClassRelationItem> relationItems;
+
 	private transient Collection<JavaClass> allInnerClasses;
 
 	private transient Collection<JavaClass> caList = null;
@@ -551,15 +553,20 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	public synchronized Collection<JavaClass> getRelationList() {
 		if (this.relationList == null) {
-			Collection<JavaClass> javaClasses = this.getCaList();
-			for (JavaClass javaClass : this.getCeList()) {
-				if (!javaClasses.contains(javaClass)) {
-					javaClasses.add(javaClass);
-				}
-			}
-			this.relationList = javaClasses;
+			this.relationList = new HashSet<JavaClass>();
+			this.relationList.addAll(this.getCaList());
+			this.relationList.addAll(this.getCeList());
 		}
 		return this.relationList;
+	}
+
+	public synchronized Collection<JavaClassRelationItem> getRelationItems() {
+		if (this.relationItems == null) {
+			this.relationItems = new HashSet<JavaClassRelationItem>();
+			this.relationItems.addAll(this.getCaItems());
+			this.relationItems.addAll(this.getCeItems());
+		}
+		return this.relationItems;
 	}
 
 	public synchronized void addCaItems(JavaClassRelationItem caItem) {
@@ -795,6 +802,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		allCeItems = null;
 		allCaItems = null;
 		allInnerClasses = null;
+		relationItems = null;
 
 		classType = null;
 	}
@@ -853,8 +861,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		}
 		return false;
 	}
-
-
 
 	@Override
 	public int size() {

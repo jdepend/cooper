@@ -518,6 +518,22 @@ public class Method extends AccessFlags {
 
 	}
 
+	public String getMethodInfo() {
+		StringBuilder info = new StringBuilder();
+
+		info.append(this.javaClass.getName());
+		info.append(".");
+		info.append(this.name);
+		String argumentInfo = this.getArgumentInfo();
+		if (argumentInfo != null && argumentInfo.length() > 0) {
+			info.append("(");
+			info.append(this.getArgumentInfo());
+			info.append(")");
+		}
+
+		return info.toString();
+	}
+
 	@Override
 	public String toString() {
 

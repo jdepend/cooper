@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -19,9 +20,9 @@ import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.ui.JTableUtil;
 import jdepend.framework.ui.TableSorter;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.Method;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
@@ -145,15 +146,17 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 			if ((javaClass != null && (includeInner || !isInner)) || (javaClasses != null)) {
 				row = new Object[listTable.getColumnCount()];
 				for (int i = 0; i < listTable.getColumnCount(); i++) {
-					if (i == 2) {
-						row[2] = item.getType().getName();
+					if (i == 0) {
+						row[0] = item.getId();
 					} else if (i == 3) {
+						row[3] = item.getType().getName();
+					} else if (i == 4) {
 						if (isInner) {
 							inCoupling += item.getRelationIntensity();
-							row[3] = "否";
+							row[4] = "否";
 						} else {
 							outerCoupling += item.getRelationIntensity();
-							row[3] = "是";
+							row[4] = "是";
 						}
 					} else {
 						metrics1 = ReportConstant.toMetrics(listTable.getColumnName(i));
@@ -206,11 +209,33 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 				String currentCol = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 				if (currentCol.equals(ReportConstant.DependType)) {
-
+					String id = (String) table.getValueAt(row, 0);
+					AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+					JavaClassRelationItem item = result.getTheJavaClassRelationItem(id);
+					if (item.getType().invokeRelated()) {
+						JavaClass currentClass;
+						JavaClass dependClass;
+						if (metrics.equals(ReportConstant.Ca)) {
+							currentClass = result.getTheClass(item.getTarget().getId()).getJavaClass();
+							dependClass = result.getTheClass(item.getSource().getId()).getJavaClass();
+						} else {
+							currentClass = result.getTheClass(item.getSource().getId()).getJavaClass();
+							dependClass = result.getTheClass(item.getTarget().getId()).getJavaClass();
+						}
+						Collection<Method> methods = new HashSet<Method>();
+						for (Method method : currentClass.getMethods()) {
+							for (Method method1 : method.getInvokedMethods()) {
+								if(method1.getJavaClass().equals(dependClass)){
+									methods.add(method1);
+								}
+							}
+						}
+					}
 				}
 			}
 		});
 
+		listModel.addColumn("id");
 		listModel.addColumn(ReportConstant.JavaClass_Place);
 		listModel.addColumn(ReportConstant.Name);
 		listModel.addColumn(ReportConstant.DependType);
@@ -228,5 +253,7 @@ public class JavaClassCaCeDetailDialog extends CooperDialog {
 
 		listTable.getColumnModel().getColumn(0).setMinWidth(0);
 		listTable.getColumnModel().getColumn(0).setMaxWidth(0);
+		listTable.getColumnModel().getColumn(1).setMinWidth(0);
+		listTable.getColumnModel().getColumn(1).setMaxWidth(0);
 	}
 }

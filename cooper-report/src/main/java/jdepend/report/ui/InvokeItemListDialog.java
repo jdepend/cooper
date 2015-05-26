@@ -8,11 +8,11 @@ import jdepend.metadata.InvokeItem;
 
 public class InvokeItemListDialog extends CooperDialog {
 
-	public InvokeItemListDialog(Collection<InvokeItem> invokedItems, String type) {
+	public InvokeItemListDialog(Collection<InvokeItem> invokedItems) {
 		super();
 		getContentPane().setLayout(new BorderLayout());
 
-		InvokeItemListPanel invokeItemListPanel = new InvokeItemListPanel(invokedItems, type);
+		InvokeItemListPanel invokeItemListPanel = new InvokeItemListPanel(invokedItems);
 		invokeItemListPanel.loadInvokeItemList();
 		this.add(invokeItemListPanel);
 	}

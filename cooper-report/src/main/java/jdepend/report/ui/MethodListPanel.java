@@ -114,18 +114,15 @@ public class MethodListPanel extends JPanel {
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("传入")) {
-							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokedItems(),
-									InvokeItem.Ca);
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokedItems());
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("级联传入")) {
-							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getCascadeInvokedItems(),
-									InvokeItem.Ca);
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getCascadeInvokedItems());
 							d.setModal(true);
 							d.setVisible(true);
 						} else if (currentCol.equals("传出")) {
-							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokeItems(),
-									InvokeItem.Ce);
+							InvokeItemListDialog d = new InvokeItemListDialog(currentMethod.getInvokeItems());
 							d.setModal(true);
 							d.setVisible(true);
 						}
