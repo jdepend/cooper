@@ -1,4 +1,4 @@
-package jdepend.core.framework.serverconf;
+package jdepend.core.remote.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,17 +56,6 @@ public class ServerConfigurator {
 	 */
 	public ServerConfigurator(File f) {
 		this(loadProperties(f));
-	}
-
-	public boolean isLocalService() {
-
-		String key = "isLocalService";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return new Boolean(value).booleanValue();
-		}
-
-		return true;
 	}
 
 	public String getRemoteServiceURL() {

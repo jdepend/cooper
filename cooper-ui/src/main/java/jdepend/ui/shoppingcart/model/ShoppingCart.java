@@ -1,4 +1,4 @@
-package jdepend.core.local.shoppingcart;
+package jdepend.ui.shoppingcart.model;
 
 import java.util.ArrayList;
 import java.util.Date;

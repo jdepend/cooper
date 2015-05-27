@@ -1,6 +1,7 @@
 package jdepend.core.remote.analyzer;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -10,9 +11,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.core.local.analyzer.AnalyzerConvertUtil;
 import jdepend.core.local.analyzer.AnalyzerMgr;
-import jdepend.core.local.analyzer.AnalyzerSummaryInfo;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
@@ -24,7 +23,13 @@ import org.apache.commons.beanutils.BeanUtils;
 
 public class AnalyzerRemoteMgr {
 
-	public static void upload(Analyzer analyzer) throws JDependException {
+	private AnalyzerLocalRepository repository;
+
+	public AnalyzerRemoteMgr() {
+		this.repository = new AnalyzerLocalRepository();
+	}
+
+	public void upload(Analyzer analyzer) throws JDependException {
 
 		// List<String> importPackages = this.getImportedPackages(analyzer);
 		// if (importPackages.size() > 0) {
@@ -48,7 +53,7 @@ public class AnalyzerRemoteMgr {
 
 			className = analyzer.getClass().getCanonicalName();
 
-			defInputStream = AnalyzerMgr.getInstance().getDef(analyzer);
+			defInputStream = this.getDef(analyzer);
 			def = StreamUtil.getData(defInputStream);
 
 			AnalyzerDTO analyzerDTO = new AnalyzerDTO();
@@ -91,7 +96,7 @@ public class AnalyzerRemoteMgr {
 		}
 	}
 
-	public static List<AnalyzerSummaryInfo> getRemoteAnalyzers(String type) throws JDependException {
+	public List<AnalyzerSummaryInfo> getRemoteAnalyzers(String type) throws JDependException {
 		try {
 			List<AnalyzerSummaryDTO> analyzerSummaryDTOs = RemoteAnalyzerProxy.getInstance().getAnalyzerService()
 					.getAnalyzsers(type);
@@ -112,14 +117,14 @@ public class AnalyzerRemoteMgr {
 		}
 	}
 
-	public static void download(String className) throws JDependException {
+	public void download(String className) throws JDependException {
 		try {
 			AnalyzerDTO analyzerDTO = RemoteAnalyzerProxy.getInstance().getAnalyzerService().download(className);
 			Analyzer analyzer = AnalyzerConvertUtil.createAnalyzer(analyzerDTO);
 			if (AnalyzerMgr.getInstance().containsAnalyzer(analyzer)) {
 				throw new JDependException("分析器已经存在");
 			} else {
-				AnalyzerMgr.getInstance().save(analyzerDTO);
+				this.save(analyzerDTO);
 				AnalyzerMgr.getInstance().addAnalyzer(analyzer);
 			}
 		} catch (RemoteException e) {
@@ -132,5 +137,17 @@ public class AnalyzerRemoteMgr {
 			e.printStackTrace();
 			throw new JDependException(e);
 		}
+	}
+
+	public void save(AnalyzerDTO analyzerDTO) throws JDependException {
+		this.repository.save(analyzerDTO);
+	}
+
+	public InputStream getDef(Analyzer analyzer) throws FileNotFoundException {
+		return this.repository.getDef(analyzer);
+	}
+
+	public void delete(String className) throws JDependException {
+		this.repository.delete(className);
 	}
 }

@@ -6,7 +6,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import jdepend.core.framework.serverconf.ServerConfigurator;
+import jdepend.core.remote.config.ServerConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.service.remote.JDependSessionService;

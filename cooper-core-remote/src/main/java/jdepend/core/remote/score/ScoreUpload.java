@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import jdepend.core.framework.serverconf.ServerConfigurator;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.core.local.score.ScoreRepository;
+import jdepend.core.remote.config.ServerConfigurator;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;

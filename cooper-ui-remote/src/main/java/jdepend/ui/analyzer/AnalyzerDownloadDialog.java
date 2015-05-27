@@ -15,9 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.core.local.analyzer.AnalyzerMgr;
-import jdepend.core.local.analyzer.AnalyzerSummaryInfo;
 import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
+import jdepend.core.remote.analyzer.AnalyzerSummaryInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.CooperDialog;
 import jdepend.framework.util.BundleUtil;
@@ -36,10 +35,14 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 	private String type;
 
 	private AnalyzerPanel analyzerPanel;
+	
+	private AnalyzerRemoteMgr analyzerRemoteMgr;
 
 	public AnalyzerDownloadDialog(JDependCooper frame, AnalyzerPanel analyzerPanel, String type) {
 		super();
 
+		this.analyzerRemoteMgr = new AnalyzerRemoteMgr();
+		
 		this.frame = frame;
 		this.analyzerPanel = analyzerPanel;
 		this.type = type;
@@ -115,7 +118,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 		if (this.currentClassName == null) {
 			throw new JDependException("请选择下载的分析器。");
 		} else {
-			AnalyzerRemoteMgr.download(this.currentClassName);
+			this.analyzerRemoteMgr.download(this.currentClassName);
 		}
 
 	}
@@ -124,7 +127,7 @@ public final class AnalyzerDownloadDialog extends CooperDialog {
 
 		model.setRowCount(0);
 
-		analyzers = AnalyzerRemoteMgr.getRemoteAnalyzers(type);
+		analyzers = this.analyzerRemoteMgr.getRemoteAnalyzers(type);
 
 		Object[] row;
 		for (AnalyzerSummaryInfo analyzer : analyzers) {

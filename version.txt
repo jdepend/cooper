@@ -1,4 +1,8 @@
-﻿1.2.5_02 2015-05-27
+﻿1.2.5_03
+
+a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
+
+1.2.5_02 2015-05-27
 
 a）将JavaClass改名为JavaClassUnit
 

@@ -217,21 +217,6 @@ public class AnalyzerPanel extends JPanel {
 			}
 		});
 		popupMenu.add(refreshItem);
-		
-		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
-		deleteItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
-						delete();
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		popupMenu.add(deleteItem);
 
 		return popupMenu;
 
@@ -240,7 +225,7 @@ public class AnalyzerPanel extends JPanel {
 	protected JPopupMenu getPopupMenu1() {
 
 		final JPopupMenu popupMenu1 = new JPopupMenu();
-		
+
 		JMenuItem refreshItem1 = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
 		refreshItem1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -306,13 +291,6 @@ public class AnalyzerPanel extends JPanel {
 		} else {
 			throw new JDependException("您还没有执行命令，请执行完命令后在执行该操作");
 		}
-	}
-
-	private void delete() throws JDependException {
-		AnalyzerMgr.getInstance().delete(
-				this.analyzers.get(this.currentGroup).get(this.currentRow).getClass().getName());
-		this.refresh();
-
 	}
 
 	public void refreshAll() {

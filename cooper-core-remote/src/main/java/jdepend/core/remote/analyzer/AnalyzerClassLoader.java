@@ -1,4 +1,4 @@
-package jdepend.core.local.analyzer;
+package jdepend.core.remote.analyzer;
 
 final class AnalyzerClassLoader extends ClassLoader {
 

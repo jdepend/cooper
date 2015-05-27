@@ -9,8 +9,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import jdepend.core.framework.serverconf.ServerConfigurator;
 import jdepend.core.framework.serviceproxy.AbstractJDependServiceProxy;
+import jdepend.core.remote.config.ServerConfigurator;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;

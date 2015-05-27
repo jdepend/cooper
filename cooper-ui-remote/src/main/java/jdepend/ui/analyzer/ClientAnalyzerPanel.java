@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
+import jdepend.core.local.analyzer.AnalyzerMgr;
 import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
@@ -17,8 +18,12 @@ import jdepend.util.analyzer.framework.Analyzer;
 
 public class ClientAnalyzerPanel extends AnalyzerPanel {
 
+	private AnalyzerRemoteMgr analyzerRemoteMgr;
+
 	public ClientAnalyzerPanel(JDependCooper frame) {
 		super(frame);
+
+		this.analyzerRemoteMgr = new AnalyzerRemoteMgr();
 	}
 
 	@Override
@@ -54,6 +59,21 @@ public class ClientAnalyzerPanel extends AnalyzerPanel {
 		});
 		popupMenu.add(downloadItem);
 
+		JMenuItem deleteItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
+		deleteItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
+						delete();
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frame, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		popupMenu.add(deleteItem);
+
 		return popupMenu;
 
 	}
@@ -82,7 +102,7 @@ public class ClientAnalyzerPanel extends AnalyzerPanel {
 			throw new JDependException("会话状态有问题，请重新登陆");
 		} else {
 			Analyzer analyzer = this.analyzers.get(this.currentGroup).get(this.currentRow);
-			AnalyzerRemoteMgr.upload(analyzer);
+			this.analyzerRemoteMgr.upload(analyzer);
 		}
 	}
 
@@ -95,6 +115,14 @@ public class ClientAnalyzerPanel extends AnalyzerPanel {
 			d.setModal(true);
 			d.setVisible(true);
 		}
+	}
+
+	private void delete() throws JDependException {
+		String className = this.analyzers.get(this.currentGroup).get(this.currentRow).getClass().getName();
+		AnalyzerMgr.getInstance().delete(className);
+		this.analyzerRemoteMgr.delete(className);
+		this.refresh();
+
 	}
 
 }

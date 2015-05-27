@@ -8,9 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
-import jdepend.core.local.shoppingcart.ShoppingCart;
 import jdepend.framework.ui.JDependUIUtil;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.shoppingcart.model.ShoppingCart;
 
 public class ShoppingCartPanel extends JPanel {
 
