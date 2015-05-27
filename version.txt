@@ -1,4 +1,4 @@
-﻿1.2.5_02
+﻿1.2.5_02 2015-05-27
 
 a）将JavaClass改名为JavaClassUnit
 
@@ -24,6 +24,9 @@ k）在core中创建WisdomAnalysisResult，用于隐藏knowledge.Expert相关逻
 
 l）删除了capacity和motive模块
 
+m）向基础结构InvokeItem和JavaClassRelationItem增加id列，作为其唯一性的标识
+
+n）向类的传入传出列表中增加在类型列上的点击事件，以方便可以直接查看明细
 
 
 1.2.5_01 2015-05-08
