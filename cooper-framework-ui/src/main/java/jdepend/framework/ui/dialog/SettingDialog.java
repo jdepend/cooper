@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -25,6 +25,8 @@ import javax.swing.ToolTipManager;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.config.UIProperty;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 

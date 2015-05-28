@@ -27,7 +27,7 @@ import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;

@@ -1,8 +1,8 @@
 package jdepend.statistics;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.AsynAction;
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.action.AsynAction;
+import jdepend.framework.ui.component.JDependFrame;
 
 public abstract class ScoreListAction extends AsynAction {
 

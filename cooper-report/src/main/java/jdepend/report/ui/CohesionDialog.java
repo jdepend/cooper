@@ -9,7 +9,7 @@ import java.util.Collection;
 
 import javax.swing.JScrollPane;
 
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.report.way.textui.JDependPrinter;

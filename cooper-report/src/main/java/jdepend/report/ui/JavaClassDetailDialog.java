@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JScrollPane;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.JavaClassUnit;
 
 public class JavaClassDetailDialog extends CooperDialog {

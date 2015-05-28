@@ -26,10 +26,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.JTableUtil;
-import jdepend.framework.ui.TableMouseMotionAdapter;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TableMouseMotionAdapter;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.util.JavaClassUtil;

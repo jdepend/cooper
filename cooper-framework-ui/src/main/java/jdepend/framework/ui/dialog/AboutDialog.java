@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.dialog;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import jdepend.framework.ui.util.JDependUIUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.VersionUtil;
 

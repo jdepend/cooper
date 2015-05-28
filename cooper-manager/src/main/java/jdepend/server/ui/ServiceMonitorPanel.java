@@ -19,8 +19,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.StatusField;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.panel.StatusField;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 import jdepend.service.remote.JDependSession;

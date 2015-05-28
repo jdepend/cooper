@@ -13,7 +13,7 @@ import java.util.Properties;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.UIProperty;
+import jdepend.framework.ui.config.UIProperty;
 
 /**
  * UI相关的配置信息和操作信息

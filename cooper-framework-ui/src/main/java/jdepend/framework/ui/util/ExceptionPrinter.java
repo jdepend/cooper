@@ -1,10 +1,12 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+
+import jdepend.framework.ui.component.TextViewer;
 
 public final class ExceptionPrinter {
 

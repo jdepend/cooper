@@ -1,7 +1,7 @@
 package jdepend.report.ui;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.Component;
 
 public final class BalanceComponentDialog extends CooperDialog {

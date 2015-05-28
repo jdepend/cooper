@@ -1,9 +1,11 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.panel;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
+import jdepend.framework.ui.util.ExceptionPrinter;
 
 public class TabsPanel extends JPanel {
 

@@ -1,8 +1,11 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.action;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.dialog.AboutDialog;
 
 public final class AboutAction extends AbstractAction {
 

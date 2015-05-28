@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.Relation;
 import prefuse.Visualization;
 import prefuse.controls.ControlAdapter;

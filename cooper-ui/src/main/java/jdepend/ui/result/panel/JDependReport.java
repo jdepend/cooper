@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.Relation;

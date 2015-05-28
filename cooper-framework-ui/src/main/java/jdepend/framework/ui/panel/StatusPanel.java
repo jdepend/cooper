@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.panel;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;

@@ -26,7 +26,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;

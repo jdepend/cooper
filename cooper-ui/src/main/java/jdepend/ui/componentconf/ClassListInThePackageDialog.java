@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.Candidate;
 import jdepend.metadata.JavaClass;

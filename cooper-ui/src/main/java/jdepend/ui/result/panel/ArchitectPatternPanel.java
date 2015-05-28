@@ -1,7 +1,7 @@
 package jdepend.ui.result.panel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.ExceptionPrinter;
+import jdepend.framework.ui.util.ExceptionPrinter;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.model.result.AnalysisResult;

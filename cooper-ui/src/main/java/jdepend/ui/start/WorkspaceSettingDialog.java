@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 
 import jdepend.framework.context.JDependContext;
-import jdepend.framework.ui.WelcomeDialog;
+import jdepend.framework.ui.dialog.WelcomeDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.StringUtil;
 import jdepend.ui.JDependCooper;

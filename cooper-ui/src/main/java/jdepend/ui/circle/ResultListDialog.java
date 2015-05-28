@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jdepend.core.local.score.ScoreRepository;
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.ScoreListPanel;
 

@@ -10,8 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;

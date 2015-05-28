@@ -1,12 +1,13 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.panel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
+import jdepend.framework.ui.component.JDependFrame;
 
 public class StatusField extends JPanel {
 

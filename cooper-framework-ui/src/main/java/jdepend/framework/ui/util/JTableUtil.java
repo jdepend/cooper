@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.component;
 
 import java.awt.Color;
 import java.awt.Graphics;

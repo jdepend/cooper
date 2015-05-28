@@ -17,7 +17,7 @@ import java.util.Iterator;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import jdepend.framework.ui.JDependUIUtil;
+import jdepend.framework.ui.util.JDependUIUtil;
 import jdepend.framework.util.BundleUtil;
 import prefuse.Visualization;
 import prefuse.action.Action;

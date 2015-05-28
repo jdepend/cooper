@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 import javax.swing.JScrollPane;
 
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.SubJDependUnit;
 import jdepend.report.way.textui.JDependPrinter;
 

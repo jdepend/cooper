@@ -2,7 +2,7 @@ package jdepend.ui;
 
 import java.awt.event.MouseEvent;
 
-import jdepend.framework.ui.JClosableTabbedPane;
+import jdepend.framework.ui.panel.JClosableTabbedPane;
 
 public class CooperTabbedPane extends JClosableTabbedPane {
 

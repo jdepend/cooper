@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.util.BundleUtil;
 
 public class FinishStep extends Step {

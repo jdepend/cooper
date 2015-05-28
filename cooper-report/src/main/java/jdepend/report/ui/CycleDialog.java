@@ -7,8 +7,8 @@ import java.io.OutputStream;
 
 import javax.swing.JScrollPane;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.JDependUnit;
 import jdepend.report.way.textui.TextSummaryPrinter;
 

@@ -16,9 +16,9 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.TabWrapper;
-import jdepend.framework.ui.TabsPanel;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.TextViewer;
+import jdepend.framework.ui.panel.TabWrapper;
+import jdepend.framework.ui.panel.TabsPanel;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;

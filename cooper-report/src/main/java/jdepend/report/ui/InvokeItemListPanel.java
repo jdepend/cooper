@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.TableSorter;
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.Method;
 import jdepend.metadata.RemoteInvokeItem;

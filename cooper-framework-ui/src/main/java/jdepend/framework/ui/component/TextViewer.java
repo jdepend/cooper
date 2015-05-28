@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.component;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,6 +31,7 @@ import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.config.UIProperty;
 
 public class TextViewer extends JEditorPane {
 

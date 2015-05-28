@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.panel;
 
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
@@ -6,7 +6,7 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
-import jdepend.framework.ui.JDependUIUtil;
+import jdepend.framework.ui.util.JDependUIUtil;
 
 public class ImagePanel extends JPanel {
 

@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.action;
 
 import java.awt.event.ActionEvent;
 import java.io.PrintWriter;
@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TextViewer;
 
 /**
  * 异步执行Action（具有进度条跟踪）

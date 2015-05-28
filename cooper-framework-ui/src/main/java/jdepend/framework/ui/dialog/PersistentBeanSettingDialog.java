@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -24,6 +24,7 @@ import javax.swing.text.JTextComponent;
 
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.domain.notPersistent;
+import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.util.BundleUtil;
 
 public class PersistentBeanSettingDialog extends JDialog {

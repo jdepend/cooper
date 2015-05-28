@@ -23,7 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.JTableUtil;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaPackage;

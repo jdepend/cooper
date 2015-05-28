@@ -11,8 +11,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.service.remote.user.UserActionItem;
 import jdepend.service.remote.user.UserDomainService;

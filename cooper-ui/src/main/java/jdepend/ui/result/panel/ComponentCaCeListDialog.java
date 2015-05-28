@@ -3,8 +3,8 @@ package jdepend.ui.result.panel;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.Relation;
 import jdepend.report.util.ReportConstant;
 

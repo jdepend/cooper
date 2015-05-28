@@ -25,8 +25,8 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.StatusField;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.panel.StatusField;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.framework.ExceptionUtil;
 

@@ -22,9 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ToolTipManager;
 
-import jdepend.framework.ui.AlphaPane;
-import jdepend.framework.ui.ImagePanel;
-import jdepend.framework.ui.JDependUIUtil;
+import jdepend.framework.ui.dialog.AlphaPane;
+import jdepend.framework.ui.panel.ImagePanel;
+import jdepend.framework.ui.util.JDependUIUtil;
 import jdepend.ui.JDependCooper;
 
 public class JImagePane extends AlphaPane {

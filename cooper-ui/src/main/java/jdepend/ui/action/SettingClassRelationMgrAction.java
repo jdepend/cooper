@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import jdepend.framework.ui.PersistentBeanSettingDialog;
+import jdepend.framework.ui.dialog.PersistentBeanSettingDialog;
 import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.ui.JDependCooper;
 

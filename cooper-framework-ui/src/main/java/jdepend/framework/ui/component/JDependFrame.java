@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.component;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +17,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.panel.StatusField;
+import jdepend.framework.ui.panel.StatusPanel;
 
 public abstract class JDependFrame extends JFrame {
 

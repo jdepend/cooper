@@ -15,11 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.JTableUtil;
-import jdepend.framework.ui.TableMouseMotionAdapter;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TableMouseMotionAdapter;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.dialog.CooperDialog;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.report.util.ReportConstant;

@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import jdepend.core.local.command.CommandAdapterMgr;
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.JTableUtil;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;

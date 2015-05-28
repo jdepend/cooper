@@ -1,4 +1,4 @@
-package jdepend.framework.ui.log;
+package jdepend.ui.property;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -19,8 +19,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.FileLogWriter;
 import jdepend.framework.log.LogListener;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.TextViewer;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.util.BundleUtil;
 
 public class SystemLogPanel extends JPanel implements LogListener {

@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
-import jdepend.framework.ui.ImagePanel;
+import jdepend.framework.ui.panel.ImagePanel;
 
 public final class WelcomePanel extends ImagePanel {
 

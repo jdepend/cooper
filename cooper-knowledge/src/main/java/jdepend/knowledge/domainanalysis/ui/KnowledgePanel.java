@@ -15,8 +15,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.domain.PersistentBean;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.PersistentBeanSettingDialog;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.dialog.PersistentBeanSettingDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.knowledge.domainanalysis.DomainAnalysis;
 import jdepend.knowledge.domainanalysis.DomainAnalysisMgr;

@@ -5,8 +5,8 @@ import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.ImagePanel;
+import jdepend.framework.ui.dialog.CooperDialog;
+import jdepend.framework.ui.panel.ImagePanel;
 
 public class MMDialog extends CooperDialog {
 

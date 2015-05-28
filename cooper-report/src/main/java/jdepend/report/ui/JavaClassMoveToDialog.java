@@ -20,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;

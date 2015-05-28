@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 import jdepend.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.context.ClientContext;
-import jdepend.framework.ui.StatusField;
+import jdepend.framework.ui.panel.StatusField;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.LoginDialog;
 

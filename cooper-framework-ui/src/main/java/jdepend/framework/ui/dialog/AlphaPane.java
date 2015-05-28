@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.dialog;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;

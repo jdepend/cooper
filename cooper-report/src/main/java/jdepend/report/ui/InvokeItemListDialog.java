@@ -3,7 +3,7 @@ package jdepend.report.ui;
 import java.awt.BorderLayout;
 import java.util.Collection;
 
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.metadata.InvokeItem;
 
 public class InvokeItemListDialog extends CooperDialog {

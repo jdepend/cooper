@@ -1,6 +1,6 @@
 package jdepend.ui.result.panel;
 
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.ui.MethodListOperationPanel;
 import jdepend.report.ui.MethodListPanel;

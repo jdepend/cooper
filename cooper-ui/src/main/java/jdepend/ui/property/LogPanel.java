@@ -5,9 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.log.BusiLogPanel;
-import jdepend.framework.ui.log.SystemLogPanel;
+import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.util.BundleUtil;
 
 public final class LogPanel extends JPanel {

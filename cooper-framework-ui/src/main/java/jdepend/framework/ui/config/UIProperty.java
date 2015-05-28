@@ -1,4 +1,4 @@
-package jdepend.framework.ui;
+package jdepend.framework.ui.config;
 
 import java.awt.Font;
 

@@ -7,7 +7,7 @@ import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.SettingDialog;
+import jdepend.framework.ui.dialog.SettingDialog;
 
 /**
  * The <code>ServiceSettingDialog</code> displays the setting information.

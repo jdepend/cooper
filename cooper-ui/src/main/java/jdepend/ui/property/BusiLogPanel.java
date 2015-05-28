@@ -1,4 +1,4 @@
-package jdepend.framework.ui.log;
+package jdepend.ui.property;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -22,9 +22,9 @@ import jdepend.framework.log.BusiLogListener;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.DBBusinessLogWriter;
 import jdepend.framework.log.Operation;
-import jdepend.framework.ui.JDependFrame;
-import jdepend.framework.ui.JTableUtil;
-import jdepend.framework.ui.TableSorter;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 
 public final class BusiLogPanel extends JPanel implements BusiLogListener {

@@ -3,8 +3,8 @@ package jdepend.report.ui;
 import java.awt.BorderLayout;
 import java.util.Collection;
 
-import jdepend.framework.ui.CooperDialog;
-import jdepend.framework.ui.JDependFrame;
+import jdepend.framework.ui.component.JDependFrame;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.JavaClassUnit;
 
 public class ClassListDialog extends CooperDialog {

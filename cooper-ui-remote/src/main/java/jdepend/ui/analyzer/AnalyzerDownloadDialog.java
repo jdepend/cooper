@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.core.remote.analyzer.AnalyzerRemoteMgr;
 import jdepend.core.remote.analyzer.AnalyzerSummaryInfo;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.CooperDialog;
+import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.ui.JDependCooper;
 
