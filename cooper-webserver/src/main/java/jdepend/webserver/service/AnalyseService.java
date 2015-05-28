@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
-import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;
@@ -22,7 +20,6 @@ import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.util.SearchUtil;
-import jdepend.service.local.config.ServiceConfigurator;
 
 import org.springframework.stereotype.Service;
 
@@ -32,6 +29,9 @@ public class AnalyseService {
 	public Collection<JavaPackage> listPackages(AnalyzeData analyseData) {
 
 		SearchUtil searchUtil = new SearchUtil(analyseData);
+		searchUtil.setParseConfigs(false);
+		searchUtil.setSupplyJavaClassDetail(false);
+		searchUtil.setBuildClassRelation(false);
 		Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
 		for (JavaPackage javaPackage : searchUtil.getPackages()) {
 			if (javaPackage.isInner()) {

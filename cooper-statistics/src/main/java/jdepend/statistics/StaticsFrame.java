@@ -37,8 +37,7 @@ public final class StaticsFrame extends JDependFrame {
 		resourceStrings.put("menubar", "文件/分析项目/帮助");
 		resourceStrings.put("文件", "退出");
 		resourceStrings
-				.put(
-						"分析项目",
+				.put("分析项目",
 						"规模分数分析/分数分项分析/规模抽象程度合理性分析/规模内聚性分析/规模关系合理性分析/关系组件个数比例分析/-/组件封装性/基于数据库表实现组件间通讯的比例/-/类关系类型比例分析/类关系内外比例分析/类规模比例分析/-/浏览包结构/-/设计能力浏览/设计技巧浏览/调用类个数排名/架构模式分析/");
 		resourceStrings.put("帮助", "关于");
 		accelerators = new HashMap<String, String>();
@@ -123,7 +122,7 @@ public final class StaticsFrame extends JDependFrame {
 
 	public static void main(String args[]) throws JDependException {
 		initEnv(args);
-//		initClassList();
+		// initClassList();
 		StaticsFrame statics = new StaticsFrame();
 		statics.display();
 	}
@@ -138,14 +137,6 @@ public final class StaticsFrame extends JDependFrame {
 		}
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new ClientConnectionProvider());
-	}
-
-	private static void initClassList() {
-		SearchUtil search = new SearchUtil();
-		for (String path : ClassSearchUtil.getSelfPath()) {
-			search.addPath(path);
-		}
-		ClassSearchUtil.getInstance().setClassList(search.getClasses());
 	}
 
 	private class ExitAction extends AbstractAction {
