@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.util.MathUtil;
-import jdepend.model.util.FangCha;
 
 public class GroupCouplingInfo {
 
