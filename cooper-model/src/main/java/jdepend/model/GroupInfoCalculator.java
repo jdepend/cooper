@@ -57,8 +57,7 @@ public final class GroupInfoCalculator {
 			groupCouplingItems.add(info);
 		}
 
-		groupCouplingInfo = new GroupCouplingInfo();
-		groupCouplingInfo.setGroupCouplingItems(groupCouplingItems);
+		groupCouplingInfo = new GroupCouplingInfo(groupCouplingItems);
 
 		// 计算分组内聚信息
 		this.groupCohesionInfo = new GroupCohesionInfo();
@@ -112,8 +111,7 @@ public final class GroupInfoCalculator {
 		this.groupCohesionInfo = new GroupCohesionInfo();
 		this.groupCohesionInfo.setGroupCohesionItems(groupCohesionItems);
 
-		this.groupCouplingInfo = new GroupCouplingInfo();
-		this.groupCouplingInfo.setGroupCouplingItems(groupCouplingItems);
+		this.groupCouplingInfo = new GroupCouplingInfo(groupCouplingItems);
 	}
 
 	private void calBalance() {

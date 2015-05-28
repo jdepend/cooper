@@ -53,7 +53,7 @@ public final class BalanceSubJDependUnitDialog extends CooperDialog {
 
 		info.append("分组耦合顺序差值均值为：");
 		info.append(MetricsFormat.toFormattedMetrics(subUnit.getGroupCouplingInfo().getAverageDifference()));
-
+	
 		return info.toString();
 	}
 

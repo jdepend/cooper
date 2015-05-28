@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.framework.util.MathUtil;
+import jdepend.model.util.FangCha;
 
 public class GroupCouplingInfo {
 
@@ -14,45 +15,10 @@ public class GroupCouplingInfo {
 
 	private Float averageDifference;
 
-	public List<GroupCouplingItem> getGroupCouplingItems() {
-		return groupCouplingItems;
-	}
+	public GroupCouplingInfo(List<GroupCouplingItem> groupCouplingItems) {
 
-	public void setGroupCouplingItems(List<GroupCouplingItem> groupCouplingItems) {
 		this.groupCouplingItems = groupCouplingItems;
-	}
 
-	public List<Float> getDifferences() {
-		if (this.differences == null) {
-			this.calDifferences();
-		}
-		return differences;
-	}
-
-	public Float getAverageDifference() {
-		if (this.averageDifference == null) {
-			this.averageDifference = 0F;
-			if (getDifferences().size() == 1) {
-				this.averageDifference = getDifferences().get(0);
-			} else {
-				Float sumDifference = 0F;
-				for (Float difference : getDifferences()) {
-					sumDifference += difference;
-				}
-				if (MathUtil.isZero(sumDifference)) {
-					this.averageDifference = 0F;
-				} else {
-					this.averageDifference = sumDifference / getDifferences().size();
-				}
-			}
-		}
-		return averageDifference;
-	}
-
-	/**
-	 * 计算分组顺序差值
-	 */
-	private void calDifferences() {
 		differences = new ArrayList<Float>();
 		// 计算分组顺序差值
 		if (groupCouplingItems.size() == 1) {
@@ -65,5 +31,37 @@ public class GroupCouplingInfo {
 				differences.add(difference);
 			}
 		}
+
+		this.averageDifference = 0F;
+		if (differences.size() == 1) {
+			this.averageDifference = differences.get(0);
+		} else {
+			Float sumDifference = 0F;
+			for (Float difference : differences) {
+				sumDifference += difference;
+			}
+			if (MathUtil.isZero(sumDifference)) {
+				this.averageDifference = 0F;
+			} else {
+				this.averageDifference = sumDifference / differences.size();
+			}
+		}
+
+		List<Double> nums = new ArrayList<Double>();
+		for (GroupCouplingItem item : this.groupCouplingItems) {
+			nums.add(new Double(item.coupling));
+		}
+	}
+
+	public List<GroupCouplingItem> getGroupCouplingItems() {
+		return groupCouplingItems;
+	}
+
+	public List<Float> getDifferences() {
+		return differences;
+	}
+
+	public Float getAverageDifference() {
+		return averageDifference;
 	}
 }

@@ -40,4 +40,16 @@ public class MetricsFormat {
 		}
 	}
 
+	public static Float toFormattedMetrics(Double f) {
+		if (f == null) {
+			return null;
+		} else {
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumFractionDigits(3);
+			nf.setMinimumFractionDigits(1);
+			return new Float(nf.format(f));
+		}
+	}
+
 }
