@@ -27,6 +27,10 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 
 	private transient Collection<Component> efferents = null;// 缓存
 
+	public AreaComponent() {
+
+	}
+
 	public AreaComponent(Integer layer, String name) {
 		super();
 		this.layer = layer;

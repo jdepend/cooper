@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.util.todolist.TODOItem;
+import jdepend.webserver.model.WebAnalysisResult;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

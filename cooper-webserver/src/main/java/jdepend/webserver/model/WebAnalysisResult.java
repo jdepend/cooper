@@ -1,4 +1,4 @@
-package jdepend.webserver.web;
+package jdepend.webserver.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +47,7 @@ public class WebAnalysisResult extends WisdomAnalysisResult {
 
 	public List<Measurable> getSummarys() {
 		List<Measurable> summarys = new ArrayList<Measurable>(this.getComponents());
-		summarys.add(this.getSummary());
+		summarys.add(new WebAnalysisResultSummary(this.getSummary()));
 		return summarys;
 	}
 

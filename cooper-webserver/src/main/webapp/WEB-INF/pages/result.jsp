@@ -29,7 +29,7 @@ margin: 0 0 0 -500px;
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<h4>抽象程度合理性得分：${result.d}</h4>
+					<h4>抽象程度合理性得分：${result.distance}</h4>
 					<h6>${result.DAdvise}</h6>
 					<div id="d" class="d" style="height:400px"></div>
 				</div>
@@ -87,7 +87,7 @@ margin: 0 0 0 -500px;
 								<tr>
 									<td><input type="checkbox" /></td>
 									<td class="itemName">${item.name}</td>
-									<td>${item.area}</td>
+									<td>${item.areaComponent.name}</td>
 									<td>${item.lineCount}</td>
 									<td class="classCount" style="color:blue;">${item.classCount}</td>
 									<td>${item.abstractClassCount}</td>
@@ -371,8 +371,8 @@ margin: 0 0 0 -500px;
             		        {
             		            type:'pie',
             		            data:[
-            		                {value:${result.d}, name:'得分'},
-            		                {value:25 - ${result.d}, name:'未得分'},
+            		                {value:${result.distance}, name:'得分'},
+            		                {value:25 - ${result.distance}, name:'未得分'},
             		            ]
             		        }
             		    ],

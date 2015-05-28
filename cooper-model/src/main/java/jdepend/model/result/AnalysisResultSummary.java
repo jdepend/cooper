@@ -10,7 +10,7 @@ import jdepend.model.MetricsInfo;
 import jdepend.model.MetricsMgr;
 import jdepend.model.ObjectMeasured;
 
-public final class AnalysisResultSummary extends ObjectMeasured implements Serializable {
+public class AnalysisResultSummary extends ObjectMeasured implements Serializable {
 
 	private static final long serialVersionUID = -5109171634600473818L;
 
@@ -82,6 +82,31 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 				MetricsSummaryInfo.LogicAVE);
 		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat,
 				MetricsSummaryInfo.LogicAVE);
+	}
+
+	public AnalysisResultSummary() {
+
+	}
+
+	public AnalysisResultSummary(AnalysisResultSummary summary) {
+	
+		this.abstractness = summary.abstractness;
+		this.afferentCoupling = summary.afferentCoupling;
+		this.efferentCoupling = summary.efferentCoupling;
+		this.balance = summary.balance;
+		this.cohesion = summary.cohesion;
+		this.coupling = summary.coupling;
+		this.distance = summary.distance;
+		this.encapsulation = summary.encapsulation;
+		this.abstractClassCount = summary.abstractClassCount;
+		this.classCount = summary.classCount;
+		this.concreteClassCount = summary.concreteClassCount;
+		this.lineCount = summary.lineCount;
+		this.stability = summary.stability;
+		this.volatility = summary.volatility;
+		this.javaPackageCount = summary.javaPackageCount;
+		this.componentCount = summary.componentCount;
+		this.relationCount = summary.relationCount;
 	}
 
 	@Override
@@ -308,7 +333,7 @@ public final class AnalysisResultSummary extends ObjectMeasured implements Seria
 						summry[col] = ((Float) summry[col]) / calComponents[col];
 					}
 				}
-			}else{
+			} else {
 				summry[col] = null;
 			}
 		}

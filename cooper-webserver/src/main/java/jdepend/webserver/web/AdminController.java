@@ -21,6 +21,7 @@ import jdepend.model.util.TableViewInfo;
 import jdepend.model.util.TableViewUtil;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentifyerFacade;
+import jdepend.webserver.model.WebAnalysisResult;
 import jdepend.webserver.web.WebRelationGraphUtil.RelationGraphData;
 
 import org.apache.log4j.Logger;
