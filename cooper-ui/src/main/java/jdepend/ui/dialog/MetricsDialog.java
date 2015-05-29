@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import jdepend.framework.util.BundleUtil;
+import jdepend.ui.JDependCooper;
 
 /**
  * The <code>AboutDialog</code> displays the about information.

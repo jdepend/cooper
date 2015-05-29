@@ -47,15 +47,19 @@ id                   varchar(36)                    not null,
 groupname            varchar(32),
 commandname          varchar(64),
 LC                   integer,
+componentCount       integer,
+relationCount        integer,
 Score                Float,
-D                    float,
+Distance             float,
 Balance              float,
 Relation             float,
 Encapsulation        float,
-OO                   float,
+cohesion             float,
+coupling             float,
 createdate           timestamp                       default now(),
 primary key (id)
 );
+
 
 
 drop table scoredata;
@@ -91,12 +95,6 @@ primary key (id)
 
 drop table analyzer;
 
-drop table scorelist;
-
-drop table user;
-
-drop table useraction;
-
 create table analyzer (
 classname            varchar(256),
 name                 varchar(256)                   not null,
@@ -111,6 +109,8 @@ uploaddate           timestamp                       default now(),
 primary key (name)
 );
 
+drop table scorelist;
+
 create table scorelist (
 id                   varchar(36)                    not null,
 ip                   varchar(32),
@@ -118,15 +118,21 @@ username             varchar(32),
 groupname            varchar(32),
 commandname          varchar(64),
 LC                   integer,
+componentCount       integer,
+relationCount        integer,
 Score                Float,
-D                    float,
+Distance             float,
 Balance              float,
 Relation             float,
 Encapsulation        float,
+cohesion             float,
+coupling             float,
 createdate           timestamp,
 uploaddate           timestamp                       default now(),
 primary key (id)
 );
+
+drop table user;
 
 create table user (
 name                 varchar(36)                    not null,
@@ -136,6 +142,8 @@ integral             int,
 valid                char(1),
 primary key (name)
 );
+
+drop table useraction;
 
 create table useraction (
 id                   varchar(36)                    not null,

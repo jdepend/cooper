@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -34,6 +34,7 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.report.way.htmlui.ExportHTML;
 import jdepend.report.way.textui.TextSummaryPrinter;
+import jdepend.ui.JDependCooper;
 import jdepend.ui.util.AnalysisResultExportUtil;
 
 public final class ScoreListDialog extends CooperDialog {
@@ -259,7 +260,7 @@ public final class ScoreListDialog extends CooperDialog {
 					contentList.append("	");
 					contentList.append(scoreInfo.lc);
 					contentList.append("	");
-					contentList.append(scoreInfo.d);
+					contentList.append(scoreInfo.distance);
 					contentList.append("	");
 					contentList.append(scoreInfo.balance);
 					contentList.append("	");

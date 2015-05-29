@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreListDialog;
+import jdepend.ui.dialog.ScoreListDialog;
 
 public class ScoreAction extends AbstractAction {
 	private JDependCooper frame;

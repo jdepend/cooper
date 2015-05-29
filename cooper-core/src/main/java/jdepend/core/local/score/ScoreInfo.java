@@ -13,10 +13,18 @@ public final class ScoreInfo implements Serializable, Comparable<ScoreInfo> {
 	public String command;
 
 	public Integer lc;
+	
+	public Integer componentCount;
+
+	public Integer relationCount;
+	
+	public Float cohesion;
+
+	public Float coupling;
 
 	public Float score;
 
-	public Float d;
+	public Float distance;
 
 	public Float balance;
 

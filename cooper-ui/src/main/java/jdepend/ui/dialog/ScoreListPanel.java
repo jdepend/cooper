@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -15,6 +15,7 @@ import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
+import jdepend.ui.JDependCooper;
 
 public class ScoreListPanel extends JPanel {
 
@@ -66,42 +67,32 @@ public class ScoreListPanel extends JPanel {
 			} else {
 				attribute = null;
 			}
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.ClientWin_Group_Attribute),
-					attribute);
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.TableHead_GroupName),
-					scoreInfo.group);
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.TableHead_CommandName),
-					scoreInfo.command);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_LC),
-					scoreInfo.lc);
+			tableData.setData(BundleUtil.getString(BundleUtil.ClientWin_Group_Attribute), attribute);
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_GroupName), scoreInfo.group);
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_CommandName), scoreInfo.command);
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_LC), scoreInfo.lc);
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_ComponentCount), scoreInfo.componentCount);
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationCount), scoreInfo.relationCount);
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Cohesion), scoreInfo.cohesion);
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Coupling), scoreInfo.coupling);
 			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_D),
-					MetricsFormat.toFormattedMetrics(scoreInfo.d));
+					MetricsFormat.toFormattedMetrics(scoreInfo.distance));
 			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Balance),
 					MetricsFormat.toFormattedMetrics(scoreInfo.balance));
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.Metrics_Encapsulation),
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Encapsulation),
 					MetricsFormat.toFormattedMetrics(scoreInfo.encapsulation));
-			tableData.setData(BundleUtil
-					.getString(BundleUtil.Metrics_RelationRationality),
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationRationality),
 					MetricsFormat.toFormattedMetrics(scoreInfo.relation));
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.Metrics_TotalScore),
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_TotalScore),
 					MetricsFormat.toFormattedMetrics(scoreInfo.score));
-//			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_OO),
-//					MetricsFormat.toFormattedMetrics(scoreInfo.oo));
-			tableData.setData(
-					BundleUtil.getString(BundleUtil.TableHead_CreateTime),
-					scoreInfo.getCreateDate());
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_CreateTime), scoreInfo.getCreateDate());
 		}
-		tableData.setSortColName(BundleUtil
-				.getString(BundleUtil.Metrics_TotalScore));
+		tableData.setSortColName(BundleUtil.getString(BundleUtil.Metrics_TotalScore));
 		tableData.setSortOperation(TableData.DESC);
 
-		tableData.setMinColName("ID");
-
+		if (scoreList.size() > 0) {
+			tableData.setMinColName("ID");
+		}
 		return tableData;
 
 	}

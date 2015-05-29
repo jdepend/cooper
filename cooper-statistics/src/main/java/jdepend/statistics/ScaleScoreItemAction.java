@@ -26,7 +26,7 @@ public class ScaleScoreItemAction extends ScoreListAction {
 		scoreItems.put("关系合理性", 0F);
 		if (this.scoreCollection.getScoreInfos().size() > 0) {
 			for (ScoreInfo info : this.scoreCollection.getScoreInfos()) {
-				scoreItems.put("抽象程度合理性", (Float) scoreItems.get("抽象程度合理性") + info.d);
+				scoreItems.put("抽象程度合理性", (Float) scoreItems.get("抽象程度合理性") + info.distance);
 				scoreItems.put("内聚性", (Float) scoreItems.get("内聚性") + info.balance);
 				scoreItems.put("封装性", (Float) scoreItems.get("封装性") + info.encapsulation);
 				scoreItems.put("关系合理性", (Float) scoreItems.get("关系合理性") + info.relation);

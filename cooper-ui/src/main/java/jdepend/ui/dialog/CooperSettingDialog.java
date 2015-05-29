@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.dialog.SettingDialog;
+import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 
 /**

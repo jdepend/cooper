@@ -24,8 +24,8 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 
 import jdepend.framework.util.BundleUtil;
-import jdepend.ui.ClassPathURLStreamHandler;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.util.ClassPathURLStreamHandler;
 
 public class DesignPrinciplePanel extends JPanel {
 

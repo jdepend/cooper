@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import jdepend.ui.IntroduceDialog;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.dialog.IntroduceDialog;
 
 public class IntroduceAction extends AbstractAction {
 

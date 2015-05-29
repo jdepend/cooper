@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ServiceProxySettingDialog;
+import jdepend.ui.dialog.ServiceProxySettingDialog;
 
 public class ServiceSettingAction extends AbstractAction {
 

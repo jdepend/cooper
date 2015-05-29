@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import jdepend.ui.CooperSettingDialog;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.dialog.CooperSettingDialog;
 
 public class SettingAction extends AbstractAction {
 

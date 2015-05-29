@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreAndMetricsDialog;
+import jdepend.ui.dialog.ScoreAndMetricsDialog;
 
 public class ScoreAndMetricsAction extends AbstractAction {
 	private JDependCooper frame;

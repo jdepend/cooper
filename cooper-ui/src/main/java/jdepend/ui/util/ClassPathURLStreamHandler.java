@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.util;
 
 import java.io.IOException;
 import java.net.URL;

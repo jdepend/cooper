@@ -1,4 +1,4 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.text.html.HTMLEditorKit;
 
 import jdepend.framework.util.BundleUtil;
+import jdepend.ui.JDependCooper;
+import jdepend.ui.util.ClassPathURLStreamHandler;
 
 
 public final class ScoreAndMetricsDialog extends JDialog {

@@ -757,8 +757,8 @@ public final class ScorePanel extends SubResultTabPanel {
 			lScore = lScoreInfo.score;
 			hScore = hScoreInfo.score;
 		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
-			lScore = lScoreInfo.d;
-			hScore = hScoreInfo.d;
+			lScore = lScoreInfo.distance;
+			hScore = hScoreInfo.distance;
 		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			lScore = lScoreInfo.balance;
 			hScore = hScoreInfo.balance;

@@ -33,7 +33,7 @@ public class ScaleDAction extends ScoreListAction {
 		String tip;
 		String attribute;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
-			item.addData(scoreInfo.lc, scoreInfo.d);
+			item.addData(scoreInfo.lc, scoreInfo.distance);
 			attribute = CommandConfMgr.getInstance().getTheGroup(scoreInfo.group).getAttribute();
 			if (attribute != null && attribute.length() > 0) {
 				tip = attribute + " ";

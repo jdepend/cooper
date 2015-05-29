@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.ui.JDependCooper;
-import jdepend.ui.MetricsDialog;
+import jdepend.ui.dialog.MetricsDialog;
 
 public class MetricsAction extends AbstractAction {
 

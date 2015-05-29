@@ -14,7 +14,7 @@ import jdepend.framework.persistent.ConnectionFactory;
 
 public final class ScoreListRepository {
 
-	private static String insertSql = "insert into scorelist(id, ip, username, groupname, commandname, LC, Score, D, Balance, Encapsulation, Relation, createdate, uploaddate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+	private static String insertSql = "insert into scorelist(id, ip, username, groupname, commandname, LC, componentCount, relationCount, Score, Distance, Balance, Encapsulation, Relation, cohesion, coupling, createdate, uploaddate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
 	private static String findAllSql = "select * from scorelist";
 
@@ -35,12 +35,16 @@ public final class ScoreListRepository {
 				ps.setString(4, score.group);
 				ps.setString(5, score.command);
 				ps.setInt(6, score.lc);
-				ps.setFloat(7, score.score);
-				ps.setFloat(8, score.d);
-				ps.setFloat(9, score.balance);
-				ps.setFloat(10, score.encapsulation);
-				ps.setFloat(11, score.relation);
-				ps.setTimestamp(12, new java.sql.Timestamp(score.createDate.getTime()));
+				ps.setInt(7, score.componentCount);
+				ps.setInt(8, score.relationCount);
+				ps.setFloat(9, score.score);
+				ps.setFloat(10, score.d);
+				ps.setFloat(11, score.balance);
+				ps.setFloat(12, score.encapsulation);
+				ps.setFloat(13, score.relation);
+				ps.setFloat(14, score.cohesion);
+				ps.setFloat(15, score.coupling);
+				ps.setTimestamp(16, new java.sql.Timestamp(score.createDate.getTime()));
 
 				ps.execute();
 			}
@@ -87,11 +91,15 @@ public final class ScoreListRepository {
 				score.group = rs.getString("groupname");
 				score.command = rs.getString("commandname");
 				score.lc = rs.getInt("lc");
+				score.componentCount = rs.getInt("componentCount");
+				score.relationCount = rs.getInt("relationCount");
 				score.score = rs.getFloat("score");
 				score.d = rs.getFloat("d");
 				score.balance = rs.getFloat("balance");
 				score.encapsulation = rs.getFloat("encapsulation");
 				score.relation = rs.getFloat("relation");
+				score.cohesion = rs.getFloat("cohesion");
+				score.coupling = rs.getFloat("coupling");
 				score.createDate = rs.getTimestamp("createDate");
 				score.uploadDate = rs.getTimestamp("uploadDate");
 

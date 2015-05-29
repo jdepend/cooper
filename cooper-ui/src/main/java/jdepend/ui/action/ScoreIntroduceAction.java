@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreIntroduceDialog;
+import jdepend.ui.dialog.ScoreIntroduceDialog;
 
 public class ScoreIntroduceAction extends AbstractAction {
 

@@ -9,8 +9,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import jdepend.framework.util.BundleUtil;
-import jdepend.ui.CooperTabbedPane;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.framework.CooperTabbedPane;
 
 public class ResultTab extends CooperTabbedPane {
 

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.ui.JDependCooper;
-import jdepend.ui.ScoreListPanel;
+import jdepend.ui.dialog.ScoreListPanel;
 
 public final class ResultListDialog extends CooperDialog {
 

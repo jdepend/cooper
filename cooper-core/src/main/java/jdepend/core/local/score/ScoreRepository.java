@@ -21,7 +21,7 @@ import jdepend.model.result.AnalysisResult;
 
 public final class ScoreRepository {
 
-	private static String insertSql = "insert into score(id, groupname, commandname, LC, Score, D, Balance, Encapsulation, Relation, OO, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+	private static String insertSql = "insert into score(id, groupname, commandname, LC, componentCount, relationCount, Score, Distance, Balance, Encapsulation, Relation, cohesion, coupling, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
 	private static String findSql = "select id from score where groupname = ? and commandname = ?";
 
@@ -76,16 +76,7 @@ public final class ScoreRepository {
 				ps.executeUpdate();
 			}
 			ps = conn.prepareStatement(insertSql);
-			String id = UUID.randomUUID().toString();
-			ps.setString(1, id);
-			ps.setString(2, score.group);
-			ps.setString(3, score.command);
-			ps.setInt(4, score.lc);
-			ps.setFloat(5, score.score);
-			ps.setFloat(6, score.d);
-			ps.setFloat(7, score.balance);
-			ps.setFloat(8, score.encapsulation);
-			ps.setFloat(9, score.relation);
+			String id = assemblePreparedStatement(ps, score);
 			ps.execute();
 
 			conn.commit();
@@ -152,18 +143,8 @@ public final class ScoreRepository {
 				ps.executeUpdate();
 			}
 
-			String id = UUID.randomUUID().toString();
 			ps = conn.prepareStatement(insertSql);
-			ps.setString(1, id);
-			ps.setString(2, score.group);
-			ps.setString(3, score.command);
-			ps.setInt(4, score.lc);
-			ps.setFloat(5, score.score);
-			ps.setFloat(6, score.d);
-			ps.setFloat(7, score.balance);
-			ps.setFloat(8, score.encapsulation);
-			ps.setFloat(9, score.relation);
-			ps.setFloat(10, 0F);
+			String id = assemblePreparedStatement(ps, score);
 			ps.execute();
 
 			data = result.getBytes();
@@ -218,17 +199,7 @@ public final class ScoreRepository {
 			ps = conn.prepareStatement(findAllSql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				score = new ScoreInfo();
-				score.id = rs.getString("id");
-				score.group = rs.getString("groupname");
-				score.command = rs.getString("commandname");
-				score.lc = rs.getInt("lc");
-				score.score = rs.getFloat("score");
-				score.d = rs.getFloat("d");
-				score.balance = rs.getFloat("balance");
-				score.encapsulation = rs.getFloat("encapsulation");
-				score.relation = rs.getFloat("relation");
-				score.createDate = rs.getTimestamp("createDate");
+				score = getScoreInfo(rs);
 
 				ps1 = conn.prepareStatement(findScoreExtSql);
 				ps1.setString(1, score.id);
@@ -282,17 +253,7 @@ public final class ScoreRepository {
 			ps.setTimestamp(1, new Timestamp(begin.getTime()));
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				score = new ScoreInfo();
-				score.id = rs.getString("id");
-				score.group = rs.getString("groupname");
-				score.command = rs.getString("commandname");
-				score.lc = rs.getInt("lc");
-				score.score = rs.getFloat("score");
-				score.d = rs.getFloat("d");
-				score.balance = rs.getFloat("balance");
-				score.encapsulation = rs.getFloat("encapsulation");
-				score.relation = rs.getFloat("relation");
-				score.createDate = rs.getTimestamp("createDate");
+				score = getScoreInfo(rs);
 
 				ps1 = conn.prepareStatement(findScoreExtSql);
 				ps1.setString(1, score.id);
@@ -430,27 +391,13 @@ public final class ScoreRepository {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
-		ScoreInfo score;
 		try {
 			conn = ConnectionFactory.getConnection();
 			ps = conn.prepareStatement(findTheSql);
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				score = new ScoreInfo();
-				score.id = rs.getString("id");
-				score.group = rs.getString("groupname");
-				score.command = rs.getString("commandname");
-				score.lc = rs.getInt("lc");
-				score.score = rs.getFloat("score");
-				score.d = rs.getFloat("d");
-				score.balance = rs.getFloat("balance");
-				score.encapsulation = rs.getFloat("encapsulation");
-				score.relation = rs.getFloat("relation");
-				score.createDate = rs.getTimestamp("createDate");
-
-				return score;
+				return getScoreInfo(rs);
 			} else {
 				throw new JDependException("id=[" + id + "]没有对应的分数信息");
 			}
@@ -528,5 +475,45 @@ public final class ScoreRepository {
 				}
 			}
 		}
+	}
+
+	private static ScoreInfo getScoreInfo(ResultSet rs) throws SQLException {
+		ScoreInfo score = new ScoreInfo();
+		score.id = rs.getString("id");
+		score.group = rs.getString("groupname");
+		score.command = rs.getString("commandname");
+		score.lc = rs.getInt("lc");
+		score.componentCount = rs.getInt("componentCount");
+		score.relationCount = rs.getInt("relationCount");
+		score.score = rs.getFloat("score");
+		score.distance = rs.getFloat("distance");
+		score.balance = rs.getFloat("balance");
+		score.encapsulation = rs.getFloat("encapsulation");
+		score.relation = rs.getFloat("relation");
+		score.cohesion = rs.getFloat("cohesion");
+		score.coupling = rs.getFloat("coupling");
+		score.createDate = rs.getTimestamp("createDate");
+
+		return score;
+	}
+
+	private static String assemblePreparedStatement(PreparedStatement ps, ScoreInfo score) throws SQLException {
+
+		String id = UUID.randomUUID().toString();
+		ps.setString(1, id);
+		ps.setString(2, score.group);
+		ps.setString(3, score.command);
+		ps.setInt(4, score.lc);
+		ps.setInt(5, score.componentCount);
+		ps.setInt(6, score.relationCount);
+		ps.setFloat(7, score.score);
+		ps.setFloat(8, score.distance);
+		ps.setFloat(9, score.balance);
+		ps.setFloat(10, score.encapsulation);
+		ps.setFloat(11, score.relation);
+		ps.setFloat(12, score.cohesion);
+		ps.setFloat(13, score.coupling);
+
+		return id;
 	}
 }

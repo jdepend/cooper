@@ -91,7 +91,7 @@ public class ScoreUpload extends PersistentBean {
 						user = InetAddress.getLocalHost().getHostName();
 					}
 					for (ScoreInfo item : items) {
-						uploadItem = new ScoreDTO(ip, user, item.group, item.command, item.lc, item.score, item.d,
+						uploadItem = new ScoreDTO(ip, user, item.group, item.command, item.lc, item.score, item.distance,
 								item.balance, item.relation, item.relation, item.createDate);
 						uploadItems.add(uploadItem);
 					}

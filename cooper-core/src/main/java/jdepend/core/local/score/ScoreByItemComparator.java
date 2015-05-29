@@ -40,7 +40,7 @@ public class ScoreByItemComparator implements Comparator {
 			if (this.metrics.equals(AnalysisResult.Metrics_LC)) {
 				rtn = a.lc.compareTo(b.lc);
 			} else if (this.metrics.equals(AnalysisResult.Metrics_D)) {
-				rtn = a.d.compareTo(b.d);
+				rtn = a.distance.compareTo(b.distance);
 			} else if (this.metrics.equals(AnalysisResult.Metrics_Balance)) {
 				rtn = a.balance.compareTo(b.balance);
 			} else if (this.metrics.equals(AnalysisResult.Metrics_RelationRationality)) {

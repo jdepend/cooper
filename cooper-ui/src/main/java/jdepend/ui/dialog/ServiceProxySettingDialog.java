@@ -1,9 +1,10 @@
-package jdepend.ui;
+package jdepend.ui.dialog;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import jdepend.framework.ui.dialog.SettingDialog;
+import jdepend.ui.JDependCooper;
 
 /**
  * The <code>ServiceProxySettingDialog</code> displays the setting information.

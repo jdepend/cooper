@@ -15,11 +15,15 @@ public final class ScoreUtil {
 		score.group = result.getRunningContext().getGroup();
 		score.command = result.getRunningContext().getCommand();
 		score.lc = result.getSummary().getLineCount();
+		score.componentCount = result.getSummary().getComponentCount();
+		score.relationCount = result.getSummary().getRelationCount();
 		score.score = result.getScore();
-		score.d = result.getDistance();
+		score.distance = result.getDistance();
 		score.balance = result.getBalance();
 		score.relation = result.getRelationRationality();
 		score.encapsulation = result.getEncapsulation();
+		score.cohesion = result.getSummary().getCohesion();
+		score.coupling = result.getSummary().getCoupling();
 
 		if (ScoreAndResult.equals(mode)) {
 			ScoreRepository.save(score, result);

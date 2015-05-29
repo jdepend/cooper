@@ -17,6 +17,14 @@ public final class ScoreDTO implements Serializable, Comparable<ScoreDTO> {
 	public String command;
 
 	public Integer lc;
+	
+	public Integer componentCount;
+
+	public Integer relationCount;
+	
+	public Float cohesion;
+
+	public Float coupling;
 
 	public Float score;
 

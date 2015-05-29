@@ -12,8 +12,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.model.JDependUnitMgr;
-import jdepend.ui.CooperTabbedPane;
 import jdepend.ui.JDependCooper;
+import jdepend.ui.framework.CooperTabbedPane;
 
 public class PropertyPanel extends JPanel {
 
