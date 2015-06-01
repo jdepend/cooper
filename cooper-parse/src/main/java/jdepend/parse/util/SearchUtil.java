@@ -14,7 +14,7 @@ import jdepend.parse.ParseListener;
 
 public final class SearchUtil {
 
-	private Parse jdepend = new Parse();
+	private Parse parse = new Parse();
 
 	private Collection<JavaPackage> javaPackages;
 
@@ -30,7 +30,7 @@ public final class SearchUtil {
 
 		for (String path : paths) {
 			try {
-				this.jdepend.addDirectorys(path);
+				this.parse.addDirectorys(path);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -38,16 +38,16 @@ public final class SearchUtil {
 	}
 
 	public SearchUtil(AnalyzeData data) {
-		this.jdepend.setAnalyseData(data);
+		this.parse.setAnalyseData(data);
 	}
 
 	public void addFilters(List<String> filters) {
-		this.jdepend.addFilteredPackages(filters);
+		this.parse.addFilteredPackages(filters);
 	}
 
 	public int getClassCount() {
 		if (classCount == null) {
-			classCount = this.jdepend.countClasses();
+			classCount = this.parse.countClasses();
 		}
 		return classCount;
 	}
@@ -76,7 +76,7 @@ public final class SearchUtil {
 
 	private void analyse() throws JDependException {
 
-		this.javaPackages = new ArrayList<JavaPackage>(this.jdepend.execute());
+		this.javaPackages = new ArrayList<JavaPackage>(this.parse.execute());
 
 		this.javaClasses = new ArrayList<JavaClass>();
 		for (JavaPackage javaPackage : javaPackages) {
@@ -86,30 +86,30 @@ public final class SearchUtil {
 
 	public void addPath(String path) {
 		try {
-			this.jdepend.addDirectorys(path);
+			this.parse.addDirectorys(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void addAnalyseData(AnalyzeData data) {
-		this.jdepend.setAnalyseData(data);
+		this.parse.setAnalyseData(data);
 	}
 
 	public void setBuildClassRelation(boolean isBuildClassRelation) {
-		this.jdepend.setBuildClassRelation(isBuildClassRelation);
+		this.parse.setBuildClassRelation(isBuildClassRelation);
 	}
 
 	public void setSupplyJavaClassDetail(boolean isSupplyJavaClassDetail) {
-		this.jdepend.setSupplyJavaClassDetail(isSupplyJavaClassDetail);
+		this.parse.setSupplyJavaClassDetail(isSupplyJavaClassDetail);
 	}
 
 	public void setParseConfigs(boolean isParseConfigs) {
-		this.jdepend.setParseConfigs(isParseConfigs);
+		this.parse.setParseConfigs(isParseConfigs);
 	}
 
 	public void addParseListener(ParseListener listener) {
-		this.jdepend.addParseListener(listener);
+		this.parse.addParseListener(listener);
 	}
 
 }

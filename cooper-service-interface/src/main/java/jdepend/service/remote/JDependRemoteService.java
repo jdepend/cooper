@@ -1,7 +1,9 @@
 package jdepend.service.remote;
 
 import java.rmi.Remote;
+import java.util.Collection;
 
+import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 
 /**
@@ -36,4 +38,15 @@ public interface JDependRemoteService extends Remote {
 	 * @param monitor
 	 */
 	public void addMonitor(ServiceMonitor monitor) throws java.rmi.RemoteException;
+
+	/**
+	 * 得到分析目标包含的包集合
+	 * 
+	 * @param data
+	 * @param request
+	 * @return
+	 * @throws java.rmi.RemoteException
+	 */
+	public abstract Collection<JavaPackage> getPackages(JDependRequest request, AnalyseDataDTO data)
+			throws java.rmi.RemoteException;
 }

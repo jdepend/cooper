@@ -19,21 +19,21 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
-import jdepend.parse.util.SearchUtil;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class AnalyseService {
 
-	public Collection<JavaPackage> listPackages(AnalyzeData analyseData) {
+	public Collection<JavaPackage> listPackages(AnalyzeData analyseData) throws JDependException {
 
-		SearchUtil searchUtil = new SearchUtil(analyseData);
-		searchUtil.setParseConfigs(false);
-		searchUtil.setSupplyJavaClassDetail(false);
-		searchUtil.setBuildClassRelation(false);
+		JDependServiceProxy serviceProxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
+				.createJDependServiceProxy(null, null);
+
+		serviceProxy.setAnalyseData(analyseData);
+
 		Collection<JavaPackage> innerJavaPackages = new ArrayList<JavaPackage>();
-		for (JavaPackage javaPackage : searchUtil.getPackages()) {
+		for (JavaPackage javaPackage : serviceProxy.getPackages()) {
 			if (javaPackage.isInner()) {
 				innerJavaPackages.add(javaPackage);
 			}

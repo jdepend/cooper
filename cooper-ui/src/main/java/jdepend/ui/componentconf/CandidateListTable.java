@@ -21,6 +21,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import jdepend.core.framework.serviceproxy.JDependServiceProxy;
+import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.core.local.config.CommandConf;
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.config.GroupConf;
@@ -32,7 +34,6 @@ import jdepend.metadata.Candidate;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.metadata.util.JavaClassUtil;
-import jdepend.parse.util.SearchUtil;
 
 public class CandidateListTable extends JTable {
 
@@ -316,24 +317,21 @@ public class CandidateListTable extends JTable {
 			// 转换
 			path = CommandConf.covertDefaultClassesPath(path);
 
-			List<String> paths = new ArrayList<String>();
-			paths.add(path);
-
-			SearchUtil searchUtil = new SearchUtil(paths);
-			searchUtil.setParseConfigs(false);
-			searchUtil.setSupplyJavaClassDetail(false);
-			searchUtil.setBuildClassRelation(false);
+			JDependServiceProxy serviceProxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
+					.createJDependServiceProxy(null, null);
 
 			try {
+				serviceProxy.addDirectory(path);
 				// 设置当前命令组配置的FilteredPackages
 				GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(this.currentGroup);
 				if (groupConf != null) {
-					searchUtil.addFilters(groupConf.getFilteredPackages());
+					serviceProxy.addFilteredPackages(groupConf.getFilteredPackages());
 				}
+				packages = serviceProxy.getPackages();
 			} catch (JDependException e) {
 				e.printStackTrace();
+				packages = new ArrayList<JavaPackage>();
 			}
-			packages = searchUtil.getPackages();
 		}
 
 		return componentModelPanel.getComponentModelConf().getCandidates(packages);

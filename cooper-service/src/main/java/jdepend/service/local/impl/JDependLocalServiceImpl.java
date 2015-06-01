@@ -215,4 +215,14 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 			listener.onAnalyse(result);
 		}
 	}
+
+	@Override
+	public Collection<JavaPackage> getPackages() throws JDependException {
+
+		this.parse.setParseConfigs(false);
+		this.parse.setSupplyJavaClassDetail(false);
+		this.parse.setBuildClassRelation(false);
+
+		return new ArrayList<JavaPackage>(this.parse.execute());
+	}
 }

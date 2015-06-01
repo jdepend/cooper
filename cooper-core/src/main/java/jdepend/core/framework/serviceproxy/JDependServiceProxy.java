@@ -1,10 +1,12 @@
 package jdepend.core.framework.serviceproxy;
 
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
@@ -18,6 +20,14 @@ import jdepend.service.local.AnalyseListener;
  * 
  */
 public interface JDependServiceProxy {
+	
+	/**
+	 * 得到服务分析目标包含的包集合
+	 * 
+	 * @return
+	 * @throws JDependException 
+	 */
+	public Collection<JavaPackage> getPackages() throws JDependException;
 
 	/**
 	 * 分析过程

@@ -3,10 +3,12 @@ package jdepend.service.remote.impl;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.service.framework.context.AnalyseContext;
 import jdepend.service.framework.context.AnalyseContextMgr;
@@ -99,6 +101,19 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 	public int getAnalyzeSchedule(JDependRequest request) throws RemoteException {
 		try {
 			return JDependSessionMgr.getInstance().getSession(request).getAnalyzeSchedule();
+		} catch (JDependException e) {
+			e.printStackTrace();
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Collection<JavaPackage> getPackages(JDependRequest request, AnalyseDataDTO data) throws RemoteException {
+		JDependLocalService localService = new JDependLocalServiceImpl(request.getGroupName(), request.getCommandName());
+		// 设置分析数据
+		localService.setAnalyzeData(data.getAnalyzeData());
+		try {
+			return localService.getPackages();
 		} catch (JDependException e) {
 			e.printStackTrace();
 			throw new RemoteException(e.getMessage());

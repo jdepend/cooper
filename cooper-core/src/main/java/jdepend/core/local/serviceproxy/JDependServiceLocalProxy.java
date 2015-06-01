@@ -3,11 +3,13 @@ package jdepend.core.local.serviceproxy;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
+import java.util.Collection;
 import java.util.List;
 
 import jdepend.core.framework.serviceproxy.AbstractJDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
+import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
@@ -79,5 +81,10 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 	@Override
 	public void setAnalyseData(AnalyzeData data) {
 		this.service.setAnalyzeData(data);
+	}
+
+	@Override
+	public Collection<JavaPackage> getPackages() throws JDependException {
+		return this.service.getPackages();
 	}
 }

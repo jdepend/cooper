@@ -2,6 +2,9 @@
 
 a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
 
+b）将ui、webserver组件中涉及SearchUtil.getPackages的逻辑该由JDependServiceProxy.getPackages来承担，以支持parse可以完全在远程运行
+
+
 1.2.5_02 2015-05-27
 
 a）将JavaClass改名为JavaClassUnit
