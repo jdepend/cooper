@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import jdepend.core.local.config.CommandConf;
+import jdepend.core.local.config.CommandConfException;
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.config.GroupConf;
 import jdepend.core.local.config.GroupConfChangeListener;
@@ -29,7 +30,7 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 		this.refresh();
 	}
 
-	public void refresh() throws JDependException {
+	public void refresh() throws CommandConfException {
 
 		CommandAdapter adapter;
 		LinkedHashMap<String, CommandAdapter> commandAdapters;
@@ -76,19 +77,19 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 	}
 
 	@Override
-	public void onCreate(String group) throws JDependException {
+	public void onCreate(String group) throws CommandConfException {
 	}
 
 	@Override
-	public void onDelete(String group) throws JDependException {
+	public void onDelete(String group) throws CommandConfException {
 	}
 
 	@Override
-	public void onUpdate(String group) throws JDependException {
+	public void onUpdate(String group) throws CommandConfException {
 	}
 
 	@Override
-	public void onRefresh() throws JDependException {
+	public void onRefresh() throws CommandConfException {
 		this.refresh();
 	}
 }

@@ -11,10 +11,12 @@ import java.util.jar.JarFile;
 
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
+
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.framework.util.FileUtil;
+import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
@@ -102,7 +104,7 @@ public class GroupConf implements Cloneable {
 		conf.insert(this);
 	}
 
-	void insertAll() throws JDependException {
+	void insertAll() throws CommandConfException {
 
 		insert();
 
@@ -248,8 +250,12 @@ public class GroupConf implements Cloneable {
 		throw new CommandConfException(name, null, "源文件读取失败！");
 	}
 
-	public void insertComponentGroups() throws JDependException {
-		this.groupComponentModelConf.save();
+	public void insertComponentGroups() throws CommandConfException {
+		try {
+			this.groupComponentModelConf.save();
+		} catch (ComponentConfException e) {
+			throw new CommandConfException(e);
+		}
 	}
 
 	public ComponentModelConf getTheComponentModelConf(String name) {
@@ -264,13 +270,18 @@ public class GroupConf implements Cloneable {
 		this.groupComponentModelConf.setComponentModelConfs(components);
 	}
 
-	public void addComponentModel(ComponentModelConf componentGroup) throws JDependException {
-		this.groupComponentModelConf.addComponentModelConf(componentGroup);
-		insertComponentGroups();
-		BusiLogUtil.getInstance().businessLog(Operation.createComponentModel);
+	public void addComponentModel(ComponentModelConf componentGroup) throws CommandConfException {
+
+		try {
+			this.groupComponentModelConf.addComponentModelConf(componentGroup);
+			insertComponentGroups();
+			BusiLogUtil.getInstance().businessLog(Operation.createComponentModel);
+		} catch (ComponentConfException e) {
+			throw new CommandConfException(e);
+		}
 	}
 
-	public void deleteComponentModel(String name) throws JDependException {
+	public void deleteComponentModel(String name) throws CommandConfException {
 		this.groupComponentModelConf.getComponentModelConfs().remove(name);
 		insertComponentGroups();
 		BusiLogUtil.getInstance().businessLog(Operation.deleteComponentModel);

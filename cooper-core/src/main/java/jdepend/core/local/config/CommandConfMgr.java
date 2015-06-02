@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -27,11 +26,11 @@ public final class CommandConfMgr {
 
 	private transient List<GroupConfChangeListener> listeners = new ArrayList<GroupConfChangeListener>();
 
-	private CommandConfMgr() throws JDependException {
+	private CommandConfMgr() throws CommandConfException {
 		this.refresh();
 	}
 
-	public synchronized void refresh() throws JDependException {
+	public synchronized void refresh() throws CommandConfException {
 		groups = GroupConf.init();
 
 		for (GroupConfChangeListener listener : this.listeners) {
@@ -39,7 +38,7 @@ public final class CommandConfMgr {
 		}
 	}
 
-	public static CommandConfMgr getInstance() throws JDependException {
+	public static CommandConfMgr getInstance() throws CommandConfException {
 		if (mgr == null) {
 			mgr = new CommandConfMgr();
 		}
@@ -64,7 +63,7 @@ public final class CommandConfMgr {
 		return null;
 	}
 
-	public synchronized void createGroup(GroupConf group) throws JDependException {
+	public synchronized void createGroup(GroupConf group) throws CommandConfException {
 		group.insertAll();
 		groups.add(group);
 
@@ -79,8 +78,9 @@ public final class CommandConfMgr {
 		return groups;
 	}
 
-	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute,
-			List<CommandConf> commandInfos, Map<String, ComponentModelConf> componentModels) throws JDependException {
+	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages,
+			String attribute, List<CommandConf> commandInfos, Map<String, ComponentModelConf> componentModels)
+			throws CommandConfException {
 		GroupConf group = new GroupConf(name);
 		group.setPath(path);
 		group.setSrcPath(srcPath);
@@ -92,8 +92,8 @@ public final class CommandConfMgr {
 		this.createGroup(group);
 	}
 
-	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages, String attribute)
-			throws JDependException {
+	public synchronized void createGroup(String name, String path, String srcPath, List<String> filteredPackages,
+			String attribute) throws CommandConfException {
 		GroupConf group = new GroupConf(name, path, srcPath, filteredPackages, attribute);
 		this.createGroup(group);
 	}
@@ -104,7 +104,7 @@ public final class CommandConfMgr {
 		for (GroupConfChangeListener listener : this.listeners) {
 			try {
 				listener.onUpdate(group.getName());
-			} catch (JDependException e) {
+			} catch (CommandConfException e) {
 				e.printStackTrace();
 			}
 		}
@@ -116,7 +116,7 @@ public final class CommandConfMgr {
 		}
 	}
 
-	public synchronized void deleteGroup(String group) throws JDependException {
+	public synchronized void deleteGroup(String group) throws CommandConfException {
 
 		for (GroupConfChangeListener listener : this.listeners) {
 			listener.onDelete(group);
@@ -134,7 +134,7 @@ public final class CommandConfMgr {
 		BusiLogUtil.getInstance().businessLog(Operation.deleteCommand);
 	}
 
-	public synchronized void deleteComponentGroup(String group, String componentGroup) throws JDependException {
+	public synchronized void deleteComponentGroup(String group, String componentGroup) throws CommandConfException {
 		this.getTheGroup(group).deleteComponentModel(componentGroup);
 	}
 

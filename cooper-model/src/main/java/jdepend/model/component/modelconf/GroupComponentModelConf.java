@@ -149,9 +149,9 @@ public final class GroupComponentModelConf {
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	public void addComponentModelConf(ComponentModelConf componentModelConf) throws JDependException {
+	public void addComponentModelConf(ComponentModelConf componentModelConf) throws ComponentConfException {
 		if (this.componentModelConfs.containsKey(componentModelConf.getName())) {
-			throw new JDependException("组件模型[" + componentModelConf.getName() + "]重复");
+			throw new ComponentConfException("组件模型[" + componentModelConf.getName() + "]重复");
 		}
 		this.componentModelConfs.put(componentModelConf.getName(), componentModelConf);
 	}

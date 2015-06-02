@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.core.local.config.CommandConfException;
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.config.GroupConfChangeListener;
 import jdepend.framework.exception.JDependException;
@@ -202,22 +203,26 @@ public class ReportHistoryPanel extends JPanel implements GroupConfChangeListene
 	}
 
 	@Override
-	public void onCreate(String group) throws JDependException {
+	public void onCreate(String group) throws CommandConfException {
 	}
 
 	@Override
-	public void onDelete(String group) throws JDependException {
-		new ReportHistory(group).deleteGroup();
-		if (this.currentGroup != null && this.currentGroup.equals(group)) {
-			this.clearHistory();
+	public void onDelete(String group) throws CommandConfException {
+		try {
+			new ReportHistory(group).deleteGroup();
+			if (this.currentGroup != null && this.currentGroup.equals(group)) {
+				this.clearHistory();
+			}
+		} catch (JDependException e) {
+			throw new CommandConfException(e);
 		}
 	}
 
 	@Override
-	public void onUpdate(String group) throws JDependException {
+	public void onUpdate(String group) throws CommandConfException {
 	}
 
 	@Override
-	public void onRefresh() throws JDependException {
+	public void onRefresh() throws CommandConfException {
 	}
 }

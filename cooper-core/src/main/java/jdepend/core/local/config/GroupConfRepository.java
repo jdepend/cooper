@@ -51,7 +51,7 @@ public class GroupConfRepository {
 	 * properties specified in the file <code>group.properties</code>, if it
 	 * exists.
 	 * 
-	 * @throws JDependException
+	 * @throws CommandConfException
 	 */
 	public GroupConfRepository() throws CommandConfException {
 		reload();
