@@ -9,6 +9,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
@@ -37,20 +38,20 @@ public final class CustomComponent extends Component {
 	}
 
 	@Override
-	public void init(String group, String command, String info) throws JDependException {
+	public void init(String group, String command, String info) throws ComponentException {
 		try {
 			componentModelConf = ComponentModelConfMgr.getInstance().getTheComponentModelConf(group, info);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new JDependException("CustomComponent 初始化失败！");
+			throw new ComponentException("CustomComponent 初始化失败！");
 		}
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
 
 		if (componentModelConf == null || componentModelConf.size() == 0) {
-			throw new JDependException("没有定义组件信息！");
+			throw new ComponentException("没有定义组件信息！");
 		}
 
 		List<Component> components = new ArrayList<Component>();
@@ -75,7 +76,7 @@ public final class CustomComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws ComponentException {
 
 		CustomComponent obj = (CustomComponent) super.clone(javaClasses);
 		obj.setComponentInfo(this.componentModelConf);

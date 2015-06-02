@@ -11,6 +11,7 @@ import java.util.Properties;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
+import jdepend.model.ComponentException;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
 
 public class ComponentJudgeFactory {
@@ -21,7 +22,7 @@ public class ComponentJudgeFactory {
 
 	private JudgeConfigure conf = new JudgeConfigure();
 
-	public ComponentJudgeFactory(String group, String command) throws JDependException {
+	public ComponentJudgeFactory(String group, String command) throws ComponentException {
 
 		this.group = group;
 		this.command = command;
@@ -38,7 +39,7 @@ public class ComponentJudgeFactory {
 			} catch (Exception e) {
 				e.printStackTrace();
 				LogUtil.getInstance(ComponentJudgeFactory.class).systemError("读取componentJudge配置信息出错。");
-				throw new JDependException("读取componentJudge配置信息出错。", e);
+				throw new ComponentException("读取componentJudge配置信息出错。", e);
 			} finally {
 				try {
 					if (is != null) {

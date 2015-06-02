@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
 
 public final class JarComponent extends Component {
@@ -25,7 +25,7 @@ public final class JarComponent extends Component {
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
 
 		Map<String, JarComponent> components = new HashMap<String, JarComponent>();
 		JarComponent component;

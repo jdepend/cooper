@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.metadata.tree.JavaPackageNode;
 import jdepend.metadata.tree.JavaPackageTreeCreator;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.ComponentJudgeFactory;
@@ -39,12 +39,12 @@ public final class AptitudeComponent extends Component {
 	}
 
 	@Override
-	public void init(String group, String command, String info) throws JDependException {
+	public void init(String group, String command, String info) throws ComponentException {
 		this.initJudges(group, command);
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
 		// 清空临时计算结果
 		List<Component> components = new ArrayList<Component>();
 		// 构造JavaPackageTree
@@ -60,7 +60,7 @@ public final class AptitudeComponent extends Component {
 	}
 
 	private void createComponent(JavaPackageNode node, Collection<JavaPackage> javaPackages, List<Component> components)
-			throws JDependException {
+			throws ComponentException {
 		for (JavaPackageNode child : node.getChildren()) {
 			if (this.isComponent(child)) {
 				components.add(this.createComponent(child.getPath(), javaPackages));
@@ -82,7 +82,7 @@ public final class AptitudeComponent extends Component {
 		return component;
 	}
 
-	private boolean isComponent(JavaPackageNode node) throws JDependException {
+	private boolean isComponent(JavaPackageNode node) throws ComponentException {
 
 		for (ComponentJudge judge : this.judges) {
 			if (judge.isComponent(node)) {
@@ -92,10 +92,10 @@ public final class AptitudeComponent extends Component {
 		return false;
 	}
 
-	private void initJudges(String group, String command) throws JDependException {
+	private void initJudges(String group, String command) throws ComponentException {
 
 		if (group == null || command == null) {
-			throw new JDependException("执行环境中没有RunningCommand信息。");
+			throw new ComponentException("执行环境中没有RunningCommand信息。");
 		}
 
 		this.judges = (new ComponentJudgeFactory(group, command)).getJudges();

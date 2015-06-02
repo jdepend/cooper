@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
 
 /**
@@ -31,7 +31,7 @@ public final class JavaPackageComponent extends Component {
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
 
 		List<Component> components = new ArrayList<Component>();
 		Component component = null;

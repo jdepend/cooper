@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 
@@ -29,8 +29,8 @@ public final class UniteComponent extends Component {
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
-		throw new JDependException("合并组件不进行组件的识别");
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
+		throw new ComponentException("合并组件不进行组件的识别");
 	}
 
 	public Collection<String> getSubComponents() {
@@ -52,7 +52,7 @@ public final class UniteComponent extends Component {
 	}
 
 	@Override
-	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws ComponentException {
 		UniteComponent obj = (UniteComponent) super.clone(javaClasses);
 		obj.setSubComponents(this.subComponents);
 

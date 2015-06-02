@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.JavaClass;
@@ -113,9 +112,9 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * @param group
 	 * @param command
 	 * @param info
-	 * @throws JDependException
+	 * @throws ComponentException
 	 */
-	public void init(String group, String command, String info) throws JDependException {
+	public void init(String group, String command, String info) throws ComponentException {
 	}
 
 	/**
@@ -125,9 +124,9 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * 
 	 * @param javaPackages
 	 * @return
-	 * @throws JDependException
+	 * @throws ComponentException
 	 */
-	public final List<Component> list(Collection<JavaPackage> javaPackages) throws JDependException {
+	public final List<Component> list(Collection<JavaPackage> javaPackages) throws ComponentException {
 		List<Component> components = this.doList(javaPackages);
 		this.filterExternalJavaClass(components);
 		return components;
@@ -150,9 +149,9 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * 
 	 * @param javaPackages
 	 * @return
-	 * @throws JDependException
+	 * @throws ComponentException
 	 */
-	protected abstract List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException;
+	protected abstract List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException;
 
 	@Override
 	public boolean isInner() {
@@ -582,7 +581,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 		return null;
 	}
 
-	public Component clone(Map<String, JavaClassUnit> javaClasses) throws JDependException {
+	public Component clone(Map<String, JavaClassUnit> javaClasses) throws ComponentException {
 		try {
 			Component obj = this.getClass().newInstance();
 			obj.setName(this.getName());
@@ -597,7 +596,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 			return obj;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new JDependException("克隆" + this.getName() + "出错", e);
+			throw new ComponentException("克隆" + this.getName() + "出错", e);
 		}
 	}
 

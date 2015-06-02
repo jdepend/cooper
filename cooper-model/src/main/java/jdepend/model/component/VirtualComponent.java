@@ -3,11 +3,10 @@ package jdepend.model.component;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.SubJDependUnit;
 
 /**
  * 一种组织类的方式，不改变Class所属组件的性质
@@ -56,7 +55,7 @@ public class VirtualComponent extends Component {
 	}
 
 	@Override
-	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws JDependException {
-		throw new JDependException("虚拟组件不进行组件的识别");
+	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {
+		throw new ComponentException("虚拟组件不进行组件的识别");
 	}
 }
