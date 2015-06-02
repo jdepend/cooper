@@ -32,6 +32,6 @@ public interface DomainAnalysis extends Serializable {
 	 * @return
 	 * @throws JDependException 
 	 */
-	public AdviseInfo advise(String name, AnalysisResult data) throws JDependException;
+	public AdviseInfo advise(String name, AnalysisResult data) throws ExpertException;
 
 }

@@ -4,7 +4,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.domainanalysis.impl.ArchitectPatternDomainAnalysis;
 import jdepend.knowledge.domainanalysis.impl.CohesionDomainAnalysis;
 import jdepend.knowledge.domainanalysis.impl.DDomainAnalysis;
@@ -33,13 +32,13 @@ public final class DomainAnalysisMgr {
 		return this.domainAnalysises;
 	}
 
-	public DomainAnalysis getTheDomainAnalysis(StructureCategory sc) throws JDependException {
+	public DomainAnalysis getTheDomainAnalysis(StructureCategory sc) throws ExpertException {
 		for (DomainAnalysis domainAnalysis : domainAnalysises) {
 			if (domainAnalysis.getStructureCategory().equals(sc)) {
 				return domainAnalysis;
 			}
 		}
-		throw new JDependException("未找到类型为[" + sc + "]的领域分析器");
+		throw new ExpertException("未找到类型为[" + sc + "]的领域分析器");
 	}
 
 	private void init() {

@@ -1,14 +1,13 @@
 package jdepend.knowledge.domainanalysis;
 
 import jdepend.framework.domain.PersistentBean;
-import jdepend.framework.exception.JDependException;
 import jdepend.model.result.AnalysisResult;
 
 public abstract class AbstractDomainAnalysis extends PersistentBean implements DomainAnalysis {
 
 	private boolean enable = true;
 
-	public AdviseInfo advise(String name, AnalysisResult data) throws JDependException {
+	public AdviseInfo advise(String name, AnalysisResult data) throws ExpertException {
 		if (!enable) {
 			return null;
 		} else {
@@ -16,7 +15,7 @@ public abstract class AbstractDomainAnalysis extends PersistentBean implements D
 		}
 	}
 
-	protected abstract AdviseInfo doAdvise(String name, AnalysisResult data) throws JDependException;
+	protected abstract AdviseInfo doAdvise(String name, AnalysisResult data) throws ExpertException;
 
 	public AbstractDomainAnalysis() {
 		super();

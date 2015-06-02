@@ -5,6 +5,7 @@ import jdepend.knowledge.architectpattern.ArchitectPatternMgr;
 import jdepend.knowledge.architectpattern.ArchitectPatternResult;
 import jdepend.knowledge.domainanalysis.AbstractDomainAnalysis;
 import jdepend.knowledge.domainanalysis.AdviseInfo;
+import jdepend.knowledge.domainanalysis.ExpertException;
 import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.result.AnalysisResult;
 
@@ -20,9 +21,14 @@ public final class ArchitectPatternDomainAnalysis extends AbstractDomainAnalysis
 	}
 
 	@Override
-	protected AdviseInfo doAdvise(String name, AnalysisResult result) throws JDependException {
+	protected AdviseInfo doAdvise(String name, AnalysisResult result) throws ExpertException {
 
-		ArchitectPatternResult apResult = ArchitectPatternMgr.getInstance().identify(result);
+		ArchitectPatternResult apResult;
+		try {
+			apResult = ArchitectPatternMgr.getInstance().identify(result);
+		} catch (JDependException e) {
+			throw new ExpertException(e);
+		}
 		String desc = apResult.getResult();
 		if (desc != null) {
 			return new AdviseInfo(desc);
