@@ -16,7 +16,7 @@ public class BCELClassFileParser extends AbstractParser {
 	}
 
 	@Override
-	protected JavaClass doParse(String place, InputStream is) throws ParseJDependException {
+	protected JavaClass doParse(String place, InputStream is) throws ParseClassException {
 
 		JavaClass jClass = null;
 		try {
@@ -44,9 +44,9 @@ public class BCELClassFileParser extends AbstractParser {
 			return jClass;
 		} catch (Exception e) {
 			if (jClass != null) {
-				throw new ParseJDependException(jClass.getName(), e);
+				throw new ParseClassException(jClass.getName(), e);
 			} else {
-				throw new ParseJDependException(e);
+				throw new ParseClassException(e);
 			}
 		}
 	}

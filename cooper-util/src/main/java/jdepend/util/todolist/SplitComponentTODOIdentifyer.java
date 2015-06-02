@@ -35,11 +35,11 @@ public class SplitComponentTODOIdentifyer implements TODOIdentifyer {
 	 * 根据内聚性指数拆分
 	 */
 	private void identifySplitCompoentWithBalance(TODOIdentifyInfo info) {
-		SplitCompoentTODOItem item = null;
+		SplitComponentTODOItem item = null;
 		for (Component component : info.getResult().getComponents()) {
 			if (!this.splitComponents.contains(component) && component.getBalance() != null
 					&& component.getBalance() < 0.2F) {
-				item = new SplitCompoentTODOItem(component);
+				item = new SplitComponentTODOItem(component);
 				if (item.isSplit()) {
 					item.setContent("组件[" + component.getName() + "]内聚性差，需要拆分");
 					item.setAccording("组件内的Class应该关系更紧密，而与其他组件中的Class关系疏远");
@@ -61,13 +61,13 @@ public class SplitComponentTODOIdentifyer implements TODOIdentifyer {
 		Collections.sort(components, new JDependUnitByMetricsComparator(MetricsMgr.Ce, false));
 		int Ca;
 		int Ce;
-		SplitCompoentTODOItem item = null;
+		SplitComponentTODOItem item = null;
 		L: for (Component component : components) {
 			if (!this.splitComponents.contains(component)) {
 				Ca = component.getAfferentCoupling();
 				Ce = component.getEfferentCoupling();
 				if (Ca == 1 && Ca < Ce) {
-					item = new SplitCompoentTODOItem(component);
+					item = new SplitComponentTODOItem(component);
 					if (item.isSplit()) {
 						item.setContent("组件[" + component.getName() + "]作为易分对象又被其他组件依赖，需要拆分");
 						item.setAccording("作为易分对象又被其他组件依赖，需要拆分");

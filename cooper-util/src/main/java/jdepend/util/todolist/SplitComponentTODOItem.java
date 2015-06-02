@@ -14,13 +14,13 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.util.refactor.RefactorToolFactory;
 
-public final class SplitCompoentTODOItem extends TODOItem {
+public final class SplitComponentTODOItem extends TODOItem {
 
 	private JDependUnit unit;
 
 	private transient Map<String, Collection<JavaClassUnit>> moveInfos;
 
-	public SplitCompoentTODOItem(JDependUnit unit) {
+	public SplitComponentTODOItem(JDependUnit unit) {
 		super();
 		this.unit = unit;
 	}

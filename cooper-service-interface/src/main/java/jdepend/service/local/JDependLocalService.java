@@ -25,9 +25,9 @@ public interface JDependLocalService {
 	 * 分析服务
 	 * 
 	 * @return
-	 * @throws JDependException
+	 * @throws ServiceException
 	 */
-	public AnalysisResult analyze() throws JDependException;
+	public AnalysisResult analyze() throws ServiceException;
 
 	/**
 	 * 设置组件模型
@@ -106,5 +106,5 @@ public interface JDependLocalService {
 	 * @return
 	 * @throws JDependException 
 	 */
-	public Collection<JavaPackage> getPackages() throws JDependException;
+	public Collection<JavaPackage> getPackages() throws ServiceException;
 }

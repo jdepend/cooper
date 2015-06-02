@@ -1,17 +1,17 @@
 package jdepend.parse.impl;
 
-import jdepend.framework.exception.JDependException;
+import jdepend.parse.ParseException;
 
-public class ParseJDependException extends JDependException {
+public class ParseClassException extends ParseException {
 
 	private String errorJavaClass;
 
-	public ParseJDependException(String errorJavaClass, Exception e) {
+	public ParseClassException(String errorJavaClass, Exception e) {
 		super(e);
 		this.errorJavaClass = errorJavaClass;
 	}
 
-	public ParseJDependException(Exception e) {
+	public ParseClassException(Exception e) {
 		super(e);
 	}
 

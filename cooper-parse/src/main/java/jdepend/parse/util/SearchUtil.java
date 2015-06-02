@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.parse.Parse;
+import jdepend.parse.ParseException;
 import jdepend.parse.ParseListener;
 
 public final class SearchUtil {
@@ -56,7 +56,7 @@ public final class SearchUtil {
 		if (javaClasses == null) {
 			try {
 				this.analyse();
-			} catch (JDependException e) {
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
@@ -67,14 +67,14 @@ public final class SearchUtil {
 		if (javaPackages == null) {
 			try {
 				this.analyse();
-			} catch (JDependException e) {
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
 		return javaPackages;
 	}
 
-	private void analyse() throws JDependException {
+	private void analyse() throws ParseException {
 
 		this.javaPackages = new ArrayList<JavaPackage>(this.parse.execute());
 

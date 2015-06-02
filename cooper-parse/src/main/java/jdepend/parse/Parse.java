@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
@@ -61,9 +60,9 @@ public class Parse {
 	 * 解析目标对象
 	 * 
 	 * @return
-	 * @throws JDependException
+	 * @throws ParseException
 	 */
-	public Collection<JavaPackage> execute() throws JDependException {
+	public Collection<JavaPackage> execute() throws ParseException {
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 
@@ -193,12 +192,12 @@ public class Parse {
 		return this.builder;
 	}
 
-	public AnalyzeData getAnalyseData() throws JDependException {
+	public AnalyzeData getAnalyseData() throws ParseException {
 		if (this.data == null) {
 			try {
 				data = this.fileManager.getAnalyzeData();
 			} catch (IOException e) {
-				throw new JDependException(e);
+				throw new ParseException(e);
 			}
 		}
 		return data;
