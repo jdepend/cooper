@@ -27,12 +27,14 @@ import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.InvokeItem;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.relationtype.TableRelation;
 import jdepend.model.JDependUnit;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.RelationDetail;
+import jdepend.model.result.AnalysisResult;
 import jdepend.report.util.ReportConstant;
 
 public final class RelationDetailPanel extends JPanel {
@@ -104,14 +106,15 @@ public final class RelationDetailPanel extends JPanel {
 		if (items != null && items.size() != 0) {
 
 			for (JavaClassRelationItem item : items) {
-				row = new Object[6];
+				row = new Object[7];
 
-				row[0] = item.getSource().getPlace();
-				row[1] = item.getSource().getName();
-				row[2] = item.getTarget().getPlace();
-				row[3] = item.getTarget().getName();
-				row[4] = item.getType().getName();
-				row[5] = item.getRelationIntensity();
+				row[0] = item.getId();
+				row[1] = item.getSource().getPlace();
+				row[2] = item.getSource().getName();
+				row[3] = item.getTarget().getPlace();
+				row[4] = item.getTarget().getName();
+				row[5] = item.getType().getName();
+				row[6] = item.getRelationIntensity();
 
 				listModel.addRow(row);
 			}
@@ -164,6 +167,16 @@ public final class RelationDetailPanel extends JPanel {
 						JavaClassRelationGraphDialog d = new JavaClassRelationGraphDialog(frame, currentClass);
 						d.setModal(true);
 						d.setVisible(true);
+					} else if (currentCol.equals(ReportConstant.DependType)) {
+						String id = (String) table.getValueAt(row, 0);
+						AnalysisResult result = JDependUnitMgr.getInstance().getResult();
+						JavaClassRelationItem item = result.getTheJavaClassRelationItem(id);
+						Collection<InvokeItem> invokedItems = item.getInvokeDetail();
+						if (invokedItems.size() > 0) {
+							InvokeItemListDialog d = new InvokeItemListDialog(invokedItems);
+							d.setModal(true);
+							d.setVisible(true);
+						}
 					}
 				} else if (e.getButton() == 3) {
 					popupMenu.show(listTable, e.getX(), e.getY());
@@ -177,7 +190,8 @@ public final class RelationDetailPanel extends JPanel {
 				Point point = e.getPoint();
 				int row = listTable.rowAtPoint(point);
 				int column = listTable.columnAtPoint(point);
-				if (column == 2 && listTable.getValueAt(row, column) != null
+				String currentCol = (String) listTable.getColumnModel().getColumn(column).getHeaderValue();
+				if (currentCol.equals(ReportConstant.DependType) && listTable.getValueAt(row, column) != null
 						&& ((String) listTable.getValueAt(row, column)).equals("Table")) {
 					String current = (String) listTable.getValueAt(row, 1);
 					String depend = (String) listTable.getValueAt(row, 3);
@@ -195,6 +209,7 @@ public final class RelationDetailPanel extends JPanel {
 		});
 		sorter.setTableHeader(listTable.getTableHeader());
 
+		listModel.addColumn("id");
 		listModel.addColumn(ReportConstant.CurrentJC_Place);
 		listModel.addColumn(ReportConstant.CurrentJC);
 		listModel.addColumn(ReportConstant.DependJC_Place);
@@ -205,8 +220,11 @@ public final class RelationDetailPanel extends JPanel {
 		listTable.getColumnModel().getColumn(0).setMinWidth(0);
 		listTable.getColumnModel().getColumn(0).setMaxWidth(0);
 
-		listTable.getColumnModel().getColumn(2).setMinWidth(0);
-		listTable.getColumnModel().getColumn(2).setMaxWidth(0);
+		listTable.getColumnModel().getColumn(1).setMinWidth(0);
+		listTable.getColumnModel().getColumn(1).setMaxWidth(0);
+
+		listTable.getColumnModel().getColumn(3).setMinWidth(0);
+		listTable.getColumnModel().getColumn(3).setMaxWidth(0);
 
 		for (int i = 0; i < listTable.getColumnCount(); i++) {
 			listTable.getColumn(listTable.getColumnName(i)).setCellRenderer(new JavaClassRelationTableRenderer());
@@ -216,6 +234,7 @@ public final class RelationDetailPanel extends JPanel {
 		List<String> colNames = new ArrayList<String>();
 		colNames.add(ReportConstant.CurrentJC);
 		colNames.add(ReportConstant.DependJC);
+		colNames.add(ReportConstant.DependType);
 
 		listTable.addMouseMotionListener(new TableMouseMotionAdapter(listTable, colNames));
 	}

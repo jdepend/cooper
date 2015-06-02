@@ -9,7 +9,6 @@ import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.Relation;
 import jdepend.model.RelationData;
 import jdepend.report.way.mapui.GraphPanel;
-import jdepend.util.todolist.TODORelationData;
 
 public class RelationDetailForMoveDialog extends CooperDialog {
 
