@@ -3,7 +3,6 @@ package jdepend.util.analyzer.framework;
 import java.io.IOException;
 import java.io.Serializable;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.result.AnalysisResult;
 
@@ -23,7 +22,7 @@ public interface Analyzer extends Serializable, Comparable<Analyzer> {
 
 	public int getHeat();
 
-	public void search(AnalysisResult result) throws JDependException;
+	public void search(AnalysisResult result) throws AnalyzerException;
 
 	public void setWorker(AnalyzerWorker worker);
 
@@ -31,9 +30,9 @@ public interface Analyzer extends Serializable, Comparable<Analyzer> {
 
 	public int getMaxProgress(AnalysisResult result);
 
-	public void init() throws JDependException;
+	public void init() throws AnalyzerException;
 
-	public void release() throws JDependException;
+	public void release() throws AnalyzerException;
 
 	public void save() throws IOException;
 

@@ -5,13 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 
@@ -25,7 +25,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		Map<Method, String> moveInfos = new LinkedHashMap<Method, String>();
 

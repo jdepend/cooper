@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public final class TogetherInvokeMethod extends AbstractAnalyzer {
 
@@ -22,7 +22,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		Map<JavaClass, Collection<Method>> invokedMethods;
 

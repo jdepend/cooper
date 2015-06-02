@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.element.layer.JavaClassType;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class ActionHaveState extends AbstractAnalyzer {
 
@@ -27,7 +27,7 @@ public class ActionHaveState extends AbstractAnalyzer {
 		this.setType(AntiPattern);
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<String> supers = new ArrayList<String>();
 		supers.add(ActionSuperClassName);

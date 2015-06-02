@@ -3,9 +3,9 @@ package jdepend.util.analyzer.element;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
+import jdepend.model.ComponentException;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
@@ -14,6 +14,7 @@ import jdepend.util.analyzer.element.layer.JavaClassType;
 import jdepend.util.analyzer.element.layer.LayerInfo;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class ActionFormOutWebLayer extends AbstractAnalyzer {
 
@@ -46,7 +47,7 @@ public class ActionFormOutWebLayer extends AbstractAnalyzer {
 		}
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<LayerInfo> layerInfos = new ArrayList<LayerInfo>();
 
@@ -56,7 +57,12 @@ public class ActionFormOutWebLayer extends AbstractAnalyzer {
 
 		JEELayer jeeLayer = new JEELayer(layerInfos);
 
-		List<Component> components = jeeLayer.list(result.getJavaPackages());
+		List<Component> components = null;
+		try {
+			components = jeeLayer.list(result.getJavaPackages());
+		} catch (ComponentException e) {
+			throw new AnalyzerException(e);
+		}
 
 		List<String> supers = new ArrayList<String>();
 		supers.add(ActionFormSuperClassName);

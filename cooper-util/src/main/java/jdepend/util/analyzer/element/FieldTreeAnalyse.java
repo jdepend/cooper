@@ -1,19 +1,15 @@
 package jdepend.util.analyzer.element;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
-import jdepend.metadata.JavaClass;
 import jdepend.metadata.tree.JavaClassFieldTreeCreator;
 import jdepend.metadata.tree.JavaClassTree;
-import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class FieldTreeAnalyse extends AbstractAnalyzer {
 
@@ -32,7 +28,7 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 		super("包含结构分析", Analyzer.Attention, "包含结构分析");
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<JavaClassTree> trees = (new JavaClassFieldTreeCreator()).create(JavaClassUnitUtil.getJavaClasses(result
 				.getClasses()));

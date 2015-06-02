@@ -9,6 +9,7 @@ import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class ComponentInterfaceCheck extends AbstractAnalyzer {
 
@@ -29,9 +30,9 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 		if (this.rule == null) {
-			throw new JDependException("没有设置规则,rule是所在文件夹的名字，如果有多个文件夹，以逗号分隔，{root}代表组件的根路径");
+			throw new AnalyzerException("没有设置规则,rule是所在文件夹的名字，如果有多个文件夹，以逗号分隔，{root}代表组件的根路径");
 		}
 		if (this.keys == null) {
 			this.keys = this.rule.split(",");

@@ -1,6 +1,5 @@
 package jdepend.util.analyzer.element;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.model.result.AnalysisResult;
@@ -8,6 +7,7 @@ import jdepend.model.util.JavaClassRelationInfo;
 import jdepend.model.util.JavaClassRelationUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public final class JavaClassRelationView extends AbstractAnalyzer {
 	/**
@@ -20,7 +20,7 @@ public final class JavaClassRelationView extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		JavaClassRelationUtil javaClassRelationUtil = new JavaClassRelationUtil(result);
 

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.Attribute;
 import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class IdentifyAppService extends AbstractAnalyzer {
 
@@ -26,7 +25,7 @@ public class IdentifyAppService extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		Collection<String> attributes;
 		for (JavaClassUnit javaClass : result.getClasses()) {
@@ -59,7 +58,7 @@ public class IdentifyAppService extends AbstractAnalyzer {
 	}
 
 	@Override
-	public void init() throws JDependException {
+	public void init() throws AnalyzerException {
 
 		serviceNames = new HashSet<String>();
 		serviceNames.add("BO");

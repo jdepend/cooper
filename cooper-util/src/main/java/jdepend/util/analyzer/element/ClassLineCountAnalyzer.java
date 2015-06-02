@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.domain.notPersistent;
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.model.JavaClassUnit;
@@ -16,6 +15,7 @@ import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 
@@ -30,7 +30,7 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		javaClasses = result.getClasses();
 

@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class LSPPrinciple extends AbstractAnalyzer {
 	/**
@@ -22,7 +22,7 @@ public class LSPPrinciple extends AbstractAnalyzer {
 		super("LSP检查", Analyzer.Attention, "识别违反李氏替换原则的地方");
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(result.getClasses());
 
 		Collections.sort(members);

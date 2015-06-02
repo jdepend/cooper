@@ -6,6 +6,7 @@ import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class SearchDAONoPageMethod extends AbstractAnalyzer {
 
@@ -21,12 +22,12 @@ public class SearchDAONoPageMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 		if (daoEndClassName == null || daoEndClassName.length() == 0) {
-			throw new JDependException("没有daoEndClassName参数的定义");
+			throw new AnalyzerException("没有daoEndClassName参数的定义");
 		}
 		if (pageType == null || pageType.length() == 0) {
-			throw new JDependException("没有pageType参数的定义");
+			throw new AnalyzerException("没有pageType参数的定义");
 		}
 		for (JavaClassUnit javaClass : result.getClasses()) {
 			if (javaClass.getName().endsWith(daoEndClassName)) {

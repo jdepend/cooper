@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class CheckFissileObject extends AbstractAnalyzer {
 
@@ -30,7 +30,7 @@ public class CheckFissileObject extends AbstractAnalyzer {
 
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<JDependUnit> units = new ArrayList<JDependUnit>(result.getComponents());
 		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.Ce, false));

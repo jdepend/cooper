@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.metadata.tree.JavaClassInheritTreeCreator;
@@ -16,6 +15,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class OverrideCheck extends AbstractAnalyzer {
 
@@ -42,7 +42,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 		}
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<JavaClassTree> trees = (new JavaClassInheritTreeCreator()).create(JavaClassUnitUtil.getJavaClasses(result
 				.getClasses()));

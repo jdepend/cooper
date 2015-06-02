@@ -9,7 +9,6 @@ import jdepend.core.local.config.CommandConfException;
 import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.config.GroupConf;
 import jdepend.core.local.config.GroupConfChangeListener;
-import jdepend.framework.exception.JDependException;
 
 /**
  * 命令管理器
@@ -26,7 +25,7 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 	// 命名 group label adapter
 	private Map<String, LinkedHashMap<String, CommandAdapter>> commands = new LinkedHashMap<String, LinkedHashMap<String, CommandAdapter>>();
 
-	private CommandAdapterMgr() throws JDependException {
+	private CommandAdapterMgr() throws CommandConfException {
 		this.refresh();
 	}
 
@@ -65,7 +64,7 @@ public final class CommandAdapterMgr implements GroupConfChangeListener {
 		return this.commands.get(group).get(command);
 	}
 
-	public static CommandAdapterMgr getInstance() throws JDependException {
+	public static CommandAdapterMgr getInstance() throws CommandConfException {
 		if (mgr == null) {
 			mgr = new CommandAdapterMgr();
 		}

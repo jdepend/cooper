@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public final class ArgumentCount extends AbstractAnalyzer {
 
@@ -25,7 +25,7 @@ public final class ArgumentCount extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		List<ArgumentInfo> argumentInfos = new ArrayList<ArgumentInfo>();
 		ArgumentInfo argumentInfo;

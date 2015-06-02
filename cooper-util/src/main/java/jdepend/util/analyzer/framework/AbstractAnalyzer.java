@@ -1,7 +1,6 @@
 package jdepend.util.analyzer.framework;
 
 import jdepend.framework.domain.PersistentBean;
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.TableCallBack;
@@ -31,7 +30,7 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.setWorker(new DefaultAnalyzerWorker());
 	}
 
-	public void search(final AnalysisResult result) throws JDependException {
+	public void search(final AnalysisResult result) throws AnalyzerException {
 		this.heat++;
 		this.isChicked = true;
 
@@ -56,19 +55,19 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.listener = listener;
 	}
 
-	protected abstract void doSearch(AnalysisResult result) throws JDependException;
+	protected abstract void doSearch(AnalysisResult result) throws AnalyzerException;
 
 	public boolean needSave() {
 		return this.isChicked;
 	}
 
 	@Override
-	public void init() throws JDependException {
+	public void init() throws AnalyzerException {
 
 	}
 
 	@Override
-	public void release() throws JDependException {
+	public void release() throws AnalyzerException {
 	}
 
 	public void setWorker(AnalyzerWorker worker) {

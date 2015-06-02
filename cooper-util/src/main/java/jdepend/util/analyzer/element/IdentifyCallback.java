@@ -3,14 +3,13 @@ package jdepend.util.analyzer.element;
 import java.util.Collection;
 import java.util.HashSet;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class IdentifyCallback extends AbstractAnalyzer {
 
@@ -21,7 +20,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		boolean isCallback1;// 该类为接口，并且其方法有返回值，该方法被本组件调用
 		boolean isCallback2;// 该类的实现类不与该类处于一个组件内

@@ -8,9 +8,9 @@ import jdepend.metadata.Attribute;
 import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class IdentifyDomainService extends AbstractAnalyzer {
 
@@ -25,7 +25,7 @@ public class IdentifyDomainService extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
 		int count;
 		boolean domain;
@@ -59,7 +59,7 @@ public class IdentifyDomainService extends AbstractAnalyzer {
 	}
 
 	@Override
-	public void init() throws JDependException {
+	public void init() throws AnalyzerException {
 
 		serviceNames = new HashSet<String>();
 		serviceNames.add("BO");

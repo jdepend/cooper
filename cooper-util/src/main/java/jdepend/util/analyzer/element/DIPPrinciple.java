@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
@@ -15,6 +14,7 @@ import jdepend.model.Relation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
+import jdepend.util.analyzer.framework.AnalyzerException;
 
 public class DIPPrinciple extends AbstractAnalyzer {
 
@@ -28,7 +28,7 @@ public class DIPPrinciple extends AbstractAnalyzer {
 		super("DIP检查", Analyzer.Attention, "识别违反依赖倒置原则的地方");
 	}
 
-	protected void doSearch(AnalysisResult result) throws JDependException {
+	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 		Collection<Component> components = result.getComponents();
 		this.printDIPs(components);
 	}
