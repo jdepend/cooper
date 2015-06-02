@@ -3,7 +3,6 @@ package jdepend.util.todolist;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 
 public class AdjustAbstractTODOIdentifyer implements TODOIdentifyer {
@@ -11,7 +10,7 @@ public class AdjustAbstractTODOIdentifyer implements TODOIdentifyer {
 	private static final Float AdjustAbstractTODOItemOrder = 10F;
 
 	@Override
-	public List<TODOItem> identify(TODOIdentifyInfo info) throws JDependException {
+	public List<TODOItem> identify(TODOIdentifyInfo info) throws TODOListException {
 
 		List<TODOItem> list = new ArrayList<TODOItem>();
 

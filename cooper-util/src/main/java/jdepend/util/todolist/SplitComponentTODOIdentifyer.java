@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.MetricsMgr;
 import jdepend.model.util.JDependUnitByMetricsComparator;
@@ -20,7 +19,7 @@ public class SplitComponentTODOIdentifyer implements TODOIdentifyer {
 	private static final Float SplitComponentTODOItemOrder = 100F;
 
 	@Override
-	public List<TODOItem> identify(TODOIdentifyInfo info) throws JDependException {
+	public List<TODOItem> identify(TODOIdentifyInfo info) throws TODOListException {
 		list = new ArrayList<TODOItem>();
 		splitComponents = new HashSet<Component>();
 

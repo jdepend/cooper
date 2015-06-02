@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.MetricsMgr;
 import jdepend.model.Relation;
@@ -17,7 +16,7 @@ public class UniteComponentTODOIdentifyer implements TODOIdentifyer {
 	private static final Float UniteComponentTODOItemOrder = 1000F;
 
 	@Override
-	public List<TODOItem> identify(TODOIdentifyInfo info) throws JDependException {
+	public List<TODOItem> identify(TODOIdentifyInfo info) throws TODOListException {
 		list = new ArrayList<TODOItem>();
 
 		this.identifyUniteComponentWithRelation(info);

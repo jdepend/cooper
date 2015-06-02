@@ -13,7 +13,7 @@ public class MoveJavaClassTODOIdentifyer implements TODOIdentifyer {
 	private static final Float MoveRelationTODOItemOrder = 50F;
 
 	@Override
-	public List<TODOItem> identify(TODOIdentifyInfo info) throws JDependException {
+	public List<TODOItem> identify(TODOIdentifyInfo info) throws TODOListException {
 
 		List<TODOItem> list = new ArrayList<TODOItem>();
 

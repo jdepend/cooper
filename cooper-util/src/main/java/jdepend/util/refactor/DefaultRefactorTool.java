@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
@@ -12,7 +11,7 @@ import jdepend.model.JavaClassUnit;
 final class DefaultRefactorTool implements RefactorTool {
 
 	@Override
-	public void createComponent(String componentName, int componentLayer) throws JDependException {
+	public void createComponent(String componentName, int componentLayer) throws RefactorException {
 		// 保存当前快照
 		AdjustHistory.getInstance().addMemento();
 		List<String> actions = new ArrayList<String>();
@@ -27,7 +26,7 @@ final class DefaultRefactorTool implements RefactorTool {
 	}
 
 	@Override
-	public void deleteComponent(String componentName) throws JDependException {
+	public void deleteComponent(String componentName) throws RefactorException {
 		// 保存当前快照
 		AdjustHistory.getInstance().addMemento();
 		List<String> actions = new ArrayList<String>();
@@ -42,7 +41,7 @@ final class DefaultRefactorTool implements RefactorTool {
 	}
 
 	@Override
-	public void moveClass(Collection<JavaClassUnit> javaClasses, Component target) throws JDependException {
+	public void moveClass(Collection<JavaClassUnit> javaClasses, Component target) throws RefactorException {
 		boolean adjust = false;
 		for (JavaClassUnit javaClass : javaClasses) {
 			if (!javaClass.getComponent().equals(target)) {
@@ -88,7 +87,7 @@ final class DefaultRefactorTool implements RefactorTool {
 	}
 
 	@Override
-	public void uniteComponent(String name, int layer, Collection<String> components) throws JDependException {
+	public void uniteComponent(String name, int layer, Collection<String> components) throws RefactorException {
 
 		AdjustHistory.getInstance().addMemento();
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.model.result.AnalysisResult;
 
@@ -31,7 +30,7 @@ public class TODOListIdentifyerFacade {
 
 	}
 
-	public List<TODOItem> identify(AnalysisResult result) throws JDependException {
+	public List<TODOItem> identify(AnalysisResult result) throws TODOListException {
 
 		list = new ArrayList<TODOItem>();
 
