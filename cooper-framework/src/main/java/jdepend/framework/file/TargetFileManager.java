@@ -95,24 +95,28 @@ public class TargetFileManager extends FileReader implements AcceptFile {
 
 		for (String place : this.extractFiles().getFiles().keySet()) {
 			for (File file : this.extractFiles().getFiles().get(place)) {
-				if (this.acceptClassFile(file) || this.acceptXMLFile(file)) {
-					TargetFileInfo targetFileInfo = simpileFileReader.readDatas(place, file);
-					if (targetFileInfo != null) {
-						data.addFileInfo(place, targetFileInfo);
-					}
-				} else if (FileUtil.acceptCompressFile(file)) {
+				try {
+					if (this.acceptClassFile(file) || this.acceptXMLFile(file)) {
+						TargetFileInfo targetFileInfo = simpileFileReader.readDatas(place, file);
+						if (targetFileInfo != null) {
+							data.addFileInfo(place, targetFileInfo);
+						}
+					} else if (FileUtil.acceptCompressFile(file)) {
 
-					InputStream in = new FileInputStream(file);
-					JarFileReader reader = new JarFileReader(this.isAcceptInnerClasses());
-					List<TargetFileInfo> targetFileInfos2 = reader.readDatas(in);
-					in.close();
+						InputStream in = new FileInputStream(file);
+						JarFileReader reader = new JarFileReader(this.isAcceptInnerClasses());
+						List<TargetFileInfo> targetFileInfos2 = reader.readDatas(in);
+						in.close();
 
-					for (TargetFileInfo targetFileInfo2 : targetFileInfos2) {
-						data.addFileInfo(file.getAbsolutePath(), targetFileInfo2);
+						for (TargetFileInfo targetFileInfo2 : targetFileInfos2) {
+							data.addFileInfo(file.getAbsolutePath(), targetFileInfo2);
+						}
+					} else {
+						throw new IOException("File is not a valid " + ".class, .jar, .war, .dll, or .zip file: "
+								+ file.getPath());
 					}
-				} else {
-					throw new IOException("File is not a valid " + ".class, .jar, .war, .dll, or .zip file: "
-							+ file.getPath());
+				} catch (IOException e) {
+					throw new IOException(file.getPath() + " File read error ", e);
 				}
 			}
 		}
