@@ -8,7 +8,6 @@ import java.util.List;
 
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaClass;
-import jdepend.model.JavaClassUnit;
 
 /**
  * 组件模型下一个组件的配置信息

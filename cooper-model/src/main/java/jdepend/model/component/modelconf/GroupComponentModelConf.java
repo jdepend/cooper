@@ -40,7 +40,7 @@ public final class GroupComponentModelConf {
 
 	public static final String DEFAULT_PROPERTY_DIR = "conf\\componentconf";
 
-	public GroupComponentModelConf(String group) throws JDependException {
+	public GroupComponentModelConf(String group) throws ComponentConfException {
 		this.group = group;
 		this.componentModelConfs = this.loadComponentModelConfs();
 	}
@@ -51,7 +51,7 @@ public final class GroupComponentModelConf {
 		this.componentModelConfs = componentModelConfs;
 	}
 
-	private Map<String, ComponentModelConf> loadComponentModelConfs() throws JDependException {
+	private Map<String, ComponentModelConf> loadComponentModelConfs() throws ComponentConfException {
 		Map<String, ComponentModelConf> componentModelConfs = new LinkedHashMap<String, ComponentModelConf>();
 		ComponentModelConf componentModelConf;
 
@@ -93,7 +93,7 @@ public final class GroupComponentModelConf {
 		return componentModelConfs;
 	}
 
-	public void save() throws JDependException {
+	public void save() throws ComponentConfException {
 
 		if (componentModelConfs != null && componentModelConfs.size() > 0) {
 			try {
@@ -106,10 +106,14 @@ public final class GroupComponentModelConf {
 				}
 				output(root, getComponentFilePath(group));
 			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				throw new ComponentConfException(e);
 			}
 		} else {
-			FileUtil.deleteFile(getComponentFilePath(group));
+			try {
+				FileUtil.deleteFile(getComponentFilePath(group));
+			} catch (JDependException e) {
+				throw new ComponentConfException(e);
+			}
 		}
 
 	}

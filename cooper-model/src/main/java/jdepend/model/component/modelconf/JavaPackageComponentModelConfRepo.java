@@ -3,8 +3,6 @@ package jdepend.model.component.modelconf;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -43,7 +41,7 @@ public class JavaPackageComponentModelConfRepo {
 		return nelement;
 	}
 
-	public JavaPackageComponentModelConf load(Node componentModel) throws JDependException {
+	public JavaPackageComponentModelConf load(Node componentModel) throws ComponentConfException {
 
 		String componentModelName = componentModel.getAttributes().getNamedItem("name").getNodeValue();
 		JavaPackageComponentModelConf componentModelConf = new JavaPackageComponentModelConf(componentModelName);

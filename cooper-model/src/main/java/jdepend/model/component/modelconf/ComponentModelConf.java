@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.Candidate;
 import jdepend.metadata.JavaPackage;
 
@@ -53,7 +51,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		this.name = name;
 	}
 
-	public abstract void addComponentConf(String name, int layer, List<String> packageNames) throws JDependException;
+	public abstract void addComponentConf(String name, int layer, List<String> packageNames) throws ComponentConfException;
 
 	protected void addComponentConf(ComponentConf componentConf) {
 		if (!componentConfs.contains(componentConf)) {
@@ -151,12 +149,12 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 		return containItems;
 	}
 
-	public void validateData() throws JDependException {
+	public void validateData() throws ComponentConfException {
 		if (this.size() == 0) {
-			throw new JDependException("您没有设置组件!");
+			throw new ComponentConfException("您没有设置组件!");
 		}
 		if (this.getName() == null || this.getName().length() == 0) {
-			throw new JDependException("未指定组件组名称!");
+			throw new ComponentConfException("未指定组件组名称!");
 		}
 	}
 
@@ -164,7 +162,7 @@ public abstract class ComponentModelConf implements Serializable, Cloneable {
 
 	public abstract Element save(Document document);
 
-	public abstract ComponentModelConf load(Node componentModel) throws JDependException;
+	public abstract ComponentModelConf load(Node componentModel) throws ComponentConfException;
 
 	public abstract Collection<? extends Candidate> getCandidates(Collection<JavaPackage> packages);
 

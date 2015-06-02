@@ -1,21 +1,18 @@
 package jdepend.model.result;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.DateUtil;
 import jdepend.framework.util.VersionUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.Component;
-import jdepend.model.JavaClassUnit;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
@@ -203,31 +200,6 @@ public final class AnalysisRunningContext implements Serializable {
 			}
 		}
 		return this.diffElements;
-	}
-
-	private AnalysisRunningContext clone(Map<String, JavaClass> javaClasses) throws JDependException {
-
-		AnalysisRunningContext obj = new AnalysisRunningContext();
-		obj.analyseDate = this.analyseDate;
-		obj.client = this.client;
-		obj.command = this.command;
-		obj.component = this.component;
-		obj.diffElements = this.diffElements;
-		obj.group = this.group;
-		obj.isLocalRunning = this.isLocalRunning;
-		obj.path = this.path;
-		obj.userName = this.userName;
-
-		obj.analyzeInnerClasses = this.analyzeInnerClasses;
-		obj.enableAbstractClassCountQualificationConfirmer = this.enableAbstractClassCountQualificationConfirmer;
-		obj.isCalJavaClassCycle = this.isCalJavaClassCycle;
-
-		obj.javaPackages = new ArrayList<JavaPackage>();
-		for (JavaPackage javaPackage : this.javaPackages) {
-			obj.javaPackages.add(javaPackage.clone(javaClasses));
-		}
-
-		return obj;
 	}
 
 	@Override

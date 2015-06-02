@@ -3,7 +3,6 @@ package jdepend.model.component.modelconf;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.metadata.Candidate;
 import jdepend.metadata.JavaPackage;
 
@@ -31,20 +30,20 @@ public class JavaPackageComponentModelConf extends ComponentModelConf {
 	 * @param name
 	 * @param layer
 	 * @param packages
-	 * @throws JDependException
+	 * @throws ComponentConfException
 	 */
 	@Override
-	public void addComponentConf(String name, int layer, List<String> packageNames) throws JDependException {
+	public void addComponentConf(String name, int layer, List<String> packageNames) throws ComponentConfException {
 		if (name == null || name.length() == 0)
-			throw new JDependException("没有给定组件名！");
+			throw new ComponentConfException("没有给定组件名！");
 
 		if (this.contains(name))
-			throw new JDependException("组件名重复！");
+			throw new ComponentConfException("组件名重复！");
 
 		for (ComponentConf componentConf : this.getComponentConfs()) {
 			for (String packageName : packageNames) {
 				if (componentConf.getItemIds().contains(packageName)) {
-					throw new JDependException("该组件名选择的包[" + packageName + "]已经在组件[" + componentConf.getName()
+					throw new ComponentConfException("该组件名选择的包[" + packageName + "]已经在组件[" + componentConf.getName()
 							+ "]中包含！");
 				}
 			}
@@ -73,7 +72,7 @@ public class JavaPackageComponentModelConf extends ComponentModelConf {
 	}
 
 	@Override
-	public JavaPackageComponentModelConf load(Node componentModel) throws JDependException {
+	public JavaPackageComponentModelConf load(Node componentModel) throws ComponentConfException {
 		return this.repo.load(componentModel);
 	}
 
