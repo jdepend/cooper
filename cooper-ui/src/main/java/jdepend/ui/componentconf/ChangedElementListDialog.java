@@ -22,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
@@ -30,6 +29,7 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
@@ -104,7 +104,7 @@ public final class ChangedElementListDialog extends JDialog {
 				JoinCustomComponentConfDialog d = new JoinCustomComponentConfDialog(selectedElements.get(NEW),
 						componentModelConf) {
 					@Override
-					protected void doService() throws JDependException {
+					protected void doService() throws ComponentConfException {
 						groupComponentModelConf.save();
 						deleteSelectedElements();
 					}
@@ -120,7 +120,7 @@ public final class ChangedElementListDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				CreateComponentConfDialog d = new CreateComponentConfDialog(selectedElements.get(NEW), false) {
 					@Override
-					protected void doService(ActionEvent e) throws JDependException {
+					protected void doService(ActionEvent e) throws ComponentConfException {
 						GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 								.getTheGroupComponentModelConf(group);
 						ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(
@@ -150,7 +150,7 @@ public final class ChangedElementListDialog extends JDialog {
 					try {
 						groupComponentModelConf.save();
 						deleteSelectedElements();
-					} catch (JDependException e1) {
+					} catch (ComponentConfException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 					}
@@ -166,7 +166,7 @@ public final class ChangedElementListDialog extends JDialog {
 				if (JOptionPane.showConfirmDialog(listTable, "您是否确认？") == JOptionPane.OK_OPTION) {
 					try {
 						deleteElementsFromConf();
-					} catch (JDependException e1) {
+					} catch (ComponentConfException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 					}
@@ -187,7 +187,7 @@ public final class ChangedElementListDialog extends JDialog {
 								deletePopupMenu.show(table, e.getX(), e.getY());
 							}
 						}
-					} catch (JDependException ex) {
+					} catch (ComponentConfException ex) {
 						ex.printStackTrace();
 						JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 					}
@@ -218,7 +218,7 @@ public final class ChangedElementListDialog extends JDialog {
 		this.add(BorderLayout.SOUTH, buttonPanel);
 	}
 
-	private Map<String, ArrayList<String>> collect() throws JDependException {
+	private Map<String, ArrayList<String>> collect() throws ComponentConfException {
 
 		Map<String, ArrayList<String>> selectedElements = new HashMap<String, ArrayList<String>>();
 
@@ -239,13 +239,13 @@ public final class ChangedElementListDialog extends JDialog {
 			selectedElements.get(operation).add(elementName);
 		}
 		if (selectedElements.size() > 1) {
-			throw new JDependException("不能够包含新增和已删除两类元素！");
+			throw new ComponentConfException("不能够包含新增和已删除两类元素！");
 		}
 		return selectedElements;
 
 	}
 
-	private void deleteElementsFromConf() throws JDependException {
+	private void deleteElementsFromConf() throws ComponentConfException {
 		GroupComponentModelConf groupComponentModelConf = ComponentModelConfMgr.getInstance()
 				.getTheGroupComponentModelConf(group);
 		ComponentModelConf componentModelConf = groupComponentModelConf.getComponentModelConfs().get(

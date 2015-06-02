@@ -33,11 +33,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.Candidate;
 import jdepend.metadata.CandidateUtil;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.JavaClassComponentModelConf;
@@ -319,10 +319,10 @@ public class ComponentModelPanel extends JPanel {
 		return candidateTable.getPath();
 	}
 
-	protected void createComponent() throws JDependException {
+	protected void createComponent() throws ComponentConfException {
 		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
-			throw new JDependException("您没有选择包！");
+			throw new ComponentConfException("您没有选择包！");
 
 		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
@@ -336,10 +336,10 @@ public class ComponentModelPanel extends JPanel {
 		d.setVisible(true);
 	}
 
-	protected void batchCreateComponent() throws JDependException {
+	protected void batchCreateComponent() throws ComponentConfException {
 		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
-			throw new JDependException("您没有选择包！");
+			throw new ComponentConfException("您没有选择包！");
 
 		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
@@ -358,10 +358,10 @@ public class ComponentModelPanel extends JPanel {
 		refreshComponentList();
 	}
 
-	protected void joinComponent() throws JDependException {
+	protected void joinComponent() throws ComponentConfException {
 		int[] rows = candidateTable.getSelectedRows();
 		if (rows == null || rows.length == 0)
-			throw new JDependException("您没有选择包！");
+			throw new ComponentConfException("您没有选择包！");
 
 		ArrayList<String> selectedCandidates = new ArrayList<String>();
 		for (int i = 0; i < rows.length; i++) {
@@ -510,14 +510,14 @@ public class ComponentModelPanel extends JPanel {
 			super(units, false);
 		}
 
-		protected void doService(ActionEvent e) throws JDependException {
+		protected void doService(ActionEvent e) throws ComponentConfException {
 			componentModelConf.addComponentConf(componentname.getText(), this.getComponentLayer(), units);
 			candidateTable.removeTheCandidateList(units);
 			refreshComponentList();
 		}
 	}
 
-	public void validateData() throws JDependException {
+	public void validateData() throws ComponentConfException {
 
 		this.componentModelConf.validateData();
 
@@ -525,7 +525,7 @@ public class ComponentModelPanel extends JPanel {
 		if (ignorePackages != null && ignorePackages.size() > 0) {
 			if (JOptionPane.showConfirmDialog(this, "[" + ignorePackages.get(0) + "]等" + ignorePackages.size()
 					+ "个没有被包含的组件中，你是否确认继续？") != JOptionPane.OK_OPTION) {
-				throw new JDependException();
+				throw new ComponentConfException();
 			}
 		}
 		// 设置未包含的packages

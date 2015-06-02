@@ -61,7 +61,7 @@ public final class UpdateComponentModelDialog extends JDialog {
 					// 保存组件组信息
 					groupInfo.insertComponentGroups();
 					UpdateComponentModelDialog.this.dispose();
-				} catch (Exception ex) {
+				} catch (JDependException ex) {
 					ex.printStackTrace();
 					if (ex.getMessage() != null) {
 						Component source = (Component) e.getSource();

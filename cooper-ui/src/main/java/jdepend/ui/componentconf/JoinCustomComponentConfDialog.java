@@ -16,9 +16,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 
 abstract class JoinCustomComponentConfDialog extends JDialog {
@@ -85,7 +85,7 @@ abstract class JoinCustomComponentConfDialog extends JDialog {
 					componentModelConf.getTheComponentConf(joinComponentName).addItemIds(joinPackages);
 					doService();
 					JoinCustomComponentConfDialog.this.dispose();
-				} catch (JDependException e1) {
+				} catch (ComponentConfException e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog((Component) e.getSource(), e1.getMessage(), "alert",
 							JOptionPane.ERROR_MESSAGE);
@@ -96,7 +96,7 @@ abstract class JoinCustomComponentConfDialog extends JDialog {
 		return button;
 	}
 
-	protected abstract void doService() throws JDependException;
+	protected abstract void doService() throws ComponentConfException;
 
 	protected Component createCancelButton() {
 		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Cancel));

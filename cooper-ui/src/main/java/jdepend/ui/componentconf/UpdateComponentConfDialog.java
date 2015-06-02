@@ -2,9 +2,9 @@ package jdepend.ui.componentconf;
 
 import java.awt.event.ActionEvent;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.component.modelconf.ComponentConf;
+import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 
 /**
@@ -39,7 +39,7 @@ public class UpdateComponentConfDialog extends ComponentConfDialog {
 		}
 	}
 
-	protected void doService(ActionEvent e) throws JDependException {
+	protected void doService(ActionEvent e) throws ComponentConfException {
 
 		this.componentConf.setLayer(this.getComponentLayer());
 		ComponentModelConfMgr.getInstance().getTheGroupComponentModelConf(group).save();

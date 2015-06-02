@@ -34,6 +34,7 @@ import jdepend.metadata.Candidate;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.metadata.util.JavaClassUtil;
+import jdepend.model.component.modelconf.ComponentConfException;
 
 public class CandidateListTable extends JTable {
 
@@ -80,7 +81,7 @@ public class CandidateListTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					CandidateListTable.this.componentModelPanel.createComponent();
-				} catch (JDependException ex) {
+				} catch (ComponentConfException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
@@ -92,7 +93,7 @@ public class CandidateListTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					CandidateListTable.this.componentModelPanel.batchCreateComponent();
-				} catch (JDependException ex) {
+				} catch (ComponentConfException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
@@ -107,7 +108,7 @@ public class CandidateListTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					CandidateListTable.this.componentModelPanel.joinComponent();
-				} catch (JDependException ex) {
+				} catch (ComponentConfException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
@@ -122,7 +123,7 @@ public class CandidateListTable extends JTable {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					viewClassList();
-				} catch (JDependException ex) {
+				} catch (ComponentConfException ex) {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
 				}
@@ -236,10 +237,10 @@ public class CandidateListTable extends JTable {
 		return path;
 	}
 
-	private void viewClassList() throws JDependException {
+	private void viewClassList() throws ComponentConfException {
 		int[] rows = this.getSelectedRows();
 		if (rows == null || rows.length != 1)
-			throw new JDependException("请选择一个包！");
+			throw new ComponentConfException("请选择一个包！");
 
 		String place = (String) candidateTableModel.getValueAt(rows[0], 0);
 		String name = (String) candidateTableModel.getValueAt(rows[0], 1);

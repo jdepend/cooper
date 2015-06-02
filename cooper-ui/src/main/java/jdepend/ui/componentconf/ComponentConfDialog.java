@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.component.modelconf.ComponentConfException;
 
 /**
  * 组件配置信息窗口抽象类
