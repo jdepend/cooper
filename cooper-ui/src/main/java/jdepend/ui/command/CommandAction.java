@@ -16,6 +16,7 @@ import jdepend.framework.ui.action.AsynAction;
 import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.report.way.mapui.layout.LayoutMgr;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.result.framework.ResultPanel;
 import jdepend.ui.result.panel.JDependReport;
@@ -92,6 +93,8 @@ public final class CommandAction extends AsynAction {
 		reportRender = new JDependReport(group, command);
 		reportRender.setFrame(frame);
 		reportRender.addReportListener(frame);
+
+		LayoutMgr.getInstance().reset(group, command);
 	}
 
 	@Override

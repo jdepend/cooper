@@ -131,6 +131,7 @@ public class BundleUtil {
 	public static final String Command_UnHide = "Command_UnHide";// 恢复全部隐藏
 	public static final String Command_RadialTreeLayout = "Command_RadialTreeLayout";// 圆型布局
 	public static final String Command_NodeLinkTreeLayout = "Command_NodeLinkTreeLayout";// 树型布局
+	public static final String Command_SpecifiedLayout = "Command_SpecifiedLayout";// 上次位置布局
 	public static final String Command_ViewPackageTree = "Command_ViewPackageTree";// 浏览包结构
 	public static final String Command_ClosePackageTree = "Command_ClosePackageTree";// 关闭包结构
 	public static final String Command_SaveAsPic = "Command_SaveAsPic";// 另存为图片

@@ -22,9 +22,9 @@ public class CovertorUtil {
 		Map<Element, Integer> elementSizes = IntensitySizeCalculator.calElementSize(elements);
 
 		Class[] NTYPES = { int.class, String.class, double.class, boolean.class, String.class, boolean.class,
-				boolean.class, boolean.class };
+				boolean.class, boolean.class, double.class, double.class };
 
-		String[] NHEADERS = { "id", "label", "size", "isInner", "info", "CaColor", "CeColor", "mutualColor" };
+		String[] NHEADERS = { "id", "label", "size", "isInner", "info", "CaColor", "CeColor", "mutualColor", "xField", "yField" };
 		// id
 		Integer[] NCOLUMN1 = new Integer[elements.size()];
 		int i = 0;
