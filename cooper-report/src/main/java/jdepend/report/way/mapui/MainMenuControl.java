@@ -13,12 +13,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import jdepend.framework.ui.util.JDependUIUtil;
 import jdepend.framework.util.BundleUtil;
+import jdepend.report.way.mapui.layout.LayoutInfo;
+import jdepend.report.way.mapui.layout.LayoutMgr;
 import prefuse.Visualization;
 import prefuse.action.Action;
 import prefuse.action.ActionList;
@@ -37,12 +40,6 @@ public class MainMenuControl extends ControlAdapter {
 
 	private GraphJDepend display;
 
-	private JPopupMenu popupMenu;
-
-	private JMenuItem packageTreeItem;
-
-	private JMenuItem changeLayouttem;
-
 	public MainMenuControl(GraphJDepend display) {
 		this.display = display;
 	}
@@ -57,10 +54,7 @@ public class MainMenuControl extends ControlAdapter {
 	}
 
 	private JPopupMenu getMenus() {
-		if (popupMenu == null) {
-			popupMenu = createMenus();
-		}
-		return popupMenu;
+		return createMenus();
 	}
 
 	private JPopupMenu createMenus() {
@@ -113,24 +107,30 @@ public class MainMenuControl extends ControlAdapter {
 
 		popupMenu.addSeparator();
 
-		changeLayouttem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_NodeLinkTreeLayout));
-		changeLayouttem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (changeLayouttem.getText().equals(BundleUtil.getString(BundleUtil.Command_NodeLinkTreeLayout))) {
-					convertLayout(new NodeLinkTreeLayout(GraphJDepend.tree));
-					changeLayouttem.setText(BundleUtil.getString(BundleUtil.Command_RadialTreeLayout));
-				} else {
-					convertLayout(new RadialTreeLayout(GraphJDepend.tree));
-					changeLayouttem.setText(BundleUtil.getString(BundleUtil.Command_NodeLinkTreeLayout));
-				}
+		LayoutInfo currentLayout = LayoutMgr.getInstance().getCurrentLayout();
+		for (final LayoutInfo layout : LayoutMgr.getInstance().getLayouts()) {
+			if (!layout.equals(currentLayout)) {
+				final JMenuItem changeLayouttem = new JMenuItem(layout.getName());
+				changeLayouttem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						convertLayout(layout.getLayout());
+						LayoutMgr.getInstance().setCurrentLayout(layout);
+					}
+				});
+				popupMenu.add(changeLayouttem);
+
 			}
-		});
-		popupMenu.add(changeLayouttem);
+		}
 
 		popupMenu.addSeparator();
 
 		if (this.display.getPrinter() != null) {
-			packageTreeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
+			JMenuItem packageTreeItem = null;
+			if (!this.display.getPrinter().isPackageTreeVisible()) {
+				packageTreeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
+			} else {
+				packageTreeItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ClosePackageTree));
+			}
 			packageTreeItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					packageTree();
@@ -174,12 +174,10 @@ public class MainMenuControl extends ControlAdapter {
 	}
 
 	private void packageTree() {
-		if (packageTreeItem.getText().equals(BundleUtil.getString(BundleUtil.Command_ViewPackageTree))) {
+		if (!this.display.getPrinter().isPackageTreeVisible()) {
 			display.getPrinter().showPackageTree();
-			packageTreeItem.setText(BundleUtil.getString(BundleUtil.Command_ClosePackageTree));
 		} else {
 			display.getPrinter().hiddenPackageTree();
-			packageTreeItem.setText(BundleUtil.getString(BundleUtil.Command_ViewPackageTree));
 		}
 	}
 
