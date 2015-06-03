@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -26,8 +25,6 @@ import prefuse.Visualization;
 import prefuse.action.Action;
 import prefuse.action.ActionList;
 import prefuse.action.layout.Layout;
-import prefuse.action.layout.graph.NodeLinkTreeLayout;
-import prefuse.action.layout.graph.RadialTreeLayout;
 import prefuse.controls.ControlAdapter;
 import prefuse.util.ColorLib;
 import prefuse.util.GraphicsLib;

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.filter.RelationFilter;
+import jdepend.report.way.mapui.layout.LayoutMgr;
 import prefuse.Constants;
 import prefuse.Display;
 import prefuse.Visualization;
@@ -26,7 +27,7 @@ import prefuse.action.animate.VisibilityAnimator;
 import prefuse.action.assignment.ColorAction;
 import prefuse.action.assignment.FontAction;
 import prefuse.action.layout.CollapsedSubtreeLayout;
-import prefuse.action.layout.graph.RadialTreeLayout;
+import prefuse.action.layout.Layout;
 import prefuse.activity.SlowInSlowOutPacer;
 import prefuse.controls.DragControl;
 import prefuse.controls.FocusControl;
@@ -156,11 +157,11 @@ public class GraphJDepend extends Display {
 		m_vis.putAction("animatePaint", animatePaint);
 
 		// create the tree layout action
-		RadialTreeLayout treeLayout = new RadialTreeLayout(tree);
+		Layout layout = LayoutMgr.getInstance().getCurrentLayout().getLayout();
 		// treeLayout.setAngularBounds(Math.PI/2, Math.PI * 2);
-		treeLayout.setLayoutBounds(new Rectangle(this.getWidth(), this.getHeight()));
+		layout.setLayoutBounds(new Rectangle(this.getWidth(), this.getHeight()));
 
-		m_vis.putAction("treeLayout", treeLayout);
+		m_vis.putAction("treeLayout", layout);
 
 		CollapsedSubtreeLayout subLayout = new CollapsedSubtreeLayout(tree);
 		m_vis.putAction("subLayout", subLayout);
@@ -169,7 +170,7 @@ public class GraphJDepend extends Display {
 		ActionList filter = new ActionList();
 		filter.add(new TreeRootAction(tree));
 		filter.add(fonts);
-		filter.add(treeLayout);
+		filter.add(layout);
 		filter.add(subLayout);
 		filter.add(textColor);
 		filter.add(nodeColor);
