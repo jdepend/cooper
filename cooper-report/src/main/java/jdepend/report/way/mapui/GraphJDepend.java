@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
@@ -13,6 +12,7 @@ import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.filter.RelationFilter;
 import jdepend.report.way.mapui.layout.LayoutMgr;
+import jdepend.report.way.mapui.model.MapData;
 import prefuse.Constants;
 import prefuse.Display;
 import prefuse.Visualization;
@@ -29,7 +29,6 @@ import prefuse.action.assignment.FontAction;
 import prefuse.action.layout.CollapsedSubtreeLayout;
 import prefuse.action.layout.Layout;
 import prefuse.activity.SlowInSlowOutPacer;
-import prefuse.controls.DragControl;
 import prefuse.controls.FocusControl;
 import prefuse.controls.HoverActionControl;
 import prefuse.controls.PanControl;
@@ -70,9 +69,7 @@ public class GraphJDepend extends Display {
 
 	private String label;
 
-	private Map<String, Element> elementForNames;
-
-	private Collection<Relation> relations;
+	private MapData mapData;
 
 	private GraphPanel graphPanel;
 
@@ -80,21 +77,20 @@ public class GraphJDepend extends Display {
 
 	private HideVisualItemMgr hideVisualItemMgr;
 
+	private LayoutMgr layoutMgr;
+
 	public GraphJDepend(GraphPanel graphPanel, Collection<Relation> relations) {
 		super(new Visualization());
 
 		this.graphPanel = graphPanel;
 
-		this.relations = relations;
+		mapData = new MapData(this.graphPanel.getGroup(), this.graphPanel.getCommand(), relations);
 
 		hideVisualItemMgr = new HideVisualItemMgr(this);
 
-		Collection<Element> elements = Relation.calElements(relations);
-		elementForNames = new HashMap<String, Element>();
-		for (Element element : elements) {
-			elementForNames.put(element.getName(), element);
-		}
-		Graph g = CovertorUtil.getGraph(relations, elements);
+		Graph g = CovertorUtil.getGraph(mapData);
+
+		layoutMgr = new LayoutMgr(this);
 
 		this.label = "label";
 		// initialize the display
@@ -157,7 +153,7 @@ public class GraphJDepend extends Display {
 		m_vis.putAction("animatePaint", animatePaint);
 
 		// create the tree layout action
-		Layout layout = LayoutMgr.getInstance().getCurrentLayout().getLayout();
+		Layout layout = this.layoutMgr.getCurrentLayout().getLayout();
 		// treeLayout.setAngularBounds(Math.PI/2, Math.PI * 2);
 		layout.setLayoutBounds(new Rectangle(this.getWidth(), this.getHeight()));
 
@@ -191,7 +187,7 @@ public class GraphJDepend extends Display {
 		// ------------------------------------------------
 
 		setItemSorter(new TreeDepthItemSorter());
-		addControlListener(new DragControl());
+		addControlListener(new JDependDragControl(this));
 		// addControlListener(new ZoomToFitControl());
 		addControlListener(new WheelZoomControl());
 		addControlListener(new PanControl());
@@ -277,11 +273,11 @@ public class GraphJDepend extends Display {
 	}
 
 	public Element getTheElement(String name) {
-		return this.elementForNames.get(name);
+		return this.mapData.getTheElement(name);
 	}
 
 	public Collection<Relation> getRelations() {
-		return relations;
+		return this.mapData.getRelations();
 	}
 
 	public GraphPrinter getPrinter() {
@@ -298,6 +294,14 @@ public class GraphJDepend extends Display {
 
 	public HideVisualItemMgr getHideVisualItemMgr() {
 		return hideVisualItemMgr;
+	}
+
+	public LayoutMgr getLayoutMgr() {
+		return layoutMgr;
+	}
+
+	public MapData getMapData() {
+		return mapData;
 	}
 
 	// ------------------------------------------------------------------------

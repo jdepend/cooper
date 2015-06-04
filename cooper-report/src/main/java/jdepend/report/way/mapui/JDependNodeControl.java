@@ -32,6 +32,7 @@ public class JDependNodeControl extends ControlAdapter {
 			JPopupMenu popupMenu = this.popupMenu((NodeItem) item);
 			popupMenu.show((Component) e.getSource(), e.getX(), e.getY());
 		} else {
+			display.getLayoutMgr().reset();
 			super.itemClicked(item, e);
 		}
 	}

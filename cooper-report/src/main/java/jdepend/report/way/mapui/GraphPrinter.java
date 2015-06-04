@@ -26,11 +26,17 @@ public final class GraphPrinter extends JPanel {
 
 	private JDependFrame frame;
 
+	private String group;
+
+	private String command;
+
 	public GraphPrinter(JDependFrame frame, AnalysisResult result) {
 
 		this.setLayout(new BorderLayout());
 
 		this.frame = frame;
+		this.group = result.getRunningContext().getGroup();
+		this.command = result.getRunningContext().getCommand();
 
 		this.javaPackageTree = result.getJavaPackageTree();
 
@@ -80,6 +86,14 @@ public final class GraphPrinter extends JPanel {
 
 	JDependFrame getFrame() {
 		return frame;
+	}
+
+	String getGroup() {
+		return group;
+	}
+
+	String getCommand() {
+		return command;
 	}
 
 }

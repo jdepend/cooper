@@ -1,32 +1,31 @@
 package jdepend.report.way.mapui.layout;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.util.BundleUtil;
 import jdepend.report.way.mapui.GraphJDepend;
-import jdepend.report.way.mapui.layout.specifiedposition.CommandSpecifiedPosition;
 import jdepend.report.way.mapui.layout.specifiedposition.SpecifiedPositionMgr;
+import jdepend.report.way.mapui.model.MapData;
+import prefuse.action.Action;
+import prefuse.action.ActionList;
+import prefuse.action.layout.Layout;
 import prefuse.action.layout.SpecifiedLayout;
 import prefuse.action.layout.graph.NodeLinkTreeLayout;
 import prefuse.action.layout.graph.RadialTreeLayout;
 
 public class LayoutMgr {
 
-	private final static LayoutMgr inst = new LayoutMgr();
-
 	private LayoutInfo currentLayout;
 
 	private List<LayoutInfo> layouts;
 
-	private LayoutMgr() {
-	}
+	private GraphJDepend display;
 
-	public static LayoutMgr getInstance() {
-		return inst;
-	}
+	public LayoutMgr(GraphJDepend display) {
 
-	public void reset(String group, String command) {
+		this.display = display;
 
 		layouts = new ArrayList<LayoutInfo>();
 		layouts.add(new LayoutInfo(BundleUtil.getString(BundleUtil.Command_RadialTreeLayout), new RadialTreeLayout(
@@ -34,7 +33,7 @@ public class LayoutMgr {
 		layouts.add(new LayoutInfo(BundleUtil.getString(BundleUtil.Command_NodeLinkTreeLayout), new NodeLinkTreeLayout(
 				GraphJDepend.tree)));
 
-		if (SpecifiedPositionMgr.getInstance().isHaveCommandSpecifiedPosition(group, command)) {
+		if (display.getMapData().isHaveSpecifiedPosition()) {
 			LayoutInfo specifiedLayout = new LayoutInfo(BundleUtil.getString(BundleUtil.Command_SpecifiedLayout),
 					new SpecifiedLayout(GraphJDepend.tree, "xField", "yField"));
 			currentLayout = specifiedLayout;
@@ -44,11 +43,27 @@ public class LayoutMgr {
 		}
 	}
 
+	public void reset() {
+		String group = this.display.getMapData().getGroup();
+		String command = this.display.getMapData().getCommand();
+		SpecifiedPositionMgr.getInstance().deleteTheCommandSpecifiedPosition(group, command);
+		
+		this.setCurrentLayout(layouts.get(0));
+	}
+
 	public LayoutInfo getCurrentLayout() {
 		return currentLayout;
 	}
 
 	public void setCurrentLayout(LayoutInfo currentLayout) {
+		// 切换布局管理器
+		currentLayout.getLayout().setLayoutBounds(new Rectangle(this.display.getWidth(), this.display.getHeight()));
+		Action treeLayout = this.display.getVisualization().getAction("treeLayout");
+		this.display.getVisualization().putAction("treeLayout", currentLayout.getLayout());
+		ActionList filter = (ActionList) this.display.getVisualization().getAction("filter");
+		filter.remove(treeLayout);
+		filter.add(currentLayout.getLayout());
+
 		this.currentLayout = currentLayout;
 	}
 

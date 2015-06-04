@@ -6,122 +6,147 @@ import java.util.Map;
 import jdepend.model.Element;
 import jdepend.model.Relation;
 import jdepend.report.util.IntensitySizeCalculator;
+import jdepend.report.way.mapui.model.MapData;
 import prefuse.data.Graph;
 import prefuse.data.Table;
 
 public class CovertorUtil {
 
-	static Graph getGraph(Collection<Relation> relations, Collection<Element> elements) {
+	static Graph getGraph(MapData mapData) {
 
-		int NNODES = elements.size();
-		int NNODECOLS = 8;
-		int NEDGES = relations.size();
+		int NNODES = mapData.getElements().size();
+		int NNODECOLS = 10;
+		int NEDGES = mapData.getRelations().size();
 		int NEDGECOLS = 8;
 
-		Map<Relation, Integer> relationSizes = IntensitySizeCalculator.calRelationSize(relations);
-		Map<Element, Integer> elementSizes = IntensitySizeCalculator.calElementSize(elements);
+		Map<Relation, Integer> relationSizes = IntensitySizeCalculator.calRelationSize(mapData.getRelations());
+		Map<Element, Integer> elementSizes = IntensitySizeCalculator.calElementSize(mapData.getElements());
 
 		Class[] NTYPES = { int.class, String.class, double.class, boolean.class, String.class, boolean.class,
 				boolean.class, boolean.class, double.class, double.class };
 
-		String[] NHEADERS = { "id", "label", "size", "isInner", "info", "CaColor", "CeColor", "mutualColor", "xField", "yField" };
+		String[] NHEADERS = { "id", "label", "size", "isInner", "info", "CaColor", "CeColor", "mutualColor", "xField",
+				"yField" };
 		// id
-		Integer[] NCOLUMN1 = new Integer[elements.size()];
+		Integer[] NCOLUMN1 = new Integer[NNODES];
 		int i = 0;
-		for (i = 0; i < elements.size(); i++) {
+		for (i = 0; i < NNODES; i++) {
 			NCOLUMN1[i] = new Integer(i + 1);
 		}
 		// 显示名称
-		String[] NCOLUMN2 = new String[elements.size()];
+		String[] NCOLUMN2 = new String[NNODES];
 		i = 0;
-		for (Element element : elements) {
+		for (Element element : mapData.getElements()) {
 			NCOLUMN2[i++] = element.getName();
 		}
 		// 内聚值
-		Float[] NCOLUMN3 = new Float[elements.size()];
+		Float[] NCOLUMN3 = new Float[NNODES];
 		i = 0;
-		for (Element element : elements) {
+		for (Element element : mapData.getElements()) {
 			NCOLUMN3[i++] = new Float(elementSizes.get(element));
 		}
 		// 是否内部类
-		Boolean[] NCOLUMN4 = new Boolean[elements.size()];
+		Boolean[] NCOLUMN4 = new Boolean[NNODES];
 		i = 0;
-		for (Element element : elements) {
+		for (Element element : mapData.getElements()) {
 			NCOLUMN4[i++] = element.getComponent().isInner();
 		}
 		// 摘要信息
-		String[] NCOLUMN5 = new String[elements.size()];
+		String[] NCOLUMN5 = new String[NNODES];
 		i = 0;
-		for (Element element : elements) {
+		for (Element element : mapData.getElements()) {
 			NCOLUMN5[i++] = element.toString();
 		}
 		// 关联Node颜色
-		Boolean[] NCOLUMN6 = new Boolean[elements.size()];
+		Boolean[] NCOLUMN6 = new Boolean[NNODES];
 		i = 0;
-		for (i = 0; i < elements.size(); i++) {
+		for (i = 0; i < NNODES; i++) {
 			NCOLUMN6[i] = false;
 		}
-		Boolean[] NCOLUMN7 = new Boolean[elements.size()];
+		Boolean[] NCOLUMN7 = new Boolean[NNODES];
 		i = 0;
-		for (i = 0; i < elements.size(); i++) {
+		for (i = 0; i < NNODES; i++) {
 			NCOLUMN7[i] = false;
 		}
-		Boolean[] NCOLUMN8 = new Boolean[elements.size()];
+		Boolean[] NCOLUMN8 = new Boolean[NNODES];
 		i = 0;
-		for (i = 0; i < elements.size(); i++) {
+		for (i = 0; i < NNODES; i++) {
 			NCOLUMN8[i] = false;
 		}
+		// 设置上次人工移动的位置
+		Double[] NCOLUMN9 = new Double[NNODES];
+		Double[] NCOLUMN10 = new Double[NNODES];
+		if (mapData.isHaveSpecifiedPosition()) {
+			i = 0;
+			for (i = 0; i < NNODES; i++) {
+				NCOLUMN9[i] = mapData.getX(NCOLUMN2[i]);
+			}
+			i = 0;
+			for (i = 0; i < NNODES; i++) {
+				NCOLUMN10[i] = mapData.getY(NCOLUMN2[i]);
+			}
+		} else {
+			i = 0;
+			for (i = 0; i < NNODES; i++) {
+				NCOLUMN9[i] = 0D;
+			}
+			i = 0;
+			for (i = 0; i < NNODES; i++) {
+				NCOLUMN10[i] = 0D;
+			}
+		}
 
-		Object[][] NODES = { NCOLUMN1, NCOLUMN2, NCOLUMN3, NCOLUMN4, NCOLUMN5, NCOLUMN6, NCOLUMN7, NCOLUMN7 };
+		Object[][] NODES = { NCOLUMN1, NCOLUMN2, NCOLUMN3, NCOLUMN4, NCOLUMN5, NCOLUMN6, NCOLUMN7, NCOLUMN8, NCOLUMN9,
+				NCOLUMN10 };
 
 		Class[] ETYPES = { int.class, int.class, double.class, String.class, int.class, boolean.class, boolean.class,
 				boolean.class };
 
 		String[] EHEADERS = { "id1", "id2", "weight", "info", "attentionLevel", "CaColor", "CeColor", "mutualColor" };
 		// 起始点编号
-		Integer[] ECOLUMN1 = new Integer[relations.size()];
+		Integer[] ECOLUMN1 = new Integer[NEDGES];
 		i = 0;
-		for (Relation relation : relations) {
-			ECOLUMN1[i++] = CovertorUtil.getPosition(elements, relation.getCurrent());
+		for (Relation relation : mapData.getRelations()) {
+			ECOLUMN1[i++] = CovertorUtil.getPosition(mapData.getElements(), relation.getCurrent());
 		}
 		// 终止点编号
-		Integer[] ECOLUMN2 = new Integer[relations.size()];
+		Integer[] ECOLUMN2 = new Integer[NEDGES];
 		i = 0;
-		for (Relation relation : relations) {
-			ECOLUMN2[i++] = CovertorUtil.getPosition(elements, relation.getDepend());
+		for (Relation relation : mapData.getRelations()) {
+			ECOLUMN2[i++] = CovertorUtil.getPosition(mapData.getElements(), relation.getDepend());
 		}
 		// 耦合值
-		Float[] ECOLUMN3 = new Float[relations.size()];
+		Float[] ECOLUMN3 = new Float[NEDGES];
 		i = 0;
-		for (Relation relation : relations) {
+		for (Relation relation : mapData.getRelations()) {
 			ECOLUMN3[i++] = new Float(relationSizes.get(relation));
 		}
 		// 摘要信息
-		String[] ECOLUMN4 = new String[relations.size()];
+		String[] ECOLUMN4 = new String[NEDGES];
 		i = 0;
-		for (Relation relation : relations) {
+		for (Relation relation : mapData.getRelations()) {
 			ECOLUMN4[i++] = relation.toString();
 		}
 		// 关注程度
-		Integer[] ECOLUMN5 = new Integer[relations.size()];
+		Integer[] ECOLUMN5 = new Integer[NEDGES];
 		i = 0;
-		for (Relation relation : relations) {
+		for (Relation relation : mapData.getRelations()) {
 			ECOLUMN5[i++] = relation.getAttentionType();
 		}
 		// 关联线颜色
-		Boolean[] ECOLUMN6 = new Boolean[relations.size()];
+		Boolean[] ECOLUMN6 = new Boolean[NEDGES];
 		i = 0;
-		for (i = 0; i < relations.size(); i++) {
+		for (i = 0; i < NEDGES; i++) {
 			ECOLUMN6[i] = false;
 		}
-		Boolean[] ECOLUMN7 = new Boolean[relations.size()];
+		Boolean[] ECOLUMN7 = new Boolean[NEDGES];
 		i = 0;
-		for (i = 0; i < relations.size(); i++) {
+		for (i = 0; i < NEDGES; i++) {
 			ECOLUMN7[i] = false;
 		}
-		Boolean[] ECOLUMN8 = new Boolean[relations.size()];
+		Boolean[] ECOLUMN8 = new Boolean[NEDGES];
 		i = 0;
-		for (i = 0; i < relations.size(); i++) {
+		for (i = 0; i < NEDGES; i++) {
 			ECOLUMN8[i] = false;
 		}
 		Object[][] EDGES = { ECOLUMN1, ECOLUMN2, ECOLUMN3, ECOLUMN4, ECOLUMN5, ECOLUMN6, ECOLUMN7, ECOLUMN8 };

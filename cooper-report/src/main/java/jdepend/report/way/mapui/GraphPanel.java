@@ -35,16 +35,27 @@ public class GraphPanel extends JPanel {
 
 	private JDialog parentDialog;
 
+	private String group;
+
+	private String command;
+
 	public GraphPanel(GraphPrinter printer, Collection<Relation> relations) {
-		this(printer.getFrame(), null, relations);
+		this(printer.getFrame(), null, printer.getGroup(), printer.getCommand(), relations);
 		gview.setPrinter(printer);
 	}
 
 	public GraphPanel(JDependFrame frame, JDialog parentDialog, Collection<Relation> relations) {
+		this(frame, null, null, null, relations);
+	}
+
+	private GraphPanel(JDependFrame frame, JDialog parentDialog, String group, String command,
+			Collection<Relation> relations) {
 
 		this.frame = frame;
 
 		this.parentDialog = parentDialog;
+		this.group = group;
+		this.command = command;
 
 		this.setLayout(new BorderLayout());
 		// create a new radial tree view
@@ -97,5 +108,13 @@ public class GraphPanel extends JPanel {
 
 	public JDialog getParentDialog() {
 		return parentDialog;
+	}
+
+	String getGroup() {
+		return group;
+	}
+
+	String getCommand() {
+		return command;
 	}
 }

@@ -104,14 +104,14 @@ public class MainMenuControl extends ControlAdapter {
 
 		popupMenu.addSeparator();
 
-		LayoutInfo currentLayout = LayoutMgr.getInstance().getCurrentLayout();
-		for (final LayoutInfo layout : LayoutMgr.getInstance().getLayouts()) {
+		LayoutInfo currentLayout = this.display.getLayoutMgr().getCurrentLayout();
+		for (final LayoutInfo layout : this.display.getLayoutMgr().getLayouts()) {
 			if (!layout.equals(currentLayout)) {
 				final JMenuItem changeLayouttem = new JMenuItem(layout.getName());
 				changeLayouttem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						convertLayout(layout.getLayout());
-						LayoutMgr.getInstance().setCurrentLayout(layout);
+						display.getLayoutMgr().setCurrentLayout(layout);
+						display.getVisualization().run("filter");
 					}
 				});
 				popupMenu.add(changeLayouttem);
@@ -171,7 +171,7 @@ public class MainMenuControl extends ControlAdapter {
 	}
 
 	private void packageTree() {
-		if (!this.display.getPrinter().isPackageTreeVisible()) {
+		if (this.display.getPrinter() != null && !this.display.getPrinter().isPackageTreeVisible()) {
 			display.getPrinter().showPackageTree();
 		} else {
 			display.getPrinter().hiddenPackageTree();
@@ -226,17 +226,5 @@ public class MainMenuControl extends ControlAdapter {
 			DisplayLib.fitViewToBounds(display, bounds, m_duration);
 		}
 
-	}
-
-	private void convertLayout(Layout layout) {
-
-		layout.setLayoutBounds(new Rectangle(this.display.getWidth(), this.display.getHeight()));
-
-		Action treeLayout = this.display.getVisualization().getAction("treeLayout");
-		this.display.getVisualization().putAction("treeLayout", layout);
-		ActionList filter = (ActionList) this.display.getVisualization().getAction("filter");
-		filter.remove(treeLayout);
-		filter.add(layout);
-		this.display.getVisualization().run("filter");
 	}
 }

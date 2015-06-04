@@ -32,6 +32,26 @@ public class SpecifiedPositionMgr extends PersistentBean {
 		this.commandSpecifiedPositions = commandSpecifiedPositions;
 	}
 
+	public void updateCommandSpecifiedPosition(CommandSpecifiedPosition commandSpecifiedPosition) {
+		this.deleteTheCommandSpecifiedPosition(commandSpecifiedPosition.getGroup(),
+				commandSpecifiedPosition.getCommand());
+		this.commandSpecifiedPositions.add(commandSpecifiedPosition);
+
+	}
+
+	public boolean deleteTheCommandSpecifiedPosition(String group, String command) {
+		if (group != null && command != null) {
+			for (CommandSpecifiedPosition commandSpecifiedPosition : commandSpecifiedPositions) {
+				if (commandSpecifiedPosition.getGroup().equals(group)
+						&& commandSpecifiedPosition.getCommand().equals(command)) {
+					commandSpecifiedPositions.remove(commandSpecifiedPosition);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public CommandSpecifiedPosition getTheCommandSpecifiedPosition(String group, String command) {
 		for (CommandSpecifiedPosition commandSpecifiedPosition : commandSpecifiedPositions) {
 			if (commandSpecifiedPosition.getGroup().equals(group)
