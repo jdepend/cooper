@@ -7,6 +7,7 @@ import java.net.SocketException;
 import javax.swing.AbstractAction;
 
 import jdepend.core.local.analyzer.AnalyzerMgr;
+import jdepend.report.way.mapui.layout.specifiedposition.SpecifiedPositionMgr;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.UIPropertyConfigurator;
 
@@ -40,6 +41,12 @@ public class ExitAction extends AbstractAction {
 			UIPropertyConfigurator.getInstance().save();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}
+		// 保存组件关系图形中组件节点数据
+		try {
+			SpecifiedPositionMgr.getInstance().save();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}

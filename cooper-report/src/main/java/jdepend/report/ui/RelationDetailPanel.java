@@ -157,11 +157,11 @@ public final class RelationDetailPanel extends JPanel {
 					if (currentCol.equals(ReportConstant.CurrentJC) || currentCol.equals(ReportConstant.DependJC)) {
 						String current;
 						if (currentCol.equals(ReportConstant.CurrentJC)) {
-							current = CandidateUtil.getId((String) table.getValueAt(row, 0),
-									(String) table.getValueAt(row, 1));
+							current = CandidateUtil.getId((String) table.getValueAt(row, 1),
+									(String) table.getValueAt(row, 2));
 						} else {
-							current = CandidateUtil.getId((String) table.getValueAt(row, 2),
-									(String) table.getValueAt(row, 3));
+							current = CandidateUtil.getId((String) table.getValueAt(row, 3),
+									(String) table.getValueAt(row, 4));
 						}
 						JavaClassUnit currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
 						JavaClassRelationGraphDialog d = new JavaClassRelationGraphDialog(frame, currentClass);

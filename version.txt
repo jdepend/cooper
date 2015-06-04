@@ -4,6 +4,10 @@ a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
 
 b）将ui、webserver组件中涉及SearchUtil.getPackages的逻辑该由JDependServiceProxy.getPackages来承担，以支持parse可以完全在远程运行
 
+c）支持对组件关系图形中节点人工拖拽的位置保存
+
+d）梳理异常体系，创建ParseException、ParseClassException、ServiceException、ComponentException、RefactorException等异常类型
+
 
 1.2.5_02 2015-05-27
 
