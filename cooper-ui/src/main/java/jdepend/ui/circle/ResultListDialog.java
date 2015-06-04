@@ -47,7 +47,7 @@ public final class ResultListDialog extends CooperDialog {
 					return;
 				}
 				try {
-					byte[] result = ScoreRepository.getTheResult(scoreListPanel.getId()).getBytes();
+					byte[] result = ScoreRepository.getTheResult((String) scoreListPanel.getId()).getBytes();
 					IpMsgService.sendResult(result, new String[] { ip });
 					ResultListDialog.this.dispose();
 				} catch (Exception e1) {

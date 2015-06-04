@@ -5,11 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -17,11 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.dialog.CooperDialog;
+import jdepend.framework.ui.graph.CooperTable;
+import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
+import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.ui.JDependCooper;
@@ -31,22 +30,13 @@ import jdepend.util.refactor.AdjustHistory;
 
 public final class ProductListDialog extends CooperDialog {
 
-	private JTable productListTable;
-
-	private DefaultTableModel productListModel;
+	private CooperTable productListTable;
 
 	private JDependCooper frame;
 
-	private List<Date> selectedIDs;
-
-	private Date currentId;
-
-	public ProductListDialog(JDependCooper frame) {
+	public ProductListDialog(JDependCooper frame) throws JDependException {
 
 		super("购物车");
-
-		this.setSize(500, 600);
-		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
 		this.frame = frame;
 
@@ -66,30 +56,27 @@ public final class ProductListDialog extends CooperDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ShoppingCart.getInstance().clear();
-				refresh();
+				try {
+					refresh();
+				} catch (JDependException e1) {
+					frame.getResultPanel().showError(e1);
+				}
 			}
 		});
 		return button;
 	}
 
-	protected JScrollPane initTable() {
+	protected JScrollPane initTable() throws JDependException {
 
-		productListModel = new DefaultTableModel() {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
+		productListTable = new CooperTable(this.calTableData());
 
-		};
-
-		TableSorter sorter = new TableSorter(productListModel);
-		productListTable = new JTable(sorter);
+		JScrollPane pane = new JScrollPane(productListTable);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		JMenuItem viewItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_View));
 		viewItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				view();
+				view((Date) productListTable.getCurrentes().get(0));
 				dispose();
 			}
 		});
@@ -98,11 +85,12 @@ public final class ProductListDialog extends CooperDialog {
 		JMenuItem compareItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Compare));
 		compareItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedIDs == null || selectedIDs.size() != 2) {
+				if (productListTable.getCurrentes() == null || productListTable.getCurrentes().size() != 2) {
 					JOptionPane.showMessageDialog(ProductListDialog.this, "请选择2条需要比较的记录", "alert",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					compare(selectedIDs.get(0), selectedIDs.get(1));
+					compare((Date) productListTable.getCurrentes().get(0), (Date) productListTable.getCurrentes()
+							.get(1));
 					dispose();
 				}
 			}
@@ -112,61 +100,64 @@ public final class ProductListDialog extends CooperDialog {
 		productListTable.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mousePressed(MouseEvent e) {
-				JTable table = (JTable) e.getSource();
-				selectedIDs = new ArrayList<Date>();
-				for (int row : table.getSelectedRows()) {
-					selectedIDs.add((Date) table.getValueAt(row, 0));
-				}
-			}
-
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				JTable table = (JTable) e.getSource();
-				int currentRow = table.rowAtPoint(e.getPoint());
-				currentId = (Date) table.getValueAt(currentRow, 0);
 				if (e.getButton() == 3) {
 					popupMenu.show(table, e.getX(), e.getY());
 				}
 				if (e.getClickCount() == 2)
-					view();
+					view((Date) productListTable.getCurrentes().get(0));
 			}
 		});
-
-		sorter.setTableHeader(productListTable.getTableHeader());
-
-		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_ExecuteDate));
-		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_GroupName));
-		productListModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_CommandName));
-
-		sorter.setSortingStatus(0, TableSorter.ASCENDING);
-
-		JScrollPane pane = new JScrollPane(productListTable);
-		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		return pane;
 	}
 
-	private void refresh() {
-
-		productListModel.setRowCount(0);
-
-		Object[] row;
-
-		for (Product product : ShoppingCart.getInstance().getProducts()) {
-			row = new Object[3];
-			row[0] = product.getCreateDate();
-			row[1] = product.getResult().getRunningContext().getGroup();
-			row[2] = product.getResult().getRunningContext().getCommand();
-
-			productListModel.addRow(row);
-		}
-
+	private void refresh() throws JDependException {
+		productListTable.refresh(this.calTableData());
 		frame.getStatusField().refresh();
 	}
 
-	private void view() {
-		AnalysisResult result = ShoppingCart.getInstance().getTheProduct(currentId).getResult();
+	private TableData calTableData() throws JDependException {
+
+		TableData tableData = new TableData();
+		for (Product product : ShoppingCart.getInstance().getProducts()) {
+
+			AnalysisResult result = product.getResult();
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_ExecuteDate), product.getCreateDate());
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_GroupName), result.getRunningContext()
+					.getGroup());
+			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_CommandName), result.getRunningContext()
+					.getCommand());
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_LC), result.getSummary().getLineCount());
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_ComponentCount), result.getSummary()
+					.getComponentCount());
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationCount), result.getSummary()
+					.getRelationCount());
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Cohesion),
+					MetricsFormat.toFormattedMetrics(result.getSummary().getCohesion()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Coupling),
+					MetricsFormat.toFormattedMetrics(result.getSummary().getCoupling()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_D),
+					MetricsFormat.toFormattedMetrics(result.getDistance()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Balance),
+					MetricsFormat.toFormattedMetrics(result.getBalance()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Encapsulation),
+					MetricsFormat.toFormattedMetrics(result.getEncapsulation()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationRationality),
+					MetricsFormat.toFormattedMetrics(result.getRelationRationality()));
+			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_TotalScore),
+					MetricsFormat.toFormattedMetrics(result.getScore()));
+		}
+		tableData.setSortColName(BundleUtil.getString(BundleUtil.Metrics_TotalScore));
+		tableData.setSortOperation(TableData.DESC);
+
+		return tableData;
+
+	}
+
+	private void view(Date id) {
+		AnalysisResult result = ShoppingCart.getInstance().getTheProduct(id).getResult();
 		JDependUnitMgr.getInstance().setResult(result);
 		frame.getResultPanelWrapper().showResults(true);
 	}

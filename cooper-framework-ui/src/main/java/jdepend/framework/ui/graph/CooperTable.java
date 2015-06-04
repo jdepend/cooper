@@ -25,7 +25,7 @@ public class CooperTable extends JTable {
 
 	private JPopupMenu popupMenu = new JPopupMenu();
 
-	private List<String> currentes;
+	private List<Object> currentes;
 
 	private DefaultTableModel model;
 
@@ -43,8 +43,7 @@ public class CooperTable extends JTable {
 		this.setModel(sorter);
 		sorter.setTableHeader(this.getTableHeader());
 
-		JMenuItem saveAsItem = new JMenuItem(
-				BundleUtil.getString(BundleUtil.Command_SaveAs));
+		JMenuItem saveAsItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveAsItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTableUtil.exportTableToExcel(CooperTable.this);
@@ -58,32 +57,25 @@ public class CooperTable extends JTable {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				final JTable table = (JTable) e.getSource();
-				currentes = new ArrayList<String>();
+				currentes = new ArrayList<Object>();
 				for (int rowNumber : table.getSelectedRows()) {
-					currentes.add((String) table.getValueAt(rowNumber, 0));
+					currentes.add(table.getValueAt(rowNumber, 0));
 				}
 			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				final JTable table = (JTable) e.getSource();
-				String currentCol = (String) table.getColumnModel()
-						.getColumn(table.columnAtPoint(e.getPoint()))
+				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
 					if (callBacks.size() > 0 && currentes.size() == 1) {
 						for (TableCallBack callBack : callBacks) {
 							if (currentCol.equals(callBack.colName)) {
 								try {
-									Constructor c = this
-											.getClass()
-											.getClassLoader()
-											.loadClass(callBack.DialogName)
-											.getConstructor(
-													new Class[] { String.class });
-									JDialog d = (JDialog) c
-											.newInstance(new Object[] { currentes
-													.get(0) });
+									Constructor c = this.getClass().getClassLoader().loadClass(callBack.DialogName)
+											.getConstructor(new Class[] { String.class });
+									JDialog d = (JDialog) c.newInstance(new Object[] { currentes.get(0) });
 									d.setModal(true);
 									d.setVisible(true);
 								} catch (Exception e1) {
@@ -104,16 +96,14 @@ public class CooperTable extends JTable {
 			for (TableCallBack callBack : callBacks) {
 				detailColumnNames.add(callBack.colName);
 			}
-			this.addMouseMotionListener(new TableMouseMotionAdapter(this,
-					detailColumnNames));
+			this.addMouseMotionListener(new TableMouseMotionAdapter(this, detailColumnNames));
 		}
 
 		int columnIndex = 0;
 		int sortColumnIndex = -1;
 		for (String columnName : data.getColumnNames()) {
 			model.addColumn(columnName);
-			if (data.getSortColName() != null
-					&& data.getSortColName().equals(columnName)) {
+			if (data.getSortColName() != null && data.getSortColName().equals(columnName)) {
 				sortColumnIndex = columnIndex;
 			}
 			columnIndex++;
@@ -145,8 +135,7 @@ public class CooperTable extends JTable {
 			for (String columnName : data.getColumnNames()) {
 				itemData = data.getColumnValue(columnName, i);
 				if (itemData instanceof Float) {
-					itemData = MetricsFormat
-							.toFormattedMetrics((Float) itemData);
+					itemData = MetricsFormat.toFormattedMetrics((Float) itemData);
 				} else if (itemData instanceof String) {
 					if (((String) itemData).indexOf("\n") != -1) {
 						multiLineColNames.add(columnName);
@@ -158,8 +147,7 @@ public class CooperTable extends JTable {
 		}
 
 		for (String multiLineColName : multiLineColNames) {
-			this.getColumn(multiLineColName).setCellRenderer(
-					new MultiLineTableCellRender());
+			this.getColumn(multiLineColName).setCellRenderer(new MultiLineTableCellRender());
 		}
 	}
 
@@ -167,7 +155,7 @@ public class CooperTable extends JTable {
 		return popupMenu;
 	}
 
-	public List<String> getCurrentes() {
+	public List<Object> getCurrentes() {
 		return currentes;
 	}
 }

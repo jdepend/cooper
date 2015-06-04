@@ -97,11 +97,11 @@ public class ScoreListPanel extends JPanel {
 
 	}
 
-	public String getId() {
+	public Object getId() {
 		return scoreListTable.getCurrentes().get(0);
 	}
 
-	public List<String> getCurrentes() {
+	public List<Object> getCurrentes() {
 		return scoreListTable.getCurrentes();
 	}
 

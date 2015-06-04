@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
+import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.util.JDependUIUtil;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.shoppingcart.model.ShoppingCart;
@@ -28,9 +29,13 @@ public class ShoppingCartPanel extends JPanel {
 		state.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				ProductListDialog d = new ProductListDialog(frame);
-				d.setModal(true);
-				d.setVisible(true);
+				try {
+					ProductListDialog d = new ProductListDialog(frame);
+					d.setModal(true);
+					d.setVisible(true);
+				} catch (JDependException e) {
+					frame.getResultPanel().showError(e);
+				}
 			}
 		});
 

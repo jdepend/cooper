@@ -33,7 +33,7 @@ public final class BigClassDialog extends CooperDialog {
 		viewMethodListItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getCurrentes().size() == 1) {
-					viewMethodList(table.getCurrentes().get(0));
+					viewMethodList((String)table.getCurrentes().get(0));
 				}
 			}
 		});

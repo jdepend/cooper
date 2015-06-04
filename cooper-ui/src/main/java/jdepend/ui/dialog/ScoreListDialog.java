@@ -146,8 +146,8 @@ public final class ScoreListDialog extends CooperDialog {
 			}
 
 			private void delete() throws JDependException {
-				for (String id : this.getCurrentes()) {
-					ScoreRepository.delete(id);
+				for (Object id : this.getCurrentes()) {
+					ScoreRepository.delete((String) id);
 				}
 			}
 
@@ -155,7 +155,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				final AnalysisResult result = ScoreRepository.getTheResult(this.getId());
+				final AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
 				if (result != null) {
 					new Thread() {
 						@Override
@@ -190,7 +190,7 @@ public final class ScoreListDialog extends CooperDialog {
 					OutputStream stream = null;
 					try {
 						// 获取结果
-						AnalysisResult result = ScoreRepository.getTheResult(this.getId());
+						AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
 						// 生成报告
 						TextSummaryPrinter printer = new TextSummaryPrinter();
 						stream = new ByteArrayOutputStream();
@@ -229,7 +229,7 @@ public final class ScoreListDialog extends CooperDialog {
 				int rtn = jFileChooser.showSaveDialog(null);
 				if (rtn == JFileChooser.APPROVE_OPTION) {
 					// 获取结果
-					AnalysisResult result = ScoreRepository.getTheResult(this.getId());
+					AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
 					File f = jFileChooser.getSelectedFile();
 					// 创建HTML文件
 					String targetFile = null;
@@ -291,7 +291,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				AnalysisResult result = ScoreRepository.getTheResult(this.getId());
+				AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
 				AnalysisResultExportUtil.exportResult(frame, result);
 			}
 		});
