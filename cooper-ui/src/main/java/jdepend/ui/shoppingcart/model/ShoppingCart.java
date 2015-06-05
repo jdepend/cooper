@@ -25,7 +25,7 @@ public class ShoppingCart {
 	}
 
 	public void addProduct(AnalysisResult result) throws JDependException {
-		if (this.products.size() < 9) {
+		if (this.products.size() <= 15) {
 			Product product = new Product(result);
 			if (!this.products.contains(product)) {
 				this.products.add(product);
@@ -33,7 +33,7 @@ public class ShoppingCart {
 				throw new JDependException("该分析结果已加入购物车");
 			}
 		} else {
-			throw new JDependException("购物车中最多只能添加10个分析结果");
+			throw new JDependException("购物车中最多只能添加15个分析结果");
 		}
 	}
 
