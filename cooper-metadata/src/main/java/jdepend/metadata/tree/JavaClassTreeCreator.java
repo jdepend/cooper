@@ -8,8 +8,6 @@ import java.util.List;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.JavaClassRelationType;
-import jdepend.metadata.relationtype.InheritRelation;
 
 public abstract class JavaClassTreeCreator {
 
@@ -17,10 +15,7 @@ public abstract class JavaClassTreeCreator {
 
 	private List<JavaClassTree> trees;
 
-	private JavaClassRelationType type;
-
-	JavaClassTreeCreator(JavaClassRelationType type) {
-		this.type = type;
+	JavaClassTreeCreator() {
 	}
 
 	public List<JavaClassTree> create(Collection<JavaClass> classes) {
@@ -90,20 +85,25 @@ public abstract class JavaClassTreeCreator {
 						currentTree = it.next();
 						if (currentTree.contains(this.getDepend(relationItem))) {
 							if (currentTree.getJavaClassRoots().contains(this.getDepend(relationItem))) {
-								tree.appendTree(currentClass, currentTree);
-								it.remove();
+								this.appendTree(it, tree, currentTree, currentClass);
 							} else {
-								// 只对继承关系进行合并
-								if (this.type instanceof InheritRelation) {
-									tree.mergeTree(currentTree, currentClass, this.getDepend(relationItem));
-									it.remove();
-								}
+								this.mergeTree(it, tree, currentTree, currentClass, this.getDepend(relationItem));
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	protected void appendTree(Iterator<JavaClassTree> it, JavaClassTree tree, JavaClassTree currentTree,
+			JavaClass currentClass) {
+		tree.appendTree(currentClass, currentTree);
+		it.remove();
+	}
+
+	protected void mergeTree(Iterator<JavaClassTree> it, JavaClassTree tree, JavaClassTree currentTree,
+			JavaClass currentClass, JavaClass dependJavaClass) {
 	}
 
 	/**

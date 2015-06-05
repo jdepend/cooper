@@ -6,12 +6,11 @@ import java.util.Collection;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.relationtype.FieldRelation;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 
 public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
 
 	public JavaClassFieldTreeCreator() {
-		super(JavaClassRelationTypeMgr.getInstance().getFieldRelation());
+		super();
 	}
 
 	/**

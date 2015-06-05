@@ -2,16 +2,16 @@ package jdepend.metadata.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.relationtype.InheritRelation;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 
 public class JavaClassInheritTreeCreator extends JavaClassTreeCreator {
 
 	public JavaClassInheritTreeCreator() {
-		super(JavaClassRelationTypeMgr.getInstance().getInheritRelation());
+		super();
 	}
 
 	/**
@@ -43,4 +43,12 @@ public class JavaClassInheritTreeCreator extends JavaClassTreeCreator {
 	protected JavaClass getCurrent(JavaClassRelationItem item) {
 		return item.getTarget();
 	}
+
+	@Override
+	protected void mergeTree(Iterator<JavaClassTree> it, JavaClassTree tree, JavaClassTree currentTree,
+			JavaClass currentClass, JavaClass dependJavaClass) {
+		tree.mergeTree(currentTree, currentClass, dependJavaClass);
+		it.remove();
+	}
+
 }
