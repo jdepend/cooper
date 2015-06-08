@@ -7,7 +7,7 @@ import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
-import jdepend.metadata.tree.JavaClassInheritTreeCreator;
+import jdepend.metadata.tree.JavaClassInheritTreesCreator;
 import jdepend.metadata.tree.JavaClassNode;
 import jdepend.metadata.tree.JavaClassTree;
 import jdepend.metadata.tree.Node;
@@ -44,7 +44,7 @@ public class OverrideCheck extends AbstractAnalyzer {
 
 	protected void doSearch(AnalysisResult result) throws AnalyzerException {
 
-		List<JavaClassTree> trees = (new JavaClassInheritTreeCreator()).create(JavaClassUnitUtil.getJavaClasses(result
+		List<JavaClassTree> trees = (new JavaClassInheritTreesCreator()).create(JavaClassUnitUtil.getJavaClasses(result
 				.getClasses()));
 
 		for (JavaClassTree tree : trees) {

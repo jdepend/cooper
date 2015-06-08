@@ -13,8 +13,8 @@ import jdepend.metadata.JavaPackage;
 import jdepend.metadata.Method;
 import jdepend.metadata.RemoteInvokeItem;
 import jdepend.metadata.relationtype.TableRelation;
-import jdepend.metadata.tree.JavaClassFieldTreeCreator;
-import jdepend.metadata.tree.JavaClassInheritTreeCreator;
+import jdepend.metadata.tree.JavaClassFieldTreesCreator;
+import jdepend.metadata.tree.JavaClassInheritTreesCreator;
 import jdepend.metadata.tree.JavaClassTree;
 import jdepend.metadata.tree.JavaPackageNode;
 import jdepend.metadata.tree.JavaPackageTreeCreator;
@@ -174,7 +174,7 @@ public final class ParseTest extends TestCase {
 	}
 
 	public void testJavaClassInheritTreeCreator() {
-		JavaClassInheritTreeCreator creator = new JavaClassInheritTreeCreator();
+		JavaClassInheritTreesCreator creator = new JavaClassInheritTreesCreator();
 		List<JavaClassTree> trees = creator.create(this.javaClasses);
 		Collections.sort(trees);
 
@@ -184,7 +184,7 @@ public final class ParseTest extends TestCase {
 	}
 
 	public void testJavaClassFieldTreeCreator() {
-		JavaClassFieldTreeCreator creator = new JavaClassFieldTreeCreator();
+		JavaClassFieldTreesCreator creator = new JavaClassFieldTreesCreator();
 		List<JavaClassTree> trees = creator.create(this.javaClasses);
 		Collections.sort(trees);
 

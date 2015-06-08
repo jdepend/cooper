@@ -230,6 +230,8 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 			int diffLayer = currentNode.getLayer() - (theNode.getLayer() - 1);
 			tree.addLayer(diffLayer);
 		}
+		theNode.setParent(currentNode);
+		
 		for (JavaClassNode node : tree.nodes) {
 			this.nodes.add(node);
 		}

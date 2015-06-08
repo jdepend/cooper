@@ -2,14 +2,15 @@ package jdepend.metadata.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.relationtype.FieldRelation;
+import jdepend.metadata.relationtype.InheritRelation;
 
-public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
+public class JavaClassInheritTreesCreator extends JavaClassTreesCreator {
 
-	public JavaClassFieldTreeCreator() {
+	public JavaClassInheritTreesCreator() {
 		super();
 	}
 
@@ -24,8 +25,8 @@ public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
 
 		Collection<JavaClassRelationItem> relationTypeItems = new ArrayList<JavaClassRelationItem>();
 
-		for (JavaClassRelationItem relationItem : javaClass.getSelfCeItems()) {
-			if (relationItem.getType() instanceof FieldRelation) {
+		for (JavaClassRelationItem relationItem : javaClass.getSelfCaItems()) {
+			if (relationItem.getType() instanceof InheritRelation) {
 				relationTypeItems.add(relationItem);
 			}
 		}
@@ -35,11 +36,19 @@ public class JavaClassFieldTreeCreator extends JavaClassTreeCreator {
 
 	@Override
 	protected JavaClass getDepend(JavaClassRelationItem item) {
-		return item.getTarget();
+		return item.getSource();
 	}
 
 	@Override
 	protected JavaClass getCurrent(JavaClassRelationItem item) {
-		return item.getSource();
+		return item.getTarget();
 	}
+
+	@Override
+	protected void mergeTree(Iterator<JavaClassTree> it, JavaClassTree tree, JavaClassTree currentTree,
+			JavaClass currentClass, JavaClass dependJavaClass) {
+		tree.mergeTree(currentTree, currentClass, dependJavaClass);
+		it.remove();
+	}
+
 }
