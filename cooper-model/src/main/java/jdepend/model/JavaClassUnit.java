@@ -532,12 +532,6 @@ public class JavaClassUnit extends AbstractSubJDependUnit {
 				return MetricsMgr.NoValue;
 			}
 
-		case MetricsMgr.Ca:
-			return this.getAfferentCoupling() + "|" + this.getCaList().size() + " <";
-
-		case MetricsMgr.Ce:
-			return this.getEfferentCoupling() + "|" + this.getCeList().size() + " >";
-
 		case JavaClassUnit.ClassType:
 			return this.javaClass.getClassType();
 

@@ -36,6 +36,8 @@ import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
+import jdepend.report.model.ReportJavaClassUnit;
+import jdepend.report.model.ReportJavaClassUnitUtil;
 import jdepend.report.util.ReportConstant;
 
 public class ClassListPanel extends JPanel {
@@ -51,7 +53,7 @@ public class ClassListPanel extends JPanel {
 	// 外部JavaClass名称
 	protected List<String> extendUnits = new ArrayList<String>();
 
-	private Collection<JavaClassUnit> javaClasses;
+	private Collection<ReportJavaClassUnit> javaClasses;
 
 	protected JDependFrame frame;
 
@@ -73,7 +75,7 @@ public class ClassListPanel extends JPanel {
 	public int showClassList(Collection<JavaClassUnit> javaClasses) {
 		clearClassList();
 
-		this.javaClasses = javaClasses;
+		this.javaClasses = ReportJavaClassUnitUtil.convert(javaClasses);
 		this.loadClassList();
 
 		this.fitCol();
@@ -84,7 +86,7 @@ public class ClassListPanel extends JPanel {
 	public int showClassList(jdepend.model.Component component) {
 		clearClassList();
 
-		this.javaClasses = component.getClasses();
+		this.javaClasses = ReportJavaClassUnitUtil.convert(component.getClasses());
 		this.loadClassList();
 
 		this.fitCol();
@@ -94,7 +96,7 @@ public class ClassListPanel extends JPanel {
 
 	public int showAllClassList() {
 		clearClassList();
-		this.javaClasses = JDependUnitMgr.getInstance().getResult().getClasses();
+		this.javaClasses = ReportJavaClassUnitUtil.convert(JDependUnitMgr.getInstance().getResult().getClasses());
 		this.loadClassList();
 
 		this.fitCol();

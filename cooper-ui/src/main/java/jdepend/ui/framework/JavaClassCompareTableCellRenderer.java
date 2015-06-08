@@ -8,8 +8,8 @@ import javax.swing.JTable;
 
 import jdepend.metadata.CandidateUtil;
 import jdepend.model.JavaClassUnit;
-import jdepend.model.Measurable;
 import jdepend.model.result.AnalysisResult;
+import jdepend.report.model.ReportJavaClassUnit;
 import jdepend.util.refactor.CompareObject;
 
 public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer {
@@ -41,9 +41,9 @@ public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer 
 		return new CompareObject(value, id, metrics) {
 			@Override
 			public Object getOriginalityValue(AnalysisResult result) {
-				Measurable measurable = result.getTheClass(this.getId());
-				if (measurable != null) {
-					return measurable.getValue(this.getMetrics());
+				JavaClassUnit javaClassUnit = result.getTheClass(this.getId());
+				if (javaClassUnit != null) {
+					return new ReportJavaClassUnit(javaClassUnit).getValue(this.getMetrics());
 				} else {
 					return null;
 				}
