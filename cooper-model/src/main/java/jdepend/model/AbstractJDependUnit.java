@@ -48,6 +48,27 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 		this.name = name;
 	}
 
+	public AbstractJDependUnit(AbstractJDependUnit unit) {
+		this.name = unit.name;
+
+		this.type = unit.type;
+
+		this.lineCount = unit.lineCount;
+
+		this.cycles = unit.cycles;
+
+		this.coupling = unit.coupling;
+		this.encapsulation = unit.encapsulation;
+
+		this.abstractness = unit.abstractness;
+		this.stability = unit.stability;
+		this.distance = unit.distance;
+		this.volatility = unit.volatility;
+
+		this.stabilityCal = unit.stabilityCal;
+		this.distanceCal = unit.distanceCal;
+	}
+
 	public String getName() {
 		return name;
 	}

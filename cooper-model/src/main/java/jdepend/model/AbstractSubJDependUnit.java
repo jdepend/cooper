@@ -16,6 +16,14 @@ public abstract class AbstractSubJDependUnit extends AbstractJDependUnit impleme
 		super(name);
 	}
 
+	public AbstractSubJDependUnit(AbstractSubJDependUnit unit) {
+		super(unit);
+
+		this.groupCohesionInfo = unit.groupCohesionInfo;
+		this.groupCouplingInfo = unit.groupCouplingInfo;
+		this.groupInfoCalculator = unit.groupInfoCalculator;
+	}
+
 	public synchronized GroupCouplingInfo getGroupCouplingInfo() {
 		if (this.groupCouplingInfo == null) {
 			this.groupCouplingInfo = this.getGroupInfoCalculator().getGroupCouplingInfo();

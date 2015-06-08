@@ -19,27 +19,27 @@ import jdepend.model.result.AnalysisResult;
  * 
  */
 
-public final class JavaClassUnit extends AbstractSubJDependUnit {
+public class JavaClassUnit extends AbstractSubJDependUnit {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3619193239851101008L;
 
-	private JavaClass javaClass;
+	protected JavaClass javaClass;
 
-	private Component component;
+	protected Component component;
 
-	private List<JavaClassUnit> innerClassUnits = new ArrayList<JavaClassUnit>();
+	protected List<JavaClassUnit> innerClassUnits = new ArrayList<JavaClassUnit>();
 
-	private Boolean abstractClassQualification;// 是否具有抽象类资格
-	private boolean stable = false;
+	protected Boolean abstractClassQualification;// 是否具有抽象类资格
+	protected boolean stable = false;
 
-	private transient Collection<JavaClassUnit> caList = null;
-	private transient Collection<JavaClassUnit> ceList = null;
-	private transient Collection<JavaClassUnit> relationList = null;
-	private transient Collection<JavaClassUnit> afferents = null;
-	private transient Collection<JavaClassUnit> efferents = null;
+	protected transient Collection<JavaClassUnit> caList = null;
+	protected transient Collection<JavaClassUnit> ceList = null;
+	protected transient Collection<JavaClassUnit> relationList = null;
+	protected transient Collection<JavaClassUnit> afferents = null;
+	protected transient Collection<JavaClassUnit> efferents = null;
 
 	public static final String Place = "JavaClass_Place";
 	public static final String isPrivateElement = "JavaClass_isPrivateElement";
@@ -47,12 +47,32 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 	public static final String State = "JavaClass_State";
 	public static final String ClassType = "JavaClass_Type";
 
+	protected JavaClassUnit() {
+
+	}
+
 	public JavaClassUnit(JavaClass javaClass) {
 		this.javaClass = javaClass;
 
 		for (JavaClass innerClass : javaClass.getInnerClasses()) {
 			this.innerClassUnits.add(new JavaClassUnit(innerClass));
 		}
+	}
+
+	public JavaClassUnit(JavaClassUnit unit) {
+		super(unit);
+
+		this.javaClass = unit.javaClass;
+		this.component = unit.component;
+		this.innerClassUnits = unit.innerClassUnits;
+		this.abstractClassQualification = unit.abstractClassQualification;
+		this.stable = unit.stable;
+
+		this.caList = unit.caList;
+		this.ceList = unit.ceList;
+		this.relationList = unit.relationList;
+		this.afferents = unit.afferents;
+		this.efferents = unit.efferents;
 	}
 
 	public JavaClass getJavaClass() {

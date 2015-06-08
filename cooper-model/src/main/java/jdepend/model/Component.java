@@ -104,6 +104,28 @@ public abstract class Component extends AbstractSubJDependUnit {
 		super(name);
 	}
 
+	public Component(Component component) {
+
+		super(component);
+
+		this.title = component.title;
+		this.layer = component.layer;
+		this.javaClasses = component.javaClasses;
+		this.result = component.result;
+		this.areaComponent = component.areaComponent;
+		this.steadyType = component.steadyType;
+		this.javaClassesForId = component.javaClassesForId;
+		this.afferents = component.afferents;
+		this.efferents = component.efferents;
+		this.javaPackages = component.javaPackages;
+		this.path = component.path;
+		this.cohesion = component.cohesion;
+		this.caCoupling = component.caCoupling;
+		this.ceCoupling = component.ceCoupling;
+		this.relations = component.relations;
+		this.subJDependUnits = component.subJDependUnits;
+	}
+
 	/**
 	 * 初始化
 	 * 
