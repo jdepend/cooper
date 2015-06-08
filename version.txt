@@ -8,6 +8,8 @@ c）支持对组件关系图形中节点人工拖拽的位置保存
 
 d）梳理异常体系，创建ParseException、ParseClassException、ServiceException、ComponentException、RefactorException等异常类型
 
+e）为类列表中的类增加图形化查看传入传出的功能
+
 
 1.2.5_02 2015-05-27
 

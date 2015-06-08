@@ -513,10 +513,10 @@ public final class JavaClassUnit extends AbstractSubJDependUnit {
 			}
 
 		case MetricsMgr.Ca:
-			return this.getAfferentCoupling() + "|" + this.javaClass.getCaList().size();
+			return this.getAfferentCoupling() + "|" + this.getCaList().size() + " <";
 
 		case MetricsMgr.Ce:
-			return this.getEfferentCoupling() + "|" + this.javaClass.getCeList().size();
+			return this.getEfferentCoupling() + "|" + this.getCeList().size() + " >";
 
 		case JavaClassUnit.ClassType:
 			return this.javaClass.getClassType();

@@ -18,7 +18,22 @@ public abstract class JavaClassTreeCreator {
 	JavaClassTreeCreator() {
 	}
 
+	public JavaClassTree create(JavaClass rootClass, Collection<JavaClass> classes) {
+		Collection<JavaClass> rootClasses = new ArrayList<JavaClass>();
+		rootClasses.add(rootClass);
+		List<JavaClassTree> trees = create(rootClasses, classes);
+		if (trees.size() > 0) {
+			return trees.get(0);
+		} else {
+			return null;
+		}
+	}
+
 	public List<JavaClassTree> create(Collection<JavaClass> classes) {
+		return create(classes, classes);
+	}
+
+	private List<JavaClassTree> create(Collection<JavaClass> classes1, Collection<JavaClass> classes) {
 
 		trees = new ArrayList<JavaClassTree>();
 
@@ -26,7 +41,7 @@ public abstract class JavaClassTreeCreator {
 
 		boolean unite = false;// 合并到其他树上
 
-		for (JavaClass javaClass : classes) {
+		for (JavaClass javaClass : classes1) {
 			javaClasses.add(javaClass);
 			unite = false;
 			for (JavaClassRelationItem relationItem : this.getRelationItem(javaClass)) {

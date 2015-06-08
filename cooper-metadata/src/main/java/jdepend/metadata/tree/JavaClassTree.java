@@ -71,6 +71,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 
 		Node downNode = this.getTheNode(downClass);
 		JavaClassNode insertNode = new JavaClassNode(javaClass, downNode.getLayer() - 1);
+		insertNode.setParent(downNode);
 
 		this.nodes.add(insertNode);
 	}

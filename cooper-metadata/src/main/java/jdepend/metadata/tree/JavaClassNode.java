@@ -93,6 +93,7 @@ public class JavaClassNode implements Node {
 	 */
 	public void setParent(Node parent) {
 		this.parent = parent;
+		this.parent.addChild(this);
 	}
 
 	public void addChild(Node child) {
@@ -111,6 +112,6 @@ public class JavaClassNode implements Node {
 
 	@Override
 	public Integer getSize() {
-		return null;
+		return 16;
 	}
 }

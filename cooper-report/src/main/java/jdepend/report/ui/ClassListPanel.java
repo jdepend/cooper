@@ -255,15 +255,35 @@ public class ClassListPanel extends JPanel {
 						int pos = value.indexOf('|');
 						String preValue = value.substring(0, pos);
 						int width = x + comp.getFontMetrics(comp.getFont()).stringWidth(preValue);
-						JavaClassCaCeDetailDialog d;
+
+						int pos1;
+						if (currentCol.equals(ReportConstant.Ca)) {
+							pos1 = value.indexOf('<');
+						} else {
+							pos1 = value.indexOf('>');
+						}
+						String preValue1 = value.substring(0, pos1);
+						int width1 = x + comp.getFontMetrics(comp.getFont()).stringWidth(preValue1);
 
 						if (p.x > x && p.x < width) {
-							d = new JavaClassCaCeDetailDialog(currentClass, currentCol, false);
+							JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(currentClass, currentCol, false);
+							d.setModal(true);
+							d.setVisible(true);
+						} else if (p.x > width && p.x < width1) {
+							JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(currentClass, currentCol, true);
+							d.setModal(true);
+							d.setVisible(true);
 						} else {
-							d = new JavaClassCaCeDetailDialog(currentClass, currentCol, true);
+							if (currentCol.equals(ReportConstant.Ca)) {
+								JavaClassCaGraphDialog d = new JavaClassCaGraphDialog(currentClass);
+								d.setModal(true);
+								d.setVisible(true);
+							} else {
+								JavaClassCeGraphDialog d = new JavaClassCeGraphDialog(currentClass);
+								d.setModal(true);
+								d.setVisible(true);
+							}
 						}
-						d.setModal(true);
-						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.Name)) {
 						JavaClassDetailDialog d = new JavaClassDetailDialog(currentClass);
 						d.setModal(true);
