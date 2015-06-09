@@ -3,13 +3,10 @@ package jdepend.webserver.web;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.model.Element;
 import jdepend.model.Relation;
-import jdepend.report.util.IntensitySizeCalculator;
 import net.sf.json.JSONArray;
-
 
 public class WebRelationGraphUtil {
 
@@ -17,26 +14,21 @@ public class WebRelationGraphUtil {
 
 		Collection<Element> elements = Relation.calElements(relations);
 
-		Map<Relation, Integer> relationSizes = IntensitySizeCalculator.calRelationSize(relations);
-		Map<Element, Integer> elementSizes = IntensitySizeCalculator.calElementSize(elements);
-
 		List<Node> nodes = new ArrayList<Node>();
 		Node node;
 		for (Element element : elements) {
 			node = new Node();
 			node.setCategory(0);
 			node.setName(element.getName());
-			node.setValue(elementSizes.get(element));
 			nodes.add(node);
 		}
-		
+
 		List<Edge> edges = new ArrayList<Edge>();
 		Edge edge;
 		for (Relation relation : relations) {
 			edge = new Edge();
 			edge.setSource(getPosition(elements, relation.getCurrent()));
 			edge.setTarget(getPosition(elements, relation.getDepend()));
-			edge.setWeight(relationSizes.get(relation));
 			edges.add(edge);
 		}
 		return new RelationGraphData(nodes, edges);
@@ -69,7 +61,7 @@ public class WebRelationGraphUtil {
 		public String getNodeInfo() {
 			return JSONArray.fromObject(nodes).toString();
 		}
-		
+
 		public String getEdgeInfo() {
 			return JSONArray.fromObject(edges).toString();
 		}
