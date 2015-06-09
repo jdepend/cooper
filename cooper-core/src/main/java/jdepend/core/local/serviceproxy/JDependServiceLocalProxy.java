@@ -2,7 +2,6 @@ package jdepend.core.local.serviceproxy;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,21 +15,14 @@ import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
+import jdepend.service.local.impl.JDependLocalServiceImpl;
 
 public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 
 	private JDependLocalService service;
 
-	private final static String JDependLocalServiceImplClassName = "jdepend.service.local.impl.JDependLocalServiceImpl";
-
 	public JDependServiceLocalProxy(String groupName, String commandName) {
-		try {
-			Constructor<JDependLocalService> constructor = (Constructor<JDependLocalService>) Class.forName(
-					JDependLocalServiceImplClassName).getConstructor(String.class, String.class);
-			this.service = constructor.newInstance(groupName, commandName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.service = new JDependLocalServiceImpl(groupName, commandName);
 	}
 
 	public void addParseListener(ParseListener listener) {
