@@ -28,6 +28,7 @@
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-metadata-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-parse-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-report-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
@@ -35,7 +36,7 @@
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
       <archive location="../../cooper-report/lib/forms-1.0.7.jar" failOnError="false" />
       <archive location="../../cooper-report/lib/JMeld-2.1_all.jar" failOnError="false" />
-      <archive location="../../cooper-model/lib/bcel.jar" failOnError="false" />
+      <archive location="../../cooper-metadata/lib/bcel.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_01-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-ui/target/cooper-ui-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-ui-remote/target/cooper-ui-remote-1.2.5_01-SNAPSHOT.jar" failOnError="false" />
