@@ -42,16 +42,18 @@ public class RelationData {
 	}
 
 	public void init() {
-		this.current = new VirtualComponent(relation.getCurrent().getName() + "_current");
-		this.depend = new VirtualComponent(relation.getDepend().getName() + "_depend");
-
-		currentOther = new VirtualComponent(relation.getCurrent().getName() + "_currentOther");
-		dependOther = new VirtualComponent(relation.getDepend().getName() + "_dependOther");
 
 		Component currentComponent = relation.getCurrent().getComponent();
 		Component dependComponent = relation.getDepend().getComponent();
 
 		AnalysisResult result = currentComponent.getResult();
+
+		this.current = new VirtualComponent(relation.getCurrent().getName() + "_current", result);
+		this.depend = new VirtualComponent(relation.getDepend().getName() + "_depend", result);
+
+		currentOther = new VirtualComponent(relation.getCurrent().getName() + "_currentOther", result);
+		dependOther = new VirtualComponent(relation.getDepend().getName() + "_dependOther", result);
+
 		// 计算需要分析的组件
 		for (JavaClassRelationItem item : relation.getItems()) {
 			current.joinJavaClass(result.getTheClass(item.getSource().getId()));

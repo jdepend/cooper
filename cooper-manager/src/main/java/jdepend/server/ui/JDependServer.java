@@ -23,7 +23,6 @@ import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.dialog.WelcomeDialog;
 import jdepend.framework.ui.panel.StatusPanel;
 import jdepend.framework.util.JDependUtil;
-import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.service.framework.persistent.ServerConnectionProvider;
 
 /**

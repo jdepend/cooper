@@ -10,7 +10,6 @@ import javax.swing.JTabbedPane;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.knowledge.domainanalysis.ui.KnowledgePanel;
 import jdepend.model.JDependUnitMgr;
 import jdepend.ui.JDependCooper;
 import jdepend.ui.framework.CooperTabbedPane;
@@ -33,9 +32,6 @@ public class PropertyPanel extends JPanel {
 
 	// MementoPanel
 	private MementoPanel mementoPanel;
-
-	// 智慧专家与知识库
-	private KnowledgePanel knowledgePanel;
 
 	// Log
 	private LogPanel logPanel;
@@ -89,10 +85,6 @@ public class PropertyPanel extends JPanel {
 		executeHistroyPanel = new ExecuteHistoryPanel(frame);
 
 		this.addResult(BundleUtil.getString(BundleUtil.ClientWin_Property_ExecuteHistroy), executeHistroyPanel);
-
-		knowledgePanel = new KnowledgePanel(frame);
-
-		this.addResult(BundleUtil.getString(BundleUtil.ClientWin_Property_Knowledge), knowledgePanel);
 
 		logPanel = new LogPanel(frame);
 

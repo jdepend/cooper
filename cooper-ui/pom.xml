@@ -17,20 +17,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-manager</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-statistics</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
 			<artifactId>cooper-report</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
@@ -43,20 +29,5 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-core</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-webserver</artifactId>
-			<version>${project.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		 -->
 	</dependencies>
 </project>

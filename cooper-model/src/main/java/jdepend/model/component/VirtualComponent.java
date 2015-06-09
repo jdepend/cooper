@@ -7,6 +7,7 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisResult;
 
 /**
  * 一种组织类的方式，不改变Class所属组件的性质
@@ -24,8 +25,9 @@ public class VirtualComponent extends Component {
 		super();
 	}
 
-	public VirtualComponent(String name) {
+	public VirtualComponent(String name, AnalysisResult result) {
 		super(name);
+		this.setResult(result);
 	}
 
 	public VirtualComponent(JavaClassUnit javaClass) {

@@ -15,7 +15,7 @@ import jdepend.model.result.AnalysisResult;
 public class PackageSubJDependUnit extends VirtualComponent {
 
 	public PackageSubJDependUnit(JavaPackage javaPackage, AnalysisResult result) {
-		super(javaPackage.getName());
+		super(javaPackage.getName(), result);
 
 		for (JavaClass javaClass : javaPackage.getClasses()) {
 			JavaClassUnit javaClassUnit = result.getTheClass(javaClass.getId());
