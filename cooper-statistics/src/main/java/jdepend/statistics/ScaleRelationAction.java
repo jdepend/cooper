@@ -31,13 +31,8 @@ public class ScaleRelationAction extends ScoreListAction {
 		item.setLineYName("关系合理性");
 		item.setType(GraphDataItem.SPLINE);
 		String tip;
-		String attribute;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
 			item.addData(scoreInfo.lc, scoreInfo.relation);
-			attribute = CommandConfMgr.getInstance().getTheGroup(scoreInfo.group).getAttribute();
-			if (attribute != null && attribute.length() > 0) {
-				tip = attribute + " ";
-			}
 			tip = scoreInfo.group + " " + scoreInfo.command;
 			item.addTip(scoreInfo.lc, tip);
 			this.progress();

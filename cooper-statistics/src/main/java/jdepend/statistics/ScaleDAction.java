@@ -3,7 +3,6 @@ package jdepend.statistics;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 
-import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.score.ScoreByItemComparator;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
@@ -31,13 +30,8 @@ public class ScaleDAction extends ScoreListAction {
 		item.setLineYName("抽象程度合理性");
 		item.setType(GraphDataItem.SPLINE);
 		String tip;
-		String attribute;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
 			item.addData(scoreInfo.lc, scoreInfo.distance);
-			attribute = CommandConfMgr.getInstance().getTheGroup(scoreInfo.group).getAttribute();
-			if (attribute != null && attribute.length() > 0) {
-				tip = attribute + " ";
-			}
 			tip = scoreInfo.group + " " + scoreInfo.command;
 			item.addTip(scoreInfo.lc, tip);
 			this.progress();

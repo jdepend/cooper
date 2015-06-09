@@ -66,13 +66,8 @@ public class ScaleScoreAction extends ScoreListAction {
 		item.setFgColorData(new FgColorData(new Color(0, 0, 255, 128)));
 
 		String tip;
-		String attribute;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
 			item.addData(scoreInfo.lc, scoreInfo.score);
-			attribute = CommandConfMgr.getInstance().getTheGroup(scoreInfo.group).getAttribute();
-			if (attribute != null && attribute.length() > 0) {
-				tip = attribute + " ";
-			}
 			tip = scoreInfo.group + " " + scoreInfo.command;
 			item.addTip(scoreInfo.lc, tip);
 
