@@ -25,5 +25,10 @@
 			<artifactId>cooper-knowledge</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-service-interface</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

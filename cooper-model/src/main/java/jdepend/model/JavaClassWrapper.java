@@ -8,7 +8,6 @@ import jdepend.metadata.InvokeItem;
 import jdepend.metadata.Method;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
 public class JavaClassWrapper {

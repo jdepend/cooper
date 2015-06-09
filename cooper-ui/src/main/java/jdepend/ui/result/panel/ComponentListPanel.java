@@ -37,7 +37,6 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultSummary;
 import jdepend.report.ui.BalanceComponentDialog;
 import jdepend.report.ui.CohesionDialog;
-import jdepend.report.ui.JDependUnitCaCeListDialog;
 import jdepend.report.ui.CouplingDialog;
 import jdepend.report.ui.CycleDialog;
 import jdepend.report.util.ReportConstant;

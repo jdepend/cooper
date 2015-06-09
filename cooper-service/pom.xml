@@ -14,11 +14,17 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-    <dependency>
+     <dependency>
     	<groupId>cooper</groupId>
-    	<artifactId>cooper-service-interface</artifactId>
+    	<artifactId>cooper-model</artifactId>
     	<version>${project.version}</version>
     	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>cooper</groupId>
+    	<artifactId>cooper-parse</artifactId>
+    	<version>${project.version}</version>
     	<scope>compile</scope>
     </dependency>
   </dependencies>
