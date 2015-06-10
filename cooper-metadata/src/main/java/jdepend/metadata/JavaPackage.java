@@ -40,6 +40,11 @@ public final class JavaPackage implements Serializable, Candidate, Comparable<Ja
 		clazz.setJavaPackage(this);
 	}
 
+	public void removeClass(JavaClass javaClass) {
+		classes.remove(javaClass);
+		javaClass.setJavaPackage(null);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

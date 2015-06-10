@@ -228,6 +228,12 @@ public abstract class Component extends AbstractSubJDependUnit {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
+			//将不在包中的类增加到包中
+			if (javaClass.getJavaClass().getJavaPackage() == null) {
+				if (this.getJavaPackages().size() > 0) {
+					this.getJavaPackages().iterator().next().addClass(javaClass.getJavaClass());
+				}
+			}
 		}
 	}
 
@@ -235,6 +241,8 @@ public abstract class Component extends AbstractSubJDependUnit {
 		if (this.javaClasses.remove(javaClass)) {
 			if (javaClass.getComponent().equals(this)) {
 				javaClass.setComponent(null);
+				// 从类所在的包中删除该类
+				javaClass.getJavaClass().getJavaPackage().removeClass(javaClass.getJavaClass());
 			}
 			this.javaClassesForId.remove(javaClass.getId());
 			return true;

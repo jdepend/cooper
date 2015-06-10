@@ -305,6 +305,12 @@ public class JavaClassDetail implements Serializable {
 	public String toString() {
 		StringBuilder content = new StringBuilder(500);
 
+		if (this.javaClass.getJavaPackage() != null) {
+			content.append("package:");
+			content.append(this.javaClass.getJavaPackage().getName());
+			content.append("\n");
+		}
+
 		content.append("ImportPackages:\n");
 		for (String importPackage : this.javaClass.getImportedPackages()) {
 			content.append(tab());
