@@ -1,0 +1,13 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>易分对象</title>
+</head>
+<body>
+<strong>易分对象</strong>是指那些依赖了很多其他元素的元素，这些元素由于依赖其他元素较多，一般来说它是不稳定的，并且内聚性不佳。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;依赖了易分对象的元素需要考虑这种依赖是否值得信赖。<strong>易分对象检测</strong>就是发现这些依赖了易分对象的元素。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b color='red'>易分对象使得我们会考虑将它拆解为更加内聚的几个元素。</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;拆解易分对象的方法可以从依赖关系出发上将易分对象中的元素分成几驼，或者可以根据他们的职责、生命周期等不同划分成几陀。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;拆分后的多个元素需要重新审视它们的职责、位置和稳定性，根据这些信息，将其纳入到不同的层或包中。<br>
+<p align="center"><img src="FissileObject.PNG"></p>
+
+
+</body></html>

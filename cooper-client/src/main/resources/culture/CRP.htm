@@ -1,0 +1,44 @@
+
+<!-- saved from url=(0040)http://www.uml.org.cn/mxdx/200912233.asp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<title>包的设计原则</title>
+</head>
+  
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="95%" border="0" align="center" cellpadding="3" cellspacing="1">
+                    <tbody><tr> 
+                      <td valign="top" bgcolor="#FFFFFF" class="content">
+                        <h3>全部重用原则</h3>
+                        <p><strong>前言</strong></p>
+                        <p>本文介绍The The Common Reuse Principle (CRP)：全部重用原则。</p>
+                        <p><strong>概要</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;The classes in a package are reused together. If you 
+                          reuse one of the classes in a package, you reuse them 
+                          all.</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;包的所有类被一起重用。如果你重用了其中的一个类，就重用全部。</p>
+                        <p>换成另一个比较浅显易懂的说法：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Classes that aren’t reused together should not be 
+                          grouped together</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;没有被一起重用的类不应该被组合在一起。</p>
+                        <p>CRP原则帮助我们决定哪些类应该被放到同一个包里。</p>
+                        <p>依赖一个包就是依赖这个包所包含的一切。当一个包发生了改变，并发布新的版本，使用这个包的所有用户都必须在新的包环境下验证他们的工作，即使被他们使用的部分没有发生任何改变。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;因为如果包中包含有未被使用的类，即使用户不关心该类是否改变，但用户还是不得不升级该包并对原来的功能加以重新测试。</p>
+                        <p>我们在Interface Segregation Principle (ISP) - OO设计的接口分隔原则 
+                          /sysdesign/doc/20071205214949530.html 一文中介绍了一种针对类的设计原则：</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Clients should not be forced to depend upon interfaces 
+                          that they do not use.不能强迫用户去依赖那些他们不使用的接口。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;把这个概念应用到更广范围的包上，就是CRP的基本理念：不要把用户不使用的类一起组合进包里。</p>
+                        <p>CRP与REP一样，都是从方便用户重用的角度去设计包，重用者是他们的受益者，CCP则让系统的维护者受益。CCP让包尽可能大（CCP原则加入功能相关的类），CRP则让包尽可能小（CRP原则剔除不使用的类）。它们的出发点不一样，但不相互冲突。</p>
+                        <p>CRP保证了包的内部具有很高的聚合性。</p>
+                        <p><strong>小结</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;全部重用原则（CRP）从用户的角度上为我们规范了包设计的一个原则：在设计包时，相互之间没有紧密关联的类不应该放在同一包里。</p>
+                        <p><strong>参考资料</strong></p>
+                        <p><a href="http://www.objectmentor.com/resources/articles/granularity.pdf" target="blank" class="content_a">Granularity</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf" target="blank" class="content_a"> 
+                          Principles and Patterns</a><img border="0" src="./包的设计原则_files/edit_arrow6.gif"> 
+                          by Robert C. Martin。 </p>
+                        </td></tr>
+                    </tbody></table>
+</body></html>

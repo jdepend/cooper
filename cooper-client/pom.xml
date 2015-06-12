@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>cooper</artifactId>
+		<groupId>cooper</groupId>
+		<version>1.2.5_03-SNAPSHOT</version>
+	</parent>
+	<artifactId>cooper-client</artifactId>
+	<name>cooper-client</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-core</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.prefuse</groupId>
+			<artifactId>prefuse</artifactId>
+			<version>beta-20071021</version>
+		</dependency>
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.4</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>forms</groupId>
+			<artifactId>forms</artifactId>
+			<version>1.0.7</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/forms-1.0.7.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>JMeld</groupId>
+			<artifactId>JMeld</artifactId>
+			<version>2.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/JMeld-2.1_all.jar</systemPath>
+		</dependency>
+	</dependencies>
+</project>
