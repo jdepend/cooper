@@ -23,7 +23,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#getName()
+	 * @see jdepend.client.core.tree.Node#getName()
 	 */
 	public String getName() {
 		return this.javaClass.getName();
@@ -44,7 +44,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#getLayer()
+	 * @see jdepend.client.core.tree.Node#getLayer()
 	 */
 	public Integer getLayer() {
 		return layer;
@@ -53,7 +53,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#setLayer(int)
+	 * @see jdepend.client.core.tree.Node#setLayer(int)
 	 */
 	public void setLayer(Integer layer) {
 		this.layer = layer;
@@ -62,7 +62,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#addLayer(int)
+	 * @see jdepend.client.core.tree.Node#addLayer(int)
 	 */
 	public void addLayer(Integer layer) {
 		this.layer += layer;
@@ -71,7 +71,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#compareTo(jdepend.core.tree.JavaClassNode)
+	 * @see jdepend.client.core.tree.Node#compareTo(jdepend.client.core.tree.JavaClassNode)
 	 */
 	public int compareTo(Node n) {
 		return (new Integer(this.layer)).compareTo(n.getLayer());
@@ -80,7 +80,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#getParent()
+	 * @see jdepend.client.core.tree.Node#getParent()
 	 */
 	public Node getParent() {
 		return parent;
@@ -89,7 +89,7 @@ public class JavaClassNode implements Node {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.tree.Node#setParent(jdepend.core.tree.Node)
+	 * @see jdepend.client.core.tree.Node#setParent(jdepend.client.core.tree.Node)
 	 */
 	public void setParent(Node parent) {
 		this.parent = parent;

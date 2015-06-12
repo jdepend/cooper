@@ -3,7 +3,6 @@ package jdepend.statistics;
 import java.awt.event.ActionEvent;
 import java.util.Collections;
 
-import jdepend.core.local.config.CommandConfMgr;
 import jdepend.core.local.score.ScoreByItemComparator;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;

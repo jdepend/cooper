@@ -47,8 +47,8 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 			}
 		}
 		// 增加回调函数
-		this.addTableCallBack(new TableCallBack("类名称", "jdepend.report.ui.JavaClassDetailDialog"));
-		this.addTableCallBack(new TableCallBack("调用者", "jdepend.report.ui.JavaClassDetailDialog"));
+		this.addTableCallBack(new TableCallBack("类名称", "jdepend.client.report.ui.JavaClassDetailDialog"));
+		this.addTableCallBack(new TableCallBack("调用者", "jdepend.client.report.ui.JavaClassDetailDialog"));
 
 		// 收集未使用的在接口位置存放的类
 		List<JavaClassUnit> privateElements = new ArrayList<JavaClassUnit>();

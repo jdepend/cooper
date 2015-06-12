@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;

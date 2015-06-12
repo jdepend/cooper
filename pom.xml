@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -20,31 +20,27 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>cooper-framework</module>
-		<module>cooper-model</module>
-		<module>cooper-knowledge</module>
-		<module>cooper-parse</module>
-		<module>cooper-core</module>
-		<module>cooper-service</module>
+		<module>cooper-test</module>
+		<module>cooper-client-remote</module>
+		<module>cooper-service-interface</module>
+		<module>cooper-client</module>
 		<module>cooper-manager</module>
-		<module>cooper-ui</module>
-		<module>cooper-report</module>
-		<module>cooper-webserver</module>
-
-
 		<module>cooper-statistics</module>
 		<module>cooper-framework-ui</module>
-		<module>cooper-service-interface</module>
+		<module>cooper-webserver</module>
+		<module>cooper-core</module>
 		<module>cooper-util</module>
-		<module>cooper-core-remote</module>
-		<module>cooper-ui-remote</module>
 		<module>cooper-service-remote</module>
+		<module>cooper-service</module>
+		<module>cooper-knowledge</module>
+		<module>cooper-model</module>
+		<module>cooper-parse</module>
 		<module>cooper-metadata</module>
-		<module>cooper-test</module>
+		<module>cooper-framework</module>
 	</modules>
 
 	<build>
@@ -72,6 +68,21 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>

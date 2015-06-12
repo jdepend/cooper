@@ -62,7 +62,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.JDependAnalyssisService#analyze()
+	 * @see jdepend.client.core.JDependAnalyssisService#analyze()
 	 */
 	public AnalysisResult analyze() throws ServiceException {
 
@@ -152,7 +152,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jdepend.core.JDependAnalyssisService#setComponent(jdepend.core.Component)
+	 * jdepend.client.core.JDependAnalyssisService#setComponent(jdepend.client.core.Component)
 	 */
 	public void setComponent(Component component) {
 		this.component = component;
@@ -161,7 +161,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.JDependAnalyssisService#setWriter(java.io.PrintWriter)
+	 * @see jdepend.client.core.JDependAnalyssisService#setWriter(java.io.PrintWriter)
 	 */
 	public void setParseLogWriter(PrintWriter printWriter) {
 		parse.setLogWriter(printWriter);
@@ -170,7 +170,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.JDependAnalyssisService#addDirectory(java.lang.String)
+	 * @see jdepend.client.core.JDependAnalyssisService#addDirectory(java.lang.String)
 	 */
 	public void addDirectory(String name) throws IOException {
 		parse.addDirectorys(name);
@@ -180,7 +180,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.core.JDependAnalyssisService#countClasses()
+	 * @see jdepend.client.core.JDependAnalyssisService#countClasses()
 	 */
 	public int countClasses() {
 		return parse.countClasses();

@@ -36,10 +36,10 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 			this.printTable("分组耦合最大顺序差值", wrapper.gcmd);
 		}
 		// 增加回调函数
-		this.addTableCallBack(new TableCallBack("类名称", "jdepend.report.ui.JavaClassDetailDialog"));
-		this.addTableCallBack(new TableCallBack("内聚性指数", "jdepend.report.ui.BalanceDialog"));
-		this.addTableCallBack(new TableCallBack("内聚值", "jdepend.report.ui.CohesionDialog"));
-		this.addTableCallBack(new TableCallBack("分组耦合最大顺序差值", "jdepend.report.ui.CouplingDialog"));
+		this.addTableCallBack(new TableCallBack("类名称", "jdepend.client.report.ui.JavaClassDetailDialog"));
+		this.addTableCallBack(new TableCallBack("内聚性指数", "jdepend.client.report.ui.BalanceDialog"));
+		this.addTableCallBack(new TableCallBack("内聚值", "jdepend.client.report.ui.CohesionDialog"));
+		this.addTableCallBack(new TableCallBack("分组耦合最大顺序差值", "jdepend.client.report.ui.CouplingDialog"));
 
 	}
 
