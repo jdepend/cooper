@@ -16,22 +16,21 @@
       <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
     </text>
   </splashScreen>
-  <java mainClass="jdepend.ui.JDependCooper" vmParameters="-Xms256m -Xmx2048m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.7" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="jdepend.client.ui.JDependCooper" vmParameters="-Xms256m -Xmx2048m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.7" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-ui/target/cooper-ui-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-client/target/cooper-client-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-framework-ui/target/cooper-framework-ui-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-report/lib/forms-1.0.7.jar" failOnError="false" />
-      <archive location="../../cooper-report/lib/JMeld-2.1_all.jar" failOnError="false" />
+      <archive location="../../cooper-client/lib/forms-1.0.7.jar" failOnError="false" />
+      <archive location="../../cooper-client/lib/JMeld-2.1_all.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_03-SNAPSHOT/WEB-INF/lib/jxl-2.6.10.jar" failOnError="false" />
-      <archive location="../../cooper-report/target/cooper-report-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_03-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_03-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_03-SNAPSHOT/WEB-INF/lib/prefuse-beta-20071021.jar" failOnError="false" />
+      <archive location="../../cooper-client/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-core/target/cooper-core-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/target/cooper-util-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-service/target/cooper-service-1.2.5_03-SNAPSHOT.jar" failOnError="false" />
