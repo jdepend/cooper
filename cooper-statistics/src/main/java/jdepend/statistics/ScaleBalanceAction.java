@@ -1,9 +1,8 @@
 package jdepend.statistics;
 
 import java.awt.event.ActionEvent;
-import java.util.Collections;
 
-import jdepend.core.local.score.ScoreByItemComparator;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
@@ -20,7 +19,7 @@ public class ScaleBalanceAction extends ScoreListAction {
 	@Override
 	protected void analyse(ActionEvent e) throws JDependException {
 
-		Collections.sort(scoreCollection.getScoreInfos(), new ScoreByItemComparator(AnalysisResult.Metrics_LC));
+		ScoreFacade.sort(scoreCollection.getScoreInfos(), AnalysisResult.Metrics_LC);
 
 		GraphData graph = new GraphData();
 		GraphDataItem item = new GraphDataItem();

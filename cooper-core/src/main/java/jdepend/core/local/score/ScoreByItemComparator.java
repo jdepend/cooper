@@ -10,7 +10,7 @@ import jdepend.model.result.AnalysisResult;
  * @author <b>Abner</b>
  * 
  */
-public class ScoreByItemComparator implements Comparator {
+class ScoreByItemComparator implements Comparator {
 
 	private String metrics = null;
 

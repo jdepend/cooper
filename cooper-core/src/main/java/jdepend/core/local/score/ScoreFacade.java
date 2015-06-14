@@ -1,5 +1,6 @@
 package jdepend.core.local.score;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -54,9 +55,13 @@ public final class ScoreFacade {
 	public static AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {
 		return ScoreRepository.getTheResult(scoreInfo);
 	}
-	
+
 	public static void delete(String id) throws JDependException {
 		ScoreRepository.delete(id);
+	}
+
+	public static void sort(List<ScoreInfo> scorelist, String itemName) {
+		Collections.sort(scorelist, new ScoreByItemComparator(itemName));
 	}
 
 }

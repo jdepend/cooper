@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,6 @@ import jdepend.client.ui.result.framework.SubResultTabPanel;
 import jdepend.client.ui.shoppingcart.model.ShoppingCart;
 import jdepend.client.ui.util.AnalysisResultExportUtil;
 import jdepend.core.local.domain.WisdomAnalysisResult;
-import jdepend.core.local.score.ScoreByItemComparator;
 import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
@@ -275,7 +273,7 @@ public final class ScorePanel extends SubResultTabPanel {
 
 		JPanel scoreScope = new JPanel();
 		if (scorelist.size() > 0) {
-			Collections.sort(scorelist, new ScoreByItemComparator(itemName));
+			ScoreFacade.sort(scorelist, itemName);
 			final ScoreInfo lScore = scorelist.get(0);
 			final ScoreInfo hScore = scorelist.get(scorelist.size() - 1);
 
