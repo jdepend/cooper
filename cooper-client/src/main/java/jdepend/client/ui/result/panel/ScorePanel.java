@@ -19,10 +19,21 @@ import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import jdepend.client.report.ui.BalanceComponentDialog;
+import jdepend.client.report.ui.ClassListDialog;
+import jdepend.client.report.ui.CohesionDialog;
+import jdepend.client.report.ui.CouplingDialog;
+import jdepend.client.report.util.ReportConstant;
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.componentconf.ChangedElementListDialog;
+import jdepend.client.ui.framework.CompareInfoWebWarpper;
+import jdepend.client.ui.result.framework.SubResultTabPanel;
+import jdepend.client.ui.shoppingcart.model.ShoppingCart;
+import jdepend.client.ui.util.AnalysisResultExportUtil;
 import jdepend.core.local.domain.WisdomAnalysisResult;
 import jdepend.core.local.score.ScoreByItemComparator;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
-import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
@@ -38,17 +49,6 @@ import jdepend.model.JDependUnitMgr;
 import jdepend.model.Scored;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultScored;
-import jdepend.client.report.ui.BalanceComponentDialog;
-import jdepend.client.report.ui.ClassListDialog;
-import jdepend.client.report.ui.CohesionDialog;
-import jdepend.client.report.ui.CouplingDialog;
-import jdepend.client.report.util.ReportConstant;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.componentconf.ChangedElementListDialog;
-import jdepend.client.ui.framework.CompareInfoWebWarpper;
-import jdepend.client.ui.result.framework.SubResultTabPanel;
-import jdepend.client.ui.shoppingcart.model.ShoppingCart;
-import jdepend.client.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
@@ -68,7 +68,7 @@ public final class ScorePanel extends SubResultTabPanel {
 	@Override
 	protected void init(AnalysisResult result) {
 		try {
-			scorelist = ScoreRepository.getScoreList();
+			scorelist = ScoreFacade.getScoreList();
 		} catch (JDependException e) {
 			e.printStackTrace();
 		}
@@ -816,7 +816,7 @@ public final class ScorePanel extends SubResultTabPanel {
 	}
 
 	private void scoreScopeMouseClicked(String id) throws JDependException {
-		AnalysisResult result = ScoreRepository.getTheResult(id);
+		AnalysisResult result = ScoreFacade.getTheResult(id);
 		JDependUnitMgr.getInstance().setResult(result);
 		frame.getResultPanelWrapper().showResults(false);
 	}

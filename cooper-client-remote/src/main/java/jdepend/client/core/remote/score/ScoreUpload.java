@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import jdepend.core.local.score.ScoreInfo;
-import jdepend.core.local.score.ScoreRepository;
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
+import jdepend.core.local.score.ScoreFacade;
+import jdepend.core.local.score.ScoreInfo;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;
@@ -76,9 +76,9 @@ public class ScoreUpload extends PersistentBean {
 				List<ScoreInfo> items = new ArrayList<ScoreInfo>();
 
 				if (this.collectEndTime == null) {
-					items = ScoreRepository.getScoreList();
+					items = ScoreFacade.getScoreList();
 				} else {
-					items = ScoreRepository.getScoreList(this.collectEndTime);
+					items = ScoreFacade.getScoreList(this.collectEndTime);
 				}
 				if (items != null && items.size() > 0) {
 					List<ScoreDTO> uploadItems = new ArrayList<ScoreDTO>();

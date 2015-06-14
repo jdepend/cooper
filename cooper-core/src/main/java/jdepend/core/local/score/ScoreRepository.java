@@ -19,7 +19,7 @@ import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.StreamUtil;
 import jdepend.model.result.AnalysisResult;
 
-public final class ScoreRepository {
+final class ScoreRepository {
 
 	private static String insertSql = "insert into score(id, groupname, commandname, LC, componentCount, relationCount, Score, Distance, Balance, Encapsulation, Relation, cohesion, coupling, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 
@@ -288,10 +288,6 @@ public final class ScoreRepository {
 				}
 			}
 		}
-	}
-
-	public static AnalysisResult getTheResult(String id) throws JDependException {
-		return getTheResult(getTheScoreInfo(id));
 	}
 
 	public static AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {

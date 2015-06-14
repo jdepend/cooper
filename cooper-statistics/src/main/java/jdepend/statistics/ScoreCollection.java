@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
-import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.result.AnalysisResult;
 
@@ -27,14 +27,14 @@ public class ScoreCollection {
 
 	public synchronized List<ScoreInfo> getScoreInfos() throws JDependException {
 		if (scoreInfos == null) {
-			scoreInfos = ScoreRepository.getScoreList();
+			scoreInfos = ScoreFacade.getScoreList();
 		}
 		return scoreInfos;
 	}
 
 	public synchronized AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {
 		if (!results.containsKey(scoreInfo.id)) {
-			results.put(scoreInfo.id, ScoreRepository.getTheResult(scoreInfo));
+			results.put(scoreInfo.id, ScoreFacade.getTheResult(scoreInfo));
 		}
 		return results.get(scoreInfo.id);
 

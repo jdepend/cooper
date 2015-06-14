@@ -9,10 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jdepend.core.local.score.ScoreRepository;
-import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.dialog.ScoreListPanel;
+import jdepend.core.local.score.ScoreFacade;
+import jdepend.framework.ui.dialog.CooperDialog;
 
 public final class ResultListDialog extends CooperDialog {
 
@@ -47,7 +47,7 @@ public final class ResultListDialog extends CooperDialog {
 					return;
 				}
 				try {
-					byte[] result = ScoreRepository.getTheResult((String) scoreListPanel.getId()).getBytes();
+					byte[] result = ScoreFacade.getTheResult((String) scoreListPanel.getId()).getBytes();
 					IpMsgService.sendResult(result, new String[] { ip });
 					ResultListDialog.this.dispose();
 				} catch (Exception e1) {

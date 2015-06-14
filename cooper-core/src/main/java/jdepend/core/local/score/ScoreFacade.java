@@ -1,10 +1,13 @@
 package jdepend.core.local.score;
 
+import java.util.Date;
+import java.util.List;
+
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 
-public final class ScoreUtil {
+public final class ScoreFacade {
 
 	public final static String ScoreAndResult = "ScoreAndResult";
 	public final static String OnlyScoreMode = "OnlyScoreMode";
@@ -34,6 +37,26 @@ public final class ScoreUtil {
 
 	public static void saveScore(String mode) throws JDependException {
 		saveScore(JDependUnitMgr.getInstance().getResult(), mode);
+	}
+
+	public static List<ScoreInfo> getScoreList() throws JDependException {
+		return ScoreRepository.getScoreList();
+	}
+
+	public static List<ScoreInfo> getScoreList(Date begin) throws JDependException {
+		return ScoreRepository.getScoreList(begin);
+	}
+
+	public static AnalysisResult getTheResult(String id) throws JDependException {
+		return ScoreRepository.getTheResult(ScoreRepository.getTheScoreInfo(id));
+	}
+
+	public static AnalysisResult getTheResult(ScoreInfo scoreInfo) throws JDependException {
+		return ScoreRepository.getTheResult(scoreInfo);
+	}
+	
+	public static void delete(String id) throws JDependException {
+		ScoreRepository.delete(id);
 	}
 
 }

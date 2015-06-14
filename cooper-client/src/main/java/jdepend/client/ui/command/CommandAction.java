@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 
 import jdepend.client.core.local.command.CommandAdapter;
 import jdepend.client.core.local.command.CommandAdapterMgr;
-import jdepend.core.local.score.ScoreUtil;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
@@ -55,7 +55,7 @@ public final class CommandAction extends AsynAction {
 		// 保存分数
 		if ((new PropertyConfigurator()).isAutoSaveScore()) {
 			try {
-				ScoreUtil.saveScore(result, ScoreUtil.ScoreAndResult);
+				ScoreFacade.saveScore(result, ScoreFacade.ScoreAndResult);
 			} catch (JDependException e1) {
 				e1.printStackTrace();
 				addResults(createErrorResult(e1));

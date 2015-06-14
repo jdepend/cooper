@@ -8,14 +8,14 @@ import javax.swing.JScrollPane;
 
 import jdepend.client.core.local.config.CommandConfMgr;
 import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.ui.JDependCooper;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
-import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.client.ui.JDependCooper;
 
 public class ScoreListPanel extends JPanel {
 
@@ -56,7 +56,7 @@ public class ScoreListPanel extends JPanel {
 	private TableData calTableData() throws JDependException {
 
 		TableData tableData = new TableData();
-		List<ScoreInfo> scoreList = ScoreRepository.getScoreList();
+		List<ScoreInfo> scoreList = ScoreFacade.getScoreList();
 		GroupConf group;
 		String attribute;
 		for (ScoreInfo scoreInfo : scoreList) {

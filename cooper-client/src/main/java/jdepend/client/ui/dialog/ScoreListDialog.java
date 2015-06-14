@@ -24,18 +24,18 @@ import javax.swing.JTable;
 
 import jdepend.client.core.local.command.CommandAdapter;
 import jdepend.client.core.local.command.CommandAdapterMgr;
+import jdepend.client.report.way.htmlui.ExportHTML;
+import jdepend.client.report.way.textui.TextSummaryPrinter;
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.util.AnalysisResultExportUtil;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;
-import jdepend.core.local.score.ScoreRepository;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.client.report.way.htmlui.ExportHTML;
-import jdepend.client.report.way.textui.TextSummaryPrinter;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.util.AnalysisResultExportUtil;
 
 public final class ScoreListDialog extends CooperDialog {
 
@@ -147,7 +147,7 @@ public final class ScoreListDialog extends CooperDialog {
 
 			private void delete() throws JDependException {
 				for (Object id : this.getCurrentes()) {
-					ScoreRepository.delete((String) id);
+					ScoreFacade.delete((String) id);
 				}
 			}
 
@@ -155,7 +155,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				final AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
+				final AnalysisResult result = ScoreFacade.getTheResult((String) this.getId());
 				if (result != null) {
 					new Thread() {
 						@Override
@@ -190,7 +190,7 @@ public final class ScoreListDialog extends CooperDialog {
 					OutputStream stream = null;
 					try {
 						// 获取结果
-						AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
+						AnalysisResult result = ScoreFacade.getTheResult((String) this.getId());
 						// 生成报告
 						TextSummaryPrinter printer = new TextSummaryPrinter();
 						stream = new ByteArrayOutputStream();
@@ -229,7 +229,7 @@ public final class ScoreListDialog extends CooperDialog {
 				int rtn = jFileChooser.showSaveDialog(null);
 				if (rtn == JFileChooser.APPROVE_OPTION) {
 					// 获取结果
-					AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
+					AnalysisResult result = ScoreFacade.getTheResult((String) this.getId());
 					File f = jFileChooser.getSelectedFile();
 					// 创建HTML文件
 					String targetFile = null;
@@ -251,7 +251,7 @@ public final class ScoreListDialog extends CooperDialog {
 			private void exportList() throws JDependException {
 
 				StringBuilder contentList = new StringBuilder();
-				List<ScoreInfo> scoreList = ScoreRepository.getScoreList();
+				List<ScoreInfo> scoreList = ScoreFacade.getScoreList();
 				Collections.sort(scoreList);
 				for (ScoreInfo scoreInfo : scoreList) {
 					contentList.append(scoreInfo.group);
@@ -291,7 +291,7 @@ public final class ScoreListDialog extends CooperDialog {
 				if (this.getCurrentes().size() > 1) {
 					throw new JDependException("请选择一条信息");
 				}
-				AnalysisResult result = ScoreRepository.getTheResult((String) this.getId());
+				AnalysisResult result = ScoreFacade.getTheResult((String) this.getId());
 				AnalysisResultExportUtil.exportResult(frame, result);
 			}
 		});
@@ -304,7 +304,7 @@ public final class ScoreListDialog extends CooperDialog {
 	}
 
 	public void reCalculate() throws JDependException {
-		List<ScoreInfo> scoreList = ScoreRepository.getScoreList();
+		List<ScoreInfo> scoreList = ScoreFacade.getScoreList();
 		for (ScoreInfo scoreInfo : scoreList) {
 			try {
 				CommandAdapter adapter = CommandAdapterMgr.getInstance().getTheCommandAdapter(scoreInfo.group,

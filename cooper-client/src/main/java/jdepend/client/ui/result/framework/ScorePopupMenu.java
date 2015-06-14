@@ -7,7 +7,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
-import jdepend.core.local.score.ScoreUtil;
+import jdepend.core.local.score.ScoreFacade;
 import jdepend.framework.exception.JDependException;
 import jdepend.client.ui.dialog.ScoreListDialog;
 
@@ -23,7 +23,7 @@ public class ScorePopupMenu extends JPopupMenu {
 		saveItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ScoreUtil.saveScore(ScoreUtil.OnlyScoreMode);
+					ScoreFacade.saveScore(ScoreFacade.OnlyScoreMode);
 				} catch (JDependException e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(ScorePopupMenu.this, "保存失败", "alert", JOptionPane.ERROR_MESSAGE);
@@ -34,7 +34,7 @@ public class ScorePopupMenu extends JPopupMenu {
 		saveAllItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ScoreUtil.saveScore(ScoreUtil.ScoreAndResult);
+					ScoreFacade.saveScore(ScoreFacade.ScoreAndResult);
 				} catch (JDependException e1) {
 					e1.printStackTrace();
 					JOptionPane.showMessageDialog(ScorePopupMenu.this, "保存失败", "alert", JOptionPane.ERROR_MESSAGE);
