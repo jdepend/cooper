@@ -1,4 +1,4 @@
-package jdepend.service.remote.analyzer;
+package jdepend.server.service.analyzer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +14,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.StreamUtil;
+import jdepend.service.remote.analyzer.AnalyzerInfo;
+import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerRepository {
 

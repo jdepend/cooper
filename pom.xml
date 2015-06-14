@@ -34,7 +34,6 @@
 		<module>cooper-webserver</module>
 		<module>cooper-core</module>
 		<module>cooper-util</module>
-		<module>cooper-service-remote</module>
 		<module>cooper-service</module>
 		<module>cooper-knowledge</module>
 		<module>cooper-model</module>

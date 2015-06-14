@@ -1,4 +1,4 @@
-package jdepend.service.remote.score;
+package jdepend.server.service.score;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.UUID;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
+import jdepend.service.remote.score.ScoreDTO;
 
 public final class ScoreListRepository {
 

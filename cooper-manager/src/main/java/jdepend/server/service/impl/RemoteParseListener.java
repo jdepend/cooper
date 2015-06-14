@@ -1,4 +1,4 @@
-package jdepend.service.remote.impl;
+package jdepend.server.service.impl;
 
 import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseListener;

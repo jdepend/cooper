@@ -19,9 +19,9 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.service.remote.RemoteServiceFactory;
+import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.user.UserDomainService;
 import jdepend.service.remote.user.User;
-import jdepend.service.remote.user.UserDomainService;
 import jdepend.service.remote.user.UserRemoteService;
 import jdepend.service.remote.user.UserStateChangeListener;
 

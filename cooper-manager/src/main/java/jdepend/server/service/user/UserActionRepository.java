@@ -1,4 +1,4 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;
+import jdepend.service.remote.user.UserActionItem;
 
 public final class UserActionRepository {
 

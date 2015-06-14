@@ -1,4 +1,4 @@
-package jdepend.service.remote.impl;
+package jdepend.server.service.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

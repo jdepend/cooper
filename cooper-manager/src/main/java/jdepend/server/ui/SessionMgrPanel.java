@@ -21,11 +21,11 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.BundleUtil;
+import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.impl.JDependSessionMgr;
 import jdepend.service.remote.JDependSession;
 import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.SessionListener;
-import jdepend.service.remote.impl.JDependSessionMgr;
 
 public class SessionMgrPanel extends JPanel implements SessionListener {
 

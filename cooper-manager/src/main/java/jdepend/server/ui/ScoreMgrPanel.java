@@ -22,9 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.service.remote.RemoteServiceFactory;
+import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.score.ScoreListRepository;
 import jdepend.service.remote.score.ScoreDTO;
-import jdepend.service.remote.score.ScoreListRepository;
 import jdepend.service.remote.score.ScoreRemoteService;
 
 public final class ScoreMgrPanel extends JPanel {

@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.panel.StatusField;
+import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.impl.JDependSessionMgr;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependRequest;
 import jdepend.service.remote.JDependSession;
-import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.ServiceMonitor;
-import jdepend.service.remote.impl.JDependSessionMgr;
 
 public class ServiceMonitorPanel extends JPanel implements ServiceMonitor {
 

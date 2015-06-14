@@ -1,4 +1,4 @@
-package jdepend.service.remote.start;
+package jdepend.server.service.start;
 
 import java.io.IOException;
 import java.rmi.Naming;
@@ -14,10 +14,10 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.JDependUtil;
 import jdepend.framework.util.VersionUtil;
+import jdepend.server.service.RemoteServiceFactory;
 import jdepend.service.framework.persistent.ServerConnectionProvider;
 import jdepend.service.remote.JDependRemoteService;
 import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.RemoteServiceFactory;
 import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.score.ScoreRemoteService;
 import jdepend.service.remote.user.UserRemoteService;

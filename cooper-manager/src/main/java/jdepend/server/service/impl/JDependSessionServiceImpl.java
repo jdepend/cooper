@@ -1,4 +1,4 @@
-package jdepend.service.remote.impl;
+package jdepend.server.service.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.ServerNotActiveException;
@@ -6,10 +6,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.server.service.user.UserRepository;
 import jdepend.service.remote.JDependSession;
 import jdepend.service.remote.JDependSessionService;
 import jdepend.service.remote.user.User;
-import jdepend.service.remote.user.UserRepository;
 
 /**
  * Session服务

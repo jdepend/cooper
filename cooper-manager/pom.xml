@@ -16,7 +16,13 @@
   <dependencies>
     <dependency>
     	<groupId>cooper</groupId>
-    	<artifactId>cooper-service-remote</artifactId>
+    	<artifactId>cooper-service-interface</artifactId>
+    	<version>${project.version}</version>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>cooper</groupId>
+    	<artifactId>cooper-service</artifactId>
     	<version>${project.version}</version>
     	<scope>compile</scope>
     </dependency>

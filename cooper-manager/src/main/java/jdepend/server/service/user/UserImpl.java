@@ -1,6 +1,7 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.service.remote.user.User;
 
 public final class UserImpl implements User {
 
@@ -31,7 +32,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#getName()
+	 * @see jdepend.server.service.user.User#getName()
 	 */
 	public String getName() {
 		return name;
@@ -40,7 +41,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#getDept()
+	 * @see jdepend.server.service.user.User#getDept()
 	 */
 	public String getDept() {
 		return dept;
@@ -49,7 +50,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#getIntegral()
+	 * @see jdepend.server.service.user.User#getIntegral()
 	 */
 	public Integer getIntegral() {
 		return integral;
@@ -58,7 +59,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#setIntegral(java.lang.Integer)
+	 * @see jdepend.server.service.user.User#setIntegral(java.lang.Integer)
 	 */
 	public void setIntegral(Integer integral) {
 		this.integral = integral;
@@ -67,7 +68,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#changeIntegral(java.lang.Integer)
+	 * @see jdepend.server.service.user.User#changeIntegral(java.lang.Integer)
 	 */
 	public void changeIntegral(Integer change) {
 		if (change != null) {
@@ -81,7 +82,7 @@ public final class UserImpl implements User {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.service.remote.user.User#isValid()
+	 * @see jdepend.server.service.user.User#isValid()
 	 */
 	public boolean isValid() {
 		return valid;

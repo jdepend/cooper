@@ -1,15 +1,17 @@
-package jdepend.service.remote;
+package jdepend.server.service;
 
 import java.rmi.RemoteException;
 
+import jdepend.server.service.analyzer.AnalyzerServiceImpl;
+import jdepend.server.service.impl.JDependRemoteServiceImpl;
+import jdepend.server.service.impl.JDependSessionServiceImpl;
+import jdepend.server.service.score.ScoreRemoteServiceImpl;
+import jdepend.server.service.user.UserRemoteServiceImpl;
+import jdepend.service.remote.JDependRemoteService;
+import jdepend.service.remote.JDependSessionService;
 import jdepend.service.remote.analyzer.AnalyzerService;
-import jdepend.service.remote.analyzer.AnalyzerServiceImpl;
-import jdepend.service.remote.impl.JDependRemoteServiceImpl;
-import jdepend.service.remote.impl.JDependSessionServiceImpl;
 import jdepend.service.remote.score.ScoreRemoteService;
-import jdepend.service.remote.score.ScoreRemoteServiceImpl;
 import jdepend.service.remote.user.UserRemoteService;
-import jdepend.service.remote.user.UserRemoteServiceImpl;
 
 public class RemoteServiceFactory {
 

@@ -1,4 +1,4 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -6,6 +6,9 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
+import jdepend.service.remote.user.UserActionItem;
+import jdepend.service.remote.user.UserRemoteService;
+import jdepend.service.remote.user.UserStateChangeListener;
 
 public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserRemoteService {
 

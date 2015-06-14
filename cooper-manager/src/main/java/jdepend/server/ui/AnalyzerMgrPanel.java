@@ -20,9 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.service.local.ServiceFactory;
-import jdepend.service.remote.RemoteServiceFactory;
-import jdepend.service.remote.analyzer.AnalyzerRepository;
+import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.analyzer.AnalyzerRepository;
 import jdepend.service.remote.analyzer.AnalyzerService;
 import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
 

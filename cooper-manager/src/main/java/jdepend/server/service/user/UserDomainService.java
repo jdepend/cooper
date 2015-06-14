@@ -1,4 +1,4 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
+import jdepend.service.remote.user.User;
+import jdepend.service.remote.user.UserActionItem;
+import jdepend.service.remote.user.UserStateChangeListener;
 
 public final class UserDomainService {
 
