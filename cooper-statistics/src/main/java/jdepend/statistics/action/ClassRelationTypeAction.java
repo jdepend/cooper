@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.event.ActionEvent;
 
@@ -10,6 +10,7 @@ import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassRelationUtil;
+import jdepend.statistics.StaticsFrame;
 
 public class ClassRelationTypeAction extends ScoreListAction {
 

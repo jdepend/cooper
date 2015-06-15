@@ -1,4 +1,4 @@
-package jdepend.core.framework.persistent;
+package jdepend.statistics.persistent;
 
 import java.io.File;
 import java.sql.Connection;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.persistent.ConnectionProvider;
 
-public final class ClientConnectionProvider implements ConnectionProvider {
+public final class StatisticsConnectionProvider implements ConnectionProvider {
 
 	@Override
 	public Connection getConnection() throws SQLException {

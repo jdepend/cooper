@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.domain;
 
 import java.util.HashMap;
 import java.util.List;

@@ -11,7 +11,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JMenuBar;
 
-import jdepend.core.framework.persistent.ClientConnectionProvider;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;
@@ -20,8 +19,20 @@ import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.panel.StatusPanel;
 import jdepend.framework.ui.panel.TabsPanel;
 import jdepend.framework.util.JDependUtil;
-import jdepend.metadata.util.ClassSearchUtil;
-import jdepend.parse.util.SearchUtil;
+import jdepend.statistics.action.ArchitectPatternAction;
+import jdepend.statistics.action.ClassInvokeCountAction;
+import jdepend.statistics.action.ClassLineCountAction;
+import jdepend.statistics.action.ClassRelationInnerAction;
+import jdepend.statistics.action.ClassRelationTypeAction;
+import jdepend.statistics.action.EncapsulationAction;
+import jdepend.statistics.action.RelationComponentScaleAction;
+import jdepend.statistics.action.ScaleBalanceAction;
+import jdepend.statistics.action.ScaleDAction;
+import jdepend.statistics.action.ScaleRelationAction;
+import jdepend.statistics.action.ScaleScoreAction;
+import jdepend.statistics.action.ScaleScoreItemAction;
+import jdepend.statistics.action.TableRelationScaleAction;
+import jdepend.statistics.persistent.StatisticsConnectionProvider;
 
 public final class StaticsFrame extends JDependFrame {
 
@@ -135,7 +146,7 @@ public final class StaticsFrame extends JDependFrame {
 			JDependContext.setWorkspacePath(workspacePath);
 		}
 		// 设置ConnectionProvider
-		ConnectionFactory.setProvider(new ClientConnectionProvider());
+		ConnectionFactory.setProvider(new StatisticsConnectionProvider());
 	}
 
 	private class ExitAction extends AbstractAction {

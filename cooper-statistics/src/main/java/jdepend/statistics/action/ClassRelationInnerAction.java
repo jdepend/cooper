@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.event.ActionEvent;
 
@@ -9,12 +9,13 @@ import jdepend.framework.ui.graph.GraphData;
 import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.model.result.AnalysisResult;
-import jdepend.util.analyzer.element.ClassLineCountAnalyzer;
+import jdepend.model.util.JavaClassRelationUtil;
+import jdepend.statistics.StaticsFrame;
 
-public class ClassLineCountAction extends ScoreListAction {
+public class ClassRelationInnerAction extends ScoreListAction {
 
-	public ClassLineCountAction(StaticsFrame frame) {
-		super(frame, "类规模比例分析");
+	public ClassRelationInnerAction(StaticsFrame frame) {
+		super(frame, "类关系内外比例分析");
 	}
 
 	@Override
@@ -23,29 +24,29 @@ public class ClassLineCountAction extends ScoreListAction {
 		GraphDataItem item;
 		String title;
 
-		ClassLineCountAnalyzer analyzer = new ClassLineCountAnalyzer();
+		JavaClassRelationUtil javaClassRelationUtil = null;
 		AnalysisResult result;
 		String group;
 		String command;
 		for (ScoreInfo scoreInfo : scoreCollection.getScoreInfos()) {
 			result = scoreCollection.getTheResult(scoreInfo);
+			javaClassRelationUtil = new JavaClassRelationUtil(result);
 			item = new GraphDataItem();
 			group = result.getRunningContext().getGroup();
 			command = result.getRunningContext().getCommand();
-			title = group + " " + command + " 类规模比例";
+			title = group + " " + command + " 类关系内外比例";
 			item.setTitle(title);
 			item.setType(GraphDataItem.PIE);
 
-			analyzer.search(result);
-			item.setDatas(analyzer.getData());
+			item.setDatas(javaClassRelationUtil.getInners());
 			graph.addItem(item);
 
 			this.progress();
-			LogUtil.getInstance(ClassLineCountAction.class).systemLog(
-					"分析了[" + group + "][" + command + "]的ClassLineCount");
+			LogUtil.getInstance(ClassRelationInnerAction.class).systemLog(
+					"分析了[" + group + "][" + command + "]的ClassRelationInner");
 		}
 
-		this.addResult("类规模比例饼图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("类关系内外比例饼图", GraphUtil.getInstance().createGraph(graph));
 
 	}
 }

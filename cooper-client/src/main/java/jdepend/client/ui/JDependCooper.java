@@ -16,10 +16,10 @@ import javax.swing.JSplitPane;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
-import jdepend.core.framework.persistent.ClientConnectionProvider;
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
 import jdepend.client.core.local.command.CommandAdapterMgr;
 import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.local.persistent.ClientConnectionProvider;
 import jdepend.core.local.serviceproxy.JDependServiceLocalProxyFactory;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;

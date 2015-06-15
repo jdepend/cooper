@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.event.ActionEvent;
 
@@ -10,6 +10,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.model.result.AnalysisResult;
+import jdepend.statistics.StaticsFrame;
 
 public class RelationComponentScaleAction extends ScoreListAction {
 

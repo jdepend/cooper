@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.event.ActionEvent;
 
@@ -12,6 +12,7 @@ import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.TableData;
 import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.knowledge.domainanalysis.StructureCategory;
+import jdepend.statistics.StaticsFrame;
 
 public class ArchitectPatternAction extends ScoreListAction {
 

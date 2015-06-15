@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,7 @@ import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.framework.ui.graph.RegionColor;
 import jdepend.model.result.AnalysisResult;
+import jdepend.statistics.StaticsFrame;
 
 public class ScaleScoreAction extends ScoreListAction {
 

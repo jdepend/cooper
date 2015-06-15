@@ -1,4 +1,4 @@
-package jdepend.statistics;
+package jdepend.statistics.action;
 
 import java.awt.event.ActionEvent;
 
@@ -12,6 +12,7 @@ import jdepend.framework.ui.graph.TableData;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.JavaClassWrapper;
 import jdepend.model.result.AnalysisResult;
+import jdepend.statistics.StaticsFrame;
 
 public class ClassInvokeCountAction extends ScoreListAction {
 
