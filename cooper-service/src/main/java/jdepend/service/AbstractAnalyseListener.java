@@ -1,4 +1,4 @@
-package jdepend.service.local;
+package jdepend.service;
 
 
 public abstract class AbstractAnalyseListener implements AnalyseListener {

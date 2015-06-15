@@ -3,7 +3,7 @@ package jdepend.client.core.local.command;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseListener;
+import jdepend.service.AnalyseListener;
 
 /**
  * 命令抽象接口 该接口主要连接ui和后台运算

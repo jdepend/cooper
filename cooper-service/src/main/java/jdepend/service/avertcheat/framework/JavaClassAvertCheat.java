@@ -1,4 +1,4 @@
-package jdepend.service.local.avertcheat.framework;
+package jdepend.service.avertcheat.framework;
 
 import java.util.Collection;
 import java.util.Map;
@@ -9,7 +9,7 @@ import jdepend.framework.util.ThreadPool;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.local.AbstractAnalyseListener;
+import jdepend.service.AbstractAnalyseListener;
 
 /**
  * 基于类的防作弊器基类

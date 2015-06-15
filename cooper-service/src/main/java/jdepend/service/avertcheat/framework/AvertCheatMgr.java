@@ -1,12 +1,12 @@
-package jdepend.service.local.avertcheat.framework;
+package jdepend.service.avertcheat.framework;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.metadata.util.ClassSearchUtil;
-import jdepend.service.local.avertcheat.abstractClassQualificationConfirmer.AbstractClassQualificationConfirmer;
-import jdepend.service.local.avertcheat.stabilityClassIdentifyer.StabilityClassIdentifyer;
+import jdepend.service.avertcheat.abstractClassQualificationConfirmer.AbstractClassQualificationConfirmer;
+import jdepend.service.avertcheat.stabilityClassIdentifyer.StabilityClassIdentifyer;
 
 public final class AvertCheatMgr {
 

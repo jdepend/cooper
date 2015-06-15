@@ -1,10 +1,10 @@
-package jdepend.service.local.avertcheat.stabilityClassIdentifyer;
+package jdepend.service.avertcheat.stabilityClassIdentifyer;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisRunningContext;
-import jdepend.service.local.avertcheat.framework.JavaClassAvertCheat;
+import jdepend.service.avertcheat.framework.JavaClassAvertCheat;
 
 public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 

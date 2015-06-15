@@ -1,4 +1,4 @@
-package jdepend.service.local.impl;
+package jdepend.service.impl;
 
 /**
  * 服务上下文

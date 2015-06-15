@@ -1,4 +1,4 @@
-package jdepend.service.local.avertcheat.framework;
+package jdepend.service.avertcheat.framework;
 
 import jdepend.model.result.AnalysisRunningContext;
 

@@ -6,8 +6,8 @@ import jdepend.model.Component;
 import jdepend.model.Relation;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.ServiceFactory;
+import jdepend.service.JDependLocalService;
+import jdepend.service.ServiceFactory;
 import junit.framework.TestCase;
 
 public class ServiceTest extends TestCase {

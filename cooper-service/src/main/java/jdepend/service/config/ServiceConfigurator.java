@@ -1,4 +1,4 @@
-package jdepend.service.local.config;
+package jdepend.service.config;
 
 import java.io.File;
 import java.io.FileInputStream;

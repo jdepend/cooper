@@ -1,4 +1,4 @@
-package jdepend.service.local.impl;
+package jdepend.service.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,12 +19,12 @@ import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseException;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseListener;
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.ServiceException;
-import jdepend.service.local.avertcheat.framework.AvertCheat;
-import jdepend.service.local.avertcheat.framework.AvertCheatMgr;
-import jdepend.service.local.config.ServiceConfigurator;
+import jdepend.service.AnalyseListener;
+import jdepend.service.JDependLocalService;
+import jdepend.service.ServiceException;
+import jdepend.service.avertcheat.framework.AvertCheat;
+import jdepend.service.avertcheat.framework.AvertCheatMgr;
+import jdepend.service.config.ServiceConfigurator;
 
 public final class JDependLocalServiceImpl implements JDependLocalService {
 

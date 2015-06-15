@@ -10,7 +10,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseListener;
+import jdepend.service.AnalyseListener;
 
 /**
  * The <code>JDepend</code> class analyzes directories of Java class files,

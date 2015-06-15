@@ -1,7 +1,6 @@
-package jdepend.service.local;
+package jdepend.service;
 
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.impl.JDependLocalServiceImpl;
+import jdepend.service.impl.JDependLocalServiceImpl;
 
 public class ServiceFactory {
 

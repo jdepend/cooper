@@ -1,4 +1,4 @@
-package jdepend.service.local;
+package jdepend.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;

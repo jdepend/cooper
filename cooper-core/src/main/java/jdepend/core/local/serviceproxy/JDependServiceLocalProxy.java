@@ -13,9 +13,9 @@ import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.BuildListener;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseListener;
-import jdepend.service.local.JDependLocalService;
-import jdepend.service.local.impl.JDependLocalServiceImpl;
+import jdepend.service.AnalyseListener;
+import jdepend.service.JDependLocalService;
+import jdepend.service.impl.JDependLocalServiceImpl;
 
 public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 

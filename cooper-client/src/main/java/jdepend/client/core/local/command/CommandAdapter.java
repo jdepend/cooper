@@ -12,7 +12,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
-import jdepend.service.local.AnalyseListener;
+import jdepend.service.AnalyseListener;
 
 /**
  * 客户端<Code>Command</Code>适配器
