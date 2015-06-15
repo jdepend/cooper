@@ -23,7 +23,7 @@ import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.dialog.WelcomeDialog;
 import jdepend.framework.ui.panel.StatusPanel;
 import jdepend.framework.util.JDependUtil;
-import jdepend.service.framework.persistent.ServerConnectionProvider;
+import jdepend.server.service.persistent.ServerConnectionProvider;
 
 /**
  * 服务器端主窗口

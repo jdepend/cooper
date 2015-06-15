@@ -1,4 +1,4 @@
-package jdepend.service.framework.persistent;
+package jdepend.server.service.persistent;
 
 import java.io.File;
 import java.sql.Connection;

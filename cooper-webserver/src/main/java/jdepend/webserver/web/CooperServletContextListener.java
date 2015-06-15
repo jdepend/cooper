@@ -12,7 +12,7 @@ import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.service.framework.persistent.ServerConnectionProvider;
+import jdepend.webserver.persistent.WebServerConnectionProvider;
 
 import org.apache.log4j.Logger;
 
@@ -38,7 +38,7 @@ public class CooperServletContextListener implements ServletContextListener {
 		// 设置ServiceProxyFactory
 		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceLocalProxyFactory());
 		// 设置ConnectionProvider
-		ConnectionFactory.setProvider(new ServerConnectionProvider());
+		ConnectionFactory.setProvider(new WebServerConnectionProvider());
 
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
