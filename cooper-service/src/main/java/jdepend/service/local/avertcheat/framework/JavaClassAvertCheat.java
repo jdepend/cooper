@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
+import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.ThreadPool;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.model.JavaClassUnit;
@@ -20,6 +21,8 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 
 	@Override
 	public void onAnalyse(AnalysisResult result) {
+		
+		LogUtil.getInstance(this.getClass()).systemLog("开始执行JavaClassAvertCheat：" + this.getName());
 
 		ExecutorService pool = ThreadPool.getPool();
 
@@ -38,6 +41,8 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 		}
 
 		ThreadPool.awaitTermination(pool);
+		
+		LogUtil.getInstance(this.getClass()).systemLog("结束执行JavaClassAvertCheat：" + this.getName());
 	}
 
 	protected abstract void handle(JavaClassUnit javaClass);
