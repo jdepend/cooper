@@ -1,4 +1,4 @@
-﻿1.2.5_03
+﻿1.2.5_03 2015-06-15
 
 a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
 
