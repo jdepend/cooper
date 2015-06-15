@@ -10,8 +10,6 @@ import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.framework.context.AnalyseContext;
-import jdepend.service.framework.context.AnalyseContextMgr;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.impl.JDependLocalServiceImpl;
 import jdepend.service.remote.AnalyseDataDTO;
@@ -37,13 +35,14 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 
 	public AnalysisResult analyze(JDependRequest request, AnalyseDataDTO data) throws RemoteException {
 		try {
-			// 创建服务上下文
-			this.initServiceContext(request);
 			// 发送分析提醒
 			this.onAnalyse(request);
 			// 创建本地服务
 			JDependLocalService localService = new JDependLocalServiceImpl(request.getGroupName(),
 					request.getCommandName());
+			// 创建服务上下文
+			JDependSession session = JDependSessionMgr.getInstance().getSession(request);
+			localService.initServiceContext(false, session.getClient(), session.getUserName());
 			// 设置组织包的组件
 			if (data.getComponent() != null) {
 				localService.setComponent(data.getComponent());
@@ -60,8 +59,6 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			localService.addFilteredPackages(data.getFilteredPackages());
 			// 增加解析监听器
 			localService.addParseListener(new RemoteParseListener(JDependSessionMgr.getInstance().getSession(request)));
-			// 设置运行环境
-			localService.setLocalRunning(false);
 			// 分析服务
 			AnalysisResult result = localService.analyze();
 			// 保存分析结果
@@ -73,21 +70,6 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RemoteException(e.getMessage());
-		}
-	}
-
-	protected void initServiceContext(JDependRequest request) throws JDependException {
-		if (AnalyseContextMgr.getContext() == null) {
-			JDependSession session = JDependSessionMgr.getInstance().getSession(request);
-			AnalyseContext context = new AnalyseContext();
-			context.setClient(session.getClient());
-			context.setCommand(request.getCommandName());
-			context.setExecuteStartTime(System.currentTimeMillis());
-			context.setGroup(request.getGroupName());
-			context.setLocalRunning(false);
-			context.setUserName(session.getUserName());
-
-			AnalyseContextMgr.setContext(context);
 		}
 	}
 

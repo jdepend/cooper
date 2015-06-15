@@ -1,4 +1,4 @@
-package jdepend.service.framework.context;
+package jdepend.service.local.impl;
 
 /**
  * 服务上下文
@@ -8,29 +8,11 @@ package jdepend.service.framework.context;
  */
 public final class AnalyseContext {
 
-	private String group;
-	private String command;
 	private boolean isLocalRunning;
 	private String client;
 	private String userName;
 	private long executeStartTime;
 	private long executeEndTime;
-
-	public String getGroup() {
-		return group;
-	}
-
-	public void setGroup(String group) {
-		this.group = group;
-	}
-
-	public String getCommand() {
-		return command;
-	}
-
-	public void setCommand(String command) {
-		this.command = command;
-	}
 
 	public boolean isLocalRunning() {
 		return isLocalRunning;

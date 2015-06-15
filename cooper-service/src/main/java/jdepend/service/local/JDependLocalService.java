@@ -22,6 +22,11 @@ import jdepend.parse.ParseListener;
 public interface JDependLocalService {
 
 	/**
+	 * 创建服务上下文
+	 */
+	public void initServiceContext(boolean isLocalRunning, String client, String userName);
+
+	/**
 	 * 分析服务
 	 * 
 	 * @return
@@ -92,19 +97,11 @@ public interface JDependLocalService {
 	 * @param filteredPackages
 	 */
 	public void addFilteredPackages(List<String> filteredPackages);
-
-	/**
-	 * 设置是否本地运行
-	 * 
-	 * @param isLocalRunning
-	 */
-	public void setLocalRunning(boolean isLocalRunning);
-
 	/**
 	 * 得到服务分析目标包含的包集合
 	 * 
 	 * @return
-	 * @throws JDependException 
+	 * @throws JDependException
 	 */
 	public Collection<JavaPackage> getPackages() throws ServiceException;
 }

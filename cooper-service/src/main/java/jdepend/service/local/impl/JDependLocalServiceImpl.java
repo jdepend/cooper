@@ -19,8 +19,6 @@ import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseException;
 import jdepend.parse.ParseListener;
-import jdepend.service.framework.context.AnalyseContext;
-import jdepend.service.framework.context.AnalyseContextMgr;
 import jdepend.service.local.AnalyseListener;
 import jdepend.service.local.JDependLocalService;
 import jdepend.service.local.ServiceException;
@@ -42,7 +40,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 	private ServiceConfigurator serviceConf;
 
-	public boolean isLocalRunning = true;
+	private AnalyseContext context;
 
 	private ArrayList<AnalyseListener> listeners = new ArrayList<AnalyseListener>();
 
@@ -90,7 +88,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 			LogUtil.getInstance(JDependLocalServiceImpl.class).systemLog("onAnalyse is finished!");
 			// 设置End时间
-			AnalyseContextMgr.getContext().setExecuteEndTime(System.currentTimeMillis());
+			this.context.setExecuteEndTime(System.currentTimeMillis());
 
 			return result;
 		} catch (JDependException e) {
@@ -98,10 +96,15 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		}
 	}
 
+	private void initServiceContext() {
+		if (this.context == null) {
+			this.initServiceContext(true, null, null);
+		}
+	}
+
 	private AnalysisRunningContext createRunningContext() {
 
 		AnalysisRunningContext context = new AnalysisRunningContext();
-		context.setLocalRunning(isLocalRunning);
 
 		context.setGroup(group);
 		context.setCommand(command);
@@ -116,8 +119,9 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
 		context.setSaveResult(serviceConf.isSaveResult());
 
-		context.setClient(AnalyseContextMgr.getContext().getClient());
-		context.setUserName(AnalyseContextMgr.getContext().getUserName());
+		context.setLocalRunning(context.isLocalRunning());
+		context.setClient(context.getClient());
+		context.setUserName(context.getUserName());
 
 		return context;
 	}
@@ -135,24 +139,24 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/**
 	 * 创建服务上下文
 	 */
-	protected void initServiceContext() {
-		if (AnalyseContextMgr.getContext() == null) {
-			AnalyseContext context = new AnalyseContext();
-			context.setGroup(this.group);
-			context.setCommand(this.command);
-			context.setLocalRunning(true);
-			context.setClient("127.0.0.1");
-			context.setExecuteStartTime(System.currentTimeMillis());
+	@Override
+	public void initServiceContext(boolean isLocalRunning, String client, String userName) {
 
-			AnalyseContextMgr.setContext(context);
-		}
+		context = new AnalyseContext();
+
+		context.setLocalRunning(isLocalRunning);
+		context.setClient(client);
+		context.setUserName(userName);
+
+		context.setExecuteStartTime(System.currentTimeMillis());
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jdepend.client.core.JDependAnalyssisService#setComponent(jdepend.client.core.Component)
+	 * jdepend.client.core.JDependAnalyssisService#setComponent(jdepend.client
+	 * .core.Component)
 	 */
 	public void setComponent(Component component) {
 		this.component = component;
@@ -161,7 +165,9 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.client.core.JDependAnalyssisService#setWriter(java.io.PrintWriter)
+	 * @see
+	 * jdepend.client.core.JDependAnalyssisService#setWriter(java.io.PrintWriter
+	 * )
 	 */
 	public void setParseLogWriter(PrintWriter printWriter) {
 		parse.setLogWriter(printWriter);
@@ -170,7 +176,9 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see jdepend.client.core.JDependAnalyssisService#addDirectory(java.lang.String)
+	 * @see
+	 * jdepend.client.core.JDependAnalyssisService#addDirectory(java.lang.String
+	 * )
 	 */
 	public void addDirectory(String name) throws IOException {
 		parse.addDirectorys(name);
@@ -203,11 +211,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	public void addFilteredPackages(List<String> filteredPackages) {
 		this.parse.addFilteredPackages(filteredPackages);
 
-	}
-
-	@Override
-	public void setLocalRunning(boolean isLocalRunning) {
-		this.isLocalRunning = isLocalRunning;
 	}
 
 	public void addAnalyseListener(AnalyseListener listener) {
