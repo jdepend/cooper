@@ -12,7 +12,7 @@ e）为类列表中的类增加图形化查看传入传出的功能
 
 f）将cooper-ui重命名为cooper-client，将cooper-ui-remote重命名为cooper-client-remote
      将cooper-report合并到cooper-client中
-     拆分cooper-core，将部分组件合并到cooper-client中
+     拆分cooper-core，将部分组件（config、command、analyzer）合并到cooper-client中
      将cooper-core-remote合并到cooper-client-remote中
      
 g）将cooper-manager重命名为cooper-server
