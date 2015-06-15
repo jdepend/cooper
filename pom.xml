@@ -26,9 +26,9 @@
 	<modules>
 		<module>cooper-test</module>
 		<module>cooper-client-remote</module>
-		<module>cooper-service-interface</module>
+		<module>cooper-server-interface</module>
 		<module>cooper-client</module>
-		<module>cooper-manager</module>
+		<module>cooper-server</module>
 		<module>cooper-statistics</module>
 		<module>cooper-framework-ui</module>
 		<module>cooper-webserver</module>
