@@ -22,8 +22,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.analyzer.AnalyzerRepository;
-import jdepend.service.remote.analyzer.AnalyzerService;
-import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
+import jdepend.server.service.analyzer.AnalyzerService;
+import jdepend.server.service.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerMgrPanel extends JPanel {
 

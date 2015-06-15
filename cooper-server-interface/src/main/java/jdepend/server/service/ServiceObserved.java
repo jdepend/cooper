@@ -1,4 +1,4 @@
-package jdepend.service.remote;
+package jdepend.server.service;
 
 /**
  * 服务接口

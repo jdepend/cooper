@@ -15,7 +15,7 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.util.FileUtil;
-import jdepend.service.remote.analyzer.AnalyzerDTO;
+import jdepend.server.service.analyzer.AnalyzerDTO;
 import jdepend.util.analyzer.framework.Analyzer;
 
 public final class AnalyzerLocalRepository {

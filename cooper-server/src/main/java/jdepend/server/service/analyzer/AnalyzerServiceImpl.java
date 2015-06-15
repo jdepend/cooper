@@ -5,10 +5,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.analyzer.AnalyzerDTO;
-import jdepend.service.remote.analyzer.AnalyzerInfo;
-import jdepend.service.remote.analyzer.AnalyzerService;
-import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
+import jdepend.server.service.analyzer.AnalyzerDTO;
+import jdepend.server.service.analyzer.AnalyzerInfo;
+import jdepend.server.service.analyzer.AnalyzerService;
+import jdepend.server.service.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerServiceImpl extends UnicastRemoteObject implements AnalyzerService {
 

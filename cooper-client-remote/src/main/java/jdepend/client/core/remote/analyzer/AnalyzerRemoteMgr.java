@@ -15,8 +15,8 @@ import jdepend.client.core.local.analyzer.AnalyzerMgr;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
-import jdepend.service.remote.analyzer.AnalyzerDTO;
-import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
+import jdepend.server.service.analyzer.AnalyzerDTO;
+import jdepend.server.service.analyzer.AnalyzerSummaryDTO;
 import jdepend.util.analyzer.framework.Analyzer;
 
 import org.apache.commons.beanutils.BeanUtils;

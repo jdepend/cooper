@@ -1,4 +1,4 @@
-package jdepend.service.remote;
+package jdepend.server.service;
 
 import java.rmi.Remote;
 import java.util.Collection;

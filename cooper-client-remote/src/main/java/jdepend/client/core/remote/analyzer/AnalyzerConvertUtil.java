@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
-import jdepend.service.remote.analyzer.AnalyzerDTO;
+import jdepend.server.service.analyzer.AnalyzerDTO;
 import jdepend.util.analyzer.framework.Analyzer;
 
 public final class AnalyzerConvertUtil {

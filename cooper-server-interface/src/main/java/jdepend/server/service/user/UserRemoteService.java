@@ -1,4 +1,4 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import java.rmi.Remote;
 import java.util.List;

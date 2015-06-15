@@ -6,9 +6,9 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
-import jdepend.service.remote.user.UserActionItem;
-import jdepend.service.remote.user.UserRemoteService;
-import jdepend.service.remote.user.UserStateChangeListener;
+import jdepend.server.service.user.UserActionItem;
+import jdepend.server.service.user.UserRemoteService;
+import jdepend.server.service.user.UserStateChangeListener;
 
 public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserRemoteService {
 

@@ -21,9 +21,9 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.user.UserDomainService;
-import jdepend.service.remote.user.User;
-import jdepend.service.remote.user.UserRemoteService;
-import jdepend.service.remote.user.UserStateChangeListener;
+import jdepend.server.service.user.User;
+import jdepend.server.service.user.UserRemoteService;
+import jdepend.server.service.user.UserStateChangeListener;
 
 public final class UserMgrPanel extends JPanel implements UserStateChangeListener {
 

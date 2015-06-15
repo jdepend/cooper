@@ -23,9 +23,9 @@ import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.impl.JDependSessionMgr;
-import jdepend.service.remote.JDependSession;
-import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.SessionListener;
+import jdepend.server.service.JDependSession;
+import jdepend.server.service.JDependSessionService;
+import jdepend.server.service.SessionListener;
 
 public class SessionMgrPanel extends JPanel implements SessionListener {
 

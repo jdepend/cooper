@@ -1,4 +1,4 @@
-package jdepend.service.remote.analyzer;
+package jdepend.server.service.analyzer;
 
 public final class AnalyzerInfo extends AnalyzerSummaryDTO {
 

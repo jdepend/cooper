@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.analyzer.AnalyzerService;
+import jdepend.server.service.analyzer.AnalyzerService;
 
 /**
  * 客户端Analyzer代理

@@ -22,8 +22,8 @@ import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
-import jdepend.service.remote.score.ScoreDTO;
-import jdepend.service.remote.score.ScoreRemoteService;
+import jdepend.server.service.score.ScoreDTO;
+import jdepend.server.service.score.ScoreRemoteService;
 
 /**
  * 分数上传

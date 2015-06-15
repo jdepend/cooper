@@ -12,12 +12,12 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.service.JDependLocalService;
 import jdepend.service.impl.JDependLocalServiceImpl;
-import jdepend.service.remote.AnalyseDataDTO;
-import jdepend.service.remote.JDependRemoteService;
-import jdepend.service.remote.JDependRequest;
-import jdepend.service.remote.JDependSession;
-import jdepend.service.remote.ServiceMonitor;
-import jdepend.service.remote.ServiceObserved;
+import jdepend.server.service.AnalyseDataDTO;
+import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.JDependRequest;
+import jdepend.server.service.JDependSession;
+import jdepend.server.service.ServiceMonitor;
+import jdepend.server.service.ServiceObserved;
 
 public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDependRemoteService, ServiceObserved {
 

@@ -14,8 +14,8 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.StreamUtil;
-import jdepend.service.remote.analyzer.AnalyzerInfo;
-import jdepend.service.remote.analyzer.AnalyzerSummaryDTO;
+import jdepend.server.service.analyzer.AnalyzerInfo;
+import jdepend.server.service.analyzer.AnalyzerSummaryDTO;
 
 public final class AnalyzerRepository {
 

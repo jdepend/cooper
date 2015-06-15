@@ -11,7 +11,7 @@ import java.util.UUID;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.service.remote.score.ScoreDTO;
+import jdepend.server.service.score.ScoreDTO;
 
 public final class ScoreListRepository {
 

@@ -1,7 +1,7 @@
 package jdepend.server.service.user;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.user.User;
+import jdepend.server.service.user.User;
 
 public final class UserImpl implements User {
 

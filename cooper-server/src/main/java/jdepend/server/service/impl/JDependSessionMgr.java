@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.JDependRequest;
-import jdepend.service.remote.JDependSession;
-import jdepend.service.remote.SessionListener;
-import jdepend.service.remote.SessionObserved;
+import jdepend.server.service.JDependRequest;
+import jdepend.server.service.JDependSession;
+import jdepend.server.service.SessionListener;
+import jdepend.server.service.SessionObserved;
 
 /**
  * 服务端Session管理器

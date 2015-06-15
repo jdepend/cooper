@@ -15,7 +15,7 @@ import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.server.service.user.UserDomainService;
-import jdepend.service.remote.user.UserActionItem;
+import jdepend.server.service.user.UserActionItem;
 
 public class UserActionListDialog extends CooperDialog {
 

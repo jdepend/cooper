@@ -1,4 +1,4 @@
-package jdepend.service.remote;
+package jdepend.server.service;
 
 import java.io.IOException;
 import java.io.Serializable;

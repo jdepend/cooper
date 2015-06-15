@@ -1,4 +1,4 @@
-package jdepend.service.remote;
+package jdepend.server.service;
 
 /**
  * Session接口

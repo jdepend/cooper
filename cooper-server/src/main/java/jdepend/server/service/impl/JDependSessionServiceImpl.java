@@ -7,9 +7,9 @@ import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.server.service.user.UserRepository;
-import jdepend.service.remote.JDependSession;
-import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.user.User;
+import jdepend.server.service.JDependSession;
+import jdepend.server.service.JDependSessionService;
+import jdepend.server.service.user.User;
 
 /**
  * Session服务

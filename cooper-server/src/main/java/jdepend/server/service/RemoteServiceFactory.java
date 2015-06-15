@@ -7,11 +7,11 @@ import jdepend.server.service.impl.JDependRemoteServiceImpl;
 import jdepend.server.service.impl.JDependSessionServiceImpl;
 import jdepend.server.service.score.ScoreRemoteServiceImpl;
 import jdepend.server.service.user.UserRemoteServiceImpl;
-import jdepend.service.remote.JDependRemoteService;
-import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.analyzer.AnalyzerService;
-import jdepend.service.remote.score.ScoreRemoteService;
-import jdepend.service.remote.user.UserRemoteService;
+import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.JDependSessionService;
+import jdepend.server.service.analyzer.AnalyzerService;
+import jdepend.server.service.score.ScoreRemoteService;
+import jdepend.server.service.user.UserRemoteService;
 
 public class RemoteServiceFactory {
 

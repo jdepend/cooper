@@ -1,4 +1,4 @@
-package jdepend.service.remote.analyzer;
+package jdepend.server.service.analyzer;
 
 import java.rmi.Remote;
 import java.util.List;

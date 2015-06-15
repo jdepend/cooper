@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.user.UserRemoteService;
+import jdepend.server.service.user.UserRemoteService;
 
 public class UserRemoteServiceProxy {
 

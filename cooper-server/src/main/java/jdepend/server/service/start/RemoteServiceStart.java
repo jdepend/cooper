@@ -16,11 +16,11 @@ import jdepend.framework.util.JDependUtil;
 import jdepend.framework.util.VersionUtil;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.persistent.ServerConnectionProvider;
-import jdepend.service.remote.JDependRemoteService;
-import jdepend.service.remote.JDependSessionService;
-import jdepend.service.remote.analyzer.AnalyzerService;
-import jdepend.service.remote.score.ScoreRemoteService;
-import jdepend.service.remote.user.UserRemoteService;
+import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.JDependSessionService;
+import jdepend.server.service.analyzer.AnalyzerService;
+import jdepend.server.service.score.ScoreRemoteService;
+import jdepend.server.service.user.UserRemoteService;
 
 /**
  * 后台启动远程服务

@@ -6,9 +6,9 @@ import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
-import jdepend.service.remote.user.User;
-import jdepend.service.remote.user.UserActionItem;
-import jdepend.service.remote.user.UserStateChangeListener;
+import jdepend.server.service.user.User;
+import jdepend.server.service.user.UserActionItem;
+import jdepend.server.service.user.UserStateChangeListener;
 
 public final class UserDomainService {
 

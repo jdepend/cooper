@@ -9,7 +9,7 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.service.remote.user.User;
+import jdepend.server.service.user.User;
 
 public final class UserRepository {
 

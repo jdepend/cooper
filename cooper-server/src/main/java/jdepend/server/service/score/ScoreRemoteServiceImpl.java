@@ -5,8 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.service.remote.score.ScoreDTO;
-import jdepend.service.remote.score.ScoreRemoteService;
+import jdepend.server.service.score.ScoreDTO;
+import jdepend.server.service.score.ScoreRemoteService;
 
 public class ScoreRemoteServiceImpl extends UnicastRemoteObject implements ScoreRemoteService {
 

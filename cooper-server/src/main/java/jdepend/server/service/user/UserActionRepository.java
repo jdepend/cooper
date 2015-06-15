@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.persistent.ConnectionFactory;
-import jdepend.service.remote.user.UserActionItem;
+import jdepend.server.service.user.UserActionItem;
 
 public final class UserActionRepository {
 

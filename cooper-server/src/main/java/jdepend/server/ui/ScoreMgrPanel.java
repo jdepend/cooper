@@ -24,8 +24,8 @@ import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.score.ScoreListRepository;
-import jdepend.service.remote.score.ScoreDTO;
-import jdepend.service.remote.score.ScoreRemoteService;
+import jdepend.server.service.score.ScoreDTO;
+import jdepend.server.service.score.ScoreRemoteService;
 
 public final class ScoreMgrPanel extends JPanel {
 

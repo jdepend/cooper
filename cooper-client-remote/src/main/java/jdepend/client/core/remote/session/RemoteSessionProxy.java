@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
-import jdepend.service.remote.JDependSessionService;
+import jdepend.server.service.JDependSessionService;
 
 /**
  * 客户端Session代理

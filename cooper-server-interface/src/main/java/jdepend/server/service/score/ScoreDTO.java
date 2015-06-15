@@ -1,4 +1,4 @@
-package jdepend.service.remote.score;
+package jdepend.server.service.score;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

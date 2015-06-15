@@ -1,4 +1,4 @@
-package jdepend.service.remote.user;
+package jdepend.server.service.user;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

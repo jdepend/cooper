@@ -1,4 +1,4 @@
-package jdepend.service.remote.analyzer;
+package jdepend.server.service.analyzer;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

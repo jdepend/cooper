@@ -21,9 +21,9 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
-import jdepend.service.remote.AnalyseDataDTO;
-import jdepend.service.remote.JDependRemoteService;
-import jdepend.service.remote.JDependRequest;
+import jdepend.server.service.AnalyseDataDTO;
+import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.JDependRequest;
 
 /**
  * 远程服务代理

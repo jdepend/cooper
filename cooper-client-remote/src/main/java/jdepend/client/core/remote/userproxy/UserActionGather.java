@@ -19,7 +19,7 @@ import jdepend.framework.log.BusiLogListener;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.log.Operation;
-import jdepend.service.remote.user.UserActionItem;
+import jdepend.server.service.user.UserActionItem;
 
 /**
  * 前端用户行为收集
