@@ -5,7 +5,7 @@
   <parent>
     <artifactId>cooper</artifactId>
     <groupId>cooper</groupId>
-    <version>1.2.5_03-SNAPSHOT</version>
+    <version>1.2.5_04-SNAPSHOT</version>
   </parent>
   <artifactId>cooper-server</artifactId>
   <name>cooper-server</name>
@@ -16,7 +16,7 @@
   <dependencies>
     <dependency>
     	<groupId>cooper</groupId>
-    	<artifactId>cooper-service-interface</artifactId>
+    	<artifactId>cooper-server-interface</artifactId>
     	<version>${project.version}</version>
     	<scope>compile</scope>
     </dependency>
