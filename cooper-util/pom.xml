@@ -24,12 +24,5 @@
     	<artifactId>cooper-framework-ui</artifactId>
     	<version>${project.version}</version>
     </dependency>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-knowledge</artifactId>
-    	<version>${project.version}</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
   </dependencies>
 </project>
