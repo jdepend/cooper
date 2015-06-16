@@ -17,9 +17,9 @@ import jdepend.framework.util.VersionUtil;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.persistent.ServerConnectionProvider;
 import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.JDependSessionService;
 import jdepend.server.service.analyzer.AnalyzerService;
 import jdepend.server.service.score.ScoreRemoteService;
+import jdepend.server.service.session.JDependSessionService;
 import jdepend.server.service.user.UserRemoteService;
 
 /**

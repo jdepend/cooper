@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
+import jdepend.server.service.session.JDependRequest;
 
 /**
  * 远程后台服务接口

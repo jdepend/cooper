@@ -2,7 +2,7 @@ package jdepend.server.service.impl;
 
 import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseListener;
-import jdepend.server.service.JDependSession;
+import jdepend.server.service.session.JDependSession;
 
 public class RemoteParseListener implements ParseListener {
 

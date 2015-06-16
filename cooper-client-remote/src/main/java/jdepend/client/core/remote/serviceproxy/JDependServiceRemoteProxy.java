@@ -23,7 +23,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.parse.ParseListener;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.JDependRequest;
+import jdepend.server.service.session.JDependRequest;
 
 /**
  * 远程服务代理

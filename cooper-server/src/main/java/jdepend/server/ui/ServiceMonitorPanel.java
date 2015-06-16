@@ -23,9 +23,9 @@ import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.panel.StatusField;
 import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.impl.JDependSessionMgr;
+import jdepend.server.service.session.JDependRequest;
+import jdepend.server.service.session.JDependSession;
 import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.JDependRequest;
-import jdepend.server.service.JDependSession;
 import jdepend.server.service.ServiceMonitor;
 
 public class ServiceMonitorPanel extends JPanel implements ServiceMonitor {

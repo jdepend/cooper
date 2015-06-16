@@ -1,6 +1,7 @@
 package jdepend.server.service;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.server.service.session.JDependRequest;
 
 /**
  * 服务监听者接口

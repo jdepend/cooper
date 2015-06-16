@@ -1,4 +1,4 @@
-package jdepend.server.service;
+package jdepend.server.service.session;
 
 import java.io.Serializable;
 

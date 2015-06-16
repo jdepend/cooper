@@ -1,4 +1,4 @@
-package jdepend.server.service;
+package jdepend.server.service.session;
 
 /**
  * session监听者接口

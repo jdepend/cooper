@@ -6,9 +6,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.server.service.session.JDependSession;
+import jdepend.server.service.session.JDependSessionService;
 import jdepend.server.service.user.UserRepository;
-import jdepend.server.service.JDependSession;
-import jdepend.server.service.JDependSessionService;
 import jdepend.server.service.user.User;
 
 /**

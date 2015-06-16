@@ -10,16 +10,15 @@ import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
-import jdepend.service.JDependLocalService;
-import jdepend.service.impl.JDependLocalServiceImpl;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.JDependRequest;
-import jdepend.server.service.JDependSession;
 import jdepend.server.service.ServiceMonitor;
-import jdepend.server.service.ServiceObserved;
+import jdepend.server.service.session.JDependRequest;
+import jdepend.server.service.session.JDependSession;
+import jdepend.service.JDependLocalService;
+import jdepend.service.impl.JDependLocalServiceImpl;
 
-public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDependRemoteService, ServiceObserved {
+public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDependRemoteService {
 
 	private List<ServiceMonitor> monitors = new ArrayList<ServiceMonitor>();
 
