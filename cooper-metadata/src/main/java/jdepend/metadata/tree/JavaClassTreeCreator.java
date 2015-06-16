@@ -1,7 +1,9 @@
 package jdepend.metadata.tree;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
@@ -23,7 +25,7 @@ public abstract class JavaClassTreeCreator {
 	private void rout(JavaClass javaClass, JavaClassTree tree, Collection<JavaClass> classes) {
 
 		JavaClass dependClass = null;
-		Collection<JavaClass> dependClasses = new HashSet<JavaClass>();
+		List<JavaClass> dependClasses = new ArrayList<JavaClass>();
 		// 广度搜索
 		for (JavaClassRelationItem relationItem : getRelationItem(javaClass)) {
 			dependClass = this.getDepend(relationItem);
