@@ -1,4 +1,4 @@
-package jdepend.core.framework.serviceproxy;
+package jdepend.core.serviceproxy.framework;
 
 /**
  * 后台服务代理工厂管理器

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JScrollPane;
 
-import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;

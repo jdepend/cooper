@@ -11,7 +11,7 @@ import jdepend.client.core.command.CommandAdapterMgr;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.result.framework.ResultPanel;
 import jdepend.client.ui.result.panel.JDependReport;
-import jdepend.core.local.score.ScoreFacade;
+import jdepend.core.score.ScoreFacade;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;

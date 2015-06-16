@@ -8,8 +8,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.serviceproxy.framework.JDependServiceProxy;
+import jdepend.core.serviceproxy.framework.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.JarFileReader;

@@ -1,4 +1,4 @@
-package jdepend.core.local.score;
+package jdepend.core.score;
 
 import java.util.Comparator;
 

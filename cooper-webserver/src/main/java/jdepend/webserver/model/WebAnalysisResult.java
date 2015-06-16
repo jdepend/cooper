@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.core.local.domain.WisdomAnalysisResult;
+import jdepend.core.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.knowledge.architectpattern.ArchitectPatternMgr;

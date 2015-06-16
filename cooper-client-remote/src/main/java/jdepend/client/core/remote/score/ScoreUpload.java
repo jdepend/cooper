@@ -16,8 +16,8 @@ import java.util.TimerTask;
 
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
-import jdepend.core.local.score.ScoreFacade;
-import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.score.ScoreFacade;
+import jdepend.core.score.ScoreInfo;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.exception.JDependException;

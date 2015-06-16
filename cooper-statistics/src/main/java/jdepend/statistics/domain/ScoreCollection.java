@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.core.local.score.ScoreFacade;
-import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.score.ScoreFacade;
+import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.result.AnalysisResult;
 

@@ -1,4 +1,4 @@
-package jdepend.core.local.domain;
+package jdepend.core.domain;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MathUtil;

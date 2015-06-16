@@ -1,11 +1,11 @@
-package jdepend.core.local.serviceproxy;
+package jdepend.core.serviceproxy;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.core.framework.serviceproxy.AbstractJDependServiceProxy;
+import jdepend.core.serviceproxy.framework.AbstractJDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.metadata.JavaPackage;

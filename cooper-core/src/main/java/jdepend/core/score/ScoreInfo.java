@@ -1,4 +1,4 @@
-package jdepend.core.local.score;
+package jdepend.core.score;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

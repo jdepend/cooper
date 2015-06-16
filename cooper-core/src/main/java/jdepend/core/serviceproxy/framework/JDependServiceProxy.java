@@ -1,4 +1,4 @@
-package jdepend.core.framework.serviceproxy;
+package jdepend.core.serviceproxy.framework;
 
 import java.io.PrintWriter;
 import java.util.Collection;

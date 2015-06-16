@@ -18,13 +18,13 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
-import jdepend.core.local.domain.WisdomAnalysisResult;
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.framework.UIPropertyConfigurator;
+import jdepend.core.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.JDependUnitMgr;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.framework.UIPropertyConfigurator;
 
 public class PopupSummaryDialog extends JDialog implements ActionListener {
 

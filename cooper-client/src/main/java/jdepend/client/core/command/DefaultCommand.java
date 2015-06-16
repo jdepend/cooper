@@ -4,8 +4,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.serviceproxy.framework.JDependServiceProxy;
+import jdepend.core.serviceproxy.framework.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;

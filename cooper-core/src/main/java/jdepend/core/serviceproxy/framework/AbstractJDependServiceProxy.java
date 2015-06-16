@@ -1,4 +1,4 @@
-package jdepend.core.framework.serviceproxy;
+package jdepend.core.serviceproxy.framework;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.model.JDependUnitMgr;

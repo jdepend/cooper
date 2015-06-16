@@ -3,8 +3,8 @@ package jdepend.statistics.action;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
-import jdepend.core.local.score.ScoreFacade;
-import jdepend.core.local.score.ScoreInfo;
+import jdepend.core.score.ScoreFacade;
+import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.BgColorData;
 import jdepend.framework.ui.graph.FgColorData;

@@ -5,8 +5,8 @@ import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
-import jdepend.core.local.serviceproxy.JDependServiceLocalProxyFactory;
+import jdepend.core.serviceproxy.JDependServiceLocalProxyFactory;
+import jdepend.core.serviceproxy.framework.JDependServiceProxyFactoryMgr;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;

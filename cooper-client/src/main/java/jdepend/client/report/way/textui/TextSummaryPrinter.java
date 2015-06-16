@@ -2,7 +2,8 @@ package jdepend.client.report.way.textui;
 
 import java.util.Iterator;
 
-import jdepend.core.local.domain.WisdomAnalysisResult;
+import jdepend.client.report.util.ReportConstant;
+import jdepend.core.domain.WisdomAnalysisResult;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.Named;
@@ -11,7 +12,6 @@ import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.client.report.util.ReportConstant;
 
 public final class TextSummaryPrinter extends SummaryPrinter {
 

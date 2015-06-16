@@ -15,7 +15,7 @@ import jdepend.client.ui.remote.action.LogoutAction;
 import jdepend.client.ui.remote.analyzer.ClientAnalyzerPanel;
 import jdepend.client.ui.start.WorkspaceSetting;
 import jdepend.client.ui.start.WorkspaceSettingDialog;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
+import jdepend.core.serviceproxy.framework.JDependServiceProxyFactoryMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.DBBusinessLogWriter;

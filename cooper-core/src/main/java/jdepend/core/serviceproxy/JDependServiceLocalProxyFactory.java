@@ -1,7 +1,7 @@
-package jdepend.core.local.serviceproxy;
+package jdepend.core.serviceproxy;
 
-import jdepend.core.framework.serviceproxy.JDependServiceProxy;
-import jdepend.core.framework.serviceproxy.JDependServiceProxyFactory;
+import jdepend.core.serviceproxy.framework.JDependServiceProxy;
+import jdepend.core.serviceproxy.framework.JDependServiceProxyFactory;
 
 /**
  * 后台服务代理工厂
