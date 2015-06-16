@@ -1,14 +1,14 @@
-package jdepend.client.core.local.command;
+package jdepend.client.core.command;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfException;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
-import jdepend.client.core.local.config.GroupConfChangeListener;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfException;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
+import jdepend.client.core.config.GroupConfChangeListener;
 
 /**
  * 命令管理器

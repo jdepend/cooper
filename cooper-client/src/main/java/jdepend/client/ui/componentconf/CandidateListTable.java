@@ -21,11 +21,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
 import jdepend.core.framework.serviceproxy.JDependServiceProxy;
 import jdepend.core.framework.serviceproxy.JDependServiceProxyFactoryMgr;
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.util.JTableUtil;

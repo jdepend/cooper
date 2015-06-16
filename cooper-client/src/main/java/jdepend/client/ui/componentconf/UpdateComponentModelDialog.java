@@ -11,11 +11,11 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.client.ui.JDependCooper;
 
 public final class UpdateComponentModelDialog extends JDialog {
 

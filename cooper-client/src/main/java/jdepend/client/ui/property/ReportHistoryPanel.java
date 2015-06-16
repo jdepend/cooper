@@ -17,17 +17,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.client.core.local.config.CommandConfException;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConfChangeListener;
-import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.component.TableSorter;
-import jdepend.framework.ui.util.JTableUtil;
-import jdepend.framework.util.BundleUtil;
+import jdepend.client.core.config.CommandConfException;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConfChangeListener;
 import jdepend.client.report.history.ReportHistory;
 import jdepend.client.report.history.ReportHistoryComparor;
 import jdepend.client.report.history.ReportHistoryItemInfo;
 import jdepend.client.ui.JDependCooper;
+import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.util.JTableUtil;
+import jdepend.framework.util.BundleUtil;
 
 public class ReportHistoryPanel extends JPanel implements GroupConfChangeListener {
 

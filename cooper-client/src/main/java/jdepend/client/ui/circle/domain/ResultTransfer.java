@@ -6,12 +6,11 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.client.ui.JDependCooper;
 
 /**
  * 分析结果传输器

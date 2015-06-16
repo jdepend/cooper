@@ -19,9 +19,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.client.core.local.config.CommandConfException;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConfChangeListener;
+import jdepend.client.core.config.CommandConfException;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConfChangeListener;
+import jdepend.client.report.util.ReportConstant;
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.util.AnalysisResultExportUtil;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.util.JTableUtil;
@@ -32,9 +35,6 @@ import jdepend.knowledge.database.ExecuteResultSummry;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultListener;
-import jdepend.client.report.util.ReportConstant;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.util.AnalysisResultExportUtil;
 import jdepend.util.refactor.AdjustHistory;
 
 public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListener, AnalysisResultListener {

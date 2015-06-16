@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 

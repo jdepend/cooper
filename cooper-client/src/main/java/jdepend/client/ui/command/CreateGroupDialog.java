@@ -12,12 +12,12 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
-import jdepend.framework.util.BundleUtil;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.componentconf.ComponentModelPanel;
 import jdepend.client.ui.wizard.GroupSettingPanel;
+import jdepend.framework.util.BundleUtil;
 
 /**
  * The <code>CreateGroupDialog</code> displays the about information.

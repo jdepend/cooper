@@ -17,12 +17,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.BundleUtil;
-import jdepend.client.ui.JDependCooper;
 
 /**
  * The <code>AboutDialog</code> displays the about information.

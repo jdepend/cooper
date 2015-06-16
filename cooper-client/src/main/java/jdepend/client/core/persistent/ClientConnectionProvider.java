@@ -1,4 +1,4 @@
-package jdepend.client.core.local.persistent;
+package jdepend.client.core.persistent;
 
 import java.io.File;
 import java.sql.Connection;

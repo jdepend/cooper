@@ -5,9 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.client.ui.command.GroupPanel;
 import jdepend.client.ui.culture.CulturePanel;
+import jdepend.framework.exception.JDependException;
 
 public class LeftPanel extends JPanel {
 

@@ -6,7 +6,7 @@ import java.net.SocketException;
 
 import javax.swing.AbstractAction;
 
-import jdepend.client.core.local.analyzer.AnalyzerMgr;
+import jdepend.client.core.analyzer.AnalyzerMgr;
 import jdepend.client.report.way.mapui.layout.specifiedposition.SpecifiedPositionMgr;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.framework.UIPropertyConfigurator;

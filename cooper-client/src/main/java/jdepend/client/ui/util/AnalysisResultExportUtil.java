@@ -7,13 +7,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.FileUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultUnSequenceListener;
-import jdepend.client.ui.JDependCooper;
 
 public class AnalysisResultExportUtil {
 

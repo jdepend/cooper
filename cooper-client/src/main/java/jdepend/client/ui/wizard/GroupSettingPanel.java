@@ -25,13 +25,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ToolTipManager;
 
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.client.ui.JDependCooper;
 
 public class GroupSettingPanel extends JPanel {
 

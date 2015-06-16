@@ -1,4 +1,4 @@
-package jdepend.client.core.local.config;
+package jdepend.client.core.config;
 
 import java.io.File;
 import java.io.IOException;

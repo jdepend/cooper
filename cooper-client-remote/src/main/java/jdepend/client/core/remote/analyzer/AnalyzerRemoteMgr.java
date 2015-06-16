@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.client.core.local.analyzer.AnalyzerMgr;
+import jdepend.client.core.analyzer.AnalyzerMgr;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.StreamUtil;

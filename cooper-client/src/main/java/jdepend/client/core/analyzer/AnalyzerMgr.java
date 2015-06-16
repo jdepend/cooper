@@ -1,4 +1,4 @@
-package jdepend.client.core.local.analyzer;
+package jdepend.client.core.analyzer;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;

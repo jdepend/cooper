@@ -15,15 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
-import jdepend.framework.exception.JDependException;
-import jdepend.framework.util.BundleUtil;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.action.AddGroupWizardAction;
 import jdepend.client.ui.componentconf.ComponentModelMgrDialog;
 import jdepend.client.ui.framework.UIPropertyConfigurator;
+import jdepend.framework.exception.JDependException;
+import jdepend.framework.util.BundleUtil;
 
 public class GroupPanel extends JPanel {
 

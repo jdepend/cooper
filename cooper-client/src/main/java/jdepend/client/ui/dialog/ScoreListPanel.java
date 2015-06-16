@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
 import jdepend.client.ui.JDependCooper;
 import jdepend.core.local.score.ScoreFacade;
 import jdepend.core.local.score.ScoreInfo;

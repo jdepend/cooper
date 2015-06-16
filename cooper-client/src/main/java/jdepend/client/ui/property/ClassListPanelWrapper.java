@@ -11,17 +11,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.util.JTableUtil;
-import jdepend.framework.util.BundleUtil;
-import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClassUnit;
+import jdepend.client.core.config.CommandConfMgr;
 import jdepend.client.report.ui.ClassListPanel;
 import jdepend.client.report.ui.MethodListDialog;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.framework.JavaClassCompareTableCellRenderer;
+import jdepend.framework.exception.JDependException;
+import jdepend.framework.util.BundleUtil;
+import jdepend.model.JDependUnitMgr;
+import jdepend.model.JavaClassUnit;
 
 public class ClassListPanelWrapper extends ClassListPanel {
 

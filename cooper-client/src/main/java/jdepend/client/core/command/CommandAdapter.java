@@ -1,11 +1,11 @@
-package jdepend.client.core.local.command;
+package jdepend.client.core.command;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfException;
-import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfException;
+import jdepend.client.core.config.CommandConfMgr;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.BusiLogUtil;
 import jdepend.framework.log.LogUtil;

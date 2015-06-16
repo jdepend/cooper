@@ -6,8 +6,11 @@ import java.util.Map;
 
 import javax.swing.JComponent;
 
-import jdepend.client.core.local.command.CommandAdapter;
-import jdepend.client.core.local.command.CommandAdapterMgr;
+import jdepend.client.core.command.CommandAdapter;
+import jdepend.client.core.command.CommandAdapterMgr;
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.result.framework.ResultPanel;
+import jdepend.client.ui.result.panel.JDependReport;
 import jdepend.core.local.score.ScoreFacade;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.exception.JDependException;
@@ -16,9 +19,6 @@ import jdepend.framework.ui.action.AsynAction;
 import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.result.framework.ResultPanel;
-import jdepend.client.ui.result.panel.JDependReport;
 
 public final class CommandAction extends AsynAction {
 

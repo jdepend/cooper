@@ -6,9 +6,9 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.ToolTipManager;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
-import jdepend.framework.exception.JDependException;
+import jdepend.client.core.command.CommandAdapterMgr;
 import jdepend.client.ui.JDependCooper;
+import jdepend.framework.exception.JDependException;
 
 public class CommandList extends JList {
 

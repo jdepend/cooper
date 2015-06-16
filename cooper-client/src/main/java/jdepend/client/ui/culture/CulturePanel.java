@@ -5,11 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import jdepend.client.core.local.analyzer.AnalyzerMgr;
-import jdepend.framework.util.BundleUtil;
+import jdepend.client.core.analyzer.AnalyzerMgr;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.analyzer.AnalyzerPanel;
 import jdepend.client.ui.framework.PanelMgr;
+import jdepend.framework.util.BundleUtil;
 
 public class CulturePanel extends JPanel {
 

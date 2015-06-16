@@ -22,8 +22,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import jdepend.client.core.local.command.CommandAdapter;
-import jdepend.client.core.local.command.CommandAdapterMgr;
+import jdepend.client.core.command.CommandAdapter;
+import jdepend.client.core.command.CommandAdapterMgr;
 import jdepend.client.report.way.htmlui.ExportHTML;
 import jdepend.client.report.way.textui.TextSummaryPrinter;
 import jdepend.client.ui.JDependCooper;

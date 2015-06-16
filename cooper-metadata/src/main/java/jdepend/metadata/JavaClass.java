@@ -741,18 +741,17 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 	 */
 	public void filterExternalJavaClass(Collection<JavaClass> javaClasses) {
 		Iterator<JavaClassRelationItem> it;
-		it = this.getSelfCaItems().iterator();
+		it = this.getCaItems().iterator();
 		while (it.hasNext()) {
 			if (!javaClasses.contains(it.next().getSource())) {
 				it.remove();
 			}
 		}
-		it = this.getSelfCeItems().iterator();
+		it = this.getCeItems().iterator();
 		while (it.hasNext()) {
 			if (!javaClasses.contains(it.next().getTarget())) {
 				it.remove();
 			}
-			// this.getDetail().filterExternalJavaClass(javaClasses);
 		}
 	}
 

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
 import jdepend.client.report.way.mapui.layout.specifiedposition.CommandSpecifiedPosition;
 import jdepend.client.report.way.mapui.layout.specifiedposition.SpecifiedNodePosition;
 import jdepend.client.report.way.mapui.layout.specifiedposition.SpecifiedPositionMgr;

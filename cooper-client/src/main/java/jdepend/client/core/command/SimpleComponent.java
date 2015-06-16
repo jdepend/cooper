@@ -1,4 +1,4 @@
-package jdepend.client.core.local.command;
+package jdepend.client.core.command;
 
 import java.util.ArrayList;
 import java.util.Collection;

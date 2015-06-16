@@ -2,8 +2,8 @@ package jdepend.client.ui;
 
 import java.awt.Dimension;
 
-import jdepend.framework.ui.panel.StatusField;
 import jdepend.client.ui.shoppingcart.ShoppingCartPanel;
+import jdepend.framework.ui.panel.StatusField;
 
 public class ClientStatusField extends StatusField {
 

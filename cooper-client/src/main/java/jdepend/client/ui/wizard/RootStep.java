@@ -7,12 +7,12 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.ui.componentconf.ComponentModelPanel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.util.FileUtil;
-import jdepend.client.ui.componentconf.ComponentModelPanel;
 
 public class RootStep extends Step {
 

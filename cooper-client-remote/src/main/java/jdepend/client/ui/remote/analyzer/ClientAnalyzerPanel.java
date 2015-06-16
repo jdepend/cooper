@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
-import jdepend.client.core.local.analyzer.AnalyzerMgr;
+import jdepend.client.core.analyzer.AnalyzerMgr;
 import jdepend.client.core.remote.analyzer.AnalyzerRemoteMgr;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
 import jdepend.client.ui.JDependCooper;

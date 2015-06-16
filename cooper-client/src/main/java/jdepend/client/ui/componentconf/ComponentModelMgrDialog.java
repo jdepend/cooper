@@ -27,14 +27,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfMgr;
-import jdepend.client.core.local.config.GroupConf;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.core.config.GroupConf;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.modelconf.ComponentConf;
 import jdepend.model.component.modelconf.ComponentModelConf;
-import jdepend.client.ui.JDependCooper;
 
 public final class ComponentModelMgrDialog extends JDialog {
 

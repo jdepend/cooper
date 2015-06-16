@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import jdepend.client.core.local.config.CommandConf;
-import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.config.CommandConf;
+import jdepend.client.core.config.CommandConfMgr;
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.component.AptitudeComponent;
-import jdepend.client.ui.JDependCooper;
 
 /**
  * The <code>AboutDialog</code> displays the about information.

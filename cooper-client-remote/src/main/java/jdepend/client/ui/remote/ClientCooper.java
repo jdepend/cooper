@@ -1,7 +1,7 @@
 package jdepend.client.ui.remote;
 
-import jdepend.client.core.local.command.CommandAdapterMgr;
-import jdepend.client.core.local.config.CommandConfMgr;
+import jdepend.client.core.command.CommandAdapterMgr;
+import jdepend.client.core.config.CommandConfMgr;
 import jdepend.client.core.remote.score.ScoreUpload;
 import jdepend.client.core.remote.serviceproxy.JDependServiceRemoteProxyFactory;
 import jdepend.client.core.remote.userproxy.UserActionGather;
