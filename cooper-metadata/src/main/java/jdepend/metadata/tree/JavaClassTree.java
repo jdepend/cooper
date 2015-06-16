@@ -26,6 +26,21 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 		this.close = false;
 	}
 
+	public JavaClassTree(JavaClassNode node) {
+		int diffLayer = node.getLayer() - 1;
+		this.appendNode(node, diffLayer);
+		this.currentNode = node;
+		this.close = false;
+	}
+
+	private void appendNode(JavaClassNode node, int diffLayer) {
+		node.setLayer(node.getLayer() - diffLayer);
+		this.nodes.add(node);
+		for (Node child : node.getChildren()) {
+			this.appendNode((JavaClassNode) child, diffLayer);
+		}
+	}
+
 	public String getName() {
 		for (Node node : this.getRoots()) {
 			return node.getName();
@@ -231,7 +246,7 @@ public class JavaClassTree implements Comparable<JavaClassTree>, Serializable {
 			tree.addLayer(diffLayer);
 		}
 		theNode.setParent(currentNode);
-		
+
 		for (JavaClassNode node : tree.nodes) {
 			this.nodes.add(node);
 		}

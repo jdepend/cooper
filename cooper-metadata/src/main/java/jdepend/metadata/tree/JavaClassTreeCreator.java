@@ -36,11 +36,8 @@ public abstract class JavaClassTreeCreator {
 			}
 		}
 		// 深度搜索
-		for (JavaClassRelationItem relationItem : getRelationItem(javaClass)) {
-			dependClass = this.getDepend(relationItem);
-			if (dependClasses.contains(dependClass)) {
-				rout(dependClass, tree, classes);
-			}
+		for (JavaClass dependClass1 : dependClasses) {
+			rout(dependClass1, tree, classes);
 		}
 	}
 
