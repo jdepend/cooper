@@ -3,15 +3,11 @@ package jdepend.server.service;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
-import jdepend.metadata.JavaClassRelationType;
 import jdepend.model.Component;
-import jdepend.model.Metrics;
 
 /**
  * 分析数据
