@@ -1,4 +1,4 @@
-package jdepend.server.service.session;
+package jdepend.server.service.impl;
 
 /**
  * Session接口
