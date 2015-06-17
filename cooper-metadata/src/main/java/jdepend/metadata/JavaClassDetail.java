@@ -34,7 +34,7 @@ public class JavaClassDetail implements Serializable {
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
-	private AnnotationDefs annotations;
+	private AnnotationDefs annotationDefs;
 
 	private boolean httpCaller;
 
@@ -52,11 +52,11 @@ public class JavaClassDetail implements Serializable {
 
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
-		this.annotations = new AnnotationDefs();
+		this.annotationDefs = new AnnotationDefs();
 	}
 
 	public AnnotationDefs getAnnotations() {
-		return annotations;
+		return annotationDefs;
 	}
 
 	public Collection<String> getAttributeTypes() {
@@ -199,7 +199,7 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public RequestMapping getRequestMapping() {
-		return this.annotations.getRequestMapping();
+		return this.annotationDefs.getRequestMapping();
 	}
 
 	public String getRequestMappingValue() {
@@ -215,7 +215,7 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public void setRequestMapping(RequestMapping requestMapping) {
-		this.annotations.setRequestMapping(requestMapping);
+		this.annotationDefs.setRequestMapping(requestMapping);
 	}
 
 	public boolean isHttpCaller() {
@@ -255,7 +255,7 @@ public class JavaClassDetail implements Serializable {
 			obj.addTable(new TableInfo(tableRelationInfo));
 		}
 
-		obj.annotations = this.annotations;
+		obj.annotationDefs = this.annotationDefs;
 		obj.httpCaller = this.httpCaller;
 
 		return obj;

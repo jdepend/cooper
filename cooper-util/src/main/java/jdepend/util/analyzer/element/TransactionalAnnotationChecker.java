@@ -36,7 +36,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 							break L1;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
-							if (method.isIncludeTransactionalAnnotation() && !method.isConstruction()) {
+							if (method.getTransactional() != null && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");
 							}
@@ -55,8 +55,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 							break L2;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
-							if (!method.isIncludeTransactionalAnnotation() && method.isPublic()
-									&& !method.isConstruction()) {
+							if (method.getTransactional() == null && method.isPublic() && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");
 							}
@@ -75,8 +74,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 							break L3;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
-							if (!method.isIncludeTransactionalAnnotation() && method.isPublic()
-									&& !method.isConstruction()) {
+							if (method.getTransactional() == null && method.isPublic() && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");
 							}
@@ -97,7 +95,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 							break L4;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
-							if (method.isIncludeTransactionalAnnotation() && !method.isConstruction()) {
+							if (method.getTransactional() != null && !method.isConstruction()) {
 								this.print(javaClass.getName() + "." + method.getName());
 								this.print("\n");
 							}

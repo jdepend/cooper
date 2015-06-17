@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import jdepend.framework.log.LogUtil;
+import jdepend.metadata.annotation.AnnotationDefs;
 import jdepend.metadata.annotation.RequestMapping;
+import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
@@ -40,9 +42,7 @@ public class Method extends AccessFlags {
 
 	private int argumentCount;
 
-	private boolean isIncludeTransactionalAnnotation;
-
-	private RequestMapping requestMapping;
+	private AnnotationDefs annotationDefs;
 
 	private transient Collection<String> argTypes;
 
@@ -78,7 +78,7 @@ public class Method extends AccessFlags {
 		this.invokeItems = new ArrayList<InvokeItem>();
 		this.readFields = new ArrayList<Attribute>();
 		this.writeFields = new ArrayList<Attribute>();
-		this.isIncludeTransactionalAnnotation = false;
+		this.annotationDefs = new AnnotationDefs();
 		this.selfLineCount = -1;
 		this.invokedItems = new HashSet<InvokeItem>();
 	}
@@ -102,8 +102,7 @@ public class Method extends AccessFlags {
 		this.readFields = method.readFields;
 		this.writeFields = method.writeFields;
 		this.selfLineCount = method.selfLineCount;
-		this.isIncludeTransactionalAnnotation = method.isIncludeTransactionalAnnotation;
-		this.requestMapping = method.requestMapping;
+		this.annotationDefs = method.annotationDefs;
 	}
 
 	public String getName() {
@@ -120,6 +119,14 @@ public class Method extends AccessFlags {
 
 	public String getInfo() {
 		return info;
+	}
+
+	public Transactional getTransactional() {
+		return this.annotationDefs.getTransactional();
+	}
+
+	public void setTransactional(Transactional transactional) {
+		this.annotationDefs.setTransactional(transactional);
 	}
 
 	public Collection<InvokeItem> getInvokeItems() {
@@ -302,24 +309,16 @@ public class Method extends AccessFlags {
 		this.selfLineCount = selfLineCount;
 	}
 
-	public boolean isIncludeTransactionalAnnotation() {
-		return isIncludeTransactionalAnnotation;
-	}
-
-	public void setIncludeTransactionalAnnotation(boolean isIncludeTransactionalAnnotation) {
-		this.isIncludeTransactionalAnnotation = isIncludeTransactionalAnnotation;
-	}
-
 	public RequestMapping getRequestMapping() {
-		return requestMapping;
+		return this.annotationDefs.getRequestMapping();
 	}
 
 	public void setRequestMapping(RequestMapping requestMapping) {
-		this.requestMapping = requestMapping;
+		this.annotationDefs.setRequestMapping(requestMapping);
 	}
 
 	public String getRequestMappingValue() {
-		if (this.javaClass.getDetail().getRequestMapping() == null || this.requestMapping == null) {
+		if (this.javaClass.getDetail().getRequestMapping() == null || this.getRequestMapping() == null) {
 			return null;
 		}
 		StringBuilder value = new StringBuilder();
@@ -332,12 +331,12 @@ public class Method extends AccessFlags {
 			}
 		}
 
-		if (this.requestMapping.getValue().length() > 0) {
-			if (this.requestMapping.getValue().startsWith("/")) {
-				value.append(this.requestMapping.getValue());
+		if (this.getRequestMapping().getValue().length() > 0) {
+			if (this.getRequestMapping().getValue().startsWith("/")) {
+				value.append(this.getRequestMapping().getValue());
 			} else {
 				value.append("/");
-				value.append(this.requestMapping.getValue());
+				value.append(this.getRequestMapping().getValue());
 			}
 		}
 		return value.toString();
@@ -558,13 +557,15 @@ public class Method extends AccessFlags {
 			}
 		}
 
-		if (this.isIncludeTransactionalAnnotation) {
-			info1.append("\n		isIncludeTransactionalAnnotation : true");
+		if (this.annotationDefs.getTransactional() != null) {
+			info1.append("\n		Transactional:");
+			info1.append(this.annotationDefs.getTransactional());
+			info1.append("\n");
 		}
 
-		if (this.requestMapping != null) {
+		if (this.getRequestMapping() != null) {
 			info1.append("\n		requestMapping : " + this.getRequestMappingValue());
-			info1.append(" method : " + this.requestMapping.getMethod());
+			info1.append(" method : " + this.getRequestMapping().getMethod());
 		}
 
 		if (this.readFields.size() != 0) {

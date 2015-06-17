@@ -209,7 +209,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
 					if (annotationEntry.getAnnotationType().equals(
 							"Lorg/springframework/transaction/annotation/Transactional;")) {
-						method.setIncludeTransactionalAnnotation(true);
+						method.setTransactional(this.parseTransactional(annotationEntry));
 					} else if (annotationEntry.getAnnotationType().equals(
 							"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
 						method.setRequestMapping(this.parseRequestMapping(annotationEntry));
