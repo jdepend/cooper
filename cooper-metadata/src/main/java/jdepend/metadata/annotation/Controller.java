@@ -1,8 +1,7 @@
 package jdepend.metadata.annotation;
 
-import java.io.Serializable;
 
-public class Controller implements Serializable {
+public class Controller implements Annotation {
 
 	private static final long serialVersionUID = 6272481420978872027L;
 

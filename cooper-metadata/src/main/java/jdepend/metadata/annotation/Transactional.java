@@ -1,8 +1,7 @@
 package jdepend.metadata.annotation;
 
-import java.io.Serializable;
 
-public class Transactional implements Serializable {
+public class Transactional implements Annotation {
 
 	private static final long serialVersionUID = 2692023348071298543L;
 

@@ -6,16 +6,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-public class AnnotationMgr<T> {
+public class AnnotationMgr<T extends Annotation> {
 
-	private static final AnnotationMgr mgr = new AnnotationMgr();
+	private static final AnnotationMgr<Annotation> mgr = new AnnotationMgr<Annotation>();
 
 	private Map<String, Collection<T>> elements;
 
 	private AnnotationMgr() {
 	}
 
-	public static AnnotationMgr getInstance() {
+	public static AnnotationMgr<Annotation> getInstance() {
 		return mgr;
 	}
 
@@ -42,7 +42,7 @@ public class AnnotationMgr<T> {
 		return null;
 	}
 
-	public void reset() {
+	public synchronized void reset() {
 		elements = null;
 	}
 
