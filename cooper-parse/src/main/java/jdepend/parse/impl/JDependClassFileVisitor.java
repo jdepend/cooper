@@ -8,7 +8,9 @@ import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
+import jdepend.metadata.annotation.Controller;
 import jdepend.metadata.annotation.RequestMapping;
+import jdepend.metadata.annotation.Service;
 import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.parse.util.ParseTool;
@@ -168,6 +170,10 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			} else if (annotationEntry.getAnnotationType().equals(
 					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
 				this.jClass.getDetail().setRequestMapping(this.parseRequestMapping(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Controller;")) {
+				this.jClass.getDetail().setController(this.parseController(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Service;")) {
+				this.jClass.getDetail().setService(this.parseService(annotationEntry));
 			}
 		}
 
@@ -278,6 +284,30 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		}
 
 		return transactional;
+	}
+
+	private Controller parseController(AnnotationEntry annotationEntry) {
+		Controller controller = new Controller();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("value")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				controller.setValue(simpleElementValue.toShortString());
+			}
+		}
+
+		return controller;
+	}
+
+	private Service parseService(AnnotationEntry annotationEntry) {
+		Service service = new Service();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("value")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				service.setValue(simpleElementValue.toShortString());
+			}
+		}
+
+		return service;
 	}
 
 	private List<TableInfo> ParseTable(String constant) {

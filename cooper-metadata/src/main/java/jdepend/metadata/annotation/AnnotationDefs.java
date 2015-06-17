@@ -35,7 +35,7 @@ public class AnnotationDefs implements Serializable {
 	}
 
 	public void setController(Controller controller) {
-		this.controller = controller;
+		this.controller = (Controller) AnnotationMgr.getInstance().getType(controller);
 	}
 
 	public Service getService() {
@@ -43,7 +43,7 @@ public class AnnotationDefs implements Serializable {
 	}
 
 	public void setService(Service service) {
-		this.service = service;
+		this.service = (Service) AnnotationMgr.getInstance().getType(service);
 	}
 
 }

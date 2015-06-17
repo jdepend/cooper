@@ -10,7 +10,9 @@ import java.util.HashSet;
 import java.util.Map;
 
 import jdepend.metadata.annotation.AnnotationDefs;
+import jdepend.metadata.annotation.Controller;
 import jdepend.metadata.annotation.RequestMapping;
+import jdepend.metadata.annotation.Service;
 import jdepend.metadata.util.JavaClassCollection;
 
 public class JavaClassDetail implements Serializable {
@@ -218,6 +220,22 @@ public class JavaClassDetail implements Serializable {
 		this.annotationDefs.setRequestMapping(requestMapping);
 	}
 
+	public Controller getController() {
+		return this.annotationDefs.getController();
+	}
+
+	public void setController(Controller controller) {
+		this.annotationDefs.setController(controller);
+	}
+
+	public Service getService() {
+		return this.annotationDefs.getService();
+	}
+
+	public void setService(Service service) {
+		this.annotationDefs.setService(service);
+	}
+
 	public boolean isHttpCaller() {
 		return httpCaller;
 	}
@@ -312,6 +330,10 @@ public class JavaClassDetail implements Serializable {
 	public String toString() {
 		StringBuilder content = new StringBuilder(500);
 
+		content.append("Name:");
+		content.append(this.javaClass.getName());
+		content.append("\n");
+
 		if (this.javaClass.getJavaPackage() != null) {
 			content.append("package:");
 			content.append(this.javaClass.getJavaPackage().getName());
@@ -348,9 +370,6 @@ public class JavaClassDetail implements Serializable {
 			content.append(this.javaClass.getPlace());
 			content.append("\n");
 		}
-		content.append("Name:");
-		content.append(this.javaClass.getName());
-		content.append("\n");
 
 		if (this.getRequestMappingValue() != null) {
 			content.append("RequestMapping:");
@@ -358,9 +377,21 @@ public class JavaClassDetail implements Serializable {
 			content.append("\n");
 		}
 
-		if (this.javaClass.getTransactional() != null) {
+		if (this.annotationDefs.getTransactional() != null) {
 			content.append("Transactional:");
-			content.append(this.javaClass.getTransactional());
+			content.append(this.annotationDefs.getTransactional());
+			content.append("\n");
+		}
+
+		if (this.annotationDefs.getController() != null) {
+			content.append("Controller:");
+			content.append(this.annotationDefs.getController());
+			content.append("\n");
+		}
+
+		if (this.annotationDefs.getService() != null) {
+			content.append("Service:");
+			content.append(this.annotationDefs.getService());
 			content.append("\n");
 		}
 
