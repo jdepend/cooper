@@ -8,7 +8,9 @@ import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
+import jdepend.metadata.annotation.Autowired;
 import jdepend.metadata.annotation.Controller;
+import jdepend.metadata.annotation.Qualifier;
 import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.annotation.Service;
 import jdepend.metadata.annotation.Transactional;
@@ -116,8 +118,43 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	@Override
 	public void visitField(Field obj) {
 		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj);
+
+		// 处理Annotation
+		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
+			if (annotationEntry.getAnnotationType().equals("Lorg/springframework/beans/factory/annotation/Autowired;")) {
+				attribute.setAutowired(this.parseAutowired(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
+				attribute.setQualifier(this.parseQualifier(annotationEntry));
+			}
+		}
+
 		this.jClass.getDetail().addAttribute(attribute);
 		this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
+	}
+
+	private Qualifier parseQualifier(AnnotationEntry annotationEntry) {
+		Qualifier qualifier = new Qualifier();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("value")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				qualifier.setValue(simpleElementValue.toShortString());
+			}
+		}
+
+		return qualifier;
+	}
+
+	private Autowired parseAutowired(AnnotationEntry annotationEntry) {
+		Autowired autowired = new Autowired();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("required")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				autowired.setRequired(Boolean.valueOf(simpleElementValue.toShortString()));
+			}
+		}
+
+		return autowired;
 	}
 
 	@Override

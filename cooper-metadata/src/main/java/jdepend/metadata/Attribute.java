@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import jdepend.metadata.annotation.AnnotationRefs;
+import jdepend.metadata.annotation.Autowired;
+import jdepend.metadata.annotation.Qualifier;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
@@ -31,6 +34,8 @@ public class Attribute implements Serializable {
 
 	private List<String> types;
 
+	private AnnotationRefs annotationRefs;
+
 	private transient JavaClass javaClass;
 
 	private transient Collection<JavaClass> typeClasses;
@@ -51,6 +56,8 @@ public class Attribute implements Serializable {
 		if (field.isStatic() && field.getConstantValue() != null) {
 			staticValue = field.getConstantValue().toString();
 		}
+
+		this.annotationRefs = new AnnotationRefs();
 	}
 
 	public Attribute(String javaClassId, Attribute attribute) {
@@ -65,6 +72,7 @@ public class Attribute implements Serializable {
 			this.types.add(type);
 		}
 		this.staticValue = attribute.staticValue;
+		this.annotationRefs = attribute.annotationRefs;
 	}
 
 	public JavaClass getJavaClass() {
@@ -109,6 +117,22 @@ public class Attribute implements Serializable {
 
 	public void setStaticValue(String staticValue) {
 		this.staticValue = staticValue;
+	}
+
+	public Autowired getAutowired() {
+		return this.annotationRefs.getAutowired();
+	}
+
+	public void setAutowired(Autowired autowired) {
+		this.annotationRefs.setAutowired(autowired);
+	}
+
+	public Qualifier getQualifier() {
+		return this.annotationRefs.getQualifier();
+	}
+
+	public void setQualifier(Qualifier qualifier) {
+		this.annotationRefs.setQualifier(qualifier);
 	}
 
 	public final boolean isPublic() {
@@ -200,6 +224,14 @@ public class Attribute implements Serializable {
 			rtn.append(staticValue);
 		}
 		rtn.append("]");
+
+		if (this.annotationRefs.getAutowired() != null) {
+			rtn.append(this.annotationRefs.getAutowired());
+		}
+
+		if (this.annotationRefs.getQualifier() != null) {
+			rtn.append(this.annotationRefs.getQualifier());
+		}
 
 		return rtn.toString();
 
