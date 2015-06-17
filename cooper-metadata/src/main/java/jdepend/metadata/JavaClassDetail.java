@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import jdepend.metadata.annotation.Annotations;
 import jdepend.metadata.util.JavaClassCollection;
 
 public class JavaClassDetail implements Serializable {
@@ -32,7 +33,7 @@ public class JavaClassDetail implements Serializable {
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
-	private RequestMapping requestMapping;
+	private Annotations annotations;
 
 	private boolean httpCaller;
 
@@ -50,6 +51,11 @@ public class JavaClassDetail implements Serializable {
 
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
+		this.annotations = new Annotations();
+	}
+
+	public Annotations getAnnotations() {
+		return annotations;
 	}
 
 	public Collection<String> getAttributeTypes() {
@@ -192,23 +198,23 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public RequestMapping getRequestMapping() {
-		return requestMapping;
+		return this.annotations.getRequestMapping();
 	}
 
 	public String getRequestMappingValue() {
-		if (this.requestMapping == null) {
+		if (this.getRequestMapping() == null) {
 			return null;
 		}
 
-		if (this.requestMapping.getValue().startsWith("/")) {
-			return this.requestMapping.getValue();
+		if (this.getRequestMapping().getValue().startsWith("/")) {
+			return this.getRequestMapping().getValue();
 		} else {
-			return "/" + this.requestMapping.getValue();
+			return "/" + this.getRequestMapping().getValue();
 		}
 	}
 
 	public void setRequestMapping(RequestMapping requestMapping) {
-		this.requestMapping = requestMapping;
+		this.annotations.setRequestMapping(requestMapping);
 	}
 
 	public boolean isHttpCaller() {
@@ -248,7 +254,7 @@ public class JavaClassDetail implements Serializable {
 			obj.addTable(new TableInfo(tableRelationInfo));
 		}
 
-		obj.requestMapping = this.requestMapping;
+		obj.annotations = this.annotations;
 		obj.httpCaller = this.httpCaller;
 
 		return obj;

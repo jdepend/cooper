@@ -52,8 +52,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 
 	private Collection<JavaClassRelationItem> ceItems = new ArrayList<JavaClassRelationItem>();
 
-	private boolean isIncludeTransactionalAnnotation;
-
 	private List<JavaClass> innerClasses = new ArrayList<JavaClass>();
 
 	private JavaClass hostClass;
@@ -110,7 +108,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		this.imports = new HashSet<String>();
 		this.detail = new JavaClassDetail(this);
 		this.isInner = isInner;
-		this.isIncludeTransactionalAnnotation = false;
 		this.subClasses = new HashSet<JavaClass>();
 	}
 
@@ -641,11 +638,11 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 	}
 
 	public boolean isIncludeTransactionalAnnotation() {
-		return isIncludeTransactionalAnnotation;
+		return this.detail.getAnnotations().isIncludeTransactionalAnnotation();
 	}
 
 	public void setIncludeTransactionalAnnotation(boolean isIncludeTransactionalAnnotation) {
-		this.isIncludeTransactionalAnnotation = isIncludeTransactionalAnnotation;
+		this.detail.getAnnotations().setIncludeTransactionalAnnotation(isIncludeTransactionalAnnotation);
 	}
 
 	public JavaClass clone() {
@@ -656,7 +653,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		obj.access_flags = this.access_flags;
 		obj.packageName = this.packageName;
 		obj.lineCount = this.lineCount;
-		obj.isIncludeTransactionalAnnotation = this.isIncludeTransactionalAnnotation;
 
 		obj.setState(this.isState());
 
