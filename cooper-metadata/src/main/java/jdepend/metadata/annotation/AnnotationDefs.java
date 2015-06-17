@@ -19,7 +19,7 @@ public class AnnotationDefs implements Serializable {
 	}
 
 	public void setTransactional(Transactional transactional) {
-		this.transactional = transactional;
+		this.transactional = (Transactional) AnnotationMgr.getInstance().getType(transactional);
 	}
 
 	public RequestMapping getRequestMapping() {
@@ -27,7 +27,7 @@ public class AnnotationDefs implements Serializable {
 	}
 
 	public void setRequestMapping(RequestMapping requestMapping) {
-		this.requestMapping = requestMapping;
+		this.requestMapping = (RequestMapping) AnnotationMgr.getInstance().getType(requestMapping);
 	}
 
 	public Controller getController() {

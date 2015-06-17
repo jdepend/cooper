@@ -14,6 +14,7 @@ import jdepend.framework.log.LogUtil;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
+import jdepend.metadata.annotation.AnnotationMgr;
 import jdepend.parse.impl.AbstractClassBuilder;
 import jdepend.parse.impl.CSharpClassBuilder;
 import jdepend.parse.impl.JavaClassBuilder;
@@ -63,6 +64,8 @@ public class Parse {
 	 * @throws ParseException
 	 */
 	public Collection<JavaPackage> execute() throws ParseException {
+		
+		AnnotationMgr.getInstance().reset();
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 

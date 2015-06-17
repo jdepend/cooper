@@ -38,9 +38,9 @@ public class Transactional implements Serializable {
 
 	@Override
 	public String toString() {
-		
+
 		StringBuilder info = new StringBuilder();
-		
+
 		info.append("Transactional");
 		if (readOnly != null) {
 			info.append("[readOnly=");
@@ -61,6 +61,43 @@ public class Transactional implements Serializable {
 			info.delete(info.length() - 1, info.length()).append("]");
 		}
 		return info.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((propagation == null) ? 0 : propagation.hashCode());
+		result = prime * result + ((readOnly == null) ? 0 : readOnly.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transactional other = (Transactional) obj;
+		if (propagation == null) {
+			if (other.propagation != null)
+				return false;
+		} else if (!propagation.equals(other.propagation))
+			return false;
+		if (readOnly == null) {
+			if (other.readOnly != null)
+				return false;
+		} else if (!readOnly.equals(other.readOnly))
+			return false;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
+			return false;
+		return true;
 	}
 
 }
