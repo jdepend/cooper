@@ -30,7 +30,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			L1: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(controllerEndClassName)) {
 					if (!javaClass.getJavaClass().isInterface()) {
-						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
+						if (javaClass.getJavaClass().getTransactional() != null) {
 							this.print(javaClass.getName());
 							this.print("\n");
 							break L1;
@@ -51,7 +51,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			L2: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(facadeEndClassName)) {
 					if (!javaClass.getJavaClass().isInterface()) {
-						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
+						if (javaClass.getJavaClass().getTransactional() != null) {
 							break L2;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
@@ -71,7 +71,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			L3: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(serviceEndClassName)) {
 					if (!javaClass.getJavaClass().isInterface()) {
-						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
+						if (javaClass.getJavaClass().getTransactional() != null) {
 							break L3;
 						}
 						for (Method method : javaClass.getJavaClass().getSelfMethods()) {
@@ -91,7 +91,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 			L4: for (JavaClassUnit javaClass : result.getClasses()) {
 				if (javaClass.getName().endsWith(daoEndClassName)) {
 					if (!javaClass.getJavaClass().isInterface()) {
-						if (javaClass.getJavaClass().isIncludeTransactionalAnnotation()) {
+						if (javaClass.getJavaClass().getTransactional() != null) {
 							this.print(javaClass.getName());
 							this.print("\n");
 							break L4;

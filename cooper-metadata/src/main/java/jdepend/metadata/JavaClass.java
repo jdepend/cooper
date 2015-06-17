@@ -13,6 +13,7 @@ import java.util.Map;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
+import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
@@ -637,12 +638,12 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		this.javaPackage = javaPackage;
 	}
 
-	public boolean isIncludeTransactionalAnnotation() {
-		return this.detail.getAnnotations().isIncludeTransactionalAnnotation();
+	public Transactional getTransactional() {
+		return this.detail.getAnnotations().getTransactional();
 	}
 
-	public void setIncludeTransactionalAnnotation(boolean isIncludeTransactionalAnnotation) {
-		this.detail.getAnnotations().setIncludeTransactionalAnnotation(isIncludeTransactionalAnnotation);
+	public void setTransactional(Transactional transactional) {
+		this.detail.getAnnotations().setTransactional(transactional);
 	}
 
 	public JavaClass clone() {

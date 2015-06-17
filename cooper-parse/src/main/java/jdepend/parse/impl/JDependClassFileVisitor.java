@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.metadata.JavaClass;
-import jdepend.metadata.RequestMapping;
 import jdepend.metadata.TableInfo;
+import jdepend.metadata.annotation.RequestMapping;
+import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.parse.util.ParseTool;
 
@@ -29,6 +30,7 @@ import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.Method;
+import org.apache.bcel.classfile.SimpleElementValue;
 
 public class JDependClassFileVisitor extends EmptyVisitor {
 
@@ -162,7 +164,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				}
 			} else if (annotationEntry.getAnnotationType().equals(
 					"Lorg/springframework/transaction/annotation/Transactional;")) {
-				jClass.setIncludeTransactionalAnnotation(true);
+				jClass.setTransactional(this.parseTransactional(annotationEntry));
 			} else if (annotationEntry.getAnnotationType().equals(
 					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
 				this.jClass.getDetail().setRequestMapping(this.parseRequestMapping(annotationEntry));
@@ -258,6 +260,24 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 		}
 
 		return requestMapping;
+	}
+
+	private Transactional parseTransactional(AnnotationEntry annotationEntry) {
+		Transactional transactional = new Transactional();
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("value")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				transactional.setValue(simpleElementValue.toShortString());
+			} else if (elementValuePair.getNameString().equals("readOnly")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				transactional.setReadOnly(Boolean.valueOf(simpleElementValue.toShortString()));
+			} else if (elementValuePair.getNameString().equals("propagation")) {
+				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				transactional.setPropagation(simpleElementValue.toShortString());
+			}
+		}
+
+		return transactional;
 	}
 
 	private List<TableInfo> ParseTable(String constant) {

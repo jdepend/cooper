@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import jdepend.framework.log.LogUtil;
+import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;

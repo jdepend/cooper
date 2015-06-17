@@ -1,4 +1,4 @@
-package jdepend.metadata;
+package jdepend.metadata.annotation;
 
 import java.io.Serializable;
 

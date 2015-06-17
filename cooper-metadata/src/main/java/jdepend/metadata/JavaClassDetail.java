@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import jdepend.metadata.annotation.Annotations;
+import jdepend.metadata.annotation.AnnotationDefs;
+import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.util.JavaClassCollection;
 
 public class JavaClassDetail implements Serializable {
@@ -33,7 +34,7 @@ public class JavaClassDetail implements Serializable {
 
 	private final Collection<TableInfo> tables = new ArrayList<TableInfo>();
 
-	private Annotations annotations;
+	private AnnotationDefs annotations;
 
 	private boolean httpCaller;
 
@@ -51,10 +52,10 @@ public class JavaClassDetail implements Serializable {
 
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
-		this.annotations = new Annotations();
+		this.annotations = new AnnotationDefs();
 	}
 
-	public Annotations getAnnotations() {
+	public AnnotationDefs getAnnotations() {
 		return annotations;
 	}
 
@@ -357,8 +358,9 @@ public class JavaClassDetail implements Serializable {
 			content.append("\n");
 		}
 
-		if (this.javaClass.isIncludeTransactionalAnnotation()) {
-			content.append("isIncludeTransactionalAnnotation:true");
+		if (this.javaClass.getTransactional() != null) {
+			content.append("Transactional:");
+			content.append(this.javaClass.getTransactional());
 			content.append("\n");
 		}
 
