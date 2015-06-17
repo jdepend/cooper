@@ -226,10 +226,12 @@ public class Attribute implements Serializable {
 		rtn.append("]");
 
 		if (this.annotationRefs.getAutowired() != null) {
+			rtn.append(" ");
 			rtn.append(this.annotationRefs.getAutowired());
 		}
 
 		if (this.annotationRefs.getQualifier() != null) {
+			rtn.append(" ");
 			rtn.append(this.annotationRefs.getQualifier());
 		}
 
