@@ -13,7 +13,7 @@ import jdepend.core.score.ScoreFacade;
 import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.graph.CooperTable;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;
 

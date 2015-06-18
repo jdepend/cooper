@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import jdepend.framework.ui.graph.model.GraphDataItem;
+
 import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;

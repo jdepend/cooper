@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.domain.notPersistent;
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.GraphDataItem;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;

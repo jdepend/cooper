@@ -9,7 +9,7 @@ import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.CooperTable;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.statistics.StaticsFrame;

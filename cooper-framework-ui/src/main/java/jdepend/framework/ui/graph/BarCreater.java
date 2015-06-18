@@ -2,6 +2,8 @@ package jdepend.framework.ui.graph;
 
 import java.awt.Font;
 
+import jdepend.framework.ui.graph.model.GraphDataItem;
+
 import org.jfree.chart.ChartColor;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;

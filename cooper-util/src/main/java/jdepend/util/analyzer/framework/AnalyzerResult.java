@@ -2,8 +2,8 @@ package jdepend.util.analyzer.framework;
 
 import java.io.Serializable;
 
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
 public class AnalyzerResult implements Serializable {

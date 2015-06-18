@@ -1,8 +1,8 @@
 package jdepend.util.analyzer.framework;
 
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.TableCallBack;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.TableCallBack;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
 public final class DefaultAnalyzerWorker implements AnalyzerWorker {

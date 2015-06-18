@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.graph.CooperTable;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.knowledge.pattern.PatternIdentifyerMgrFactory;
 import jdepend.knowledge.pattern.PatternInfo;
 import jdepend.model.result.AnalysisResult;

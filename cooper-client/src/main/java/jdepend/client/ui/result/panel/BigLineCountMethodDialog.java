@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.ui.graph.CooperTable;
-import jdepend.framework.ui.graph.TableData;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.Method;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;

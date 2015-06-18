@@ -1,4 +1,4 @@
-package jdepend.framework.ui.graph;
+package jdepend.framework.ui.graph.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

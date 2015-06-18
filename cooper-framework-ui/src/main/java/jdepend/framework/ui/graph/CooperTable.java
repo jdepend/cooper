@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.ui.component.MultiLineTableCellRender;
 import jdepend.framework.ui.component.TableMouseMotionAdapter;
 import jdepend.framework.ui.component.TableSorter;
+import jdepend.framework.ui.graph.model.TableCallBack;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.MetricsFormat;

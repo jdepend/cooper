@@ -2,8 +2,8 @@ package jdepend.util.analyzer.framework;
 
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.TableCallBack;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.metadata.tree.Node;
 import jdepend.model.result.AnalysisResult;
 

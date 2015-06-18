@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import jdepend.core.score.ScoreFacade;
 import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.graph.BgColorData;
-import jdepend.framework.ui.graph.FgColorData;
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
-import jdepend.framework.ui.graph.RegionColor;
+import jdepend.framework.ui.graph.model.BgColorData;
+import jdepend.framework.ui.graph.model.FgColorData;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
+import jdepend.framework.ui.graph.model.RegionColor;
 import jdepend.model.result.AnalysisResult;
 import jdepend.statistics.StaticsFrame;
 

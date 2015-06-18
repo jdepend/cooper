@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
 
 import org.jfree.chart.ChartPanel;
 

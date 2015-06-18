@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.graph.TableCallBack;
+import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;

@@ -1,5 +1,7 @@
 package jdepend.framework.ui.graph;
 
+import jdepend.framework.ui.graph.model.GraphDataItem;
+
 import org.jfree.chart.JFreeChart;
 
 /**

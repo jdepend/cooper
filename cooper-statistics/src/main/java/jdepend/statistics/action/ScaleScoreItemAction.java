@@ -6,9 +6,9 @@ import java.util.Map;
 
 import jdepend.core.score.ScoreInfo;
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.GraphDataItem;
 import jdepend.framework.ui.graph.GraphUtil;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.model.result.AnalysisResult;
 import jdepend.statistics.StaticsFrame;
 

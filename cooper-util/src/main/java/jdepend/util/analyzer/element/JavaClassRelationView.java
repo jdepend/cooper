@@ -1,7 +1,7 @@
 package jdepend.util.analyzer.element;
 
-import jdepend.framework.ui.graph.GraphData;
-import jdepend.framework.ui.graph.GraphDataItem;
+import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassRelationInfo;
 import jdepend.model.util.JavaClassRelationUtil;
