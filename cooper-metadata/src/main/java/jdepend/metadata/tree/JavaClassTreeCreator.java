@@ -27,17 +27,15 @@ public abstract class JavaClassTreeCreator {
 		List<JavaClass> dependClasses = new ArrayList<JavaClass>();
 		// 广度搜索
 		for (JavaClass dependClass : getRelationClass(javaClass)) {
-			if (classes.contains(dependClass)) {
-				if (!javaClasses.contains(dependClass)) {
-					javaClasses.add(dependClass);
-					dependClasses.add(dependClass);
-					tree.addNode(javaClass, dependClass);
-				}
+			if (!javaClasses.contains(dependClass)) {
+				javaClasses.add(dependClass);
+				dependClasses.add(dependClass);
+				tree.addNode(javaClass, dependClass);
 			}
 		}
 		// 深度搜索
 		for (JavaClass dependClass1 : dependClasses) {
-			rout(dependClass1, tree, classes);
+			rout(dependClass1, tree);
 		}
 	}
 
