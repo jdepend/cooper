@@ -28,7 +28,9 @@ public class JavaClassAutowiredTreeCreator extends JavaClassTreeCreator {
 								subClasses.add(subClass);
 							}
 						}
-						if (subClasses.size() == 1) {
+						if (subClasses.size() == 0) {
+							javaClasses.add(attributeClass);
+						} else if (subClasses.size() == 1) {
 							javaClasses.add(subClasses.iterator().next());
 						} else {
 							for (JavaClass subClass : subClasses) {
@@ -44,8 +46,6 @@ public class JavaClassAutowiredTreeCreator extends JavaClassTreeCreator {
 				}
 			}
 		}
-
 		return javaClasses;
 	}
-
 }
