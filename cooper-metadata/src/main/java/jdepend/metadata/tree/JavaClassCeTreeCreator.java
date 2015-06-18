@@ -1,7 +1,7 @@
 package jdepend.metadata.tree;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
@@ -13,33 +13,17 @@ public class JavaClassCeTreeCreator extends JavaClassTreeCreator {
 		super();
 	}
 
-	/**
-	 * 得到指定JavaClassRelationType的关系信息集合
-	 * 
-	 * @param javaClass
-	 * @return
-	 */
 	@Override
-	protected Collection<JavaClassRelationItem> getRelationItem(JavaClass javaClass) {
+	protected Collection<JavaClass> getRelationClass(JavaClass javaClass) {
 
-		Collection<JavaClassRelationItem> relationTypeItems = new ArrayList<JavaClassRelationItem>();
+		Collection<JavaClass> javaClasses = new HashSet<JavaClass>();
 
 		for (JavaClassRelationItem relationItem : javaClass.getCeItems()) {
 			if (!(relationItem.getType() instanceof InheritRelation)) {
-				relationTypeItems.add(relationItem);
+				javaClasses.add(relationItem.getTarget());
 			}
 		}
 
-		return relationTypeItems;
-	}
-
-	@Override
-	protected JavaClass getDepend(JavaClassRelationItem item) {
-		return item.getTarget();
-	}
-
-	@Override
-	protected JavaClass getCurrent(JavaClassRelationItem item) {
-		return item.getSource();
+		return javaClasses;
 	}
 }

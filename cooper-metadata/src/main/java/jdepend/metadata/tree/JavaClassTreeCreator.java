@@ -15,20 +15,18 @@ public abstract class JavaClassTreeCreator {
 	JavaClassTreeCreator() {
 	}
 
-	public JavaClassTree create(JavaClass rootClass, Collection<JavaClass> classes) {
+	public JavaClassTree create(JavaClass rootClass) {
 		JavaClassTree tree = new JavaClassTree(rootClass);
 		javaClasses.add(rootClass);
-		this.rout(rootClass, tree, classes);
+		this.rout(rootClass, tree);
 		return tree;
 	}
 
-	private void rout(JavaClass javaClass, JavaClassTree tree, Collection<JavaClass> classes) {
+	private void rout(JavaClass javaClass, JavaClassTree tree) {
 
-		JavaClass dependClass = null;
 		List<JavaClass> dependClasses = new ArrayList<JavaClass>();
 		// 广度搜索
-		for (JavaClassRelationItem relationItem : getRelationItem(javaClass)) {
-			dependClass = this.getDepend(relationItem);
+		for (JavaClass dependClass : getRelationClass(javaClass)) {
 			if (classes.contains(dependClass)) {
 				if (!javaClasses.contains(dependClass)) {
 					javaClasses.add(dependClass);
@@ -44,27 +42,10 @@ public abstract class JavaClassTreeCreator {
 	}
 
 	/**
-	 * 得到指定JavaClassRelationType的关系信息集合
+	 * 得到指定与该类有关系的类集合
 	 * 
 	 * @param javaClass
 	 * @return
 	 */
-	protected abstract Collection<JavaClassRelationItem> getRelationItem(JavaClass javaClass);
-
-	/**
-	 * 得到JavaClassRelationItem中的对方
-	 * 
-	 * @param item
-	 * @return
-	 */
-	protected abstract JavaClass getDepend(JavaClassRelationItem item);
-
-	/**
-	 * 得到JavaClassRelationItem中的自己
-	 * 
-	 * @param item
-	 * @return
-	 */
-	protected abstract JavaClass getCurrent(JavaClassRelationItem item);
-
+	protected abstract Collection<JavaClass> getRelationClass(JavaClass javaClass);
 }
