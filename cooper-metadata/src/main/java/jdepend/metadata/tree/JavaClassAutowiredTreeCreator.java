@@ -7,6 +7,12 @@ import jdepend.metadata.Attribute;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.annotation.Service;
 
+/**
+ * 用于创建采用Spring注解生成的类注入树
+ *  
+ * @author Abner
+ *
+ */
 public class JavaClassAutowiredTreeCreator extends JavaClassTreeCreator {
 
 	public JavaClassAutowiredTreeCreator() {
