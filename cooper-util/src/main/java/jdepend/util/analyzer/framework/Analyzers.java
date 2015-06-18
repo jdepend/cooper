@@ -22,6 +22,7 @@ import jdepend.util.analyzer.element.IdentifyJavaClassType;
 import jdepend.util.analyzer.element.IdentifyWillMoveJavaClass;
 import jdepend.util.analyzer.element.IdentifyWillMoveMethod;
 import jdepend.util.analyzer.element.InheritTreeAnalyse;
+import jdepend.util.analyzer.element.JavaClassAutowiredTreeAnalyse;
 import jdepend.util.analyzer.element.JavaClassBalanceSort;
 import jdepend.util.analyzer.element.JavaClassRelationView;
 import jdepend.util.analyzer.element.LSPPrinciple;
@@ -65,6 +66,7 @@ public final class Analyzers {
 		allAnalyzers.add(new IdentifyAppService());
 		allAnalyzers.add(new IdentifyDomainService());
 		allAnalyzers.add(new IdentifyJavaClassType());
+		allAnalyzers.add(new JavaClassAutowiredTreeAnalyse());
 
 		List<Analyzer> analyzerTypes;
 		for (Analyzer analyzer : allAnalyzers) {

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import jdepend.metadata.JavaClass;
-import jdepend.metadata.JavaClassRelationItem;
 
 public abstract class JavaClassTreeCreator {
 
