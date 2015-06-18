@@ -23,6 +23,20 @@ public class Qualifier implements Annotation {
 		}
 	}
 
+	public boolean direct(Service service) {
+
+		if (this.value == null) {
+			return false;
+		}
+
+		if (service == null || service.getValue() == null) {
+			return false;
+		}
+
+		return this.value.equals(service.getValue());
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
