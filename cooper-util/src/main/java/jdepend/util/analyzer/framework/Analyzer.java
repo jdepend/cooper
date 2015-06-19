@@ -22,7 +22,7 @@ public interface Analyzer extends Serializable, Comparable<Analyzer> {
 
 	public int getHeat();
 
-	public void search(AnalysisResult result) throws AnalyzerException;
+	public void execute(AnalysisResult result) throws AnalyzerException;
 
 	public void setWorker(AnalyzerWorker worker);
 

@@ -21,7 +21,7 @@ public class AnalyzerExecutor {
 		AnalyzerWorker worker = new DefaultAnalyzerWorker();
 
 		analyzer.setWorker(worker);
-		analyzer.search(result);
+		analyzer.execute(result);
 
 		return new AnalyzerResult(worker.getInfo(), worker.getTableData(), worker.getTree(), worker.getGraphData());
 	}

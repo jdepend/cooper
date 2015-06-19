@@ -30,7 +30,7 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.setWorker(new DefaultAnalyzerWorker());
 	}
 
-	public void search(final AnalysisResult result) throws AnalyzerException {
+	public void execute(final AnalysisResult result) throws AnalyzerException {
 		this.heat++;
 		this.isChicked = true;
 

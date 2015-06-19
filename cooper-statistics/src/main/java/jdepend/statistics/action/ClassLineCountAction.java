@@ -37,7 +37,7 @@ public class ClassLineCountAction extends ScoreListAction {
 			item.setTitle(title);
 			item.setType(GraphDataItem.PIE);
 
-			analyzer.search(result);
+			analyzer.execute(result);
 			item.setDatas(analyzer.getData());
 			graph.addItem(item);
 
