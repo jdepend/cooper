@@ -1,5 +1,6 @@
 package jdepend.server.service.analyzer;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -19,8 +20,20 @@ public final class AnalyzerServiceImpl extends UnicastRemoteObject implements An
 	@Override
 	public void upload(AnalyzerDTO analyzerDTO) throws RemoteException {
 		try {
-			AnalyzerInfo analyzerInfo = analyzerDTO.toInfo();
-			(new AnalyzerRepository()).save(analyzerInfo);
+
+			AnalyzerInfo info = new AnalyzerInfo();
+
+			info.setClassName(analyzerDTO.getClassName());
+			info.setClient(analyzerDTO.getClient());
+			info.setDef(analyzerDTO.getDef());
+			info.setDefaultData(analyzerDTO.getDefaultData());
+			info.setUserName(analyzerDTO.getUserName());
+			info.setName(analyzerDTO.getName());
+			info.setTip(analyzerDTO.getTip());
+			info.setType(analyzerDTO.getType());
+			info.setBigTip(analyzerDTO.getBigTip());
+
+			(new AnalyzerRepository()).save(info);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RemoteException(e.getMessage());
@@ -40,13 +53,23 @@ public final class AnalyzerServiceImpl extends UnicastRemoteObject implements An
 
 	@Override
 	public AnalyzerDTO download(String className) throws RemoteException {
-		AnalyzerInfo info;
+		AnalyzerInfo info = null;
 		try {
 			info = (new AnalyzerRepository()).getTheAnalyzer(className);
+
+			AnalyzerDTO analyzerDTO = new AnalyzerDTO();
+
+			analyzerDTO.setDef(info.getDef());
+			analyzerDTO.setDefaultData(info.getDefaultData());
+			analyzerDTO.setClassName(info.getClassName());
+			analyzerDTO.setClient(info.getClient());
+			analyzerDTO.setUserName(info.getUserName());
+
+			return analyzerDTO;
 		} catch (JDependException e) {
 			e.printStackTrace();
 			throw new RemoteException(e.getMessage());
 		}
-		return new AnalyzerDTO(info);
 	}
+
 }

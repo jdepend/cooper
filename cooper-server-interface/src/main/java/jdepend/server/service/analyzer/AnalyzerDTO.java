@@ -23,14 +23,6 @@ public final class AnalyzerDTO implements Serializable {
 	public AnalyzerDTO() {
 	}
 
-	public AnalyzerDTO(AnalyzerInfo info) {
-		this.def = info.getDef();
-		this.defaultData = info.getDefaultData();
-		this.className = info.getClassName();
-		this.client = info.getClient();
-		this.userName = info.getUserName();
-	}
-
 	public byte[] getDefaultData() {
 		return defaultData;
 	}
@@ -101,21 +93,5 @@ public final class AnalyzerDTO implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public AnalyzerInfo toInfo() throws ClassNotFoundException, IOException {
-		AnalyzerInfo info = new AnalyzerInfo();
-
-		info.setClassName(className);
-		info.setClient(client);
-		info.setDef(def);
-		info.setDefaultData(defaultData);
-		info.setUserName(userName);
-		info.setName(name);
-		info.setTip(tip);
-		info.setType(type);
-		info.setBigTip(bigTip);
-
-		return info;
 	}
 }
