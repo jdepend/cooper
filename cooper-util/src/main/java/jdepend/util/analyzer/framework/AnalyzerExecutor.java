@@ -1,6 +1,5 @@
 package jdepend.util.analyzer.framework;
 
-import jdepend.framework.exception.JDependException;
 import jdepend.model.result.AnalysisResult;
 
 public class AnalyzerExecutor {
@@ -16,7 +15,7 @@ public class AnalyzerExecutor {
 		this.analyzer.setListener(listener);
 	}
 
-	public AnalyzerResult execute(AnalysisResult result) throws JDependException {
+	public AnalyzerResult execute(AnalysisResult result) throws AnalyzerException {
 
 		AnalyzerWorker worker = new DefaultAnalyzerWorker();
 
