@@ -12,7 +12,6 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.ServiceMonitor;
 import jdepend.server.service.session.JDependRequest;
 import jdepend.server.service.session.JDependSession;
 import jdepend.service.JDependLocalService;

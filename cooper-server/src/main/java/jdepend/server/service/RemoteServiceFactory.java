@@ -9,7 +9,6 @@ import jdepend.server.service.impl.JDependSessionServiceImpl;
 import jdepend.server.service.score.ScoreRemoteService;
 import jdepend.server.service.score.ScoreRemoteServiceImpl;
 import jdepend.server.service.session.JDependSessionService;
-import jdepend.server.service.user.UserAppService;
 import jdepend.server.service.user.UserRemoteServiceImpl;
 
 public class RemoteServiceFactory {
@@ -18,7 +17,7 @@ public class RemoteServiceFactory {
 		return new AnalyzerServiceImpl();
 	}
 
-	public static JDependRemoteService createJDependRemoteService() throws RemoteException {
+	public static JDependRemoteServiceImpl createJDependRemoteService() throws RemoteException {
 		return new JDependRemoteServiceImpl();
 	}
 
@@ -30,7 +29,7 @@ public class RemoteServiceFactory {
 		return new ScoreRemoteServiceImpl();
 	}
 
-	public static UserAppService createUserAppService() throws RemoteException {
+	public static UserRemoteServiceImpl createUserRemoteService() throws RemoteException {
 		return new UserRemoteServiceImpl();
 	}
 

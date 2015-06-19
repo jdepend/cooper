@@ -7,7 +7,7 @@ import java.util.List;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
 
-public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserAppService {
+public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserRemoteService {
 
 	private UserDomainService domainService = new UserDomainService();
 
@@ -15,8 +15,7 @@ public final class UserRemoteServiceImpl extends UnicastRemoteObject implements 
 		super();
 	}
 
-	@Override
-	public void setUserStateChangeListener(UserStateChangeListener listener) {
+	public void setUserStateChangeListener(UserStateChangeListener listener){
 		this.domainService.setListener(listener);
 	}
 

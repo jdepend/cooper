@@ -34,13 +34,6 @@ public interface JDependRemoteService extends Remote {
 	public abstract int getAnalyzeSchedule(JDependRequest request) throws java.rmi.RemoteException;
 
 	/**
-	 * 增加服务监听者
-	 * 
-	 * @param monitor
-	 */
-	public void addMonitor(ServiceMonitor monitor) throws java.rmi.RemoteException;
-
-	/**
 	 * 得到分析目标包含的包集合
 	 * 
 	 * @param data

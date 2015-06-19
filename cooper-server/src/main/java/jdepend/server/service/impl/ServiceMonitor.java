@@ -1,4 +1,4 @@
-package jdepend.server.service;
+package jdepend.server.service.impl;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.server.service.session.JDependRequest;

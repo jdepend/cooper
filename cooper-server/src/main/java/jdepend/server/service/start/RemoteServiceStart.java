@@ -14,10 +14,10 @@ import jdepend.framework.log.LogUtil;
 import jdepend.framework.persistent.ConnectionFactory;
 import jdepend.framework.util.JDependUtil;
 import jdepend.framework.util.VersionUtil;
-import jdepend.server.service.RemoteServiceFactory;
-import jdepend.server.service.persistent.ServerConnectionProvider;
 import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.RemoteServiceFactory;
 import jdepend.server.service.analyzer.AnalyzerService;
+import jdepend.server.service.persistent.ServerConnectionProvider;
 import jdepend.server.service.score.ScoreRemoteService;
 import jdepend.server.service.session.JDependSessionService;
 import jdepend.server.service.user.UserRemoteService;
@@ -101,7 +101,7 @@ public final class RemoteServiceStart {
 			Naming.rebind("rmi://localhost:1099/AnalyzerService", analyzerService);
 			// 用户远程服务
 			LogUtil.getInstance(RemoteServiceStart.class).systemLog("用户远程服务");
-			UserRemoteService userRemoteService = RemoteServiceFactory.createUserAppService();
+			UserRemoteService userRemoteService = RemoteServiceFactory.createUserRemoteService();
 			Naming.rebind("rmi://localhost:1099/UserRemoteService", userRemoteService);
 			// 分数远程服务
 			LogUtil.getInstance(RemoteServiceStart.class).systemLog("分数远程服务");

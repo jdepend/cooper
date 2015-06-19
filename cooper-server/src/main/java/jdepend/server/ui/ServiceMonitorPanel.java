@@ -21,18 +21,19 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.panel.StatusField;
+import jdepend.server.service.JDependRemoteService;
 import jdepend.server.service.RemoteServiceFactory;
+import jdepend.server.service.impl.JDependRemoteServiceImpl;
 import jdepend.server.service.impl.JDependSessionMgr;
+import jdepend.server.service.impl.ServiceMonitor;
 import jdepend.server.service.session.JDependRequest;
 import jdepend.server.service.session.JDependSession;
-import jdepend.server.service.JDependRemoteService;
-import jdepend.server.service.ServiceMonitor;
 
 public class ServiceMonitorPanel extends JPanel implements ServiceMonitor {
 
 	private JDependServer server;
 
-	private JDependRemoteService service;
+	private JDependRemoteServiceImpl service;
 
 	private DefaultTableModel requestListModel;
 
