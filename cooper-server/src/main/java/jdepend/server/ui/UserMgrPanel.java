@@ -20,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.server.service.RemoteServiceFactory;
-import jdepend.server.service.user.UserDomainService;
 import jdepend.server.service.user.User;
-import jdepend.server.service.user.UserRemoteService;
+import jdepend.server.service.user.UserAppService;
+import jdepend.server.service.user.UserDomainService;
 import jdepend.server.service.user.UserStateChangeListener;
 
 public final class UserMgrPanel extends JPanel implements UserStateChangeListener {
@@ -33,7 +33,7 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 
 	private String currentUserName;
 
-	private UserRemoteService userRemoteService;
+	private UserAppService userAppService;
 	
 	private UserDomainService userDomainService;
 
@@ -147,9 +147,9 @@ public final class UserMgrPanel extends JPanel implements UserStateChangeListene
 
 	public void bindService() throws JDependException {
 		try {
-			this.userRemoteService = RemoteServiceFactory.createUserRemoteService();
-			this.userRemoteService.setUserStateChangeListener(this);
-			Naming.rebind("rmi://localhost:1099/UserRemoteService", userRemoteService);
+			this.userAppService = RemoteServiceFactory.createUserAppService();
+			this.userAppService.setUserStateChangeListener(this);
+			Naming.rebind("rmi://localhost:1099/UserRemoteService", userAppService);
 		} catch (Exception e) {
 			throw new JDependException("绑定用户服务错误！", e);
 		}

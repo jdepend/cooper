@@ -6,11 +6,8 @@ import java.util.List;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.Operation;
-import jdepend.server.service.user.UserActionItem;
-import jdepend.server.service.user.UserRemoteService;
-import jdepend.server.service.user.UserStateChangeListener;
 
-public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserRemoteService {
+public final class UserRemoteServiceImpl extends UnicastRemoteObject implements UserAppService {
 
 	private UserDomainService domainService = new UserDomainService();
 
@@ -18,6 +15,7 @@ public final class UserRemoteServiceImpl extends UnicastRemoteObject implements 
 		super();
 	}
 
+	@Override
 	public void setUserStateChangeListener(UserStateChangeListener listener) {
 		this.domainService.setListener(listener);
 	}

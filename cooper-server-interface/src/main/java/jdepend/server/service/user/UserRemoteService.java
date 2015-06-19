@@ -29,12 +29,4 @@ public interface UserRemoteService extends Remote {
 	 * @throws java.rmi.RemoteException
 	 */
 	public void uploadUserAction(List<UserActionItem> items) throws java.rmi.RemoteException;
-	
-	/**
-	 * 设置状态监听器
-	 * 
-	 * @param listener
-	 */
-	public void setUserStateChangeListener(UserStateChangeListener listener) throws java.rmi.RemoteException;
-
 }

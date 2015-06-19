@@ -101,7 +101,7 @@ public final class RemoteServiceStart {
 			Naming.rebind("rmi://localhost:1099/AnalyzerService", analyzerService);
 			// 用户远程服务
 			LogUtil.getInstance(RemoteServiceStart.class).systemLog("用户远程服务");
-			UserRemoteService userRemoteService = RemoteServiceFactory.createUserRemoteService();
+			UserRemoteService userRemoteService = RemoteServiceFactory.createUserAppService();
 			Naming.rebind("rmi://localhost:1099/UserRemoteService", userRemoteService);
 			// 分数远程服务
 			LogUtil.getInstance(RemoteServiceStart.class).systemLog("分数远程服务");
