@@ -30,7 +30,7 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		javaClasses = result.getClasses();
 

@@ -28,7 +28,7 @@ public class DIPPrinciple extends AbstractAnalyzer {
 		super("DIP检查", Analyzer.Attention, "识别违反依赖倒置原则的地方");
 	}
 
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 		Collection<Component> components = result.getComponents();
 		this.printDIPs(components);
 	}

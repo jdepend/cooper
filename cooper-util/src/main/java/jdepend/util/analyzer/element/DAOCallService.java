@@ -35,7 +35,7 @@ public class DAOCallService extends AbstractAnalyzer {
 
 	}
 
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<LayerInfo> layerInfos = new ArrayList<LayerInfo>();
 

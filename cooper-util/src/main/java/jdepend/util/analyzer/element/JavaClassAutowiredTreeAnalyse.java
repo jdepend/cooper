@@ -20,7 +20,7 @@ public class JavaClassAutowiredTreeAnalyse extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		if (this.className == null) {
 			throw new AnalyzerException("请指定ClassName");

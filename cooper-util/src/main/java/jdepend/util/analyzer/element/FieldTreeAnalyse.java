@@ -28,7 +28,7 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 		super("包含结构分析", Analyzer.Attention, "包含结构分析");
 	}
 
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<JavaClassTree> trees = (new JavaClassFieldTreesCreator()).create(JavaClassUnitUtil.getJavaClasses(result
 				.getClasses()));

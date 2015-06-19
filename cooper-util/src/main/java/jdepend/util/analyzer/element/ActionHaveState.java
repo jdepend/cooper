@@ -27,7 +27,7 @@ public class ActionHaveState extends AbstractAnalyzer {
 		this.setType(AntiPattern);
 	}
 
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<String> supers = new ArrayList<String>();
 		supers.add(ActionSuperClassName);

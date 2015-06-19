@@ -22,7 +22,7 @@ public class SearchDAONoPageMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 		if (daoEndClassName == null || daoEndClassName.length() == 0) {
 			throw new AnalyzerException("没有daoEndClassName参数的定义");
 		}

@@ -22,7 +22,7 @@ public class LSPPrinciple extends AbstractAnalyzer {
 		super("LSP检查", Analyzer.Attention, "识别违反李氏替换原则的地方");
 	}
 
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(result.getClasses());
 
 		Collections.sort(members);

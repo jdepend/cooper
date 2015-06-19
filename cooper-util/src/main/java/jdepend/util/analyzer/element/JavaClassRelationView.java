@@ -20,7 +20,7 @@ public final class JavaClassRelationView extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		JavaClassRelationUtil javaClassRelationUtil = new JavaClassRelationUtil(result);
 

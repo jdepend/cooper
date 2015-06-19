@@ -22,7 +22,7 @@ public final class TogetherInvokeMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		Map<JavaClass, Collection<Method>> invokedMethods;
 

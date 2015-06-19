@@ -29,7 +29,7 @@ public class InheritTreeAnalyse extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<JavaClassTree> trees = (new JavaClassInheritTreesCreator()).create(JavaClassUnitUtil.getJavaClasses(result
 				.getClasses()));

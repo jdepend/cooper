@@ -17,7 +17,7 @@ public class IdentifyJavaClassType extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		for (JavaClassUnit javaClass : result.getClasses()) {
 			ClassTypeInfo classTypeInfo = JavaClassUtil.getType(javaClass.getJavaClass());

@@ -30,7 +30,7 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 		if (this.rule == null) {
 			throw new AnalyzerException("没有设置规则,rule是所在文件夹的名字，如果有多个文件夹，以逗号分隔，{root}代表组件的根路径");
 		}

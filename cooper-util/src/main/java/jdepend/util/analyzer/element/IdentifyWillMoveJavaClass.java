@@ -21,7 +21,7 @@ public class IdentifyWillMoveJavaClass extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		Collection<Component> units = result.getComponents();
 

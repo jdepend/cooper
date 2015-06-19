@@ -35,7 +35,7 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.isChicked = true;
 
 		Long start = System.currentTimeMillis();
-		doSearch(result);
+		doExecute(result);
 		LogUtil.getInstance(this.getClass()).systemLog(
 				"分析器[" + this.getName() + "]执行用时：" + (System.currentTimeMillis() - start));
 
@@ -55,7 +55,7 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 		this.listener = listener;
 	}
 
-	protected abstract void doSearch(AnalysisResult result) throws AnalyzerException;
+	protected abstract void doExecute(AnalysisResult result) throws AnalyzerException;
 
 	public boolean needSave() {
 		return this.isChicked;

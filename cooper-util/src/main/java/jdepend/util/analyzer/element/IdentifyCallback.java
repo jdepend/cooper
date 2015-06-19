@@ -20,7 +20,7 @@ public class IdentifyCallback extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		boolean isCallback1;// 该类为接口，并且其方法有返回值，该方法被本组件调用
 		boolean isCallback2;// 该类的实现类不与该类处于一个组件内

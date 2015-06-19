@@ -17,7 +17,7 @@ public final class RepeatClassAnalyzer extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<JavaClassUnit> repeatClasses = new ArrayList<JavaClassUnit>();
 

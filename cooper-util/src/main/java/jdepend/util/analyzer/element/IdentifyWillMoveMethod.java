@@ -25,7 +25,7 @@ public final class IdentifyWillMoveMethod extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		Map<Method, String> moveInfos = new LinkedHashMap<Method, String>();
 

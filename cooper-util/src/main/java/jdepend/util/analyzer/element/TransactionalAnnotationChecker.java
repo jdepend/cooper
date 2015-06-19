@@ -24,7 +24,7 @@ public final class TransactionalAnnotationChecker extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 		if (controllerEndClassName != null && controllerEndClassName.length() > 0) {
 			this.print("Controller方法上标注了事务注解：\n");
 			L1: for (JavaClassUnit javaClass : result.getClasses()) {

@@ -20,7 +20,7 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 	}
 
 	@Override
-	protected void doSearch(AnalysisResult result) throws AnalyzerException {
+	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
 		List<BalanceJavaClassWrapper> wrappers = new ArrayList<BalanceJavaClassWrapper>();
 
