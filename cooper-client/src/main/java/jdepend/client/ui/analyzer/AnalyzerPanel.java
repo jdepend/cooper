@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,7 +56,7 @@ public class AnalyzerPanel extends JPanel {
 
 	protected JDependCooper frame;
 
-	protected Map<String, List<Analyzer>> analyzers;
+	protected Map<String, List<AnalyzerUIWrapper>> analyzers;
 
 	private Map<String, DefaultTableModel> models;
 
@@ -306,13 +307,20 @@ public class AnalyzerPanel extends JPanel {
 	private void refresh(String group) {
 		Object[] row;
 
-		this.analyzers = AnalyzerMgr.getInstance().getAnalyzers();
+		this.analyzers = new LinkedHashMap<String, List<AnalyzerUIWrapper>>();
+		for (String type : AnalyzerMgr.getInstance().getAnalyzers().keySet()) {
+			this.analyzers.put(type, new ArrayList<AnalyzerUIWrapper>());
+			for (Analyzer analyzer : AnalyzerMgr.getInstance().getAnalyzers(type)) {
+				this.analyzers.get(type).add(new AnalyzerUIWrapper(analyzer));
+			}
+		}
+
 		this.models.get(group).setRowCount(0);
 
-		for (Analyzer antiPattern : AnalyzerMgr.getInstance().getAnalyzers(group)) {
+		for (Analyzer analyzer : this.analyzers.get(group)) {
 			row = new Object[1];
-			row[0] = antiPattern.getName();
-			tips.put(antiPattern.getName(), antiPattern.getTip());
+			row[0] = analyzer.getName();
+			tips.put(analyzer.getName(), analyzer.getTip());
 
 			this.models.get(group).addRow(row);
 		}
@@ -354,9 +362,9 @@ public class AnalyzerPanel extends JPanel {
 	}
 
 	private void setting() {
-		Analyzer analyzer = this.analyzers.get(this.currentGroup).get(this.currentRow);
+		AnalyzerUIWrapper analyzer = this.analyzers.get(this.currentGroup).get(this.currentRow);
 
-		PersistentBeanSettingDialog d = new PersistentBeanSettingDialog(frame, (PersistentBean) analyzer);
+		PersistentBeanSettingDialog d = new PersistentBeanSettingDialog(frame, (PersistentBean) analyzer.getAnalyzer());
 
 		d.setModal(true);
 		d.setVisible(true);

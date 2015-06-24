@@ -1,19 +1,20 @@
 package jdepend.util.analyzer.element;
 
+import jdepend.framework.domain.notPersistent;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.tree.JavaClassAutowiredTreeCreator;
 import jdepend.metadata.tree.JavaClassTree;
-import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerException;
+import jdepend.util.analyzer.framework.ClassAttribute;
 
 public class JavaClassAutowiredTreeAnalyse extends AbstractAnalyzer {
 
 	private static final long serialVersionUID = -4243756500532110103L;
 
-	private String className;
+	private transient JavaClass javaClass;
 
 	public JavaClassAutowiredTreeAnalyse() {
 		super("Autowired结构分析", Analyzer.Attention, "Autowired结构分析");
@@ -22,24 +23,11 @@ public class JavaClassAutowiredTreeAnalyse extends AbstractAnalyzer {
 	@Override
 	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
-		if (this.className == null) {
-			throw new AnalyzerException("请指定ClassName");
+		if (this.javaClass == null) {
+			throw new AnalyzerException("请指定javaClass");
 		}
 
 		JavaClassAutowiredTreeCreator creator = new JavaClassAutowiredTreeCreator();
-
-		JavaClass javaClass = null;
-		for (JavaClassUnit javaClassUnit : result.getClasses()) {
-			if (javaClassUnit.getName().equals(className)) {
-				javaClass = javaClassUnit.getJavaClass();
-				break;
-			}
-		}
-
-		if (javaClass == null) {
-			throw new AnalyzerException("没有找到名字为[" + className + "]的类");
-		}
-
 		JavaClassTree tree = creator.create(javaClass);
 
 		if (tree != null) {
@@ -55,11 +43,15 @@ public class JavaClassAutowiredTreeAnalyse extends AbstractAnalyzer {
 		return explain.toString();
 	}
 
-	public String getClassName() {
-		return className;
+	public JavaClass getJavaClass() {
+		return javaClass;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	@notPersistent
+	@ClassAttribute
+	public void setJavaClass(JavaClass javaClass) {
+		this.javaClass = javaClass;
 	}
+
+
 }
