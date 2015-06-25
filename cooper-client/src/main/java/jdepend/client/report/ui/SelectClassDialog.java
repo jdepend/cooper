@@ -25,10 +25,11 @@ import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 
-public class SelectClassListDialog extends CooperDialog {
+public class SelectClassDialog extends CooperDialog {
 
 	private JTable classListTable;
 
@@ -36,7 +37,7 @@ public class SelectClassListDialog extends CooperDialog {
 
 	protected String current;
 
-	public SelectClassListDialog() {
+	public SelectClassDialog() {
 		super("类列表");
 		getContentPane().setLayout(new BorderLayout());
 
@@ -54,7 +55,8 @@ public class SelectClassListDialog extends CooperDialog {
 				filterClassList(nameFilter.getText());
 			}
 
-			private void filterClassList(String text) {
+			private void filterClassList(String name) {
+				refresh(name);
 			}
 		});
 
@@ -122,17 +124,21 @@ public class SelectClassListDialog extends CooperDialog {
 	}
 
 	private void refresh() {
+		refresh(null);
+	}
+
+	private void refresh(String name) {
 
 		classListModel.setRowCount(0);
 
 		Object row[];
 		for (JavaClassUnit javaClassUnit : JDependUnitMgr.getInstance().getResult().getClasses()) {
-			row = new Object[2];
-
-			row[0] = javaClassUnit.getJavaClass().getPlace();
-			row[1] = javaClassUnit.getJavaClass().getName();
-			classListModel.addRow(row);
+			if (name == null || name.length() == 0 || JavaClassUtil.match(name, javaClassUnit.getJavaClass())) {
+				row = new Object[2];
+				row[0] = javaClassUnit.getJavaClass().getPlace();
+				row[1] = javaClassUnit.getJavaClass().getName();
+				classListModel.addRow(row);
+			}
 		}
 	}
-
 }

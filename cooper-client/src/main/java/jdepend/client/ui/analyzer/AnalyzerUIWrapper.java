@@ -3,7 +3,7 @@ package jdepend.client.ui.analyzer;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-import jdepend.client.report.ui.SelectClassListDialog;
+import jdepend.client.report.ui.SelectClassDialog;
 import jdepend.metadata.JavaClass;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
@@ -70,7 +70,7 @@ public class AnalyzerUIWrapper implements Analyzer {
 
 		if (theMethod != null) {
 			final Method theMethod2 = theMethod;
-			SelectClassListDialog d = new SelectClassListDialog() {
+			SelectClassDialog d = new SelectClassDialog() {
 				@Override
 				protected void callback() {
 					JavaClass javaClass = JDependUnitMgr.getInstance().getResult().getTheClass(current).getJavaClass();
