@@ -166,6 +166,8 @@ public class JavaClassUtil {
 		String newPattern = null;
 		if (!pattern.endsWith("*")) {
 			newPattern = pattern + "*";
+		} else {
+			newPattern = pattern;
 		}
 		boolean rtn = StringUtil.match(newPattern.toUpperCase(), className.substring(className.lastIndexOf('.') + 1)
 				.toUpperCase());
