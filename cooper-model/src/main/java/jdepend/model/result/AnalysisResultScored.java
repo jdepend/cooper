@@ -125,8 +125,8 @@ public abstract class AnalysisResultScored implements Scored {
 
 	public abstract AnalysisResultSummary getSummary();
 
-	public abstract boolean hasRelation();
+	protected abstract boolean hasRelation();
 
-	public abstract float calAttentionRelation();
+	protected abstract float calAttentionRelation();
 
 }

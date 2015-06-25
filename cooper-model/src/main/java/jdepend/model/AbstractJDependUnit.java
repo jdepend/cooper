@@ -156,7 +156,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 
 	public synchronized List<? extends JDependUnit> collectCycle() {
 		if (this.cycles == null) {
-			List<List<? extends JDependUnit>> cycleses = new CalculateMetricsTool(this).collectCycle();
+			List<List<? extends JDependUnit>> cycleses = (new OnlyOneCycleIdentifyer()).collectCycle(this);
 			if (cycleses != null) {
 				this.cycles = cycleses.get(0);
 			} else {

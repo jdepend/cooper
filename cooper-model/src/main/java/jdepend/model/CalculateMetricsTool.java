@@ -1,13 +1,6 @@
 package jdepend.model;
 
-import java.util.Collection;
-import java.util.List;
-
 import jdepend.framework.util.MathUtil;
-import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
-import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 
 /**
  * 计算计算得到的指标的工具 仅仅在model中使用
@@ -50,6 +43,11 @@ public final class CalculateMetricsTool {
 		}
 	}
 
+	/**
+	 * 稳定性
+	 * 
+	 * @return
+	 */
 	public Float stability() {
 		if (MathUtil.isZero(unit.getCoupling())) {
 			return null;
@@ -61,7 +59,7 @@ public final class CalculateMetricsTool {
 
 	/**
 	 * 
-	 * @return volatility (0-1).
+	 * 易变性
 	 */
 	float volatility() {
 		if (unit.getClassCount() > 0) {
@@ -78,7 +76,7 @@ public final class CalculateMetricsTool {
 	}
 
 	/**
-	 * @return The package's abstractness (0-1).
+	 * 抽象性
 	 */
 	float abstractness() {
 		if (unit.getClassCount() > 0) {
@@ -88,7 +86,7 @@ public final class CalculateMetricsTool {
 	}
 
 	/**
-	 * @return The package's distance from the main sequence (D).
+	 * 抽象程度合理性
 	 */
 	public Float distance() {
 		if (this.unit.getAfferents().size() == 0 && this.unit.getEfferents().size() == 0) {
@@ -99,7 +97,7 @@ public final class CalculateMetricsTool {
 	}
 
 	/**
-	 * 计算未被其他组件使用的类的比例
+	 * 封装性
 	 * 
 	 * @param javaClasses
 	 * @return
@@ -131,45 +129,5 @@ public final class CalculateMetricsTool {
 			}
 			return privates * 1F / this.unit.getClassCount();
 		}
-	}
-
-	/**
-	 * 计算基于数据库表实现组件间通讯的比重
-	 * 
-	 * @param javaClasses
-	 * @return
-	 */
-	public static Float tableRelationScale(Collection<JavaClassUnit> javaClasses) {
-		if (javaClasses != null && javaClasses.size() > 0) {
-			AnalysisResult result = javaClasses.iterator().next().getResult();
-			int tableRelations = 0;
-			int relations = 0;
-			for (JavaClassUnit javaClass : javaClasses) {
-				for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
-					if (!JavaClassUnitUtil.isInner(item, result)) {
-						if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getTableRelation())) {
-							tableRelations += 1;
-						}
-						relations += 1;
-					}
-				}
-			}
-			if (relations == 0) {
-				return 0.0F;
-			} else {
-				return tableRelations * 1F / relations;
-			}
-		} else {
-			return 0.0F;
-		}
-	}
-
-	/**
-	 * 返回循环依赖链
-	 * 
-	 * @return
-	 */
-	List<List<? extends JDependUnit>> collectCycle() {
-		return (new OnlyOneCycleIdentifyer()).collectCycle(unit);
 	}
 }

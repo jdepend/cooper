@@ -220,7 +220,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return this.components == null || this.components.size() == 0;
 	}
 
-	public boolean hasRelation() {
+	protected boolean hasRelation() {
 		return this.getRelations() != null && this.getRelations().size() > 0;
 	}
 
@@ -299,34 +299,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 * 
 	 * @return
 	 */
-	public float calAttentionRelation() {
-
-		float scale = 0F;
-
-		if (this.getRelations().size() == 0) {
-			scale = 0F;
-		} else {
-
-			float attentions = 0F;
-			for (Relation relation : this.getRelations()) {
-				if (relation.isAttention()) {
-					// 根据关系性质计算存在问题的关系比例
-					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
-						attentions += 1.0F;// 彼此依赖一次增加1，两次增加到2（存在彼此依赖的关系，两条线全部记录为有问题的关系）
-					} else if (relation.getAttentionType() == Relation.ComponentLayerAttentionType) {
-						attentions += 0.8F;
-					} else if (relation.getAttentionType() == Relation.SDPAttentionType) {
-						attentions += 0.5F;
-					}
-					if (relation.getAttentionType() == Relation.CycleDependAttentionType) {
-						attentions += 0.3F;
-					}
-				}
-			}
-			scale = attentions * 1F / this.getRelations().size();
-		}
-
-		return scale;
+	protected float calAttentionRelation() {
+		return new AnalysisResultUtil(this).calAttentionRelation();
 	}
 
 	/**
@@ -335,22 +309,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 * @return
 	 */
 	public float getAttentionRelationScale() {
-
-		float scale = 0F;
-
-		if (this.getRelations().size() == 0) {
-			scale = 0F;
-		} else {
-			int isAttention = 0;
-			for (Relation relation : this.getRelations()) {
-				if (relation.isAttention()) {
-					isAttention++;
-				}
-			}
-			scale = isAttention * 1F / this.getRelations().size();
-		}
-
-		return scale;
+		return new AnalysisResultUtil(this).getAttentionRelationScale();
 	}
 
 	/**
@@ -360,8 +319,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 */
 	public synchronized float calTableRelationScale() {
 		if (this.tableRelationScale == null) {
-			this.tableRelationScale = MetricsFormat.toFormattedMetrics(CalculateMetricsTool
-					.tableRelationScale(getClasses()));
+			this.tableRelationScale = new AnalysisResultUtil(this).tableRelationScale();
 		}
 		return this.tableRelationScale;
 	}
@@ -385,17 +343,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	 * @return
 	 */
 	public int calClassSize() {
-		int classCount = 0;
-		for (JavaClassUnit JavaClass : this.getClasses()) {
-			if (JavaClass.getLineCount() != 0) {
-				classCount += 1;
-			}
-		}
-		if (classCount != 0) {
-			return this.getSummary().getLineCount() / classCount;
-		} else {
-			return 0;
-		}
+		return new AnalysisResultUtil(this).calClassSize();
 	}
 
 	public synchronized Collection<Relation> getRelations() {
