@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.config.PropertyConfigurator;
-import jdepend.framework.context.JDependContext;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.model.profile.model.AnalysisResultProfile;
 import jdepend.model.profile.model.AreaComponentProfile;
@@ -29,7 +28,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 
 	private void initDefaultScopes() {
 		scopes = new ArrayList<ProfileScope>();
-		scopes.add(new WorkspaceProfileScope(JDependContext.getWorkspacePath()));
+		scopes.add(new DefaultWorkspaceProfileScope());
 	}
 
 	public static ProfileScopeFacade getInstance() {

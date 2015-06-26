@@ -56,4 +56,35 @@ public abstract class AbstractProfileScope implements ProfileScope {
 
 	protected abstract boolean isSelf(String group, String command);
 
+	public AnalysisResultProfile getAnalysisResultProfile() {
+		return analysisResultProfile;
+	}
+
+	public void setAnalysisResultProfile(AnalysisResultProfile analysisResultProfile) {
+		this.analysisResultProfile = analysisResultProfile;
+	}
+
+	public AreaComponentProfile getAreaComponentProfile() {
+		return areaComponentProfile;
+	}
+
+	public void setAreaComponentProfile(AreaComponentProfile areaComponentProfile) {
+		this.areaComponentProfile = areaComponentProfile;
+	}
+
+	public ComponentProfile getComponentProfile() {
+		return componentProfile;
+	}
+
+	public void setComponentProfile(ComponentProfile componentProfile) {
+		this.componentProfile = componentProfile;
+	}
+
+	public JavaClassUnitProfile getJavaClassUnitProfile() {
+		return javaClassUnitProfile;
+	}
+
+	public void setJavaClassUnitProfile(JavaClassUnitProfile javaClassUnitProfile) {
+		this.javaClassUnitProfile = javaClassUnitProfile;
+	}
 }
