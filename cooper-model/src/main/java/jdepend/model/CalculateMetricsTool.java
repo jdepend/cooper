@@ -61,7 +61,7 @@ public final class CalculateMetricsTool {
 	 * 
 	 * 易变性
 	 */
-	float volatility() {
+	public float volatility() {
 		if (unit.getClassCount() > 0) {
 			int stability = 0;
 			for (JavaClassUnit javaClass : unit.getClasses()) {
@@ -78,7 +78,7 @@ public final class CalculateMetricsTool {
 	/**
 	 * 抽象性
 	 */
-	float abstractness() {
+	public float abstractness() {
 		if (unit.getClassCount() > 0) {
 			return (float) unit.getAbstractClassCount() / (float) unit.getClassCount();
 		}
