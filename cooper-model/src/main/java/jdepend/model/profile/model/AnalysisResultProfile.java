@@ -6,43 +6,43 @@ public class AnalysisResultProfile implements Serializable {
 
 	private static final long serialVersionUID = 4340413264825347906L;
 
-	private Float distance;
+	private float distance;
 
-	private Float balance;
+	private float balance;
 
-	private Float encapsulation;
+	private float encapsulation;
 
-	private Float relationRationality;
+	private float relationRationality;
 
-	public Float getDistance() {
+	public float getDistance() {
 		return distance;
 	}
 
-	public void setDistance(Float distance) {
+	public void setDistance(float distance) {
 		this.distance = distance;
 	}
 
-	public Float getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Float balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
-	public Float getEncapsulation() {
+	public float getEncapsulation() {
 		return encapsulation;
 	}
 
-	public void setEncapsulation(Float encapsulation) {
+	public void setEncapsulation(float encapsulation) {
 		this.encapsulation = encapsulation;
 	}
 
-	public Float getRelationRationality() {
+	public float getRelationRationality() {
 		return relationRationality;
 	}
 
-	public void setRelationRationality(Float relationRationality) {
+	public void setRelationRationality(float relationRationality) {
 		this.relationRationality = relationRationality;
 	}
 }
