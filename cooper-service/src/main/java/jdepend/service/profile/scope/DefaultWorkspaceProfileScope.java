@@ -1,6 +1,6 @@
 package jdepend.service.profile.scope;
 
-import jdepend.model.profile.model.AnalysisResultProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
 
 
 public class DefaultWorkspaceProfileScope extends WorkspaceProfileScope {
@@ -10,16 +10,6 @@ public class DefaultWorkspaceProfileScope extends WorkspaceProfileScope {
 	public DefaultWorkspaceProfileScope() {
 		super();
 		
-		AnalysisResultProfile analysisResultProfile = new AnalysisResultProfile(); 
-		
-		analysisResultProfile.setBalance(25F);
-		analysisResultProfile.setDistance(25F);
-		analysisResultProfile.setEncapsulation(25F);
-		analysisResultProfile.setRelationRationality(25F);
-		
-		this.setAnalysisResultProfile(analysisResultProfile);
-		
-		
-		
+		this.setAnalysisResultProfile(new DefaultAnalysisResultProfile());
 	}
 }

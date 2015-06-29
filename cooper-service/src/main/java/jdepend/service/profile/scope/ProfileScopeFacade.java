@@ -22,7 +22,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 	private ProfileScopeFacade() {
 		super("ProfileScopeFacade", "ProfileScopeFacade", PropertyConfigurator.DEFAULT_PROPERTY_DIR);
 
-		if (scopes == null) {
+		if (scopes == null || scopes.size() == 0) {
 			this.initDefaultScopes();
 		}
 	}
