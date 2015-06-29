@@ -171,7 +171,7 @@ public class CirclePanel extends JPanel implements IUserListGui {
 					return;
 				}
 				try {
-					byte[] resultData = result.getBytes();
+					byte[] resultData = result.sequence();
 					IpMsgService.sendResult(resultData, new String[] { currentIP });
 				} catch (Exception e1) {
 					e1.printStackTrace();

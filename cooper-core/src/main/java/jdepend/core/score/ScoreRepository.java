@@ -147,7 +147,7 @@ final class ScoreRepository {
 			String id = assemblePreparedStatement(ps, score);
 			ps.execute();
 
-			data = result.getBytes();
+			data = result.sequence();
 			ps = conn.prepareStatement(CreateScoreDataSQL);
 			ps.setString(1, id);
 			ps.setBytes(2, data);

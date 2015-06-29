@@ -121,7 +121,7 @@ public final class AnalysisResultRepository {
 
 			ps = conn.prepareStatement(CreateLocalResultDATASQL);
 			ps.setString(1, id);
-			ps.setBytes(2, result.getBytes());
+			ps.setBytes(2, result.sequence());
 			ps.execute();
 
 			LogUtil.getInstance(AnalysisResultRepository.class).systemLog(

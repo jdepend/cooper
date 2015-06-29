@@ -28,13 +28,14 @@ import jdepend.metadata.tree.JavaPackageTreeCreator;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.AreaComponent;
-import jdepend.model.CalculateMetricsTool;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Relation;
 import jdepend.model.area.AreaCreatorChain;
 import jdepend.model.component.MemoryComponent;
+import jdepend.model.profile.ProfileFacade;
+import jdepend.model.profile.ProfileFacadeMgr;
 import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
@@ -46,6 +47,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private List<Component> components;
 
 	private AnalysisRunningContext runningContext;
+
+	private ProfileFacade profileFacade;
 
 	private transient AnalysisResultSummary summary;
 
@@ -457,7 +460,12 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return new AnalysisResult(newComponents, this.runningContext);
 	}
 
-	public byte[] getBytes() throws IOException {
+	public byte[] sequence() throws IOException {
+		this.profileFacade = new SnapshootProfileFacadeImpl(ProfileFacadeMgr.getInstance().getProfileFacade());
+		return getBytes();
+	}
+
+	private byte[] getBytes() throws IOException {
 		if (this.data == null) {
 			ByteArrayOutputStream outstream = null;
 			GZIPOutputStream gzip = null;
@@ -497,7 +505,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			}
 		}
 		return this.data;
-
 	}
 
 	public static AnalysisResult create(byte[] data) throws IOException, ClassNotFoundException {

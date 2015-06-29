@@ -29,7 +29,7 @@ public class AnalysisResultExportUtil {
 				if (!fileName.endsWith(".cpr")) {
 					fileName += ".cpr";
 				}
-				FileUtil.saveFile(fileName, result.getBytes());
+				FileUtil.saveFile(fileName, result.sequence());
 				JOptionPane.showMessageDialog(frame, "导出分析结果成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				throw new JDependException("未存储结果信息");

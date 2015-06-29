@@ -26,6 +26,18 @@ public class SnapshootProfileFacadeImpl implements ProfileFacade, Serializable {
 
 	private JavaClassRelationItemProfile javaClassRelationItemProfile;
 
+	public SnapshootProfileFacadeImpl() {
+	}
+
+	public SnapshootProfileFacadeImpl(ProfileFacade profileFacade) {
+		this.analysisResultProfile = profileFacade.getAnalysisResultProfile();
+		this.areaComponentProfile = profileFacade.getAreaComponentProfile();
+		this.componentProfile = profileFacade.getComponentProfile();
+		this.relationProfile = profileFacade.getRelationProfile();
+		this.javaClassUnitProfile = profileFacade.getJavaClassUnitProfile();
+		this.javaClassRelationItemProfile = profileFacade.getJavaClassRelationItemProfile();
+	}
+
 	@Override
 	public AnalysisResultProfile getAnalysisResultProfile() {
 		return analysisResultProfile;
