@@ -7,6 +7,7 @@ import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.RelationProfile;
 
 public interface ProfileScope extends Serializable {
 
@@ -15,6 +16,8 @@ public interface ProfileScope extends Serializable {
 	public AreaComponentProfile getAreaComponentProfile(String group, String command);
 
 	public ComponentProfile getComponentProfile(String group, String command);
+	
+	public RelationProfile getRelationProfile(String group, String command);
 
 	public JavaClassUnitProfile getJavaClassUnitProfile(String group, String command);
 	

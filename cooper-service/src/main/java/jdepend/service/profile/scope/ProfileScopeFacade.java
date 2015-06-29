@@ -10,6 +10,7 @@ import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.RelationProfile;
 
 public class ProfileScopeFacade extends PersistentBean implements ProfileScope, ProfileScopeMgr {
 
@@ -50,12 +51,12 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 	@Override
 	public AnalysisResultProfile getAnalysisResultProfile(String group, String command) {
 
-		AnalysisResultProfile analysisResultProfile;
+		AnalysisResultProfile profile;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			analysisResultProfile = scope.getAnalysisResultProfile(group, command);
-			if (analysisResultProfile != null) {
-				return analysisResultProfile;
+			profile = scope.getAnalysisResultProfile(group, command);
+			if (profile != null) {
+				return profile;
 			}
 		}
 
@@ -64,12 +65,12 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 
 	@Override
 	public AreaComponentProfile getAreaComponentProfile(String group, String command) {
-		AreaComponentProfile areaComponentProfile;
+		AreaComponentProfile profile;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			areaComponentProfile = scope.getAreaComponentProfile(group, command);
-			if (areaComponentProfile != null) {
-				return areaComponentProfile;
+			profile = scope.getAreaComponentProfile(group, command);
+			if (profile != null) {
+				return profile;
 			}
 		}
 
@@ -78,12 +79,26 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 
 	@Override
 	public ComponentProfile getComponentProfile(String group, String command) {
-		ComponentProfile analysisResultProfile;
+		ComponentProfile profile;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			analysisResultProfile = scope.getComponentProfile(group, command);
-			if (analysisResultProfile != null) {
-				return analysisResultProfile;
+			profile = scope.getComponentProfile(group, command);
+			if (profile != null) {
+				return profile;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public RelationProfile getRelationProfile(String group, String command) {
+		RelationProfile profile;
+
+		for (ProfileScope scope : this.getProfileScope()) {
+			profile = scope.getRelationProfile(group, command);
+			if (profile != null) {
+				return profile;
 			}
 		}
 
@@ -92,12 +107,12 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 
 	@Override
 	public JavaClassUnitProfile getJavaClassUnitProfile(String group, String command) {
-		JavaClassUnitProfile javaClassUnitProfile;
+		JavaClassUnitProfile profile;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			javaClassUnitProfile = scope.getJavaClassUnitProfile(group, command);
-			if (javaClassUnitProfile != null) {
-				return javaClassUnitProfile;
+			profile = scope.getJavaClassUnitProfile(group, command);
+			if (profile != null) {
+				return profile;
 			}
 		}
 
@@ -106,12 +121,12 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 
 	@Override
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile(String group, String command) {
-		JavaClassRelationItemProfile javaClassRelationItemProfile;
+		JavaClassRelationItemProfile profile;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			javaClassRelationItemProfile = scope.getJavaClassRelationItemProfile(group, command);
-			if (javaClassRelationItemProfile != null) {
-				return javaClassRelationItemProfile;
+			profile = scope.getJavaClassRelationItemProfile(group, command);
+			if (profile != null) {
+				return profile;
 			}
 		}
 

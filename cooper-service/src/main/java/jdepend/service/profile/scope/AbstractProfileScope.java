@@ -5,6 +5,7 @@ import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.RelationProfile;
 
 public abstract class AbstractProfileScope implements ProfileScope {
 
@@ -13,6 +14,8 @@ public abstract class AbstractProfileScope implements ProfileScope {
 	private AreaComponentProfile areaComponentProfile;
 
 	private ComponentProfile componentProfile;
+	
+	private RelationProfile relationProfile;
 
 	private JavaClassUnitProfile javaClassUnitProfile;
 
@@ -42,6 +45,15 @@ public abstract class AbstractProfileScope implements ProfileScope {
 
 		if (this.isSelf(group, command)) {
 			return componentProfile;
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public RelationProfile getRelationProfile(String group, String command){
+		if (this.isSelf(group, command)) {
+			return relationProfile;
 		} else {
 			return null;
 		}

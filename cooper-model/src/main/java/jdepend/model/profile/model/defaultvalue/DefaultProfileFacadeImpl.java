@@ -6,6 +6,7 @@ import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.RelationProfile;
 
 public class DefaultProfileFacadeImpl implements ProfileFacade {
 
@@ -22,6 +23,12 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public ComponentProfile getComponentProfile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public RelationProfile getRelationProfile() {
 		// TODO Auto-generated method stub
 		return null;
 	}
