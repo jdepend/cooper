@@ -11,25 +11,33 @@ import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 
-public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
+public class ProfileScopeFacade extends PersistentBean implements ProfileScope, ProfileScopeMgr {
 
 	private static final long serialVersionUID = -3898728864369810803L;
 
 	private static ProfileScopeFacade facade;
 
-	private List<ProfileScope> scopes = new ArrayList<ProfileScope>();
+	private WorkspaceProfileScope workspaceScope;
+
+	private List<GroupProfileScope> groupScopes = new ArrayList<GroupProfileScope>();
+
+	private List<CommandProfileScope> commandScopes = new ArrayList<CommandProfileScope>();
 
 	private ProfileScopeFacade() {
 		super("ProfileScopeFacade", "ProfileScopeFacade", PropertyConfigurator.DEFAULT_PROPERTY_DIR);
 
-		if (scopes == null || scopes.size() == 0) {
+		if (!this.containSetting()) {
 			this.initDefaultScopes();
 		}
 	}
 
 	private void initDefaultScopes() {
-		scopes = new ArrayList<ProfileScope>();
-		scopes.add(new DefaultWorkspaceProfileScope());
+		workspaceScope = new DefaultWorkspaceProfileScope();
+	}
+
+	private boolean containSetting() {
+		return workspaceScope != null || groupScopes != null && groupScopes.size() > 0 || commandScopes != null
+				&& commandScopes.size() > 0;
 	}
 
 	public static ProfileScopeFacade getInstance() {
@@ -44,7 +52,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 
 		AnalysisResultProfile analysisResultProfile;
 
-		for (ProfileScope scope : scopes) {
+		for (ProfileScope scope : this.getProfileScope()) {
 			analysisResultProfile = scope.getAnalysisResultProfile(group, command);
 			if (analysisResultProfile != null) {
 				return analysisResultProfile;
@@ -58,7 +66,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 	public AreaComponentProfile getAreaComponentProfile(String group, String command) {
 		AreaComponentProfile areaComponentProfile;
 
-		for (ProfileScope scope : scopes) {
+		for (ProfileScope scope : this.getProfileScope()) {
 			areaComponentProfile = scope.getAreaComponentProfile(group, command);
 			if (areaComponentProfile != null) {
 				return areaComponentProfile;
@@ -72,7 +80,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 	public ComponentProfile getComponentProfile(String group, String command) {
 		ComponentProfile analysisResultProfile;
 
-		for (ProfileScope scope : scopes) {
+		for (ProfileScope scope : this.getProfileScope()) {
 			analysisResultProfile = scope.getComponentProfile(group, command);
 			if (analysisResultProfile != null) {
 				return analysisResultProfile;
@@ -86,7 +94,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 	public JavaClassUnitProfile getJavaClassUnitProfile(String group, String command) {
 		JavaClassUnitProfile javaClassUnitProfile;
 
-		for (ProfileScope scope : scopes) {
+		for (ProfileScope scope : this.getProfileScope()) {
 			javaClassUnitProfile = scope.getJavaClassUnitProfile(group, command);
 			if (javaClassUnitProfile != null) {
 				return javaClassUnitProfile;
@@ -100,7 +108,7 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile(String group, String command) {
 		JavaClassRelationItemProfile javaClassRelationItemProfile;
 
-		for (ProfileScope scope : scopes) {
+		for (ProfileScope scope : this.getProfileScope()) {
 			javaClassRelationItemProfile = scope.getJavaClassRelationItemProfile(group, command);
 			if (javaClassRelationItemProfile != null) {
 				return javaClassRelationItemProfile;
@@ -110,4 +118,61 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 		return null;
 	}
 
+	private List<ProfileScope> getProfileScope() {
+
+		List<ProfileScope> scopes = new ArrayList<ProfileScope>();
+		scopes.addAll(commandScopes);
+		scopes.addAll(groupScopes);
+		scopes.add(workspaceScope);
+
+		return scopes;
+	}
+
+	@Override
+	public WorkspaceProfileScope getWorkspaceProfileScope() {
+		return workspaceScope;
+	}
+
+	@Override
+	public void setWorkspaceProfileScope(WorkspaceProfileScope workspaceProfileScope) {
+		this.workspaceScope = workspaceProfileScope;
+	}
+
+	@Override
+	public GroupProfileScope getGroupProfileScope(String group) {
+		for (GroupProfileScope groupProfileScope : this.groupScopes) {
+			if (groupProfileScope.getGroup().equals(group)) {
+				return groupProfileScope;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void setGroupProfileScope(GroupProfileScope groupProfileScope) {
+
+		if (this.groupScopes.contains(groupProfileScope)) {
+			this.groupScopes.remove(groupProfileScope);
+		}
+		this.groupScopes.add(groupProfileScope);
+	}
+
+	@Override
+	public CommandProfileScope getCommandProfileScope(String group, String command) {
+		for (CommandProfileScope commandProfileScope : this.commandScopes) {
+			if (commandProfileScope.getGroup().equals(group) && commandProfileScope.getCommand().equals(command)) {
+				return commandProfileScope;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void setCommandProfileScope(CommandProfileScope commandProfileScope) {
+
+		if (this.commandScopes.contains(commandProfileScope)) {
+			this.commandScopes.remove(commandProfileScope);
+		}
+		this.commandScopes.add(commandProfileScope);
+	}
 }
