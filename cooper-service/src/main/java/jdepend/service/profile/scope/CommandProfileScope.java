@@ -1,4 +1,4 @@
-package jdepend.model.profile.scope;
+package jdepend.service.profile.scope;
 
 public class CommandProfileScope extends AbstractProfileScope {
 

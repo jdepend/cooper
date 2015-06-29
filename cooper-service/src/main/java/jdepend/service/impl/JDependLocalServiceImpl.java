@@ -12,6 +12,7 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.profile.ProfileFacadeMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.parse.BuildListener;
@@ -25,6 +26,7 @@ import jdepend.service.ServiceException;
 import jdepend.service.avertcheat.framework.AvertCheat;
 import jdepend.service.avertcheat.framework.AvertCheatMgr;
 import jdepend.service.config.ServiceConfigurator;
+import jdepend.service.profile.ProfileFacadeImpl;
 
 public final class JDependLocalServiceImpl implements JDependLocalService {
 
@@ -70,6 +72,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 			initServiceContext();
 			// 创建运行上下文
 			AnalysisRunningContext context = this.createRunningContext();
+			//设置Profile
+			ProfileFacadeMgr.getInstance().setProfileFacade(new ProfileFacadeImpl(group, command));
 			// 启动防作弊器
 			startAvertCheat(context);
 			// 调用解析服务

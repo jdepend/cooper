@@ -1,8 +1,9 @@
-package jdepend.model.profile.scope;
+package jdepend.service.profile.scope;
 
 import jdepend.model.profile.model.AnalysisResultProfile;
 import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
+import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 
 public abstract class AbstractProfileScope implements ProfileScope {
@@ -14,6 +15,8 @@ public abstract class AbstractProfileScope implements ProfileScope {
 	private ComponentProfile componentProfile;
 
 	private JavaClassUnitProfile javaClassUnitProfile;
+
+	private JavaClassRelationItemProfile javaClassRelationItemProfile;
 
 	@Override
 	public AnalysisResultProfile getAnalysisResultProfile(String group, String command) {
@@ -54,6 +57,16 @@ public abstract class AbstractProfileScope implements ProfileScope {
 		}
 	}
 
+	@Override
+	public JavaClassRelationItemProfile getJavaClassRelationItemProfile(String group, String command) {
+
+		if (this.isSelf(group, command)) {
+			return javaClassRelationItemProfile;
+		} else {
+			return null;
+		}
+	}
+
 	protected abstract boolean isSelf(String group, String command);
 
 	public AnalysisResultProfile getAnalysisResultProfile() {
@@ -86,5 +99,9 @@ public abstract class AbstractProfileScope implements ProfileScope {
 
 	public void setJavaClassUnitProfile(JavaClassUnitProfile javaClassUnitProfile) {
 		this.javaClassUnitProfile = javaClassUnitProfile;
+	}
+
+	public void setJavaClassRelationItemProfile(JavaClassRelationItemProfile javaClassRelationItemProfile) {
+		this.javaClassRelationItemProfile = javaClassRelationItemProfile;
 	}
 }

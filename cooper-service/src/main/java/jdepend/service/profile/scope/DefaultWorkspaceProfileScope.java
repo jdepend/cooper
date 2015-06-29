@@ -1,4 +1,4 @@
-package jdepend.model.profile.scope;
+package jdepend.service.profile.scope;
 
 import jdepend.model.profile.model.AnalysisResultProfile;
 

@@ -1,4 +1,4 @@
-package jdepend.model.profile.scope;
+package jdepend.service.profile.scope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import jdepend.framework.domain.PersistentBean;
 import jdepend.model.profile.model.AnalysisResultProfile;
 import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
+import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 
 public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
@@ -89,6 +90,20 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope {
 			javaClassUnitProfile = scope.getJavaClassUnitProfile(group, command);
 			if (javaClassUnitProfile != null) {
 				return javaClassUnitProfile;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public JavaClassRelationItemProfile getJavaClassRelationItemProfile(String group, String command) {
+		JavaClassRelationItemProfile javaClassRelationItemProfile;
+
+		for (ProfileScope scope : scopes) {
+			javaClassRelationItemProfile = scope.getJavaClassRelationItemProfile(group, command);
+			if (javaClassRelationItemProfile != null) {
+				return javaClassRelationItemProfile;
 			}
 		}
 
