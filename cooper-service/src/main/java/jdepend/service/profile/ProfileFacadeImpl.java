@@ -6,6 +6,7 @@ import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.RelationProfile;
 import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class ProfileFacadeImpl implements ProfileFacade {
@@ -33,6 +34,11 @@ public class ProfileFacadeImpl implements ProfileFacade {
 	@Override
 	public ComponentProfile getComponentProfile() {
 		return ProfileScopeFacade.getInstance().getComponentProfile(group, command);
+	}
+
+	@Override
+	public RelationProfile getRelationProfile() {
+		return ProfileScopeFacade.getInstance().getRelationProfile(group, command);
 	}
 
 	@Override
