@@ -10,7 +10,7 @@ public class InheritRelation extends BaseJavaClassRelationType {
 	private static final long serialVersionUID = 6683354612788682609L;
 
 	public InheritRelation(float intensity) {
-		super(JavaClassRelationTypeMgr.Inherit, intensity);
+		super(JavaClassRelationTypes.Inherit, intensity);
 	}
 
 	public float getRationality(JavaClass target, JavaClass source, String direction) {

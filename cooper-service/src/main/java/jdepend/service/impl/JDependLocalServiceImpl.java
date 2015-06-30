@@ -47,16 +47,17 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	private ArrayList<AnalyseListener> listeners = new ArrayList<AnalyseListener>();
 
 	public JDependLocalServiceImpl(String groupName, String commandName) {
-		this(groupName, commandName, new ParseConfigurator());
+		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator());
 	}
 
-	private JDependLocalServiceImpl(String groupName, String commandName, ParseConfigurator parseConf) {
+	private JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
+			ParseConfigurator parseConf) {
 		this.group = groupName;
 		this.command = commandName;
 		parse = new Parse(parseConf);
 		component = Component.getDefaultComponent();
+		this.serviceConf = serviceConf;
 		this.parseConf = parseConf;
-		this.serviceConf = new ServiceConfigurator();
 	}
 
 	/*
@@ -72,7 +73,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 			initServiceContext();
 			// 创建运行上下文
 			AnalysisRunningContext context = this.createRunningContext();
-			//设置Profile
+			// 设置Profile
 			ProfileFacadeMgr.getInstance().setProfileFacade(new ProfileFacadeImpl(group, command));
 			// 启动防作弊器
 			startAvertCheat(context);

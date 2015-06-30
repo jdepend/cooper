@@ -18,7 +18,7 @@ import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaClassRelationType;
 import jdepend.metadata.Method;
 import jdepend.metadata.TableInfo;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.relationtype.JavaClassRelationTypes;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.parse.ParseConfigurator;
 
@@ -71,7 +71,7 @@ public class JavaClassRelationCreator {
 
 		this.init(javaClasses);
 
-		final JavaClassRelationTypeMgr mgr = JavaClassRelationTypeMgr.getInstance();
+		final JavaClassRelationTypes javaClassRelationTypes = this.conf.getJavaClassRelationTypes();
 		final Collection<String> createRelationTypes = this.conf.getCreateRelationTypes();
 
 		ExecutorService pool = ThreadPool.getPool();
@@ -89,20 +89,22 @@ public class JavaClassRelationCreator {
 						if (javaClass.isInner()) {
 							LogUtil.getInstance(JavaClassRelationCreator.class).systemLog(
 									"开始建立Class的关系:" + javaClass.getName());
-							
+
 							info = javaClass.getDetail();
 							// 处理父类
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)) {
+							if (createRelationTypes.contains(JavaClassRelationTypes.Inherit)) {
 								if (info.getSuperClass() != null) {
-									setDependInfo(javaClass, info.getSuperClass(), mgr.getInheritRelation());
+									setDependInfo(javaClass, info.getSuperClass(),
+											javaClassRelationTypes.getInheritRelation());
 								}
 							}
 
 							// 处理接口
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Inherit)
+							if (createRelationTypes.contains(JavaClassRelationTypes.Inherit)
 									&& info.getInterfaceNames().size() != 0) {
 								for (JavaClass interfaceClass : info.getInterfaces()) {
-									setDependInfo(javaClass, interfaceClass, mgr.getInheritRelation());
+									setDependInfo(javaClass, interfaceClass,
+											javaClassRelationTypes.getInheritRelation());
 								}
 							}
 
@@ -117,53 +119,56 @@ public class JavaClassRelationCreator {
 								}
 							}
 							// 2.建立包含或者调用关系
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Field)
+							if (createRelationTypes.contains(JavaClassRelationTypes.Field)
 									&& info.getAttributeClasses().size() != 0) {
 								for (JavaClass attributeClass : info.getAttributeClasses()) {
 									// 分析该属性是包含关系还是调用关系
 									if (returnTypes.contains(attributeClass.getName())) {
-										setDependInfo(javaClass, attributeClass, mgr.getFieldRelation());
+										setDependInfo(javaClass, attributeClass,
+												javaClassRelationTypes.getFieldRelation());
 									} else {
-										setDependInfo(javaClass, attributeClass, mgr.getVariableRelation());
+										setDependInfo(javaClass, attributeClass,
+												javaClassRelationTypes.getVariableRelation());
 									}
 								}
 							}
 
 							// 处理参数
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Param)
+							if (createRelationTypes.contains(JavaClassRelationTypes.Param)
 									&& info.getParamTypes().size() != 0) {
 								for (String paramType : info.getParamTypes()) {
 									dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), paramType);
-									setDependInfo(javaClass, dependJavaClass, mgr.getParamRelation());
+									setDependInfo(javaClass, dependJavaClass, javaClassRelationTypes.getParamRelation());
 								}
 							}
 
 							// 处理变量
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Variable)
+							if (createRelationTypes.contains(JavaClassRelationTypes.Variable)
 									&& info.getVariableTypes().size() != 0) {
 								for (String variableType : info.getVariableTypes()) {
 									dependJavaClass = javaClasses.getTheClass(javaClass.getPlace(), variableType);
-									setDependInfo(javaClass, dependJavaClass, mgr.getVariableRelation());
+									setDependInfo(javaClass, dependJavaClass,
+											javaClassRelationTypes.getVariableRelation());
 								}
 							}
 							// 处理Table关系
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Table)
+							if (createRelationTypes.contains(JavaClassRelationTypes.Table)
 									&& info.getTables().size() != 0) {
 								for (TableInfo tableInfo : info.getTables()) {
 									if (!tableInfo.isDefine()) {
 										// 判断是否忽略指定表的关系建立
-										if (!JavaClassRelationTypeMgr.getInstance().isIgnoreTableInfo(tableInfo)) {
+										if (!javaClassRelationTypes.isIgnoreTableInfo(tableInfo)) {
 											List<JavaClass> dependJavaClasses = getWriteAndDefineToTableClasses(tableInfo);
 											for (JavaClass dependJavaClass1 : dependJavaClasses) {
-												setDependInfo(javaClass, dependJavaClass1, mgr.getTableRelation()
-														.clone(tableInfo.getTableName()));
+												setDependInfo(javaClass, dependJavaClass1, javaClassRelationTypes
+														.getTableRelation().clone(tableInfo.getTableName()));
 											}
 										}
 									}
 								}
 							}
 							// 处理Http调用
-							if (createRelationTypes.contains(JavaClassRelationTypeMgr.Http) && info.isHttpCaller()) {
+							if (createRelationTypes.contains(JavaClassRelationTypes.Http) && info.isHttpCaller()) {
 								// 收集Http调用的类集合
 								Collection<JavaClass> dependClasses = new HashSet<JavaClass>();
 								for (Method method : javaClass.getSelfMethods()) {
@@ -177,7 +182,7 @@ public class JavaClassRelationCreator {
 								}
 								// 建立Http类关系
 								for (JavaClass dependClass : dependClasses) {
-									setDependInfo(javaClass, dependClass, mgr.getHttpRelation());
+									setDependInfo(javaClass, dependClass, javaClassRelationTypes.getHttpRelation());
 								}
 							}
 						}

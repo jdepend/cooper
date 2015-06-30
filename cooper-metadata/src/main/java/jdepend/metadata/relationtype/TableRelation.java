@@ -10,7 +10,7 @@ public class TableRelation extends BaseJavaClassRelationType {
 	private String tableName;
 
 	public TableRelation(float intensity) {
-		super(JavaClassRelationTypeMgr.Table, intensity);
+		super(JavaClassRelationTypes.Table, intensity);
 	}
 
 	public String getTableName() {

@@ -14,6 +14,7 @@ import java.util.Properties;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.relationtype.JavaClassRelationTypes;
 import jdepend.parse.impl.FilteredPackageConfigurator;
 import jdepend.parse.impl.PackageFilter;
 
@@ -33,10 +34,14 @@ public class ParseConfigurator {
 
 	private PackageFilter packageFilter;
 
+	private JavaClassRelationTypes javaClassRelationTypes;
+
 	public ParseConfigurator() {
 		this(getDefaultPropertyFile());
 		// 装载全局过滤包列表
 		this.packageFilter = (new FilteredPackageConfigurator()).getPackageFilter();
+
+		this.javaClassRelationTypes = JavaClassRelationTypeMgr.getInstance().getJavaClassRelationTypes();
 	}
 
 	private ParseConfigurator(Properties p) {
@@ -94,17 +99,28 @@ public class ParseConfigurator {
 		return null;
 	}
 
+	public String[] getHttpInvokeClassNames() {
+
+		String key = "httpInvokeClassNames";
+		if (properties.containsKey(key)) {
+			String value = properties.getProperty(key);
+			return value.split(",");
+		}
+
+		return null;
+	}
+
 	public Collection<String> getCreateRelationTypes() {
 
 		Collection<String> relationTypes = new HashSet<String>();
 
 		List<String> allRelationTypes = new ArrayList<String>();
-		allRelationTypes.add(JavaClassRelationTypeMgr.Inherit);
-		allRelationTypes.add(JavaClassRelationTypeMgr.Field);
-		allRelationTypes.add(JavaClassRelationTypeMgr.Param);
-		allRelationTypes.add(JavaClassRelationTypeMgr.Variable);
-		allRelationTypes.add(JavaClassRelationTypeMgr.Table);
-		allRelationTypes.add(JavaClassRelationTypeMgr.Http);
+		allRelationTypes.add(JavaClassRelationTypes.Inherit);
+		allRelationTypes.add(JavaClassRelationTypes.Field);
+		allRelationTypes.add(JavaClassRelationTypes.Param);
+		allRelationTypes.add(JavaClassRelationTypes.Variable);
+		allRelationTypes.add(JavaClassRelationTypes.Table);
+		allRelationTypes.add(JavaClassRelationTypes.Http);
 
 		for (String relationType : allRelationTypes) {
 			if (properties.containsKey(relationType)) {
@@ -120,15 +136,8 @@ public class ParseConfigurator {
 
 	}
 
-	public String[] getHttpInvokeClassNames() {
-
-		String key = "httpInvokeClassNames";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return value.split(",");
-		}
-
-		return null;
+	public JavaClassRelationTypes getJavaClassRelationTypes() {
+		return javaClassRelationTypes;
 	}
 
 	public static File getDefaultPropertyFile() {

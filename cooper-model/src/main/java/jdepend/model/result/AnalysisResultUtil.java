@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.relationtype.TableRelation;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.Relation;
 import jdepend.model.util.JavaClassUnitUtil;
@@ -35,7 +35,7 @@ public class AnalysisResultUtil {
 			for (JavaClassUnit javaClass : javaClasses) {
 				for (JavaClassRelationItem item : javaClass.getJavaClass().getCeItems()) {
 					if (!JavaClassUnitUtil.isInner(item, result)) {
-						if (item.getType().equals(JavaClassRelationTypeMgr.getInstance().getTableRelation())) {
+						if (item.getType() instanceof TableRelation) {
 							tableRelations += 1;
 						}
 						relations += 1;

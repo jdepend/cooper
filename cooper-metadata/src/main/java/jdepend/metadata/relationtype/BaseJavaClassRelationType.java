@@ -5,11 +5,6 @@ import jdepend.metadata.JavaClassRelationType;
 
 public abstract class BaseJavaClassRelationType implements JavaClassRelationType {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5670515208747517988L;
-
 	private String name;
 
 	private float intensity = 0F;
