@@ -93,6 +93,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 
 			this.types.put(type.getName(), type);
 		}
+		this.clear();
 	}
 
 	public Collection<String> getIgnoreTables() {
@@ -101,6 +102,7 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 
 	public void setIgnoreTables(Collection<String> ignoreTables) {
 		this.ignoreTables = ignoreTables;
+		this.clear();
 	}
 
 	public boolean getIgnoreTable() {
@@ -109,5 +111,10 @@ public class JavaClassRelationTypeMgr extends PersistentBean {
 
 	public void setIgnoreTable(boolean ignoreTable) {
 		this.ignoreTable = ignoreTable;
+		this.clear();
+	}
+
+	private void clear() {
+		this.javaClassRelationTypes = null;
 	}
 }
