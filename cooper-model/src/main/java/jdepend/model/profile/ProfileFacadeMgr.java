@@ -12,7 +12,7 @@ public class ProfileFacadeMgr {
 		profileFacade = new DefaultProfileFacadeImpl();
 	}
 
-	public static ProfileFacadeMgr getInstance() {
+	private static ProfileFacadeMgr getInstance() {
 		return mgr;
 	}
 

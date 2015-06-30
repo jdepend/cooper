@@ -252,19 +252,19 @@ public final class ScorePanel extends SubResultTabPanel {
 		fullScore.setForeground(new java.awt.Color(204, 204, 204));
 		if (itemName.equals(AnalysisResult.Metrics_TotalScore)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.FullScore);
+					+ result.getFullScore());
 		} else if (itemName.equals(AnalysisResult.Metrics_RelationRationality)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.RelationRationality);
+					+ result.getRelationRationalityScale());
 		} else if (itemName.equals(AnalysisResult.Metrics_D)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.Distance);
+					+ result.getDistanceScale());
 		} else if (itemName.equals(AnalysisResult.Metrics_Balance)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.Balance);
+					+ result.getBalanceScale());
 		} else if (itemName.equals(AnalysisResult.Metrics_Encapsulation)) {
 			fullScore.setText(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_FullScore) + ":"
-					+ AnalysisResultScored.Encapsulation);
+					+ result.getEncapsulationScale());
 		}
 
 		scorePanel.add(fullScore);
@@ -567,10 +567,10 @@ public final class ScorePanel extends SubResultTabPanel {
 			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_D));
 			item.setType(GraphDataItem.PIE);
 			datas = new HashMap<Object, Object>();
-			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getDistance()
-					/ AnalysisResult.Distance);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
+					this.result.getDistance() / result.getDistanceScale());
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-					1F - this.result.getDistance() / AnalysisResult.Distance);
+					1F - this.result.getDistance() / result.getDistanceScale());
 			item.setDatas(datas);
 			graph.addItem(item);
 		}
@@ -580,10 +580,10 @@ public final class ScorePanel extends SubResultTabPanel {
 			item.setTitle(BundleUtil.getString(BundleUtil.Metrics_Balance));
 			item.setType(GraphDataItem.PIE);
 			datas = new HashMap<Object, Object>();
-			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getBalance()
-					/ AnalysisResult.Balance);
+			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score),
+					this.result.getBalance() / result.getBalanceScale());
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-					1F - this.result.getBalance() / AnalysisResult.Balance);
+					1F - this.result.getBalance() / result.getBalanceScale());
 			item.setDatas(datas);
 			graph.addItem(item);
 		}
@@ -594,9 +594,9 @@ public final class ScorePanel extends SubResultTabPanel {
 			item.setType(GraphDataItem.PIE);
 			datas = new HashMap<Object, Object>();
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getEncapsulation()
-					/ AnalysisResult.Encapsulation);
+					/ result.getEncapsulationScale());
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-					1F - this.result.getEncapsulation() / AnalysisResult.Encapsulation);
+					1F - this.result.getEncapsulation() / result.getEncapsulationScale());
 			item.setDatas(datas);
 			graph.addItem(item);
 		}
@@ -607,9 +607,9 @@ public final class ScorePanel extends SubResultTabPanel {
 			item.setType(GraphDataItem.PIE);
 			datas = new HashMap<Object, Object>();
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_Score), this.result.getRelationRationality()
-					/ AnalysisResult.RelationRationality);
+					/ result.getRelationRationalityScale());
 			datas.put(BundleUtil.getString(BundleUtil.ClientWin_ScorePanel_ScoreDifference),
-					1F - this.result.getRelationRationality() / AnalysisResult.RelationRationality);
+					1F - this.result.getRelationRationality() / result.getRelationRationalityScale());
 			item.setDatas(datas);
 			graph.addItem(item);
 		}

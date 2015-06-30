@@ -12,9 +12,10 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.profile.ProfileFacadeMgr;
+import jdepend.model.profile.ProfileFacade;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
+import jdepend.model.result.SnapshootProfileFacadeImpl;
 import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
@@ -38,26 +39,30 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 	private Component component;// 组织分析单元的Component
 
+	private ServiceConfigurator serviceConf;
+
 	private ParseConfigurator parseConf;
 
-	private ServiceConfigurator serviceConf;
+	private ProfileFacade profileFacade;
 
 	private AnalyseContext context;
 
 	private ArrayList<AnalyseListener> listeners = new ArrayList<AnalyseListener>();
 
 	public JDependLocalServiceImpl(String groupName, String commandName) {
-		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator());
+		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator(),
+				new SnapshootProfileFacadeImpl(new ProfileFacadeImpl(groupName, commandName)));
 	}
 
 	private JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
-			ParseConfigurator parseConf) {
+			ParseConfigurator parseConf, ProfileFacade profileFacade) {
 		this.group = groupName;
 		this.command = commandName;
 		parse = new Parse(parseConf);
 		component = Component.getDefaultComponent();
 		this.serviceConf = serviceConf;
 		this.parseConf = parseConf;
+		this.profileFacade = profileFacade;
 	}
 
 	/*
@@ -73,8 +78,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 			initServiceContext();
 			// 创建运行上下文
 			AnalysisRunningContext context = this.createRunningContext();
-			// 设置Profile
-			ProfileFacadeMgr.getInstance().setProfileFacade(new ProfileFacadeImpl(group, command));
 			// 启动防作弊器
 			startAvertCheat(context);
 			// 调用解析服务
@@ -122,7 +125,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
 				.enableAbstractClassCountQualificationConfirmer());
 		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
-
+		context.setProfileFacade(profileFacade);
+		
 		context.setLocalRunning(context.isLocalRunning());
 		context.setClient(context.getClient());
 		context.setUserName(context.getUserName());

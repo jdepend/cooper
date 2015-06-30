@@ -2,16 +2,8 @@ package jdepend.model.result;
 
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.Scored;
-import jdepend.model.profile.ProfileFacadeMgr;
-import jdepend.model.profile.model.AnalysisResultProfile;
 
 public abstract class AnalysisResultScored implements Scored {
-
-	public static final float FullScore = 100F;// 满分
-	public static float Distance;// 抽象程度合理性得分比例
-	public static float Balance;// 内聚性得分比例
-	public static float Encapsulation;// 封装性得分比例
-	public static float RelationRationality;// 关系合理性得分比例
 
 	private transient Float distance = null;// 抽象程度合理性
 	private transient Float balance = null;// 内聚性
@@ -22,16 +14,6 @@ public abstract class AnalysisResultScored implements Scored {
 	private transient boolean balanceCal = false;// 内聚性
 	private transient boolean encapsulationCal = false;// 组件封装性
 	private transient boolean relationRationalityCal = false;// 关系合理性
-
-	static {
-		AnalysisResultProfile analysisResultProfile = ProfileFacadeMgr.getInstance().getProfileFacade()
-				.getAnalysisResultProfile();
-
-		Distance = analysisResultProfile.getDistance();
-		Balance = analysisResultProfile.getBalance();
-		Encapsulation = analysisResultProfile.getEncapsulation();
-		RelationRationality = analysisResultProfile.getRelationRationality();
-	}
 
 	/**
 	 * 得到抽象程度合理性得分
@@ -45,7 +27,7 @@ public abstract class AnalysisResultScored implements Scored {
 			if (distanceSummary == null) {
 				this.distance = null;
 			} else {
-				this.distance = MetricsFormat.toFormattedScore((1 - distanceSummary) * Distance);
+				this.distance = MetricsFormat.toFormattedScore((1 - distanceSummary) * this.getDistanceScale());
 			}
 			this.distanceCal = true;
 		}
@@ -64,7 +46,7 @@ public abstract class AnalysisResultScored implements Scored {
 			if (balanceSummary == null) {
 				balance = null;
 			} else {
-				balance = MetricsFormat.toFormattedScore(balanceSummary * Balance);
+				balance = MetricsFormat.toFormattedScore(balanceSummary * this.getBalanceScale());
 			}
 			this.balanceCal = true;
 		}
@@ -83,7 +65,8 @@ public abstract class AnalysisResultScored implements Scored {
 			if (encapsulationSummary == null) {
 				this.encapsulation = null;
 			} else {
-				this.encapsulation = MetricsFormat.toFormattedMetrics(encapsulationSummary * Encapsulation);
+				this.encapsulation = MetricsFormat.toFormattedMetrics(encapsulationSummary
+						* this.getEncapsulationScale());
 			}
 			this.encapsulationCal = true;
 		}
@@ -103,7 +86,7 @@ public abstract class AnalysisResultScored implements Scored {
 				this.relationRationality = null;
 			} else {
 				this.relationRationality = MetricsFormat.toFormattedScore((1 - this.calAttentionRelation())
-						* RelationRationality);
+						* this.getRelationRationalityScale());
 			}
 			this.relationRationalityCal = true;
 		}
@@ -140,5 +123,18 @@ public abstract class AnalysisResultScored implements Scored {
 	protected abstract boolean hasRelation();
 
 	protected abstract float calAttentionRelation();
+
+	public abstract float getDistanceScale();
+
+	public abstract float getBalanceScale();
+
+	public abstract float getEncapsulationScale();
+
+	public abstract float getRelationRationalityScale();
+
+	public float getFullScore() {
+		return this.getDistanceScale() + this.getBalanceScale() + this.getEncapsulationScale()
+				+ this.getRelationRationalityScale();
+	}
 
 }

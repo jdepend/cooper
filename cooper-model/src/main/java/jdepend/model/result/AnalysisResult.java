@@ -34,8 +34,6 @@ import jdepend.model.JavaClassUnit;
 import jdepend.model.Relation;
 import jdepend.model.area.AreaCreatorChain;
 import jdepend.model.component.MemoryComponent;
-import jdepend.model.profile.ProfileFacade;
-import jdepend.model.profile.ProfileFacadeMgr;
 import jdepend.model.util.CopyUtil;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
@@ -47,8 +45,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	private List<Component> components;
 
 	private AnalysisRunningContext runningContext;
-
-	private ProfileFacade profileFacade;
 
 	private transient AnalysisResultSummary summary;
 
@@ -461,7 +457,6 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public byte[] sequence() throws IOException {
-		this.profileFacade = new SnapshootProfileFacadeImpl(ProfileFacadeMgr.getInstance().getProfileFacade());
 		return getBytes();
 	}
 
@@ -598,13 +593,13 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		scoreInfo.append(this.getScore());
 		scoreInfo.append("(抽象程度合理性得分：");
 		scoreInfo.append(this.getDistance());
-		scoreInfo.append("【满分：" + AnalysisResultScored.Distance + "】 内聚性得分：");
+		scoreInfo.append("【满分：" + this.getDistanceScale() + "】 内聚性得分：");
 		scoreInfo.append(this.getBalance());
-		scoreInfo.append("【满分：" + AnalysisResultScored.Balance + "】 内聚性得分：】封装性得分：");
+		scoreInfo.append("【满分：" + this.getBalanceScale() + "】 内聚性得分：】封装性得分：");
 		scoreInfo.append(this.getEncapsulation());
-		scoreInfo.append("【满分：" + AnalysisResultScored.Encapsulation + "】 关系合理性得分：");
+		scoreInfo.append("【满分：" + this.getEncapsulationScale() + "】 关系合理性得分：");
 		scoreInfo.append(this.getRelationRationality());
-		scoreInfo.append("【满分：" + AnalysisResultScored.RelationRationality + "】)\n");
+		scoreInfo.append("【满分：" + this.getRelationRationalityScale() + "】)\n");
 
 		return scoreInfo;
 
@@ -715,5 +710,25 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 			}
 		}
 
+	}
+
+	@Override
+	public float getDistanceScale() {
+		return this.runningContext.getProfileFacade().getAnalysisResultProfile().getDistance();
+	}
+
+	@Override
+	public float getBalanceScale() {
+		return this.runningContext.getProfileFacade().getAnalysisResultProfile().getBalance();
+	}
+
+	@Override
+	public float getEncapsulationScale() {
+		return this.runningContext.getProfileFacade().getAnalysisResultProfile().getEncapsulation();
+	}
+
+	@Override
+	public float getRelationRationalityScale() {
+		return this.runningContext.getProfileFacade().getAnalysisResultProfile().getRelationRationality();
 	}
 }

@@ -15,6 +15,7 @@ import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.Component;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
+import jdepend.model.profile.ProfileFacade;
 
 /**
  * 一次解析执行的上下文信息
@@ -52,6 +53,8 @@ public final class AnalysisRunningContext implements Serializable {
 	private boolean isCalJavaClassCycle = true;
 
 	private boolean isLocalRunning = true;
+	
+	private ProfileFacade profileFacade;
 
 	private transient Map<String, String> diffElements;
 
@@ -143,6 +146,14 @@ public final class AnalysisRunningContext implements Serializable {
 
 	public void setComponent(Component component) {
 		this.component = component;
+	}
+	
+	public ProfileFacade getProfileFacade() {
+		return profileFacade;
+	}
+
+	public void setProfileFacade(ProfileFacade profileFacade) {
+		this.profileFacade = profileFacade;
 	}
 
 	public Date getAnalyseDate() {
