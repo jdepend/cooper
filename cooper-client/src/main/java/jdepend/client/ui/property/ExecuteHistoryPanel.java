@@ -35,6 +35,7 @@ import jdepend.knowledge.database.ExecuteResultSummry;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisResultListener;
+import jdepend.service.config.ServiceConfigurator;
 import jdepend.util.refactor.AdjustHistory;
 
 public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListener, AnalysisResultListener {
@@ -376,9 +377,10 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 
 	@Override
 	public void onExecuted(AnalysisResult result) throws JDependException {
+
+		ServiceConfigurator serviceConf = new ServiceConfigurator();
 		// 保存执行结果
-		if (result.getRunningContext().getGroup() != null && result.getRunningContext().getCommand() != null
-				&& result.getRunningContext().isSaveResult()) {
+		if (serviceConf.isSaveResult()) {
 			AnalysisResultRepository.save(result);
 		}
 	}

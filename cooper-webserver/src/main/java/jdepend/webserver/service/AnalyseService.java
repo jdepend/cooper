@@ -60,9 +60,7 @@ public class AnalyseService {
 		result.getRunningContext().setPath(data.getPath());
 
 		// 保存分析结果
-		if (result.getRunningContext().isSaveResult()) {
-			AnalysisResultRepository.save(result);
-		}
+		AnalysisResultRepository.save(result);
 
 		return result;
 	}

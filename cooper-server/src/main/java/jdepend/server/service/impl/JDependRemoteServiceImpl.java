@@ -60,9 +60,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			// 分析服务
 			AnalysisResult result = localService.analyze();
 			// 保存分析结果
-			if (result.getRunningContext().isSaveResult()) {
-				AnalysisResultRepository.save(result);
-			}
+			AnalysisResultRepository.save(result);
 			// 返回结果
 			return result;
 		} catch (Exception e) {

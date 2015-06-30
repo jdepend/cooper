@@ -53,8 +53,6 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private boolean isLocalRunning = true;
 
-	private boolean isSaveResult = true;
-
 	private transient Map<String, String> diffElements;
 
 	private transient Collection<JavaClass> javaClasses;
@@ -113,14 +111,6 @@ public final class AnalysisRunningContext implements Serializable {
 
 	public void setCalJavaClassCycle(boolean isCalJavaClassCycle) {
 		this.isCalJavaClassCycle = isCalJavaClassCycle;
-	}
-
-	public boolean isSaveResult() {
-		return isSaveResult;
-	}
-
-	public void setSaveResult(boolean isSaveResult) {
-		this.isSaveResult = isSaveResult;
 	}
 
 	public boolean isLocalRunning() {

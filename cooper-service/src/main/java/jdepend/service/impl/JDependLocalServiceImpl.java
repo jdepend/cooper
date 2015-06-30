@@ -122,7 +122,6 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
 				.enableAbstractClassCountQualificationConfirmer());
 		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
-		context.setSaveResult(serviceConf.isSaveResult());
 
 		context.setLocalRunning(context.isLocalRunning());
 		context.setClient(context.getClient());
