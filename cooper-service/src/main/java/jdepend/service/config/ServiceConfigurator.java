@@ -9,9 +9,6 @@ import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
-import jdepend.model.profile.ProfileFacade;
-import jdepend.model.profile.ProfileFacadeMgr;
-import jdepend.model.result.SnapshootProfileFacadeImpl;
 
 /**
  * 服务配置信息
