@@ -1,5 +1,8 @@
 package jdepend.parse.impl;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,7 +20,9 @@ import java.util.Map;
  * 
  */
 
-public class PackageFilter {
+public class PackageFilter implements Serializable {
+
+	private static final long serialVersionUID = 3937389131772119374L;
 
 	private Collection<String> filtered = new ArrayList<String>();
 	private Collection<String> notFiltered = new ArrayList<String>();
@@ -101,5 +106,10 @@ public class PackageFilter {
 
 	public void setClassNames(Collection<String> classNames) {
 		this.classNames = classNames;
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		ois.defaultReadObject();
+		histroy = new HashMap<String, Boolean>();
 	}
 }

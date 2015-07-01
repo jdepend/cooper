@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,7 +25,9 @@ import jdepend.parse.impl.PackageFilter;
  * @author wangdg
  * 
  */
-public class ParseConfigurator {
+public class ParseConfigurator implements Serializable{
+
+	private static final long serialVersionUID = 279725338071328382L;
 
 	private Properties properties;
 

@@ -8,6 +8,11 @@ import java.util.List;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.model.Component;
+import jdepend.model.profile.ProfileFacade;
+import jdepend.model.result.SnapshootProfileFacadeImpl;
+import jdepend.parse.ParseConfigurator;
+import jdepend.service.config.ServiceConfigurator;
+import jdepend.service.profile.ProfileFacadeImpl;
 
 /**
  * 分析数据
@@ -24,6 +29,23 @@ public class AnalyseDataDTO implements Serializable {
 	private Component component;
 
 	private List<String> filteredPackages;
+
+	private ServiceConfigurator serviceConf;
+
+	private ParseConfigurator parseConf;
+
+	private ProfileFacade profileFacade;
+
+	public AnalyseDataDTO() {
+
+	}
+
+	public AnalyseDataDTO(String groupName, String commandName) {
+
+		this.serviceConf = new ServiceConfigurator();
+		this.parseConf = new ParseConfigurator();
+		this.profileFacade = new SnapshootProfileFacadeImpl(new ProfileFacadeImpl(groupName, commandName));
+	}
 
 	public List<String> getDirectories() {
 		return directories;
@@ -80,6 +102,30 @@ public class AnalyseDataDTO implements Serializable {
 
 	public void setFilteredPackages(List<String> filteredPackages) {
 		this.filteredPackages = filteredPackages;
+	}
+
+	public ServiceConfigurator getServiceConf() {
+		return serviceConf;
+	}
+
+	public void setServiceConf(ServiceConfigurator serviceConf) {
+		this.serviceConf = serviceConf;
+	}
+
+	public ParseConfigurator getParseConf() {
+		return parseConf;
+	}
+
+	public void setParseConf(ParseConfigurator parseConf) {
+		this.parseConf = parseConf;
+	}
+
+	public ProfileFacade getProfileFacade() {
+		return profileFacade;
+	}
+
+	public void setProfileFacade(ProfileFacade profileFacade) {
+		this.profileFacade = profileFacade;
 	}
 
 	@Override

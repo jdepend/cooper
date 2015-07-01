@@ -54,7 +54,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 				new SnapshootProfileFacadeImpl(new ProfileFacadeImpl(groupName, commandName)));
 	}
 
-	private JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
+	public JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
 			ParseConfigurator parseConf, ProfileFacade profileFacade) {
 		this.group = groupName;
 		this.command = commandName;

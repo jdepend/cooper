@@ -37,7 +37,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			this.onAnalyse(request);
 			// 创建本地服务
 			JDependLocalService localService = new JDependLocalServiceImpl(request.getGroupName(),
-					request.getCommandName());
+					request.getCommandName(), data.getServiceConf(), data.getParseConf(), data.getProfileFacade());
 			// 创建服务上下文
 			JDependSession session = JDependSessionMgr.getInstance().getSession(request);
 			localService.initServiceContext(false, session.getClient(), session.getUserName());

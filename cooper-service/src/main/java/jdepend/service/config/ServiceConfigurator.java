@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
@@ -16,7 +17,9 @@ import jdepend.framework.log.LogUtil;
  * @author wangdg
  * 
  */
-public class ServiceConfigurator {
+public class ServiceConfigurator implements Serializable{
+
+	private static final long serialVersionUID = -6121500160446113502L;
 
 	private Properties properties;
 

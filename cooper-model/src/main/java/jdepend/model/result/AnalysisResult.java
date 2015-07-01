@@ -475,6 +475,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 				gzip.finish();
 				outstream.flush();
 				this.data = outstream.toByteArray();
+			} catch (Exception e) {
+				e.printStackTrace();
 			} finally {
 				if (outstream != null) {
 					try {

@@ -56,7 +56,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	public JDependServiceRemoteProxy(String groupName, String commandName) {
 		this.groupName = groupName;
 		this.commandName = commandName;
-		this.data = new AnalyseDataDTO();
+		this.data = new AnalyseDataDTO(groupName, commandName);
 	}
 
 	/**

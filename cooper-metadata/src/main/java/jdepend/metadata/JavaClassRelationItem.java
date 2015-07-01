@@ -189,7 +189,6 @@ public class JavaClassRelationItem implements Serializable {
 	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-
 		// 准备序列化数据
 		this.targetJavaClassPlace = this.target.getPlace();
 		this.targetJavaClass = this.target.getName();
