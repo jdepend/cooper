@@ -14,11 +14,10 @@ public interface ProfileFacade {
 	public AreaComponentProfile getAreaComponentProfile();
 
 	public ComponentProfile getComponentProfile();
-	
+
 	public RelationProfile getRelationProfile();
 
 	public JavaClassUnitProfile getJavaClassUnitProfile();
 
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile();
-
 }

@@ -30,6 +30,7 @@ import jdepend.client.ui.action.ScoreIntroduceAction;
 import jdepend.client.ui.action.SettingAction;
 import jdepend.client.ui.action.SettingClassRelationMgrAction;
 import jdepend.client.ui.action.SettingWorkspaceAction;
+import jdepend.client.ui.action.WorkspaceProfileSettingAction;
 import jdepend.client.ui.analyzer.AnalyzerPanel;
 import jdepend.client.ui.circle.CirclePanel;
 import jdepend.client.ui.command.GroupIngoreListSettingDialog;
@@ -133,7 +134,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting),
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace) + "/-/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr));
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr) + "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting));
 
 		resourceStrings.put(
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
@@ -178,6 +180,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr),
 				new SettingClassRelationMgrAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting), new WorkspaceProfileSettingAction(
+				this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), new ImportResultAction(this));
 

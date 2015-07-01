@@ -18,6 +18,7 @@ public class BundleUtil {
 	public static final String ClientWin_Menu_ChangeWorkspace = "ClientWin_Menu_ChangeWorkspace";// 客户端窗口菜单切换工作区
 	public static final String ClientWin_Menu_SetClassRelationMgr = "ClientWin_Menu_SetClassRelationMgr";// 客户端窗口菜单设置类关系管理器
 	public static final String ClientWin_Menu_ServiceParamSetting = "ClientWin_Menu_ServiceParamSetting";// 客户端窗口菜单服务参数设置
+	public static final String ClientWin_Menu_ProfileSetting = "ClientWin_Menu_ProfileSetting";// 设置规则Profile
 	public static final String ClientWin_Menu_Login = "ClientWin_Menu_Login";// 客户端窗口菜单登陆
 	public static final String ClientWin_Menu_Logout = "ClientWin_Menu_Logout";// 客户端窗口菜单注销
 	public static final String ClientWin_Menu_ScoreList = "ClientWin_Menu_ScoreList";// 客户端窗口菜单分数列表

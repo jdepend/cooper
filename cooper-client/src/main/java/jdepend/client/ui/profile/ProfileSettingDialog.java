@@ -19,13 +19,19 @@ import jdepend.client.ui.profile.settingpanel.JavaClassUnitProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.RelationProfileSettingPanel;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.profile.ProfileFacade;
 import jdepend.service.profile.scope.ProfileScope;
 
 public class ProfileSettingDialog extends CooperDialog {
 
-	protected ProfileScope profileScope;
+	private ProfileFacade profileFacade;
 
-	public ProfileSettingDialog(final JDependCooper frame) {
+	public ProfileSettingDialog(final JDependCooper frame, ProfileFacade profileFacade) {
+		this.profileFacade = profileFacade;
+		this.init();
+	}
+
+	protected void init() {
 
 		JTabbedPane jTabbedPane = new JTabbedPane();
 
@@ -52,6 +58,5 @@ public class ProfileSettingDialog extends CooperDialog {
 		buttonPanel.add(this.createCloseButton());
 
 		this.add(BorderLayout.SOUTH, buttonPanel);
-
 	}
 }

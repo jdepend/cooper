@@ -1,7 +1,7 @@
 package jdepend.service.profile.scope;
 
 import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
-
+import jdepend.model.result.ProfileFacadeImpl;
 
 public class DefaultWorkspaceProfileScope extends WorkspaceProfileScope {
 
@@ -9,7 +9,10 @@ public class DefaultWorkspaceProfileScope extends WorkspaceProfileScope {
 
 	public DefaultWorkspaceProfileScope() {
 		super();
-		
-		this.setAnalysisResultProfile(new DefaultAnalysisResultProfile());
+
+		ProfileFacadeImpl profileFacade = new ProfileFacadeImpl();
+		profileFacade.setAnalysisResultProfile(new DefaultAnalysisResultProfile());
+
+		this.setProfileFacade(profileFacade);
 	}
 }

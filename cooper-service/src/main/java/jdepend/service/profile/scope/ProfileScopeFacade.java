@@ -5,12 +5,7 @@ import java.util.List;
 
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;
-import jdepend.model.profile.model.AnalysisResultProfile;
-import jdepend.model.profile.model.AreaComponentProfile;
-import jdepend.model.profile.model.ComponentProfile;
-import jdepend.model.profile.model.JavaClassRelationItemProfile;
-import jdepend.model.profile.model.JavaClassUnitProfile;
-import jdepend.model.profile.model.RelationProfile;
+import jdepend.model.profile.ProfileFacade;
 
 public class ProfileScopeFacade extends PersistentBean implements ProfileScope, ProfileScopeMgr {
 
@@ -49,84 +44,13 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 	}
 
 	@Override
-	public AnalysisResultProfile getAnalysisResultProfile(String group, String command) {
-
-		AnalysisResultProfile profile;
-
-		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getAnalysisResultProfile(group, command);
-			if (profile != null) {
-				return profile;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public AreaComponentProfile getAreaComponentProfile(String group, String command) {
-		AreaComponentProfile profile;
+	public ProfileFacade getProfileFacade(String group, String command) {
+		ProfileFacade profileFacade;
 
 		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getAreaComponentProfile(group, command);
-			if (profile != null) {
-				return profile;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public ComponentProfile getComponentProfile(String group, String command) {
-		ComponentProfile profile;
-
-		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getComponentProfile(group, command);
-			if (profile != null) {
-				return profile;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public RelationProfile getRelationProfile(String group, String command) {
-		RelationProfile profile;
-
-		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getRelationProfile(group, command);
-			if (profile != null) {
-				return profile;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public JavaClassUnitProfile getJavaClassUnitProfile(String group, String command) {
-		JavaClassUnitProfile profile;
-
-		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getJavaClassUnitProfile(group, command);
-			if (profile != null) {
-				return profile;
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public JavaClassRelationItemProfile getJavaClassRelationItemProfile(String group, String command) {
-		JavaClassRelationItemProfile profile;
-
-		for (ProfileScope scope : this.getProfileScope()) {
-			profile = scope.getJavaClassRelationItemProfile(group, command);
-			if (profile != null) {
-				return profile;
+			profileFacade = scope.getProfileFacade(group, command);
+			if (profileFacade != null) {
+				return profileFacade;
 			}
 		}
 

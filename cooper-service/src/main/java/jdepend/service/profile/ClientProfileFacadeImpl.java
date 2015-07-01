@@ -23,32 +23,32 @@ public class ClientProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public AnalysisResultProfile getAnalysisResultProfile() {
-		return ProfileScopeFacade.getInstance().getAnalysisResultProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getAnalysisResultProfile();
 	}
 
 	@Override
 	public AreaComponentProfile getAreaComponentProfile() {
-		return ProfileScopeFacade.getInstance().getAreaComponentProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getAreaComponentProfile();
 	}
 
 	@Override
 	public ComponentProfile getComponentProfile() {
-		return ProfileScopeFacade.getInstance().getComponentProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getComponentProfile();
 	}
 
 	@Override
 	public RelationProfile getRelationProfile() {
-		return ProfileScopeFacade.getInstance().getRelationProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getRelationProfile();
 	}
 
 	@Override
 	public JavaClassUnitProfile getJavaClassUnitProfile() {
-		return ProfileScopeFacade.getInstance().getJavaClassUnitProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getJavaClassUnitProfile();
 	}
 
 	@Override
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile() {
-		return ProfileScopeFacade.getInstance().getJavaClassRelationItemProfile(group, command);
+		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getJavaClassRelationItemProfile();
 	}
 
 }
