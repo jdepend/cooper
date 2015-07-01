@@ -10,7 +10,7 @@ import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
 
-public class SnapshootProfileFacadeImpl implements ProfileFacade, Serializable {
+public class ProfileFacadeImpl implements ProfileFacade, Serializable {
 
 	private static final long serialVersionUID = 3545005678622982882L;
 
@@ -26,10 +26,10 @@ public class SnapshootProfileFacadeImpl implements ProfileFacade, Serializable {
 
 	private JavaClassRelationItemProfile javaClassRelationItemProfile;
 
-	public SnapshootProfileFacadeImpl() {
+	public ProfileFacadeImpl() {
 	}
 
-	public SnapshootProfileFacadeImpl(ProfileFacade profileFacade) {
+	public ProfileFacadeImpl(ProfileFacade profileFacade) {
 		this.analysisResultProfile = profileFacade.getAnalysisResultProfile();
 		this.areaComponentProfile = profileFacade.getAreaComponentProfile();
 		this.componentProfile = profileFacade.getComponentProfile();

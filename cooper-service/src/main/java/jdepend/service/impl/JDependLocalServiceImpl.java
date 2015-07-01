@@ -15,7 +15,7 @@ import jdepend.model.Component;
 import jdepend.model.profile.ProfileFacade;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
-import jdepend.model.result.SnapshootProfileFacadeImpl;
+import jdepend.model.result.ProfileFacadeImpl;
 import jdepend.parse.BuildListener;
 import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
@@ -27,7 +27,7 @@ import jdepend.service.ServiceException;
 import jdepend.service.avertcheat.framework.AvertCheat;
 import jdepend.service.avertcheat.framework.AvertCheatMgr;
 import jdepend.service.config.ServiceConfigurator;
-import jdepend.service.profile.ProfileFacadeImpl;
+import jdepend.service.profile.ClientProfileFacadeImpl;
 
 public final class JDependLocalServiceImpl implements JDependLocalService {
 
@@ -51,7 +51,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 
 	public JDependLocalServiceImpl(String groupName, String commandName) {
 		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator(),
-				new SnapshootProfileFacadeImpl(new ProfileFacadeImpl(groupName, commandName)));
+				new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName)));
 	}
 
 	public JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,

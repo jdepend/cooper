@@ -9,13 +9,13 @@ import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
 import jdepend.service.profile.scope.ProfileScopeFacade;
 
-public class ProfileFacadeImpl implements ProfileFacade {
+public class ClientProfileFacadeImpl implements ProfileFacade {
 
 	private String group;
 
 	private String command;
 
-	public ProfileFacadeImpl(String group, String command) {
+	public ClientProfileFacadeImpl(String group, String command) {
 		super();
 		this.group = group;
 		this.command = command;

@@ -9,10 +9,10 @@ import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.model.Component;
 import jdepend.model.profile.ProfileFacade;
-import jdepend.model.result.SnapshootProfileFacadeImpl;
+import jdepend.model.result.ProfileFacadeImpl;
 import jdepend.parse.ParseConfigurator;
 import jdepend.service.config.ServiceConfigurator;
-import jdepend.service.profile.ProfileFacadeImpl;
+import jdepend.service.profile.ClientProfileFacadeImpl;
 
 /**
  * 分析数据
@@ -44,7 +44,7 @@ public class AnalyseDataDTO implements Serializable {
 
 		this.serviceConf = new ServiceConfigurator();
 		this.parseConf = new ParseConfigurator();
-		this.profileFacade = new SnapshootProfileFacadeImpl(new ProfileFacadeImpl(groupName, commandName));
+		this.profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
 	}
 
 	public List<String> getDirectories() {
