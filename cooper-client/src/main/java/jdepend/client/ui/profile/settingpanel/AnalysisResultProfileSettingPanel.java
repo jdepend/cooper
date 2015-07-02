@@ -1,8 +1,10 @@
 package jdepend.client.ui.profile.settingpanel;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import jdepend.client.ui.profile.ProfileValidateException;
@@ -10,46 +12,55 @@ import jdepend.model.profile.model.AnalysisResultProfile;
 
 public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel {
 
+	private AnalysisResultProfile analysisResultProfile;
+
 	private JTextField distanceField;
 	private JTextField balanceField;
-	private JTextField encapsulationeField;
+	private JTextField encapsulationField;
 	private JTextField relationRationalityField;
 
 	public AnalysisResultProfileSettingPanel(AnalysisResultProfile analysisResultProfile) {
 
-		this.setLayout(new GridLayout(4, 3));
+		this.analysisResultProfile = analysisResultProfile;
+		
+		this.setLayout(new BorderLayout());
 
-		add(new JLabel("抽象程度合理性比例："));
+		JPanel itemPanel = new JPanel(new GridLayout(4, 3));
+		
+		itemPanel.add(new JLabel("抽象程度合理性比例："));
 
 		distanceField = new JTextField();
-		distanceField.setText(String.valueOf(analysisResultProfile.getDistance()));
+		distanceField.setText(String.valueOf(this.analysisResultProfile.getDistance()));
 
-		add(distanceField);
-		add(new JLabel("取值范围：0~100"));
+		itemPanel.add(distanceField);
+		itemPanel.add(new JLabel("取值范围：0~100"));
 
-		add(new JLabel("内聚性比例："));
+		itemPanel.add(new JLabel("内聚性比例："));
 
 		balanceField = new JTextField();
-		balanceField.setText(String.valueOf(analysisResultProfile.getBalance()));
+		balanceField.setText(String.valueOf(this.analysisResultProfile.getBalance()));
 
-		add(balanceField);
-		add(new JLabel("取值范围：0~100"));
+		itemPanel.add(balanceField);
+		itemPanel.add(new JLabel("取值范围：0~100"));
 
-		add(new JLabel("封装性比例："));
+		itemPanel.add(new JLabel("封装性比例："));
 
-		encapsulationeField = new JTextField();
-		encapsulationeField.setText(String.valueOf(analysisResultProfile.getEncapsulation()));
+		encapsulationField = new JTextField();
+		encapsulationField.setText(String.valueOf(this.analysisResultProfile.getEncapsulation()));
 
-		add(encapsulationeField);
-		add(new JLabel("取值范围：0~100"));
+		itemPanel.add(encapsulationField);
+		itemPanel.add(new JLabel("取值范围：0~100"));
 
-		add(new JLabel("关系合理性比例："));
+		itemPanel.add(new JLabel("关系合理性比例："));
 
 		relationRationalityField = new JTextField();
-		relationRationalityField.setText(String.valueOf(analysisResultProfile.getRelationRationality()));
+		relationRationalityField.setText(String.valueOf(this.analysisResultProfile.getRelationRationality()));
 
-		add(relationRationalityField);
-		add(new JLabel("取值范围：0~100"));
+		itemPanel.add(relationRationalityField);
+		itemPanel.add(new JLabel("取值范围：0~100"));
+		
+		this.add(BorderLayout.CENTER, itemPanel);
+		this.add(BorderLayout.SOUTH, new JLabel("要求：各项目比例和为100"));
 	}
 
 	@Override
@@ -58,24 +69,24 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 		if (distance < 0 || distance > 100) {
 			throw new ProfileValidateException("抽象程度合理性比例超出了范围！", 0);
 		}
-		
+
 		float balance = Float.valueOf(balanceField.getText());
 		if (balance < 0 || balance > 100) {
 			throw new ProfileValidateException("内聚性比例超出了范围！", 0);
 		}
-		
-		float encapsulatione = Float.valueOf(encapsulationeField.getText());
-		if (encapsulatione < 0 || encapsulatione > 100) {
+
+		float encapsulation = Float.valueOf(encapsulationField.getText());
+		if (encapsulation < 0 || encapsulation > 100) {
 			throw new ProfileValidateException("封装性比例超出了范围！", 0);
 		}
-		
+
 		float relationRationality = Float.valueOf(relationRationalityField.getText());
 		if (relationRationality < 0 || relationRationality > 100) {
 			throw new ProfileValidateException("关系合理性比例超出了范围！", 0);
 		}
-		
-		float score = distance + balance + encapsulatione + relationRationality;
-		if(score != 100){
+
+		float score = distance + balance + encapsulation + relationRationality;
+		if (score != 100) {
 			throw new ProfileValidateException("比例之和须等于100！", 0);
 		}
 
@@ -83,7 +94,15 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-
+		
+		float distance = Float.valueOf(distanceField.getText());
+		float balance = Float.valueOf(balanceField.getText());
+		float encapsulation = Float.valueOf(encapsulationField.getText());
+		float relationRationality = Float.valueOf(relationRationalityField.getText());
+		
+		analysisResultProfile.setDistance(distance);
+		analysisResultProfile.setBalance(balance);
+		analysisResultProfile.setEncapsulation(encapsulation);
+		analysisResultProfile.setRelationRationality(relationRationality);
 	}
 }

@@ -3,6 +3,7 @@ package jdepend.client.ui.profile;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import jdepend.client.ui.profile.settingpanel.RelationProfileSettingPanel;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.profile.ProfileFacade;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 /**
  * @author user
@@ -89,6 +91,8 @@ public class ProfileSettingDialog extends CooperDialog {
 				} catch (ProfileValidateException ex) {
 					jTabbedPane.setSelectedIndex(ex.getTabIndex());
 					JOptionPane.showMessageDialog(ProfileSettingDialog.this, ex.getMessage());
+				} catch (IOException e2) {
+					JOptionPane.showMessageDialog(ProfileSettingDialog.this, e2.getMessage());
 				}
 			}
 		});
@@ -105,9 +109,10 @@ public class ProfileSettingDialog extends CooperDialog {
 		}
 	}
 
-	protected void save() {
+	protected void save() throws IOException {
 		for (ModelProfileSettingPanel settingPanel : settingPanels) {
 			settingPanel.save();
 		}
+		ProfileScopeFacade.getInstance().save();
 	}
 }
