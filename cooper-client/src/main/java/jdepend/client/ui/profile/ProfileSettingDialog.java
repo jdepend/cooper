@@ -3,9 +3,12 @@ package jdepend.client.ui.profile;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -16,15 +19,23 @@ import jdepend.client.ui.profile.settingpanel.AreaComponentProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.ComponentProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.JavaClassRelationItemProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.JavaClassUnitProfileSettingPanel;
+import jdepend.client.ui.profile.settingpanel.ModelProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.RelationProfileSettingPanel;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.profile.ProfileFacade;
-import jdepend.service.profile.scope.ProfileScope;
 
+/**
+ * @author user
+ * 
+ */
 public class ProfileSettingDialog extends CooperDialog {
 
 	private ProfileFacade profileFacade;
+
+	private JTabbedPane jTabbedPane;
+
+	private List<ModelProfileSettingPanel> settingPanels;
 
 	public ProfileSettingDialog(final JDependCooper frame, ProfileFacade profileFacade) {
 		this.profileFacade = profileFacade;
@@ -33,14 +44,35 @@ public class ProfileSettingDialog extends CooperDialog {
 
 	protected void init() {
 
-		JTabbedPane jTabbedPane = new JTabbedPane();
+		jTabbedPane = new JTabbedPane();
 
-		jTabbedPane.addTab("分析结果", new AnalysisResultProfileSettingPanel());
-		jTabbedPane.addTab("组件区域", new AreaComponentProfileSettingPanel());
-		jTabbedPane.addTab("组件", new ComponentProfileSettingPanel());
-		jTabbedPane.addTab("组件关系", new RelationProfileSettingPanel());
-		jTabbedPane.addTab("类", new JavaClassUnitProfileSettingPanel());
-		jTabbedPane.addTab("类关系", new JavaClassRelationItemProfileSettingPanel());
+		AnalysisResultProfileSettingPanel analysisResultProfileSettingPanel = new AnalysisResultProfileSettingPanel(
+				profileFacade.getAnalysisResultProfile());
+		AreaComponentProfileSettingPanel areaComponentProfileSettingPanel = new AreaComponentProfileSettingPanel(
+				profileFacade.getAreaComponentProfile());
+		ComponentProfileSettingPanel componentProfileSettingPanel = new ComponentProfileSettingPanel(
+				profileFacade.getComponentProfile());
+		RelationProfileSettingPanel relationProfileSettingPanel = new RelationProfileSettingPanel(
+				profileFacade.getRelationProfile());
+		JavaClassUnitProfileSettingPanel javaClassUnitProfileSettingPanel = new JavaClassUnitProfileSettingPanel(
+				profileFacade.getJavaClassUnitProfile());
+		JavaClassRelationItemProfileSettingPanel javaClassRelationItemProfileSettingPanel = new JavaClassRelationItemProfileSettingPanel(
+				profileFacade.getJavaClassRelationItemProfile());
+
+		settingPanels = new ArrayList<ModelProfileSettingPanel>();
+		settingPanels.add(analysisResultProfileSettingPanel);
+		settingPanels.add(areaComponentProfileSettingPanel);
+		settingPanels.add(componentProfileSettingPanel);
+		settingPanels.add(relationProfileSettingPanel);
+		settingPanels.add(javaClassUnitProfileSettingPanel);
+		settingPanels.add(javaClassRelationItemProfileSettingPanel);
+
+		jTabbedPane.addTab("分析结果", analysisResultProfileSettingPanel);
+		jTabbedPane.addTab("组件区域", areaComponentProfileSettingPanel);
+		jTabbedPane.addTab("组件", componentProfileSettingPanel);
+		jTabbedPane.addTab("组件关系", relationProfileSettingPanel);
+		jTabbedPane.addTab("类", javaClassUnitProfileSettingPanel);
+		jTabbedPane.addTab("类关系", javaClassRelationItemProfileSettingPanel);
 
 		JScrollPane pane = new JScrollPane(jTabbedPane);
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -50,7 +82,14 @@ public class ProfileSettingDialog extends CooperDialog {
 		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_OK));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				try {
+					validateData();
+					save();
+					dispose();
+				} catch (ProfileValidateException ex) {
+					jTabbedPane.setSelectedIndex(ex.getTabIndex());
+					JOptionPane.showMessageDialog(ProfileSettingDialog.this, ex.getMessage());
+				}
 			}
 		});
 		JPanel buttonPanel = new JPanel();
@@ -58,5 +97,17 @@ public class ProfileSettingDialog extends CooperDialog {
 		buttonPanel.add(this.createCloseButton());
 
 		this.add(BorderLayout.SOUTH, buttonPanel);
+	}
+
+	protected void validateData() throws ProfileValidateException {
+		for (ModelProfileSettingPanel settingPanel : settingPanels) {
+			settingPanel.validateData();
+		}
+	}
+
+	protected void save() {
+		for (ModelProfileSettingPanel settingPanel : settingPanels) {
+			settingPanel.save();
+		}
 	}
 }
