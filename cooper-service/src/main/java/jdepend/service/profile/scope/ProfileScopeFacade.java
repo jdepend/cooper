@@ -6,6 +6,7 @@ import java.util.List;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.model.profile.ProfileFacade;
+import jdepend.model.profile.model.defaultvalue.DefaultProfileFacadeImpl;
 
 public class ProfileScopeFacade extends PersistentBean implements ProfileScope, ProfileScopeMgr {
 
@@ -28,7 +29,8 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 	}
 
 	private void initDefaultScopes() {
-		workspaceScope = new DefaultWorkspaceProfileScope();
+		workspaceScope = new WorkspaceProfileScope();
+		workspaceScope.setProfileFacade(new DefaultProfileFacadeImpl());
 	}
 
 	private boolean containSetting() {

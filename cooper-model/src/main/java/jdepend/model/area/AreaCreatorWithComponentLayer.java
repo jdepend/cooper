@@ -6,6 +6,12 @@ import java.util.Collection;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 
+/**
+ * 按人工指定的组件层次创建组件区域
+ * 
+ * @author user
+ *
+ */
 public class AreaCreatorWithComponentLayer extends AbstractAreaCreator {
 
 	@Override

@@ -6,6 +6,12 @@ import java.util.Collection;
 import jdepend.model.Component;
 import jdepend.model.result.AnalysisResult;
 
+/**
+ * 按组件的稳定性创建组件区域
+ * 
+ * @author user
+ *
+ */
 public class AreaCreatorWithInstability extends AbstractAreaCreator {
 
 	@Override

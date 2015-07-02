@@ -17,8 +17,7 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public AreaComponentProfile getAreaComponentProfile() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultAreaComponentProfile();
 	}
 
 	@Override

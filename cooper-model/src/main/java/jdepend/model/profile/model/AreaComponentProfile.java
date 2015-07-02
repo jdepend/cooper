@@ -10,6 +10,9 @@ public class AreaComponentProfile implements Serializable{
 	private boolean create;
 	
 	private List<String> accordings;
+	
+	public final static String AccordingComponentLayer = "按人工指定的组件层次创建组件区域";
+	public final static String AccordingInstability = "按组件的稳定性创建组件区域";
 
 	public boolean isCreate() {
 		return create;
