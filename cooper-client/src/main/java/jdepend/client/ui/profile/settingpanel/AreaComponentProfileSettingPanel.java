@@ -58,20 +58,48 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	public void validateData() throws ProfileValidateException {
-		// TODO Auto-generated method stub
-
+		if (createCheckBox.isSelected()) {
+			boolean according = false;
+			for (JCheckBox accordingCheckBox : accordingCheckBoxes) {
+				if (accordingCheckBox.isSelected()) {
+					according = true;
+					break;
+				}
+			}
+			if (!according) {
+				throw new ProfileValidateException("请选择至少一个创建组件区域的算法", 1);
+			}
+		}
 	}
 
 	@Override
 	public void save(MaintainProfileFacade maintainProfileFacade) {
-		// TODO Auto-generated method stub
-		maintainProfileFacade.setAreaComponentProfile(areaComponentProfile);
+
+		AreaComponentProfile newAreaComponentProfile = new AreaComponentProfile();
+		newAreaComponentProfile.setCreate(createCheckBox.isSelected());
+
+		List<String> accordings = new ArrayList<String>();
+		for (JCheckBox accordingCheckBox : accordingCheckBoxes) {
+			if (accordingCheckBox.isSelected()) {
+				accordings.add(accordingCheckBox.getText());
+			}
+		}
+		newAreaComponentProfile.setAccordings(accordings);
+
+		maintainProfileFacade.setAreaComponentProfile(newAreaComponentProfile);
 	}
 
 	@Override
 	protected String getExplain() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder info = new StringBuilder();
+
+		info.append("系统是由多个组件组成的，当系统比较大的时候，组件的数量会比较大（大于20），这时候通过将组件划分到不同的区域（或者叫子系统）内，可以更好的管理这些组件。\n\n");
+		info.append("系统可以通过组件的一些指标来识别组件所属的区域，并计算区域的一些指标，如稳定性。\n\n");
+		info.append("携带了区域信息的组件关系应该有一定的要求，应该避免稳定区域中的组件依赖不稳定区域中的组件。\n\n");
+		info.append("识别组件区域是一个可选的。\n\n");
+		info.append("用户可以通过选择识别组件区域的算法来识别待分析系统的组件区域\n\n");
+
+		return info.toString();
 	}
 
 }

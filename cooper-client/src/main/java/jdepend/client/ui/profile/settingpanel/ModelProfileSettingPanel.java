@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
-import jdepend.model.profile.ProfileFacade;
 
 public abstract class ModelProfileSettingPanel extends JPanel {
 
@@ -26,7 +25,7 @@ public abstract class ModelProfileSettingPanel extends JPanel {
 		if (explain != null) {
 			explainPane.setText(explain);
 			explainPane.setCaretPosition(0);
-			explainPane.setFont(new Font("DialogInput", Font.PLAIN, 16));
+			explainPane.setFont(new Font("DialogInput", Font.PLAIN, 12));
 		}
 
 		JScrollPane pane = new JScrollPane(explainPane);

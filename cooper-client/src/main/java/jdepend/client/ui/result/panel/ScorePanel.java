@@ -46,7 +46,6 @@ import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.Scored;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.result.AnalysisResultScored;
 import jdepend.util.refactor.AdjustHistory;
 import jdepend.util.refactor.CompareInfo;
 import jdepend.util.refactor.CompareObject;
