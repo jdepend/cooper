@@ -14,6 +14,7 @@ public class DefaultAreaComponentProfile extends AreaComponentProfile {
 		accordings.add(AccordingComponentLayer);
 		accordings.add(AccordingInstability);
 
+		this.setAccordings(accordings);
 	}
 
 }

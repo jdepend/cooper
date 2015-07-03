@@ -1,6 +1,7 @@
 package jdepend.client.ui.profile.settingpanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -8,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import jdepend.client.ui.profile.ProfileValidateException;
+import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AnalysisResultProfile;
 
 public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel {
@@ -20,13 +22,18 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 	private JTextField relationRationalityField;
 
 	public AnalysisResultProfileSettingPanel(AnalysisResultProfile analysisResultProfile) {
-
 		this.analysisResultProfile = analysisResultProfile;
-		
-		this.setLayout(new BorderLayout());
+
+		this.add(this.leftPanel());
+		this.add(this.rightPanel());
+	}
+
+	protected Component leftPanel() {
+
+		JPanel left = new JPanel(new BorderLayout());
 
 		JPanel itemPanel = new JPanel(new GridLayout(4, 3));
-		
+
 		itemPanel.add(new JLabel("抽象程度合理性比例："));
 
 		distanceField = new JTextField();
@@ -58,9 +65,11 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 
 		itemPanel.add(relationRationalityField);
 		itemPanel.add(new JLabel("取值范围：0~100"));
-		
-		this.add(BorderLayout.CENTER, itemPanel);
-		this.add(BorderLayout.SOUTH, new JLabel("要求：各项目比例和为100"));
+
+		left.add(BorderLayout.CENTER, itemPanel);
+		left.add(BorderLayout.SOUTH, new JLabel("要求：各项目比例和为100"));
+
+		return left;
 	}
 
 	@Override
@@ -93,16 +102,29 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 	}
 
 	@Override
-	public void save() {
-		
+	public void save(MaintainProfileFacade maintainProfileFacade) {
+
 		float distance = Float.valueOf(distanceField.getText());
 		float balance = Float.valueOf(balanceField.getText());
 		float encapsulation = Float.valueOf(encapsulationField.getText());
 		float relationRationality = Float.valueOf(relationRationalityField.getText());
-		
-		analysisResultProfile.setDistance(distance);
-		analysisResultProfile.setBalance(balance);
-		analysisResultProfile.setEncapsulation(encapsulation);
-		analysisResultProfile.setRelationRationality(relationRationality);
+
+		AnalysisResultProfile newAnalysisResultProfile = new AnalysisResultProfile();
+
+		newAnalysisResultProfile.setDistance(distance);
+		newAnalysisResultProfile.setBalance(balance);
+		newAnalysisResultProfile.setEncapsulation(encapsulation);
+		newAnalysisResultProfile.setRelationRationality(relationRationality);
+
+		maintainProfileFacade.setAnalysisResultProfile(newAnalysisResultProfile);
+	}
+
+	@Override
+	protected String getExplain() {
+		StringBuilder info = new StringBuilder();
+		info.append("判断分析结果的分数由多个部分构成，用户可以用过设置每个部分所占的比例来表达自己关心的特性。\n");
+		info.append("");
+
+		return info.toString();
 	}
 }

@@ -24,14 +24,16 @@ import jdepend.client.ui.profile.settingpanel.ModelProfileSettingPanel;
 import jdepend.client.ui.profile.settingpanel.RelationProfileSettingPanel;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
+import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.ProfileFacade;
+import jdepend.model.result.ProfileFacadeImpl;
 import jdepend.service.profile.scope.ProfileScopeFacade;
 
 /**
  * @author user
  * 
  */
-public class ProfileSettingDialog extends CooperDialog {
+public abstract class ProfileSettingDialog extends CooperDialog {
 
 	private ProfileFacade profileFacade;
 
@@ -92,6 +94,7 @@ public class ProfileSettingDialog extends CooperDialog {
 					jTabbedPane.setSelectedIndex(ex.getTabIndex());
 					JOptionPane.showMessageDialog(ProfileSettingDialog.this, ex.getMessage());
 				} catch (IOException e2) {
+					e2.printStackTrace();
 					JOptionPane.showMessageDialog(ProfileSettingDialog.this, e2.getMessage());
 				}
 			}
@@ -109,10 +112,18 @@ public class ProfileSettingDialog extends CooperDialog {
 		}
 	}
 
-	protected void save() throws IOException {
+	private void save() throws IOException {
+
+		MaintainProfileFacade maintainProfileFacade = new ProfileFacadeImpl();
+
 		for (ModelProfileSettingPanel settingPanel : settingPanels) {
-			settingPanel.save();
+			settingPanel.save(maintainProfileFacade);
 		}
+
+		this.updateScope(maintainProfileFacade);
+
 		ProfileScopeFacade.getInstance().save();
 	}
+
+	protected abstract void updateScope(ProfileFacade profileFacade);
 }
