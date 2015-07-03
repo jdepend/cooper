@@ -88,26 +88,23 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public static final String Metrics_Coupling = "Result_Metrics_Coupling";
 	public static final String Metrics_Cohesion = "Result_Metrics_Cohesion";
 
-	public AnalysisResult(List<Component> components) {
+	public AnalysisResult(List<Component> components, AnalysisRunningContext runningContext) {
 		super();
+		this.runningContext = runningContext;
 		this.components = components;
 		this.init();
 	}
 
-	public AnalysisResult(List<Component> components, AnalysisRunningContext runningContext) {
-		this(components);
-		this.runningContext = runningContext;
-	}
-
 	public AnalysisResult(AnalysisResult result) {
 
+		this.runningContext = result.runningContext;
 		this.components = result.components;
+
 		for (Component component : this.components) {
 			component.setResult(this);
 		}
 		this.areaComponents = result.areaComponents;
 		this.isExecuteResult = result.isExecuteResult;
-		this.runningContext = result.runningContext;
 
 		this.relations = result.relations;
 		this.summary = result.summary;
@@ -364,7 +361,11 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	private void calAreaComponents() {
-		this.areaComponents = new AreaCreatorChain().create(this);
+		if (this.runningContext.getProfileFacade().getAreaComponentProfile().isCreate()) {
+			this.areaComponents = new AreaCreatorChain(this).create();
+		} else {
+			this.areaComponents = new ArrayList<AreaComponent>();
+		}
 	}
 
 	private void initRelations() {

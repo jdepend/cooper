@@ -1,5 +1,6 @@
 package jdepend.client.ui.profile.settingpanel;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -7,8 +8,10 @@ import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
+import jdepend.framework.util.BundleUtil;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AreaComponentProfile;
 
@@ -31,7 +34,7 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 		List<String> allAccordings = AreaComponentProfile.getAllAccordings();
 
-		JPanel left = new JPanel(new GridLayout(1 + allAccordings.size(), 1));
+		JPanel left = new JPanel(new BorderLayout());
 
 		this.createCheckBox = new JCheckBox("是否计算组件区域");
 
@@ -39,7 +42,10 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 			this.createCheckBox.setSelected(true);
 		}
 
-		left.add(this.createCheckBox);
+		left.add(BorderLayout.NORTH, this.createCheckBox);
+
+		JPanel accordingPanel = new JPanel(new GridLayout(allAccordings.size(), 1));
+		accordingPanel.setBorder(new TitledBorder("判断规则"));
 
 		this.accordingCheckBoxes = new ArrayList<JCheckBox>();
 		JCheckBox accordingCheckBox;
@@ -50,8 +56,10 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 			}
 			accordingCheckBoxes.add(accordingCheckBox);
 
-			left.add(accordingCheckBox);
+			accordingPanel.add(accordingCheckBox);
 		}
+
+		left.add(BorderLayout.CENTER, accordingPanel);
 
 		return left;
 	}
@@ -96,8 +104,8 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 		info.append("系统是由多个组件组成的，当系统比较大的时候，组件的数量会比较大（大于20），这时候通过将组件划分到不同的区域（或者叫子系统）内，可以更好的管理这些组件。\n\n");
 		info.append("系统可以通过组件的一些指标来识别组件所属的区域，并计算区域的一些指标，如稳定性。\n\n");
 		info.append("携带了区域信息的组件关系应该有一定的要求，应该避免稳定区域中的组件依赖不稳定区域中的组件。\n\n");
-		info.append("识别组件区域是一个可选的。\n\n");
-		info.append("用户可以通过选择识别组件区域的算法来识别待分析系统的组件区域\n\n");
+		info.append("识别组件区域是可选的。\n\n");
+		info.append("用户可以通过选择识别组件区域的算法来识别待分析系统的组件区域。\n\n");
 
 		return info.toString();
 	}
