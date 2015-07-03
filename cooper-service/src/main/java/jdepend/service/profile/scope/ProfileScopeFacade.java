@@ -8,17 +8,17 @@ import jdepend.framework.domain.PersistentBean;
 import jdepend.model.profile.ProfileFacade;
 import jdepend.model.profile.model.defaultvalue.DefaultProfileFacadeImpl;
 
-public class ProfileScopeFacade extends PersistentBean implements ProfileScope, ProfileScopeMgr {
+public class ProfileScopeFacade extends PersistentBean {
 
 	private static final long serialVersionUID = -3898728864369810803L;
 
 	private static ProfileScopeFacade facade;
 
-	private WorkspaceProfileScope workspaceScope;
+	private WorkspaceProfileScope workspaceProfileScope;
 
-	private List<GroupProfileScope> groupScopes = new ArrayList<GroupProfileScope>();
+	private List<GroupProfileScope> groupProfileScopes = new ArrayList<GroupProfileScope>();
 
-	private List<CommandProfileScope> commandScopes = new ArrayList<CommandProfileScope>();
+	private List<CommandProfileScope> commandProfileScopes = new ArrayList<CommandProfileScope>();
 
 	private ProfileScopeFacade() {
 		super("ProfileScopeFacade", "ProfileScopeFacade", PropertyConfigurator.DEFAULT_PROPERTY_DIR);
@@ -29,13 +29,13 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 	}
 
 	private void initDefaultScopes() {
-		workspaceScope = new WorkspaceProfileScope();
-		workspaceScope.setProfileFacade(new DefaultProfileFacadeImpl());
+		workspaceProfileScope = new WorkspaceProfileScope();
+		workspaceProfileScope.setProfileFacade(new DefaultProfileFacadeImpl());
 	}
 
 	private boolean containSetting() {
-		return workspaceScope != null || groupScopes != null && groupScopes.size() > 0 || commandScopes != null
-				&& commandScopes.size() > 0;
+		return workspaceProfileScope != null || groupProfileScopes != null && groupProfileScopes.size() > 0
+				|| commandProfileScopes != null && commandProfileScopes.size() > 0;
 	}
 
 	public static ProfileScopeFacade getInstance() {
@@ -45,75 +45,82 @@ public class ProfileScopeFacade extends PersistentBean implements ProfileScope, 
 		return facade;
 	}
 
-	@Override
 	public ProfileFacade getProfileFacade(String group, String command) {
-		ProfileFacade profileFacade;
 
-		for (ProfileScope scope : this.getProfileScope()) {
-			profileFacade = scope.getProfileFacade(group, command);
-			if (profileFacade != null) {
-				return profileFacade;
+		for (AbstractProfileScope scope : this.getProfileScope()) {
+			if (scope.isSelf(group, command)) {
+				return scope.getProfileFacade();
 			}
 		}
 
 		return null;
 	}
 
-	private List<ProfileScope> getProfileScope() {
+	private List<AbstractProfileScope> getProfileScope() {
 
-		List<ProfileScope> scopes = new ArrayList<ProfileScope>();
-		scopes.addAll(commandScopes);
-		scopes.addAll(groupScopes);
-		scopes.add(workspaceScope);
+		List<AbstractProfileScope> scopes = new ArrayList<AbstractProfileScope>();
+		scopes.addAll(commandProfileScopes);
+		scopes.addAll(groupProfileScopes);
+		scopes.add(workspaceProfileScope);
 
 		return scopes;
 	}
 
-	@Override
 	public WorkspaceProfileScope getWorkspaceProfileScope() {
-		return workspaceScope;
+		return workspaceProfileScope;
 	}
 
-	@Override
 	public void setWorkspaceProfileScope(WorkspaceProfileScope workspaceProfileScope) {
-		this.workspaceScope = workspaceProfileScope;
+		this.workspaceProfileScope = workspaceProfileScope;
 	}
 
-	@Override
-	public GroupProfileScope getGroupProfileScope(String group) {
-		for (GroupProfileScope groupProfileScope : this.groupScopes) {
+	public List<GroupProfileScope> getGroupProfileScopes() {
+		return groupProfileScopes;
+	}
+
+	public void setGroupProfileScopes(List<GroupProfileScope> groupProfileScopes) {
+		this.groupProfileScopes = groupProfileScopes;
+	}
+
+	public List<CommandProfileScope> getCommandProfileScopes() {
+		return commandProfileScopes;
+	}
+
+	public void setCommandProfileScopes(List<CommandProfileScope> commandProfileScopes) {
+		this.commandProfileScopes = commandProfileScopes;
+	}
+
+	public ProfileScope getGroupProfileScope(String group) {
+		for (GroupProfileScope groupProfileScope : this.groupProfileScopes) {
 			if (groupProfileScope.getGroup().equals(group)) {
 				return groupProfileScope;
 			}
 		}
-		return null;
+		return this.workspaceProfileScope;
 	}
 
-	@Override
 	public void setGroupProfileScope(GroupProfileScope groupProfileScope) {
 
-		if (this.groupScopes.contains(groupProfileScope)) {
-			this.groupScopes.remove(groupProfileScope);
+		if (this.groupProfileScopes.contains(groupProfileScope)) {
+			this.groupProfileScopes.remove(groupProfileScope);
 		}
-		this.groupScopes.add(groupProfileScope);
+		this.groupProfileScopes.add(groupProfileScope);
 	}
 
-	@Override
-	public CommandProfileScope getCommandProfileScope(String group, String command) {
-		for (CommandProfileScope commandProfileScope : this.commandScopes) {
+	public ProfileScope getCommandProfileScope(String group, String command) {
+		for (CommandProfileScope commandProfileScope : this.commandProfileScopes) {
 			if (commandProfileScope.getGroup().equals(group) && commandProfileScope.getCommand().equals(command)) {
 				return commandProfileScope;
 			}
 		}
-		return null;
+		return this.getGroupProfileScope(group);
 	}
 
-	@Override
 	public void setCommandProfileScope(CommandProfileScope commandProfileScope) {
 
-		if (this.commandScopes.contains(commandProfileScope)) {
-			this.commandScopes.remove(commandProfileScope);
+		if (this.commandProfileScopes.contains(commandProfileScope)) {
+			this.commandProfileScopes.remove(commandProfileScope);
 		}
-		this.commandScopes.add(commandProfileScope);
+		this.commandProfileScopes.add(commandProfileScope);
 	}
 }

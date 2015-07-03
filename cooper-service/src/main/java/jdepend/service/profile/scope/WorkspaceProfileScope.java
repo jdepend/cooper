@@ -9,7 +9,7 @@ public class WorkspaceProfileScope extends AbstractProfileScope {
 	}
 
 	@Override
-	protected boolean isSelf(String group, String command) {
+	public boolean isSelf(String group, String command) {
 		return true;
 	}
 

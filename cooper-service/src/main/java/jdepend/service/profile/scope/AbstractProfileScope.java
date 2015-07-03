@@ -6,16 +6,7 @@ public abstract class AbstractProfileScope implements ProfileScope {
 
 	private ProfileFacade profileFacade;
 
-	@Override
-	public ProfileFacade getProfileFacade(String group, String command) {
-		if (this.isSelf(group, command)) {
-			return profileFacade;
-		} else {
-			return null;
-		}
-	}
-
-	protected abstract boolean isSelf(String group, String command);
+	public abstract boolean isSelf(String group, String command);
 
 	public ProfileFacade getProfileFacade() {
 		return profileFacade;

@@ -15,7 +15,7 @@ public class GroupProfileScope extends AbstractProfileScope {
 	}
 
 	@Override
-	protected boolean isSelf(String group, String command) {
+	public boolean isSelf(String group, String command) {
 		return this.group.equals(group);
 	}
 
