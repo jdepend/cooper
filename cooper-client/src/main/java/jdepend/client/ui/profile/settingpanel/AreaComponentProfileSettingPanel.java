@@ -2,6 +2,7 @@ package jdepend.client.ui.profile.settingpanel;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,12 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	protected Component leftPanel() {
 
+		JPanel content = new JPanel(new BorderLayout());
+
 		List<String> allAccordings = AreaComponentProfile.getAllAccordings();
 
 		JPanel left = new JPanel(new BorderLayout());
+		left.setPreferredSize(new Dimension(this.getWidth(), 120));
 
 		this.createCheckBox = new JCheckBox("是否计算组件区域");
 
@@ -61,7 +65,12 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 		left.add(BorderLayout.CENTER, accordingPanel);
 
-		return left;
+		content.add(BorderLayout.NORTH, left);
+
+		JPanel otherPanel = new JPanel();
+		content.add(BorderLayout.CENTER, otherPanel);
+
+		return content;
 	}
 
 	@Override

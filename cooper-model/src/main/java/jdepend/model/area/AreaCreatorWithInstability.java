@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.model.Component;
+import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.result.AnalysisResult;
 
 /**
@@ -13,6 +14,11 @@ import jdepend.model.result.AnalysisResult;
  *
  */
 public class AreaCreatorWithInstability extends AbstractAreaCreator {
+	
+	@Override
+	public String getName() {
+		return AreaComponentProfile.AccordingInstability;
+	}
 
 	@Override
 	public Collection<AreaComponentInfo> calCoverCount(AnalysisResult result) {

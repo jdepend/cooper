@@ -6,10 +6,22 @@ import java.util.HashSet;
 import java.util.List;
 
 import jdepend.model.Component;
+import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 
+/**
+ * 按着组件路径创建组件区域
+ * 
+ * @author user
+ *
+ */
 public class AreaCreatorWithPathInfo extends AbstractAreaCreator {
+	
+	@Override
+	public String getName() {
+		return AreaComponentProfile.AccordingPathInfo;
+	}
 
 	@Override
 	public Collection<AreaComponentInfo> calCoverCount(AnalysisResult result) {

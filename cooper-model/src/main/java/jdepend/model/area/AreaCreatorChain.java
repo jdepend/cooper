@@ -1,7 +1,9 @@
 package jdepend.model.area;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jdepend.model.AreaComponent;
 import jdepend.model.result.AnalysisResult;
@@ -16,16 +18,37 @@ public class AreaCreatorChain {
 
 	private List<AreaCreator> creators;
 
-	public AreaCreatorChain() {
+	private AnalysisResult result;
+
+	public AreaCreatorChain(AnalysisResult result) {
 		super();
+		this.result = result;
 		this.creators = new ArrayList<AreaCreator>();
 
-		this.creators.add(new AreaCreatorWithComponentLayer());
-		// this.creators.add(new AreaCreatorWithPathInfo());
-		this.creators.add(new AreaCreatorWithInstability());
+		Map<String, AreaCreator> allCreators = this.getAllCreators();
+		List<String> accordings = result.getRunningContext().getProfileFacade().getAreaComponentProfile()
+				.getAccordings();
+		for (String according : accordings) {
+			this.creators.add(allCreators.get(according));
+		}
 	}
 
-	public List<AreaComponent> create(AnalysisResult result) {
+	private Map<String, AreaCreator> getAllCreators() {
+		Map<String, AreaCreator> allCreators = new HashMap<String, AreaCreator>();
+
+		AreaCreator areaCreator;
+
+		areaCreator = new AreaCreatorWithComponentLayer();
+		allCreators.put(areaCreator.getName(), areaCreator);
+
+		areaCreator = new AreaCreatorWithInstability();
+		allCreators.put(areaCreator.getName(), areaCreator);
+
+		return allCreators;
+
+	}
+
+	public List<AreaComponent> create() {
 
 		int maxCoverCounts = 0;
 		int coverCounts = 0;

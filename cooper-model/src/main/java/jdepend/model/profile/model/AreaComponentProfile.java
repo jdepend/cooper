@@ -14,6 +14,8 @@ public class AreaComponentProfile implements Serializable {
 
 	public final static String AccordingComponentLayer = "按人工指定的组件层次创建组件区域";
 	public final static String AccordingInstability = "按组件的稳定性创建组件区域";
+	public final static String AccordingPathInfo = "按着组件路径创建组件区域";
+	
 
 	public static List<String> getAllAccordings() {
 		List<String> allAccordings = new ArrayList<String>();
