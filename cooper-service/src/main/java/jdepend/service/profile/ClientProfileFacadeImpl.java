@@ -11,44 +11,41 @@ import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class ClientProfileFacadeImpl implements ProfileFacade {
 
-	private String group;
-
-	private String command;
+	private ProfileFacade profileFacade;
 
 	public ClientProfileFacadeImpl(String group, String command) {
 		super();
-		this.group = group;
-		this.command = command;
+		this.profileFacade = ProfileScopeFacade.getInstance().getProfileFacade(group, command);
 	}
 
 	@Override
 	public AnalysisResultProfile getAnalysisResultProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getAnalysisResultProfile();
+		return this.profileFacade.getAnalysisResultProfile();
 	}
 
 	@Override
 	public AreaComponentProfile getAreaComponentProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getAreaComponentProfile();
+		return this.profileFacade.getAreaComponentProfile();
 	}
 
 	@Override
 	public ComponentProfile getComponentProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getComponentProfile();
+		return this.profileFacade.getComponentProfile();
 	}
 
 	@Override
 	public RelationProfile getRelationProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getRelationProfile();
+		return this.profileFacade.getRelationProfile();
 	}
 
 	@Override
 	public JavaClassUnitProfile getJavaClassUnitProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getJavaClassUnitProfile();
+		return this.profileFacade.getJavaClassUnitProfile();
 	}
 
 	@Override
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile() {
-		return ProfileScopeFacade.getInstance().getProfileFacade(group, command).getJavaClassRelationItemProfile();
+		return this.profileFacade.getJavaClassRelationItemProfile();
 	}
 
 }

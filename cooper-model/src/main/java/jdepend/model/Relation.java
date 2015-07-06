@@ -220,18 +220,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 					- this.getCurrent().getComponent().getStability();
 			if (attention > 0) {
 				attentionLevel = attentiontype + attention;// 按自动计算的稳定性计算attentionLevel
-			} else if (this.current.getComponent().getSteadyType() != null
-					&& this.depend.getComponent().getSteadyType() != null) {// 按人工指定的稳定性计算attentionLevel
-				if (this.current.getComponent().getSteadyType().equals(Component.StableType)
-						&& this.depend.getComponent().getSteadyType().equals(Component.MiddleType)
-						|| this.current.getComponent().getSteadyType().equals(Component.MiddleType)
-						&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
-					attentionLevel = attentiontype + 0.1F;
-				} else if (this.current.getComponent().getSteadyType().equals(Component.StableType)
-						&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType)) {
-					attentionLevel = attentiontype + 0.2F;
-				}
-			}
+			} 
 			this.normality = false;
 		} else if (attentiontype == ComponentLayerAttentionType) {// 下层组件依赖了上层组件
 			Float attention = 0F;
@@ -264,14 +253,6 @@ public final class Relation implements Comparable<Relation>, Serializable {
 						.getAreaComponent().instability()) {// 检测组件层依赖（按着AreaComponent）
 			return ComponentLayerAttentionType;
 		} else if (this.current.getComponent().stability(this.depend.getComponent())) {// 检测稳定依赖（按着自动计算的稳定性）
-			return SDPAttentionType;
-		} else if (this.current.getComponent().getSteadyType() != null
-				&& this.depend.getComponent().getSteadyType() != null
-				&& (this.current.getComponent().getSteadyType().equals(Component.StableType)
-						&& (this.depend.getComponent().getSteadyType().equals(Component.MiddleType) || this.depend
-								.getComponent().getSteadyType().equals(Component.MutabilityType)) || this.current
-						.getComponent().getSteadyType().equals(Component.MiddleType)
-						&& this.depend.getComponent().getSteadyType().equals(Component.MutabilityType))) {
 			return SDPAttentionType;
 		} else if (this.current.getComponent().collectCycle().contains(this.depend.getComponent())) {// 检测循环依赖
 			return CycleDependAttentionType;

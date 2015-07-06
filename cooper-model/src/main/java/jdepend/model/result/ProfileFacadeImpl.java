@@ -10,6 +10,9 @@ import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultComponentProfile;
 
 public class ProfileFacadeImpl implements MaintainProfileFacade, Serializable {
 
@@ -31,9 +34,22 @@ public class ProfileFacadeImpl implements MaintainProfileFacade, Serializable {
 	}
 
 	public ProfileFacadeImpl(ProfileFacade profileFacade) {
+
 		this.analysisResultProfile = profileFacade.getAnalysisResultProfile();
+		if (this.analysisResultProfile == null) {
+			this.analysisResultProfile = new DefaultAnalysisResultProfile();
+		}
+
 		this.areaComponentProfile = profileFacade.getAreaComponentProfile();
+		if (this.areaComponentProfile == null) {
+			this.areaComponentProfile = new DefaultAreaComponentProfile();
+		}
+
 		this.componentProfile = profileFacade.getComponentProfile();
+		if (this.componentProfile == null) {
+			this.componentProfile = new DefaultComponentProfile();
+		}
+
 		this.relationProfile = profileFacade.getRelationProfile();
 		this.javaClassUnitProfile = profileFacade.getJavaClassUnitProfile();
 		this.javaClassRelationItemProfile = profileFacade.getJavaClassRelationItemProfile();

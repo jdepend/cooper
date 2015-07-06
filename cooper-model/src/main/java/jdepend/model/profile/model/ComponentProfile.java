@@ -14,6 +14,9 @@ public class ComponentProfile implements Serializable {
 
 	private String balance;
 
+	public static final String balanceFromPackage = "采用包作为计算内聚性的子元素";
+	public static final String balanceFromClass = "采用类作为计算内聚性的子元素";
+
 	public String getStability() {
 		return stability;
 	}

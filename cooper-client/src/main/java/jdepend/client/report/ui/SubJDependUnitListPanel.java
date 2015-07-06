@@ -17,8 +17,10 @@ import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.component.TableMouseMotionAdapter;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.util.JTableUtil;
+import jdepend.model.ComponentException;
 import jdepend.model.MetricsMgr;
 import jdepend.model.SubJDependUnit;
+import jdepend.model.profile.ProfileException;
 import jdepend.client.report.util.ReportConstant;
 
 public class SubJDependUnitListPanel extends JPanel {
@@ -40,7 +42,11 @@ public class SubJDependUnitListPanel extends JPanel {
 		this.frame = frame;
 		this.component = component;
 
-		this.loadList(component.getSubJDependUnits());
+		try {
+			this.loadList(component.getSubJDependUnits());
+		} catch (ProfileException e) {
+			e.printStackTrace();
+		}
 
 		JScrollPane pane = new JScrollPane(listTable);
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -103,23 +109,28 @@ public class SubJDependUnitListPanel extends JPanel {
 				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
-					SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
-					if (currentCol.equals(ReportConstant.Name)) {
-						ClassListDialog d = new ClassListDialog(frame, subJDependUnit.getClasses());
-						d.setModal(true);
-						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
-						JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit, currentCol);
-						d.setModal(true);
-						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.Cohesion)) {
-						CohesionSubJDependUnitDialog d = new CohesionSubJDependUnitDialog(subJDependUnit);
-						d.setModal(true);
-						d.setVisible(true);
-					} else if (currentCol.equals(ReportConstant.Balance)) {
-						BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(subJDependUnit);
-						d.setModal(true);
-						d.setVisible(true);
+					try {
+						SubJDependUnit subJDependUnit = component.getTheSubJDependUnit(current);
+						if (currentCol.equals(ReportConstant.Name)) {
+							ClassListDialog d = new ClassListDialog(frame, subJDependUnit.getClasses());
+							d.setModal(true);
+							d.setVisible(true);
+						} else if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
+							JDependUnitCaCeListDialog d = new JDependUnitCaCeListDialog(frame, subJDependUnit,
+									currentCol);
+							d.setModal(true);
+							d.setVisible(true);
+						} else if (currentCol.equals(ReportConstant.Cohesion)) {
+							CohesionSubJDependUnitDialog d = new CohesionSubJDependUnitDialog(subJDependUnit);
+							d.setModal(true);
+							d.setVisible(true);
+						} else if (currentCol.equals(ReportConstant.Balance)) {
+							BalanceSubJDependUnitDialog d = new BalanceSubJDependUnitDialog(subJDependUnit);
+							d.setModal(true);
+							d.setVisible(true);
+						}
+					} catch (ComponentException e1) {
+						e1.printStackTrace();
 					}
 				}
 			}

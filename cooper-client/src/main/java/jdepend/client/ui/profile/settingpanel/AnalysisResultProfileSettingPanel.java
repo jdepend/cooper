@@ -127,7 +127,7 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 	protected String getExplain() {
 		StringBuilder info = new StringBuilder();
 
-		info.append("量化评价分析结果的分数由多个部分构成，用户可以用过设置每个部分所占的比例来表达自己关心的特性。\n\n");
+		info.append("量化评价分析结果的分数由四部分构成，用户可以用过设置每个部分所占的比例来表达自己关心的程序结构特性。\n\n");
 		info.append("评价总分为100，每一个部分的取值范围为0~100。\n\n");
 
 		info.append("抽象程度合理性的含义是：\n");
@@ -135,7 +135,7 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 		info.append("抽象程度合理性的公式是（1-分析单元平均D值）*权值。\n");
 
 		info.append("内聚性指数的含义是：\n");
-		info.append("组件内的子元素（JavaPackage或JavaClass）之间的关系应该比与其他组件的关系紧密（除了复用的考虑外），在复用目的的考虑下，组件内的子元素与其他组件的关系应能做到“相互抵消”。\n");
+		info.append("组件内的子元素（JavaPackage或JavaClass）之间的关系应该比与其他组件的关系紧密（除了复用的考虑外）。在复用目的的考虑下，组件内的子元素与其他组件的关系应能做到“相互抵消”。\n");
 		info.append("内聚性指数的公式是（1 – 分析单元平均Balance值）*权值。\n");
 
 		info.append("封装性的含义是：\n");

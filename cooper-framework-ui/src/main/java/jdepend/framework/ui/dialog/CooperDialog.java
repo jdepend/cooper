@@ -36,4 +36,14 @@ public abstract class CooperDialog extends JDialog {
 		});
 		return button;
 	}
+	
+	protected JButton createCancelButton() {
+		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Cancel));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		return button;
+	}
 }

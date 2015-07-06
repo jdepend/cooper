@@ -17,6 +17,8 @@ import jdepend.metadata.JavaPackage;
 import jdepend.model.component.JavaPackageComponent;
 import jdepend.model.component.PackageSubJDependUnit;
 import jdepend.model.component.VirtualComponent;
+import jdepend.model.profile.ProfileException;
+import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUnitUtil;
@@ -48,8 +50,6 @@ public abstract class Component extends AbstractSubJDependUnit {
 	private transient AnalysisResult result;
 
 	private transient AreaComponent areaComponent;// 所属组件区域，由识别设计动机模块计算得到
-
-	private transient String steadyType;// 稳定性分类，由识别设计动机模块计算得到
 
 	protected transient Map<String, JavaClassUnit> javaClassesForId = new HashMap<String, JavaClassUnit>();// 缓存
 
@@ -113,7 +113,6 @@ public abstract class Component extends AbstractSubJDependUnit {
 		this.javaClasses = component.javaClasses;
 		this.result = component.result;
 		this.areaComponent = component.areaComponent;
-		this.steadyType = component.steadyType;
 		this.javaClassesForId = component.javaClassesForId;
 		this.afferents = component.afferents;
 		this.efferents = component.efferents;
@@ -228,7 +227,7 @@ public abstract class Component extends AbstractSubJDependUnit {
 			javaClass.setComponent(this);
 			this.javaClasses.add(javaClass);
 			this.javaClassesForId.put(javaClass.getId(), javaClass);
-			//将不在包中的类增加到包中
+			// 将不在包中的类增加到包中
 			if (javaClass.getJavaClass().getJavaPackage() == null) {
 				if (this.getJavaPackages().size() > 0) {
 					this.getJavaPackages().iterator().next().addClass(javaClass.getJavaClass());
@@ -541,7 +540,6 @@ public abstract class Component extends AbstractSubJDependUnit {
 		this.subJDependUnits = null;
 
 		this.areaComponent = null;
-		this.steadyType = null;
 	}
 
 	@Override
@@ -561,18 +559,23 @@ public abstract class Component extends AbstractSubJDependUnit {
 		if (this.getCoupling() == 0) {
 			return null;
 		}
-		Collection<? extends SubJDependUnit> subJDependUnits = this.getSubJDependUnits();
-		if (subJDependUnits.size() > 0) {
-			if (subJDependUnits.size() == 1) {
-				return 1F;
-			} else {
-				float balance = 0F;
-				for (SubJDependUnit subJDependUnit : subJDependUnits) {
-					balance += subJDependUnit.getBalance();
+		try {
+			Collection<? extends SubJDependUnit> subJDependUnits = this.getSubJDependUnits();
+			if (subJDependUnits.size() > 0) {
+				if (subJDependUnits.size() == 1) {
+					return 1F;
+				} else {
+					float balance = 0F;
+					for (SubJDependUnit subJDependUnit : subJDependUnits) {
+						balance += subJDependUnit.getBalance();
+					}
+					return balance / subJDependUnits.size();
 				}
-				return balance / subJDependUnits.size();
+			} else {
+				return 0F;
 			}
-		} else {
+		} catch (ProfileException e) {
+			e.printStackTrace();
 			return 0F;
 		}
 	}
@@ -581,34 +584,48 @@ public abstract class Component extends AbstractSubJDependUnit {
 	 * 获取用于计算内聚性的子元素集合
 	 * 
 	 * @return
+	 * @throws ProfileException
 	 */
-	public Collection<? extends SubJDependUnit> getSubJDependUnits() {
+	public Collection<? extends SubJDependUnit> getSubJDependUnits() throws ProfileException {
 		if (this.subJDependUnits == null) {
-			if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
+			ComponentProfile componentProfile = this.getResult().getRunningContext().getProfileFacade()
+					.getComponentProfile();
+
+			if (componentProfile.getBalance().equals(ComponentProfile.balanceFromPackage)) {
+				if (this.getJavaPackages().size() == 0 || this.getJavaPackages().size() == 1) {
+					this.subJDependUnits = this.javaClasses;
+				} else {
+					Collection<PackageSubJDependUnit> packageComponents = new HashSet<PackageSubJDependUnit>();
+					for (JavaPackage javaPackage : this.getJavaPackages()) {
+						packageComponents.add(new PackageSubJDependUnit(javaPackage, this.getResult()));
+					}
+					Collection<Component> outerComponents = this.getRelationComponents();
+					new RelationCreator().create(packageComponents);
+					new RelationCreator(false, true).create(outerComponents, packageComponents);
+					new RelationCreator(true, false).create(packageComponents, outerComponents);
+
+					this.subJDependUnits = packageComponents;
+				}
+			} else if (componentProfile.getBalance().equals(ComponentProfile.balanceFromClass)) {
 				this.subJDependUnits = this.javaClasses;
 			} else {
-				Collection<PackageSubJDependUnit> packageComponents = new HashSet<PackageSubJDependUnit>();
-				for (JavaPackage javaPackage : this.getJavaPackages()) {
-					packageComponents.add(new PackageSubJDependUnit(javaPackage, this.getResult()));
-				}
-				Collection<Component> outerComponents = this.getRelationComponents();
-				new RelationCreator().create(packageComponents);
-				new RelationCreator(false, true).create(outerComponents, packageComponents);
-				new RelationCreator(true, false).create(packageComponents, outerComponents);
-
-				this.subJDependUnits = packageComponents;
+				throw new ProfileException("用于生成内聚性的组件配置信息错误，balance=" + componentProfile.getBalance());
 			}
 		}
 		return this.subJDependUnits;
 	}
 
-	public SubJDependUnit getTheSubJDependUnit(String name) {
-		for (SubJDependUnit subJDependUnit : this.getSubJDependUnits()) {
-			if (subJDependUnit.getName().equals(name)) {
-				return subJDependUnit;
+	public SubJDependUnit getTheSubJDependUnit(String name) throws ComponentException {
+		try {
+			for (SubJDependUnit subJDependUnit : this.getSubJDependUnits()) {
+				if (subJDependUnit.getName().equals(name)) {
+					return subJDependUnit;
+				}
 			}
+			return null;
+		} catch (ProfileException e) {
+			throw new ComponentException(e);
 		}
-		return null;
 	}
 
 	public Component clone(Map<String, JavaClassUnit> javaClasses) throws ComponentException {
@@ -676,14 +693,6 @@ public abstract class Component extends AbstractSubJDependUnit {
 
 	public void setAreaComponent(AreaComponent areaComponent) {
 		this.areaComponent = areaComponent;
-	}
-
-	public String getSteadyType() {
-		return steadyType;
-	}
-
-	public void setSteadyType(String steadyType) {
-		this.steadyType = steadyType;
 	}
 
 	public void setResult(AnalysisResult result) {

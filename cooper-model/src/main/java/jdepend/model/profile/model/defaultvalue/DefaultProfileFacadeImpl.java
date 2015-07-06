@@ -22,8 +22,7 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public ComponentProfile getComponentProfile() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultComponentProfile();
 	}
 
 	@Override

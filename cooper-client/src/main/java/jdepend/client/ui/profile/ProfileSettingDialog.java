@@ -101,7 +101,7 @@ public abstract class ProfileSettingDialog extends CooperDialog {
 		});
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(button);
-		buttonPanel.add(this.createCloseButton());
+		buttonPanel.add(this.createCancelButton());
 
 		this.add(BorderLayout.SOUTH, buttonPanel);
 	}
