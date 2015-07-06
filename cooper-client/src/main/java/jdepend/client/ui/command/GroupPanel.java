@@ -144,6 +144,14 @@ public class GroupPanel extends JPanel {
 		});
 		popupMenu.add(mgrComponentGroupItem);
 
+		JMenuItem profileSettingItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ProfileSetting));
+		profileSettingItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				profileSetting();
+			}
+		});
+		popupMenu.add(profileSettingItem);
+
 		return popupMenu;
 	}
 
@@ -260,6 +268,13 @@ public class GroupPanel extends JPanel {
 		ComponentModelMgrDialog d = new ComponentModelMgrDialog(this.parent, currentGroup);
 		d.setModal(true);
 
+		d.setVisible(true);
+	}
+
+	private void profileSetting() {
+
+		GroupProfileSettingDialog d = new GroupProfileSettingDialog(this.parent, currentGroup);
+		d.setModal(true);
 		d.setVisible(true);
 	}
 }

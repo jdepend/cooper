@@ -147,6 +147,7 @@ public class BundleUtil {
 	public static final String Command_HideGroup = "Command_HideGroup";
 	public static final String Command_SelectShowGroup = "Command_SelectShowGroup";
 	public static final String Command_ManageComponentModel = "Command_ManageComponentModel";
+	public static final String Command_ProfileSetting = "Command_ProfileSetting";
 	public static final String Command_Clear = "Command_Clear";
 	public static final String Command_PriorStep = "Command_PriorStep";
 	public static final String Command_NextStep = "Command_NextStep";

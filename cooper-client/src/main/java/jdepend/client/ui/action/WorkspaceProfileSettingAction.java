@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.profile.WorkspaceProfileSettingDialog;
+import jdepend.client.ui.dialog.WorkspaceProfileSettingDialog;
 
 public class WorkspaceProfileSettingAction extends AbstractAction {
 

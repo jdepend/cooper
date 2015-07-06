@@ -16,9 +16,9 @@ public class ProfileScopeFacade extends PersistentBean {
 
 	private WorkspaceProfileScope workspaceProfileScope;
 
-	private List<GroupProfileScope> groupProfileScopes = new ArrayList<GroupProfileScope>();
+	private List<GroupProfileScope> groupProfileScopes;
 
-	private List<CommandProfileScope> commandProfileScopes = new ArrayList<CommandProfileScope>();
+	private List<CommandProfileScope> commandProfileScopes;
 
 	private ProfileScopeFacade() {
 		super("ProfileScopeFacade", "ProfileScopeFacade", PropertyConfigurator.DEFAULT_PROPERTY_DIR);
@@ -26,11 +26,20 @@ public class ProfileScopeFacade extends PersistentBean {
 		if (!this.containSetting()) {
 			this.initDefaultScopes();
 		}
+		if (groupProfileScopes == null) {
+			groupProfileScopes = new ArrayList<GroupProfileScope>();
+		}
+
+		if (commandProfileScopes == null) {
+			commandProfileScopes = new ArrayList<CommandProfileScope>();
+		}
 	}
 
 	private void initDefaultScopes() {
 		workspaceProfileScope = new WorkspaceProfileScope();
 		workspaceProfileScope.setProfileFacade(new DefaultProfileFacadeImpl());
+		groupProfileScopes = new ArrayList<GroupProfileScope>();
+		commandProfileScopes = new ArrayList<CommandProfileScope>();
 	}
 
 	private boolean containSetting() {

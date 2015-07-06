@@ -145,6 +145,16 @@ public class CommandPanel extends JPanel {
 
 		popupMenu.addSeparator();
 
+		JMenuItem profileSettingItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_ProfileSetting));
+		profileSettingItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				profileSetting();
+			}
+		});
+		popupMenu.add(profileSettingItem);
+
+		popupMenu.addSeparator();
+
 		JMenuItem refreshItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
 		deleteItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,6 +223,12 @@ public class CommandPanel extends JPanel {
 			CommandConfMgr.getInstance().deleteCommand(group, command);
 			refreshCommand();
 		}
+	}
+
+	private void profileSetting() {
+		CommandProfileSettingDialog d = new CommandProfileSettingDialog(frame, group, command);
+		d.setModal(true);
+		d.setVisible(true);
 	}
 
 	private void viewReportHistory() {

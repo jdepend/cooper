@@ -1,6 +1,7 @@
-package jdepend.client.ui.profile;
+package jdepend.client.ui.dialog;
 
 import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.profile.ProfileSettingDialog;
 import jdepend.model.profile.ProfileFacade;
 import jdepend.service.profile.scope.ProfileScopeFacade;
 import jdepend.service.profile.scope.WorkspaceProfileScope;
@@ -9,6 +10,7 @@ public class WorkspaceProfileSettingDialog extends ProfileSettingDialog {
 
 	public WorkspaceProfileSettingDialog(JDependCooper frame) {
 		super(frame, ProfileScopeFacade.getInstance().getWorkspaceProfileScope().getProfileFacade());
+		this.setName("定制工作区级别的规则");
 	}
 
 	@Override
