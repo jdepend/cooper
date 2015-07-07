@@ -6,6 +6,6 @@ public class DefaultComponentProfile extends ComponentProfile {
 
 	public DefaultComponentProfile() {
 		this.setBalance(ComponentProfile.balanceFromPackage);
+		this.setStabilityWithCountScale(0.5F);
 	}
-
 }
