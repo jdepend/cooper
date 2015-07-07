@@ -113,6 +113,14 @@ public class InstabilityDialog extends CooperDialog {
 			instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)));
 			instabilityText.append("\n");
 			instabilityText.append("\n");
+
+			if (stabilityWithCountScale == 0.5F) {
+				instabilityText.append("instabilityWithCount:");
+				instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)
+						* stabilityWithCountScale));
+				instabilityText.append("\n");
+				instabilityText.append("\n");
+			}
 		}
 
 		if (stabilityWithCountScale == 1F || stabilityWithCountScale == 0.5F) {
@@ -128,21 +136,18 @@ public class InstabilityDialog extends CooperDialog {
 			instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)));
 			instabilityText.append("\n");
 			instabilityText.append("\n");
+
+			if (stabilityWithCountScale == 0.5F) {
+				instabilityText.append("instabilityWithIntensity:");
+				instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)
+						* (1 - stabilityWithCountScale)));
+				instabilityText.append("\n");
+				instabilityText.append("\n");
+			}
 		}
 
 		instabilityText.append("instabilityWithCountScale:");
 		instabilityText.append(MetricsFormat.toFormattedMetrics(stabilityWithCountScale));
-		instabilityText.append("\n");
-
-		instabilityText.append("instabilityWithCount:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)
-				* stabilityWithCountScale));
-		instabilityText.append("\n");
-
-		instabilityText.append("instabilityWithIntensity:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)
-				* (1 - stabilityWithCountScale)));
-		instabilityText.append("\n");
 		instabilityText.append("\n");
 
 		instabilityText.append("instabilityWithIntensity:");

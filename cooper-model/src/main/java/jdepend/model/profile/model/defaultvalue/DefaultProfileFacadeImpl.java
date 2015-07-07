@@ -27,8 +27,7 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public RelationProfile getRelationProfile() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultRelationProfile();
 	}
 
 	@Override

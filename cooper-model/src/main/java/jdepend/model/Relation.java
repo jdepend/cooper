@@ -45,9 +45,9 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	public static final Map<Integer, String> AttentionTypeList = new HashMap<Integer, String>();
 	static {
 		AttentionTypeList.put(DefaultAttentionType, "");
+		AttentionTypeList.put(CycleDependAttentionType, "循环依赖");
 		AttentionTypeList.put(SDPAttentionType, "违反稳定依赖原则");
 		AttentionTypeList.put(ComponentLayerAttentionType, "下层组件依赖了上层组件");
-		AttentionTypeList.put(CycleDependAttentionType, "循环依赖");
 		AttentionTypeList.put(MutualDependAttentionType, "彼此依赖");
 	}
 
