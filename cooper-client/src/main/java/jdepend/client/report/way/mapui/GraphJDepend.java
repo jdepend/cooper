@@ -404,15 +404,15 @@ public class GraphJDepend extends Display {
 					Logger.getLogger(this.getClass().getName()).warning("Unrecognized Object from predicate chain.");
 				}
 			}
-			// 处理关注级别
-			int attentionLevel = item.getTable().getInt(item.getRow(), "attentionLevel");
-			if (attentionLevel == Relation.MutualDependAttentionType) {
+			// 处理关注类型
+			String attentionType = item.getTable().getString(item.getRow(), "attentionType");
+			if (attentionType.equals(Relation.MutualDependAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 255);
-			} else if (attentionLevel == Relation.ComponentLayerAttentionType) {
+			} else if (attentionType.equals(Relation.ComponentLayerAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 120);
-			} else if (attentionLevel == Relation.SDPAttentionType) {
+			} else if (attentionType.equals(Relation.SDPAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 80);
-			} else if (attentionLevel == Relation.CycleDependAttentionType) {
+			} else if (attentionType.equals(Relation.CycleDependAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 40);
 			} else {
 				return this.getDefaultColor();

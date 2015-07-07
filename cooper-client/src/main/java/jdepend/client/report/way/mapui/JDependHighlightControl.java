@@ -19,8 +19,8 @@ public class JDependHighlightControl extends NeighborHighlightControl {
 			NodeItem nitem = eitem.getAdjacentItem(n);
 			if (eitem.isVisible() || this.isHighlightWithInvisibleEdge()) {
 				// 相互依赖
-				int attentionLevel = eitem.getTable().getInt(eitem.getRow(), "attentionLevel");
-				if (attentionLevel == Relation.MutualDependAttentionType) {
+				String attentionType = eitem.getTable().getString(eitem.getRow(), "attentionType");
+				if (attentionType.equals(Relation.MutualDependAttentionType)) {
 					eitem.getTable().setBoolean(eitem.getRow(), "mutualColor", state);
 					if (nitem.isVisible()) {
 						nitem.getTable().setBoolean(nitem.getRow(), "mutualColor", state);

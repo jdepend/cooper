@@ -42,7 +42,7 @@ public class RelationByMetricsComparator implements Comparator {
 			} else if (this.metrics.equals(Relation.AttentionLevel)) {
 				rtn = new Float(a.getAttentionLevel()).compareTo(b.getAttentionLevel());
 			} else if (this.metrics.equals(Relation.AttentionType)) {
-				rtn = new Integer(a.getAttentionType()).compareTo(b.getAttentionType());
+				rtn = a.getAttentionType().compareTo(b.getAttentionType());
 			} else if (this.metrics.equals(Relation.Balance)) {
 				rtn = new Float(a.getBalance()).compareTo(b.getBalance());
 			} else {

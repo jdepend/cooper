@@ -37,8 +37,9 @@ public class UniteComponentTODOIdentifyer implements TODOIdentifyer {
 			if (!relationData.isTodo()) {
 				relation = relationData.getRelation();
 				if (relation.isAttention()) {
-					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
-						attentionLevel = relation.getAttentionLevel() - Relation.MutualDependAttentionType;
+					if (relation.getAttentionType().equals(Relation.MutualDependAttentionType)) {
+						attentionLevel = relation.getAttentionLevel()
+								- relation.getAttentionWeight(Relation.MutualDependAttentionType);
 						// 循环依赖的双方依赖线不是一“粗”一“细”
 						if (attentionLevel < 0.8 && attentionLevel >= 0.2) {
 							item = new UniteComponentTODOItem(relation);

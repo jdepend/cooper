@@ -9,6 +9,8 @@ import java.util.Map;
 import jdepend.framework.util.MathUtil;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.JavaClassRelationItem;
+import jdepend.model.profile.model.RelationProfile;
+import jdepend.model.result.AnalysisResult;
 
 /**
  * 两个Element间的关系对象
@@ -31,18 +33,18 @@ public final class Relation implements Comparable<Relation>, Serializable {
 
 	private transient boolean isAttention = true;// 是否值得注意，可以通过外部设置为不关注
 
-	private transient Integer attentionType;// 缓存
+	private transient String attentionType;// 缓存
 	private transient Float attentionLevel;// 缓存
 
 	private transient boolean normality = true;
 
-	public static final int DefaultAttentionType = 0;
-	public static final int CycleDependAttentionType = 1;// 循环依赖的关系
-	public static final int SDPAttentionType = 2;// 违反稳定依赖原则的关系
-	public static final int ComponentLayerAttentionType = 3;// 下层组件依赖了上层组件的关系
-	public static final int MutualDependAttentionType = 4;// 彼此依赖的关系
+	public static final String DefaultAttentionType = "DefaultAttentionType";
+	public static final String CycleDependAttentionType = "CycleDependAttentionType";// 循环依赖的关系
+	public static final String SDPAttentionType = "SDPAttentionType";// 违反稳定依赖原则的关系
+	public static final String ComponentLayerAttentionType = "ComponentLayerAttentionType";// 下层组件依赖了上层组件的关系
+	public static final String MutualDependAttentionType = "MutualDependAttentionType";// 彼此依赖的关系
 
-	public static final Map<Integer, String> AttentionTypeList = new HashMap<Integer, String>();
+	public static final Map<String, String> AttentionTypeList = new HashMap<String, String>();
 	static {
 		AttentionTypeList.put(DefaultAttentionType, "");
 		AttentionTypeList.put(CycleDependAttentionType, "循环依赖");
@@ -122,7 +124,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		}
 	}
 
-	public int getAttentionType() {
+	public String getAttentionType() {
 		if (!this.isAttention) {
 			return DefaultAttentionType;
 		}
@@ -199,15 +201,15 @@ public final class Relation implements Comparable<Relation>, Serializable {
 
 	private Float calAttentionLevel() {
 		Float attentionLevel = 0F;
-		int attentiontype = getAttentionType();
-		if (attentiontype == MutualDependAttentionType) {// 彼此依赖
+		String attentiontype = getAttentionType();
+		if (attentiontype.equals(MutualDependAttentionType)) {// 彼此依赖
 			L: for (Relation relation : this.depend.getComponent().getRelations()) {
 				if (this.isReverse(relation)) {
 					if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
 						attentionLevel = new Float(attentiontype);
 					} else {
 						Float attention = 1 - this.getIntensity() / (this.getIntensity() + relation.getIntensity());
-						attentionLevel = attentiontype + attention;
+						attentionLevel = this.getAttentionWeight(attentiontype) + attention;
 						if (attention > 0.5) {
 							this.normality = false;
 						}
@@ -215,14 +217,14 @@ public final class Relation implements Comparable<Relation>, Serializable {
 					break L;
 				}
 			}
-		} else if (attentiontype == SDPAttentionType) {// 稳定性差的组件依赖稳定性高的组件
+		} else if (attentiontype.equals(SDPAttentionType)) {// 稳定性差的组件依赖稳定性高的组件
 			Float attention = this.getDepend().getComponent().getStability()
 					- this.getCurrent().getComponent().getStability();
 			if (attention > 0) {
-				attentionLevel = attentiontype + attention;// 按自动计算的稳定性计算attentionLevel
-			} 
+				attentionLevel = this.getAttentionWeight(attentiontype) + attention;// 按自动计算的稳定性计算attentionLevel
+			}
 			this.normality = false;
-		} else if (attentiontype == ComponentLayerAttentionType) {// 下层组件依赖了上层组件
+		} else if (attentiontype.equals(ComponentLayerAttentionType)) {// 下层组件依赖了上层组件
 			Float attention = 0F;
 			if (this.current.getComponent().getAreaComponent() != null
 					&& this.depend.getComponent().getAreaComponent() != null) {
@@ -232,15 +234,15 @@ public final class Relation implements Comparable<Relation>, Serializable {
 				attention = new Float(this.getDepend().getComponent().getLayer()
 						- this.getCurrent().getComponent().getLayer());
 			}
-			attentionLevel = attentiontype + attention;
+			attentionLevel = this.getAttentionWeight(attentiontype) + attention;
 			this.normality = false;
 		} else {
-			attentionLevel = new Float(attentiontype);
+			attentionLevel = 0F;
 		}
 		return attentionLevel;
 	}
 
-	private int calAttentionType() {
+	private String calAttentionType() {
 		if (this.depend.getComponent().getEfferents().contains(this.current.getComponent())) {// 检测彼此依赖
 			return MutualDependAttentionType;
 		} else if (this.current.getComponent().isDefinedComponentLevel()
@@ -259,6 +261,15 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		} else {
 			return DefaultAttentionType;
 		}
+	}
+
+	public float getAttentionWeight(String attentiontype) {
+		RelationProfile relationProfile = this.getResult().getRunningContext().getProfileFacade().getRelationProfile();
+		return relationProfile.getProblemRelations().get(attentiontype);
+	}
+
+	public AnalysisResult getResult() {
+		return this.current.getComponent().getResult();
 	}
 
 	public static Collection<Element> calElements(Collection<Relation> relations) {

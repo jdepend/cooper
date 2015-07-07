@@ -25,10 +25,10 @@ public class MoveJavaClassTODOIdentifyer implements TODOIdentifyer {
 			relation = relationData.getRelation();
 			try {
 				if (relation.isAttention()) {
-					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
+					if (relation.getAttentionType().equals(Relation.MutualDependAttentionType)) {
 						attentionLevel = relation.getAttentionLevel();
 						// 寻找循环依赖中“细”的那条依赖关系
-						if (attentionLevel - Relation.MutualDependAttentionType > 0.8) {
+						if (attentionLevel - relation.getAttentionWeight(Relation.MutualDependAttentionType) > 0.8) {
 							item = new MoveRelationForMutualDependTODOItem(relationData);
 							if (item.isMove()) {
 								relationData.setTodo(true);
@@ -36,7 +36,7 @@ public class MoveJavaClassTODOIdentifyer implements TODOIdentifyer {
 								list.add(item);
 							}
 						}
-					} else if (relation.getAttentionType() == Relation.CycleDependAttentionType) {
+					} else if (relation.getAttentionType().equals(Relation.CycleDependAttentionType)) {
 						// 记录循环依赖链上关系最弱的
 						if (cycleDepend == null || cycleDepend.getRelation().getIntensity() > relation.getIntensity()) {
 							cycleDepend = relationData;
@@ -51,7 +51,7 @@ public class MoveJavaClassTODOIdentifyer implements TODOIdentifyer {
 						}
 					} else if (relation.getAttentionType() == Relation.SDPAttentionType) {
 						attentionLevel = relation.getAttentionLevel();
-						if (attentionLevel - Relation.SDPAttentionType > 0.4) {
+						if (attentionLevel - relation.getAttentionWeight(Relation.SDPAttentionType) > 0.4) {
 							item = new MoveRelationForChangeDirTODOItem(relationData);
 							if (item.isMove()) {
 								relationData.setTodo(true);

@@ -99,10 +99,10 @@ public class CovertorUtil {
 		Object[][] NODES = { NCOLUMN1, NCOLUMN2, NCOLUMN3, NCOLUMN4, NCOLUMN5, NCOLUMN6, NCOLUMN7, NCOLUMN8, NCOLUMN9,
 				NCOLUMN10 };
 
-		Class[] ETYPES = { int.class, int.class, double.class, String.class, int.class, boolean.class, boolean.class,
-				boolean.class };
+		Class[] ETYPES = { int.class, int.class, double.class, String.class, String.class, boolean.class,
+				boolean.class, boolean.class };
 
-		String[] EHEADERS = { "id1", "id2", "weight", "info", "attentionLevel", "CaColor", "CeColor", "mutualColor" };
+		String[] EHEADERS = { "id1", "id2", "weight", "info", "attentionType", "CaColor", "CeColor", "mutualColor" };
 		// 起始点编号
 		Integer[] ECOLUMN1 = new Integer[NEDGES];
 		i = 0;
@@ -128,7 +128,7 @@ public class CovertorUtil {
 			ECOLUMN4[i++] = relation.toString();
 		}
 		// 关注程度
-		Integer[] ECOLUMN5 = new Integer[NEDGES];
+		String[] ECOLUMN5 = new String[NEDGES];
 		i = 0;
 		for (Relation relation : mapData.getRelations()) {
 			ECOLUMN5[i++] = relation.getAttentionType();
