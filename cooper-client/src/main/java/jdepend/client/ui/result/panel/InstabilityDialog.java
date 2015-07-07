@@ -17,6 +17,7 @@ import jdepend.framework.ui.graph.model.GraphData;
 import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.model.JDependUnit;
+import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.util.MetricsTool;
 
 public class InstabilityDialog extends CooperDialog {
@@ -48,28 +49,37 @@ public class InstabilityDialog extends CooperDialog {
 	private JComponent createGraph(JDependUnit unit) {
 		GraphData graph = new GraphData();
 
+		ComponentProfile componentProfile = unit.getResult().getRunningContext().getProfileFacade()
+				.getComponentProfile();
+		float stabilityWithCountScale = componentProfile.getStabilityWithCountScale();
+
 		Float instabilityWithCount = MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit));
 		Float instabilityWithIntensity = MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit));
 
 		GraphDataItem item = null;
 		Map<Object, Object> datas = null;
-		item = new GraphDataItem();
-		item.setTitle("数量稳定性");
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put("传出", instabilityWithCount);
-		datas.put("传入", 1 - instabilityWithCount);
-		item.setDatas(datas);
-		graph.addItem(item);
 
-		item = new GraphDataItem();
-		item.setTitle("强度稳定性");
-		item.setType(GraphDataItem.PIE);
-		datas = new HashMap<Object, Object>();
-		datas.put("传出", instabilityWithIntensity);
-		datas.put("传入", 1 - instabilityWithIntensity);
-		item.setDatas(datas);
-		graph.addItem(item);
+		if (stabilityWithCountScale == 0F || stabilityWithCountScale == 0.5F) {
+			item = new GraphDataItem();
+			item.setTitle("数量稳定性");
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put("传出", instabilityWithCount);
+			datas.put("传入", 1 - instabilityWithCount);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
+
+		if (stabilityWithCountScale == 1F || stabilityWithCountScale == 0.5F) {
+			item = new GraphDataItem();
+			item.setTitle("强度稳定性");
+			item.setType(GraphDataItem.PIE);
+			datas = new HashMap<Object, Object>();
+			datas.put("传出", instabilityWithIntensity);
+			datas.put("传入", 1 - instabilityWithIntensity);
+			item.setDatas(datas);
+			graph.addItem(item);
+		}
 
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,44 +96,52 @@ public class InstabilityDialog extends CooperDialog {
 	private StringBuilder getText(JDependUnit unit) {
 		StringBuilder instabilityText = new StringBuilder();
 
-		instabilityText.append("Ce:");
-		instabilityText.append(unit.getEfferentCoupling());
-		instabilityText.append("\n");
+		ComponentProfile componentProfile = unit.getResult().getRunningContext().getProfileFacade()
+				.getComponentProfile();
+		float stabilityWithCountScale = componentProfile.getStabilityWithCountScale();
 
-		instabilityText.append("Ca:");
-		instabilityText.append(unit.getAfferentCoupling());
-		instabilityText.append("\n");
+		if (stabilityWithCountScale == 0F || stabilityWithCountScale == 0.5F) {
+			instabilityText.append("Ce:");
+			instabilityText.append(unit.getEfferentCoupling());
+			instabilityText.append("\n");
 
-		instabilityText.append("Ce/(Ca+Ce):");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)));
-		instabilityText.append("\n");
-		instabilityText.append("\n");
+			instabilityText.append("Ca:");
+			instabilityText.append(unit.getAfferentCoupling());
+			instabilityText.append("\n");
 
-		instabilityText.append("CeCoupling:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(unit.ceCoupling()));
-		instabilityText.append("\n");
+			instabilityText.append("Ce/(Ca+Ce):");
+			instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)));
+			instabilityText.append("\n");
+			instabilityText.append("\n");
+		}
 
-		instabilityText.append("CaCoupling:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(unit.caCoupling()));
-		instabilityText.append("\n");
+		if (stabilityWithCountScale == 1F || stabilityWithCountScale == 0.5F) {
+			instabilityText.append("CeCoupling:");
+			instabilityText.append(MetricsFormat.toFormattedMetrics(unit.ceCoupling()));
+			instabilityText.append("\n");
 
-		instabilityText.append("CeCoupling/(CaCoupling+CeCoupling):");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)));
-		instabilityText.append("\n");
-		instabilityText.append("\n");
+			instabilityText.append("CaCoupling:");
+			instabilityText.append(MetricsFormat.toFormattedMetrics(unit.caCoupling()));
+			instabilityText.append("\n");
+
+			instabilityText.append("CeCoupling/(CaCoupling+CeCoupling):");
+			instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)));
+			instabilityText.append("\n");
+			instabilityText.append("\n");
+		}
 
 		instabilityText.append("instabilityWithCountScale:");
-		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCountScale()));
+		instabilityText.append(MetricsFormat.toFormattedMetrics(stabilityWithCountScale));
 		instabilityText.append("\n");
 
 		instabilityText.append("instabilityWithCount:");
 		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithCount(unit)
-				* MetricsTool.instabilityWithCountScale()));
+				* stabilityWithCountScale));
 		instabilityText.append("\n");
 
 		instabilityText.append("instabilityWithIntensity:");
 		instabilityText.append(MetricsFormat.toFormattedMetrics(MetricsTool.instabilityWithIntensity(unit)
-				* (1 - MetricsTool.instabilityWithCountScale())));
+				* (1 - stabilityWithCountScale)));
 		instabilityText.append("\n");
 		instabilityText.append("\n");
 

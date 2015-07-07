@@ -1,6 +1,7 @@
 package jdepend.model;
 
 import jdepend.framework.util.MathUtil;
+import jdepend.model.profile.model.ComponentProfile;
 
 /**
  * 计算计算得到的指标的工具 仅仅在model中使用
@@ -11,8 +12,6 @@ import jdepend.framework.util.MathUtil;
 public final class CalculateMetricsTool {
 
 	private JDependUnit unit = null;
-
-	public static float stabilityWithCountScale = 0.5F;// stability数量所占比例（0-1）
 
 	public CalculateMetricsTool(JDependUnit unit) {
 		this.unit = unit;
@@ -52,6 +51,9 @@ public final class CalculateMetricsTool {
 		if (MathUtil.isZero(unit.getCoupling())) {
 			return null;
 		} else {
+			ComponentProfile componentProfile = unit.getResult().getRunningContext().getProfileFacade()
+					.getComponentProfile();
+			float stabilityWithCountScale = componentProfile.getStabilityWithCountScale();
 			return stabilityWithCount() * stabilityWithCountScale + stabilityWithIntensity()
 					* (1 - stabilityWithCountScale);
 		}

@@ -18,9 +18,4 @@ public class MetricsTool {
 	public static Float instabilityWithIntensity(JDependUnit unit) {
 		return new CalculateMetricsTool(unit).stabilityWithIntensity();
 	}
-
-	public static Float instabilityWithCountScale() {
-		return CalculateMetricsTool.stabilityWithCountScale;
-	}
-
 }

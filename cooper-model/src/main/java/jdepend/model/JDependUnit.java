@@ -7,6 +7,7 @@ import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaPackage;
+import jdepend.model.result.AnalysisResult;
 
 /**
  * 分析单元
@@ -104,6 +105,13 @@ public interface JDependUnit extends Serializable, Measurable, Comparable<JDepen
 	 * @return
 	 */
 	public float coupling(JDependUnit dependUnit);
+	
+	/**
+	 * 得到分析结果
+	 * 
+	 * @return
+	 */
+	public AnalysisResult getResult();
 
 	/**
 	 * 清空缓存
