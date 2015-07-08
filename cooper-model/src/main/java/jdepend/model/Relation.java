@@ -159,7 +159,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	public boolean isAttention() {
-		return this.isAttention && this.getAttentionType() != DefaultAttentionType;
+		return this.isAttention && !this.getAttentionType().equals(DefaultAttentionType);
 	}
 
 	public void setAttention(boolean isAttention) {

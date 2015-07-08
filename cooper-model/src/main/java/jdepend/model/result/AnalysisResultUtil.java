@@ -68,14 +68,14 @@ public class AnalysisResultUtil {
 			for (Relation relation : result.getRelations()) {
 				if (relation.isAttention()) {
 					// 根据关系性质计算存在问题的关系比例
-					if (relation.getAttentionType() == Relation.MutualDependAttentionType) {
+					if (relation.getAttentionType().equals(Relation.MutualDependAttentionType)) {
 						attentions += 1.0F;// 彼此依赖一次增加1，两次增加到2（存在彼此依赖的关系，两条线全部记录为有问题的关系）
-					} else if (relation.getAttentionType() == Relation.ComponentLayerAttentionType) {
+					} else if (relation.getAttentionType().equals(Relation.ComponentLayerAttentionType)) {
 						attentions += 0.8F;
-					} else if (relation.getAttentionType() == Relation.SDPAttentionType) {
+					} else if (relation.getAttentionType().equals(Relation.SDPAttentionType)) {
 						attentions += 0.5F;
 					}
-					if (relation.getAttentionType() == Relation.CycleDependAttentionType) {
+					if (relation.getAttentionType().equals(Relation.CycleDependAttentionType)) {
 						attentions += 0.3F;
 					}
 				}

@@ -11,10 +11,10 @@ public final class MoveRelationForMutualDependTODOItem extends MoveRelationTODOI
 	}
 
 	protected boolean decision() throws JDependException {
-		if (this.getRelationData().getRelation().getAttentionType() != Relation.MutualDependAttentionType) {
+		if (!this.getRelationData().getRelation().getAttentionType().equals(Relation.MutualDependAttentionType)) {
 			throw new JDependException("该关系不是彼此依赖");
 		}
-		//根据耦合类型判断需要移动Relation
+		// 根据耦合类型判断需要移动Relation
 		boolean isCurrentMutual = !MathUtil.isZero(getRelationData().currentCaIntensity)
 				&& !MathUtil.isZero(getRelationData().currentCeIntensity);
 		boolean isDependMutual = !MathUtil.isZero(getRelationData().dependCaIntensity)
