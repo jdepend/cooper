@@ -119,8 +119,10 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	public Component getOpposite(Component component) {
 		if (this.current.getComponent().equals(component)) {
 			return this.depend.getComponent();
-		} else {
+		} else if (this.depend.getComponent().equals(component)) {
 			return this.current.getComponent();
+		} else {
+			return null;
 		}
 	}
 
@@ -195,26 +197,33 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		this.attentionLevel = this.calAttentionLevel();
 	}
 
-	private boolean isReverse(Relation relation) {
-		return this.current.equals(relation.getDepend()) && this.depend.equals(relation.getCurrent());
+	/**
+	 * 得到彼此依赖的对方关系
+	 * 
+	 * @param relation
+	 * @return
+	 */
+	private Relation getReverseRelation() {
+		for (Relation relation : this.depend.getComponent().getRelations()) {
+			if (this.current.equals(relation.getDepend()) && this.depend.equals(relation.getCurrent())) {
+				return relation;
+			}
+		}
+		return null;
 	}
 
 	private Float calAttentionLevel() {
 		Float attentionLevel = 0F;
 		String attentiontype = getAttentionType();
 		if (attentiontype.equals(MutualDependAttentionType)) {// 彼此依赖
-			L: for (Relation relation : this.depend.getComponent().getRelations()) {
-				if (this.isReverse(relation)) {
-					if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
-						attentionLevel = new Float(attentiontype);
-					} else {
-						Float attention = 1 - this.getIntensity() / (this.getIntensity() + relation.getIntensity());
-						attentionLevel = this.getAttentionWeight(attentiontype) + attention;
-						if (attention > 0.5) {
-							this.normality = false;
-						}
-					}
-					break L;
+			Relation relation = this.getReverseRelation();
+			if (MathUtil.isEquals(relation.getIntensity(), this.getIntensity())) {
+				attentionLevel = this.getAttentionWeight(attentiontype);
+			} else {
+				Float attention = 1 - this.getIntensity() / (this.getIntensity() + relation.getIntensity());
+				attentionLevel = this.getAttentionWeight(attentiontype) + attention;
+				if (attention > 0.5) {
+					this.normality = false;
 				}
 			}
 		} else if (attentiontype.equals(SDPAttentionType)) {// 稳定性差的组件依赖稳定性高的组件
@@ -263,6 +272,12 @@ public final class Relation implements Comparable<Relation>, Serializable {
 		}
 	}
 
+	/**
+	 * 将问题类型转化成问题权值
+	 * 
+	 * @param attentiontype
+	 * @return
+	 */
 	public float getAttentionWeight(String attentiontype) {
 		RelationProfile relationProfile = this.getResult().getRunningContext().getProfileFacade().getRelationProfile();
 		return relationProfile.getProblemRelations().get(attentiontype);
