@@ -63,6 +63,7 @@ import jdepend.framework.ui.panel.StatusPanel;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseListener;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerExecutorListener;
 import jdepend.util.refactor.AdjustHistory;
@@ -457,8 +458,16 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	@Override
 	public void refresh() throws JDependException {
-		// 刷新Commands
-		this.getLeftPanel().getGroupPanel().refreshGroup();
+		//刷新profile
+		ProfileScopeFacade.getInstance().refresh();
+		// 刷新GroupPanl
+		this.getGroupPanel().refreshGroup();
+		// 刷新分析器
+		this.getCulturePanel().refreshAnalyzer();
+		// 刷新新的UI信息
+		UIPropertyConfigurator.getInstance().refresh();
+		// 刷新Layout
+		this.refreshLayout();
 	}
 
 	@Override

@@ -54,6 +54,10 @@ public class ProfileScopeFacade extends PersistentBean {
 		return facade;
 	}
 
+	public void refresh() {
+		facade = new ProfileScopeFacade();
+	}
+
 	public ProfileFacade getProfileFacade(String group, String command) {
 
 		for (AbstractProfileScope scope : this.getProfileScope()) {

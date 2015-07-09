@@ -153,14 +153,8 @@ public class WorkspaceSettingDialog extends JDialog {
 						UIPropertyConfigurator.getInstance().save();
 						// 设置workspacePath
 						JDependContext.setWorkspacePath(setting.getWorkspacePath());
-						// 刷新GroupPanl
-						frame.getGroupPanel().refreshGroup();
-						// 刷新分析器
-						frame.getCulturePanel().refreshAnalyzer();
-						// 刷新新的UI信息
-						UIPropertyConfigurator.getInstance().refresh();
-						// 刷新Layout
-						frame.refreshLayout();
+						// 刷新frame
+						frame.refresh();
 					}
 					WorkspaceSettingDialog.this.dispose();
 				} catch (Exception e1) {
