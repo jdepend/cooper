@@ -243,7 +243,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);
 				new HttpInvokeMethodReader(method, parser.getConf()).read(obj);
-
+				
 				method.setSelfLineCount(this.calLineCount(obj));
 
 				this.jClass.getDetail().addMethod(method);

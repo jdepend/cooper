@@ -55,17 +55,20 @@ public class HttpInvokeMethodReader extends MethodReader {
 				if (pos != -1) {
 					calledName = infos[1].substring(0, pos);
 					if (invokeClassNames.contains(calledName)) {
-						HttpInvokeItem item = new HttpInvokeItem(url, constantClassName, constantAttributeName);
-						method.addInvokeItem(item);
+						if (url != null || constantClassName != null) {
+							HttpInvokeItem item = new HttpInvokeItem(url, constantClassName, constantAttributeName);
+							method.addInvokeItem(item);
+							url = null;
+							constantClassName = null;
+							constantAttributeName = null;
+						}
 					}
 				}
 			}
 		} else if (info.startsWith("ldc")) {
 			infos = info.split("\\s+");
-			if (infos.length > 0 && infos[1].startsWith("\"")) {
-				if (!infos[1].equals("\"GET\"") && !infos[1].equals("\"POST\"")) {
-					url = infos[1];
-				}
+			if (infos.length > 0 && infos[1].startsWith("\"/")) {
+				url = infos[1];
 			}
 		} else if (info.startsWith("getstatic")) {
 			infos = info.split("\\s+");
