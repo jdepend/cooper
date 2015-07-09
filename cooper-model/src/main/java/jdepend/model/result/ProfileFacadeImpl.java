@@ -13,6 +13,7 @@ import jdepend.model.profile.model.RelationProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultComponentProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultJavaClassUnitProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultRelationProfile;
 
 public class ProfileFacadeImpl implements MaintainProfileFacade, Serializable {
@@ -52,10 +53,13 @@ public class ProfileFacadeImpl implements MaintainProfileFacade, Serializable {
 		}
 
 		this.relationProfile = profileFacade.getRelationProfile();
-		if(this.relationProfile == null){
+		if (this.relationProfile == null) {
 			this.relationProfile = new DefaultRelationProfile();
 		}
 		this.javaClassUnitProfile = profileFacade.getJavaClassUnitProfile();
+		if (this.javaClassUnitProfile == null) {
+			this.javaClassUnitProfile = new DefaultJavaClassUnitProfile();
+		}
 		this.javaClassRelationItemProfile = profileFacade.getJavaClassRelationItemProfile();
 	}
 

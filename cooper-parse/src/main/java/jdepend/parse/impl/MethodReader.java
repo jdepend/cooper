@@ -24,6 +24,7 @@ public abstract class MethodReader {
 	}
 
 	public final void read(org.apache.bcel.classfile.Method obj) {
+
 		Code codeType = obj.getCode();
 		if (codeType != null) {
 			byte[] code = codeType.getCode();

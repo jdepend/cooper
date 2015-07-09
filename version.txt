@@ -8,7 +8,7 @@ c）创建JavaClassRelationTypes，并使JavaClassRelationTypeMgr.getInstance只
 
 d）将ServiceConfigurator、ParseConfigurator实现序列化接口，并在CS模式运行下由客户端传入
 
-
+e）修正建立http调用中的bug
 
 1.2.5_03 2015-06-15
 

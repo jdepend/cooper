@@ -32,8 +32,7 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public JavaClassUnitProfile getJavaClassUnitProfile() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultJavaClassUnitProfile();
 	}
 
 	@Override

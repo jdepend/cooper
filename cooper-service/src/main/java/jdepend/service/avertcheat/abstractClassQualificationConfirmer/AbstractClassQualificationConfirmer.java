@@ -10,7 +10,7 @@ import jdepend.service.avertcheat.framework.JavaClassAvertCheat;
 
 public final class AbstractClassQualificationConfirmer extends JavaClassAvertCheat {
 
-	private static int ChildJavaClassCount = 2;
+	private static int ChildJavaClassCount = 1;
 
 	@Override
 	protected void handle(JavaClassUnit javaClass) {
@@ -28,7 +28,8 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		AnalysisResult result = javaClass.getResult();
 
 		Collection<JavaClass> subClasses = javaClass.getJavaClass().getSubClasses();
-		if (subClasses.size() >= ChildJavaClassCount) {
+		//子类数量大于指定数量
+		if (subClasses.size() > ChildJavaClassCount) {
 			return true;
 		} else {
 			// 存在一个子类，又存在父类也具备抽象类计数资格

@@ -2,8 +2,10 @@ package jdepend.metadata.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import jdepend.framework.util.ThreadPool;
 import jdepend.metadata.CandidateUtil;
@@ -61,7 +63,12 @@ public class JavaClassCollection {
 
 	public synchronized Map<String, Method> getHttpMethod() {
 		if (this.httpMethods == null) {
-			this.httpMethods = new HashMap<String, Method>();
+			this.httpMethods = new TreeMap<String, Method>(new Comparator<String>() {
+				@Override
+				public int compare(String o1, String o2) {
+					return o2.compareTo(o1);
+				}
+			});
 			for (JavaClass javaClass : javaClasses) {
 				if (javaClass.getDetail().getRequestMapping() != null) {
 					for (Method method : javaClass.getSelfMethods()) {

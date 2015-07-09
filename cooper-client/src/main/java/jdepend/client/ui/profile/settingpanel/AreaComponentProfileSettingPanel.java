@@ -12,15 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
-import jdepend.framework.util.BundleUtil;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AreaComponentProfile;
 
 public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	private AreaComponentProfile areaComponentProfile;
-
-	private JCheckBox createCheckBox;
 
 	private List<JCheckBox> accordingCheckBoxes;
 
@@ -39,14 +36,6 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 		JPanel left = new JPanel(new BorderLayout());
 		left.setPreferredSize(new Dimension(this.getWidth(), 120));
-
-		this.createCheckBox = new JCheckBox("是否计算组件区域");
-
-		if (areaComponentProfile.isCreate()) {
-			this.createCheckBox.setSelected(true);
-		}
-
-		left.add(BorderLayout.NORTH, this.createCheckBox);
 
 		JPanel accordingPanel = new JPanel(new GridLayout(allAccordings.size(), 1));
 		accordingPanel.setBorder(new TitledBorder("判断规则"));
@@ -75,25 +64,12 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	public void validateData() throws ProfileValidateException {
-		if (createCheckBox.isSelected()) {
-			boolean according = false;
-			for (JCheckBox accordingCheckBox : accordingCheckBoxes) {
-				if (accordingCheckBox.isSelected()) {
-					according = true;
-					break;
-				}
-			}
-			if (!according) {
-				throw new ProfileValidateException("请选择至少一个创建组件区域的算法", 1);
-			}
-		}
 	}
 
 	@Override
 	public void save(MaintainProfileFacade maintainProfileFacade) {
 
 		AreaComponentProfile newAreaComponentProfile = new AreaComponentProfile();
-		newAreaComponentProfile.setCreate(createCheckBox.isSelected());
 
 		List<String> accordings = new ArrayList<String>();
 		for (JCheckBox accordingCheckBox : accordingCheckBoxes) {

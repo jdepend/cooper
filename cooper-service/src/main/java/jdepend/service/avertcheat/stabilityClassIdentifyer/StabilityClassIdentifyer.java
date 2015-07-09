@@ -25,33 +25,34 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 
 	@Override
 	protected void handle(JavaClassUnit javaClass) {
-		if (!javaClass.getJavaClass().isInnerClass()) {
-			boolean stability = true;
-			for (Method method : javaClass.getJavaClass().getSelfMethods()) {
-				if (!method.isConstruction() && !method.isStatic()) {
-					stability = false;
-					break;
+		boolean stability = true;
+		//类只有static的方法
+		for (Method method : javaClass.getJavaClass().getSelfMethods()) {
+			if (!method.isConstruction() && !method.isStatic()) {
+				stability = false;
+				break;
+			}
+		}
+		if (stability) {
+			javaClass.setStable(true);
+			return;
+		}
+		
+		//不依赖其他类的VO
+		if (javaClass.getJavaClass().getCeList().size() == 0
+				&& javaClass.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
+			boolean haveBusinessMethod = false;
+			O: for (Method method : javaClass.getJavaClass().getMethods()) {
+				if (!method.isConstruction() && !method.getName().startsWith("get")
+						&& !method.getName().startsWith("set") && !method.getName().equals("toString")
+						&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
+					haveBusinessMethod = true;
+					break O;
 				}
 			}
-			if (stability) {
+			if (!haveBusinessMethod) {
 				javaClass.setStable(true);
 				return;
-			}
-			if (javaClass.getJavaClass().getCeList().size() == 0
-					&& javaClass.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
-				boolean haveBusinessMethod = false;
-				O: for (Method method : javaClass.getJavaClass().getMethods()) {
-					if (!method.isConstruction() && !method.getName().startsWith("get")
-							&& !method.getName().startsWith("set") && !method.getName().equals("toString")
-							&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
-						haveBusinessMethod = true;
-						break O;
-					}
-				}
-				if (!haveBusinessMethod) {
-					javaClass.setStable(true);
-					return;
-				}
 			}
 		}
 	}

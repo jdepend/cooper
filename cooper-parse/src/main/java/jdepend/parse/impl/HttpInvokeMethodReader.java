@@ -48,7 +48,7 @@ public class HttpInvokeMethodReader extends MethodReader {
 		int pos;
 		String calledName;
 
-		if (info.startsWith("invokevirtual") || info.startsWith("invokespecial")) {
+		if (info.startsWith("invokevirtual") || info.startsWith("invokespecial") || info.startsWith("invokestatic")) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
 				pos = infos[1].lastIndexOf('.');
@@ -63,7 +63,9 @@ public class HttpInvokeMethodReader extends MethodReader {
 		} else if (info.startsWith("ldc")) {
 			infos = info.split("\\s+");
 			if (infos.length > 0 && infos[1].startsWith("\"")) {
-				url = infos[1];
+				if (!infos[1].equals("\"GET\"") && !infos[1].equals("\"POST\"")) {
+					url = infos[1];
+				}
 			}
 		} else if (info.startsWith("getstatic")) {
 			infos = info.split("\\s+");
