@@ -78,6 +78,49 @@ public final class RMIInvokeItem extends RemoteInvokeItem {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((invokeClassName == null) ? 0 : invokeClassName.hashCode());
+		result = prime * result + ((invokeClassPlace == null) ? 0 : invokeClassPlace.hashCode());
+		result = prime * result + ((invokeMethodName == null) ? 0 : invokeMethodName.hashCode());
+		result = prime * result + ((invokeMethodSignature == null) ? 0 : invokeMethodSignature.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RMIInvokeItem other = (RMIInvokeItem) obj;
+		if (invokeClassName == null) {
+			if (other.invokeClassName != null)
+				return false;
+		} else if (!invokeClassName.equals(other.invokeClassName))
+			return false;
+		if (invokeClassPlace == null) {
+			if (other.invokeClassPlace != null)
+				return false;
+		} else if (!invokeClassPlace.equals(other.invokeClassPlace))
+			return false;
+		if (invokeMethodName == null) {
+			if (other.invokeMethodName != null)
+				return false;
+		} else if (!invokeMethodName.equals(other.invokeMethodName))
+			return false;
+		if (invokeMethodSignature == null) {
+			if (other.invokeMethodSignature != null)
+				return false;
+		} else if (!invokeMethodSignature.equals(other.invokeMethodSignature))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		if (this.getCallee() != null) {
 			return "InvokeItem [type=RMIInvokeItem, invokeClassName=" + getCallee().getJavaClass().getName()

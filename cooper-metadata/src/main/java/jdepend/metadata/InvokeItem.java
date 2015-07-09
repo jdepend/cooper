@@ -1,13 +1,10 @@
 package jdepend.metadata;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import jdepend.metadata.util.JavaClassCollection;
 
 public abstract class InvokeItem implements Serializable {
-
-	private String id;
 
 	protected transient Method caller;
 	protected transient Method callee;
@@ -17,7 +14,6 @@ public abstract class InvokeItem implements Serializable {
 
 	public InvokeItem() {
 		super();
-		this.id = UUID.randomUUID().toString();
 	}
 
 	public Method getCallee() {
@@ -62,30 +58,5 @@ public abstract class InvokeItem implements Serializable {
 	 */
 	public InvokeItem transform() {
 		return null;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		InvokeItem other = (InvokeItem) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 }

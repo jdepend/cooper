@@ -63,12 +63,7 @@ public class JavaClassCollection {
 
 	public synchronized Map<String, Method> getHttpMethod() {
 		if (this.httpMethods == null) {
-			this.httpMethods = new TreeMap<String, Method>(new Comparator<String>() {
-				@Override
-				public int compare(String o1, String o2) {
-					return o2.compareTo(o1);
-				}
-			});
+			this.httpMethods = new HashMap<String, Method>();
 			for (JavaClass javaClass : javaClasses) {
 				if (javaClass.getDetail().getRequestMapping() != null) {
 					for (Method method : javaClass.getSelfMethods()) {

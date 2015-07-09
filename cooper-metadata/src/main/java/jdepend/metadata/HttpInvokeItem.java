@@ -41,6 +41,14 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 		}
 
 		String mathUrl = this.formatUrl(this.url);
+		//直接匹配
+		Method httpMethod = httpMethods.get(mathUrl);
+		if(httpMethod != null){
+			this.setCallee(httpMethod);
+			this.getCaller().getJavaClass().getDetail().setHttpCaller(true);
+			return true;
+		}
+		//相似匹配
 		for (String calledUrl : httpMethods.keySet()) {
 			if (calledUrl.startsWith(mathUrl) || mathUrl.startsWith(calledUrl)) {
 				this.setCallee(httpMethods.get(calledUrl));
@@ -99,6 +107,43 @@ public final class HttpInvokeItem extends RemoteInvokeItem {
 	@Override
 	public String getName() {
 		return "Http";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((constantAttributeName == null) ? 0 : constantAttributeName.hashCode());
+		result = prime * result + ((constantClassName == null) ? 0 : constantClassName.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HttpInvokeItem other = (HttpInvokeItem) obj;
+		if (constantAttributeName == null) {
+			if (other.constantAttributeName != null)
+				return false;
+		} else if (!constantAttributeName.equals(other.constantAttributeName))
+			return false;
+		if (constantClassName == null) {
+			if (other.constantClassName != null)
+				return false;
+		} else if (!constantClassName.equals(other.constantClassName))
+			return false;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
+		return true;
 	}
 
 	@Override
