@@ -1,9 +1,11 @@
 package jdepend.service.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
+import java.util.List;
 
 import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.AnalysisRunningContext;
 import jdepend.service.avertcheat.framework.JavaClassAvertCheat;
@@ -26,23 +28,29 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		// return false;
 
 		AnalysisResult result = javaClass.getResult();
+		List<String> abstractClassRules = result.getRunningContext().getProfileFacade().getJavaClassUnitProfile()
+				.getAbstractClassRules();
 
 		Collection<JavaClass> subClasses = javaClass.getJavaClass().getSubClasses();
-		//子类数量大于指定数量
-		if (subClasses.size() > ChildJavaClassCount) {
+		// 子类数量大于指定数量
+		if (subClasses.size() > ChildJavaClassCount
+				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildCount)) {
 			return true;
 		} else {
 			// 存在一个子类，又存在父类也具备抽象类计数资格
-			if (subClasses.size() >= 1 && javaClass.getJavaClass().getSupers().size() > 0) {
+			if (subClasses.size() > 0 && javaClass.getJavaClass().getSupers().size() > 0
+					&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild)) {
 				return true;
 			}
 			// 子类不在一个组件中也具备抽象类计数资格
-			for (JavaClass subClass : subClasses) {
-				JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
-				if (subClassUnit != null
-						&& (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(
-								javaClass.getComponent()))) {
-					return true;
+			if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildAtOtherComponent)) {
+				for (JavaClass subClass : subClasses) {
+					JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
+					if (subClassUnit != null
+							&& (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(
+									javaClass.getComponent()))) {
+						return true;
+					}
 				}
 			}
 			return false;
@@ -51,7 +59,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 
 	@Override
 	public boolean enable(AnalysisRunningContext context) {
-		return context.isEnableAbstractClassCountQualificationConfirmer();
+		return context.getProfileFacade().getJavaClassUnitProfile().isAbstractClassRule();
 	}
 
 	@Override

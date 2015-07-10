@@ -61,4 +61,14 @@ public class JavaClassUnitProfile implements Serializable {
 	public boolean isStableRule() {
 		return this.stableRules != null && this.stableRules.size() > 0;
 	}
+	
+	public String getExplain() {
+		StringBuilder info = new StringBuilder();
+
+		info.append("类的抽象性是提供系统可扩展性的手段之一，并作为计算所属组件的抽象性依据。\n\n");
+		info.append("判断类的抽象性有两种方式：一种是只看形式，只要该类为接口或抽象类，该类即具有抽象性；另一种是通过该类与其他类之间的关系来判断该类的抽象性。系统提供了多种规则来判断该类的抽象性，当不选择任何规则时，就以形式化方式来判断该类的抽象性。\n\n");
+		
+
+		return info.toString();
+	}
 }

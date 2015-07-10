@@ -1,5 +1,7 @@
 package jdepend.service.avertcheat.stabilityClassIdentifyer;
 
+import java.util.List;
+
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;
@@ -20,7 +22,7 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 
 	@Override
 	public boolean enable(AnalysisRunningContext context) {
-		return true;
+		return context.getProfileFacade().getJavaClassUnitProfile().isStableRule();
 	}
 
 	@Override

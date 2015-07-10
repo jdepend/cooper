@@ -109,8 +109,7 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	protected String getExplain() {
-		// TODO Auto-generated method stub
-		return null;
+		return javaClassUnitProfile.getExplain();
 	}
 
 }

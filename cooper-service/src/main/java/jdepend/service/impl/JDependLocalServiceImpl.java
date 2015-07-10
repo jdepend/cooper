@@ -50,8 +50,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	private ArrayList<AnalyseListener> listeners = new ArrayList<AnalyseListener>();
 
 	public JDependLocalServiceImpl(String groupName, String commandName) {
-		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator(),
-				new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName)));
+		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator(), new ProfileFacadeImpl(
+				new ClientProfileFacadeImpl(groupName, commandName)));
 	}
 
 	public JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
@@ -122,11 +122,9 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		context.setComponent(component);
 
 		context.setAnalyzeInnerClasses(parseConf.getAnalyzeInnerClasses());
-		context.setEnableAbstractClassCountQualificationConfirmer(serviceConf
-				.enableAbstractClassCountQualificationConfirmer());
 		context.setCalJavaClassCycle(serviceConf.isCalJavaClassCycle());
 		context.setProfileFacade(profileFacade);
-		
+
 		context.setLocalRunning(context.isLocalRunning());
 		context.setClient(context.getClient());
 		context.setUserName(context.getUserName());

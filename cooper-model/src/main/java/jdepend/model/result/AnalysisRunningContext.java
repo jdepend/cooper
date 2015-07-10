@@ -48,12 +48,10 @@ public final class AnalysisRunningContext implements Serializable {
 
 	private boolean analyzeInnerClasses = true;
 
-	private boolean enableAbstractClassCountQualificationConfirmer = true;
-
 	private boolean isCalJavaClassCycle = true;
 
 	private boolean isLocalRunning = true;
-	
+
 	private ProfileFacade profileFacade;
 
 	private transient Map<String, String> diffElements;
@@ -100,14 +98,6 @@ public final class AnalysisRunningContext implements Serializable {
 		this.analyzeInnerClasses = analyzeInnerClasses;
 	}
 
-	public boolean isEnableAbstractClassCountQualificationConfirmer() {
-		return enableAbstractClassCountQualificationConfirmer;
-	}
-
-	public void setEnableAbstractClassCountQualificationConfirmer(boolean enable) {
-		this.enableAbstractClassCountQualificationConfirmer = enable;
-	}
-
 	public boolean isCalJavaClassCycle() {
 		return isCalJavaClassCycle;
 	}
@@ -147,7 +137,7 @@ public final class AnalysisRunningContext implements Serializable {
 	public void setComponent(Component component) {
 		this.component = component;
 	}
-	
+
 	public ProfileFacade getProfileFacade() {
 		return profileFacade;
 	}
@@ -262,7 +252,7 @@ public final class AnalysisRunningContext implements Serializable {
 		content.append("\n");
 
 		content.append("是否应用了抽象类资格评判器:");
-		content.append(getBooleanMsg(enableAbstractClassCountQualificationConfirmer));
+		content.append(getBooleanMsg(profileFacade.getJavaClassUnitProfile().isAbstractClassRule()));
 		content.append("\n");
 
 		content.append("是否计算类级别的循环依赖:");
