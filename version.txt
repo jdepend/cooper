@@ -10,6 +10,8 @@ d）将ServiceConfigurator、ParseConfigurator实现序列化接口，并在CS�
 
 e）修正建立http调用中的bug
 
+f）删除了JavaClassRelationTypeMgr，其职责由JavaClassRelationTypes和JavaClassRelationItemProfile担当
+
 1.2.5_03 2015-06-15
 
 a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
