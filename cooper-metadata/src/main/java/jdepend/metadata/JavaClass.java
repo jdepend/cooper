@@ -703,14 +703,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		JavaClassRelationItem relationItem;
 		JavaClass dependClass;
 		
-		if(this.getName().equals("jdepend.parse.impl.CSharpClassBuilder")){
-			System.out.print("");
-		}
-		
-		if(this.getName().equals("com.jacob.com.Variant")){
-			System.out.print("");
-		}
-
 		it = this.getSelfCaItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();

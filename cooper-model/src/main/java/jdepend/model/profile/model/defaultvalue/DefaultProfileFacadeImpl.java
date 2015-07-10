@@ -37,8 +37,7 @@ public class DefaultProfileFacadeImpl implements ProfileFacade {
 
 	@Override
 	public JavaClassRelationItemProfile getJavaClassRelationItemProfile() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DefaultJavaClassRelationItemProfile();
 	}
 
 }
