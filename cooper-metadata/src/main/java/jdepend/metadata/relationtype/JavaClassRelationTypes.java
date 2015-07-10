@@ -3,6 +3,7 @@ package jdepend.metadata.relationtype;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import jdepend.metadata.JavaClassRelationType;
@@ -21,15 +22,13 @@ public class JavaClassRelationTypes implements Serializable {
 
 	private Map<String, JavaClassRelationType> types = new HashMap<String, JavaClassRelationType>();
 
-	private Collection<String> ignoreTables;// 实际忽略的表集合
-
-	private Boolean ignoreTable;// 是否忽略由指定的数据库表建立的组件间关系
+	private List<String> ignoreTables;// 实际忽略的表集合
 
 	public Map<String, JavaClassRelationType> getTypes() {
 		return types;
 	}
 
-	private JavaClassRelationType getType(String name) {
+	public JavaClassRelationType getType(String name) {
 		return types.get(name);
 	}
 
@@ -95,20 +94,12 @@ public class JavaClassRelationTypes implements Serializable {
 		return ignoreTables;
 	}
 
-	public void setIgnoreTables(Collection<String> ignoreTables) {
+	public void setIgnoreTables(List<String> ignoreTables) {
 		this.ignoreTables = ignoreTables;
 	}
 
-	public Boolean getIgnoreTable() {
-		return ignoreTable;
-	}
-
-	public void setIgnoreTable(Boolean ignoreTable) {
-		this.ignoreTable = ignoreTable;
-	}
-
 	public boolean isIgnoreTableInfo(TableInfo tableInfo) {
-		if (ignoreTable) {
+		if (this.getTableRelation().getIntensity() != 0F) {
 			return this.ignoreTables.contains(tableInfo.getTableName());
 		} else {
 			return false;

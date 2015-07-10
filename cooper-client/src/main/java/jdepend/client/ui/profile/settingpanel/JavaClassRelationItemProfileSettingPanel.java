@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
+import jdepend.metadata.profile.JavaClassRelationItemProfile;
 import jdepend.model.profile.MaintainProfileFacade;
-import jdepend.model.profile.model.JavaClassRelationItemProfile;
 
 public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettingPanel {
 

@@ -28,7 +28,6 @@ import jdepend.client.ui.action.ScoreAction;
 import jdepend.client.ui.action.ScoreAndMetricsAction;
 import jdepend.client.ui.action.ScoreIntroduceAction;
 import jdepend.client.ui.action.SettingAction;
-import jdepend.client.ui.action.SettingClassRelationMgrAction;
 import jdepend.client.ui.action.SettingWorkspaceAction;
 import jdepend.client.ui.action.WorkspaceProfileSettingAction;
 import jdepend.client.ui.analyzer.AnalyzerPanel;
@@ -135,7 +134,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting),
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace) + "/-/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting));
 
 		resourceStrings.put(
@@ -179,8 +177,6 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics), new ScoreAndMetricsAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting), new SettingAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_SetClassRelationMgr),
-				new SettingClassRelationMgrAction(this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting), new WorkspaceProfileSettingAction(
 				this));
 		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
@@ -458,7 +454,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 	@Override
 	public void refresh() throws JDependException {
-		//刷新profile
+		// 刷新profile
 		ProfileScopeFacade.getInstance().refresh();
 		// 刷新GroupPanl
 		this.getGroupPanel().refreshGroup();

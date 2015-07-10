@@ -11,6 +11,7 @@ import jdepend.framework.util.ThreadPool;
 import jdepend.metadata.CandidateUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
+import jdepend.metadata.relationtype.JavaClassRelationTypes;
 
 public class JavaClassCollection {
 
@@ -20,12 +21,15 @@ public class JavaClassCollection {
 
 	private Map<String, Method> httpMethods;
 
+	private JavaClassRelationTypes javaClassRelationTypes;
+
 	private Map<String, Collection<JavaClass>> unitJavaClasses;
 
 	private final static int unitCount = ThreadPool.ThreadCount;
 
-	public JavaClassCollection(Collection<JavaClass> javaClasses) {
+	public JavaClassCollection(JavaClassRelationTypes javaClassRelationTypes, Collection<JavaClass> javaClasses) {
 		super();
+		this.javaClassRelationTypes = javaClassRelationTypes;
 		this.javaClasses = javaClasses;
 
 		javaClassesForId = new HashMap<String, JavaClass>();
@@ -75,6 +79,10 @@ public class JavaClassCollection {
 			}
 		}
 		return this.httpMethods;
+	}
+
+	public JavaClassRelationTypes getJavaClassRelationTypes() {
+		return javaClassRelationTypes;
 	}
 
 	public static <T> Map<String, Collection<T>> unitTheadClassCollection(Collection<T> javaClasses) {

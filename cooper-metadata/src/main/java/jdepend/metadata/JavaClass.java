@@ -14,7 +14,6 @@ import java.util.Map;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.context.Scope.SCOPE;
 import jdepend.metadata.annotation.Transactional;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
 import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.metadata.util.ParseUtil;
@@ -711,7 +710,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 			if (dependClass != null) {
 				relationItem.setTarget(this);
 				relationItem.setSource(dependClass);
-				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
+				relationItem.setType(javaClasses.getJavaClassRelationTypes().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();
 			}
@@ -724,7 +723,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 			if (dependClass != null) {
 				relationItem.setTarget(dependClass);
 				relationItem.setSource(this);
-				relationItem.setType(JavaClassRelationTypeMgr.getInstance().getType(relationItem.getTypeName()));
+				relationItem.setType(javaClasses.getJavaClassRelationTypes().getType(relationItem.getTypeName()));
 			} else {
 				it.remove();
 			}

@@ -12,13 +12,14 @@ import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.Component;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisRunningContext;
 
 public final class CopyUtil {
 
 	private List<Component> targets = new ArrayList<Component>();
 	private Map<String, JavaClassUnit> javaClasses = new HashMap<String, JavaClassUnit>();
 
-	public List<Component> copy(List<Component> components) {
+	public List<Component> copy(AnalysisRunningContext runningContext, List<Component> components) {
 		// 创建JavaClassUnit
 		for (Component component : components) {
 			for (JavaClassUnit javaClass : component.getClasses()) {
@@ -33,7 +34,8 @@ public final class CopyUtil {
 			newJavaClasses.put(id, javaClasses.get(id).getJavaClass());
 		}
 
-		JavaClassCollection jClasses = new JavaClassCollection(newJavaClasses.values());
+		JavaClassCollection jClasses = new JavaClassCollection(runningContext.getProfileFacade()
+				.getJavaClassRelationItemProfile().getJavaClassRelationTypes(), newJavaClasses.values());
 		// 补充JavaClassRelationItem的Current和Depend
 		JavaClassUtil.supplyJavaClassRelationItem(jClasses);
 		// 将JavaClassDetail中的字符串信息填充为对象引用

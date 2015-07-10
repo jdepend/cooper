@@ -453,7 +453,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	}
 
 	public AnalysisResult clone() {
-		List<Component> newComponents = (new CopyUtil()).copy(this.components);
+		List<Component> newComponents = (new CopyUtil()).copy(runningContext, this.components);
 		return new AnalysisResult(newComponents, this.runningContext);
 	}
 
@@ -554,7 +554,9 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		if (listener != null) {
 			listener.onUnSequence("正在创建类集合");
 		}
-		JavaClassCollection javaClasses = new JavaClassCollection(JavaClassUnitUtil.getAllClasses(components));
+		JavaClassCollection javaClasses = new JavaClassCollection(this.getRunningContext().getProfileFacade()
+				.getJavaClassRelationItemProfile().getJavaClassRelationTypes(),
+				JavaClassUnitUtil.getAllClasses(components));
 		// 填充JavaClassRelationItem
 		if (listener != null) {
 			listener.onUnSequence("正在填充类关系");

@@ -1,10 +1,10 @@
 package jdepend.service.profile;
 
+import jdepend.metadata.profile.JavaClassRelationItemProfile;
 import jdepend.model.profile.ProfileFacade;
 import jdepend.model.profile.model.AnalysisResultProfile;
 import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
-import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
 import jdepend.service.profile.scope.ProfileScopeFacade;

@@ -14,7 +14,8 @@ import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
-import jdepend.metadata.relationtype.JavaClassRelationTypeMgr;
+import jdepend.metadata.profile.JavaClassRelationItemProfile;
+import jdepend.metadata.profile.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.metadata.relationtype.JavaClassRelationTypes;
 import jdepend.parse.impl.FilteredPackageConfigurator;
 import jdepend.parse.impl.PackageFilter;
@@ -40,11 +41,14 @@ public class ParseConfigurator implements Serializable{
 	private JavaClassRelationTypes javaClassRelationTypes;
 
 	public ParseConfigurator() {
+		this(new DefaultJavaClassRelationItemProfile());
+	}
+	
+	public ParseConfigurator(JavaClassRelationItemProfile javaClassRelationItemProfile){
 		this(getDefaultPropertyFile());
 		// 装载全局过滤包列表
 		this.packageFilter = (new FilteredPackageConfigurator()).getPackageFilter();
-
-		this.javaClassRelationTypes = JavaClassRelationTypeMgr.getInstance().getJavaClassRelationTypes();
+		this.javaClassRelationTypes = javaClassRelationItemProfile.getJavaClassRelationTypes();
 	}
 
 	private ParseConfigurator(Properties p) {

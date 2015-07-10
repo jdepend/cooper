@@ -2,18 +2,18 @@ package jdepend.model.result;
 
 import java.io.Serializable;
 
+import jdepend.metadata.profile.JavaClassRelationItemProfile;
+import jdepend.metadata.profile.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.ProfileFacade;
 import jdepend.model.profile.model.AnalysisResultProfile;
 import jdepend.model.profile.model.AreaComponentProfile;
 import jdepend.model.profile.model.ComponentProfile;
-import jdepend.model.profile.model.JavaClassRelationItemProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultComponentProfile;
-import jdepend.model.profile.model.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultJavaClassUnitProfile;
 import jdepend.model.profile.model.defaultvalue.DefaultRelationProfile;
 

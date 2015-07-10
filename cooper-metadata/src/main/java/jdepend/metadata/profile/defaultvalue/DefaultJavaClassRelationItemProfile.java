@@ -1,10 +1,10 @@
-package jdepend.model.profile.model.defaultvalue;
+package jdepend.metadata.profile.defaultvalue;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import jdepend.metadata.profile.JavaClassRelationItemProfile;
 import jdepend.metadata.relationtype.JavaClassRelationTypes;
-import jdepend.model.profile.model.JavaClassRelationItemProfile;
 
 public class DefaultJavaClassRelationItemProfile extends JavaClassRelationItemProfile {
 
