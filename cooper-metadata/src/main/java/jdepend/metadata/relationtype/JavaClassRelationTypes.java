@@ -100,7 +100,7 @@ public class JavaClassRelationTypes implements Serializable {
 
 	public boolean isIgnoreTableInfo(TableInfo tableInfo) {
 		if (this.getTableRelation().getIntensity() != 0F) {
-			return this.ignoreTables.contains(tableInfo.getTableName());
+			return this.ignoreTables != null && this.ignoreTables.contains(tableInfo.getTableName());
 		} else {
 			return false;
 		}

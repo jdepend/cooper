@@ -50,19 +50,32 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 	private ArrayList<AnalyseListener> listeners = new ArrayList<AnalyseListener>();
 
 	public JDependLocalServiceImpl(String groupName, String commandName) {
-		this(groupName, commandName, new ServiceConfigurator(), new ParseConfigurator(), new ProfileFacadeImpl(
-				new ClientProfileFacadeImpl(groupName, commandName)));
+		this.group = groupName;
+		this.command = commandName;
+
+		component = Component.getDefaultComponent();
+
+		this.profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
+
+		this.serviceConf = new ServiceConfigurator();
+		this.parseConf = new ParseConfigurator(this.profileFacade.getJavaClassRelationItemProfile());
+
+		parse = new Parse(parseConf);
 	}
 
 	public JDependLocalServiceImpl(String groupName, String commandName, ServiceConfigurator serviceConf,
 			ParseConfigurator parseConf, ProfileFacade profileFacade) {
 		this.group = groupName;
 		this.command = commandName;
-		parse = new Parse(parseConf);
+
 		component = Component.getDefaultComponent();
+
+		this.profileFacade = profileFacade;
+
 		this.serviceConf = serviceConf;
 		this.parseConf = parseConf;
-		this.profileFacade = profileFacade;
+
+		parse = new Parse(parseConf);
 	}
 
 	/*

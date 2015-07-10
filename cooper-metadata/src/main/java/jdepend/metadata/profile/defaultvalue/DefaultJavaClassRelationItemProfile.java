@@ -1,5 +1,6 @@
 package jdepend.metadata.profile.defaultvalue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +21,7 @@ public class DefaultJavaClassRelationItemProfile extends JavaClassRelationItemPr
 		types.put(JavaClassRelationTypes.Http, 0.1F);
 
 		this.setTypes(types);
+
+		this.setIgnoreTables(new ArrayList<String>());
 	}
 }

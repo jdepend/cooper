@@ -29,6 +29,7 @@ import org.apache.bcel.classfile.ConstantUtf8;
 import org.apache.bcel.classfile.ElementValue;
 import org.apache.bcel.classfile.ElementValuePair;
 import org.apache.bcel.classfile.EmptyVisitor;
+import org.apache.bcel.classfile.EnumElementValue;
 import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
@@ -315,7 +316,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
 				transactional.setReadOnly(Boolean.valueOf(simpleElementValue.toShortString()));
 			} else if (elementValuePair.getNameString().equals("propagation")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
+				EnumElementValue simpleElementValue = (EnumElementValue) elementValuePair.getValue();
 				transactional.setPropagation(simpleElementValue.toShortString());
 			}
 		}

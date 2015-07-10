@@ -42,9 +42,10 @@ public class AnalyseDataDTO implements Serializable {
 
 	public AnalyseDataDTO(String groupName, String commandName) {
 
-		this.serviceConf = new ServiceConfigurator();
-		this.parseConf = new ParseConfigurator();
 		this.profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
+
+		this.serviceConf = new ServiceConfigurator();
+		this.parseConf = new ParseConfigurator(this.profileFacade.getJavaClassRelationItemProfile());
 	}
 
 	public List<String> getDirectories() {
