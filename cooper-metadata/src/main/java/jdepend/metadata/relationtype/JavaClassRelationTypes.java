@@ -36,6 +36,10 @@ public class JavaClassRelationTypes implements Serializable {
 		this.types = types;
 	}
 
+	public boolean isCreateType(String type) {
+		return types.get(type) != null && types.get(type).getIntensity() != 0F;
+	}
+
 	public InheritRelation getInheritRelation() {
 		return (InheritRelation) getType(Inherit);
 	}

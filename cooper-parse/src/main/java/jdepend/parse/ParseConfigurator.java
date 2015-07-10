@@ -117,32 +117,6 @@ public class ParseConfigurator implements Serializable{
 		return null;
 	}
 
-	public Collection<String> getCreateRelationTypes() {
-
-		Collection<String> relationTypes = new HashSet<String>();
-
-		List<String> allRelationTypes = new ArrayList<String>();
-		allRelationTypes.add(JavaClassRelationTypes.Inherit);
-		allRelationTypes.add(JavaClassRelationTypes.Field);
-		allRelationTypes.add(JavaClassRelationTypes.Param);
-		allRelationTypes.add(JavaClassRelationTypes.Variable);
-		allRelationTypes.add(JavaClassRelationTypes.Table);
-		allRelationTypes.add(JavaClassRelationTypes.Http);
-
-		for (String relationType : allRelationTypes) {
-			if (properties.containsKey(relationType)) {
-				if (new Boolean(properties.getProperty(relationType)).booleanValue()) {
-					relationTypes.add(relationType);
-				}
-			} else {
-				relationTypes.add(relationType);
-			}
-		}
-
-		return relationTypes;
-
-	}
-
 	public JavaClassRelationTypes getJavaClassRelationTypes() {
 		return javaClassRelationTypes;
 	}

@@ -50,17 +50,6 @@ public class ServiceConfigurator implements Serializable{
 		return true;
 	}
 
-	public boolean enableAbstractClassCountQualificationConfirmer() {
-
-		String key = "enableAbstractClassCountQualificationConfirmer";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
-			return new Boolean(value).booleanValue();
-		}
-
-		return true;
-	}
-
 	public boolean isCalJavaClassCycle() {
 
 		String key = "isCalJavaClassCycle";
