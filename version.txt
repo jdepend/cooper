@@ -1,4 +1,4 @@
-﻿1.2.5_04
+﻿1.2.5_04 2015-07-13
 
 a）增加分析器《Autowired结构分析》，查看Spring的Autowired树结构
 
@@ -11,6 +11,8 @@ d）将ServiceConfigurator、ParseConfigurator实现序列化接口，并在CS�
 e）修正建立http调用中的bug
 
 f）删除了JavaClassRelationTypeMgr，其职责由JavaClassRelationTypes和JavaClassRelationItemProfile担当
+
+g）初始化定制规则UI
 
 1.2.5_03 2015-06-15
 
