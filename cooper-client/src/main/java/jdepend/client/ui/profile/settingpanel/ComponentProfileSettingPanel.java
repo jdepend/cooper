@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.ComponentProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultComponentProfile;
 
 public class ComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -28,6 +29,11 @@ public class ComponentProfileSettingPanel extends ModelProfileSettingPanel {
 	public ComponentProfileSettingPanel(ComponentProfile componentProfile) {
 		this.componentProfile = componentProfile;
 
+		this.init();
+		this.refresh();
+	}
+
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
 	}
@@ -42,8 +48,7 @@ public class ComponentProfileSettingPanel extends ModelProfileSettingPanel {
 		JPanel stabilityPanel = new JPanel(new GridLayout(2, 1));
 		stabilityPanel.setBorder(new TitledBorder("选择计算组件稳定性的依据"));
 
-		stabilityWithCountScaleJSlider = new JSlider(0, 2, this.getSliderValue(componentProfile
-				.getStabilityWithCountScale()));
+		stabilityWithCountScaleJSlider = new JSlider(0, 2);
 		stabilityPanel.add(stabilityWithCountScaleJSlider);
 
 		JPanel stabilityJSliderExplain = new JPanel(new BorderLayout());
@@ -71,24 +76,35 @@ public class ComponentProfileSettingPanel extends ModelProfileSettingPanel {
 			}
 		};
 
-		if (componentProfile.getBalance().equals(ComponentProfile.balanceFromPackage)) {
-			balanceFromPackageRadio.setSelected(true);
-		}
 		balancePanel.add(balanceFromPackageRadio);
-
-		if (componentProfile.getBalance().equals(ComponentProfile.balanceFromClass)) {
-			balanceFromClassRadio.setSelected(true);
-		}
 		balancePanel.add(balanceFromClassRadio);
 
 		left.add(BorderLayout.CENTER, balancePanel);
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+
+	@Override
+	protected void restore() {
+		this.componentProfile = new DefaultComponentProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+		stabilityWithCountScaleJSlider.getModel().setValue(
+				this.getSliderValue(componentProfile.getStabilityWithCountScale()));
+
+		if (componentProfile.getBalance().equals(ComponentProfile.balanceFromPackage)) {
+			balanceFromPackageRadio.setSelected(true);
+		}
+
+		if (componentProfile.getBalance().equals(ComponentProfile.balanceFromClass)) {
+			balanceFromClassRadio.setSelected(true);
+		}
 	}
 
 	private int getSliderValue(float scale) {

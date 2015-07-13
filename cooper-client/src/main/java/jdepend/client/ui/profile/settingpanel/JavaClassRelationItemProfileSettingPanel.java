@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.metadata.profile.JavaClassRelationItemProfile;
+import jdepend.metadata.profile.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.model.profile.MaintainProfileFacade;
 
 public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettingPanel {
@@ -27,6 +28,11 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 	public JavaClassRelationItemProfileSettingPanel(JavaClassRelationItemProfile javaClassRelationItemProfile) {
 		this.javaClassRelationItemProfile = javaClassRelationItemProfile;
 
+		this.init();
+		this.refresh();
+	}
+	
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
 	}
@@ -56,11 +62,20 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 		left.add(BorderLayout.CENTER, typePanel);
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+	
+	@Override
+	protected void restore() {
+		this.javaClassRelationItemProfile = new DefaultJavaClassRelationItemProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+
 	}
 
 	@Override

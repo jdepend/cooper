@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.JavaClassUnitProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultJavaClassUnitProfile;
 
 public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -26,6 +27,11 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 	public JavaClassUnitProfileSettingPanel(JavaClassUnitProfile javaClassUnitProfile) {
 		this.javaClassUnitProfile = javaClassUnitProfile;
 
+		this.init();
+		this.refresh();
+	}
+
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
 	}
@@ -45,11 +51,7 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 		JCheckBox abstractClassRuleCheckBox;
 		for (String abstractClassRule : allAbstractClassRules) {
 			abstractClassRuleCheckBox = new JCheckBox(abstractClassRule);
-			if (javaClassUnitProfile.getAbstractClassRules().contains(abstractClassRule)) {
-				abstractClassRuleCheckBox.setSelected(true);
-			}
 			abstractClassRuleCheckBoxes.add(abstractClassRuleCheckBox);
-
 			abstractClassRulePanel.add(abstractClassRuleCheckBox);
 		}
 		left.add(abstractClassRulePanel);
@@ -62,22 +64,42 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 		JCheckBox stableRuleCheckBox;
 		for (String stableRule : allStableRules) {
 			stableRuleCheckBox = new JCheckBox(stableRule);
-			if (javaClassUnitProfile.getStableRules().contains(stableRule)) {
-				stableRuleCheckBox.setSelected(true);
-			}
 			stableRuleCheckBoxes.add(stableRuleCheckBox);
-
 			stableRulePanel.add(stableRuleCheckBox);
 		}
 
 		left.add(stableRulePanel);
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+
+	@Override
+	protected void restore() {
+		this.javaClassUnitProfile = new DefaultJavaClassUnitProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+
+		for (JCheckBox abstractClassRuleCheckBox : abstractClassRuleCheckBoxes) {
+			if (javaClassUnitProfile.getAbstractClassRules().contains(abstractClassRuleCheckBox.getText())) {
+				abstractClassRuleCheckBox.setSelected(true);
+			} else {
+				abstractClassRuleCheckBox.setSelected(false);
+			}
+		}
+
+		for (JCheckBox stableRuleCheckBox : stableRuleCheckBoxes) {
+			if (javaClassUnitProfile.getStableRules().contains(stableRuleCheckBox.getText())) {
+				stableRuleCheckBox.setSelected(true);
+			} else {
+				stableRuleCheckBox.setSelected(false);
+			}
+		}
 	}
 
 	@Override

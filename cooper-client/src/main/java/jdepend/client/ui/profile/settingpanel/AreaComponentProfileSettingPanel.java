@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AreaComponentProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
 
 public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -24,6 +25,11 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 	public AreaComponentProfileSettingPanel(AreaComponentProfile areaComponentProfile) {
 		this.areaComponentProfile = areaComponentProfile;
 
+		this.init();
+		this.refresh();
+	}
+
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
 	}
@@ -44,22 +50,33 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 		JCheckBox accordingCheckBox;
 		for (String according : allAccordings) {
 			accordingCheckBox = new JCheckBox(according);
-			if (areaComponentProfile.getAccordings().contains(according)) {
-				accordingCheckBox.setSelected(true);
-			}
 			accordingCheckBoxes.add(accordingCheckBox);
-
 			accordingPanel.add(accordingCheckBox);
 		}
 
 		left.add(BorderLayout.CENTER, accordingPanel);
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+
+	@Override
+	protected void restore() {
+		this.areaComponentProfile = new DefaultAreaComponentProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+		for (JCheckBox accordingCheckBox : accordingCheckBoxes) {
+			if (areaComponentProfile.getAccordings().contains(accordingCheckBox.getText())) {
+				accordingCheckBox.setSelected(true);
+			} else {
+				accordingCheckBox.setSelected(false);
+			}
+		}
 	}
 
 	@Override

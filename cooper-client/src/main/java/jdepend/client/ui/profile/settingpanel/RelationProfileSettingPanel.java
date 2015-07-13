@@ -15,6 +15,7 @@ import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.Relation;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.RelationProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultRelationProfile;
 
 public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -28,14 +29,16 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 	public RelationProfileSettingPanel(RelationProfile relationProfile) {
 		this.relationProfile = relationProfile;
 
+		this.init();
+		this.refresh();
+	}
+
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
-
 	}
 
 	protected Component leftPanel() {
-
-		Map<String, Integer> problemRelations = this.relationProfile.getProblemRelations();
 
 		JPanel content = new JPanel(new BorderLayout());
 
@@ -45,41 +48,47 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		left.add(new JLabel("循环依赖权值"));
 
 		cycleDependField = new JTextField();
-		cycleDependField.setText(String.valueOf(problemRelations.get(Relation.CycleDependAttentionType)));
-
 		left.add(cycleDependField);
 		left.add(new JLabel("取值范围：1~4"));
 
 		left.add(new JLabel("违反稳定依赖原则权值"));
 
 		SDPField = new JTextField();
-		SDPField.setText(String.valueOf(problemRelations.get(Relation.SDPAttentionType)));
-
 		left.add(SDPField);
 		left.add(new JLabel("取值范围：1~4"));
 
 		left.add(new JLabel("下层组件依赖了上层组件权值"));
 
 		componentLayerField = new JTextField();
-		componentLayerField.setText(String.valueOf(problemRelations.get(Relation.ComponentLayerAttentionType)));
-
 		left.add(componentLayerField);
 		left.add(new JLabel("取值范围：1~4"));
 
 		left.add(new JLabel("彼此依赖权值"));
 
 		mutualDependField = new JTextField();
-		mutualDependField.setText(String.valueOf(problemRelations.get(Relation.MutualDependAttentionType)));
-
 		left.add(mutualDependField);
 		left.add(new JLabel("取值范围：1~4"));
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+
+	@Override
+	protected void restore() {
+		this.relationProfile = new DefaultRelationProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+		Map<String, Integer> problemRelations = this.relationProfile.getProblemRelations();
+
+		cycleDependField.setText(String.valueOf(problemRelations.get(Relation.CycleDependAttentionType)));
+		SDPField.setText(String.valueOf(problemRelations.get(Relation.SDPAttentionType)));
+		componentLayerField.setText(String.valueOf(problemRelations.get(Relation.ComponentLayerAttentionType)));
+		mutualDependField.setText(String.valueOf(problemRelations.get(Relation.MutualDependAttentionType)));
 	}
 
 	@Override

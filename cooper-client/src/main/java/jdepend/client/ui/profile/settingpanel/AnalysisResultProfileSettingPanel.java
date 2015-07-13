@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AnalysisResultProfile;
+import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
 
 public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -25,6 +26,11 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 	public AnalysisResultProfileSettingPanel(AnalysisResultProfile analysisResultProfile) {
 		this.analysisResultProfile = analysisResultProfile;
 
+		this.init();
+		this.refresh();
+	}
+
+	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
 	}
@@ -39,41 +45,45 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 		left.add(new JLabel("抽象程度合理性比例："));
 
 		distanceField = new JTextField();
-		distanceField.setText(String.valueOf(this.analysisResultProfile.getDistance()));
-
 		left.add(distanceField);
 		left.add(new JLabel("取值范围：0~100"));
 
 		left.add(new JLabel("内聚性比例："));
 
 		balanceField = new JTextField();
-		balanceField.setText(String.valueOf(this.analysisResultProfile.getBalance()));
-
 		left.add(balanceField);
 		left.add(new JLabel("取值范围：0~100"));
 
 		left.add(new JLabel("封装性比例："));
 
 		encapsulationField = new JTextField();
-		encapsulationField.setText(String.valueOf(this.analysisResultProfile.getEncapsulation()));
-
 		left.add(encapsulationField);
 		left.add(new JLabel("取值范围：0~100"));
 
 		left.add(new JLabel("关系合理性比例："));
 
 		relationRationalityField = new JTextField();
-		relationRationalityField.setText(String.valueOf(this.analysisResultProfile.getRelationRationality()));
-
 		left.add(relationRationalityField);
 		left.add(new JLabel("取值范围：0~100"));
 
 		content.add(BorderLayout.NORTH, left);
-
-		JPanel otherPanel = new JPanel();
-		content.add(BorderLayout.CENTER, otherPanel);
+		content.add(BorderLayout.CENTER, this.getOtherPanel());
 
 		return content;
+	}
+
+	@Override
+	protected void restore() {
+		this.analysisResultProfile = new DefaultAnalysisResultProfile();
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() {
+		distanceField.setText(String.valueOf(this.analysisResultProfile.getDistance()));
+		balanceField.setText(String.valueOf(this.analysisResultProfile.getBalance()));
+		encapsulationField.setText(String.valueOf(this.analysisResultProfile.getEncapsulation()));
+		relationRationalityField.setText(String.valueOf(this.analysisResultProfile.getRelationRationality()));
 	}
 
 	@Override
