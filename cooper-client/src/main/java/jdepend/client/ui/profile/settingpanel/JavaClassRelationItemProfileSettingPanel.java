@@ -31,7 +31,7 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 		this.init();
 		this.refresh();
 	}
-	
+
 	private void init() {
 		this.add(this.leftPanel());
 		this.add(this.rightPanel());
@@ -53,7 +53,6 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 		for (String type : allTypes) {
 			typePanel.add(new JLabel(type + ":"));
 			typeJTextField = new JTextField();
-			typeJTextField.setText(String.valueOf(javaClassRelationItemProfile.getTypes().get(type)));
 			typeJTextFields.add(typeJTextField);
 			typePanel.add(typeJTextField);
 			typePanel.add(new JLabel("取值范围：0~1"));
@@ -66,7 +65,7 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 
 		return content;
 	}
-	
+
 	@Override
 	protected void restore() {
 		this.javaClassRelationItemProfile = new DefaultJavaClassRelationItemProfile();
@@ -75,7 +74,11 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 
 	@Override
 	public void refresh() {
-
+		List<String> allTypes = JavaClassRelationItemProfile.getAllTypes();
+		int index = 0;
+		for (JTextField typeJTextField : typeJTextFields) {
+			typeJTextField.setText(String.valueOf(javaClassRelationItemProfile.getTypes().get(allTypes.get(index++))));
+		}
 	}
 
 	@Override

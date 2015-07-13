@@ -26,6 +26,7 @@ import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.ProfileFacade;
+import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
 import jdepend.model.result.ProfileFacadeImpl;
 import jdepend.service.profile.scope.ProfileScopeFacade;
 
@@ -83,8 +84,15 @@ public abstract class ProfileSettingDialog extends CooperDialog {
 
 		this.add(BorderLayout.CENTER, pane);
 
-		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_OK));
-		button.addActionListener(new ActionListener() {
+		JButton restoreButton = new JButton(BundleUtil.getString(BundleUtil.Command_Restore));
+		restoreButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				restore();
+			}
+		});
+
+		JButton OKButton = new JButton(BundleUtil.getString(BundleUtil.Command_OK));
+		OKButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					validateData();
@@ -99,11 +107,20 @@ public abstract class ProfileSettingDialog extends CooperDialog {
 				}
 			}
 		});
+
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(button);
+
+		buttonPanel.add(restoreButton);
+		buttonPanel.add(OKButton);
 		buttonPanel.add(this.createCancelButton());
 
 		this.add(BorderLayout.SOUTH, buttonPanel);
+	}
+
+	private void restore() {
+		for (ModelProfileSettingPanel settingPanel : settingPanels) {
+			settingPanel.refresh();
+		}
 	}
 
 	protected void validateData() throws ProfileValidateException {
