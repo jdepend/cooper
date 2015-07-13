@@ -1,4 +1,42 @@
-﻿1.2.5_02 2015-05-27
+﻿1.2.5_04 2015-07-13
+
+a）增加分析器《Autowired结构分析》，查看Spring的Autowired树结构
+
+b）初始化了profile基础结构（在model中创建profile.model，在service中创建profile.scope）
+
+c）创建JavaClassRelationTypes，并使JavaClassRelationTypeMgr.getInstance只在客户端使用
+
+d）将ServiceConfigurator、ParseConfigurator实现序列化接口，并在CS模式运行下由客户端传入
+
+e）修正建立http调用中的bug
+
+f）删除了JavaClassRelationTypeMgr，其职责由JavaClassRelationTypes和JavaClassRelationItemProfile担当
+
+g）初始化定制规则UI
+
+1.2.5_03 2015-06-15
+
+a）将AnalyzerMgr中与remote相关的逻辑移入到AnalyzerRemoteMgr中
+
+b）将ui、webserver组件中涉及SearchUtil.getPackages的逻辑该由JDependServiceProxy.getPackages来承担，以支持parse可以完全在远程运行
+
+c）支持对组件关系图形中节点人工拖拽的位置保存
+
+d）梳理异常体系，创建ParseException、ParseClassException、ServiceException、ComponentException、RefactorException等异常类型
+
+e）为类列表中的类增加图形化查看传入传出的功能
+
+f）将cooper-ui重命名为cooper-client，将cooper-ui-remote重命名为cooper-client-remote
+     将cooper-report合并到cooper-client中
+     拆分cooper-core，将部分组件（config、command、analyzer）合并到cooper-client中
+     将cooper-core-remote合并到cooper-client-remote中
+     
+g）将cooper-manager重命名为cooper-server
+     将cooper-server-remote合并到cooper-server中
+     将cooper-service-interface重命名为cooper-server-interface
+
+
+1.2.5_02 2015-05-27
 
 a）将JavaClass改名为JavaClassUnit
 
