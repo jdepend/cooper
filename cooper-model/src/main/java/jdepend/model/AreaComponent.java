@@ -1,31 +1,20 @@
 package jdepend.model;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 
-public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1064914807135244713L;
+public class AreaComponent implements Comparable<AreaComponent> {
 
 	private Integer layer;
 	private String name;
 	private Float instability;
 	private Collection<String> components;
 
-	private transient Collection<Component> componentList = new HashSet<Component>();
-
-	private transient Collection<Component> afferents = null;// 缓存
-
-	private transient Collection<Component> efferents = null;// 缓存
+	private Collection<Component> componentList = new HashSet<Component>();
+	private Collection<Component> afferents = null;// 缓存
+	private Collection<Component> efferents = null;// 缓存
 
 	public AreaComponent() {
 
@@ -145,24 +134,6 @@ public class AreaComponent implements Serializable, Comparable<AreaComponent> {
 		this.afferents = null;
 		this.efferents = null;
 		this.instability = null;
-	}
-
-	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-		ois.defaultReadObject();
-		componentList = new ArrayList<Component>();
-		Iterator<String> itComponent = this.components.iterator();
-		String componentName;
-		Component component;
-		while (itComponent.hasNext()) {
-			componentName = itComponent.next();
-			component = JDependUnitMgr.getInstance().getResult().getTheComponent(componentName);
-			if (component != null) {
-				this.componentList.add(component);
-				component.setAreaComponent(this);
-			} else {
-				itComponent.remove();
-			}
-		}
 	}
 
 	@Override
