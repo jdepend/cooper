@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="4.4.1" transformSequenceNumber="1">
-  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib" />
+  <directoryPresets config="E:/my_workspace/project/Cooper/projects/cooper/cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib" />
   <application name="统计分析工具" distributionSourceDir="E:/my_workspace/project/Cooper/projects/cooper/build/standalone-statistics">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
@@ -23,17 +23,17 @@
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-statistics/target/cooper-statistics-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/cooper-metadata-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_04-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_04-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.1.jar" failOnError="false" />
+      <archive location="../../cooper-statistics/target/cooper-statistics-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/cooper-core-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/cooper-framework-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/cooper-model-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/cooper-metadata-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/cooper-framework-ui-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.1.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
   </java>
