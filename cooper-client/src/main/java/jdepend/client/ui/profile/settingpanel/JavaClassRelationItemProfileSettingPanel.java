@@ -16,8 +16,8 @@ import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.metadata.profile.JavaClassRelationItemProfile;
-import jdepend.metadata.profile.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.model.profile.MaintainProfileFacade;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -68,7 +68,8 @@ public class JavaClassRelationItemProfileSettingPanel extends ModelProfileSettin
 
 	@Override
 	protected void restore() {
-		this.javaClassRelationItemProfile = new DefaultJavaClassRelationItemProfile();
+		this.javaClassRelationItemProfile = ProfileScopeFacade.getInstance().getDefaultProfileFacade()
+				.getJavaClassRelationItemProfile();
 		this.refresh();
 	}
 

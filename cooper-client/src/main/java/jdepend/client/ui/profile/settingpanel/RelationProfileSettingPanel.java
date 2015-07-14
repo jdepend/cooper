@@ -15,7 +15,7 @@ import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.Relation;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.RelationProfile;
-import jdepend.model.profile.model.defaultvalue.DefaultRelationProfile;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -77,7 +77,7 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	protected void restore() {
-		this.relationProfile = new DefaultRelationProfile();
+		this.relationProfile = ProfileScopeFacade.getInstance().getDefaultProfileFacade().getRelationProfile();
 		this.refresh();
 	}
 

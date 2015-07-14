@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AnalysisResultProfile;
-import jdepend.model.profile.model.defaultvalue.DefaultAnalysisResultProfile;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -74,7 +74,8 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 
 	@Override
 	protected void restore() {
-		this.analysisResultProfile = new DefaultAnalysisResultProfile();
+		this.analysisResultProfile = ProfileScopeFacade.getInstance().getDefaultProfileFacade()
+				.getAnalysisResultProfile();
 		this.refresh();
 	}
 

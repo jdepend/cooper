@@ -69,6 +69,10 @@ public class ProfileScopeFacade extends PersistentBean {
 		return null;
 	}
 
+	public ProfileFacade getDefaultProfileFacade() {
+		return new DefaultProfileFacadeImpl();
+	}
+
 	private List<AbstractProfileScope> getProfileScope() {
 
 		List<AbstractProfileScope> scopes = new ArrayList<AbstractProfileScope>();

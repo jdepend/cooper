@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.JavaClassUnitProfile;
-import jdepend.model.profile.model.defaultvalue.DefaultJavaClassUnitProfile;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -78,7 +78,8 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	protected void restore() {
-		this.javaClassUnitProfile = new DefaultJavaClassUnitProfile();
+		this.javaClassUnitProfile = ProfileScopeFacade.getInstance().getDefaultProfileFacade()
+				.getJavaClassUnitProfile();
 		this.refresh();
 	}
 

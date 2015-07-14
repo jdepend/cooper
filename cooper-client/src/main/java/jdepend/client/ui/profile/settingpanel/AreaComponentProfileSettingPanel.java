@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
 import jdepend.model.profile.model.AreaComponentProfile;
-import jdepend.model.profile.model.defaultvalue.DefaultAreaComponentProfile;
+import jdepend.service.profile.scope.ProfileScopeFacade;
 
 public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
@@ -64,7 +64,8 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	@Override
 	protected void restore() {
-		this.areaComponentProfile = new DefaultAreaComponentProfile();
+		this.areaComponentProfile = ProfileScopeFacade.getInstance().getDefaultProfileFacade()
+				.getAreaComponentProfile();
 		this.refresh();
 	}
 
