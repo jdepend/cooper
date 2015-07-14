@@ -86,7 +86,7 @@ public class JavaClassRelationItemProfile implements Serializable {
 		info.append("类关系的强度与类型有关，不同的关系类型有不同的强度。类关系的强度是构成组件关系强度的依据。\n\n");
 		info.append("当某一类关系类型的强度被设置为0时，系统将不采集该类关系。\n\n");
 		info.append("Field包含关系是组合和聚合的关系的统称。在实际代码中很多类间的包含关系并非语义的包含关系，而是调用关系，如采用Spring注解向Service注入的其他Service这种关系。系统会识别这样的关系，并确定为Variable关系。\n\n");
-		info.append("Table关系的含义是两个类共同操作了同一张数据库表。这种关系是以数据库表为手段建立的生产者消费者模式。系统能够通过多种信息（类代码或配置文件信息）识别操作数据库的具体类型（Select、Insert、Update、Delete）。\n\n");
+		info.append("Table关系的含义是两个类共同操作了同一张数据库表。这种关系是以数据库表为手段建立的生产者消费者模式。系统能够通过多种信息（类代码或配置文件信息）识别操作数据库表的具体类型（Select、Insert、Update、Delete）。\n\n");
 		info.append("Http关系的含义是两个类之间存在http方式的远程调用。这种关系是通过url字符串匹配实现的，被调用方使用了RequestMapping注解，调用方采用了指定的调用者（在设置->管理参数->文件解析配置文件中配置）调用该注解配置的url。\n\n");
 
 		return info.toString();

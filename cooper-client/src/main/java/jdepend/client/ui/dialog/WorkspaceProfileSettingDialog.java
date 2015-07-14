@@ -10,7 +10,7 @@ public class WorkspaceProfileSettingDialog extends ProfileSettingDialog {
 
 	public WorkspaceProfileSettingDialog(JDependCooper frame) {
 		super(frame, ProfileScopeFacade.getInstance().getWorkspaceProfileScope().getProfileFacade());
-		this.setName("定制工作区级别的规则");
+		this.setTitle("定制工作区级别的规则");
 	}
 
 	@Override

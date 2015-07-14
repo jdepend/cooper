@@ -12,7 +12,7 @@ public class GroupProfileSettingDialog extends ProfileSettingDialog {
 
 	public GroupProfileSettingDialog(JDependCooper frame, String group) {
 		super(frame, ProfileScopeFacade.getInstance().getGroupProfileScope(group).getProfileFacade());
-		this.setName("定制" + group + "组的规则");
+		this.setTitle("定制" + group + "组的规则");
 		this.group = group;
 	}
 

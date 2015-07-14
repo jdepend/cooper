@@ -14,7 +14,7 @@ public class CommandProfileSettingDialog extends ProfileSettingDialog {
 
 	public CommandProfileSettingDialog(JDependCooper frame, String group, String command) {
 		super(frame, ProfileScopeFacade.getInstance().getCommandProfileScope(group, command).getProfileFacade());
-		this.setName("定制" + group + "." + command + "命令的规则");
+		this.setTitle("定制" + group + "." + command + "命令的规则");
 		this.group = group;
 		this.command = command;
 	}
