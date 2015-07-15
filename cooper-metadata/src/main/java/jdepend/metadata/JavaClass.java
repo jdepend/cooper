@@ -498,7 +498,22 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		return this.interfaces;
 	}
 
-	private Collection<JavaClass> getInterfaces() {
+	/**
+	 * 得到父类和接口列表
+	 * 
+	 * @return
+	 */
+	public Collection<JavaClass> getSelfSupers() {
+
+		Collection<JavaClass> selfSupers = new HashSet<JavaClass>();
+
+		selfSupers.addAll(this.getSuperClasses());
+		selfSupers.addAll(this.getAllInterfaces());
+
+		return selfSupers;
+	}
+
+	public Collection<JavaClass> getInterfaces() {
 		return this.detail.getInterfaces();
 	}
 
@@ -701,7 +716,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		Iterator<JavaClassRelationItem> it;
 		JavaClassRelationItem relationItem;
 		JavaClass dependClass;
-		
+
 		it = this.getSelfCaItems().iterator();
 		while (it.hasNext()) {
 			relationItem = it.next();

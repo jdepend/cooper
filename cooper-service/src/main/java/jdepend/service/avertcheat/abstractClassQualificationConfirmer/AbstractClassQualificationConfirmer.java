@@ -24,8 +24,6 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	}
 
 	private boolean confirmAbstractQualification(JavaClassUnit javaClass) {
-		// if (!javaClass.isAbstract())
-		// return false;
 
 		AnalysisResult result = javaClass.getResult();
 		List<String> abstractClassRules = result.getRunningContext().getProfileFacade().getJavaClassUnitProfile()
@@ -52,6 +50,16 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 						return true;
 					}
 				}
+			}
+
+			// 子类除实现该接口（或继承了该抽象类）外还实现或继承了其他类
+			if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_CooperationUse)) {
+				for (JavaClass subClass : subClasses) {
+					if (subClass.getSelfSupers().size() > 1) {
+						return true;
+					}
+				}
+
 			}
 			return false;
 		}

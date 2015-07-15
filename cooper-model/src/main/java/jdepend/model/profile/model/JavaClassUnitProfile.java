@@ -13,6 +13,7 @@ public class JavaClassUnitProfile implements Serializable {
 	public final static String AbstractClassRule_ChildCount = "子类数量大于1";
 	public final static String AbstractClassRule_SuperAndChild = "存在子类，又存在父类";
 	public final static String AbstractClassRule_ChildAtOtherComponent = "子类不在一个组件中";
+	public final static String AbstractClassRule_CooperationUse = "与其他接口联合使用";
 
 	private List<String> stableRules;
 
@@ -25,6 +26,7 @@ public class JavaClassUnitProfile implements Serializable {
 		allAbstractClassRules.add(AbstractClassRule_ChildCount);
 		allAbstractClassRules.add(AbstractClassRule_SuperAndChild);
 		allAbstractClassRules.add(AbstractClassRule_ChildAtOtherComponent);
+		allAbstractClassRules.add(AbstractClassRule_CooperationUse);
 
 		return allAbstractClassRules;
 	}
