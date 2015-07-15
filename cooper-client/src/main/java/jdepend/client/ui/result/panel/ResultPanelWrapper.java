@@ -18,7 +18,7 @@ public class ResultPanelWrapper {
 	}
 
 	/**
-	 * 显示内存中JDependUnitMgr中的结果（不弹出分数窗口）
+	 * 显示内存中JDependUnitMgr中的结果
 	 */
 	public void showResults(boolean isRefreshTodoList) {
 
@@ -36,7 +36,7 @@ public class ResultPanelWrapper {
 			// 创建图形化结果
 			results = jdependReport.createReport(result);
 			// 显示结果
-			resultPanel.showResults(results, false);
+			resultPanel.showResults(results);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			resultPanel.showError(ex);

@@ -39,22 +39,11 @@ public class ResultPanel extends TabsPanel {
 	}
 
 	/**
-	 * 显示结果（弹出分数窗口）
-	 * 
-	 * @param results
-	 */
-	public void showResults(Map<String, JComponent> results) {
-		this.showResults(results, true);
-	}
-
-	/**
 	 * 显示结果
 	 * 
 	 * @param results
-	 * @param isPopup
-	 *            是否弹出分数窗口（会自动保存分数）
 	 */
-	public void showResults(Map<String, ? extends JComponent> results, boolean isPopup) {
+	public void showResults(Map<String, ? extends JComponent> results) {
 		String label;
 		Iterator<String> iterator = results.keySet().iterator();
 
@@ -67,15 +56,6 @@ public class ResultPanel extends TabsPanel {
 		setDefaultTab();
 
 		this.setVisible(true);
-
-		if (isPopup && new UIPropertyConfigurator().getPopupSummary() != 0) {
-			this.showPopupSummary();
-		}
-	}
-
-	private void showPopupSummary() {
-		ScoreSummaryDialog d = new ScoreSummaryDialog(frame);
-		d.setVisible(true);
 	}
 
 	public void setDefaultTab() {
