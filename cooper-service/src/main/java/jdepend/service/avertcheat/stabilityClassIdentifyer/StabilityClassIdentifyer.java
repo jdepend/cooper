@@ -26,25 +26,25 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 	}
 
 	@Override
-	protected void handle(JavaClassUnit javaClass) {
+	protected void handle(JavaClassUnit javaClassUnit) {
 		boolean stability = true;
 		//类只有static的方法
-		for (Method method : javaClass.getJavaClass().getSelfMethods()) {
+		for (Method method : javaClassUnit.getJavaClass().getSelfMethods()) {
 			if (!method.isConstruction() && !method.isStatic()) {
 				stability = false;
 				break;
 			}
 		}
 		if (stability) {
-			javaClass.setStable(true);
+			javaClassUnit.setStable(true);
 			return;
 		}
 		
 		//不依赖其他类的VO
-		if (javaClass.getJavaClass().getCeList().size() == 0
-				&& javaClass.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
+		if (javaClassUnit.getJavaClass().getCeList().size() == 0
+				&& javaClassUnit.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
 			boolean haveBusinessMethod = false;
-			O: for (Method method : javaClass.getJavaClass().getMethods()) {
+			O: for (Method method : javaClassUnit.getJavaClass().getMethods()) {
 				if (!method.isConstruction() && !method.getName().startsWith("get")
 						&& !method.getName().startsWith("set") && !method.getName().equals("toString")
 						&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
@@ -53,7 +53,7 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 				}
 			}
 			if (!haveBusinessMethod) {
-				javaClass.setStable(true);
+				javaClassUnit.setStable(true);
 				return;
 			}
 		}

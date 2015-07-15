@@ -45,6 +45,6 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 		LogUtil.getInstance(this.getClass()).systemLog("结束执行JavaClassAvertCheat：" + this.getName());
 	}
 
-	protected abstract void handle(JavaClassUnit javaClass);
+	protected abstract void handle(JavaClassUnit javaClassUnit);
 
 }

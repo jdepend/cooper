@@ -23,20 +23,20 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		}
 	}
 
-	private boolean confirmAbstractQualification(JavaClassUnit javaClass) {
+	private boolean confirmAbstractQualification(JavaClassUnit javaClassUnit) {
 
-		AnalysisResult result = javaClass.getResult();
+		AnalysisResult result = javaClassUnit.getResult();
 		List<String> abstractClassRules = result.getRunningContext().getProfileFacade().getJavaClassUnitProfile()
 				.getAbstractClassRules();
 
-		Collection<JavaClass> subClasses = javaClass.getJavaClass().getSubClasses();
+		Collection<JavaClass> subClasses = javaClassUnit.getJavaClass().getSubClasses();
 		// 子类数量大于指定数量
 		if (subClasses.size() > ChildJavaClassCount
 				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildCount)) {
 			return true;
 		} else {
 			// 存在一个子类，又存在父类也具备抽象类计数资格
-			if (subClasses.size() > 0 && javaClass.getJavaClass().getSupers().size() > 0
+			if (subClasses.size() > 0 && javaClassUnit.getJavaClass().getSupers().size() > 0
 					&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild)) {
 				return true;
 			}
@@ -46,7 +46,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 					JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
 					if (subClassUnit != null
 							&& (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(
-									javaClass.getComponent()))) {
+									javaClassUnit.getComponent()))) {
 						return true;
 					}
 				}
