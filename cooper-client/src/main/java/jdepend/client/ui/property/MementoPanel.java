@@ -187,7 +187,7 @@ public class MementoPanel extends JPanel {
 				JDependUnitMgr.getInstance().setResult(AdjustHistory.getInstance().getCurrent());
 			}
 			AdjustHistory.getInstance().setCompared(null);
-			frame.getResultPanelWrapper().showMemoryResults();
+			frame.getResultPanelWrapper().refreshResults();
 		} else {
 			JOptionPane.showMessageDialog(frame, "请选择一条历史进行查看.", "alert", JOptionPane.WARNING_MESSAGE);
 			return;

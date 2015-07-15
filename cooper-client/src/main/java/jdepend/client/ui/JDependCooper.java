@@ -440,7 +440,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	@Override
 	public void onRefactoring() throws JDependException {
 		// 显示重构结果
-		this.getResultPanelWrapper().showMemoryResults();
+		this.getResultPanelWrapper().refreshResults();
 		// 刷新、显示虚拟重构历史
 		this.getPropertyPanel().showMementoList();
 		// 刷新TODOList
