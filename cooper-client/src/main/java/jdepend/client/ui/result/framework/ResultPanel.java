@@ -15,15 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
+import jdepend.client.ui.JDependCooper;
+import jdepend.client.ui.framework.UIPropertyConfigurator;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.ui.panel.TabWrapper;
 import jdepend.framework.ui.panel.TabsPanel;
 import jdepend.framework.util.BundleUtil;
 import jdepend.framework.util.FileUtil;
-import jdepend.model.JDependUnitMgr;
-import jdepend.client.ui.JDependCooper;
-import jdepend.client.ui.framework.UIPropertyConfigurator;
 
 public class ResultPanel extends TabsPanel {
 
@@ -74,10 +73,8 @@ public class ResultPanel extends TabsPanel {
 	}
 
 	private void showPopupSummary() {
-		if (JDependUnitMgr.getInstance().getResult() != null) {
-			PopupSummaryDialog d = new PopupSummaryDialog(frame);
-			d.setVisible(true);
-		}
+		PopupSummaryDialog d = new PopupSummaryDialog(frame);
+		d.setVisible(true);
 	}
 
 	public void setDefaultTab() {
