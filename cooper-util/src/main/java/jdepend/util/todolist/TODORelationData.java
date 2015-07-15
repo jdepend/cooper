@@ -1,5 +1,8 @@
 package jdepend.util.todolist;
 
+import java.util.List;
+
+import jdepend.model.Component;
 import jdepend.model.Relation;
 import jdepend.model.RelationData;
 
@@ -24,9 +27,9 @@ public class TODORelationData extends RelationData {
 	}
 
 	@Override
-	public void appendRelations() {
+	public void appendRelations(List<Component> components) {
 		if (!this.appendRelations) {
-			super.appendRelations();
+			super.appendRelations(components);
 			this.appendRelations = true;
 		}
 	}

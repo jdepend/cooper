@@ -2,15 +2,11 @@ package jdepend.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import jdepend.metadata.JavaClassRelationItem;
-import jdepend.model.Component;
-import jdepend.model.JDependUnitMgr;
-import jdepend.model.JavaClassUnit;
-import jdepend.model.Relation;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.model.util.RelationCreator;
 
 /**
@@ -92,7 +88,7 @@ public class RelationData {
 	/**
 	 * 创建本关系与其他组件之间的关系
 	 */
-	public void appendRelations() {
+	public void appendRelations(List<Component> components) {
 		Collection<Component> selfComponents = new ArrayList<Component>();
 		selfComponents.add(current);
 		selfComponents.add(depend);
@@ -100,7 +96,7 @@ public class RelationData {
 		Collection<Component> caComponents = new ArrayList<Component>();
 		Collection<Component> ceComponents = new ArrayList<Component>();
 		Component otherComponent;
-		for (Component component : JDependUnitMgr.getInstance().getResult().getComponents()) {
+		for (Component component : components) {
 			if (!component.equals(relation.getCurrent().getComponent())
 					&& !component.equals(relation.getDepend().getComponent())) {
 				if (relation.getCurrent().getComponent().getEfferents().contains(component)
