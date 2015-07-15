@@ -1,4 +1,4 @@
-package jdepend.client.ui.result.framework;
+package jdepend.client.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -61,7 +61,7 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 			JPanel content = new JPanel() {
 				@Override
 				public String getToolTipText(MouseEvent e) {
-					return "左键关闭，右键保存分数";
+					return "左键关闭";
 				}
 			};
 			ToolTipManager.sharedInstance().registerComponent(content);
@@ -76,9 +76,6 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 				public void mouseClicked(MouseEvent e) {
 					if (e.getButton() == MouseEvent.BUTTON1) {
 						PopupSummaryDialog.this.dispose();
-					} else if (e.getButton() == MouseEvent.BUTTON3) {
-						ScorePopupMenu saveScore = new ScorePopupMenu(PopupSummaryDialog.this);
-						saveScore.show(PopupSummaryDialog.this, e.getX(), e.getY());
 					}
 				}
 			});
@@ -89,10 +86,6 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 			this.dispose();
 		}
 
-	}
-
-	protected JDependCooper getFrame() {
-		return frame;
 	}
 
 	@Override

@@ -218,6 +218,14 @@ public final class ScorePanel extends SubResultTabPanel {
 
 		JLabel score = new JLabel();
 		score.setFont(new java.awt.Font("宋体", 1, 18));
+		score.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				PopupSummaryDialog d = new PopupSummaryDialog(frame);
+				d.setVisible(true);
+			}
+		});
+		JDependUIUtil.addClickTipEffect(score);
 
 		if (scoreValue != null) {
 			score.setText(MetricsFormat.toFormattedMetrics(scoreValue).toString());
