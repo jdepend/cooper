@@ -41,7 +41,7 @@ public final class DesignPatternPanel extends SubResultTabPanel {
 			}
 		}
 
-		this.add(new JScrollPane(new CooperTable(tableData)));
+		this.add(new JScrollPane(new CooperTable(tableData, true)));
 	}
 
 }

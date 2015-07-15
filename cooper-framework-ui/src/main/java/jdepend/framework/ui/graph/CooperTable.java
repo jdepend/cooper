@@ -32,11 +32,15 @@ public class CooperTable extends JTable {
 	private DefaultTableModel model;
 
 	public CooperTable(TableData data) {
+		this(data, false);
+	}
+
+	public CooperTable(TableData data, final boolean editable) {
 
 		model = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				return false;
+				return editable;
 			}
 		};
 
