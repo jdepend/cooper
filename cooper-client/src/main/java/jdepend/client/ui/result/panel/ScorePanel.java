@@ -221,7 +221,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		score.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				PopupSummaryDialog d = new PopupSummaryDialog(frame);
+				ScoreSummaryDialog d = new ScoreSummaryDialog(frame);
 				d.setVisible(true);
 			}
 		});

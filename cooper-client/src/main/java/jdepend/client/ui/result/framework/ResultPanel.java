@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.framework.UIPropertyConfigurator;
-import jdepend.client.ui.result.panel.PopupSummaryDialog;
+import jdepend.client.ui.result.panel.ScoreSummaryDialog;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.ui.panel.TabWrapper;
@@ -74,7 +74,7 @@ public class ResultPanel extends TabsPanel {
 	}
 
 	private void showPopupSummary() {
-		PopupSummaryDialog d = new PopupSummaryDialog(frame);
+		ScoreSummaryDialog d = new ScoreSummaryDialog(frame);
 		d.setVisible(true);
 	}
 

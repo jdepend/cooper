@@ -26,7 +26,7 @@ import jdepend.knowledge.domainanalysis.AdviseInfo;
 import jdepend.knowledge.domainanalysis.StructureCategory;
 import jdepend.model.JDependUnitMgr;
 
-public class PopupSummaryDialog extends JDialog implements ActionListener {
+public class ScoreSummaryDialog extends JDialog implements ActionListener {
 
 	private JDependCooper frame;
 
@@ -34,7 +34,7 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 	private Timer timer;
 
 	@SuppressWarnings("restriction")
-	public PopupSummaryDialog(final JDependCooper frame) {
+	public ScoreSummaryDialog(final JDependCooper frame) {
 
 		this.frame = frame;
 
@@ -75,7 +75,7 @@ public class PopupSummaryDialog extends JDialog implements ActionListener {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getButton() == MouseEvent.BUTTON1) {
-						PopupSummaryDialog.this.dispose();
+						ScoreSummaryDialog.this.dispose();
 					}
 				}
 			});
