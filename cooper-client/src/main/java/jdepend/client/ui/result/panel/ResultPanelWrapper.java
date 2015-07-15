@@ -60,7 +60,7 @@ public class ResultPanelWrapper {
 	}
 
 	/**
-	 * 显示内存操作后的结果
+	 * 显示内存操作后的结果（保持原位置）
 	 */
 	public void refreshResults() {
 		int defaultOneIndex = resultPanel.getOneIndex();
