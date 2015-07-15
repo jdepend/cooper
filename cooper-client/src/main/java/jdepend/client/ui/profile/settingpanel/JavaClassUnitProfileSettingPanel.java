@@ -24,6 +24,8 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
 	private List<JCheckBox> stableRuleCheckBoxes;
 
+	private static final int ItemHeight = 50;
+
 	public JavaClassUnitProfileSettingPanel(JavaClassUnitProfile javaClassUnitProfile) {
 		this.javaClassUnitProfile = javaClassUnitProfile;
 
@@ -40,12 +42,13 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 
 		JPanel content = new JPanel(new BorderLayout());
 
-		JPanel left = new JPanel(new GridLayout(2, 1));
-		left.setPreferredSize(new Dimension(this.getWidth(), 300));
+		JPanel left = new JPanel(new BorderLayout());
 		// 类的抽象性
 		List<String> allAbstractClassRules = JavaClassUnitProfile.getAllAbstractClassRules();
 		JPanel abstractClassRulePanel = new JPanel(new GridLayout(allAbstractClassRules.size(), 1));
 		abstractClassRulePanel.setBorder(new TitledBorder("判断类抽象性规则"));
+		abstractClassRulePanel.setPreferredSize(new Dimension(this.getWidth(), ItemHeight
+				* allAbstractClassRules.size()));
 
 		this.abstractClassRuleCheckBoxes = new ArrayList<JCheckBox>();
 		JCheckBox abstractClassRuleCheckBox;
@@ -54,11 +57,12 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 			abstractClassRuleCheckBoxes.add(abstractClassRuleCheckBox);
 			abstractClassRulePanel.add(abstractClassRuleCheckBox);
 		}
-		left.add(abstractClassRulePanel);
+		left.add(BorderLayout.NORTH, abstractClassRulePanel);
 		// 类的稳定性
 		List<String> allStableRules = JavaClassUnitProfile.getAllStableRules();
 		JPanel stableRulePanel = new JPanel(new GridLayout(allStableRules.size(), 1));
 		stableRulePanel.setBorder(new TitledBorder("判断类稳定性规则"));
+		stableRulePanel.setPreferredSize(new Dimension(this.getWidth(), ItemHeight * allStableRules.size()));
 
 		this.stableRuleCheckBoxes = new ArrayList<JCheckBox>();
 		JCheckBox stableRuleCheckBox;
@@ -68,7 +72,7 @@ public class JavaClassUnitProfileSettingPanel extends ModelProfileSettingPanel {
 			stableRulePanel.add(stableRuleCheckBox);
 		}
 
-		left.add(stableRulePanel);
+		left.add(BorderLayout.CENTER, stableRulePanel);
 
 		content.add(BorderLayout.NORTH, left);
 		content.add(BorderLayout.CENTER, this.getOtherPanel());

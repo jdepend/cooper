@@ -22,6 +22,8 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 
 	private List<JCheckBox> accordingCheckBoxes;
 
+	private static final int ItemHeight = 50;
+
 	public AreaComponentProfileSettingPanel(AreaComponentProfile areaComponentProfile) {
 		this.areaComponentProfile = areaComponentProfile;
 
@@ -41,7 +43,7 @@ public class AreaComponentProfileSettingPanel extends ModelProfileSettingPanel {
 		List<String> allAccordings = AreaComponentProfile.getAllAccordings();
 
 		JPanel left = new JPanel(new BorderLayout());
-		left.setPreferredSize(new Dimension(this.getWidth(), 120));
+		left.setPreferredSize(new Dimension(this.getWidth(), ItemHeight * allAccordings.size()));
 
 		JPanel accordingPanel = new JPanel(new GridLayout(allAccordings.size(), 1));
 		accordingPanel.setBorder(new TitledBorder("判断规则"));

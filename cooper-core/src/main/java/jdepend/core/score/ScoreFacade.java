@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.result.AnalysisResult;
 
 public final class ScoreFacade {
@@ -34,10 +33,6 @@ public final class ScoreFacade {
 		} else {
 			ScoreRepository.save(score);
 		}
-	}
-
-	public static void saveScore(String mode) throws JDependException {
-		saveScore(JDependUnitMgr.getInstance().getResult(), mode);
 	}
 
 	public static List<ScoreInfo> getScoreList() throws JDependException {
