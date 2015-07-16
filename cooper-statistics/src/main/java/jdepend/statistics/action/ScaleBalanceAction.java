@@ -39,7 +39,7 @@ public class ScaleBalanceAction extends ScoreListAction {
 		}
 		graph.addItem(item);
 
-		this.addResult("规模内聚性折线图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("规模内聚性折线图", GraphUtil.createGraph(graph));
 
 	}
 }

@@ -38,7 +38,7 @@ public class ScaleDAction extends ScoreListAction {
 		}
 		graph.addItem(item);
 
-		this.addResult("规模抽象程度合理性折线图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("规模抽象程度合理性折线图", GraphUtil.createGraph(graph));
 
 	}
 

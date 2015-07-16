@@ -53,7 +53,7 @@ public class ScaleScoreItemAction extends ScoreListAction {
 
 		data.addItem(item);
 
-		this.addResult("分数分项比例柱状图", GraphUtil.getInstance().createGraph(data));
+		this.addResult("分数分项比例柱状图", GraphUtil.createGraph(data));
 
 	}
 }

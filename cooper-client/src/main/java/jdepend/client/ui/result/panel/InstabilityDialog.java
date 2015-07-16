@@ -48,6 +48,7 @@ public class InstabilityDialog extends CooperDialog {
 
 	private JComponent createGraph(JDependUnit unit) {
 		GraphData graph = new GraphData();
+		graph.setAddJScrollPane(false);
 
 		ComponentProfile componentProfile = unit.getResult().getRunningContext().getProfileFacade()
 				.getComponentProfile();
@@ -84,8 +85,7 @@ public class InstabilityDialog extends CooperDialog {
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(new java.awt.Color(255, 255, 255));
 		try {
-			GraphUtil.getInstance().setAddJScrollPane(false);
-			contentPanel.add(GraphUtil.getInstance().createGraph(graph));
+			contentPanel.add(GraphUtil.createGraph(graph));
 		} catch (JDependException e) {
 			e.printStackTrace();
 		}

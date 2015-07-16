@@ -46,7 +46,7 @@ public class ClassRelationTypeAction extends ScoreListAction {
 					"分析了[" + group + "][" + command + "]的ClassRelationType");
 		}
 
-		this.addResult("类关系类型比例饼图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("类关系类型比例饼图", GraphUtil.createGraph(graph));
 
 	}
 }

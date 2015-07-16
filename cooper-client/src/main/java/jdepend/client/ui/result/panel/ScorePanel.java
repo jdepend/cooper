@@ -251,7 +251,7 @@ public final class ScorePanel extends SubResultTabPanel {
 				}
 			});
 			JDependUIUtil.addClickTipEffect(mm);
-			
+
 			scoreItemPanel.add(mm);
 		}
 		scorePanel.add(scoreItemPanel);
@@ -569,6 +569,8 @@ public final class ScorePanel extends SubResultTabPanel {
 
 	private JComponent createGraphScore() {
 		GraphData graph = new GraphData();
+		graph.setAddJScrollPane(false);
+
 		GraphDataItem item = null;
 		Map<Object, Object> datas = null;
 
@@ -627,8 +629,7 @@ public final class ScorePanel extends SubResultTabPanel {
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.setBackground(new java.awt.Color(255, 255, 255));
 		try {
-			GraphUtil.getInstance().setAddJScrollPane(false);
-			contentPanel.add(GraphUtil.getInstance().createGraph(graph));
+			contentPanel.add(GraphUtil.createGraph(graph));
 		} catch (JDependException e) {
 			e.printStackTrace();
 		}

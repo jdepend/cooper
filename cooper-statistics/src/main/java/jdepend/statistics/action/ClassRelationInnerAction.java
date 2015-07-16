@@ -46,7 +46,7 @@ public class ClassRelationInnerAction extends ScoreListAction {
 					"分析了[" + group + "][" + command + "]的ClassRelationInner");
 		}
 
-		this.addResult("类关系内外比例饼图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("类关系内外比例饼图", GraphUtil.createGraph(graph));
 
 	}
 }

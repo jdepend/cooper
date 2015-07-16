@@ -44,7 +44,7 @@ public final class EncapsulationAction extends ScoreListAction {
 
 		data.addItem(item);
 
-		this.addResult("组件封装性柱状图", GraphUtil.getInstance().createGraph(data));
+		this.addResult("组件封装性柱状图", GraphUtil.createGraph(data));
 
 	}
 }

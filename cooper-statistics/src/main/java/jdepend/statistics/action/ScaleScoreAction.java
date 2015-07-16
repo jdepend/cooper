@@ -74,7 +74,7 @@ public class ScaleScoreAction extends ScoreListAction {
 		}
 		graph.addItem(item);
 
-		this.addResult("规模分数折线图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("规模分数折线图", GraphUtil.createGraph(graph));
 
 	}
 }

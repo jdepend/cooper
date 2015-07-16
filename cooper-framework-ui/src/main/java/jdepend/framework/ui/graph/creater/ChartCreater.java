@@ -1,4 +1,4 @@
-package jdepend.framework.ui.graph;
+package jdepend.framework.ui.graph.creater;
 
 import jdepend.framework.ui.graph.model.GraphDataItem;
 

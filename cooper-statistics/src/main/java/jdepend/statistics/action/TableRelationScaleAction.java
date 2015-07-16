@@ -43,7 +43,7 @@ public final class TableRelationScaleAction extends ScoreListAction {
 
 		data.addItem(item);
 
-		this.addResult("基于数据库表实现组件间通讯的比例柱状图", GraphUtil.getInstance().createGraph(data));
+		this.addResult("基于数据库表实现组件间通讯的比例柱状图", GraphUtil.createGraph(data));
 	}
 
 }

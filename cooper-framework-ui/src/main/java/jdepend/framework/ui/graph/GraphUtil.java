@@ -11,6 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import jdepend.framework.exception.JDependException;
+import jdepend.framework.ui.graph.creater.BarCreater;
+import jdepend.framework.ui.graph.creater.ChartCreater;
+import jdepend.framework.ui.graph.creater.PieChartCreater;
+import jdepend.framework.ui.graph.creater.SplineChartCreater;
 import jdepend.framework.ui.graph.model.GraphData;
 import jdepend.framework.ui.graph.model.GraphDataItem;
 
@@ -18,69 +22,41 @@ import org.jfree.chart.ChartPanel;
 
 public final class GraphUtil {
 
-	private Map<String, ChartCreater> creaters;
-
-	private static GraphUtil util = new GraphUtil();
-
 	private static final int DefaultColCount = 2;
 
-	private ThreadLocal<Boolean> isAddJScrollPane = new ThreadLocal<Boolean>();
-
-	private GraphUtil() {
-		this.init();
-	}
-
-	public static GraphUtil getInstance() {
-		return util;
-	}
-
-	public void setAddJScrollPane(Boolean b) {
-		this.isAddJScrollPane.set(b);
-	}
-
-	private void init() {
-		creaters = new HashMap<String, ChartCreater>();
-
-		PieChartCreater pieChartCreater = new PieChartCreater();
-		creaters.put(pieChartCreater.getType(), pieChartCreater);
-
-		SplineChartCreater splineChartCreater = new SplineChartCreater();
-		creaters.put(splineChartCreater.getType(), splineChartCreater);
-
-		BarCreater barCreater = new BarCreater();
-		creaters.put(barCreater.getType(), barCreater);
-	}
-
-	public JComponent createGraph(GraphData data) throws JDependException {
+	public static JComponent createGraph(GraphData data) throws JDependException {
 		List<String> groups = data.getGroups();
 		if (groups.size() == 0 || groups.size() == 1) {
-			return createGroupComponent(data.getColCount(), data.getItems());
+			return createGroupComponent(data);
 		} else {
 			JTabbedPane tab = new JTabbedPane();
 			for (String group : groups) {
-				tab.addTab(group, createGroupComponent(data.getColCount(), data.getTheGroupItems(group)));
+				tab.addTab(group, createGroupComponent(data));
 			}
 			return tab;
 		}
 	}
 
-	private JComponent createGroupComponent(int colCount, List<GraphDataItem> items) throws JDependException {
+	private static JComponent createGroupComponent(GraphData data) throws JDependException {
 		int row;
 		int cols;
-		if (colCount > 0) {
-			cols = colCount;
+		if (data.getColCount() > 0) {
+			cols = data.getColCount();
 		} else {
 			cols = DefaultColCount;
 		}
-		if (items.size() % cols == 0) {
-			row = items.size() / cols;
+		if (data.getItems().size() % cols == 0) {
+			row = data.getItems().size() / cols;
 		} else {
-			row = items.size() / cols + 1;
+			row = data.getItems().size() / cols + 1;
 		}
+
+		Map<String, ChartCreater> creaters = getCreaters();
+
 		JPanel content = new JPanel(new GridLayout(row, 2));
 		ChartCreater creater;
 		ChartPanel chartpanel;
-		for (GraphDataItem item : items) {
+		for (GraphDataItem item : data.getItems()) {
 			creater = creaters.get(item.getType());
 			if (creater != null) {
 				chartpanel = new ChartPanel(creater.create(item));
@@ -92,11 +68,27 @@ public final class GraphUtil {
 				throw new JDependException("没有类型为[" + item.getType() + "]的图形创建器");
 			}
 		}
-		if (this.isAddJScrollPane.get() == null || this.isAddJScrollPane.get()) {
+		if (data.isAddJScrollPane()) {
 			JScrollPane pane = new JScrollPane(content);
 			return pane;
 		} else {
 			return content;
 		}
+	}
+
+	private static Map<String, ChartCreater> getCreaters() {
+
+		Map<String, ChartCreater> creaters = new HashMap<String, ChartCreater>();
+
+		PieChartCreater pieChartCreater = new PieChartCreater();
+		creaters.put(pieChartCreater.getType(), pieChartCreater);
+
+		SplineChartCreater splineChartCreater = new SplineChartCreater();
+		creaters.put(splineChartCreater.getType(), splineChartCreater);
+
+		BarCreater barCreater = new BarCreater();
+		creaters.put(barCreater.getType(), barCreater);
+
+		return creaters;
 	}
 }

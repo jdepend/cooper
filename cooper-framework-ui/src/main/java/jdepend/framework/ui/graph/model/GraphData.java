@@ -10,12 +10,22 @@ public final class GraphData implements Serializable {
 
 	private int colCount;
 
+	private boolean isAddJScrollPane = true;
+
 	public int getColCount() {
 		return colCount;
 	}
 
 	public void setColCount(int colCount) {
 		this.colCount = colCount;
+	}
+
+	public boolean isAddJScrollPane() {
+		return isAddJScrollPane;
+	}
+
+	public void setAddJScrollPane(boolean isAddJScrollPane) {
+		this.isAddJScrollPane = isAddJScrollPane;
 	}
 
 	public List<GraphDataItem> getItems() {

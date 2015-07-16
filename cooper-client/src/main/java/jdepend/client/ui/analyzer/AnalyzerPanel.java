@@ -354,7 +354,7 @@ public class AnalyzerPanel extends JPanel {
 	}
 
 	private JComponent createGraph(GraphData graphData) throws JDependException {
-		return GraphUtil.getInstance().createGraph(graphData);
+		return GraphUtil.createGraph(graphData);
 	}
 
 	private JComponent createTree(Node root) {

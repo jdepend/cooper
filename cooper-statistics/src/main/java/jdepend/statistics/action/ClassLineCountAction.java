@@ -46,7 +46,7 @@ public class ClassLineCountAction extends ScoreListAction {
 					"分析了[" + group + "][" + command + "]的ClassLineCount");
 		}
 
-		this.addResult("类规模比例饼图", GraphUtil.getInstance().createGraph(graph));
+		this.addResult("类规模比例饼图", GraphUtil.createGraph(graph));
 
 	}
 }
