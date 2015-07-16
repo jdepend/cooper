@@ -34,8 +34,7 @@ public class RootStep extends Step {
 		buttonBar.add(createCancelButton());
 
 		JPanel blankPanel = new JPanel();
-		blankPanel.setPreferredSize(new Dimension(ComponentModelPanel.Width,
-				blankPanelHeight));
+		blankPanel.setPreferredSize(new Dimension(ComponentModelPanel.Width, blankPanelHeight));
 
 		content.add(BorderLayout.CENTER, groupPanel);
 
@@ -55,10 +54,8 @@ public class RootStep extends Step {
 	@Override
 	public int doWork() throws JDependException {
 		getWorker().setGroupName(groupPanel.getGroupname().getText());
-		getWorker().setPath(
-				groupPanel.getPathname().getText().replaceAll("\n", ""));
-		getWorker().setSrcPath(
-				groupPanel.getSrcPathName().getText().replaceAll("\n", ""));
+		getWorker().setPath(groupPanel.getPathname().getText().replaceAll("\n", ""));
+		getWorker().setSrcPath(groupPanel.getSrcPathName().getText().replaceAll("\n", ""));
 		getWorker().setFilteredPackages(groupPanel.getFilteredPackages());
 		getWorker().setAttribute(groupPanel.getAttribute().getText());
 
@@ -68,28 +65,21 @@ public class RootStep extends Step {
 	@Override
 	protected void validateData() throws JDependException {
 
-		if (groupPanel.getGroupname().getText() == null
-				|| groupPanel.getGroupname().getText().length() == 0)
+		if (groupPanel.getGroupname().getText() == null || groupPanel.getGroupname().getText().length() == 0)
 			throw new JDependException("组名不能为空！");
 
-		if (groupPanel.getPathname().getText() == null
-				|| groupPanel.getPathname().getText().length() == 0)
+		if (groupPanel.getPathname().getText() == null || groupPanel.getPathname().getText().length() == 0)
 			throw new JDependException("路径不能为空！");
 
-		String[] paths = groupPanel.getPathname().getText()
-				.replaceAll("\n", "").split(TargetFileManager.FilePathSplit);
+		String[] paths = groupPanel.getPathname().getText().replaceAll("\n", "").split(TargetFileManager.FilePathSplit);
 		for (String path : paths) {
-			if (!CommandConf.DEFAULT_CLASSES.equals(path)) {
-				File directory = new File(path);
-				if (!directory.isDirectory()
-						&& !FileUtil.acceptCompressFile(directory)) {
-					throw new IllegalArgumentException("分析的classes路径不合格。");
-				}
+			File directory = new File(path);
+			if (!directory.isDirectory() && !FileUtil.acceptCompressFile(directory)) {
+				throw new IllegalArgumentException("分析的classes路径不合格。");
 			}
 		}
 
-		if (CommandConfMgr.getInstance().getGroupNames()
-				.contains(groupPanel.getGroupname().getText())) {
+		if (CommandConfMgr.getInstance().getGroupNames().contains(groupPanel.getGroupname().getText())) {
 			throw new JDependException("组名已经存在！");
 		}
 

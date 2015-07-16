@@ -315,9 +315,6 @@ public class CandidateListTable extends JTable {
 
 	private Collection<? extends Candidate> getCandidates(String path) {
 		if (this.packages == null) {
-			// 转换
-			path = CommandConf.covertDefaultClassesPath(path);
-
 			JDependServiceProxy serviceProxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
 					.createJDependServiceProxy(null, null);
 

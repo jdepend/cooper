@@ -20,10 +20,8 @@ public class CommandConf implements Comparable<CommandConf> {
 
 	public String tip;
 
-	public static final String DEFAULT_CLASSES = "self";
-
 	public String getPath() {
-		return covertDefaultClassesPath(path);
+		return path;
 	}
 
 	public void setPath(String path) {
@@ -140,17 +138,4 @@ public class CommandConf implements Comparable<CommandConf> {
 
 		return content.toString();
 	}
-
-	public static String covertDefaultClassesPath(String path) {
-		if (CommandConf.DEFAULT_CLASSES.equalsIgnoreCase(path)) {
-			StringBuilder rtn = new StringBuilder();
-			for (String p : ClassSearchUtil.getSelfPath()) {
-				rtn.append(p);
-				rtn.append(";");
-			}
-			return rtn.delete(rtn.length() - 1, rtn.length()).toString();
-		}
-		return path;
-	}
-
 }
