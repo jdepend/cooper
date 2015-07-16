@@ -1,16 +1,13 @@
 package jdepend.client.core.analyzer;
 
 import java.io.IOException;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.log.LogUtil;
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.Analyzers;
 
@@ -61,10 +58,7 @@ public final class AnalyzerMgr {
 
 	protected void init() {
 
-		this.analyzers = this.getDynamicAnalyzers();
-		if (this.analyzers.isEmpty()) {
-			this.analyzers = Analyzers.getStaticAnalyzers();
-		}
+		this.analyzers = Analyzers.getStaticAnalyzers();
 
 		this.types = new ArrayList<String>();
 		for (String type : analyzers.keySet()) {
@@ -95,31 +89,6 @@ public final class AnalyzerMgr {
 				}
 			}
 		}
-	}
-
-	private Map<String, List<Analyzer>> getDynamicAnalyzers() {
-		List<String> analyzerNames = ClassSearchUtil.getInstance().getSubClassNames(Analyzer.class.getName());
-		Map<String, List<Analyzer>> analyzers = new LinkedHashMap<String, List<Analyzer>>();
-		List<Analyzer> analyzerTypes;
-		for (String analyzerName : analyzerNames) {
-			try {
-				Class analyzerClass = Class.forName(analyzerName);
-				if (!analyzerClass.isInterface() && !Modifier.isAbstract(analyzerClass.getModifiers())) {
-					Analyzer analyzer = (Analyzer) analyzerClass.newInstance();
-					analyzerTypes = analyzers.get(analyzer.getType());
-					if (analyzerTypes == null) {
-						analyzerTypes = new ArrayList<Analyzer>();
-						analyzers.put(analyzer.getType(), analyzerTypes);
-					}
-					if (!analyzerTypes.contains(analyzer)) {
-						analyzerTypes.add(analyzer);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return analyzers;
 	}
 
 	public List<String> getTypes() {

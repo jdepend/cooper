@@ -1,7 +1,7 @@
 package test.jdepend.service;
 
+import test.common.TestConfigUtil;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
 import jdepend.model.Relation;
 import jdepend.model.component.JarComponent;
@@ -19,7 +19,7 @@ public class ServiceTest extends TestCase {
 
 		JDependLocalService service = ServiceFactory.createJDependLocalService();
 
-		for (String p : ClassSearchUtil.getSelfPath()) {
+		for (String p : TestConfigUtil.getSelfPath()) {
 			service.addDirectory(p);
 		}
 

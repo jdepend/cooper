@@ -2,11 +2,12 @@ package test.jdepend.util;
 
 import java.util.List;
 
+import test.common.TestConfigUtil;
+
 import jdepend.core.serviceproxy.JDependServiceLocalProxy;
 import jdepend.core.serviceproxy.framework.JDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.Component;
 import jdepend.model.component.JarComponent;
 import jdepend.model.result.AnalysisResult;
@@ -25,7 +26,7 @@ public class TODOTest extends TestCase {
 
 		JDependServiceProxy serviceProxy = new JDependServiceLocalProxy("测试组", "测试命令");
 
-		for (String p : ClassSearchUtil.getSelfPath()) {
+		for (String p : TestConfigUtil.getSelfPath()) {
 			serviceProxy.addDirectory(p);
 		}
 

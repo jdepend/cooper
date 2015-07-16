@@ -3,7 +3,6 @@ package jdepend.client.core.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.model.component.CustomComponent;
 
 public class CommandConf implements Comparable<CommandConf> {

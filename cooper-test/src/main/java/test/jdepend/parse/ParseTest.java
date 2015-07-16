@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import test.common.TestConfigUtil;
+
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.Attribute;
 import jdepend.metadata.InvokeItem;
@@ -18,7 +20,6 @@ import jdepend.metadata.tree.JavaClassInheritTreesCreator;
 import jdepend.metadata.tree.JavaClassTree;
 import jdepend.metadata.tree.JavaPackageNode;
 import jdepend.metadata.tree.JavaPackageTreeCreator;
-import jdepend.metadata.util.ClassSearchUtil;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.Parse;
 import junit.framework.TestCase;
@@ -33,7 +34,7 @@ public final class ParseTest extends TestCase {
 
 		Parse parse = new Parse();
 
-		for (String p : ClassSearchUtil.getSelfPath()) {
+		for (String p : TestConfigUtil.getSelfPath()) {
 			parse.addDirectorys(p);
 		}
 		javaPackages = parse.execute();
