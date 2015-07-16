@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.Relation;
@@ -25,6 +26,8 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 	private JTextField SDPField;
 	private JTextField componentLayerField;
 	private JTextField mutualDependField;
+
+	private JTextField SDPDifferenceField;
 
 	public RelationProfileSettingPanel(RelationProfile relationProfile) {
 		this.relationProfile = relationProfile;
@@ -42,32 +45,49 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 
 		JPanel content = new JPanel(new BorderLayout());
 
-		JPanel left = new JPanel(new GridLayout(4, 3));
-		left.setPreferredSize(new Dimension(this.getWidth(), 100));
+		JPanel left = new JPanel(new BorderLayout());
 
-		left.add(new JLabel("循环依赖权值"));
+		JPanel problemRelationPanel = new JPanel(new GridLayout(4, 3));
+		problemRelationPanel.setBorder(new TitledBorder("问题关系类型权值"));
+		problemRelationPanel.setPreferredSize(new Dimension(this.getWidth(), 120));
+
+		problemRelationPanel.add(new JLabel("循环依赖"));
 
 		cycleDependField = new JTextField();
-		left.add(cycleDependField);
-		left.add(new JLabel("取值范围：1~4"));
+		problemRelationPanel.add(cycleDependField);
+		problemRelationPanel.add(new JLabel("取值范围：1~4"));
 
-		left.add(new JLabel("违反稳定依赖原则权值"));
+		problemRelationPanel.add(new JLabel("违反稳定依赖原则"));
 
 		SDPField = new JTextField();
-		left.add(SDPField);
-		left.add(new JLabel("取值范围：1~4"));
+		problemRelationPanel.add(SDPField);
+		problemRelationPanel.add(new JLabel("取值范围：1~4"));
 
-		left.add(new JLabel("下层组件依赖了上层组件权值"));
+		problemRelationPanel.add(new JLabel("下层组件依赖了上层组件"));
 
 		componentLayerField = new JTextField();
-		left.add(componentLayerField);
-		left.add(new JLabel("取值范围：1~4"));
+		problemRelationPanel.add(componentLayerField);
+		problemRelationPanel.add(new JLabel("取值范围：1~4"));
 
-		left.add(new JLabel("彼此依赖权值"));
+		problemRelationPanel.add(new JLabel("彼此依赖"));
 
 		mutualDependField = new JTextField();
-		left.add(mutualDependField);
-		left.add(new JLabel("取值范围：1~4"));
+		problemRelationPanel.add(mutualDependField);
+		problemRelationPanel.add(new JLabel("取值范围：1~4"));
+
+		left.add(BorderLayout.NORTH, problemRelationPanel);
+
+		JPanel SDPDifferencePanel = new JPanel(new GridLayout(1, 3));
+		SDPDifferencePanel.setBorder(new TitledBorder(""));
+		SDPDifferencePanel.setPreferredSize(new Dimension(this.getWidth(), 30));
+
+		SDPDifferencePanel.add(new JLabel("违反稳定依赖原则的阈值"));
+		
+		SDPDifferenceField = new JTextField();
+		SDPDifferencePanel.add(SDPDifferenceField);
+		SDPDifferencePanel.add(new JLabel("取值范围：0~1"));
+
+		left.add(BorderLayout.CENTER, SDPDifferencePanel);
 
 		content.add(BorderLayout.NORTH, left);
 		content.add(BorderLayout.CENTER, this.getOtherPanel());
@@ -89,6 +109,8 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		SDPField.setText(String.valueOf(problemRelations.get(Relation.SDPAttentionType)));
 		componentLayerField.setText(String.valueOf(problemRelations.get(Relation.ComponentLayerAttentionType)));
 		mutualDependField.setText(String.valueOf(problemRelations.get(Relation.MutualDependAttentionType)));
+		
+		SDPDifferenceField.setText(String.valueOf(this.relationProfile.getSDPDifference()));
 	}
 
 	@Override
@@ -112,6 +134,11 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		if (mutualDepend < 1 || mutualDepend > 4) {
 			throw new ProfileValidateException("彼此依赖权值超出了范围！", 3);
 		}
+		
+		float SDPDifference = Float.valueOf(SDPDifferenceField.getText());
+		if (SDPDifference < 0 || SDPDifference > 1) {
+			throw new ProfileValidateException("违反稳定依赖原则的阈值超出了范围！", 3);
+		}
 
 	}
 
@@ -122,6 +149,8 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		int SDP = Integer.valueOf(SDPField.getText());
 		int componentLayer = Integer.valueOf(componentLayerField.getText());
 		int mutualDepend = Integer.valueOf(mutualDependField.getText());
+		
+		float SDPDifference = Float.valueOf(SDPDifferenceField.getText());
 
 		Map<String, Integer> problemRelations = new HashMap<String, Integer>();
 
@@ -131,8 +160,10 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		problemRelations.put(Relation.MutualDependAttentionType, mutualDepend);
 
 		RelationProfile newRelationProfile = new RelationProfile();
+		
 		newRelationProfile.setProblemRelations(problemRelations);
-
+		newRelationProfile.setSDPDifference(SDPDifference);
+		
 		maintainProfileFacade.setRelationProfile(newRelationProfile);
 	}
 

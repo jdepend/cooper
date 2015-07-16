@@ -18,6 +18,8 @@ public class DefaultRelationProfile extends RelationProfile {
 		problemRelations.put(Relation.MutualDependAttentionType, 4);
 
 		this.setProblemRelations(problemRelations);
+		
+		this.setSDPDifference(0.1F);
 
 	}
 }

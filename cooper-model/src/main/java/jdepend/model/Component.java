@@ -19,6 +19,7 @@ import jdepend.model.component.PackageSubJDependUnit;
 import jdepend.model.component.VirtualComponent;
 import jdepend.model.profile.ProfileException;
 import jdepend.model.profile.model.ComponentProfile;
+import jdepend.model.profile.model.RelationProfile;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.ComponentPathSegment;
 import jdepend.model.util.JavaClassUnitUtil;
@@ -92,8 +93,6 @@ public abstract class Component extends AbstractSubJDependUnit {
 	public static final String MiddleType = "MiddleType";
 
 	public static final String StableType = "StableType";
-
-	private static final float SDPDifference = 0.1F;
 
 	public static final String Area = "Area";
 
@@ -490,7 +489,8 @@ public abstract class Component extends AbstractSubJDependUnit {
 	}
 
 	public boolean stability(Component component) {
-		return this.getStability() + SDPDifference < component.getStability();
+		RelationProfile relationProfile = this.getResult().getRunningContext().getProfileFacade().getRelationProfile();
+		return this.getStability() + relationProfile.getSDPDifference() < component.getStability();
 	}
 
 	public Collection<Relation> open() {

@@ -9,12 +9,22 @@ public class RelationProfile implements Serializable {
 
 	private Map<String, Integer> problemRelations;
 
+	private Float SDPDifference;//判断稳定的组件依赖不稳定组件的阈值（违反稳定依赖原则的阈值）
+
 	public Map<String, Integer> getProblemRelations() {
 		return problemRelations;
 	}
 
 	public void setProblemRelations(Map<String, Integer> problemRelations) {
 		this.problemRelations = problemRelations;
+	}
+
+	public Float getSDPDifference() {
+		return SDPDifference;
+	}
+
+	public void setSDPDifference(Float sDPDifference) {
+		SDPDifference = sDPDifference;
 	}
 
 	public String getExplain() {
