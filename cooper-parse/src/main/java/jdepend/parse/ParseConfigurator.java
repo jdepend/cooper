@@ -117,12 +117,12 @@ public class ParseConfigurator implements Serializable{
 		return javaClassRelationTypes;
 	}
 
-	public static File getDefaultPropertyFile() {
+	private static File getDefaultPropertyFile() {
 		String home = JDependContext.getWorkspacePath() + "/" + ParseConfigurator.DEFAULT_PROPERTY_DIR;
 		return new File(home, DEFAULT_PROPERTY_FILE);
 	}
 
-	public static Properties loadProperties(File file) {
+	private static Properties loadProperties(File file) {
 
 		Properties p = new Properties();
 

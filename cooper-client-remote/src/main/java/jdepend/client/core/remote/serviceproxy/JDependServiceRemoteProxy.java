@@ -10,20 +10,25 @@ import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.List;
 
-import jdepend.core.serviceproxy.framework.AbstractJDependServiceProxy;
 import jdepend.client.core.remote.config.ServerConfigurator;
 import jdepend.client.core.remote.session.RemoteSessionProxy;
+import jdepend.core.serviceproxy.framework.AbstractJDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
+import jdepend.model.profile.ProfileFacade;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.result.ProfileFacadeImpl;
+import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
 import jdepend.server.service.session.JDependRequest;
+import jdepend.service.config.ServiceConfigurator;
+import jdepend.service.profile.ClientProfileFacadeImpl;
 
 /**
  * 远程服务代理

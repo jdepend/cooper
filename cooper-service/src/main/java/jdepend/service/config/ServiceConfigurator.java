@@ -61,12 +61,12 @@ public class ServiceConfigurator implements Serializable{
 		return true;
 	}
 
-	public static File getDefaultPropertyFile() {
+	private static File getDefaultPropertyFile() {
 		String home = JDependContext.getWorkspacePath() + "/" + ServiceConfigurator.DEFAULT_PROPERTY_DIR;
 		return new File(home, DEFAULT_PROPERTY_FILE);
 	}
 
-	public static Properties loadProperties(File file) {
+	private static Properties loadProperties(File file) {
 
 		Properties p = new Properties();
 
