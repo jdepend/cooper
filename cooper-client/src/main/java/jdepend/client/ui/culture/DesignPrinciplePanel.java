@@ -197,6 +197,7 @@ public class DesignPrinciplePanel extends JPanel {
 
 	private JComponent createPackageDesignPrinciple(String path) {
 		JEditorPane text = new JEditorPane();
+		text.setContentType("text/html;charset=utf-8");
 		text.setEditable(false);
 		try {
 

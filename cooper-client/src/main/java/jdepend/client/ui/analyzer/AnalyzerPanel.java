@@ -378,6 +378,7 @@ public class AnalyzerPanel extends JPanel {
 			explainTxt = "没有提供说明";
 		}
 		JEditorPane explain = new JEditorPane();
+		explain.setContentType("text/html;charset=utf-8");
 		explain.setEditable(false);
 
 		StyleSheet ss = new StyleSheet();

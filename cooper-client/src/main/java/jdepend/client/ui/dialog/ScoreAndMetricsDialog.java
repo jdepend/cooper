@@ -58,6 +58,7 @@ public final class ScoreAndMetricsDialog extends JDialog {
 
 	private JComponent getIntroduce() {
 		JEditorPane text = new JEditorPane();
+		text.setContentType("text/html;charset=utf-8");
 		text.setEditable(false);
 		try {
 			HTMLEditorKit kit = new HTMLEditorKit();
