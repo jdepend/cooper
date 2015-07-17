@@ -10,10 +10,14 @@ import java.util.HashSet;
 import java.util.Map;
 
 import jdepend.metadata.annotation.AnnotationDefs;
+import jdepend.metadata.annotation.AnnotationParse;
 import jdepend.metadata.annotation.Controller;
 import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.annotation.Service;
 import jdepend.metadata.util.JavaClassCollection;
+
+import org.apache.bcel.classfile.AnnotationEntry;
+import org.apache.bcel.classfile.ElementValuePair;
 
 public class JavaClassDetail implements Serializable {
 
@@ -55,6 +59,30 @@ public class JavaClassDetail implements Serializable {
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
 		this.annotationDefs = new AnnotationDefs();
+	}
+
+	public void parseAnnotation(org.apache.bcel.classfile.JavaClass obj) {
+		// 处理Annotation
+		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
+			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
+				L: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+					if (elementValuePair.getNameString().equals("name")) {
+						this.addTable(new TableInfo(elementValuePair.getValue().toShortString(), TableInfo.Define));
+						break L;
+					}
+				}
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/transaction/annotation/Transactional;")) {
+				this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+				this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Controller;")) {
+				this.annotationDefs.setController(AnnotationParse.parseController(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Service;")) {
+				this.annotationDefs.setService(AnnotationParse.parseService(annotationEntry));
+			}
+		}
 	}
 
 	public AnnotationDefs getAnnotations() {
@@ -216,24 +244,12 @@ public class JavaClassDetail implements Serializable {
 		}
 	}
 
-	public void setRequestMapping(RequestMapping requestMapping) {
-		this.annotationDefs.setRequestMapping(requestMapping);
-	}
-
 	public Controller getController() {
 		return this.annotationDefs.getController();
 	}
 
-	public void setController(Controller controller) {
-		this.annotationDefs.setController(controller);
-	}
-
 	public Service getService() {
 		return this.annotationDefs.getService();
-	}
-
-	public void setService(Service service) {
-		this.annotationDefs.setService(service);
 	}
 
 	public boolean isHttpCaller() {

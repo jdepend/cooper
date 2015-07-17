@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import jdepend.metadata.annotation.AnnotationParse;
 import jdepend.metadata.annotation.AnnotationRefs;
 import jdepend.metadata.annotation.Autowired;
 import jdepend.metadata.annotation.Qualifier;
@@ -14,6 +15,7 @@ import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
 
 import org.apache.bcel.Constants;
+import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.Field;
 
 public class Attribute implements Serializable {
@@ -58,6 +60,15 @@ public class Attribute implements Serializable {
 		}
 
 		this.annotationRefs = new AnnotationRefs();
+		// 处理Annotation
+		for (AnnotationEntry annotationEntry : field.getAnnotationEntries()) {
+			if (annotationEntry.getAnnotationType().equals("Lorg/springframework/beans/factory/annotation/Autowired;")) {
+				this.annotationRefs.setAutowired(AnnotationParse.parseAutowired(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
+				this.annotationRefs.setQualifier(AnnotationParse.parseQualifier(annotationEntry));
+			}
+		}
 	}
 
 	public Attribute(String javaClassId, Attribute attribute) {
@@ -123,16 +134,8 @@ public class Attribute implements Serializable {
 		return this.annotationRefs.getAutowired();
 	}
 
-	public void setAutowired(Autowired autowired) {
-		this.annotationRefs.setAutowired(autowired);
-	}
-
 	public Qualifier getQualifier() {
 		return this.annotationRefs.getQualifier();
-	}
-
-	public void setQualifier(Qualifier qualifier) {
-		this.annotationRefs.setQualifier(qualifier);
 	}
 
 	public final boolean isPublic() {

@@ -656,10 +656,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		return this.detail.getAnnotations().getTransactional();
 	}
 
-	public void setTransactional(Transactional transactional) {
-		this.detail.getAnnotations().setTransactional(transactional);
-	}
-
 	public JavaClass clone() {
 
 		JavaClass obj = new JavaClass(this.getName(), this.isInner);

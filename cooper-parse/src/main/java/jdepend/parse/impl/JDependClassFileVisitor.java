@@ -119,43 +119,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	@Override
 	public void visitField(Field obj) {
 		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj);
-
-		// 处理Annotation
-		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
-			if (annotationEntry.getAnnotationType().equals("Lorg/springframework/beans/factory/annotation/Autowired;")) {
-				attribute.setAutowired(this.parseAutowired(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
-				attribute.setQualifier(this.parseQualifier(annotationEntry));
-			}
-		}
-
 		this.jClass.getDetail().addAttribute(attribute);
 		this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
-	}
-
-	private Qualifier parseQualifier(AnnotationEntry annotationEntry) {
-		Qualifier qualifier = new Qualifier();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("value")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				qualifier.setValue(simpleElementValue.toShortString());
-			}
-		}
-
-		return qualifier;
-	}
-
-	private Autowired parseAutowired(AnnotationEntry annotationEntry) {
-		Autowired autowired = new Autowired();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("required")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				autowired.setRequired(Boolean.valueOf(simpleElementValue.toShortString()));
-			}
-		}
-
-		return autowired;
 	}
 
 	@Override
@@ -192,29 +157,7 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 			}
 		}
 
-		// 处理Annotation
-		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
-			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
-				L: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-					if (elementValuePair.getNameString().equals("name")) {
-						this.jClass.getDetail().addTable(
-								new TableInfo(elementValuePair.getValue().toShortString(), TableInfo.Define));
-						break L;
-					}
-				}
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/transaction/annotation/Transactional;")) {
-				jClass.setTransactional(this.parseTransactional(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-				this.jClass.getDetail().setRequestMapping(this.parseRequestMapping(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Controller;")) {
-				this.jClass.getDetail().setController(this.parseController(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Service;")) {
-				this.jClass.getDetail().setService(this.parseService(annotationEntry));
-			}
-		}
-
+		jClass.getDetail().parseAnnotation(obj);
 	}
 
 	@Override
@@ -244,21 +187,11 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);
 				new HttpInvokeMethodReader(method, parser.getConf()).read(obj);
-				
+
 				method.setSelfLineCount(this.calLineCount(obj));
 
 				this.jClass.getDetail().addMethod(method);
 
-				// 处理Annotation
-				for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
-					if (annotationEntry.getAnnotationType().equals(
-							"Lorg/springframework/transaction/annotation/Transactional;")) {
-						method.setTransactional(this.parseTransactional(annotationEntry));
-					} else if (annotationEntry.getAnnotationType().equals(
-							"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-						method.setRequestMapping(this.parseRequestMapping(annotationEntry));
-					}
-				}
 				this.parser.debug("visitMethod: method type = " + obj);
 			} else {
 				new ClInitMethodReader(method).read(obj);
@@ -282,70 +215,6 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	public void setParser(AbstractParser parser) {
 		this.parser = parser;
-	}
-
-	private RequestMapping parseRequestMapping(AnnotationEntry annotationEntry) {
-		RequestMapping requestMapping = new RequestMapping();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("value")) {
-				ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
-				for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
-					requestMapping.setValue(elementValue.toShortString());
-				}
-			} else if (elementValuePair.getNameString().equals("method")) {
-				ArrayElementValue arrayElementValue = (ArrayElementValue) elementValuePair.getValue();
-				for (ElementValue elementValue : arrayElementValue.getElementValuesArray()) {
-					requestMapping.setMethod(elementValue.toShortString());
-				}
-			}
-		}
-		if (requestMapping.getValue() == null) {
-			requestMapping.setValue("");
-		}
-
-		return requestMapping;
-	}
-
-	private Transactional parseTransactional(AnnotationEntry annotationEntry) {
-		Transactional transactional = new Transactional();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("value")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				transactional.setValue(simpleElementValue.toShortString());
-			} else if (elementValuePair.getNameString().equals("readOnly")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				transactional.setReadOnly(Boolean.valueOf(simpleElementValue.toShortString()));
-			} else if (elementValuePair.getNameString().equals("propagation")) {
-				EnumElementValue simpleElementValue = (EnumElementValue) elementValuePair.getValue();
-				transactional.setPropagation(simpleElementValue.toShortString());
-			}
-		}
-
-		return transactional;
-	}
-
-	private Controller parseController(AnnotationEntry annotationEntry) {
-		Controller controller = new Controller();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("value")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				controller.setValue(simpleElementValue.toShortString());
-			}
-		}
-
-		return controller;
-	}
-
-	private Service parseService(AnnotationEntry annotationEntry) {
-		Service service = new Service();
-		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-			if (elementValuePair.getNameString().equals("value")) {
-				SimpleElementValue simpleElementValue = (SimpleElementValue) elementValuePair.getValue();
-				service.setValue(simpleElementValue.toShortString());
-			}
-		}
-
-		return service;
 	}
 
 	private List<TableInfo> ParseTable(String constant) {

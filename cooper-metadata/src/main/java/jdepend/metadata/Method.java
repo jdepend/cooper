@@ -9,6 +9,7 @@ import java.util.Iterator;
 
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.annotation.AnnotationDefs;
+import jdepend.metadata.annotation.AnnotationParse;
 import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.JavaClassCollection;
@@ -16,6 +17,7 @@ import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AccessFlags;
+import org.apache.bcel.classfile.AnnotationEntry;
 
 public class Method extends AccessFlags {
 
@@ -78,9 +80,20 @@ public class Method extends AccessFlags {
 		this.invokeItems = new ArrayList<InvokeItem>();
 		this.readFields = new ArrayList<Attribute>();
 		this.writeFields = new ArrayList<Attribute>();
-		this.annotationDefs = new AnnotationDefs();
 		this.selfLineCount = -1;
 		this.invokedItems = new HashSet<InvokeItem>();
+
+		this.annotationDefs = new AnnotationDefs();
+		// 处理Annotation
+		for (AnnotationEntry annotationEntry : method.getAnnotationEntries()) {
+			if (annotationEntry.getAnnotationType()
+					.equals("Lorg/springframework/transaction/annotation/Transactional;")) {
+				this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
+			} else if (annotationEntry.getAnnotationType().equals(
+					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+				this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
+			}
+		}
 	}
 
 	public Method(String javaClassId, Method method) {
@@ -123,10 +136,6 @@ public class Method extends AccessFlags {
 
 	public Transactional getTransactional() {
 		return this.annotationDefs.getTransactional();
-	}
-
-	public void setTransactional(Transactional transactional) {
-		this.annotationDefs.setTransactional(transactional);
 	}
 
 	public Collection<InvokeItem> getInvokeItems() {
@@ -311,10 +320,6 @@ public class Method extends AccessFlags {
 
 	public RequestMapping getRequestMapping() {
 		return this.annotationDefs.getRequestMapping();
-	}
-
-	public void setRequestMapping(RequestMapping requestMapping) {
-		this.annotationDefs.setRequestMapping(requestMapping);
 	}
 
 	public String getRequestMappingValue() {
