@@ -62,25 +62,25 @@ public class MMDialog extends CooperDialog {
 		float score = JDependUnitMgr.getInstance().getResult().getScore();
 
 		if (score < 50) {
-			return "mm/01.jpg";
+			return "mm/01_凤姐_小于50.jpg";
 		} else if (score >= 50 && score < 60) {
-			return "mm/02.jpg";
+			return "mm/02_芙蓉_50-60.jpg";
 		} else if (score >= 60 && score < 65) {
-			return "mm/03.jpg";
+			return "mm/03_龅牙珍_陈凯师_60-65.jpg";
 		} else if (score >= 65 && score < 70) {
-			return "mm/04.jpg";
+			return "mm/04_吴君如_65-70.jpg";
 		} else if (score >= 70 && score < 75) {
-			return "mm/05.jpg";
+			return "mm/05_莫文蔚_素颜_70-75.jpg";
 		} else if (score >= 75 && score < 80) {
-			return "mm/06.jpg";
+			return "mm/06_苍井空_75-80.jpg";
 		} else if (score >= 80 && score < 85) {
-			return "mm/07.jpg";
+			return "mm/07_邱淑贞_80-85.jpg";
 		} else if (score >= 85 && score < 90) {
-			return "mm/08.jpg";
+			return "mm/08_关之琳_85-90.jpg";
 		} else if (score >= 90 && score < 95) {
-			return "mm/09.jpg";
+			return "mm/09_高圆圆_90-95.jpg";
 		} else if (score >= 95 && score < 100) {
-			return "mm/10.jpg";
+			return "mm/10_林志玲_95-100.jpg";
 		} else {
 			return null;
 		}
