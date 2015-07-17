@@ -2,31 +2,63 @@ package jdepend.client.ui.result.panel;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.ui.panel.ImagePanel;
+import jdepend.framework.util.BundleUtil;
+import jdepend.model.JDependUnitMgr;
 
 public class MMDialog extends CooperDialog {
 
-	public MMDialog(float score) {
+	public MMDialog() {
 
-		super("你的分数对应的美女是");
+		super("送个福利");
 
-		ImagePanel imagePanel = new ImagePanel(getImageName(score));
-		imagePanel.setStretch(false);
-		
-		this.add(BorderLayout.CENTER, imagePanel);
+		this.refresh();
 
 		JPanel buttonBar = new JPanel(new FlowLayout());
+		buttonBar.add(createNextButton());
 		buttonBar.add(createCloseButton());
 
 		this.add(BorderLayout.SOUTH, buttonBar);
 
 	}
 
-	private String getImageName(float score) {
+	protected JButton createNextButton() {
+		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_NextStep));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+		});
+		return button;
+	}
+
+	public void refresh() {
+		ImagePanel imagePanel = new ImagePanel(getImageNameWithRandom());
+		imagePanel.setStretch(false);
+		imagePanel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				refresh();
+			}
+		});
+
+		this.add(BorderLayout.CENTER, imagePanel);
+
+		this.setVisible(true);
+	}
+
+	private String getImageNameWithScore() {
+
+		float score = JDependUnitMgr.getInstance().getResult().getScore();
 
 		if (score < 50) {
 			return "mm/01.jpg";
@@ -52,4 +84,17 @@ public class MMDialog extends CooperDialog {
 			return null;
 		}
 	}
+
+	private String getImageNameWithRandom() {
+		String fileNumber;
+		int randomNumber = (int) Math.round(Math.random() * 10);
+		if (randomNumber < 10) {
+			fileNumber = "0" + randomNumber;
+		} else {
+			fileNumber = String.valueOf(randomNumber);
+		}
+
+		return "mm/" + fileNumber + ".jpg";
+	}
+
 }

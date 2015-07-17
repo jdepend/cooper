@@ -245,7 +245,7 @@ public final class ScorePanel extends SubResultTabPanel {
 			mm.addMouseListener(new java.awt.event.MouseAdapter() {
 				@Override
 				public void mouseClicked(java.awt.event.MouseEvent evt) {
-					MMDialog motive = new MMDialog(scoreValue);
+					MMDialog motive = new MMDialog();
 					motive.setModal(true);
 					motive.setVisible(true);
 				}
