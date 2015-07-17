@@ -1,12 +1,12 @@
 package jdepend.client.ui.result.panel;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -45,6 +45,7 @@ public class MMDialog extends CooperDialog {
 	public void refresh() {
 		ImagePanel imagePanel = new ImagePanel(getImageNameWithRandom());
 		imagePanel.setStretch(false);
+		imagePanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		imagePanel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				refresh();
