@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
-import jdepend.model.component.judge.ComponentJudgeFactory;
+import jdepend.model.component.judge.ComponentJudgeRepo;
 import jdepend.model.component.judge.JudgeConfigure;
 import jdepend.client.ui.JDependCooper;
 
@@ -61,7 +61,7 @@ public final class ArgsHighSettingDialog extends JDialog {
 
 		JudgeConfigure conf = new JudgeConfigure();
 		try {
-			conf = (new ComponentJudgeFactory(group, command)).getConfigure();
+			conf = (new ComponentJudgeRepo(group, command)).getConfigure();
 		} catch (JDependException e1) {
 			e1.printStackTrace();
 		}
@@ -174,7 +174,7 @@ public final class ArgsHighSettingDialog extends JDialog {
 					conf.layer = Integer.parseInt(layer.getText());
 				}
 				try {
-					(new ComponentJudgeFactory(group, command)).save(conf);
+					(new ComponentJudgeRepo(group, command)).save(conf);
 					dispose();
 				} catch (JDependException ex) {
 					ex.printStackTrace();

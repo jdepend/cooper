@@ -11,7 +11,6 @@ import jdepend.model.ComponentException;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.component.judge.ComponentJudge;
 import jdepend.model.component.judge.ComponentJudgeFactory;
-import jdepend.model.component.judge.WisdomLayerComponentJudge;
 import jdepend.model.tree.JavaPackageNode;
 import jdepend.model.tree.JavaPackageTreeCreator;
 
@@ -99,10 +98,6 @@ public final class AptitudeComponent extends Component {
 		}
 
 		this.judges = (new ComponentJudgeFactory(group, command)).getJudges();
-
-		if (this.judges == null || this.judges.size() == 0) {
-			this.addJudge(new WisdomLayerComponentJudge());
-		}
 	}
 
 	public void addJudge(ComponentJudge judge) {
