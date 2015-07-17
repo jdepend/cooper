@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.metadata.tree.JavaClassInheritTreesCreator;
 import jdepend.metadata.tree.JavaClassTree;
+import jdepend.metadata.tree.TreeCreatorFactory;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -31,8 +31,8 @@ public class InheritTreeAnalyse extends AbstractAnalyzer {
 	@Override
 	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
-		List<JavaClassTree> trees = (new JavaClassInheritTreesCreator()).create(JavaClassUnitUtil.getJavaClasses(result
-				.getClasses()));
+		List<JavaClassTree> trees = TreeCreatorFactory.createJavaClassInheritTreesCreator().create(
+				JavaClassUnitUtil.getJavaClasses(result.getClasses()));
 		// 打印继承树
 		this.isPrintTab(false);
 		Collections.sort(trees);

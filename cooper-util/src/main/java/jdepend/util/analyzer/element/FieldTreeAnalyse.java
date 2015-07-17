@@ -3,8 +3,8 @@ package jdepend.util.analyzer.element;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.metadata.tree.JavaClassFieldTreesCreator;
 import jdepend.metadata.tree.JavaClassTree;
+import jdepend.metadata.tree.TreeCreatorFactory;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -30,8 +30,8 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 
 	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
-		List<JavaClassTree> trees = (new JavaClassFieldTreesCreator()).create(JavaClassUnitUtil.getJavaClasses(result
-				.getClasses()));
+		List<JavaClassTree> trees = TreeCreatorFactory.createJavaClassFieldTreesCreator().create(
+				JavaClassUnitUtil.getJavaClasses(result.getClasses()));
 		// 打印包含树
 		this.isPrintTab(false);
 		Collections.sort(trees);

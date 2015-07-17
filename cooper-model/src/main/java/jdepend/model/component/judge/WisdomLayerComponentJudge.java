@@ -1,6 +1,6 @@
 package jdepend.model.component.judge;
 
-import jdepend.metadata.tree.JavaPackageNode;
+import jdepend.model.tree.JavaPackageNode;
 
 public final class WisdomLayerComponentJudge implements ComponentJudge {
 

@@ -3,7 +3,7 @@ package jdepend.model.component.judge;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.metadata.tree.JavaPackageNode;
+import jdepend.model.tree.JavaPackageNode;
 
 /**
  * 根据子包名判定父包是否为组件

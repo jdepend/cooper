@@ -21,6 +21,7 @@ public class MMDialog extends CooperDialog {
 	public MMDialog() {
 
 		super("送个福利");
+		// super("你的分数对应的美女是");
 
 		this.refresh();
 
@@ -97,5 +98,4 @@ public class MMDialog extends CooperDialog {
 
 		return "mm/" + fileNumber + ".jpg";
 	}
-
 }

@@ -18,9 +18,9 @@ import jdepend.metadata.relationtype.TableRelation;
 import jdepend.metadata.tree.JavaClassFieldTreesCreator;
 import jdepend.metadata.tree.JavaClassInheritTreesCreator;
 import jdepend.metadata.tree.JavaClassTree;
-import jdepend.metadata.tree.JavaPackageNode;
-import jdepend.metadata.tree.JavaPackageTreeCreator;
 import jdepend.metadata.util.JavaClassUtil;
+import jdepend.model.tree.JavaPackageNode;
+import jdepend.model.tree.JavaPackageTreeCreator;
 import jdepend.parse.Parse;
 import junit.framework.TestCase;
 

@@ -1,4 +1,4 @@
-package jdepend.metadata.tree;
+package jdepend.model.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
