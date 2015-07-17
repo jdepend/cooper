@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jdepend.metadata.tree.JavaClassTree;
-import jdepend.metadata.tree.TreeCreatorFactory;
+import jdepend.metadata.tree.TreeCreatorFacade;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JavaClassUnitUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -30,7 +30,7 @@ public class FieldTreeAnalyse extends AbstractAnalyzer {
 
 	protected void doExecute(AnalysisResult result) throws AnalyzerException {
 
-		List<JavaClassTree> trees = TreeCreatorFactory.createJavaClassFieldTreesCreator().create(
+		List<JavaClassTree> trees = TreeCreatorFacade.createJavaClassFieldTrees(
 				JavaClassUnitUtil.getJavaClasses(result.getClasses()));
 		// 打印包含树
 		this.isPrintTab(false);

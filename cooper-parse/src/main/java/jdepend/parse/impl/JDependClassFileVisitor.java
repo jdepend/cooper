@@ -8,17 +8,9 @@ import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
-import jdepend.metadata.annotation.Autowired;
-import jdepend.metadata.annotation.Controller;
-import jdepend.metadata.annotation.Qualifier;
-import jdepend.metadata.annotation.RequestMapping;
-import jdepend.metadata.annotation.Service;
-import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.parse.util.ParseTool;
 
-import org.apache.bcel.classfile.AnnotationEntry;
-import org.apache.bcel.classfile.ArrayElementValue;
 import org.apache.bcel.classfile.ConstantClass;
 import org.apache.bcel.classfile.ConstantFieldref;
 import org.apache.bcel.classfile.ConstantInterfaceMethodref;
@@ -26,16 +18,12 @@ import org.apache.bcel.classfile.ConstantMethodref;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.ConstantUtf8;
-import org.apache.bcel.classfile.ElementValue;
-import org.apache.bcel.classfile.ElementValuePair;
 import org.apache.bcel.classfile.EmptyVisitor;
-import org.apache.bcel.classfile.EnumElementValue;
 import org.apache.bcel.classfile.Field;
 import org.apache.bcel.classfile.LineNumber;
 import org.apache.bcel.classfile.LineNumberTable;
 import org.apache.bcel.classfile.LocalVariable;
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.classfile.SimpleElementValue;
 
 public class JDependClassFileVisitor extends EmptyVisitor {
 

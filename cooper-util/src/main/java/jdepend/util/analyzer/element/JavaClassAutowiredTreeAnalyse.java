@@ -3,8 +3,7 @@ package jdepend.util.analyzer.element;
 import jdepend.framework.domain.notPersistent;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.tree.JavaClassTree;
-import jdepend.metadata.tree.JavaClassTreeCreator;
-import jdepend.metadata.tree.TreeCreatorFactory;
+import jdepend.metadata.tree.TreeCreatorFacade;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
@@ -28,8 +27,7 @@ public class JavaClassAutowiredTreeAnalyse extends AbstractAnalyzer {
 			throw new AnalyzerException("请指定javaClass");
 		}
 
-		JavaClassTreeCreator creator = TreeCreatorFactory.createJavaClassAutowiredTreeCreator();
-		JavaClassTree tree = creator.create(javaClass);
+		JavaClassTree tree = TreeCreatorFacade.createJavaClassAutowiredTree(javaClass);
 
 		if (tree != null) {
 			this.printTree(tree.getRoots().get(0));
