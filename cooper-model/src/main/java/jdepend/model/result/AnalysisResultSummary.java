@@ -9,6 +9,7 @@ import jdepend.model.Component;
 import jdepend.model.MetricsInfo;
 import jdepend.model.MetricsMgr;
 import jdepend.model.ObjectMeasured;
+import jdepend.model.profile.model.AnalysisResultProfile;
 
 public class AnalysisResultSummary extends ObjectMeasured implements Serializable {
 
@@ -50,46 +51,12 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	private int relationCount;
 
-	private static MetricsSummaryInfo[] metricsSummaryInfos;
-
-	static {
-		metricsSummaryInfos = new MetricsSummaryInfo[14];
-		metricsSummaryInfos[0] = new MetricsSummaryInfo(MetricsMgr.LC, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[1] = new MetricsSummaryInfo(MetricsMgr.CN, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[2] = new MetricsSummaryInfo(MetricsMgr.CC, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[3] = new MetricsSummaryInfo(MetricsMgr.AC, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[4] = new MetricsSummaryInfo(MetricsMgr.Ca, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[5] = new MetricsSummaryInfo(MetricsMgr.Ce, MetricsSummaryInfo.TypeInteger,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[6] = new MetricsSummaryInfo(MetricsMgr.A, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[7] = new MetricsSummaryInfo(MetricsMgr.V, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[8] = new MetricsSummaryInfo(MetricsMgr.I, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[9] = new MetricsSummaryInfo(MetricsMgr.D, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[10] = new MetricsSummaryInfo(MetricsMgr.Coupling, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[11] = new MetricsSummaryInfo(MetricsMgr.Cohesion, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicSUM);
-		metricsSummaryInfos[12] = new MetricsSummaryInfo(MetricsMgr.Balance, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat,
-				MetricsSummaryInfo.LogicAVE);
-	}
-
 	public AnalysisResultSummary() {
 
 	}
 
 	public AnalysisResultSummary(AnalysisResultSummary summary) {
-	
+
 		this.abstractness = summary.abstractness;
 		this.afferentCoupling = summary.afferentCoupling;
 		this.efferentCoupling = summary.efferentCoupling;
@@ -276,7 +243,9 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	public static AnalysisResultSummary calSummary(AnalysisResult result) {
 
-		List<Object[]> data = new ArrayList<Object[]>();
+		MetricsSummaryInfo[] metricsSummaryInfos = getMetricsSummaryInfo(result);
+
+		List<Object[]> objs = new ArrayList<Object[]>();
 		Object[] rowData;
 		for (Component unit : result.getComponents()) {
 			if (unit.isInner()) {// 只计算内部分析单元
@@ -284,20 +253,16 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 				for (int i = 0; i < metricsSummaryInfos.length; i++) {
 					rowData[i] = unit.getValue(metricsSummaryInfos[i].name);
 				}
-				data.add(rowData);
+				objs.add(rowData);
 			}
 		}
-
-		return getSummry(data, result);
-	}
-
-	private static AnalysisResultSummary getSummry(List<Object[]> objs, AnalysisResult result) {
 
 		AnalysisResultSummary resultSummry = new AnalysisResultSummary();
 
 		if (objs.size() == 0)
 			return resultSummry;
 
+		// 初始化summry
 		Object[] summry = new Object[metricsSummaryInfos.length];
 		for (int i = 0; i < metricsSummaryInfos.length; i++) {
 			if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeInteger)) {
@@ -307,23 +272,51 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			}
 		}
 
+		// 初始化参与计算的组件个数
 		Integer[] calComponents = new Integer[metricsSummaryInfos.length];
 		for (int col = 0; col < metricsSummaryInfos.length; col++) {
 			calComponents[col] = 0;
 		}
 
+		// 初始化参与计算的组件代码行数总和
+		Integer[] componentSizes = new Integer[metricsSummaryInfos.length];
+		for (int col = 0; col < metricsSummaryInfos.length; col++) {
+			componentSizes[col] = 0;
+		}
+
+		// 计算参与计算的组件个数和代码行数总和
 		for (int row = 0; row < objs.size(); row++) {
 			for (int col = 0; col < metricsSummaryInfos.length; col++) {
 				if (objs.get(row)[col] != null) {
-					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
-						summry[col] = (Float) summry[col] + (Float) objs.get(row)[col];
-					} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-						summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col];
-					}
 					calComponents[col]++;
+					componentSizes[col] = componentSizes[col] + (Integer) objs.get(row)[0];
 				}
 			}
 		}
+
+		// 计算summry1
+		for (int row = 0; row < objs.size(); row++) {
+			for (int col = 0; col < metricsSummaryInfos.length; col++) {
+				if (objs.get(row)[col] != null) {
+					if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
+						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
+							summry[col] = (Float) summry[col] + (Float) objs.get(row)[col] * (Integer) objs.get(row)[0];
+						} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+							summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col]
+									* (Integer) objs.get(row)[0];
+						}
+					} else {
+						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
+							summry[col] = (Float) summry[col] + (Float) objs.get(row)[col];
+						} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+							summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col];
+						}
+					}
+				}
+			}
+		}
+
+		// 计算summry2
 		for (int col = 0; col < metricsSummaryInfos.length; col++) {
 			if (calComponents[col] != 0) {
 				if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
@@ -331,6 +324,12 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 						summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
 					} else {
 						summry[col] = ((Float) summry[col]) / calComponents[col];
+					}
+				} else if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
+					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+						summry[col] = (Integer) ((Integer) summry[col] / (Integer) componentSizes[col]);
+					} else {
+						summry[col] = ((Float) summry[col]) / new Float((Integer) componentSizes[col]);
 					}
 				}
 			} else {
@@ -358,6 +357,49 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		resultSummry.setRelationCount(result.getRelations().size());
 
 		return resultSummry;
+	}
+
+	private static MetricsSummaryInfo[] getMetricsSummaryInfo(AnalysisResult result) {
+
+		//得到summry部分指标（A、V、I、D、Balance、Encapsulation）计算规则
+		AnalysisResultProfile analysisResultProfile = result.getRunningContext().getProfileFacade()
+				.getAnalysisResultProfile();
+		
+		String logic = null;
+		if (analysisResultProfile.isComponentWeight()) {
+			logic = MetricsSummaryInfo.LogicAVE_WEIGHT;
+		} else {
+			logic = MetricsSummaryInfo.LogicAVE;
+		}
+
+		MetricsSummaryInfo[] metricsSummaryInfos;
+
+		metricsSummaryInfos = new MetricsSummaryInfo[14];
+		metricsSummaryInfos[0] = new MetricsSummaryInfo(MetricsMgr.LC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[1] = new MetricsSummaryInfo(MetricsMgr.CN, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[2] = new MetricsSummaryInfo(MetricsMgr.CC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[3] = new MetricsSummaryInfo(MetricsMgr.AC, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[4] = new MetricsSummaryInfo(MetricsMgr.Ca, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[5] = new MetricsSummaryInfo(MetricsMgr.Ce, MetricsSummaryInfo.TypeInteger,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[6] = new MetricsSummaryInfo(MetricsMgr.A, MetricsSummaryInfo.TypeFloat, logic);
+		metricsSummaryInfos[7] = new MetricsSummaryInfo(MetricsMgr.V, MetricsSummaryInfo.TypeFloat, logic);
+		metricsSummaryInfos[8] = new MetricsSummaryInfo(MetricsMgr.I, MetricsSummaryInfo.TypeFloat, logic);
+		metricsSummaryInfos[9] = new MetricsSummaryInfo(MetricsMgr.D, MetricsSummaryInfo.TypeFloat, logic);
+		metricsSummaryInfos[10] = new MetricsSummaryInfo(MetricsMgr.Coupling, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[11] = new MetricsSummaryInfo(MetricsMgr.Cohesion, MetricsSummaryInfo.TypeFloat,
+				MetricsSummaryInfo.LogicSUM);
+		metricsSummaryInfos[12] = new MetricsSummaryInfo(MetricsMgr.Balance, MetricsSummaryInfo.TypeFloat, logic);
+		metricsSummaryInfos[13] = new MetricsSummaryInfo(MetricsMgr.Encapsulation, MetricsSummaryInfo.TypeFloat, logic);
+
+		return metricsSummaryInfos;
+
 	}
 
 	@Override
@@ -465,6 +507,8 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 		private static final String LogicAVE = "AVE";// 求平均
 		private static final String LogicSUM = "SUM";// 求和
+
+		private static final String LogicAVE_WEIGHT = "AVE_WEIGHT";// 加权求平均
 
 		private static final String TypeInteger = "Integer";
 		private static final String TypeFloat = "Float";

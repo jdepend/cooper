@@ -10,6 +10,8 @@ public class DefaultAnalysisResultProfile extends AnalysisResultProfile {
 		this.setDistance(25F);
 		this.setEncapsulation(25F);
 		this.setRelationRationality(25F);
+
+		this.setComponentWeight(false);
 	}
 
 }

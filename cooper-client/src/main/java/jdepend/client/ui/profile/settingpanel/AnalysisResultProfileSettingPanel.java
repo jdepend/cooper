@@ -3,11 +3,14 @@ package jdepend.client.ui.profile.settingpanel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import jdepend.client.ui.profile.ProfileValidateException;
 import jdepend.model.profile.MaintainProfileFacade;
@@ -22,6 +25,8 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 	private JTextField balanceField;
 	private JTextField encapsulationField;
 	private JTextField relationRationalityField;
+
+	private JCheckBox componentWeightCheckBox;
 
 	public AnalysisResultProfileSettingPanel(AnalysisResultProfile analysisResultProfile) {
 		this.analysisResultProfile = analysisResultProfile;
@@ -39,32 +44,46 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 
 		JPanel content = new JPanel(new BorderLayout());
 
-		JPanel left = new JPanel(new GridLayout(4, 3));
-		left.setPreferredSize(new Dimension(this.getWidth(), 100));
+		JPanel left = new JPanel(new BorderLayout());
 
-		left.add(new JLabel("抽象程度合理性比例："));
+		JPanel scoreWeightPanel = new JPanel(new GridLayout(4, 3));
+		scoreWeightPanel.setBorder(new TitledBorder("分项所占权值"));
+		scoreWeightPanel.setPreferredSize(new Dimension(this.getWidth(), 120));
+
+		scoreWeightPanel.add(new JLabel("抽象程度合理性比例："));
 
 		distanceField = new JTextField();
-		left.add(distanceField);
-		left.add(new JLabel("取值范围：0~100"));
+		scoreWeightPanel.add(distanceField);
+		scoreWeightPanel.add(new JLabel("取值范围：0~100"));
 
-		left.add(new JLabel("内聚性比例："));
+		scoreWeightPanel.add(new JLabel("内聚性比例："));
 
 		balanceField = new JTextField();
-		left.add(balanceField);
-		left.add(new JLabel("取值范围：0~100"));
+		scoreWeightPanel.add(balanceField);
+		scoreWeightPanel.add(new JLabel("取值范围：0~100"));
 
-		left.add(new JLabel("封装性比例："));
+		scoreWeightPanel.add(new JLabel("封装性比例："));
 
 		encapsulationField = new JTextField();
-		left.add(encapsulationField);
-		left.add(new JLabel("取值范围：0~100"));
+		scoreWeightPanel.add(encapsulationField);
+		scoreWeightPanel.add(new JLabel("取值范围：0~100"));
 
-		left.add(new JLabel("关系合理性比例："));
+		scoreWeightPanel.add(new JLabel("关系合理性比例："));
 
 		relationRationalityField = new JTextField();
-		left.add(relationRationalityField);
-		left.add(new JLabel("取值范围：0~100"));
+		scoreWeightPanel.add(relationRationalityField);
+		scoreWeightPanel.add(new JLabel("取值范围：0~100"));
+
+		left.add(BorderLayout.NORTH, scoreWeightPanel);
+
+		JPanel componentWeightPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		componentWeightPanel.setBorder(new TitledBorder(""));
+		componentWeightPanel.setPreferredSize(new Dimension(this.getWidth(), 32));
+
+		componentWeightCheckBox = new JCheckBox("分数计算是否考虑组件大小");
+		componentWeightPanel.add(componentWeightCheckBox);
+
+		left.add(BorderLayout.CENTER, componentWeightPanel);
 
 		content.add(BorderLayout.NORTH, left);
 		content.add(BorderLayout.CENTER, this.getOtherPanel());
@@ -81,10 +100,17 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 
 	@Override
 	public void refresh() {
+
 		distanceField.setText(String.valueOf(this.analysisResultProfile.getDistance()));
 		balanceField.setText(String.valueOf(this.analysisResultProfile.getBalance()));
 		encapsulationField.setText(String.valueOf(this.analysisResultProfile.getEncapsulation()));
 		relationRationalityField.setText(String.valueOf(this.analysisResultProfile.getRelationRationality()));
+
+		if (this.analysisResultProfile.isComponentWeight()) {
+			componentWeightCheckBox.setSelected(true);
+		} else {
+			componentWeightCheckBox.setSelected(false);
+		}
 	}
 
 	@Override
@@ -130,6 +156,8 @@ public class AnalysisResultProfileSettingPanel extends ModelProfileSettingPanel 
 		newAnalysisResultProfile.setBalance(balance);
 		newAnalysisResultProfile.setEncapsulation(encapsulation);
 		newAnalysisResultProfile.setRelationRationality(relationRationality);
+
+		newAnalysisResultProfile.setComponentWeight(componentWeightCheckBox.isSelected());
 
 		maintainProfileFacade.setAnalysisResultProfile(newAnalysisResultProfile);
 	}
