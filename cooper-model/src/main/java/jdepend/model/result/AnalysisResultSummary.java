@@ -326,10 +326,14 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 						summry[col] = ((Float) summry[col]) / calComponents[col];
 					}
 				} else if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
-					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-						summry[col] = (Integer) ((Integer) summry[col] / (Integer) componentSizes[col]);
+					if (componentSizes[col] != 0) {
+						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+							summry[col] = (Integer) ((Integer) summry[col] / (Integer) componentSizes[col]);
+						} else {
+							summry[col] = ((Float) summry[col]) / new Float((Integer) componentSizes[col]);
+						}
 					} else {
-						summry[col] = ((Float) summry[col]) / new Float((Integer) componentSizes[col]);
+						summry[col] = null;
 					}
 				}
 			} else {
@@ -361,10 +365,10 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	private static MetricsSummaryInfo[] getMetricsSummaryInfo(AnalysisResult result) {
 
-		//得到summry部分指标（A、V、I、D、Balance、Encapsulation）计算规则
+		// 得到summry部分指标（A、V、I、D、Balance、Encapsulation）计算规则
 		AnalysisResultProfile analysisResultProfile = result.getRunningContext().getProfileFacade()
 				.getAnalysisResultProfile();
-		
+
 		String logic = null;
 		if (analysisResultProfile.isComponentWeight()) {
 			logic = MetricsSummaryInfo.LogicAVE_WEIGHT;
