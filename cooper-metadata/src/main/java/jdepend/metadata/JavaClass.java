@@ -508,7 +508,7 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		Collection<JavaClass> selfSupers = new HashSet<JavaClass>();
 
 		selfSupers.addAll(this.getSuperClasses());
-		selfSupers.addAll(this.getAllInterfaces());
+		selfSupers.addAll(this.getInterfaces());
 
 		return selfSupers;
 	}

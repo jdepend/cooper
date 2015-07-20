@@ -34,35 +34,34 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 		if (subClasses.size() > ChildJavaClassCount
 				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildCount)) {
 			return true;
-		} else {
-			// 存在一个子类，又存在父类也具备抽象类计数资格
-			if (subClasses.size() > 0 && javaClassUnit.getJavaClass().getSupers().size() > 0
-					&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild)) {
-				return true;
-			}
-			// 子类不在一个组件中也具备抽象类计数资格
-			if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildAtOtherComponent)) {
-				for (JavaClass subClass : subClasses) {
-					JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
-					if (subClassUnit != null
-							&& (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(
-									javaClassUnit.getComponent()))) {
-						return true;
-					}
-				}
-			}
-
-			// 子类除实现该接口（或继承了该抽象类）外还实现或继承了其他类
-			if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_CooperationUse)) {
-				for (JavaClass subClass : subClasses) {
-					if (subClass.getSelfSupers().size() > 1) {
-						return true;
-					}
-				}
-
-			}
-			return false;
 		}
+		// 存在一个子类，又存在父类也具备抽象类计数资格
+		if (subClasses.size() > 0 && javaClassUnit.getJavaClass().getSupers().size() > 0
+				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild)) {
+			return true;
+		}
+		// 子类不在一个组件中也具备抽象类计数资格
+		if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildAtOtherComponent)) {
+			for (JavaClass subClass : subClasses) {
+				JavaClassUnit subClassUnit = result.getTheClass(subClass.getId());
+				if (subClassUnit != null
+						&& (!subClassUnit.containedComponent() || !subClassUnit.getComponent().equals(
+								javaClassUnit.getComponent()))) {
+					return true;
+				}
+			}
+		}
+
+		// 子类除实现该接口（或继承了该抽象类）外还实现或继承了其他类
+		if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_CooperationUse)) {
+			for (JavaClass subClass : subClasses) {
+				if (subClass.getSelfSupers().size() > 1) {
+					return true;
+				}
+			}
+
+		}
+		return false;
 	}
 
 	@Override
