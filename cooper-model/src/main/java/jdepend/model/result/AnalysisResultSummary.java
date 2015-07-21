@@ -294,7 +294,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			}
 		}
 
-		// 计算summry1
+		// 计算汇总数据第一步（求和）
 		for (int row = 0; row < objs.size(); row++) {
 			for (int col = 0; col < metricsSummaryInfos.length; col++) {
 				if (objs.get(row)[col] != null) {
@@ -316,7 +316,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			}
 		}
 
-		// 计算summry2
+		// 计算汇总数据第二步（求均）
 		for (int col = 0; col < metricsSummaryInfos.length; col++) {
 			if (calComponents[col] != 0) {
 				if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {

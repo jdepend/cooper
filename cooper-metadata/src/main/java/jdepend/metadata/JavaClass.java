@@ -503,11 +503,11 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 	 * 
 	 * @return
 	 */
-	public Collection<JavaClass> getSelfSupers() {
+	public synchronized Collection<JavaClass> getSelfSupers() {
 
 		Collection<JavaClass> selfSupers = new HashSet<JavaClass>();
 
-		selfSupers.addAll(this.getSuperClasses());
+		selfSupers.add(this.getSuperClass());
 		selfSupers.addAll(this.getInterfaces());
 
 		return selfSupers;

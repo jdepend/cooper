@@ -24,7 +24,7 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	}
 
 	private boolean confirmAbstractQualification(JavaClassUnit javaClassUnit) {
-
+		
 		AnalysisResult result = javaClassUnit.getResult();
 		List<String> abstractClassRules = result.getRunningContext().getProfileFacade().getJavaClassUnitProfile()
 				.getAbstractClassRules();
@@ -59,7 +59,6 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 					return true;
 				}
 			}
-
 		}
 		return false;
 	}
