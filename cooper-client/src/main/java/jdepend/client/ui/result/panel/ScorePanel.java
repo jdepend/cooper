@@ -421,11 +421,25 @@ public final class ScorePanel extends SubResultTabPanel {
 
 		JPanel otherPanel = new JPanel(new BorderLayout());
 		otherPanel.setBackground(new java.awt.Color(255, 255, 255));
-		JPanel descPanel = new JPanel(new GridLayout(7, 1));
+		JPanel descPanel = new JPanel(new GridLayout(8, 1));
 		descPanel.setBackground(new java.awt.Color(255, 255, 255));
 		JPanel panel = null;
 		JLabel valuePanel = null;
 		JLabel itemCompareLabel = null;
+
+		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panel.setBackground(new java.awt.Color(255, 255, 255));
+		JLabel ruleLabel = new JLabel("使用的规则");
+		panel.add(ruleLabel);
+		JDependUIUtil.addClickTipEffect(ruleLabel);
+		ruleLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				CurrentProfileSettingDialog d = new CurrentProfileSettingDialog(frame);
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		descPanel.add(panel);
 
 		panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.setBackground(new java.awt.Color(255, 255, 255));
