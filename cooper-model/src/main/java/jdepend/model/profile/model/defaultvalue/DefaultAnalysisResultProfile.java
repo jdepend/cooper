@@ -11,7 +11,7 @@ public class DefaultAnalysisResultProfile extends AnalysisResultProfile {
 		this.setEncapsulation(25F);
 		this.setRelationRationality(25F);
 
-		this.setComponentWeight(false);
+		this.setComponentWeight(true);
 	}
 
 }
