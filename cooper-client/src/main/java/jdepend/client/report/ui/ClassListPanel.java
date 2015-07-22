@@ -36,6 +36,7 @@ import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
+import jdepend.model.result.AnalysisResult;
 import jdepend.client.report.model.ReportJavaClassUnit;
 import jdepend.client.report.model.ReportJavaClassUnitUtil;
 import jdepend.client.report.util.ReportConstant;
@@ -57,10 +58,13 @@ public class ClassListPanel extends JPanel {
 
 	protected JDependFrame frame;
 
+	private AnalysisResult result;
+
 	public ClassListPanel(JDependFrame frame) {
 		super();
 
 		this.frame = frame;
+		this.result = JDependUnitMgr.getInstance().getResult();
 
 		setLayout(new BorderLayout());
 
@@ -96,7 +100,7 @@ public class ClassListPanel extends JPanel {
 
 	public int showAllClassList() {
 		clearClassList();
-		this.javaClasses = ReportJavaClassUnitUtil.convert(JDependUnitMgr.getInstance().getResult().getClasses());
+		this.javaClasses = ReportJavaClassUnitUtil.convert(result.getClasses());
 		this.loadClassList();
 
 		this.fitCol();
@@ -248,7 +252,7 @@ public class ClassListPanel extends JPanel {
 							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
-					JavaClassUnit currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+					JavaClassUnit currentClass = result.getTheClass(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						Rectangle rec = table.getCellRect(row, col, false);
 						Component comp = table.getComponentAt(p);
@@ -370,7 +374,7 @@ public class ClassListPanel extends JPanel {
 	private void moveTo(JavaClassMoveToDialogListener listener) {
 		Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 		for (String javaClassId : selectedJavaClassId) {
-			javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+			javaClasses.add(result.getTheClass(javaClassId));
 		}
 		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, javaClasses);
 		if (listener != null) {
@@ -397,7 +401,7 @@ public class ClassListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
-					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+					javaClasses.add(result.getTheClass(javaClassId));
 				}
 				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ca);
 				d.setModal(true);
@@ -414,7 +418,7 @@ public class ClassListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
-					javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+					javaClasses.add(result.getTheClass(javaClassId));
 				}
 				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ce);
 				d.setModal(true);

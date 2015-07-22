@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import jdepend.client.ui.JDependCooper;
 import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
@@ -33,7 +34,7 @@ import jdepend.model.component.modelconf.ComponentConfException;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.component.modelconf.ComponentModelConfMgr;
 import jdepend.model.component.modelconf.GroupComponentModelConf;
-import jdepend.client.ui.JDependCooper;
+import jdepend.model.result.AnalysisResult;
 
 public final class ChangedElementListDialog extends JDialog {
 
@@ -46,19 +47,23 @@ public final class ChangedElementListDialog extends JDialog {
 	private DefaultTableModel listModel;
 
 	private Map<String, ArrayList<String>> selectedElements;
+	
+	private AnalysisResult result;
 
 	private static final String NEW = "新增";
 	private static final String DELETED = "已删除";
 
 	public ChangedElementListDialog(JDependCooper frame) {
+		
+		this.result = JDependUnitMgr.getInstance().getResult();
 
 		this.setTitle("元素变动列表");
 		this.setLayout(new BorderLayout());
 		setSize(ComponentModelPanel.Width, ComponentModelPanel.Height);
 		this.setLocationRelativeTo(null);// 窗口在屏幕中间显示
 
-		this.group = JDependUnitMgr.getInstance().getResult().getRunningContext().getGroup();
-		this.componentModelConfName = ((CustomComponent) JDependUnitMgr.getInstance().getResult().getRunningContext()
+		this.group = result.getRunningContext().getGroup();
+		this.componentModelConfName = ((CustomComponent) result.getRunningContext()
 				.getComponent()).getComponentModelConf().getName();
 
 		listModel = new DefaultTableModel() {
@@ -84,7 +89,7 @@ public final class ChangedElementListDialog extends JDialog {
 					return;
 				} else {
 					String javaPackageName = selectedElements.get(NEW).get(0);
-					JavaPackage javaPackage = JDependUnitMgr.getInstance().getResult().getRunningContext()
+					JavaPackage javaPackage = result.getRunningContext()
 							.getThePackage(javaPackageName);
 					ClassListInThePackageDialog d = new ClassListInThePackageDialog(javaPackage);
 					d.setModal(true);
@@ -197,7 +202,7 @@ public final class ChangedElementListDialog extends JDialog {
 
 		Object[] row;
 
-		Map<String, String> diffElements = JDependUnitMgr.getInstance().getResult().getDiffElements();
+		Map<String, String> diffElements = result.getDiffElements();
 
 		for (String elementName : diffElements.keySet()) {
 			row = new Object[3];

@@ -26,14 +26,13 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
+import jdepend.client.report.ui.RelationDetailDialog;
+import jdepend.client.ui.result.framework.SubResultTabPanel;
 import jdepend.framework.ui.component.JDependFrame;
 import jdepend.model.JDependUnit;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
-import jdepend.client.report.ui.RelationDetailDialog;
-import jdepend.client.ui.result.framework.SubResultTabPanel;
 
 /**
  * 二维格
@@ -47,7 +46,9 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 
 	private JTable table;
 
-	private transient List<JDependUnit> units;
+	private AnalysisResult result;
+
+	private List<JDependUnit> units;
 
 	private JDependFrame frame;
 
@@ -58,6 +59,7 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 	@Override
 	protected void init(final AnalysisResult result) {
 
+		this.result = result;
 		units = new ArrayList<JDependUnit>(result.getComponents());
 		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.Ca));
 
@@ -97,9 +99,8 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 				String left = (String) table.getValueAt(row, 0);
 				String right = (String) table.getColumnModel().getColumn(col).getHeaderValue();
 
-				jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(left);
-				jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult()
-						.getTheComponent(right);
+				jdepend.model.Component leftComponent = result.getTheComponent(left);
+				jdepend.model.Component rightComponent = result.getTheComponent(right);
 
 				if (left != null && left.length() != 0 && right != null && right.length() != 0
 						&& isRelation(leftComponent, rightComponent)) {
@@ -122,10 +123,8 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 					String left = (String) table.getValueAt(table.rowAtPoint(e.getPoint()), 0);
 					String right = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 							.getHeaderValue();
-					jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult()
-							.getTheComponent(left);
-					jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult()
-							.getTheComponent(right);
+					jdepend.model.Component leftComponent = result.getTheComponent(left);
+					jdepend.model.Component rightComponent = result.getTheComponent(right);
 
 					if (isRelation(leftComponent, rightComponent)) {
 						RelationDetailDialog d = new RelationDetailDialog(frame, leftComponent, rightComponent);
@@ -174,8 +173,8 @@ public final class TwoDimensionCell extends SubResultTabPanel {
 			String left = (String) table.getValueAt(row, 0);
 			String right = (String) table.getColumnModel().getColumn(column).getHeaderValue();
 
-			jdepend.model.Component leftComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(left);
-			jdepend.model.Component rightComponent = JDependUnitMgr.getInstance().getResult().getTheComponent(right);
+			jdepend.model.Component leftComponent = result.getTheComponent(left);
+			jdepend.model.Component rightComponent = result.getTheComponent(right);
 
 			if (left != null && left.length() != 0 && right != null && right.length() != 0
 					&& isRelation(leftComponent, rightComponent)) {

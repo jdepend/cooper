@@ -49,9 +49,12 @@ public final class RelationDetailPanel extends JPanel {
 
 	private List<String> extendUnits = new ArrayList<String>();
 
+	private AnalysisResult result;
+
 	public RelationDetailPanel(JDependFrame frame, JDependUnit current, JDependUnit depend) {
 
 		this.frame = frame;
+		this.result = JDependUnitMgr.getInstance().getResult();
 
 		this.currentRelation = current.ceCouplingDetail(depend);
 
@@ -71,7 +74,7 @@ public final class RelationDetailPanel extends JPanel {
 
 	private void display() {
 
-		for (JavaClassUnit unit : JDependUnitMgr.getInstance().getResult().getClasses()) {
+		for (JavaClassUnit unit : result.getClasses()) {
 			if (!unit.isInner()) {
 				extendUnits.add(unit.getName());
 			}
@@ -163,13 +166,12 @@ public final class RelationDetailPanel extends JPanel {
 							current = CandidateUtil.getId((String) table.getValueAt(row, 3),
 									(String) table.getValueAt(row, 4));
 						}
-						JavaClassUnit currentClass = JDependUnitMgr.getInstance().getResult().getTheClass(current);
+						JavaClassUnit currentClass = result.getTheClass(current);
 						JavaClassRelationGraphDialog d = new JavaClassRelationGraphDialog(frame, currentClass);
 						d.setModal(true);
 						d.setVisible(true);
 					} else if (currentCol.equals(ReportConstant.DependType)) {
 						String id = (String) table.getValueAt(row, 0);
-						AnalysisResult result = JDependUnitMgr.getInstance().getResult();
 						JavaClassRelationItem item = result.getTheJavaClassRelationItem(id);
 						Collection<InvokeItem> invokedItems = item.getInvokeDetail();
 						if (invokedItems.size() > 0) {

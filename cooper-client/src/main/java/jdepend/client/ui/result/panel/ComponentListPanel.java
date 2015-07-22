@@ -43,7 +43,6 @@ import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.AreaComponent;
-import jdepend.model.JDependUnitMgr;
 import jdepend.model.Measurable;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
@@ -70,13 +69,17 @@ public final class ComponentListPanel extends SubResultTabPanel {
 
 	private JDependCooper frame;
 
+	private AnalysisResult result;
+
 	public ComponentListPanel(JDependCooper frame, ReportCreator adapter) {
 		this.frame = frame;
 		this.adapter = adapter;
 	}
 
 	@Override
-	protected void init(AnalysisResult result) {
+	protected void init(final AnalysisResult result) {
+
+		this.result = result;
 
 		this.headers = new String[] { ReportConstant.Name, ReportConstant.Component_Area, ReportConstant.LC,
 				ReportConstant.CN, ReportConstant.CC, ReportConstant.AC, ReportConstant.Ca, ReportConstant.Ce,
@@ -208,8 +211,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
 						.getHeaderValue();
 				if (e.getClickCount() == 2) {
-					jdepend.model.Component currentComponent = JDependUnitMgr.getInstance().getResult()
-							.getTheComponent(current);
+					jdepend.model.Component currentComponent = result.getTheComponent(current);
 					JTable table = (JTable) e.getSource();
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						ComponentCaCeListDialog d = new ComponentCaCeListDialog(frame, currentComponent, currentCol);
@@ -278,8 +280,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 				int row = table.rowAtPoint(p);
 				if (col == 0 && row > -1) {
 					String componentName = (String) table.getValueAt(row, col);
-					jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
-							.getTheComponent(componentName);
+					jdepend.model.Component component = result.getTheComponent(componentName);
 					if (component != null) {
 						table.setToolTipText(component.getLayerDesc());
 					}
@@ -358,8 +359,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 
 	protected void addIgnoreList(boolean incluedsub) throws JDependException {
 
-		GroupConf group = CommandConfMgr.getInstance().getTheGroup(
-				JDependUnitMgr.getInstance().getResult().getRunningContext().getGroup());
+		GroupConf group = CommandConfMgr.getInstance().getTheGroup(result.getRunningContext().getGroup());
 
 		for (String ingorePackage : this.calPackages(incluedsub)) {
 			group.addFilteredPackage(ingorePackage);
@@ -377,7 +377,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 
 		List<String> javaPackages = new ArrayList<String>();
 		for (String unitName : this.selectedUnits) {
-			jdepend.model.Component component = JDependUnitMgr.getInstance().getResult().getTheComponent(unitName);
+			jdepend.model.Component component = result.getTheComponent(unitName);
 			if (component != null) {
 				for (JavaPackage javaPackage : component.getJavaPackages()) {
 					if (incluedsub) {
