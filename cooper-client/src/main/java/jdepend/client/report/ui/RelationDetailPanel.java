@@ -67,6 +67,7 @@ public final class RelationDetailPanel extends JPanel {
 	public RelationDetailPanel(JDependFrame frame, RelationDetail relation) {
 
 		this.frame = frame;
+		this.result = JDependUnitMgr.getInstance().getResult();
 
 		this.currentRelation = relation;
 		display();
