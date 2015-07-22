@@ -109,7 +109,7 @@ public final class ScorePanel extends SubResultTabPanel {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				try {
-					ShoppingCart.getInstance().addProduct(JDependUnitMgr.getInstance().getResult());
+					ShoppingCart.getInstance().addProduct(result);
 					frame.getStatusField().refresh();
 				} catch (JDependException e) {
 					JOptionPane.showMessageDialog(ScorePanel.this, e.getMessage(), "alert", JOptionPane.ERROR_MESSAGE);
@@ -127,7 +127,6 @@ public final class ScorePanel extends SubResultTabPanel {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				try {
-					AnalysisResult result = JDependUnitMgr.getInstance().getResult();
 					AnalysisResultExportUtil.exportResult(frame, result);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -683,8 +682,8 @@ public final class ScorePanel extends SubResultTabPanel {
 					JDependUIUtil.addClickTipEffect(adviseLabel);
 					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 						public void mouseClicked(java.awt.event.MouseEvent evt) {
-							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
-									.getTheComponent(((JLabel) evt.getSource()).getText());
+							jdepend.model.Component component = result.getTheComponent(((JLabel) evt.getSource())
+									.getText());
 							ComponentDetailDialog d = new ComponentDetailDialog(component);
 							d.setModal(true);
 							d.setVisible(true);
@@ -708,8 +707,8 @@ public final class ScorePanel extends SubResultTabPanel {
 					JDependUIUtil.addClickTipEffect(adviseLabel);
 					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 						public void mouseClicked(java.awt.event.MouseEvent evt) {
-							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
-									.getTheComponent(((JLabel) evt.getSource()).getText());
+							jdepend.model.Component component = result.getTheComponent(((JLabel) evt.getSource())
+									.getText());
 							BalanceComponentDialog d = new BalanceComponentDialog(frame, component);
 							d.setModal(true);
 							d.setVisible(true);
@@ -733,8 +732,7 @@ public final class ScorePanel extends SubResultTabPanel {
 					JDependUIUtil.addClickTipEffect(adviseLabel);
 					adviseLabel.addMouseListener(new java.awt.event.MouseAdapter() {
 						public void mouseClicked(java.awt.event.MouseEvent evt) {
-							jdepend.model.Component component = JDependUnitMgr.getInstance().getResult()
-									.getTheComponent(advise.getComponentNameInfo());
+							jdepend.model.Component component = result.getTheComponent(advise.getComponentNameInfo());
 							ClassListDialog d = new ClassListDialog(frame, component);
 							d.setModal(true);
 							d.setVisible(true);

@@ -157,6 +157,7 @@ public final class ProductListDialog extends CooperDialog {
 	}
 
 	private void view(Date id) {
+		AdjustHistory.getInstance().clear();
 		AnalysisResult result = ShoppingCart.getInstance().getTheProduct(id).getResult();
 		JDependUnitMgr.getInstance().setResult(result);
 		frame.getResultPanelWrapper().showResults(true);
