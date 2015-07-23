@@ -285,7 +285,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 	public synchronized AnalysisResultSummary getSummary() {
 
 		if (this.summary == null) {
-			this.summary = AnalysisResultSummary.calSummary(this);
+			this.summary = new AnalysisResultSummary(this);
 		}
 		return this.summary;
 	}

@@ -241,14 +241,14 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.relationCount = relationCount;
 	}
 
-	public static AnalysisResultSummary calSummary(AnalysisResult result) {
+	public AnalysisResultSummary(AnalysisResult result) {
 
 		MetricsSummaryInfo[] metricsSummaryInfos = getMetricsSummaryInfo(result);
-
+		// 计算内部分析单元
 		List<Object[]> objs = new ArrayList<Object[]>();
 		Object[] rowData;
 		for (Component unit : result.getComponents()) {
-			if (unit.isInner()) {// 只计算内部分析单元
+			if (unit.isInner()) {
 				rowData = new Object[metricsSummaryInfos.length];
 				for (int i = 0; i < metricsSummaryInfos.length; i++) {
 					rowData[i] = unit.getValue(metricsSummaryInfos[i].name);
@@ -257,110 +257,106 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			}
 		}
 
-		AnalysisResultSummary resultSummry = new AnalysisResultSummary();
-
-		if (objs.size() == 0)
-			return resultSummry;
-
-		// 初始化summry
-		Object[] summry = new Object[metricsSummaryInfos.length];
-		for (int i = 0; i < metricsSummaryInfos.length; i++) {
-			if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeInteger)) {
-				summry[i] = 0;
-			} else if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeFloat)) {
-				summry[i] = 0F;
-			}
-		}
-
-		// 初始化参与计算的组件个数
-		Integer[] calComponents = new Integer[metricsSummaryInfos.length];
-		for (int col = 0; col < metricsSummaryInfos.length; col++) {
-			calComponents[col] = 0;
-		}
-
-		// 初始化参与计算的组件代码行数总和
-		Integer[] componentSizes = new Integer[metricsSummaryInfos.length];
-		for (int col = 0; col < metricsSummaryInfos.length; col++) {
-			componentSizes[col] = 0;
-		}
-
-		// 计算参与计算的组件个数和代码行数总和
-		for (int row = 0; row < objs.size(); row++) {
-			for (int col = 0; col < metricsSummaryInfos.length; col++) {
-				if (objs.get(row)[col] != null) {
-					calComponents[col]++;
-					componentSizes[col] = componentSizes[col] + (Integer) objs.get(row)[0];
+		if (objs.size() > 0) {
+			// 初始化summry
+			Object[] summry = new Object[metricsSummaryInfos.length];
+			for (int i = 0; i < metricsSummaryInfos.length; i++) {
+				if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeInteger)) {
+					summry[i] = 0;
+				} else if (metricsSummaryInfos[i].type.equals(MetricsSummaryInfo.TypeFloat)) {
+					summry[i] = 0F;
 				}
 			}
-		}
 
-		// 计算汇总数据第一步（求和）
-		for (int row = 0; row < objs.size(); row++) {
+			// 初始化参与计算的组件个数
+			Integer[] calComponents = new Integer[metricsSummaryInfos.length];
 			for (int col = 0; col < metricsSummaryInfos.length; col++) {
-				if (objs.get(row)[col] != null) {
-					if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
-						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
-							summry[col] = (Float) summry[col] + (Float) objs.get(row)[col] * (Integer) objs.get(row)[0];
-						} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-							summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col]
-									* (Integer) objs.get(row)[0];
-						}
-					} else {
-						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
-							summry[col] = (Float) summry[col] + (Float) objs.get(row)[col];
-						} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-							summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col];
-						}
+				calComponents[col] = 0;
+			}
+
+			// 初始化参与计算的组件代码行数总和
+			Integer[] componentSizes = new Integer[metricsSummaryInfos.length];
+			for (int col = 0; col < metricsSummaryInfos.length; col++) {
+				componentSizes[col] = 0;
+			}
+
+			// 计算参与计算的组件个数和代码行数总和
+			for (int row = 0; row < objs.size(); row++) {
+				for (int col = 0; col < metricsSummaryInfos.length; col++) {
+					if (objs.get(row)[col] != null) {
+						calComponents[col]++;
+						componentSizes[col] = componentSizes[col] + (Integer) objs.get(row)[0];
 					}
 				}
 			}
-		}
 
-		// 计算汇总数据第二步（求均）
-		for (int col = 0; col < metricsSummaryInfos.length; col++) {
-			if (calComponents[col] != 0) {
-				if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
-					if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-						summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
-					} else {
-						summry[col] = ((Float) summry[col]) / calComponents[col];
-					}
-				} else if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
-					if (componentSizes[col] != 0) {
-						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
-							summry[col] = (Integer) ((Integer) summry[col] / (Integer) componentSizes[col]);
+			// 计算汇总数据第一步（求和）
+			for (int row = 0; row < objs.size(); row++) {
+				for (int col = 0; col < metricsSummaryInfos.length; col++) {
+					if (objs.get(row)[col] != null) {
+						if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
+							if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
+								summry[col] = (Float) summry[col] + (Float) objs.get(row)[col]
+										* (Integer) objs.get(row)[0];
+							} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+								summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col]
+										* (Integer) objs.get(row)[0];
+							}
 						} else {
-							summry[col] = ((Float) summry[col]) / new Float((Integer) componentSizes[col]);
+							if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeFloat)) {
+								summry[col] = (Float) summry[col] + (Float) objs.get(row)[col];
+							} else if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+								summry[col] = (Integer) summry[col] + (Integer) objs.get(row)[col];
+							}
 						}
-					} else {
-						summry[col] = null;
 					}
 				}
-			} else {
-				summry[col] = null;
 			}
+
+			// 计算汇总数据第二步（求均）
+			for (int col = 0; col < metricsSummaryInfos.length; col++) {
+				if (calComponents[col] != 0) {
+					if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE)) {
+						if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+							summry[col] = (Integer) ((Integer) summry[col] / calComponents[col]);
+						} else {
+							summry[col] = ((Float) summry[col]) / calComponents[col];
+						}
+					} else if (metricsSummaryInfos[col].logic.equals(MetricsSummaryInfo.LogicAVE_WEIGHT)) {
+						if (componentSizes[col] != 0) {
+							if (metricsSummaryInfos[col].type.equals(MetricsSummaryInfo.TypeInteger)) {
+								summry[col] = (Integer) ((Integer) summry[col] / (Integer) componentSizes[col]);
+							} else {
+								summry[col] = ((Float) summry[col]) / new Float((Integer) componentSizes[col]);
+							}
+						} else {
+							summry[col] = null;
+						}
+					}
+				} else {
+					summry[col] = null;
+				}
+			}
+
+			this.setJavaPackageCount(result.getJavaPackages().size());
+			this.setLineCount((Integer) summry[0]);
+			this.setClassCount((Integer) summry[1]);
+			this.setConcreteClassCount((Integer) summry[2]);
+			this.setAbstractClassCount((Integer) summry[3]);
+			this.setAfferentCoupling((Integer) summry[4]);
+			this.setEfferentCoupling((Integer) summry[5]);
+			this.setAbstractness(MetricsFormat.toFormattedMetrics((Float) summry[6]));
+			this.setVolatility(MetricsFormat.toFormattedMetrics((Float) summry[7]));
+			this.setStability(MetricsFormat.toFormattedMetrics((Float) summry[8]));
+			this.setDistance(MetricsFormat.toFormattedMetrics((Float) summry[9]));
+			this.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]) / 2);
+			this.setCohesion(MetricsFormat.toFormattedMetrics((Float) summry[11]));
+			this.setBalance(MetricsFormat.toFormattedMetrics((Float) summry[12]));
+			this.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[13]));
+			this.setComponentCount(objs.size());
+
+			this.setRelationCount(result.getRelations().size());
 		}
-
-		resultSummry.setJavaPackageCount(result.getJavaPackages().size());
-		resultSummry.setLineCount((Integer) summry[0]);
-		resultSummry.setClassCount((Integer) summry[1]);
-		resultSummry.setConcreteClassCount((Integer) summry[2]);
-		resultSummry.setAbstractClassCount((Integer) summry[3]);
-		resultSummry.setAfferentCoupling((Integer) summry[4]);
-		resultSummry.setEfferentCoupling((Integer) summry[5]);
-		resultSummry.setAbstractness(MetricsFormat.toFormattedMetrics((Float) summry[6]));
-		resultSummry.setVolatility(MetricsFormat.toFormattedMetrics((Float) summry[7]));
-		resultSummry.setStability(MetricsFormat.toFormattedMetrics((Float) summry[8]));
-		resultSummry.setDistance(MetricsFormat.toFormattedMetrics((Float) summry[9]));
-		resultSummry.setCoupling(MetricsFormat.toFormattedMetrics((Float) summry[10]) / 2);
-		resultSummry.setCohesion(MetricsFormat.toFormattedMetrics((Float) summry[11]));
-		resultSummry.setBalance(MetricsFormat.toFormattedMetrics((Float) summry[12]));
-		resultSummry.setEncapsulation(MetricsFormat.toFormattedMetrics((Float) summry[13]));
-		resultSummry.setComponentCount(objs.size());
-
-		resultSummry.setRelationCount(result.getRelations().size());
-
-		return resultSummry;
 	}
 
 	private static MetricsSummaryInfo[] getMetricsSummaryInfo(AnalysisResult result) {
@@ -495,7 +491,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		info.append("   不稳定性" + MetricsFormat.toFormattedMetrics(this.getStability())
 				+ "	[传出数量/(传出数量 + 传入数量)，值越小越稳定]\n");
 		info.append("   合理性" + MetricsFormat.toFormattedMetrics(this.getDistance())
-				+ " [abs(抽象程度 + 易变性 + 不稳定性 - 1)，值越接近零越理想]\n");
+				+ " [1 - abs(抽象程度  + 不稳定性 - 1)，值越大越理想]\n");
 		info.append("   耦合值" + MetricsFormat.toFormattedMetrics(this.getCoupling())
 				+ " [sum(依赖的JavaClass * Relation强度)，值越小越好]\n");
 		info.append("   内聚值" + MetricsFormat.toFormattedMetrics(this.getCohesion())
