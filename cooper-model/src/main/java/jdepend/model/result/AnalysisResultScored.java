@@ -27,7 +27,7 @@ public abstract class AnalysisResultScored implements Scored {
 			if (distanceSummary == null) {
 				this.distance = null;
 			} else {
-				this.distance = MetricsFormat.toFormattedScore((1 - distanceSummary) * this.getDistanceScale());
+				this.distance = MetricsFormat.toFormattedScore(distanceSummary * this.getDistanceScale());
 			}
 			this.distanceCal = true;
 		}
