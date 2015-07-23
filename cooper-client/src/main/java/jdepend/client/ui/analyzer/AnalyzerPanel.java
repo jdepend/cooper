@@ -43,6 +43,8 @@ import jdepend.framework.ui.dialog.PersistentBeanSettingDialog;
 import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.framework.ui.graph.model.GraphData;
+import jdepend.framework.ui.graph.model.GraphDataItem;
+import jdepend.framework.ui.graph.model.TableData;
 import jdepend.framework.ui.util.ExceptionPrinter;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.tree.Node;
@@ -51,6 +53,7 @@ import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerExecutor;
 import jdepend.util.analyzer.framework.AnalyzerResult;
+import jdepend.util.analyzer.framework.GraphItemData;
 
 public class AnalyzerPanel extends JPanel {
 
@@ -330,8 +333,9 @@ public class AnalyzerPanel extends JPanel {
 		JTabbedPane tabPane = new JTabbedPane();
 		tabPane.setTabPlacement(JTabbedPane.BOTTOM);
 
-		if (result.existTableData()) {
-			tabPane.addTab("Table", new JScrollPane(new CooperTable(result.getTableData())));
+		if (result.existTwoDimensionData()) {
+			tabPane.addTab("Table", new JScrollPane(new CooperTable(new TableData(result.getTwoDimensionData()
+					.getDatas()))));
 		}
 
 		if (result.getTree() != null) {
@@ -353,7 +357,19 @@ public class AnalyzerPanel extends JPanel {
 		return tabPane;
 	}
 
-	private JComponent createGraph(GraphData graphData) throws JDependException {
+	private JComponent createGraph(List<GraphItemData> itemDatas) throws JDependException {
+
+		GraphData graphData = new GraphData();
+		GraphDataItem item;
+		for (GraphItemData itemData : itemDatas) {
+			item = new GraphDataItem();
+			item.setTitle(itemData.getTitle());
+			item.setType(itemData.getType());
+			item.setGroup(itemData.getGroup());
+			item.setDatas(itemData.getDatas());
+
+			graphData.addItem(item);
+		}
 		return GraphUtil.createGraph(graphData);
 	}
 

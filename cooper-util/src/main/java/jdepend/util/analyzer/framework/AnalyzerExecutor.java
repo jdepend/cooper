@@ -22,7 +22,7 @@ public class AnalyzerExecutor {
 		analyzer.setWorker(worker);
 		analyzer.execute(result);
 
-		return new AnalyzerResult(worker.getInfo(), worker.getTableData(), worker.getTree(), worker.getGraphData());
+		return new AnalyzerResult(worker.getInfo(), worker.getTwoDimensionData(), worker.getTree(), worker.getGraphData());
 	}
 
 }

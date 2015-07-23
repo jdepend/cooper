@@ -1,7 +1,7 @@
 package jdepend.util.analyzer.framework;
 
-import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableData;
+import java.util.List;
+
 import jdepend.metadata.tree.Node;
 
 public interface AnalyzerWorker {
@@ -10,9 +10,9 @@ public interface AnalyzerWorker {
 
 	public void setInfo(String info);
 
-	public TableData getTableData();
+	public TwoDimensionData getTwoDimensionData();
 
-	public void setTableData(String key, Object value);
+	public void setTwoDimensionData(String key, Object value);
 
 	public void setAnalyzer(Analyzer analyzer);
 
@@ -22,7 +22,7 @@ public interface AnalyzerWorker {
 
 	public Node getTree();
 
-	public void setGraphData(GraphData graph);
+	public void setGraphData(List<GraphItemData> items);
 
-	public GraphData getGraphData();
+	public List<GraphItemData> getGraphData();
 }

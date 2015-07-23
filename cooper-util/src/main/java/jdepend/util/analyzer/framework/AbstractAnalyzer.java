@@ -1,8 +1,9 @@
 package jdepend.util.analyzer.framework;
 
+import java.util.List;
+
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.log.LogUtil;
-import jdepend.framework.ui.graph.model.GraphData;
 import jdepend.metadata.tree.Node;
 import jdepend.model.result.AnalysisResult;
 
@@ -93,15 +94,15 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 	}
 
 	protected void printTable(String key, Object info) {
-		this.worker.setTableData(key, info);
+		this.worker.setTwoDimensionData(key, info);
 	}
 
 	protected void printTree(Node root) {
 		this.worker.setTree(root);
 	}
 
-	protected void printGraphData(GraphData graphData) {
-		this.worker.setGraphData(graphData);
+	protected void printGraphData(List<GraphItemData> items) {
+		this.worker.setGraphData(items);
 	}
 
 	public String getExplain() {

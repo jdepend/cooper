@@ -18,6 +18,14 @@ public class TableData {
 	public static int ASC = 1;
 
 	private String minColName;
+	
+	public TableData(){
+		
+	}
+	
+	public TableData(Map<String, ArrayList<Object>> datas){
+		this.datas = datas;
+	}
 
 	public void setData(String column, Object value) {
 		ArrayList<Object> columnData = datas.get(column);

@@ -1,22 +1,21 @@
 package jdepend.util.analyzer.framework;
 
 import java.io.Serializable;
+import java.util.List;
 
-import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
 public class AnalyzerResult implements Serializable {
 
 	private String info;
 
-	private TableData tableData;
+	private TwoDimensionData tableData;
 
 	private Node tree;
 
-	private GraphData graphData;
+	private List<GraphItemData> graphData;
 
-	public AnalyzerResult(String info, TableData tableData, Node tree, GraphData graphData) {
+	public AnalyzerResult(String info, TwoDimensionData tableData, Node tree, List<GraphItemData> graphData) {
 
 		super();
 
@@ -27,18 +26,18 @@ public class AnalyzerResult implements Serializable {
 	}
 
 	public boolean existResult() {
-		return this.info != null || this.existTableData() || this.tree != null || this.graphData != null;
+		return this.info != null || this.existTwoDimensionData() || this.tree != null || this.graphData != null;
 	}
 
 	public String getInfo() {
 		return info;
 	}
 
-	public TableData getTableData() {
+	public TwoDimensionData getTwoDimensionData() {
 		return tableData;
 	}
 
-	public boolean existTableData() {
+	public boolean existTwoDimensionData() {
 		return this.tableData != null && this.tableData.existData();
 	}
 
@@ -46,7 +45,7 @@ public class AnalyzerResult implements Serializable {
 		return this.tree;
 	}
 
-	public GraphData getGraphData() {
+	public List<GraphItemData> getGraphData() {
 		return this.graphData;
 	}
 }

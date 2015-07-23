@@ -1,9 +1,9 @@
-package jdepend.framework.ui.graph.model;
+package jdepend.util.analyzer.framework;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public final class GraphDataItem {
+public final class GraphItemData {
 
 	public static final String PIE = "PIE";// 饼图
 	public static final String SPLINE = "SPLINE";// 折线图
@@ -16,18 +16,6 @@ public final class GraphDataItem {
 	private String group;
 
 	private Map<Object, Object> datas = new LinkedHashMap<Object, Object>();
-
-	private String lineName;
-
-	private String lineXName;
-
-	private String lineYName;
-
-	private Map<Object, String> tips = new LinkedHashMap<Object, String>();
-
-	private BgColorData bgColorData;
-
-	private FgColorData fgColorData;
 
 	public String getTitle() {
 		return title;
@@ -65,62 +53,7 @@ public final class GraphDataItem {
 		this.datas.put(name, value);
 	}
 
-	public String getLineName() {
-		return lineName;
-	}
-
-	public void setLineName(String lineName) {
-		this.lineName = lineName;
-	}
-
-	public String getLineXName() {
-		return lineXName;
-	}
-
-	public void setLineXName(String lineXName) {
-		this.lineXName = lineXName;
-	}
-
-	public String getLineYName() {
-		return lineYName;
-	}
-
-	public void setLineYName(String lineYName) {
-		this.lineYName = lineYName;
-	}
-
-	public Map<Object, String> getTips() {
-		return tips;
-	}
-
-	public String getTip(Object name) {
-		return this.tips.get(name);
-	}
-
-	public void setTips(Map<Object, String> tips) {
-		this.tips = tips;
-	}
-
-	public void addTip(Object name, String tip) {
-		this.tips.put(name, tip);
-	}
-
-	public BgColorData getBgColordData() {
-		return bgColorData;
-	}
-
-	public void setBgColorData(BgColorData backgroundData) {
-		this.bgColorData = backgroundData;
-	}
-
-	public FgColorData getFgColorData() {
-		return fgColorData;
-	}
-
-	public void setFgColorData(FgColorData fgColorData) {
-		this.fgColorData = fgColorData;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -139,7 +72,7 @@ public final class GraphDataItem {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GraphDataItem other = (GraphDataItem) obj;
+		GraphItemData other = (GraphItemData) obj;
 		if (group == null) {
 			if (other.group != null)
 				return false;

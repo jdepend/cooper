@@ -1,10 +1,9 @@
 package jdepend.framework.ui.graph.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class GraphData implements Serializable {
+public final class GraphData {
 
 	private List<GraphDataItem> items = new ArrayList<GraphDataItem>();
 

@@ -8,14 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.domain.notPersistent;
-import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.JDependUnitByMetricsComparator;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.AnalyzerException;
+import jdepend.util.analyzer.framework.GraphItemData;
 
 public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 
@@ -36,14 +35,14 @@ public final class ClassLineCountAnalyzer extends AbstractAnalyzer {
 
 		this.calData(result);
 
-		GraphData graphData = new GraphData();
-		GraphDataItem item = new GraphDataItem();
+		List<GraphItemData> items = new ArrayList<GraphItemData>();
+		GraphItemData item = new GraphItemData();
 		item.setTitle("按类行数分类比例");
-		item.setType(GraphDataItem.PIE);
+		item.setType(GraphItemData.PIE);
 		item.setDatas(data);
-		graphData.addItem(item);
+		items.add(item);
 
-		this.printGraphData(graphData);
+		this.printGraphData(items);
 		this.printList();
 
 	}

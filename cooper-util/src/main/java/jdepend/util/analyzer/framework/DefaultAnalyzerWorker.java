@@ -1,7 +1,8 @@
 package jdepend.util.analyzer.framework;
 
+import java.util.List;
+
 import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
 public final class DefaultAnalyzerWorker implements AnalyzerWorker {
@@ -10,11 +11,11 @@ public final class DefaultAnalyzerWorker implements AnalyzerWorker {
 
 	private StringBuilder info = new StringBuilder();
 
-	private TableData tableData = new TableData();
+	private TwoDimensionData tableData = new TwoDimensionData();
 
 	private Node tree;
 
-	private GraphData graphData;
+	private List<GraphItemData> items;
 
 	private boolean isPrintTab = true;
 
@@ -54,12 +55,12 @@ public final class DefaultAnalyzerWorker implements AnalyzerWorker {
 	}
 
 	@Override
-	public TableData getTableData() {
+	public TwoDimensionData getTwoDimensionData() {
 		return tableData;
 	}
 
 	@Override
-	public void setTableData(String key, Object value) {
+	public void setTwoDimensionData(String key, Object value) {
 		tableData.setData(key, value);
 	}
 
@@ -74,13 +75,13 @@ public final class DefaultAnalyzerWorker implements AnalyzerWorker {
 	}
 
 	@Override
-	public GraphData getGraphData() {
-		return this.graphData;
+	public List<GraphItemData> getGraphData() {
+		return this.items;
 	}
 
 	@Override
-	public void setGraphData(GraphData graphData) {
-		this.graphData = graphData;
+	public void setGraphData(List<GraphItemData> items) {
+		this.items = items;
 	}
 
 }
