@@ -302,6 +302,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 
 	private void view() {
 		try {
+			AdjustHistory.getInstance().clear();
 			AnalysisResult result = AnalysisResultRepository.getResult(currentId);
 			JDependUnitMgr.getInstance().setResult(result);
 			frame.getResultPanelWrapper().showResults(true);
