@@ -8,7 +8,9 @@ c）向分析结果规则中增加分数计算是否考虑组件大小配置
 
 d）将抽象程度合理性指标的数值含义调整为越大越好
 
-e）通过修改调整JavaClassRelationItem的相等算法，合并
+e）通过修改调整JavaClassRelationItem的相等算法，合并内部类的关系数据到宿主类中
+
+f）解除util对framework-ui的依赖
 
 1.2.5_04 2015-07-13
 

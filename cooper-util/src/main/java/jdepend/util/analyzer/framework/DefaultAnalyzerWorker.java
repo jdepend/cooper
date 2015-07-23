@@ -2,7 +2,6 @@ package jdepend.util.analyzer.framework;
 
 import java.util.List;
 
-import jdepend.framework.ui.graph.model.GraphData;
 import jdepend.metadata.tree.Node;
 
 public final class DefaultAnalyzerWorker implements AnalyzerWorker {

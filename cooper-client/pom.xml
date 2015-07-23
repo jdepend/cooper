@@ -23,6 +23,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-framework-ui</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.prefuse</groupId>
 			<artifactId>prefuse</artifactId>
 			<version>beta-20071021</version>

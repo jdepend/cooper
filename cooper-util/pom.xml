@@ -19,10 +19,5 @@
     	<artifactId>cooper-model</artifactId>
     	<version>${project.version}</version>
     </dependency>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-framework-ui</artifactId>
-    	<version>${project.version}</version>
-    </dependency>
   </dependencies>
 </project>
