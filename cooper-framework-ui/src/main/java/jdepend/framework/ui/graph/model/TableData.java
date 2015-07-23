@@ -1,17 +1,14 @@
 package jdepend.framework.ui.graph.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TableData implements Serializable {
+public class TableData {
 
 	private Map<String, ArrayList<Object>> datas = new LinkedHashMap<String, ArrayList<Object>>();
-
-	private List<TableCallBack> callBacks = new ArrayList<TableCallBack>();
 
 	private String sortColName;
 
@@ -55,16 +52,6 @@ public class TableData implements Serializable {
 
 	public boolean existData() {
 		return this.getRows() > 0;
-	}
-
-	public List<TableCallBack> getCallBacks() {
-		return callBacks;
-	}
-
-	public void addCallBack(TableCallBack callBack) {
-		if (!this.callBacks.contains(callBack)) {
-			this.callBacks.add(callBack);
-		}
 	}
 
 	public String getSortColName() {

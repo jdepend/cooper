@@ -4,20 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdepend.framework.ui.component.MultiLineTableCellRender;
-import jdepend.framework.ui.component.TableMouseMotionAdapter;
 import jdepend.framework.ui.component.TableSorter;
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.framework.ui.graph.model.TableData;
 import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
@@ -57,8 +53,6 @@ public class CooperTable extends JTable {
 		});
 		popupMenu.add(saveAsItem);
 
-		final List<TableCallBack> callBacks = data.getCallBacks();
-
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -71,39 +65,11 @@ public class CooperTable extends JTable {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				final JTable table = (JTable) e.getSource();
-				String currentCol = (String) table.getColumnModel().getColumn(table.columnAtPoint(e.getPoint()))
-						.getHeaderValue();
-				if (e.getClickCount() == 2) {
-					if (callBacks.size() > 0 && currentes.size() == 1) {
-						for (TableCallBack callBack : callBacks) {
-							if (currentCol.equals(callBack.colName)) {
-								try {
-									Constructor c = this.getClass().getClassLoader().loadClass(callBack.DialogName)
-											.getConstructor(new Class[] { String.class });
-									JDialog d = (JDialog) c.newInstance(new Object[] { currentes.get(0) });
-									d.setModal(true);
-									d.setVisible(true);
-								} catch (Exception e1) {
-									e1.printStackTrace();
-								}
-
-							}
-						}
-					}
-				} else if (e.getButton() == 3) {
+			 if (e.getButton() == 3) {
 					popupMenu.show(e.getComponent(), e.getX(), e.getY());
 				}
 			}
 		});
-
-		if (callBacks.size() > 0) {
-			List<String> detailColumnNames = new ArrayList<String>();
-			for (TableCallBack callBack : callBacks) {
-				detailColumnNames.add(callBack.colName);
-			}
-			this.addMouseMotionListener(new TableMouseMotionAdapter(this, detailColumnNames));
-		}
 
 		int columnIndex = 0;
 		int sortColumnIndex = -1;

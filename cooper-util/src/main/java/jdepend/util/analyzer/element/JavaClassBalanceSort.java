@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -35,12 +34,6 @@ public final class JavaClassBalanceSort extends AbstractAnalyzer {
 			this.printTable("内聚值", wrapper.cohesion);
 			this.printTable("分组耦合最大顺序差值", wrapper.gcmd);
 		}
-		// 增加回调函数
-		this.addTableCallBack(new TableCallBack("类名称", "jdepend.client.report.ui.JavaClassDetailDialog"));
-		this.addTableCallBack(new TableCallBack("内聚性指数", "jdepend.client.report.ui.BalanceDialog"));
-		this.addTableCallBack(new TableCallBack("内聚值", "jdepend.client.report.ui.CohesionDialog"));
-		this.addTableCallBack(new TableCallBack("分组耦合最大顺序差值", "jdepend.client.report.ui.CouplingDialog"));
-
 	}
 
 	@Override

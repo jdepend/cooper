@@ -1,7 +1,6 @@
 package jdepend.util.analyzer.framework;
 
 import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
@@ -14,8 +13,6 @@ public interface AnalyzerWorker {
 	public TableData getTableData();
 
 	public void setTableData(String key, Object value);
-
-	public void addTableCallBack(TableCallBack callBack);
 
 	public void setAnalyzer(Analyzer analyzer);
 

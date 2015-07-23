@@ -3,8 +3,6 @@ package jdepend.util.analyzer.element;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdepend.framework.exception.JDependException;
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
@@ -46,9 +44,6 @@ public class ComponentInterfaceCheck extends AbstractAnalyzer {
 				}
 			}
 		}
-		// 增加回调函数
-		this.addTableCallBack(new TableCallBack("类名称", "jdepend.client.report.ui.JavaClassDetailDialog"));
-		this.addTableCallBack(new TableCallBack("调用者", "jdepend.client.report.ui.JavaClassDetailDialog"));
 
 		// 收集未使用的在接口位置存放的类
 		List<JavaClassUnit> privateElements = new ArrayList<JavaClassUnit>();

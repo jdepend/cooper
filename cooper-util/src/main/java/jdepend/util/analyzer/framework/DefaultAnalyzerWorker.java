@@ -1,7 +1,6 @@
 package jdepend.util.analyzer.framework;
 
 import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.framework.ui.graph.model.TableData;
 import jdepend.metadata.tree.Node;
 
@@ -62,11 +61,6 @@ public final class DefaultAnalyzerWorker implements AnalyzerWorker {
 	@Override
 	public void setTableData(String key, Object value) {
 		tableData.setData(key, value);
-	}
-
-	@Override
-	public void addTableCallBack(TableCallBack callBack) {
-		tableData.addCallBack(callBack);
 	}
 
 	@Override

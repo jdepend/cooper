@@ -3,7 +3,6 @@ package jdepend.util.analyzer.framework;
 import jdepend.framework.domain.PersistentBean;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.graph.model.GraphData;
-import jdepend.framework.ui.graph.model.TableCallBack;
 import jdepend.metadata.tree.Node;
 import jdepend.model.result.AnalysisResult;
 
@@ -95,10 +94,6 @@ public abstract class AbstractAnalyzer extends PersistentBean implements Analyze
 
 	protected void printTable(String key, Object info) {
 		this.worker.setTableData(key, info);
-	}
-
-	protected void addTableCallBack(TableCallBack callBack) {
-		this.worker.addTableCallBack(callBack);
 	}
 
 	protected void printTree(Node root) {
