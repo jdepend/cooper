@@ -5,9 +5,10 @@ import jdepend.metadata.Method;
 import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.Metrics;
 import jdepend.model.MetricsInfo;
 
-public final class ObjectOrientedMetrics extends EmptyMetrics {
+public final class ObjectOrientedMetrics implements Metrics {
 
 	@Override
 	public MetricsInfo getMetrics(JDependUnit unit) {

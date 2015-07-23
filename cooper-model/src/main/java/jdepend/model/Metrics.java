@@ -17,10 +17,4 @@ public interface Metrics extends Serializable {
 	 * @return
 	 */
 	public MetricsInfo getMetrics(JDependUnit unit);
-
-	/**
-	 * 分析前做的操作
-	 */
-	public void beforeAnalyze();
-
 }
