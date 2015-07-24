@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>cooper</artifactId>
 		<groupId>cooper</groupId>
-		<version>1.2.5_05-SNAPSHOT</version>
+		<version>1.2.5_06-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-webserver</artifactId>
 	<packaging>war</packaging>
