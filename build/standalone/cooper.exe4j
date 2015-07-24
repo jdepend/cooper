@@ -31,9 +31,9 @@
       <archive location="../../cooper-framework-ui/target/cooper-framework-ui-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-client/lib/forms-1.0.7.jar" failOnError="false" />
       <archive location="../../cooper-client/lib/JMeld-2.1_all.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/jxl-2.6.10.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/jfreechart-1.0.14.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_05-SNAPSHOT/WEB-INF/lib/jcommon-1.0.17.jar" failOnError="false" />
+      <archive location="../../cooper-framework-ui/target/dependency/jxl-2.6.10.jar" failOnError="false" />
+      <archive location="../../cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
+      <archive location="../../cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
       <archive location="../../cooper-client/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-core/target/cooper-core-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/target/cooper-util-1.2.5_05-SNAPSHOT.jar" failOnError="false" />
