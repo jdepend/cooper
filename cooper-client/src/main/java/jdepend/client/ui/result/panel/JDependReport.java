@@ -48,7 +48,7 @@ public class JDependReport extends ReportCreator {
 
 	private JDependCooper frame;
 
-	public final static boolean printSummaryText = false;
+	public final static boolean printSummaryText = true;
 	public final static boolean printTDC = false;
 	public final static boolean printSummaryXML = false;
 	public final static boolean printTable = true;
@@ -99,6 +99,9 @@ public class JDependReport extends ReportCreator {
 		groupComponents = new LinkedHashMap<String, SubResultTabPanel>();
 		groupComponents.put("Score", new ScorePanel(result, frame));
 		groupComponents.put("Architect", new ArchitectPatternPanel());
+		if (printSummaryText) {
+			groupComponents.put("Text", this.createTextReport(ReportConstant.SummaryText));
+		}
 		rtn.put(SystemTabName, this.compositeComponent(groupComponents));
 		LogUtil.getInstance(JDependReport.class).systemLog("create system graph report end!");
 
