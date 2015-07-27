@@ -39,9 +39,10 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			// 发送分析提醒
 			this.onAnalyse(request);
 
+			//生成ServiceConfigurator
 			ServiceConfigurator serviceConfigurator = new ServiceConfigurator(data.getServiceConf()
 					.getServiceProperties());
-
+			//生成ParseConfigurator
 			ParseConfigurator parseConfigurator = new ParseConfigurator(data.getServiceConf().getParseProperties());
 
 			PackageFilter packageFilter = new PackageFilter(data.getServiceConf().getFilteredPackages(), data
