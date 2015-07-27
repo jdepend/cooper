@@ -228,7 +228,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this.parse.setAnalyseData(data);
 	}
 
-	public void addFilteredPackages(List<String> filteredPackages) {
+	public void addCommandFilteredPackages(List<String> filteredPackages) {
 		this.parse.addFilteredPackages(filteredPackages);
 
 	}

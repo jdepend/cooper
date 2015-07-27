@@ -187,7 +187,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 		this.data.setComponent(component);
 	}
 
-	public void addFilteredPackages(List<String> filteredPackages) {
+	public void addCommandFilteredPackages(List<String> filteredPackages) {
 		this.data.getServiceConf().setCommandFilteredPackages(filteredPackages);
 	}
 

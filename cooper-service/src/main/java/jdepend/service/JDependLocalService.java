@@ -96,7 +96,7 @@ public interface JDependLocalService {
 	 * 
 	 * @param filteredPackages
 	 */
-	public void addFilteredPackages(List<String> filteredPackages);
+	public void addCommandFilteredPackages(List<String> filteredPackages);
 	/**
 	 * 得到服务分析目标包含的包集合
 	 * 

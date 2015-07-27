@@ -65,8 +65,8 @@ public class JDependServiceLocalProxy extends AbstractJDependServiceProxy {
 
 	}
 
-	public void addFilteredPackages(List<String> filteredPackages) {
-		service.addFilteredPackages(filteredPackages);
+	public void addCommandFilteredPackages(List<String> filteredPackages) {
+		service.addCommandFilteredPackages(filteredPackages);
 
 	}
 

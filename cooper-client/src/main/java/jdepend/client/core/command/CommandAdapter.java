@@ -49,7 +49,7 @@ public class CommandAdapter {
 					+ command.getClass().getName() + "]初始化参数失败！", e);
 		}
 		// 设置filteredPackages
-		command.addFilteredPackages(CommandConfMgr.getInstance()
+		command.addCommandFilteredPackages(CommandConfMgr.getInstance()
 				.getTheGroup(info.group).getFilteredPackages());
 
 		return command;

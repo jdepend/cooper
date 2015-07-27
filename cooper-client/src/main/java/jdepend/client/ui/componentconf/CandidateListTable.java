@@ -323,7 +323,7 @@ public class CandidateListTable extends JTable {
 				// 设置当前命令组配置的FilteredPackages
 				GroupConf groupConf = CommandConfMgr.getInstance().getTheGroup(this.currentGroup);
 				if (groupConf != null) {
-					serviceProxy.addFilteredPackages(groupConf.getFilteredPackages());
+					serviceProxy.addCommandFilteredPackages(groupConf.getFilteredPackages());
 				}
 				packages = serviceProxy.getPackages();
 			} catch (JDependException e) {

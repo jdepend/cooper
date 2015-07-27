@@ -15,11 +15,11 @@ public class ServiceConf implements Serializable {
 
 	private Properties parseProperties;
 
-	private List<String> commandFilteredPackages;
-
 	private Collection<String> filteredPackages;
 
 	private Collection<String> notFilteredPackages;
+	
+	private List<String> commandFilteredPackages;
 
 	private ProfileFacade profileFacade;
 

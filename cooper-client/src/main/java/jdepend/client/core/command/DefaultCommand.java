@@ -48,8 +48,8 @@ public class DefaultCommand implements Command {
 	public void prepareAnalyze() throws JDependException {
 	}
 
-	public void addFilteredPackages(List<String> filteredPackages) {
-		this.serviceProxy.addFilteredPackages(filteredPackages);
+	public void addCommandFilteredPackages(List<String> filteredPackages) {
+		this.serviceProxy.addCommandFilteredPackages(filteredPackages);
 	}
 
 	/**

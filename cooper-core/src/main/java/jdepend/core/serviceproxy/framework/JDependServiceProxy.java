@@ -101,5 +101,5 @@ public interface JDependServiceProxy {
 	 * 
 	 * @param filteredPackages
 	 */
-	void addFilteredPackages(List<String> filteredPackages);
+	void addCommandFilteredPackages(List<String> filteredPackages);
 }
