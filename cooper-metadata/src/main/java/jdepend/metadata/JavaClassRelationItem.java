@@ -215,9 +215,17 @@ public class JavaClassRelationItem implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((source == null) ? 0 : source.hashCode());
-		result = prime * result + ((target == null) ? 0 : target.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		if (source != null && target != null && type != null) {
+			result = prime * result + ((source == null) ? 0 : source.hashCode());
+			result = prime * result + ((target == null) ? 0 : target.hashCode());
+			result = prime * result + ((type == null) ? 0 : type.hashCode());
+		} else {
+			result = prime * result + ((sourceJavaClassPlace == null) ? 0 : sourceJavaClassPlace.hashCode());
+			result = prime * result + ((sourceJavaClass == null) ? 0 : sourceJavaClass.hashCode());
+			result = prime * result + ((targetJavaClassPlace == null) ? 0 : targetJavaClassPlace.hashCode());
+			result = prime * result + ((targetJavaClass == null) ? 0 : targetJavaClass.hashCode());
+			result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
+		}
 		return result;
 	}
 
@@ -230,21 +238,50 @@ public class JavaClassRelationItem implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		JavaClassRelationItem other = (JavaClassRelationItem) obj;
-		if (source == null) {
-			if (other.source != null)
+
+		if (source != null && target != null && type != null) {
+			if (source == null) {
+				if (other.source != null)
+					return false;
+			} else if (!source.equals(other.source))
 				return false;
-		} else if (!source.equals(other.source))
-			return false;
-		if (target == null) {
-			if (other.target != null)
+			if (target == null) {
+				if (other.target != null)
+					return false;
+			} else if (!target.equals(other.target))
 				return false;
-		} else if (!target.equals(other.target))
-			return false;
-		if (type == null) {
-			if (other.type != null)
+			if (type == null) {
+				if (other.type != null)
+					return false;
+			} else if (!type.equals(other.type))
 				return false;
-		} else if (!type.equals(other.type))
-			return false;
+		} else {
+			if (sourceJavaClassPlace == null) {
+				if (other.sourceJavaClassPlace != null)
+					return false;
+			} else if (!sourceJavaClassPlace.equals(other.sourceJavaClassPlace))
+				return false;
+			if (sourceJavaClass == null) {
+				if (other.sourceJavaClass != null)
+					return false;
+			} else if (!sourceJavaClass.equals(other.sourceJavaClass))
+				return false;
+			if (targetJavaClassPlace == null) {
+				if (other.targetJavaClassPlace != null)
+					return false;
+			} else if (!targetJavaClassPlace.equals(other.targetJavaClassPlace))
+				return false;
+			if (targetJavaClass == null) {
+				if (other.targetJavaClass != null)
+					return false;
+			} else if (!targetJavaClass.equals(other.targetJavaClass))
+				return false;
+			if (typeName == null) {
+				if (other.typeName != null)
+					return false;
+			} else if (!typeName.equals(other.typeName))
+				return false;
+		}
 		return true;
 	}
 
