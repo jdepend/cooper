@@ -10,11 +10,14 @@ import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.result.AnalysisResult;
+import jdepend.parse.ParseConfigurator;
+import jdepend.parse.impl.PackageFilter;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
 import jdepend.server.service.session.JDependRequest;
 import jdepend.server.service.session.JDependSession;
 import jdepend.service.JDependLocalService;
+import jdepend.service.config.ServiceConfigurator;
 import jdepend.service.impl.JDependLocalServiceImpl;
 
 public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDependRemoteService {
@@ -35,9 +38,22 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 		try {
 			// 发送分析提醒
 			this.onAnalyse(request);
+
+			ServiceConfigurator serviceConfigurator = new ServiceConfigurator(data.getServiceConf()
+					.getServiceProperties());
+
+			ParseConfigurator parseConfigurator = new ParseConfigurator(data.getServiceConf().getParseProperties());
+
+			PackageFilter packageFilter = new PackageFilter(data.getServiceConf().getFilteredPackages(), data
+					.getServiceConf().getNotFilteredPackages());
+			parseConfigurator.setPackageFilter(packageFilter);
+			parseConfigurator.setJavaClassRelationTypes(data.getServiceConf().getProfileFacade()
+					.getJavaClassRelationItemProfile().getJavaClassRelationTypes());
+
 			// 创建本地服务
 			JDependLocalService localService = new JDependLocalServiceImpl(request.getGroupName(),
-					request.getCommandName(), data.getServiceConf(), data.getParseConf(), data.getProfileFacade());
+					request.getCommandName(), serviceConfigurator, parseConfigurator, data.getServiceConf()
+							.getProfileFacade());
 			// 创建服务上下文
 			JDependSession session = JDependSessionMgr.getInstance().getSession(request);
 			localService.initServiceContext(false, session.getClient(), session.getUserName());
@@ -54,7 +70,7 @@ public class JDependRemoteServiceImpl extends UnicastRemoteObject implements JDe
 			}
 
 			// 设置FileterPackages
-			localService.addFilteredPackages(data.getFilteredPackages());
+			localService.addFilteredPackages(data.getServiceConf().getCommandFilteredPackages());
 			// 增加解析监听器
 			localService.addParseListener(new RemoteParseListener(JDependSessionMgr.getInstance().getSession(request)));
 			// 分析服务

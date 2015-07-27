@@ -36,6 +36,14 @@ public class PackageFilter implements Serializable {
 		this.notFiltered = notFilteredPackages;
 	}
 
+	public Collection<String> getFiltered() {
+		return filtered;
+	}
+
+	public Collection<String> getNotFiltered() {
+		return notFiltered;
+	}
+
 	public boolean acceptClass(String className) {
 		if (this.classNames == null) {
 			return true;

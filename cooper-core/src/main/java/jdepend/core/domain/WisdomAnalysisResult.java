@@ -63,9 +63,8 @@ public class WisdomAnalysisResult extends AnalysisResult {
 		} else {
 			adviseInfo.append("组件间存在异常的关系比例为" + MetricsFormat.toFormattedPercent(rs));
 		}
-		adviseInfo.append("\n");
-		adviseInfo.append("\n");
-
+		adviseInfo.append("\n\n");
+	
 		adviseInfo.append(this.getAdvise(StructureCategory.Summary));
 
 		return adviseInfo;

@@ -29,6 +29,8 @@ public abstract class SummaryPrinter extends Printer {
 
 		printSummary(inputData);
 
+		printTODOList(inputData);
+
 		printFooter();
 
 		getWriter().flush();
@@ -276,6 +278,9 @@ public abstract class SummaryPrinter extends Printer {
 	}
 
 	protected void printSummary(AnalysisResult inputData) {
+	}
+
+	protected void printTODOList(AnalysisResult inputData) {
 	}
 
 	protected void printSectionBreak() {

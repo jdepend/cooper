@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
@@ -17,9 +16,7 @@ import jdepend.framework.log.LogUtil;
  * @author wangdg
  * 
  */
-public class ServiceConfigurator implements Serializable{
-
-	private static final long serialVersionUID = -6121500160446113502L;
+public class ServiceConfigurator{
 
 	private Properties properties;
 
@@ -31,12 +28,16 @@ public class ServiceConfigurator implements Serializable{
 		this(getDefaultPropertyFile());
 	}
 
-	private ServiceConfigurator(Properties p) {
+	public ServiceConfigurator(Properties p) {
 		this.properties = p;
 	}
 
 	private ServiceConfigurator(File f) {
 		this(loadProperties(f));
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 
 	public boolean isSaveResult() {

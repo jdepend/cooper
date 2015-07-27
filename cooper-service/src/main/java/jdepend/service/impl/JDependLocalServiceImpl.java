@@ -58,7 +58,8 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this.profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
 
 		this.serviceConf = new ServiceConfigurator();
-		this.parseConf = new ParseConfigurator(this.profileFacade.getJavaClassRelationItemProfile());
+		this.parseConf = new ParseConfigurator(this.profileFacade.getJavaClassRelationItemProfile()
+				.getJavaClassRelationTypes());
 
 		parse = new Parse(parseConf);
 	}

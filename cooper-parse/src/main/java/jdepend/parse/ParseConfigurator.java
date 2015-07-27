@@ -5,12 +5,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.LogUtil;
-import jdepend.metadata.profile.JavaClassRelationItemProfile;
 import jdepend.metadata.profile.defaultvalue.DefaultJavaClassRelationItemProfile;
 import jdepend.metadata.relationtype.JavaClassRelationTypes;
 import jdepend.parse.impl.FilteredPackageConfigurator;
@@ -22,9 +20,7 @@ import jdepend.parse.impl.PackageFilter;
  * @author wangdg
  * 
  */
-public class ParseConfigurator implements Serializable{
-
-	private static final long serialVersionUID = 279725338071328382L;
+public class ParseConfigurator {
 
 	private Properties properties;
 
@@ -37,17 +33,17 @@ public class ParseConfigurator implements Serializable{
 	private JavaClassRelationTypes javaClassRelationTypes;
 
 	public ParseConfigurator() {
-		this(new DefaultJavaClassRelationItemProfile());
+		this(new DefaultJavaClassRelationItemProfile().getJavaClassRelationTypes());
 	}
-	
-	public ParseConfigurator(JavaClassRelationItemProfile javaClassRelationItemProfile){
+
+	public ParseConfigurator(JavaClassRelationTypes javaClassRelationTypes) {
 		this(getDefaultPropertyFile());
 		// 装载全局过滤包列表
 		this.packageFilter = (new FilteredPackageConfigurator()).getPackageFilter();
-		this.javaClassRelationTypes = javaClassRelationItemProfile.getJavaClassRelationTypes();
+		this.javaClassRelationTypes = javaClassRelationTypes;
 	}
 
-	private ParseConfigurator(Properties p) {
+	public ParseConfigurator(Properties p) {
 		this.properties = p;
 	}
 
@@ -57,6 +53,14 @@ public class ParseConfigurator implements Serializable{
 
 	public PackageFilter getPackageFilter() {
 		return packageFilter;
+	}
+
+	public void setPackageFilter(PackageFilter packageFilter) {
+		this.packageFilter = packageFilter;
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 
 	public boolean getAnalyzeInnerClasses() {
@@ -115,6 +119,10 @@ public class ParseConfigurator implements Serializable{
 
 	public JavaClassRelationTypes getJavaClassRelationTypes() {
 		return javaClassRelationTypes;
+	}
+
+	public void setJavaClassRelationTypes(JavaClassRelationTypes javaClassRelationTypes) {
+		this.javaClassRelationTypes = javaClassRelationTypes;
 	}
 
 	private static File getDefaultPropertyFile() {

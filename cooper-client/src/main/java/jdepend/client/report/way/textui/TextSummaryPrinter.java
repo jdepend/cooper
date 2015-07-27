@@ -1,6 +1,7 @@
 package jdepend.client.report.way.textui;
 
 import java.util.Iterator;
+import java.util.List;
 
 import jdepend.client.report.util.ReportConstant;
 import jdepend.core.domain.WisdomAnalysisResult;
@@ -12,6 +13,9 @@ import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.MetricsMgr;
 import jdepend.model.result.AnalysisResult;
+import jdepend.util.todolist.TODOItem;
+import jdepend.util.todolist.TODOListException;
+import jdepend.util.todolist.TODOListIdentifyerFacade;
 
 public final class TextSummaryPrinter extends SummaryPrinter {
 
@@ -33,8 +37,6 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 			e.printStackTrace();
 		}
 	}
-
-	
 
 	@Override
 	protected void printNoStats() {
@@ -233,6 +235,19 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getCohesion()) + "	");
 		getWriter().print(MetricsFormat.toFormattedMetrics(inputData.getSummary().getBalance()) + "	");
 		getWriter().print("\n");
+	}
+
+	@Override
+	protected void printTODOList(AnalysisResult result) {
+		TODOListIdentifyerFacade identify = new TODOListIdentifyerFacade();
+		try {
+			for (TODOItem todoItem : identify.identify(result)) {
+
+			}
+		} catch (TODOListException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private String calBlank(int currentLength, int maxLength) {

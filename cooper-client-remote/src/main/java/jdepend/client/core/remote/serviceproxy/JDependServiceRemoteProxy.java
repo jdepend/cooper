@@ -26,6 +26,7 @@ import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
 import jdepend.server.service.AnalyseDataDTO;
 import jdepend.server.service.JDependRemoteService;
+import jdepend.server.service.ServiceConf;
 import jdepend.server.service.session.JDependRequest;
 import jdepend.service.config.ServiceConfigurator;
 import jdepend.service.profile.ClientProfileFacadeImpl;
@@ -61,7 +62,23 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	public JDependServiceRemoteProxy(String groupName, String commandName) {
 		this.groupName = groupName;
 		this.commandName = commandName;
-		this.data = new AnalyseDataDTO(groupName, commandName);
+		
+		this.data = new AnalyseDataDTO();
+
+		ProfileFacade profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
+		ServiceConfigurator serviceConfigurator = new ServiceConfigurator();
+		ParseConfigurator parseConf = new ParseConfigurator(profileFacade.getJavaClassRelationItemProfile()
+				.getJavaClassRelationTypes());
+		
+		ServiceConf serviceConf = new ServiceConf();
+
+		serviceConf.setFilteredPackages(parseConf.getPackageFilter().getFiltered());
+		serviceConf.setNotFilteredPackages(parseConf.getPackageFilter().getNotFiltered());
+		serviceConf.setParseProperties(parseConf.getProperties());
+		serviceConf.setProfileFacade(profileFacade);
+		serviceConf.setServiceProperties(serviceConfigurator.getProperties());
+		
+		this.data.setServiceConf(serviceConf);
 	}
 
 	/**
@@ -171,7 +188,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 	}
 
 	public void addFilteredPackages(List<String> filteredPackages) {
-		this.data.setFilteredPackages(filteredPackages);
+		this.data.getServiceConf().setCommandFilteredPackages(filteredPackages);
 	}
 
 	public void setLogWriter(PrintWriter printWriter) {
