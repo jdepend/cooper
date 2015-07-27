@@ -1,11 +1,10 @@
 package jdepend.server.service;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
-import jdepend.model.profile.ProfileFacade;
+import jdepend.model.result.ProfileFacadeImpl;
 
 public class ServiceConf implements Serializable {
 
@@ -21,7 +20,7 @@ public class ServiceConf implements Serializable {
 	
 	private List<String> commandFilteredPackages;
 
-	private ProfileFacade profileFacade;
+	private ProfileFacadeImpl profileFacade;
 
 	public Properties getServiceProperties() {
 		return serviceProperties;
@@ -63,11 +62,11 @@ public class ServiceConf implements Serializable {
 		this.notFilteredPackages = notFilteredPackages;
 	}
 
-	public ProfileFacade getProfileFacade() {
+	public ProfileFacadeImpl getProfileFacade() {
 		return profileFacade;
 	}
 
-	public void setProfileFacade(ProfileFacade profileFacade) {
+	public void setProfileFacade(ProfileFacadeImpl profileFacade) {
 		this.profileFacade = profileFacade;
 	}
 }

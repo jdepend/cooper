@@ -19,7 +19,6 @@ import jdepend.framework.file.TargetFileManager;
 import jdepend.framework.log.LogUtil;
 import jdepend.metadata.JavaPackage;
 import jdepend.model.Component;
-import jdepend.model.profile.ProfileFacade;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.result.ProfileFacadeImpl;
 import jdepend.parse.ParseConfigurator;
@@ -65,7 +64,7 @@ public class JDependServiceRemoteProxy extends AbstractJDependServiceProxy {
 		
 		this.data = new AnalyseDataDTO();
 
-		ProfileFacade profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
+		ProfileFacadeImpl profileFacade = new ProfileFacadeImpl(new ClientProfileFacadeImpl(groupName, commandName));
 		ServiceConfigurator serviceConfigurator = new ServiceConfigurator();
 		ParseConfigurator parseConf = new ParseConfigurator(profileFacade.getJavaClassRelationItemProfile()
 				.getJavaClassRelationTypes());
