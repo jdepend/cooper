@@ -15,9 +15,9 @@ public class ServiceConf implements Serializable {
 
 	private Properties parseProperties;
 
-	private Collection<String> filteredPackages;
+	private List<String> filteredPackages;
 
-	private Collection<String> notFilteredPackages;
+	private List<String> notFilteredPackages;
 	
 	private List<String> commandFilteredPackages;
 
@@ -47,19 +47,19 @@ public class ServiceConf implements Serializable {
 		this.commandFilteredPackages = commandFilteredPackages;
 	}
 
-	public Collection<String> getFilteredPackages() {
+	public List<String> getFilteredPackages() {
 		return filteredPackages;
 	}
 
-	public void setFilteredPackages(Collection<String> filteredPackages) {
+	public void setFilteredPackages(List<String> filteredPackages) {
 		this.filteredPackages = filteredPackages;
 	}
 
-	public Collection<String> getNotFilteredPackages() {
+	public List<String> getNotFilteredPackages() {
 		return notFilteredPackages;
 	}
 
-	public void setNotFilteredPackages(Collection<String> notFilteredPackages) {
+	public void setNotFilteredPackages(List<String> notFilteredPackages) {
 		this.notFilteredPackages = notFilteredPackages;
 	}
 

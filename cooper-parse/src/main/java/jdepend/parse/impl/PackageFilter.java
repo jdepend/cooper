@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,23 +25,23 @@ public class PackageFilter implements Serializable {
 
 	private static final long serialVersionUID = 3937389131772119374L;
 
-	private Collection<String> filtered = new ArrayList<String>();
-	private Collection<String> notFiltered = new ArrayList<String>();
+	private List<String> filtered = new ArrayList<String>();
+	private List<String> notFiltered = new ArrayList<String>();
 
 	private transient Collection<String> classNames;// 本次分析的类列表
 
 	private transient Map<String, Boolean> histroy = new HashMap<String, Boolean>();
 
-	public PackageFilter(Collection<String> filteredPackages, Collection<String> notFilteredPackages) {
+	public PackageFilter(List<String> filteredPackages, List<String> notFilteredPackages) {
 		this.filtered = filteredPackages;
 		this.notFiltered = notFilteredPackages;
 	}
 
-	public Collection<String> getFiltered() {
+	public List<String> getFiltered() {
 		return filtered;
 	}
 
-	public Collection<String> getNotFiltered() {
+	public List<String> getNotFiltered() {
 		return notFiltered;
 	}
 

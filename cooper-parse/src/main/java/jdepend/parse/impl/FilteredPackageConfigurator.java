@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -45,9 +45,9 @@ public class FilteredPackageConfigurator implements Serializable {
 		this(loadProperties(f));
 	}
 
-	private Collection<String> getFilteredPackages() {
+	private List<String> getFilteredPackages() {
 
-		Collection<String> packages = new ArrayList<String>();
+		List<String> packages = new ArrayList<String>();
 
 		Enumeration e = properties.propertyNames();
 		while (e.hasMoreElements()) {
@@ -68,8 +68,8 @@ public class FilteredPackageConfigurator implements Serializable {
 		return packages;
 	}
 
-	private Collection<String> getNotFilteredPackages() {
-		Collection<String> packages = new ArrayList<String>();
+	private List<String> getNotFilteredPackages() {
+		List<String> packages = new ArrayList<String>();
 
 		Enumeration e = properties.propertyNames();
 		while (e.hasMoreElements()) {
