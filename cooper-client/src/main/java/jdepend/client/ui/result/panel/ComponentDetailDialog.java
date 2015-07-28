@@ -33,7 +33,7 @@ public final class ComponentDetailDialog extends CooperDialog {
 		this.add(new JScrollPane(classProperty));
 	}
 
-	private void printUnit(JDependUnit unit) {
+	private void printUnit(Component unit) {
 
 		OutputStream info = new ByteArrayOutputStream();
 
@@ -41,7 +41,7 @@ public final class ComponentDetailDialog extends CooperDialog {
 
 		printer.setStream(info);
 
-		printer.printPackage(unit);
+		printer.printComponent(unit);
 
 		printer.getWriter().flush();
 

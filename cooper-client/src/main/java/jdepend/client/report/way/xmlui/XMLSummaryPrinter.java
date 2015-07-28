@@ -20,23 +20,23 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printPackagesHeader() {
+	protected void printComponentsHeader() {
 		getWriter().println(tab() + "<Units>");
 	}
 
 	@Override
-	protected void printPackagesFooter() {
+	protected void printComponentsFooter() {
 		getWriter().println(tab() + "</Units>");
 	}
 
 	@Override
-	protected void printPackageHeader(JDependUnit jPackage) {
+	protected void printComponentHeader(JDependUnit jPackage) {
 		printSectionBreak();
 		getWriter().println(tab(2) + "<Unit name=\"" + jPackage.getName() + "\">");
 	}
 
 	@Override
-	protected void printPackageFooter(JDependUnit jPackage) {
+	protected void printComponentFooter(JDependUnit jPackage) {
 		getWriter().println(tab(2) + "</Unit>");
 	}
 

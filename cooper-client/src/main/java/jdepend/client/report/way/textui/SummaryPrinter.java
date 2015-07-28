@@ -23,59 +23,57 @@ public abstract class SummaryPrinter extends Printer {
 
 		printHeader(inputData);
 
-		printPackages(inputData.getComponents());
+		printComponents(inputData.getComponents());
 
 		printCycles(inputData.getComponents());
 
 		printSummary(inputData);
-
-		printTODOList(inputData);
 
 		printFooter();
 
 		getWriter().flush();
 	}
 
-	protected void printPackages(Collection units) {
-		printPackagesHeader();
+	protected void printComponents(Collection<Component> components) {
+		printComponentsHeader();
 
-		Iterator i = units.iterator();
+		Iterator<Component> i = components.iterator();
 		while (i.hasNext()) {
-			printPackage((JDependUnit) i.next());
+			printComponent(i.next());
 		}
 
-		printPackagesFooter();
+		printComponentsFooter();
 	}
 
-	public void printPackage(JDependUnit unit) {
+	public void printComponent(Component component) {
 
-		printPackageHeader(unit);
+		printComponentHeader(component);
 
-		if (unit.getClasses().size() == 0) {
+		if (component.getClasses().size() == 0) {
 			printNoStats();
-			printPackageFooter(unit);
+			printComponentFooter(component);
 			return;
 		}
 
-		printStatistics(unit);
+		printStatistics(component);
 
 		printSectionBreak();
 
-		printAbstractClasses(unit);
+		printAbstractClasses(component);
 
 		printSectionBreak();
 
-		printConcreteClasses(unit);
+		printConcreteClasses(component);
 
 		printSectionBreak();
 
-		printEfferents(unit);
+		printEfferents(component);
 
 		printSectionBreak();
 
-		printAfferents(unit);
+		printAfferents(component);
 
-		printPackageFooter(unit);
+		printComponentFooter(component);
 	}
 
 	protected void printAbstractClasses(JDependUnit unit) {
@@ -196,21 +194,21 @@ public abstract class SummaryPrinter extends Printer {
 		// do nothing
 	}
 
-	protected void printPackagesHeader() {
+	protected void printComponentsHeader() {
 		// do nothing
 	}
 
-	protected void printPackagesFooter() {
+	protected void printComponentsFooter() {
 		// do nothing
 	}
 
 	protected void printNoStats() {
 	}
 
-	protected void printPackageHeader(JDependUnit unit) {
+	protected void printComponentHeader(JDependUnit unit) {
 	}
 
-	protected void printPackageFooter(JDependUnit unit) {
+	protected void printComponentFooter(JDependUnit unit) {
 		// do nothing
 	}
 
@@ -278,9 +276,6 @@ public abstract class SummaryPrinter extends Printer {
 	}
 
 	protected void printSummary(AnalysisResult inputData) {
-	}
-
-	protected void printTODOList(AnalysisResult inputData) {
 	}
 
 	protected void printSectionBreak() {
