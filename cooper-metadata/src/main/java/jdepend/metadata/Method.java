@@ -393,6 +393,15 @@ public class Method extends AccessFlags {
 		return false;
 	}
 
+	public boolean containRemoteInvokedItem() {
+		for (InvokeItem item : this.getInvokedItems()) {
+			if (item instanceof RemoteInvokeItem) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public float getStability() {
 
 		int totalCoupling = this.getInvokedMethods().size() + this.getInvokeMethods().size();

@@ -18,7 +18,6 @@ import jdepend.framework.ui.component.TableMouseMotionAdapter;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.framework.util.StringUtil;
-import jdepend.metadata.InvokeItem;
 import jdepend.metadata.Method;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
@@ -56,7 +55,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[13];
+			row = new Object[14];
 
 			row[0] = method.getJavaClass().getId();
 			row[1] = method.getInfo();
@@ -72,6 +71,7 @@ public class MethodListPanel extends JPanel {
 			row[10] = method.getInvokeMethods().size();
 			row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
 			row[12] = method.containRemoteInvokeItem() ? "是" : "否";
+			row[13] = method.containRemoteInvokedItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -146,6 +146,7 @@ public class MethodListPanel extends JPanel {
 		methodListModel.addColumn("传出");
 		methodListModel.addColumn("稳定性");
 		methodListModel.addColumn("是否包含进程间调用");
+		methodListModel.addColumn("是否被进程间调用");
 
 		// 增加点击图标
 		List<String> colNames = new ArrayList<String>();
@@ -175,7 +176,7 @@ public class MethodListPanel extends JPanel {
 		Object[] row;
 
 		for (Method method : this.methods) {
-			row = new Object[13];
+			row = new Object[14];
 
 			if ((className == null || className.length() == 0 || JavaClassUtil.match(className, method.getJavaClass()))
 					&& (name == null || name.length() == 0 || StringUtil.match(name.toUpperCase(), method.getName()
@@ -194,6 +195,7 @@ public class MethodListPanel extends JPanel {
 				row[10] = method.getInvokeMethods().size();
 				row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
 				row[12] = method.containRemoteInvokeItem() ? "是" : "否";
+				row[13] = method.containRemoteInvokedItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}
