@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.metadata.JavaPackage;
+import jdepend.model.Component;
+import jdepend.model.component.CustomComponent;
+import jdepend.model.component.JarComponent;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.result.AnalysisResult;
 import jdepend.model.util.TableViewInfo;
@@ -52,6 +55,11 @@ public class AnalyseController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(@RequestParam("files") List<MultipartFile> files, Model model, HttpServletRequest request)
 			throws Exception {
+
+		String jarComponent = request.getParameter("jarComponent");
+		if (jarComponent != null && files.size() == 1) {
+			throw new JDependException("请选择至少两个jar");
+		}
 		// 获取多个fileData
 		Map<String, byte[]> fileDatas = new LinkedHashMap<String, byte[]>();
 		for (MultipartFile file : files) {
@@ -75,16 +83,24 @@ public class AnalyseController {
 		} catch (IllegalArgumentException e) {
 			throw new JDependException("上传的jar文件中存在中文文件名", e);
 		}
-		List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(analyseService.listPackages(analyseData));
-		Collections.sort(sortedInnerJavaPackages);
-		model.addAttribute("listPackages", sortedInnerJavaPackages);
-		model.addAttribute("analysePath", analyseData.getPath());
 
-		request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
+		if (jarComponent == null) {
+			List<JavaPackage> sortedInnerJavaPackages = new ArrayList<JavaPackage>(
+					analyseService.listPackages(analyseData));
+			Collections.sort(sortedInnerJavaPackages);
+			model.addAttribute("listPackages", sortedInnerJavaPackages);
+			model.addAttribute("analysePath", analyseData.getPath());
 
-		logger.info(request.getRemoteAddr() + " enter into upload listPackages page");
+			request.getSession().setAttribute(WebConstants.SESSION_FILE, analyseData);
 
-		return "listPackages";
+			logger.info(request.getRemoteAddr() + " enter into upload listPackages page");
+
+			return "listPackages";
+		} else {
+			this.createAnalysisResult(analyseData, new JarComponent(), model, request);
+
+			return "result";
+		}
 
 	}
 
@@ -112,8 +128,18 @@ public class AnalyseController {
 			throw new JDependException("Session 中不存在 AnalyseData");
 		}
 
+		CustomComponent component = new CustomComponent();
+		component.setComponentInfo(componentModelConf);
+
+		this.createAnalysisResult(data, component, model, request);
+
+		return "result";
+	}
+
+	private void createAnalysisResult(AnalyzeData data, Component component, Model model, HttpServletRequest request)
+			throws JDependException {
 		AnalysisResult result = this.analyseService.analyze(WebConstants.DEFLAUT_GROUP, WebConstants.DEFLAUT_COMMAND,
-				data, componentModelConf);
+				data, component);
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
@@ -122,7 +148,7 @@ public class AnalyseController {
 		TODOListIdentifyerFacade identify = new TODOListIdentifyerFacade();
 		List<TODOItem> todoList = identify.identify(result);
 		model.addAttribute("todoList", todoList);
-		
+
 		request.getSession().setAttribute(WebConstants.SESSION_RESULT_TODOLIST, todoList);
 
 		List<TableViewInfo> tableInfos = TableViewUtil.view(result);
@@ -138,8 +164,6 @@ public class AnalyseController {
 		request.getSession().removeAttribute(WebConstants.SESSION_FILE);
 
 		logger.info(request.getRemoteAddr() + " enter into upload result page");
-
-		return "result";
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)

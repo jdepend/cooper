@@ -8,8 +8,8 @@
 				<fieldset>
 					<legend>第一步：选择分析的jar（共两步）</legend>
 					<label>分析的jars：</label>
-						<input type="file" name="files" multiple="true"/>
-					</div>
+					<input type="file" name="files" multiple="true"/>
+					<input type="checkbox" name="jarComponent" checked="true"/>是否以上传的jars作为组件模型
 					<span class="help-block">（IE9及以下不支持上传多文件，其它浏览器最新版本均已支持）</span>
 					<button class="btn" onclick="analyse()">下一步</button>
 				</fieldset>

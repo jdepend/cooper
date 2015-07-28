@@ -16,6 +16,7 @@ import jdepend.framework.file.JarFileReader;
 import jdepend.framework.file.TargetFileInfo;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.metadata.JavaPackage;
+import jdepend.model.Component;
 import jdepend.model.component.CustomComponent;
 import jdepend.model.component.modelconf.ComponentModelConf;
 import jdepend.model.result.AnalysisResult;
@@ -42,12 +43,8 @@ public class AnalyseService {
 		return innerJavaPackages;
 	}
 
-	public AnalysisResult analyze(String group, String command, AnalyzeData data, ComponentModelConf componentModelConf)
+	public AnalysisResult analyze(String group, String command, AnalyzeData data, Component component)
 			throws JDependException {
-
-		CustomComponent component = new CustomComponent();
-		component.setComponentInfo(componentModelConf);
-
 		JDependServiceProxy proxy = JDependServiceProxyFactoryMgr.getInstance().getFactory()
 				.createJDependServiceProxy(group, command);
 
