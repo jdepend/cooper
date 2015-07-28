@@ -10,7 +10,7 @@
 	<thead>
 		<tr>
 			<th>选择</th>
-			<th>当前类</th>
+			<th>源类</th>
 			<th>依赖类</th>
 			<th>依赖类型</th>
 			<th>依赖强度</th>
@@ -20,8 +20,8 @@
 		<c:forEach items="${relation.items}" var="item">
 			<tr>
 				<td><input type="checkbox"/></td>
-				<td>${item.currentJavaClass}</td>
-				<td>${item.dependJavaClass}</td>
+				<td>${item.source.name}</td>
+				<td>${item.target.name}</td>
 				<td>${item.type.name}</td>
 				<td><fmt:formatNumber value="${item.relationIntensity}"
 						pattern="###,###.##" /></td>

@@ -6,6 +6,12 @@ import java.util.Properties;
 
 import jdepend.model.result.ProfileFacadeImpl;
 
+/**
+ * 服务配置信息
+ * 
+ * @author user
+ *
+ */
 public class ServiceConf implements Serializable {
 
 	private static final long serialVersionUID = 690708875879257657L;

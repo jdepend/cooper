@@ -30,8 +30,6 @@ public class MethodListPanel extends JPanel {
 
 	private JTable methodListTable;
 
-	private String current;
-
 	private Collection<Method> methods;
 
 	public MethodListPanel(Collection<Method> methods) {

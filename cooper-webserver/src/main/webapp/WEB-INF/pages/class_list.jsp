@@ -27,8 +27,8 @@
 		<c:forEach items="${component.classes}" var="item">
 			<tr>
 				<td><input type="checkbox"/></td>
-				<td>${item.name}</td>
-				<td>${item.lineCount}</td>
+				<td>${item.javaClass.name}</td>
+				<td>${item.javaClass.lineCount}</td>
 				<td>${item.afferentCoupling}</td>
 				<td>${item.efferentCoupling}</td>
 				<td>${item.abstractClassCount}</td>
@@ -38,7 +38,7 @@
 						pattern="###,###.##" /></td>
 				<td><fmt:formatNumber value="${item.balance}" pattern="#.###" /></td>
 				<td>${item.stable ? "是":"否"}</td>
-				<td>${item.state ? "有":"无"}</td>
+				<td>${item.javaClass.state ? "有":"无"}</td>
 				<td>${item.usedByExternal ? "否":"是"}</td>
 			</tr>
 		</c:forEach>

@@ -33,7 +33,7 @@
 			<tr>
 				<td><input type="checkbox" /></td>
 				<td class="itemName">${item.name}</td>
-				<td>${item.area}</td>
+				<td>${item.areaComponent.name}</td>
 				<td>${item.lineCount}</td>
 				<td>${item.classCount}</td>
 				<td>${item.abstractClassCount}</td>
