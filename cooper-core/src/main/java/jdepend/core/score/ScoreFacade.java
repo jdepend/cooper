@@ -9,10 +9,7 @@ import jdepend.model.result.AnalysisResult;
 
 public final class ScoreFacade {
 
-	public final static String ScoreAndResult = "ScoreAndResult";
-	public final static String OnlyScoreMode = "OnlyScoreMode";
-
-	public static void saveScore(AnalysisResult result, String mode) throws JDependException {
+	public static void saveScore(AnalysisResult result) throws JDependException {
 		ScoreInfo score = new ScoreInfo();
 
 		score.group = result.getRunningContext().getGroup();
@@ -28,11 +25,7 @@ public final class ScoreFacade {
 		score.cohesion = result.getSummary().getCohesion();
 		score.coupling = result.getSummary().getCoupling();
 
-		if (ScoreAndResult.equals(mode)) {
-			ScoreRepository.save(score, result);
-		} else {
-			ScoreRepository.save(score);
-		}
+		ScoreRepository.save(score, result);
 	}
 
 	public static List<ScoreInfo> getScoreList() throws JDependException {

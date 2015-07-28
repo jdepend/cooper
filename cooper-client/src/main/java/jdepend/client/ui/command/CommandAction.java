@@ -55,7 +55,7 @@ public final class CommandAction extends AsynAction {
 		// 保存分数
 		if ((new PropertyConfigurator()).isAutoSaveScore()) {
 			try {
-				ScoreFacade.saveScore(result, ScoreFacade.ScoreAndResult);
+				ScoreFacade.saveScore(result);
 			} catch (JDependException e1) {
 				e1.printStackTrace();
 				addResults(createErrorResult(e1));
