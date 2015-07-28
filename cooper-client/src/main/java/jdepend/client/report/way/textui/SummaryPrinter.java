@@ -76,7 +76,7 @@ public abstract class SummaryPrinter extends Printer {
 		printComponentFooter(component);
 	}
 
-	protected void printAbstractClasses(JDependUnit unit) {
+	protected void printAbstractClasses(Component unit) {
 		printAbstractClassesHeader();
 
 		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(unit.getClasses());
@@ -92,7 +92,7 @@ public abstract class SummaryPrinter extends Printer {
 		printAbstractClassesFooter();
 	}
 
-	protected void printConcreteClasses(JDependUnit unit) {
+	protected void printConcreteClasses(Component unit) {
 		printConcreteClassesHeader();
 
 		List<JavaClassUnit> members = new ArrayList<JavaClassUnit>(unit.getClasses());
@@ -108,18 +108,17 @@ public abstract class SummaryPrinter extends Printer {
 		printConcreteClassesFooter();
 	}
 
-	protected void printEfferents(JDependUnit unit) {
+	protected void printEfferents(Component unit) {
 		printEfferentsHeader();
 
-		Collection efferents1 = unit.getEfferents();
+		Collection<Component> efferents1 = unit.getEfferents();
 
-		List<JDependUnit> efferents = new ArrayList<JDependUnit>(efferents1);
+		List<Component> efferents = new ArrayList<Component>(efferents1);
 
 		Collections.sort(efferents);
-		Iterator efferentIter = efferents.iterator();
+		Iterator<Component> efferentIter = efferents.iterator();
 		while (efferentIter.hasNext()) {
-			JDependUnit efferent = (JDependUnit) efferentIter.next();
-			printPackageName(efferent);
+			printComponentName(efferentIter.next());
 		}
 		if (efferents.size() == 0) {
 			printEfferentsError();
@@ -128,18 +127,17 @@ public abstract class SummaryPrinter extends Printer {
 		printEfferentsFooter();
 	}
 
-	protected void printAfferents(JDependUnit unit) {
+	protected void printAfferents(Component unit) {
 		printAfferentsHeader();
 
-		Collection afferents1 = unit.getAfferents();
+		Collection<Component> afferents1 = unit.getAfferents();
 
-		List<JDependUnit> afferents = new ArrayList<JDependUnit>(afferents1);
+		List<Component> afferents = new ArrayList<Component>(afferents1);
 
 		Collections.sort(afferents);
-		Iterator afferentIter = afferents.iterator();
+		Iterator<Component> afferentIter = afferents.iterator();
 		while (afferentIter.hasNext()) {
-			JDependUnit afferent = (JDependUnit) afferentIter.next();
-			printPackageName(afferent);
+			printComponentName(afferentIter.next());
 		}
 		if (afferents.size() == 0) {
 			printAfferentsError();
@@ -151,7 +149,7 @@ public abstract class SummaryPrinter extends Printer {
 	protected void printCycles(Collection<Component> units) {
 		printCyclesHeader();
 
-		for (JDependUnit unit : units) {
+		for (Component unit : units) {
 			printCycle(unit);
 		}
 		printCyclesFooter();
@@ -205,20 +203,20 @@ public abstract class SummaryPrinter extends Printer {
 	protected void printNoStats() {
 	}
 
-	protected void printComponentHeader(JDependUnit unit) {
+	protected void printComponentHeader(Component unit) {
 	}
 
-	protected void printComponentFooter(JDependUnit unit) {
+	protected void printComponentFooter(Component unit) {
 		// do nothing
 	}
 
-	protected void printStatistics(JDependUnit unit) {
+	protected void printStatistics(Component unit) {
 	}
 
 	protected void printClassName(JavaClassUnit jClass) {
 	}
 
-	protected void printPackageName(JDependUnit unit) {
+	protected void printComponentName(Component unit) {
 	}
 
 	protected void printAbstractClassesHeader() {

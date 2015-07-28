@@ -40,7 +40,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printComponentHeader(JDependUnit unit) {
+	protected void printComponentHeader(Component unit) {
 		getWriter().println("\n--------------------------------------------------");
 		getWriter().println("# UnitName: " + unit.getName());
 		if (unit instanceof Component) {
@@ -56,7 +56,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printStatistics(JDependUnit unit) {
+	protected void printStatistics(Component unit) {
 		getWriter().println("\nStats:");
 		getWriter().println(tab() + "isInner: " + unit.isInner());
 		getWriter().println(tab() + "TotalClasses: " + unit.getClassCount());
@@ -81,7 +81,7 @@ public final class TextSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printPackageName(JDependUnit unit) {
+	protected void printComponentName(Component unit) {
 		getWriter().println(tab() + unit.getName());
 	}
 

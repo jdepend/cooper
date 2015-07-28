@@ -1,11 +1,12 @@
 package jdepend.client.report.way.xmlui;
 
+import jdepend.client.report.way.textui.SummaryPrinter;
 import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.Named;
+import jdepend.model.Component;
 import jdepend.model.JDependUnit;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
-import jdepend.client.report.way.textui.SummaryPrinter;
 
 public final class XMLSummaryPrinter extends SummaryPrinter {
 	@Override
@@ -30,13 +31,13 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printComponentHeader(JDependUnit jPackage) {
+	protected void printComponentHeader(Component jPackage) {
 		printSectionBreak();
 		getWriter().println(tab(2) + "<Unit name=\"" + jPackage.getName() + "\">");
 	}
 
 	@Override
-	protected void printComponentFooter(JDependUnit jPackage) {
+	protected void printComponentFooter(Component jPackage) {
 		getWriter().println(tab(2) + "</Unit>");
 	}
 
@@ -46,7 +47,7 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printStatistics(JDependUnit jPackage) {
+	protected void printStatistics(Component jPackage) {
 		getWriter().println(tab(3) + "<Stats>");
 		getWriter().println(tab(4) + "<isInner>" + jPackage.isInner() + "</isInner>");
 		getWriter().println(tab(4) + "<TotalClasses>" + jPackage.getClassCount() + "</TotalClasses>");
@@ -73,7 +74,7 @@ public final class XMLSummaryPrinter extends SummaryPrinter {
 	}
 
 	@Override
-	protected void printPackageName(JDependUnit jPackage) {
+	protected void printComponentName(Component jPackage) {
 		getWriter().println(tab(4) + "<Unit>" + jPackage.getName() + "</Unit>");
 	}
 

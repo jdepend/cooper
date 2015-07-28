@@ -7,11 +7,10 @@ import java.io.OutputStream;
 
 import javax.swing.JScrollPane;
 
+import jdepend.client.report.way.textui.TextSummaryPrinter;
 import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.model.Component;
-import jdepend.model.JDependUnit;
-import jdepend.client.report.way.textui.TextSummaryPrinter;
 
 public final class ComponentDetailDialog extends CooperDialog {
 
@@ -25,7 +24,7 @@ public final class ComponentDetailDialog extends CooperDialog {
 
 		TextViewer classProperty = new TextViewer();
 
-		printUnit(component);
+		printComponent(component);
 
 		classProperty.setText(detailText);
 		classProperty.setCaretPosition(0);
@@ -33,7 +32,7 @@ public final class ComponentDetailDialog extends CooperDialog {
 		this.add(new JScrollPane(classProperty));
 	}
 
-	private void printUnit(Component unit) {
+	private void printComponent(Component component) {
 
 		OutputStream info = new ByteArrayOutputStream();
 
@@ -41,7 +40,7 @@ public final class ComponentDetailDialog extends CooperDialog {
 
 		printer.setStream(info);
 
-		printer.printComponent(unit);
+		printer.printComponent(component);
 
 		printer.getWriter().flush();
 
