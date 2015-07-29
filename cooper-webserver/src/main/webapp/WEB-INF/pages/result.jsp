@@ -17,7 +17,7 @@ margin: 0 0 0 -500px;
 				<div class="span12">
 					<h3>您分析的jar为：${result.runningContext.path}</h3>
 					<h3>
-						您将jar分成了${result.summary.componentCount}个组件进行分析，其结构质量成绩为：${result.score}
+						您将jar分成了${result.summary.componentCount}个组件进行分析，其结构质量成绩为：<c:choose><c:when test="${empty result.score}">--</c:when><c:otherwise>${result.score}</c:otherwise></c:choose>
 					</h3>
 					<h6>
 						(其中类数量为${result.summary.classCount}，包数量为${result.summary.javaPackageCount})
@@ -29,24 +29,24 @@ margin: 0 0 0 -500px;
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<h4>抽象程度合理性得分：${result.distance}</h4>
+					<h4>抽象程度合理性得分：<c:choose><c:when test="${empty result.distance}">--</c:when><c:otherwise>${result.distance}</c:otherwise></c:choose></h4>
 					<h6>${result.DAdvise}</h6>
 					<div id="d" class="d" style="height:400px"></div>
 				</div>
 				<div class="span6">
-					<h4>内聚性得分：${result.balance}</h4>
+					<h4>内聚性得分：<c:choose><c:when test="${empty result.balance}">--</c:when><c:otherwise>${result.balance}</c:otherwise></c:choose></h4>
 					<h6>${result.balanceAdvise}</h6>
 					<div id="balance" class="balance" style="height:400px"></div>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<h4>封装性得分：${result.encapsulation}</h4>
+					<h4>封装性得分：<c:choose><c:when test="${empty result.encapsulation}">--</c:when><c:otherwise>${result.encapsulation}</c:otherwise></c:choose></h4>
 					<h6>${result.encapsulationAdvise}</h6>
 					<div id="encapsulation" class="encapsulation" style="height:400px"></div>
 				</div>
 				<div class="span6">
-					<h4>关系合理性得分：${result.relationRationality}</h4>
+					<h4>关系合理性得分：<c:choose><c:when test="${empty result.relationRationality}">--</c:when><c:otherwise>${result.relationRationality}</c:otherwise></c:choose></h4>
 					<h6>${result.relationRationalityAdvise}</h6>
 					<div id="relationRationality" class="relationRationality"
 						style="height:400px"></div>
