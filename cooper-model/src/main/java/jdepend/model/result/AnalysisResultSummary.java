@@ -290,6 +290,13 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 				}
 			}
 
+			//当指定指标的代码行总数为0时，采用LogicAVE计算汇总值
+			for (int col = 0; col < metricsSummaryInfos.length; col++) {
+				if (componentSizes[col] == 0) {
+					metricsSummaryInfos[col].logic = MetricsSummaryInfo.LogicAVE;
+				}
+			}
+
 			// 计算汇总数据第一步（求和）
 			for (int row = 0; row < objs.size(); row++) {
 				for (int col = 0; col < metricsSummaryInfos.length; col++) {
