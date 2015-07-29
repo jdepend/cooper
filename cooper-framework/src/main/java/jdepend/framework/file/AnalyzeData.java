@@ -108,36 +108,47 @@ public class AnalyzeData implements Serializable {
 			if (places.size() == 1) {
 				this.placePos = place.lastIndexOf("\\") + 1;
 			} else {
-				Collections.sort(placeSegments, new Comparator<String[]>() {
-					@Override
-					public int compare(String[] o1, String[] o2) {
-						if (o1.length > o2.length) {
-							return -1;
-						} else if (o1.length < o2.length) {
-							return 1;
-						} else {
-							return 0;
-						}
+				boolean singleSegment = true;
+				L: for (String[] placeSegment : placeSegments) {
+					if (placeSegment.length > 1) {
+						singleSegment = false;
+						break L;
 					}
-				});
-				int count = 0;
-				int pos = 0;
-				String[] placeSegment1 = placeSegments.get(0);
-				L: for (String segment1 : placeSegment1) {
-					for (int index = 1; index < placeSegments.size(); index++) {
-						String[] placeSegment2 = placeSegments.get(index);
-						if (placeSegment2.length > 1 && placeSegment2.length > count) {
-							String segment2 = placeSegment2[count];
-							if (!segment1.equals(segment2)) {
-								break L;
+				}
+				if (singleSegment) {
+					this.placePos = Integer.MAX_VALUE;
+				} else {
+					Collections.sort(placeSegments, new Comparator<String[]>() {
+						@Override
+						public int compare(String[] o1, String[] o2) {
+							if (o1.length > o2.length) {
+								return -1;
+							} else if (o1.length < o2.length) {
+								return 1;
+							} else {
+								return 0;
 							}
 						}
+					});
+					int count = 0;
+					int pos = 0;
+					String[] placeSegment1 = placeSegments.get(0);
+					L: for (String segment1 : placeSegment1) {
+						for (int index = 1; index < placeSegments.size(); index++) {
+							String[] placeSegment2 = placeSegments.get(index);
+							if (placeSegment2.length > 1 && placeSegment2.length > count) {
+								String segment2 = placeSegment2[count];
+								if (!segment1.equals(segment2)) {
+									break L;
+								}
+							}
+						}
+						count++;
+						pos += segment1.length() + 1;
 					}
-					count++;
-					pos += segment1.length() + 1;
-				}
 
-				this.placePos = pos;
+					this.placePos = pos;
+				}
 			}
 		}
 		if (place.length() < this.placePos) {
@@ -145,7 +156,5 @@ public class AnalyzeData implements Serializable {
 		} else {
 			return place.substring(this.placePos);
 		}
-
 	}
-
 }
