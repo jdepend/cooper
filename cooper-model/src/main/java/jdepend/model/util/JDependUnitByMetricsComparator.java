@@ -39,40 +39,39 @@ public class JDependUnitByMetricsComparator implements Comparator {
 
 		if (this.metrics != null) {
 			if (this.metrics.equals(MetricsMgr.Name)) {
-				rtn = a.getName().compareTo(b.getName());
+				rtn = compare(a.getName(), b.getName());
 			} else if (this.metrics.equals(MetricsMgr.LC)) {
-				rtn = new Integer(a.getLineCount()).compareTo(new Integer(b.getLineCount()));
+				rtn = compare(a.getLineCount(), b.getLineCount());
 			} else if (this.metrics.equals(MetricsMgr.CN)) {
-				rtn = new Integer(a.getClassCount()).compareTo(new Integer(b.getClassCount()));
+				rtn = compare(a.getClassCount(), b.getClassCount());
 			} else if (this.metrics.equals(MetricsMgr.AC)) {
-				rtn = new Integer(a.getAbstractClassCount()).compareTo(new Integer(b.getAbstractClassCount()));
+				rtn = compare(a.getAbstractClassCount(), b.getAbstractClassCount());
 			} else if (this.metrics.equals(MetricsMgr.CC)) {
-				rtn = new Integer(a.getConcreteClassCount()).compareTo(new Integer(b.getConcreteClassCount()));
+				rtn = compare(a.getConcreteClassCount(), b.getConcreteClassCount());
 			} else if (this.metrics.equals(MetricsMgr.Ca)) {
-				rtn = new Integer(a.getAfferentCoupling()).compareTo(new Integer(b.getAfferentCoupling()));
+				rtn = compare(a.getAfferentCoupling(), b.getAfferentCoupling());
 			} else if (this.metrics.equals(MetricsMgr.Ce)) {
-				rtn = new Integer(a.getEfferentCoupling()).compareTo(new Integer(b.getEfferentCoupling()));
+				rtn = compare(a.getEfferentCoupling(), b.getEfferentCoupling());
 			} else if (this.metrics.equals(MetricsMgr.A)) {
-				rtn = new Float(a.getAbstractness()).compareTo(new Float(b.getAbstractness()));
+				rtn = compare(a.getAbstractness(), b.getAbstractness());
 			} else if (this.metrics.equals(MetricsMgr.I)) {
 				rtn = compare(a.getStability(), b.getStability());
 			} else if (this.metrics.equals(MetricsMgr.D)) {
 				rtn = compare(a.getDistance(), b.getDistance());
 			} else if (this.metrics.equals(MetricsMgr.CaCoupling)) {
-				rtn = new Float(a.caCoupling()).compareTo(new Float(b.caCoupling()));
+				rtn = compare(a.caCoupling(), b.caCoupling());
 			} else if (this.metrics.equals(MetricsMgr.CeCoupling)) {
-				rtn = new Float(a.ceCoupling()).compareTo(new Float(b.ceCoupling()));
+				rtn = compare(a.ceCoupling(), b.ceCoupling());
 			} else if (this.metrics.equals(MetricsMgr.Coupling)) {
-				rtn = new Float(a.getCoupling()).compareTo(new Float(b.getCoupling()));
+				rtn = compare(a.getCoupling(), b.getCoupling());
 			} else if (this.metrics.equals(MetricsMgr.Cohesion)) {
-				rtn = new Float(a.getCohesion()).compareTo(new Float(b.getCohesion()));
+				rtn = compare(a.getCohesion(), b.getCohesion());
 			} else if (this.metrics.equals(MetricsMgr.Balance)) {
 				rtn = compare(a.getBalance(), b.getBalance());
 			} else if (this.metrics.equals(MetricsMgr.Encapsulation)) {
 				rtn = compare(a.getEncapsulation(), b.getEncapsulation());
 			} else if (a.extendMetrics(metrics) != null) {
-				rtn = new Float(a.extendMetrics(metrics).getMetrics()).compareTo(new Float(b.extendMetrics(metrics)
-						.getMetrics()));
+				rtn = compare(a.extendMetrics(metrics).getMetrics(), b.extendMetrics(metrics).getMetrics());
 			} else {
 				rtn = a.getName().compareTo(b.getName());
 			}
@@ -89,6 +88,30 @@ public class JDependUnitByMetricsComparator implements Comparator {
 	}
 
 	private int compare(Float e1, Float e2) {
+		if (e1 == null && e2 == null) {
+			return 0;
+		} else if (e1 == null && e2 != null) {
+			return 1;
+		} else if (e1 != null && e2 == null) {
+			return -1;
+		} else {
+			return e1.compareTo(e2);
+		}
+	}
+
+	private int compare(Integer e1, Integer e2) {
+		if (e1 == null && e2 == null) {
+			return 0;
+		} else if (e1 == null && e2 != null) {
+			return 1;
+		} else if (e1 != null && e2 == null) {
+			return -1;
+		} else {
+			return e1.compareTo(e2);
+		}
+	}
+
+	private int compare(String e1, String e2) {
 		if (e1 == null && e2 == null) {
 			return 0;
 		} else if (e1 == null && e2 != null) {

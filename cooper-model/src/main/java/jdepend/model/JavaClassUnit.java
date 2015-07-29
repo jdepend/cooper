@@ -172,8 +172,8 @@ public class JavaClassUnit extends AbstractSubJDependUnit {
 	}
 
 	@Override
-	public float getAbstractness() {
-		return this.getAbstractClassCount();
+	public Float getAbstractness() {
+		return new Float(this.getAbstractClassCount());
 	}
 
 	@Override

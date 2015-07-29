@@ -17,7 +17,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	public static final String Name = "小结";
 
-	private float abstractness;
+	private Float abstractness;
 
 	private int afferentCoupling;
 
@@ -43,7 +43,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	private Float stability;
 
-	private float volatility;
+	private Float volatility;
 
 	private int javaPackageCount;
 
@@ -77,7 +77,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 	}
 
 	@Override
-	public float getAbstractness() {
+	public Float getAbstractness() {
 		return this.abstractness;
 	}
 
@@ -152,7 +152,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 	}
 
 	@Override
-	public float getVolatility() {
+	public Float getVolatility() {
 		return this.volatility;
 	}
 
@@ -161,7 +161,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		return Name;
 	}
 
-	public void setAbstractness(float abstractness) {
+	public void setAbstractness(Float abstractness) {
 		this.abstractness = abstractness;
 	}
 
@@ -197,7 +197,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.stability = stability;
 	}
 
-	public void setVolatility(float volatility) {
+	public void setVolatility(Float volatility) {
 		this.volatility = volatility;
 	}
 
@@ -407,22 +407,22 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + abstractClassCount;
-		result = prime * result + Float.floatToIntBits(abstractness);
+		result = prime * result + ((abstractness == null) ? 0 : Float.floatToIntBits(abstractness));
 		result = prime * result + afferentCoupling;
-		result = prime * result + ((balance == null) ? 0 : balance.hashCode());
+		result = prime * result + ((balance == null) ? 0 : Float.floatToIntBits(balance));
 		result = prime * result + classCount;
 		result = prime * result + Float.floatToIntBits(cohesion);
 		result = prime * result + componentCount;
 		result = prime * result + concreteClassCount;
 		result = prime * result + Float.floatToIntBits(coupling);
-		result = prime * result + ((distance == null) ? 0 : distance.hashCode());
+		result = prime * result + ((distance == null) ? 0 : Float.floatToIntBits(distance));
 		result = prime * result + efferentCoupling;
-		result = prime * result + ((encapsulation == null) ? 0 : encapsulation.hashCode());
-		result = prime * result + ((stability == null) ? 0 : stability.hashCode());
+		result = prime * result + ((encapsulation == null) ? 0 : Float.floatToIntBits(encapsulation));
+		result = prime * result + ((stability == null) ? 0 : Float.floatToIntBits(stability));
 		result = prime * result + javaPackageCount;
 		result = prime * result + lineCount;
 		result = prime * result + relationCount;
-		result = prime * result + Float.floatToIntBits(volatility);
+		result = prime * result + ((volatility == null) ? 0 : Float.floatToIntBits(volatility));
 		return result;
 	}
 
@@ -437,12 +437,22 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		AnalysisResultSummary other = (AnalysisResultSummary) obj;
 		if (abstractClassCount != other.abstractClassCount)
 			return false;
-		if (Float.floatToIntBits(abstractness) != Float.floatToIntBits(other.abstractness))
+		if (abstractness == null && other.abstractness != null)
 			return false;
+		if (abstractness != null && other.abstractness == null)
+			return false;
+		if (abstractness != null && other.abstractness != null)
+			if (Float.floatToIntBits(abstractness) != Float.floatToIntBits(other.abstractness))
+				return false;
 		if (afferentCoupling != other.afferentCoupling)
 			return false;
-		if (Float.floatToIntBits(balance) != Float.floatToIntBits(other.balance))
+		if (balance == null && other.balance != null)
 			return false;
+		if (balance != null && other.balance == null)
+			return false;
+		if (balance != null && other.balance != null)
+			if (Float.floatToIntBits(balance) != Float.floatToIntBits(other.balance))
+				return false;
 		if (classCount != other.classCount)
 			return false;
 		if (Float.floatToIntBits(cohesion) != Float.floatToIntBits(other.cohesion))
@@ -457,21 +467,34 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			return false;
 		if (efferentCoupling != other.efferentCoupling)
 			return false;
-		if (encapsulation == null) {
-			if (other.encapsulation != null)
+		if (encapsulation == null && other.encapsulation != null)
+			return false;
+		if (encapsulation != null && other.encapsulation == null)
+			return false;
+		if (encapsulation != null && other.encapsulation != null)
+			if (Float.floatToIntBits(encapsulation) != Float.floatToIntBits(other.encapsulation))
 				return false;
-		} else if (!encapsulation.equals(other.encapsulation))
+		if (stability == null && other.stability != null)
 			return false;
-		if (Float.floatToIntBits(stability) != Float.floatToIntBits(other.stability))
+		if (stability != null && other.stability == null)
 			return false;
+		if (stability != null && other.stability != null)
+			if (Float.floatToIntBits(stability) != Float.floatToIntBits(other.stability))
+				return false;
 		if (javaPackageCount != other.javaPackageCount)
 			return false;
 		if (lineCount != other.lineCount)
 			return false;
 		if (relationCount != other.relationCount)
 			return false;
-		if (Float.floatToIntBits(volatility) != Float.floatToIntBits(other.volatility))
+		if (volatility == null && other.volatility != null)
 			return false;
+		if (volatility != null && other.volatility == null)
+			return false;
+		if (volatility != null && other.volatility != null)
+			if (Float.floatToIntBits(volatility) != Float.floatToIntBits(other.volatility))
+				return false;
+
 		return true;
 	}
 

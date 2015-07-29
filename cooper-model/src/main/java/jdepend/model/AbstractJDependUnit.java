@@ -105,7 +105,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	/**
 	 * @return The package's abstractness (0-1).
 	 */
-	public synchronized float getAbstractness() {
+	public synchronized Float getAbstractness() {
 		if (abstractness == null) {
 			abstractness = new CalculateMetricsTool(this).abstractness();
 		}
@@ -132,7 +132,7 @@ public abstract class AbstractJDependUnit extends ObjectMeasured implements JDep
 	}
 
 	@Override
-	public synchronized float getVolatility() {
+	public synchronized Float getVolatility() {
 		if (volatility == null) {
 			volatility = new CalculateMetricsTool(this).volatility();
 		}

@@ -43,14 +43,14 @@ public interface Measurable extends Named {
 	 * 
 	 * @return
 	 */
-	public float getAbstractness();
+	public Float getAbstractness();
 
 	/**
 	 * 易变性(0~1)
 	 * 
 	 * @return
 	 */
-	public float getVolatility();
+	public Float getVolatility();
 
 	/**
 	 * 传入数量
