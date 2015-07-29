@@ -53,10 +53,10 @@ public class AnalyseController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@RequestParam("files") List<MultipartFile> files, Model model, HttpServletRequest request)
-			throws Exception {
+	public String upload(@RequestParam("files") List<MultipartFile> files,
+			@RequestParam(value = "jarComponent", required = false) Boolean jarComponent, Model model,
+			HttpServletRequest request) throws Exception {
 
-		String jarComponent = request.getParameter("jarComponent");
 		if (jarComponent != null && files.size() == 1) {
 			throw new JDependException("请选择至少两个jar");
 		}

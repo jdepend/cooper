@@ -266,6 +266,7 @@ margin: 0 0 0 -500px;
     require.config({
         paths:{ 
             'echarts' : '${ctx}/styles/js/echarts',
+            'echarts/chart/pie': '${ctx}/styles/js/echarts',
             'echarts/chart/map' : '${ctx}/styles/js/echarts-map'
         }
     });
@@ -274,6 +275,7 @@ margin: 0 0 0 -500px;
     require(
         [
             'echarts',
+            'echarts/chart/pie',
             'echarts/chart/map'
         ],
         function(ec) {

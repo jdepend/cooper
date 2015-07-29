@@ -28,7 +28,7 @@ function record(){
 				<div class="navbar">
 					<div class="navbar-inner">
 						<div class="container-fluid">
-						    <a href="#" class="brand">Cooper</a><a href="#" class="brand" style="font-size:16px;">致力于提高代码结构的质量</a>
+						    <a href="${ctx}" class="brand">Cooper</a><a href="${ctx}" class="brand" style="font-size:16px;">致力于提高代码结构的质量</a>
 							<div class="nav-collapse collapse navbar-responsive-collapse">
 								<ul class="nav pull-right">
 									<li class="dropdown"><a data-toggle="dropdown"
@@ -36,7 +36,7 @@ function record(){
 										<ul class="dropdown-menu">
 											<li><a href="${ctx}/standalone/Cooper.zip" onclick="record()">下载单机版</a></li>
 											<li><a href="https://github.com/jdepend/cooper">访问源码</a></li>
-											<li><a href="http://ohwyaa.neusoft.com/profile/wangdg/view">了解作者</a></li>
+											<li><a href="https://www.ohwyaa.com/profile/wangdg/view">了解作者</a></li>
 											<shiro:user>
 												<li class="divider"></li>
 												<li><a href="${ctx}/logout">退出</a></li>
