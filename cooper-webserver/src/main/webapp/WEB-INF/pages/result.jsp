@@ -261,13 +261,13 @@ margin: 0 0 0 -500px;
 	src="${ctx}/styles/js/pa_ui.js"></script>
 <script language="javascript" type="text/javascript"
 	src="${ctx}/styles/js/esl.js"></script>
+<script language="javascript" type="text/javascript"
+	src="${ctx}/styles/js/echarts.js"></script>
 <script type="text/javascript">
     // 路径配置
     require.config({
         paths:{ 
-            'echarts' : '${ctx}/styles/js/echarts',
-            'echarts/chart/pie': '${ctx}/styles/js/echarts',
-            'echarts/chart/map' : '${ctx}/styles/js/echarts-map'
+            'echarts' : '${ctx}/styles/js',
         }
     });
     
@@ -276,7 +276,7 @@ margin: 0 0 0 -500px;
         [
             'echarts',
             'echarts/chart/pie',
-            'echarts/chart/map'
+            'echarts/chart/force'
         ],
         function(ec) {
             // 基于准备好的dom，初始化echarts图表
@@ -293,6 +293,7 @@ margin: 0 0 0 -500px;
             	    },
             	    legend: {
             	        x: 'left',
+            	        data:[]
             	    },
             	    series : [
             	        {
@@ -333,8 +334,8 @@ margin: 0 0 0 -500px;
             	                    linkStyle : {}
             	                }
             	            },
-            	            minRadius : 15,
-            	            maxRadius : 25,
+            	            minRadius : 30,
+            	            maxRadius : 50,
             	            density : 0.05,
             	            attractiveness: 1.2,
             	            linkSymbol: 'arrow',
