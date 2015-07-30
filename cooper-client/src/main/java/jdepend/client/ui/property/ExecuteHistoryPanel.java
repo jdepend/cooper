@@ -115,7 +115,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
 						try {
 							for (String id : selectedIDs) {
-								AnalysisResultRepository.delete(id);
+								AnalysisResultRepository.getInstance().delete(id);
 							}
 							showHistory(group, command);
 						} catch (Exception ex) {
@@ -276,7 +276,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		this.group = group;
 		this.command = command;
 
-		List<ExecuteResultSummry> summrys = AnalysisResultRepository.getResultSummrys(group, command);
+		List<ExecuteResultSummry> summrys = AnalysisResultRepository.getInstance().getResultSummrys(group, command);
 
 		for (ExecuteResultSummry summry : summrys) {
 			row = new Object[15];
@@ -303,7 +303,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 	private void view() {
 		try {
 			AdjustHistory.getInstance().clear();
-			AnalysisResult result = AnalysisResultRepository.getResult(currentId);
+			AnalysisResult result = AnalysisResultRepository.getInstance().getResult(currentId);
 			JDependUnitMgr.getInstance().setResult(result);
 			frame.getResultPanelWrapper().showResults(true);
 		} catch (JDependException e) {
@@ -315,10 +315,10 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 	private void compare(String id1, String id2) {
 		try {
 			AdjustHistory.getInstance().clear();
-			AnalysisResult result1 = AnalysisResultRepository.getResult(id1);
+			AnalysisResult result1 = AnalysisResultRepository.getInstance().getResult(id1);
 			JDependUnitMgr.getInstance().setResult(result1);
 			AdjustHistory.getInstance().addMemento();
-			AnalysisResult result2 = AnalysisResultRepository.getResult(id2);
+			AnalysisResult result2 = AnalysisResultRepository.getInstance().getResult(id2);
 			JDependUnitMgr.getInstance().setResult(result2);
 			frame.getResultPanelWrapper().showResults(false);
 		} catch (JDependException e) {
@@ -330,7 +330,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 
 	private void displayLine() {
 		try {
-			List<ExecuteResultSummry> summrys = AnalysisResultRepository.getResultSummrys(group, command);
+			List<ExecuteResultSummry> summrys = AnalysisResultRepository.getInstance().getResultSummrys(group, command);
 			frame.getResultPanel().addResult(group + "." + command + "执行历史折线图",
 					new ExecuteHistoryChartPanel(frame, summrys));
 		} catch (Throwable e) {
@@ -341,7 +341,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 
 	private void export() {
 		try {
-			AnalysisResult result = AnalysisResultRepository.getResult(currentId);
+			AnalysisResult result = AnalysisResultRepository.getInstance().getResult(currentId);
 			AnalysisResultExportUtil.exportResult(frame, result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -357,7 +357,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 	public void onDelete(String group) throws CommandConfException {
 		try {
 			// 删除执行历史
-			AnalysisResultRepository.deleteAll(group);
+			AnalysisResultRepository.getInstance().deleteAll(group);
 			// 清空显示数据
 			if (this.group != null && this.group.equals(group)) {
 				this.clearHistory();
@@ -382,7 +382,7 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		ServiceConfigurator serviceConf = new ServiceConfigurator();
 		// 保存执行结果
 		if (serviceConf.isSaveResult()) {
-			AnalysisResultRepository.save(result);
+			AnalysisResultRepository.getInstance().save(result);
 		}
 	}
 }

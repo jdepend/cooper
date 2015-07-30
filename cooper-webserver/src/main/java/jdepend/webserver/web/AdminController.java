@@ -50,8 +50,10 @@ public class AdminController {
 	@RequiresPermissions("admin:list")
 	@RequestMapping(value = "/result/list", method = RequestMethod.GET)
 	public String list(Model model, HttpServletRequest request) throws JDependException {
-		model.addAttribute("resultSummrys",
-				AnalysisResultRepository.getResultSummrys(WebConstants.DEFLAUT_GROUP, WebConstants.DEFLAUT_COMMAND));
+		model.addAttribute(
+				"resultSummrys",
+				AnalysisResultRepository.getInstance().getResultSummrys(WebConstants.DEFLAUT_GROUP,
+						WebConstants.DEFLAUT_COMMAND));
 		return "results";
 	}
 
@@ -59,7 +61,7 @@ public class AdminController {
 	@RequestMapping(value = "/result/{id}/view", method = RequestMethod.GET)
 	public String view(Model model, @PathVariable String id, HttpServletRequest request) throws JDependException {
 
-		AnalysisResult result = AnalysisResultRepository.getResult(id);
+		AnalysisResult result = AnalysisResultRepository.getInstance().getResult(id);
 
 		WebAnalysisResult webResult = new WebAnalysisResult(result);
 		model.addAttribute("result", webResult);
@@ -85,7 +87,7 @@ public class AdminController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		JSONArray idArray = new JSONArray(ids);
 		for (int i = 0; i < idArray.length(); i++) {
-			AnalysisResultRepository.delete(idArray.getString(i));
+			AnalysisResultRepository.getInstance().delete(idArray.getString(i));
 		}
 
 		resultMap.put("code", "1");

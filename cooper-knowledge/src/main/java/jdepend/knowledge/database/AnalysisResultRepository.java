@@ -45,7 +45,17 @@ public final class AnalysisResultRepository {
 
 	private final static String DeleteAnalysisDataSQL = "delete from analysisdata where id = ?";
 
-	public static void save(AnalysisResult result) throws JDependException {
+	private static AnalysisResultRepository repo = new AnalysisResultRepository();
+
+	private AnalysisResultRepository() {
+
+	}
+
+	public static AnalysisResultRepository getInstance() {
+		return repo;
+	}
+
+	public synchronized void save(AnalysisResult result) throws JDependException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -159,7 +169,7 @@ public final class AnalysisResultRepository {
 
 	}
 
-	public static AnalysisResult getResult(String id) throws JDependException {
+	public synchronized AnalysisResult getResult(String id) throws JDependException {
 
 		InputStream inputstream = null;
 
@@ -200,7 +210,8 @@ public final class AnalysisResultRepository {
 		}
 	}
 
-	public static List<ExecuteResultSummry> getResultSummrys(String group, String command) throws JDependException {
+	public synchronized List<ExecuteResultSummry> getResultSummrys(String group, String command)
+			throws JDependException {
 
 		List<ExecuteResultSummry> rtn = new ArrayList<ExecuteResultSummry>();
 		ExecuteResultSummry executeSummry;
@@ -263,7 +274,7 @@ public final class AnalysisResultRepository {
 		}
 	}
 
-	public static int delete(String id) throws JDependException {
+	public synchronized int delete(String id) throws JDependException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -300,7 +311,7 @@ public final class AnalysisResultRepository {
 		}
 	}
 
-	public static int deleteAll(String group, String command) throws JDependException {
+	public synchronized int deleteAll(String group, String command) throws JDependException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -354,7 +365,7 @@ public final class AnalysisResultRepository {
 		}
 	}
 
-	public static int deleteAll(String group) throws JDependException {
+	public synchronized int deleteAll(String group) throws JDependException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

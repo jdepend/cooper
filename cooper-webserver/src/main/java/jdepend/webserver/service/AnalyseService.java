@@ -57,7 +57,7 @@ public class AnalyseService {
 		result.getRunningContext().setPath(data.getPath());
 
 		// 保存分析结果
-		AnalysisResultRepository.save(result);
+		AnalysisResultRepository.getInstance().save(result);
 
 		return result;
 	}

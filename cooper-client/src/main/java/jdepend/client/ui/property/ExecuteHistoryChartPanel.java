@@ -48,7 +48,7 @@ public final class ExecuteHistoryChartPanel extends JPanel {
 
 		results = new HashMap<ExecuteResultSummry, AnalysisResult>();
 		for (ExecuteResultSummry summary : historyList) {
-			result = AnalysisResultRepository.getResult(summary.getId());
+			result = AnalysisResultRepository.getInstance().getResult(summary.getId());
 			results.put(summary, result);
 		}
 
