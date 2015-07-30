@@ -334,11 +334,11 @@ margin: 0 0 0 -500px;
             	                    linkStyle : {}
             	                }
             	            },
-            	            minRadius : 30,
-            	            maxRadius : 50,
-            	            density : 0.05,
-            	            attractiveness: 1.2,
+            	            gravity: 1.1,
+            	            scaling: 1.2,
             	            linkSymbol: 'arrow',
+            	            steps: 10,
+            	            coolDown: 0.9,
             	            nodes: ${relation_graph_data.nodeInfo},
             	            links: ${relation_graph_data.edgeInfo}
             	        }
