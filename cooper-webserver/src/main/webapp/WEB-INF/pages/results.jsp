@@ -19,12 +19,12 @@
 			<shiro:hasPermission name="admin:download">
 			<button id="downloadData" class="btn" style="margin-bottom:10px;">下载数据文件</button>
 			</shiro:hasPermission>
-			<table class="table table-bordered" pa_ui_name="table,exinput"
+			<table id="listResultsTable" class="table table-bordered" pa_ui_name="table,exinput"
 				pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
 				pa_ui_select_trigger="tr" pa_ui_select_column="0"
 				pa_ui_select_triggerelement=":checkbox">
 				<thead>
-					<tr>
+					<tr style="cursor: pointer;">
 						<th>选择</th>
 						<th>创建时间</th>
 						<th>代码行数</th>
@@ -120,5 +120,7 @@
 			$('#submitForm').attr('action', '${ctx}/admin/result/data/download');
 			$('#submitForm').submit();
 		});
+		
+		$("#listResultsTable").tablesorter();
 	});
 </script>
