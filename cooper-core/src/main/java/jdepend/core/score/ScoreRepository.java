@@ -76,7 +76,7 @@ final class ScoreRepository {
 				ps.executeUpdate();
 			}
 			ps = conn.prepareStatement(insertSql);
-			String id = assemblePreparedStatement(ps, score);
+			assemblePreparedStatement(ps, score);
 			ps.execute();
 
 			conn.commit();

@@ -8,6 +8,7 @@ client               varchar(20),
 username             varchar(32),
 groupname            varchar(32),
 commandname          varchar(64),
+path                 varchar(5000),
 LC                   integer,
 CN                   integer,
 CC                   integer,
@@ -26,6 +27,7 @@ UC                   int,
 createdate           timestamp                       default now(),
 primary key (id)
 );
+
 
 
 drop table analysisdata;

@@ -1,19 +1,4 @@
 /*C3*/SET SCHEMA PUBLIC
 drop table analysissummry
-create table analysissummry (\u000aid                   varchar(36)                    not null,\u000aclient               varchar(20),\u000ausername             varchar(32),\u000agroupname            varchar(32),\u000acommandname          varchar(64),\u000aLC                   integer,\u000aCN                   integer,\u000aCC                   integer,\u000aAC                   integer,\u000aCa                   integer,\u000aCe                   integer,\u000aA                    float,\u000aI                    float,\u000aD                    float,\u000aCoupling             float,\u000aCohesion             float,\u000aBalance              float,\u000aEncapsulation        float,\u000aOO                   float,\u000aUC                   int,\u000acreatedate           timestamp                       default now(),\u000aprimary key (id)\u000a)
-drop table analysisdata
-create table analysisdata (\u000aid                   varchar(36)                    not null,\u000aresult               blob,\u000aprimary key (id)\u000a)
-drop table analyzer
-drop table scorelist
-drop table user
-drop table useraction
-create table analyzer (\u000aclassname            varchar(256),\u000aname                 varchar(256)                   not null,\u000atip                  varchar(256),\u000abigtip               varchar(1024),\u000atype                 varchar(32),\u000adefaultdata          blob,\u000adef                  blob,\u000ausername             varchar(256),\u000acreatedate           timestamp,\u000auploaddate           timestamp                       default now(),\u000aprimary key (name)\u000a)
-create table scorelist (\u000aid                   varchar(36)                    not null,\u000aip                   varchar(32),\u000ausername             varchar(32),\u000agroupname            varchar(32),\u000acommandname          varchar(64),\u000aLC                   integer,\u000aScore                Float,\u000aD                    float,\u000aBalance              float,\u000aRelation             float,\u000aEncapsulation        float,\u000acreatedate           timestamp,\u000auploaddate           timestamp                       default now(),\u000aprimary key (id)\u000a)
-create table user (\u000aname                 varchar(36)                    not null,\u000apassword             varchar(32),\u000adept                 varchar(32),\u000aintegral             int,\u000avalid                char(1),\u000aprimary key (name)\u000a)
-create table useraction (\u000aid                   varchar(36)                    not null,\u000ausername             varchar(32),\u000aoperation            varchar(64),\u000aip                   varchar(32),\u000acreatedate           timestamp,\u000agartherdate          timestamp                       default now(),\u000aprimary key (id)\u000a)
-INSERT INTO USER VALUES('admin',NULL,NULL,NULL,'Y')
-COMMIT
-INSERT INTO USER VALUES('AnonymousUser',NULL,NULL,0,'Y')
-COMMIT
-INSERT INTO USER VALUES('test','test',NULL,1000,'Y')
-COMMIT
+create table analysissummry (\u000aid                   varchar(36)                    not null,\u000aclient               varchar(20),\u000ausername             varchar(32),\u000agroupname            varchar(32),\u000acommandname          varchar(64),\u000apath                 varchar(5000),\u000aLC                   integer,\u000aCN                   integer,\u000aCC                   integer,\u000aAC                   integer,\u000aCa                   integer,\u000aCe                   integer,\u000aA                    float,\u000aI                    float,\u000aD                    float,\u000aCoupling             float,\u000aCohesion             float,\u000aBalance              float,\u000aEncapsulation        float,\u000aOO                   float,\u000aUC                   int,\u000acreatedate           timestamp                       default now(),\u000aprimary key (id)\u000a)
+DISCONNECT

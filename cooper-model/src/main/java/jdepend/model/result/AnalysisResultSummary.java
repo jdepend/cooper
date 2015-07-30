@@ -17,6 +17,8 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	public static final String Name = "小结";
 
+	private String path;
+
 	private Float abstractness;
 
 	private int afferentCoupling;
@@ -241,6 +243,14 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.relationCount = relationCount;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public AnalysisResultSummary(AnalysisResult result) {
 
 		MetricsSummaryInfo[] metricsSummaryInfos = getMetricsSummaryInfo(result);
@@ -290,7 +300,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 				}
 			}
 
-			//当指定指标的代码行总数为0时，采用LogicAVE计算汇总值
+			// 当指定指标的代码行总数为0时，采用LogicAVE计算汇总值
 			for (int col = 0; col < metricsSummaryInfos.length; col++) {
 				if (componentSizes[col] == 0) {
 					metricsSummaryInfos[col].logic = MetricsSummaryInfo.LogicAVE;
@@ -363,6 +373,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			this.setComponentCount(objs.size());
 
 			this.setRelationCount(result.getRelations().size());
+			this.setPath(result.getRunningContext().getPath());
 		}
 	}
 
@@ -413,6 +424,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
 		result = prime * result + abstractClassCount;
 		result = prime * result + ((abstractness == null) ? 0 : Float.floatToIntBits(abstractness));
 		result = prime * result + afferentCoupling;
@@ -442,6 +454,12 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		if (getClass() != obj.getClass())
 			return false;
 		AnalysisResultSummary other = (AnalysisResultSummary) obj;
+		if (path == null && other.path != null)
+			return false;
+		if (path != null && other.path == null)
+			return false;
+		if (path != other.path)
+			return false;
 		if (abstractClassCount != other.abstractClassCount)
 			return false;
 		if (abstractness == null && other.abstractness != null)
