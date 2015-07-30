@@ -13,6 +13,8 @@
 <script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery-ui-1.7.1.js"></script>
 <script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.json-2.4.js"></script>
 <script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.highlighter.js"></script>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.latest.js"></script>
+<script language="javascript" type="text/javascript" src="${ctx}/styles/js/jquery.tablesorter.js"></script>
 <script language="javascript" type="text/javascript"src="${ctx}/styles/js/Validform_v5.3.2.js"></script>
 <script language="javascript" type="text/javascript" src="${ctx}/styles/js/bootstrap.min.js"></script>
 <script type="text/javascript">

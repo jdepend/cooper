@@ -3,12 +3,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<table class="table table-bordered" pa_ui_name="table,exinput"
+<table id="listJavaClassTable" class="table table-bordered" pa_ui_name="table,exinput"
 	pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
 	pa_ui_select_trigger="tr" pa_ui_select_column="0"
 	pa_ui_select_triggerelement=":checkbox">
 	<thead>
-		<tr>
+		<tr style="cursor: pointer;">
 			<th>选择</th>
 			<th>名称</th>
 			<th>代码行数</th>

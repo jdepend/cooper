@@ -57,12 +57,12 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>组件信息：</h3>
-					<table class="table table-bordered" pa_ui_name="table,exinput"
+					<table id="listComponentTable" class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
 						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
 						<thead>
-							<tr>
+							<tr style="cursor: pointer;">
 								<th>选择</th>
 								<th>组件名称</th>
 								<th>区域</th>
@@ -89,11 +89,11 @@ margin: 0 0 0 -500px;
 									<td class="itemName">${item.name}</td>
 									<td>${item.areaComponent.name}</td>
 									<td>${item.lineCount}</td>
-									<td class="classCount" style="color:blue;">${item.classCount}</td>
+									<td class="classCount" style="color:blue;cursor:pointer;">${item.classCount}</td>
 									<td>${item.abstractClassCount}</td>
 									<td>${item.concreteClassCount}</td>
-									<td class="Ca" style="color:blue;">${item.afferentCoupling}</td>
-									<td class="Ce" style="color:blue;">${item.efferentCoupling}</td>
+									<td class="Ca" style="color:blue;cursor:pointer;">${item.afferentCoupling}</td>
+									<td class="Ce" style="color:blue;cursor:pointer;">${item.efferentCoupling}</td>
 									<td><fmt:formatNumber value="${item.abstractness}"
 											pattern="#.###" /></td>
 									<td><fmt:formatNumber value="${item.volatility}"
@@ -121,12 +121,12 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>关系信息：</h3>
-					<table class="table table-bordered" pa_ui_name="table,exinput"
+					<table id="listRelationTable" class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
 						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
 						<thead>
-							<tr>
+							<tr style="cursor: pointer;">
 								<th>选择</th>
 								<th>当前组件</th>
 								<th>依赖组件</th>
@@ -144,7 +144,7 @@ margin: 0 0 0 -500px;
 									<td><input type="checkbox" /></td>
 									<td class="current">${item.current.name}</td>
 									<td class="depend">${item.depend.name}</td>
-									<td class="relation" style="color:blue;"><fmt:formatNumber value="${item.intensity}"
+									<td class="relation" style="color:blue;cursor:pointer;"><fmt:formatNumber value="${item.intensity}"
 											pattern="###,###.##" /></td>
 									<td><fmt:formatNumber
 											value="${item.current.component.cohesion}"
@@ -168,12 +168,12 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>待做事项：</h3>
-					<table class="table table-bordered" pa_ui_name="table,exinput"
+					<table  id="listTODOListTable" class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
 						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
 						<thead>
-							<tr>
+							<tr style="cursor: pointer;">
 								<th>选择</th>
 								<th>描述</th>
 								<th>依据</th>
@@ -183,7 +183,7 @@ margin: 0 0 0 -500px;
 							<c:forEach items="${todoList}" var="item">
 								<tr>
 									<td><input type="checkbox" class="itemId" value="${item.id}" /></td>
-									<td class="todoItem" style="color:blue;">${item.content}</td>
+									<td class="todoItem" style="color:blue;cursor:pointer;">${item.content}</td>
 									<td>${item.according}</td>
 								</tr>
 							</c:forEach>
@@ -196,12 +196,12 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>数据库表操作：</h3>
-					<table class="table table-bordered" pa_ui_name="table,exinput"
+					<table  id="listTableTable" class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
 						pa_ui_select_column="0" pa_ui_select_triggerelement=":checkbox">
 						<thead>
-							<tr>
+							<tr style="cursor: pointer;">
 								<th>选择</th>
 								<th>表名</th>
 								<th>出现次数</th>
@@ -462,6 +462,7 @@ margin: 0 0 0 -500px;
 			    	$('#myModalLabel').text(componentName + '组件类列表');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
+			    	$('#listJavaClassTable').tablesorter();
 			    }   
 			});
     	});
@@ -478,6 +479,7 @@ margin: 0 0 0 -500px;
 			    	$('#myModalLabel').text(componentName + '组件传入列表');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
+			    	$('#listCaCeComponentTable').tablesorter();
 			    }   
 			});
     	});
@@ -494,6 +496,7 @@ margin: 0 0 0 -500px;
 			    	$('#myModalLabel').text(componentName + '组件传出列表');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
+			    	$('#listCaCeComponentTable').tablesorter();
 			    }   
 			});
     	});
@@ -511,6 +514,7 @@ margin: 0 0 0 -500px;
 			    	$('#myModalLabel').text(current + "->" + depend + '关系明细');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
+			    	$('#listRelationDetailTable').tablesorter();
 			    }   
 			});
     	});
@@ -531,6 +535,11 @@ margin: 0 0 0 -500px;
 			    }   
 			});
     	});
+    	
+    	$("#listComponentTable").tablesorter();
+    	$("#listRelationTable").tablesorter();
+    	$("#listTODOListTable").tablesorter();
+    	$("#listTableTable").tablesorter();
 
     });
 </script>
