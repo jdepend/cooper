@@ -61,7 +61,7 @@
 										pattern="#.###" /></td>
 								<td><fmt:formatNumber value="${item.summry.encapsulation}"
 										pattern="#.###" /></td>
-								<td><fmt:formatNumber value="${item.summry.relationRationality}"
+								<td><fmt:formatNumber value="${item.summry.normalRelation}"
 										pattern="#.###" /></td>
 							</tr>
 						</c:forEach>
