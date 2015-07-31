@@ -22,13 +22,12 @@ Coupling             float,
 Cohesion             float,
 Balance              float,
 Encapsulation        float,
-OO                   float,
+Relation             float,
 UC                   int,
+RC                   int,
 createdate           timestamp                       default now(),
 primary key (id)
 );
-
-
 
 drop table analysisdata;
 

@@ -30,15 +30,14 @@
 						<th>分析路径</th>
 						<th>代码行数</th>
 						<th>类数量</th>
-						<th>具体类数量</th>
-						<th>抽象类数量</th>
-						<th>传入</th>
-						<th>传出</th>
+						<th>组件数量</th>
+						<th>关系数量</th>
 						<th>耦合值</th>
 						<th>内聚值</th>
 						<th>抽象程度合理性</th>
 						<th>内聚性</th>
 						<th>封装性</th>
+						<th>关系合理性</th>
 					</tr>
 				</thead>
 				<tbody id="listResult">
@@ -50,10 +49,8 @@
 								<td>${item.summry.path}</td>
 								<td>${item.summry.lineCount}</td>
 								<td>${item.summry.classCount}</td>
-								<td>${item.summry.abstractClassCount}</td>
-								<td>${item.summry.concreteClassCount}</td>
-								<td>${item.summry.afferentCoupling}</td>
-								<td>${item.summry.efferentCoupling}</td>
+								<td>${item.summry.componentCount}</td>
+								<td>${item.summry.relationCount}</td>
 								<td><fmt:formatNumber value="${item.summry.coupling}"
 										pattern="###,###.##" /></td>
 								<td><fmt:formatNumber value="${item.summry.cohesion}"
@@ -63,6 +60,8 @@
 								<td><fmt:formatNumber value="${item.summry.balance}"
 										pattern="#.###" /></td>
 								<td><fmt:formatNumber value="${item.summry.encapsulation}"
+										pattern="#.###" /></td>
+								<td><fmt:formatNumber value="${item.summry.relationRationality}"
 										pattern="#.###" /></td>
 							</tr>
 						</c:forEach>

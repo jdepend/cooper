@@ -19,21 +19,21 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	private String path;
 
-	private Float abstractness;
-
 	private int afferentCoupling;
 
 	private int efferentCoupling;
-
-	private Float balance;
 
 	private float cohesion;
 
 	private float coupling;
 
+	private Float balance;
+
 	private Float distance;
 
 	private Float encapsulation;
+
+	private Float relationRationality;
 
 	private int abstractClassCount;
 
@@ -42,6 +42,8 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 	private int concreteClassCount;
 
 	private int lineCount;
+
+	private Float abstractness;
 
 	private Float stability;
 
@@ -59,18 +61,20 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	public AnalysisResultSummary(AnalysisResultSummary summary) {
 
-		this.abstractness = summary.abstractness;
+		this.path = summary.path;
 		this.afferentCoupling = summary.afferentCoupling;
 		this.efferentCoupling = summary.efferentCoupling;
-		this.balance = summary.balance;
 		this.cohesion = summary.cohesion;
 		this.coupling = summary.coupling;
+		this.balance = summary.balance;
 		this.distance = summary.distance;
 		this.encapsulation = summary.encapsulation;
+		this.relationRationality = summary.relationRationality;
 		this.abstractClassCount = summary.abstractClassCount;
 		this.classCount = summary.classCount;
 		this.concreteClassCount = summary.concreteClassCount;
 		this.lineCount = summary.lineCount;
+		this.abstractness = summary.abstractness;
 		this.stability = summary.stability;
 		this.volatility = summary.volatility;
 		this.javaPackageCount = summary.javaPackageCount;
@@ -251,6 +255,14 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.path = path;
 	}
 
+	public Float getRelationRationality() {
+		return relationRationality;
+	}
+
+	public void setRelationRationality(Float relationRationality) {
+		this.relationRationality = relationRationality;
+	}
+
 	public AnalysisResultSummary(AnalysisResult result) {
 
 		MetricsSummaryInfo[] metricsSummaryInfos = getMetricsSummaryInfo(result);
@@ -374,6 +386,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 			this.setRelationCount(result.getRelations().size());
 			this.setPath(result.getRunningContext().getPath());
+			this.setRelationRationality(MetricsFormat.toFormattedMetrics(result.getRelationRationality()));
 		}
 	}
 
@@ -437,11 +450,13 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		result = prime * result + ((distance == null) ? 0 : Float.floatToIntBits(distance));
 		result = prime * result + efferentCoupling;
 		result = prime * result + ((encapsulation == null) ? 0 : Float.floatToIntBits(encapsulation));
+		result = prime * result + ((relationRationality == null) ? 0 : Float.floatToIntBits(relationRationality));
 		result = prime * result + ((stability == null) ? 0 : Float.floatToIntBits(stability));
 		result = prime * result + javaPackageCount;
 		result = prime * result + lineCount;
 		result = prime * result + relationCount;
 		result = prime * result + ((volatility == null) ? 0 : Float.floatToIntBits(volatility));
+
 		return result;
 	}
 
@@ -498,6 +513,13 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 			return false;
 		if (encapsulation != null && other.encapsulation != null)
 			if (Float.floatToIntBits(encapsulation) != Float.floatToIntBits(other.encapsulation))
+				return false;
+		if (relationRationality == null && other.relationRationality != null)
+			return false;
+		if (relationRationality != null && other.relationRationality == null)
+			return false;
+		if (relationRationality != null && other.relationRationality != null)
+			if (Float.floatToIntBits(relationRationality) != Float.floatToIntBits(other.relationRationality))
 				return false;
 		if (stability == null && other.stability != null)
 			return false;

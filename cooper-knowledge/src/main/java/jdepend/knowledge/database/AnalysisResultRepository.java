@@ -21,13 +21,13 @@ import jdepend.model.result.AnalysisResultSummary;
 
 public final class AnalysisResultRepository {
 
-	private final static String IsFoundLocalSQL = "select count(*) as num from analysissummry where groupname = ? and commandname = ? and path = ? and CN = ? and CC = ? and AC = ? and Ca = ? and Ce = ? and A = ? and I = ? and D = ? and Coupling = ? and Cohesion = ? and Balance = ? and Encapsulation = ? and OO = ? and UC = ? and client is null and username is null";
+	private final static String IsFoundLocalSQL = "select count(*) as num from analysissummry where groupname = ? and commandname = ? and path = ? and CN = ? and CC = ? and AC = ? and Ca = ? and Ce = ? and A = ? and I = ? and D = ? and Coupling = ? and Cohesion = ? and Balance = ? and Encapsulation = ? and Relation = ? and UC = ? and RC = ? and client is null and username is null";
 
-	private final static String IsFoundRemoteSQL = "select count(*) as num from analysissummry where groupname = ? and commandname = ? and path = ? and CN = ? and CC = ? and AC = ? and Ca = ? and Ce = ? and A = ? and I = ? and D = ? and Coupling = ? and Cohesion = ? and Balance = ? and Encapsulation = ? and OO = ? and UC = ? and client = ? and username = ?";
+	private final static String IsFoundRemoteSQL = "select count(*) as num from analysissummry where groupname = ? and commandname = ? and path = ? and CN = ? and CC = ? and AC = ? and Ca = ? and Ce = ? and A = ? and I = ? and D = ? and Coupling = ? and Cohesion = ? and Balance = ? and Encapsulation = ? and Relation = ? and UC = ? and RC = ? and client = ? and username = ?";
 
-	private final static String CreateLocalResultSUMMRYSQL = "insert into analysissummry(id, groupname, commandname, path, LC, CN, CC, AC, Ca, Ce, A, I, D, Coupling, Cohesion, Balance, Encapsulation, OO, UC, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, now())";
+	private final static String CreateLocalResultSUMMRYSQL = "insert into analysissummry(id, groupname, commandname, path, LC, CN, CC, AC, Ca, Ce, A, I, D, Coupling, Cohesion, Balance, Encapsulation, Relation, UC, RC, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, now())";
 
-	private final static String CreateRemoteResultSUMMRYSQL = "insert into analysissummry(id, groupname, commandname, path, LC, CN, CC, AC, Ca, Ce, A, I, D, Coupling, Cohesion, Balance, Encapsulation, OO, UC, client, username, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, now())";
+	private final static String CreateRemoteResultSUMMRYSQL = "insert into analysissummry(id, groupname, commandname, path, LC, CN, CC, AC, Ca, Ce, A, I, D, Coupling, Cohesion, Balance, Encapsulation, Relation, UC, RC, client, username, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, now())";
 
 	private final static String FindLocalSummrySQL = "select * from analysissummry where client is null and username is null and groupname = ? and commandname = ?";
 
@@ -86,11 +86,12 @@ public final class AnalysisResultRepository {
 			ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(16, 0F);
+			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getRelationRationality()));
 			ps.setInt(17, feature.getComponentCount());
+			ps.setInt(18, feature.getRelationCount());
 			if (!result.getRunningContext().isLocalRunning()) {
-				ps.setString(18, result.getRunningContext().getClient());
-				ps.setString(19, result.getRunningContext().getUserName());
+				ps.setString(19, result.getRunningContext().getClient());
+				ps.setString(20, result.getRunningContext().getUserName());
 			}
 
 			rs = ps.executeQuery();
@@ -122,11 +123,12 @@ public final class AnalysisResultRepository {
 			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(17, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(18, 0F);
+			ps.setFloat(18, MetricsFormat.toFormattedMetrics(feature.getRelationRationality()));
 			ps.setInt(19, feature.getComponentCount());
+			ps.setInt(20, feature.getRelationCount());
 			if (!result.getRunningContext().isLocalRunning()) {
-				ps.setString(20, result.getRunningContext().getClient());
-				ps.setString(21, result.getRunningContext().getUserName());
+				ps.setString(21, result.getRunningContext().getClient());
+				ps.setString(22, result.getRunningContext().getUserName());
 			}
 
 			ps.execute();
@@ -247,9 +249,11 @@ public final class AnalysisResultRepository {
 				analysisSummry.setCoupling(MetricsFormat.toFormattedMetrics(rs.getFloat("coupling")));
 				analysisSummry.setBalance(MetricsFormat.toFormattedMetrics(rs.getFloat("balance")));
 				analysisSummry.setEncapsulation(MetricsFormat.toFormattedMetrics(rs.getFloat("encapsulation")));
+				analysisSummry.setRelationRationality(MetricsFormat.toFormattedMetrics(rs.getFloat("relation")));
 				analysisSummry.setDistance(MetricsFormat.toFormattedMetrics(rs.getFloat("d")));
 				analysisSummry.setStability(MetricsFormat.toFormattedMetrics(rs.getFloat("i")));
 				analysisSummry.setComponentCount(rs.getInt("uc"));
+				analysisSummry.setRelationCount(rs.getInt("rc"));
 
 				executeSummry.setSummry(analysisSummry);
 
