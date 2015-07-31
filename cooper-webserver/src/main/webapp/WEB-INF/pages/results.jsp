@@ -46,7 +46,7 @@
 								<td><input type="checkbox" class="itemId"
 									value="${item.id}" /></td>
 								<td><fmt:formatDate value="${item.createDate}" type="both" /></td>
-								<td>${item.summry.path}</td>
+								<td title="${item.summry.path}"><c:choose><c:when test="${fn:length(item.summry.path) > 50}">${fn:substring(item.summry.path,0,50)}...</c:when><c:otherwise>${item.summry.path}</c:otherwise></c:choose></td>
 								<td>${item.summry.lineCount}</td>
 								<td>${item.summry.classCount}</td>
 								<td>${item.summry.componentCount}</td>
