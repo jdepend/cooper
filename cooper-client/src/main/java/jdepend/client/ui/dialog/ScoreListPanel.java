@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 
 import jdepend.client.core.config.CommandConfMgr;
 import jdepend.client.core.config.GroupConf;
+import jdepend.client.report.util.ReportConstant;
 import jdepend.client.ui.JDependCooper;
 import jdepend.core.score.ScoreFacade;
 import jdepend.core.score.ScoreInfo;
@@ -67,21 +68,18 @@ public class ScoreListPanel extends JPanel {
 			} else {
 				attribute = null;
 			}
-			tableData.setData(BundleUtil.getString(BundleUtil.ClientWin_Group_Attribute), attribute);
-			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_GroupName), scoreInfo.group);
-			tableData.setData(BundleUtil.getString(BundleUtil.TableHead_CommandName), scoreInfo.command);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_LC), scoreInfo.lc);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_ComponentCount), scoreInfo.componentCount);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationCount), scoreInfo.relationCount);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Cohesion), scoreInfo.cohesion);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Coupling), scoreInfo.coupling);
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_D),
-					MetricsFormat.toFormattedMetrics(scoreInfo.distance));
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Balance),
-					MetricsFormat.toFormattedMetrics(scoreInfo.balance));
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_Encapsulation),
-					MetricsFormat.toFormattedMetrics(scoreInfo.encapsulation));
-			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_RelationRationality),
+			tableData.setData(ReportConstant.Group_Attribute, attribute);
+			tableData.setData(ReportConstant.GroupName, scoreInfo.group);
+			tableData.setData(ReportConstant.CommandName, scoreInfo.command);
+			tableData.setData(ReportConstant.LC, scoreInfo.lc);
+			tableData.setData(ReportConstant.Result_ComponentCount, scoreInfo.componentCount);
+			tableData.setData(ReportConstant.Result_RelationCount, scoreInfo.relationCount);
+			tableData.setData(ReportConstant.Cohesion, scoreInfo.cohesion);
+			tableData.setData(ReportConstant.Coupling, scoreInfo.coupling);
+			tableData.setData(ReportConstant.D, MetricsFormat.toFormattedMetrics(scoreInfo.distance));
+			tableData.setData(ReportConstant.Balance, MetricsFormat.toFormattedMetrics(scoreInfo.balance));
+			tableData.setData(ReportConstant.Encapsulation, MetricsFormat.toFormattedMetrics(scoreInfo.encapsulation));
+			tableData.setData(ReportConstant.Result_Metrics_RelationRationality,
 					MetricsFormat.toFormattedMetrics(scoreInfo.relation));
 			tableData.setData(BundleUtil.getString(BundleUtil.Metrics_TotalScore),
 					MetricsFormat.toFormattedMetrics(scoreInfo.score));

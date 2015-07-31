@@ -33,7 +33,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 	private Float encapsulation;
 
-	private Float relationRationality;
+	private Float normalRelation;
 
 	private int abstractClassCount;
 
@@ -69,7 +69,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.balance = summary.balance;
 		this.distance = summary.distance;
 		this.encapsulation = summary.encapsulation;
-		this.relationRationality = summary.relationRationality;
+		this.normalRelation = summary.normalRelation;
 		this.abstractClassCount = summary.abstractClassCount;
 		this.classCount = summary.classCount;
 		this.concreteClassCount = summary.concreteClassCount;
@@ -255,12 +255,12 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		this.path = path;
 	}
 
-	public Float getRelationRationality() {
-		return relationRationality;
+	public Float getNormalRelation() {
+		return normalRelation;
 	}
 
-	public void setRelationRationality(Float relationRationality) {
-		this.relationRationality = relationRationality;
+	public void setNormalRelation(Float attentionRelation) {
+		this.normalRelation = attentionRelation;
 	}
 
 	public AnalysisResultSummary(AnalysisResult result) {
@@ -386,7 +386,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 
 			this.setRelationCount(result.getRelations().size());
 			this.setPath(result.getRunningContext().getPath());
-			this.setRelationRationality(MetricsFormat.toFormattedMetrics(result.getRelationRationality()));
+			this.setNormalRelation(MetricsFormat.toFormattedMetrics(result.getNormalRelation()));
 		}
 	}
 
@@ -450,7 +450,7 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		result = prime * result + ((distance == null) ? 0 : Float.floatToIntBits(distance));
 		result = prime * result + efferentCoupling;
 		result = prime * result + ((encapsulation == null) ? 0 : Float.floatToIntBits(encapsulation));
-		result = prime * result + ((relationRationality == null) ? 0 : Float.floatToIntBits(relationRationality));
+		result = prime * result + ((normalRelation == null) ? 0 : Float.floatToIntBits(normalRelation));
 		result = prime * result + ((stability == null) ? 0 : Float.floatToIntBits(stability));
 		result = prime * result + javaPackageCount;
 		result = prime * result + lineCount;
@@ -514,12 +514,12 @@ public class AnalysisResultSummary extends ObjectMeasured implements Serializabl
 		if (encapsulation != null && other.encapsulation != null)
 			if (Float.floatToIntBits(encapsulation) != Float.floatToIntBits(other.encapsulation))
 				return false;
-		if (relationRationality == null && other.relationRationality != null)
+		if (normalRelation == null && other.normalRelation != null)
 			return false;
-		if (relationRationality != null && other.relationRationality == null)
+		if (normalRelation != null && other.normalRelation == null)
 			return false;
-		if (relationRationality != null && other.relationRationality != null)
-			if (Float.floatToIntBits(relationRationality) != Float.floatToIntBits(other.relationRationality))
+		if (normalRelation != null && other.normalRelation != null)
+			if (Float.floatToIntBits(normalRelation) != Float.floatToIntBits(other.normalRelation))
 				return false;
 		if (stability == null && other.stability != null)
 			return false;

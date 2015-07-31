@@ -213,17 +213,14 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		histroyModel.addColumn(BundleUtil.getString(BundleUtil.TableHead_ExecuteDate));
 		histroyModel.addColumn(ReportConstant.LC);
 		histroyModel.addColumn(ReportConstant.CN);
-		histroyModel.addColumn(ReportConstant.CC);
-		histroyModel.addColumn(ReportConstant.AC);
-		histroyModel.addColumn(ReportConstant.Ca);
-		histroyModel.addColumn(ReportConstant.Ce);
-		histroyModel.addColumn(ReportConstant.A);
-		histroyModel.addColumn(ReportConstant.I);
-		histroyModel.addColumn(ReportConstant.D);
+		histroyModel.addColumn(ReportConstant.Result_ComponentCount);
+		histroyModel.addColumn(ReportConstant.Result_RelationCount);
 		histroyModel.addColumn(ReportConstant.Coupling);
 		histroyModel.addColumn(ReportConstant.Cohesion);
+		histroyModel.addColumn(ReportConstant.D);
 		histroyModel.addColumn(ReportConstant.Balance);
 		histroyModel.addColumn(ReportConstant.Encapsulation);
+		histroyModel.addColumn(ReportConstant.Result_Metrics_RelationRationality);
 
 		histroyTable.getColumn("ID").setMaxWidth(0);
 		histroyTable.getColumn("ID").setMinWidth(0);
@@ -279,22 +276,19 @@ public class ExecuteHistoryPanel extends JPanel implements GroupConfChangeListen
 		List<ExecuteResultSummry> summrys = AnalysisResultRepository.getInstance().getResultSummrys(group, command);
 
 		for (ExecuteResultSummry summry : summrys) {
-			row = new Object[15];
+			row = new Object[12];
 			row[0] = summry.getId();
 			row[1] = summry.getCreateDate();
 			row[2] = summry.getSummry().getLineCount();
 			row[3] = summry.getSummry().getClassCount();
-			row[4] = summry.getSummry().getConcreteClassCount();
-			row[5] = summry.getSummry().getAbstractClassCount();
-			row[6] = summry.getSummry().getAfferentCoupling();
-			row[7] = summry.getSummry().getEfferentCoupling();
-			row[8] = MetricsFormat.toFormattedMetrics(summry.getSummry().getAbstractness());
-			row[9] = MetricsFormat.toFormattedMetrics(summry.getSummry().getStability());
-			row[10] = MetricsFormat.toFormattedMetrics(summry.getSummry().getDistance());
-			row[11] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCoupling());
-			row[12] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCohesion());
-			row[13] = MetricsFormat.toFormattedMetrics(summry.getSummry().getBalance());
-			row[14] = MetricsFormat.toFormattedMetrics(summry.getSummry().getEncapsulation());
+			row[4] = summry.getSummry().getComponentCount();
+			row[5] = summry.getSummry().getRelationCount();
+			row[6] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCoupling());
+			row[7] = MetricsFormat.toFormattedMetrics(summry.getSummry().getCohesion());
+			row[8] = MetricsFormat.toFormattedMetrics(summry.getSummry().getDistance());
+			row[9] = MetricsFormat.toFormattedMetrics(summry.getSummry().getBalance());
+			row[10] = MetricsFormat.toFormattedMetrics(summry.getSummry().getEncapsulation());
+			row[11] = MetricsFormat.toFormattedMetrics(summry.getSummry().getNormalRelation());
 
 			histroyModel.addRow(row);
 		}

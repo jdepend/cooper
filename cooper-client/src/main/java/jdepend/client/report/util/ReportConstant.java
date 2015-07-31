@@ -55,14 +55,21 @@ public class ReportConstant {
 	public static final String Result_Metrics_RelationRationality = BundleUtil
 			.getString(BundleUtil.Metrics_RelationRationality);
 	public static final String Result_Metrics_Encapsulation = BundleUtil.getString(BundleUtil.Metrics_Encapsulation);
-
+	public static final String Result_ComponentCount = BundleUtil.getString(BundleUtil.Metrics_ComponentCount);
+	public static final String Result_RelationCount = BundleUtil.getString(BundleUtil.Metrics_RelationCount);
+	
 	public static final String DependInterface = BundleUtil.getString(BundleUtil.TableHead_DependInterface);
 
 	public static final String CurrentJC_Place = BundleUtil.getString(BundleUtil.TableHead_CurrentJC_Place);
 	public static final String CurrentJC = BundleUtil.getString(BundleUtil.TableHead_CurrentJC);
 	public static final String DependJC_Place = BundleUtil.getString(BundleUtil.TableHead_DependJC_Place);
 	public static final String DependJC = BundleUtil.getString(BundleUtil.TableHead_DependJC);
-
+	
+	public static final String Group_Attribute = BundleUtil.getString(BundleUtil.ClientWin_Group_Attribute);
+	public static final String GroupName = BundleUtil.getString(BundleUtil.TableHead_GroupName);
+	public static final String CommandName = BundleUtil.getString(BundleUtil.TableHead_CommandName);
+	
+	
 	public static final String SummaryText = "SummaryText";
 	public static final String SummaryXML = "SummaryXML";
 	public static final String RelationText = "RelationText";

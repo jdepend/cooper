@@ -85,7 +85,7 @@ public abstract class AnalysisResultScored implements Scored {
 			if (!this.hasRelation()) {
 				this.relationRationality = null;
 			} else {
-				this.relationRationality = MetricsFormat.toFormattedScore((1 - this.calAttentionRelation())
+				this.relationRationality = MetricsFormat.toFormattedScore(this.getNormalRelation()
 						* this.getRelationRationalityScale());
 			}
 			this.relationRationalityCal = true;
@@ -122,7 +122,7 @@ public abstract class AnalysisResultScored implements Scored {
 
 	protected abstract boolean hasRelation();
 
-	protected abstract float calAttentionRelation();
+	public abstract float getNormalRelation();
 
 	public abstract float getDistanceScale();
 

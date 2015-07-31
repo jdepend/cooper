@@ -54,6 +54,8 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 
 	private transient Collection<JavaPackage> javaPackages;// 包含在Component中的包集合
 
+	private transient Float normalRelation = null;// 没有问题的关系比重（考虑了问题权重）
+
 	private transient Float tableRelationScale = null;// tableRelation比例
 
 	private transient byte[] data = null;// result字节数据
@@ -290,13 +292,12 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		return this.summary;
 	}
 
-	/**
-	 * 计算存在问题的关系的权重
-	 * 
-	 * @return
-	 */
-	protected float calAttentionRelation() {
-		return new AnalysisResultUtil(this).calAttentionRelation();
+	@Override
+	public float getNormalRelation() {
+		if (this.normalRelation == null) {
+			this.normalRelation =  1 - new AnalysisResultUtil(this).calAttentionRelation();
+		}
+		return normalRelation;
 	}
 
 	/**
@@ -411,6 +412,7 @@ public class AnalysisResult extends AnalysisResultScored implements Serializable
 		this.relations = null;
 		this.summary = null;
 		this.data = null;
+		this.normalRelation = null;
 		this.tableRelationScale = null;
 		this.componentForNames = null;
 		this.javaClassForIds = null;

@@ -86,7 +86,7 @@ public final class AnalysisResultRepository {
 			ps.setFloat(13, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(14, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getRelationRationality()));
+			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getNormalRelation()));
 			ps.setInt(17, feature.getComponentCount());
 			ps.setInt(18, feature.getRelationCount());
 			if (!result.getRunningContext().isLocalRunning()) {
@@ -123,7 +123,7 @@ public final class AnalysisResultRepository {
 			ps.setFloat(15, MetricsFormat.toFormattedMetrics(feature.getCohesion()));
 			ps.setFloat(16, MetricsFormat.toFormattedMetrics(feature.getBalance()));
 			ps.setFloat(17, MetricsFormat.toFormattedMetrics(feature.getEncapsulation()));
-			ps.setFloat(18, MetricsFormat.toFormattedMetrics(feature.getRelationRationality()));
+			ps.setFloat(18, MetricsFormat.toFormattedMetrics(feature.getNormalRelation()));
 			ps.setInt(19, feature.getComponentCount());
 			ps.setInt(20, feature.getRelationCount());
 			if (!result.getRunningContext().isLocalRunning()) {
@@ -249,7 +249,7 @@ public final class AnalysisResultRepository {
 				analysisSummry.setCoupling(MetricsFormat.toFormattedMetrics(rs.getFloat("coupling")));
 				analysisSummry.setBalance(MetricsFormat.toFormattedMetrics(rs.getFloat("balance")));
 				analysisSummry.setEncapsulation(MetricsFormat.toFormattedMetrics(rs.getFloat("encapsulation")));
-				analysisSummry.setRelationRationality(MetricsFormat.toFormattedMetrics(rs.getFloat("relation")));
+				analysisSummry.setNormalRelation(MetricsFormat.toFormattedMetrics(rs.getFloat("relation")));
 				analysisSummry.setDistance(MetricsFormat.toFormattedMetrics(rs.getFloat("d")));
 				analysisSummry.setStability(MetricsFormat.toFormattedMetrics(rs.getFloat("i")));
 				analysisSummry.setComponentCount(rs.getInt("uc"));
