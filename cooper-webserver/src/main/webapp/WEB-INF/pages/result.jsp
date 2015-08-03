@@ -238,7 +238,7 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>结构提示：</h3>
-					<textarea style="width:100%;height:auto; overflow: hidden;">${result.architectPatternResult.result}</textarea>
+					<textarea style="width:100%;height:200px; overflow: hidden;">${result.architectPatternResult.result}</textarea>
 				</div>
 			</div>
 		</c:if>
@@ -334,8 +334,10 @@ margin: 0 0 0 -500px;
             	                    linkStyle : {}
             	                }
             	            },
+            	            minRadius : 30,
+            	            maxRadius : 50,
             	            gravity: 1.1,
-            	            scaling: 1.2,
+            	            scaling: 2,
             	            linkSymbol: 'arrow',
             	            steps: 10,
             	            coolDown: 0.9,

@@ -29,7 +29,7 @@ public final class AnalysisResultRepository {
 
 	private final static String CreateRemoteResultSUMMRYSQL = "insert into analysissummry(id, groupname, commandname, path, LC, CN, CC, AC, Ca, Ce, A, I, D, Coupling, Cohesion, Balance, Encapsulation, Relation, UC, RC, client, username, createdate) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, now())";
 
-	private final static String FindLocalSummrySQL = "select * from analysissummry where client is null and username is null and groupname = ? and commandname = ?";
+	private final static String FindLocalSummrySQL = "select * from analysissummry where client is null and username is null and groupname = ? and commandname = ? order by createdate desc";
 
 	private final static String FindLocalIDSQLByGroupCommand = "select id from analysissummry where client is null and username is null and groupname = ? and commandname = ?";
 
