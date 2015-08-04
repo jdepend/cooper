@@ -59,6 +59,8 @@ $('.Methods').click(function(){
 	    	$('#myModalLabel2').text(javaClassId + '方法列表');
 	    	$('#myData2').html(data);
 	    	$('#myModal2').modal('toggle');
+	    	
+	    	$("#listMethodsTable").tablesorter();
 	    }   
 	});
 });
