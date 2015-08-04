@@ -22,8 +22,6 @@ import jdepend.metadata.Method;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.model.JDependUnitMgr;
 
-import org.apache.bcel.classfile.Utility;
-
 public class MethodListPanel extends JPanel {
 
 	private DefaultTableModel methodListModel;

@@ -65,8 +65,22 @@ public class ResultController {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
 		model.addAttribute("methods", result.getTheClass(javaClassId).getJavaClass().getMethods());
-		
+
 		return "method_list";
+	}
+
+	@RequestMapping(value = "/invokeitems/{javaClassId}/{methodInfo}/view.ajax", method = RequestMethod.GET)
+	public String invokeitemlist(Model model, @PathVariable String javaClassId, @PathVariable String methodInfo,
+			HttpServletRequest request) throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("invokeitems", result.getTheClass(javaClassId).getJavaClass().getTheMethod(methodInfo)
+				.getInvokedItems());
+
+		return "invokeitem_list";
 	}
 
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
