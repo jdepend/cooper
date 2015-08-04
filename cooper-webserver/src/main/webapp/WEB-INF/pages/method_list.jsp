@@ -32,9 +32,9 @@
 				<td>${method.argumentInfo}</td>
 				<td>${method.returnTypes}</td>
 				<td>${method.selfLineCount}</td>
-				<td class="invokedMethods" style="color:blue;cursor:pointer;">${fn:length(method.invokedMethods)}</td>
-				<td class="cascadeInvokedMethods" style="color:blue;cursor:pointer;">${fn:length(method.cascadeInvokedMethods)}</td>
-				<td class="invokeMethods" style="color:blue;cursor:pointer;">${fn:length(method.invokeMethods)}</td>
+				<td class="invokedItems" style="color:blue;cursor:pointer;">${fn:length(method.invokedMethods)}</td>
+				<td class="cascadeInvokedItems" style="color:blue;cursor:pointer;">${fn:length(method.cascadeInvokedMethods)}</td>
+				<td class="invokeItems" style="color:blue;cursor:pointer;">${fn:length(method.invokeMethods)}</td>
 				<td><fmt:formatNumber value="${method.stability}" pattern="#.###" /></td>
 				<td>${item.remoteInvokeItem ? "是":"否"}</td>
 				<td>${item.remoteInvokedItem ? "是":"否"}</td>
@@ -43,21 +43,60 @@
 	</tbody>
 </table>
 <script type="text/javascript">
-$('.invokedMethods').mousedown(function(e){
+
+$('.invokedItems').mousedown(function(e){
 	e.stopPropagation();
 });
-$('.invokedMethods').click(function(){
+$('.invokedItems').click(function(){
 	var javaClassId = $(this).parent().find('.methodId').attr('classid');
 	var methodInfo = $(this).parent().find('.methodId').attr('methodInfo');
 	$.ajax({    
-	    url:'${ctx}/result/invokeitems/' + javaClassId + '/' + methodInfo + '/view.ajax',   
+	    url:'${ctx}/result/invokedItems/' + javaClassId + '/' + methodInfo + '/view.ajax',   
 	    type:'get',    
 	    success:function(data) {
 	    	$('#myModalLabel3').text(methodInfo + '方法传入列表');
 	    	$('#myData3').html(data);
 	    	$('#myModal3').modal('toggle');
 	    	
-	    	$("#listMethodsTable").tablesorter();
+	    	$("#listInvokeItemsTable").tablesorter();
+	    }   
+	});
+});
+
+$('.cascadeInvokedItems').mousedown(function(e){
+	e.stopPropagation();
+});
+$('.cascadeInvokedItems').click(function(){
+	var javaClassId = $(this).parent().find('.methodId').attr('classid');
+	var methodInfo = $(this).parent().find('.methodId').attr('methodInfo');
+	$.ajax({    
+	    url:'${ctx}/result/cascadeInvokedItems/' + javaClassId + '/' + methodInfo + '/view.ajax',   
+	    type:'get',    
+	    success:function(data) {
+	    	$('#myModalLabel3').text(methodInfo + '级联方法传入列表');
+	    	$('#myData3').html(data);
+	    	$('#myModal3').modal('toggle');
+	    	
+	    	$("#listInvokeItemsTable").tablesorter();
+	    }   
+	});
+});
+
+$('.invokeItems').mousedown(function(e){
+	e.stopPropagation();
+});
+$('.invokeItems').click(function(){
+	var javaClassId = $(this).parent().find('.methodId').attr('classid');
+	var methodInfo = $(this).parent().find('.methodId').attr('methodInfo');
+	$.ajax({    
+	    url:'${ctx}/result/invokeItems/' + javaClassId + '/' + methodInfo + '/view.ajax',   
+	    type:'get',    
+	    success:function(data) {
+	    	$('#myModalLabel3').text(methodInfo + '方法传入列表');
+	    	$('#myData3').html(data);
+	    	$('#myModal3').modal('toggle');
+	    	
+	    	$("#listInvokeItemsTable").tablesorter();
 	    }   
 	});
 });
