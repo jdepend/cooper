@@ -18,6 +18,7 @@ import jdepend.metadata.util.SignatureUtil;
 
 import org.apache.bcel.classfile.AccessFlags;
 import org.apache.bcel.classfile.AnnotationEntry;
+import org.apache.bcel.classfile.Utility;
 
 public class Method extends AccessFlags {
 
@@ -116,6 +117,10 @@ public class Method extends AccessFlags {
 		this.writeFields = method.writeFields;
 		this.selfLineCount = method.selfLineCount;
 		this.annotationDefs = method.annotationDefs;
+	}
+
+	public String getAccessFlagName() {
+		return Utility.accessToString(this.getAccessFlags());
 	}
 
 	public String getName() {
@@ -384,7 +389,7 @@ public class Method extends AccessFlags {
 		return javaClassId;
 	}
 
-	public boolean containRemoteInvokeItem() {
+	public boolean isRemoteInvokeItem() {
 		for (InvokeItem item : this.getInvokeItems()) {
 			if (item instanceof RemoteInvokeItem) {
 				return true;
@@ -393,7 +398,7 @@ public class Method extends AccessFlags {
 		return false;
 	}
 
-	public boolean containRemoteInvokedItem() {
+	public boolean isRemoteInvokedItem() {
 		for (InvokeItem item : this.getInvokedItems()) {
 			if (item instanceof RemoteInvokeItem) {
 				return true;

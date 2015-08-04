@@ -9,6 +9,10 @@
 width: 1000px;
 margin: 0 0 0 -500px;
 }
+#myModal2 {
+width: 1000px;
+margin: 0 0 0 -500px;
+}
 </style>
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -252,6 +256,19 @@ margin: 0 0 0 -500px;
   </div>
   <div class="modal-body">
     <p id="myData">One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  </div>
+</div>
+<!-- Modal2 -->
+<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel2"></h3>
+  </div>
+  <div class="modal-body">
+    <p id="myData2">One fine body…</p>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>

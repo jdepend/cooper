@@ -56,6 +56,19 @@ public class ResultController {
 		return "component_list";
 	}
 
+	@RequestMapping(value = "/methods/{javaClassId}/view.ajax", method = RequestMethod.GET)
+	public String methodlist(Model model, @PathVariable String javaClassId, HttpServletRequest request)
+			throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("methods", result.getTheClass(javaClassId).getJavaClass().getMethods());
+		
+		return "method_list";
+	}
+
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)
 	public String relationDetails(Model model, @PathVariable String current, @PathVariable String depend,
 			HttpServletRequest request) throws JDependException {

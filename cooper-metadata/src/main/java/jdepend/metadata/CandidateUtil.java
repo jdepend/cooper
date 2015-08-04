@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CandidateUtil {
 
-	public final static String IDDecollator = "#";
+	public final static String IDDecollator = "$";
 
 	public final static String getId(String place, String name) {
 		if (place != null) {

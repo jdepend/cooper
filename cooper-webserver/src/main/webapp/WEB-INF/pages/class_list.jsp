@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <table id="listJavaClassTable" class="table table-bordered" pa_ui_name="table,exinput"
 	pa_ui_hover="true" pa_ui_selectable="true" pa_ui_select_mode="multi"
 	pa_ui_select_trigger="tr" pa_ui_select_column="0"
@@ -12,6 +12,7 @@
 			<th>选择</th>
 			<th>名称</th>
 			<th>代码行数</th>
+			<th>方法数量</th>
 			<th>传入</th>
 			<th>传出</th>
 			<th>抽象程度</th>
@@ -26,9 +27,10 @@
 	<tbody>
 		<c:forEach items="${component.classes}" var="item">
 			<tr>
-				<td><input type="checkbox"/></td>
+				<td><input type="checkbox" class="classId" id="${item.javaClass.id}"/></td>
 				<td>${item.javaClass.name}</td>
 				<td>${item.javaClass.lineCount}</td>
+				<td class="Methods" style="color:blue;cursor:pointer;">${fn:length(item.javaClass.methods)}</td>
 				<td>${item.afferentCoupling}</td>
 				<td>${item.efferentCoupling}</td>
 				<td>${item.abstractClassCount}</td>
@@ -44,4 +46,21 @@
 		</c:forEach>
 	</tbody>
 </table>
+<script type="text/javascript">
+$('.Methods').mousedown(function(e){
+	e.stopPropagation();
+});
+$('.Methods').click(function(){
+	var javaClassId = $(this).parent().find('.classId').attr('id');
+	$.ajax({    
+	    url:'${ctx}/result/methods/' + javaClassId + '/view.ajax',   
+	    type:'get',    
+	    success:function(data) {
+	    	$('#myModalLabel2').text(javaClassId + '方法列表');
+	    	$('#myData2').html(data);
+	    	$('#myModal2').modal('toggle');
+	    }   
+	});
+});
+</script>
 

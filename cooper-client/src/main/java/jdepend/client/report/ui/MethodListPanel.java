@@ -59,7 +59,7 @@ public class MethodListPanel extends JPanel {
 			row[1] = method.getInfo();
 
 			row[2] = method.getJavaClass().getName();
-			row[3] = Utility.accessToString(method.getAccessFlags());
+			row[3] = method.getAccessFlagName();
 			row[4] = method.getName();
 			row[5] = method.getArgumentInfo();
 			row[6] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
@@ -68,8 +68,8 @@ public class MethodListPanel extends JPanel {
 			row[9] = method.getCascadeInvokedMethods().size();
 			row[10] = method.getInvokeMethods().size();
 			row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
-			row[12] = method.containRemoteInvokeItem() ? "是" : "否";
-			row[13] = method.containRemoteInvokedItem() ? "是" : "否";
+			row[12] = method.isRemoteInvokeItem() ? "是" : "否";
+			row[13] = method.isRemoteInvokedItem() ? "是" : "否";
 
 			methodListModel.addRow(row);
 
@@ -183,7 +183,7 @@ public class MethodListPanel extends JPanel {
 				row[1] = method.getInfo();
 
 				row[2] = method.getJavaClass().getName();
-				row[3] = Utility.accessToString(method.getAccessFlags());
+				row[3] = method.getAccessFlagName();
 				row[4] = method.getName();
 				row[5] = method.getArgumentInfo();
 				row[6] = method.getReturnTypes().size() == 0 ? "" : method.getReturnTypes();
@@ -192,8 +192,8 @@ public class MethodListPanel extends JPanel {
 				row[9] = method.getCascadeInvokedMethods().size();
 				row[10] = method.getInvokeMethods().size();
 				row[11] = MetricsFormat.toFormattedMetrics(method.getStability());
-				row[12] = method.containRemoteInvokeItem() ? "是" : "否";
-				row[13] = method.containRemoteInvokedItem() ? "是" : "否";
+				row[12] = method.isRemoteInvokeItem() ? "是" : "否";
+				row[13] = method.isRemoteInvokedItem() ? "是" : "否";
 
 				methodListModel.addRow(row);
 			}
