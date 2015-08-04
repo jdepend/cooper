@@ -64,7 +64,14 @@ margin: 0 0 0 -500px;
 		<c:if test="${!empty result.summarys}">
 			<div class="row-fluid">
 				<div class="span12">
-					<h3>组件信息：</h3>
+					<div>
+						<div style="float:left">
+							<h3>组件信息：</h3>
+						</div>
+						<div style="float:right">
+							<button class="btn classlistBtn">全部类列表</button><button class="btn methodlistBtn">全部方法列表</button>
+						</div>
+					</div>
 					<table id="listComponentTable" class="table table-bordered" pa_ui_name="table,exinput"
 						pa_ui_hover="true" pa_ui_selectable="true"
 						pa_ui_select_mode="multi" pa_ui_select_trigger="tr"
@@ -569,6 +576,19 @@ margin: 0 0 0 -500px;
 			    	$('#myModalLabel').text('待做事项说明');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
+			    }   
+			});
+    	});
+    	
+    	$('.classlistBtn').click(function(){
+    		$.ajax({    
+			    url:'${ctx}/result/classes/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text('类列表');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    	$('#listJavaClassTable').tablesorter();
 			    }   
 			});
     	});

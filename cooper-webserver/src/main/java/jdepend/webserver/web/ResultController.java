@@ -26,7 +26,7 @@ public class ResultController {
 		if (result == null) {
 			throw new JDependException("Session 过期，或者非法进入该页。");
 		}
-		model.addAttribute("component", result.getTheComponent(componentId));
+		model.addAttribute("classes", result.getTheComponent(componentId).getClasses());
 		return "class_list";
 	}
 
@@ -109,6 +109,18 @@ public class ResultController {
 				.getInvokeItems());
 
 		return "invokeitem_list";
+	}
+
+	@RequestMapping(value = "/classes/view.ajax", method = RequestMethod.GET)
+	public String classlist(Model model, HttpServletRequest request) throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("classes", result.getClasses());
+		
+		return "class_list";
 	}
 
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)

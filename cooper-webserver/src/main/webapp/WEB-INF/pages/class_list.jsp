@@ -25,7 +25,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${component.classes}" var="item">
+		<c:forEach items="${classes}" var="item">
 			<tr>
 				<td><input type="checkbox" class="classId" id="${item.javaClass.id}"/></td>
 				<td>${item.javaClass.name}</td>
