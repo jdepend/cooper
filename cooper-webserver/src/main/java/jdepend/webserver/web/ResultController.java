@@ -112,7 +112,7 @@ public class ResultController {
 	}
 
 	@RequestMapping(value = "/classes/view.ajax", method = RequestMethod.GET)
-	public String classlist(Model model, HttpServletRequest request) throws JDependException {
+	public String classeslist(Model model, HttpServletRequest request) throws JDependException {
 
 		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
 		if (result == null) {
@@ -121,6 +121,18 @@ public class ResultController {
 		model.addAttribute("classes", result.getClasses());
 		
 		return "class_list";
+	}
+	
+	@RequestMapping(value = "/methods/view.ajax", method = RequestMethod.GET)
+	public String methodslist(Model model, HttpServletRequest request) throws JDependException {
+
+		WebAnalysisResult result = (WebAnalysisResult) request.getSession().getAttribute(WebConstants.SESSION_RESULT);
+		if (result == null) {
+			throw new JDependException("Session 过期，或者非法进入该页。");
+		}
+		model.addAttribute("methods", result.getMethods());
+		
+		return "method_list";
 	}
 
 	@RequestMapping(value = "/relation/{current}/{depend}/view.ajax", method = RequestMethod.GET)

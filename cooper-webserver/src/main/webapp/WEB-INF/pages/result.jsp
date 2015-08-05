@@ -585,10 +585,23 @@ margin: 0 0 0 -500px;
 			    url:'${ctx}/result/classes/view.ajax',   
 			    type:'get',    
 			    success:function(data) {
-			    	$('#myModalLabel').text('类列表');
+			    	$('#myModalLabel').text('全部类列表');
 			    	$('#myData').html(data);
 			    	$('#myModal').modal('toggle');
 			    	$('#listJavaClassTable').tablesorter();
+			    }   
+			});
+    	});
+    	
+    	$('.methodlistBtn').click(function(){
+    		$.ajax({    
+			    url:'${ctx}/result/methods/view.ajax',   
+			    type:'get',    
+			    success:function(data) {
+			    	$('#myModalLabel').text('全部方法列表');
+			    	$('#myData').html(data);
+			    	$('#myModal').modal('toggle');
+			    	$('#listMethodsTable').tablesorter();
 			    }   
 			});
     	});
