@@ -233,7 +233,12 @@ public class Parse {
 		}
 
 		JavaPackage clazzPackage = addPackage(clazz.getPlace(), packageName);
-		clazzPackage.addClass(clazz);
+
+		if (clazz.isInnerClass()) {
+			clazz.setJavaPackage(clazzPackage);
+		} else {
+			clazzPackage.addClass(clazz);
+		}
 	}
 
 }
