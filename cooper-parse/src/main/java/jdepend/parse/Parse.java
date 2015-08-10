@@ -64,16 +64,14 @@ public class Parse {
 	 * @throws ParseException
 	 */
 	public Collection<JavaPackage> execute() throws ParseException {
-		
+
 		AnnotationMgr.getInstance().reset();
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 
 		LogUtil.getInstance(Parse.class).systemLog("开始建立Package");
 		for (JavaClass javaClass : javaClasses) {
-			if (!javaClass.isInnerClass()) {
-				createPackage(javaClass);
-			}
+			createPackage(javaClass);
 		}
 
 		return packages.values();

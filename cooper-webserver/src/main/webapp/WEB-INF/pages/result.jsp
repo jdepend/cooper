@@ -24,9 +24,14 @@ margin: 0 0 0 -500px;
 			<div class="row-fluid">
 				<div class="span12">
 					<h3>您分析的jar为：${result.runningContext.path}</h3>
-					<h3>
-						您将jar分成了${result.summary.componentCount}个组件进行分析，其结构质量成绩为：<c:choose><c:when test="${empty result.score}">--</c:when><c:otherwise>${result.score}</c:otherwise></c:choose>
-					</h3>
+					<div>
+						<div style="float:left">
+							<h3>您将jar分成了${result.summary.componentCount}个组件进行分析，其结构质量成绩为：<c:choose><c:when test="${empty result.score}">--</c:when><c:otherwise>${result.score}</c:otherwise></c:choose></h3>
+						</div>
+						<div style="float:right">
+							<button class="btn classlistBtn">分析器列表</button>
+						</div>
+					</div>
 					<h6>
 						(其中类数量为${result.summary.classCount}，包数量为${result.summary.javaPackageCount})
 					</h6>
