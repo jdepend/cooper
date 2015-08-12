@@ -1,6 +1,10 @@
-﻿1.2.5_06
+﻿1.2.5_06 2015-08-12
 
 a）创建ServiceConf，解决cooper-server-interface对cooper-service的依赖（违反稳定依赖原则）
+
+b）修正parse在创建JavaPackage时的bug（核心bug）
+
+c）丰富webcooper，增加若干查看明细的窗口（类方法列表，方法传入传出列表，全部类列表和全部方法列表），并完善组件关系图的显示
 
 1.2.5_05 2015-07-24
 
