@@ -126,6 +126,10 @@ public class Method extends AccessFlags {
 	public String getName() {
 		return name;
 	}
+	
+	public String getPath(){
+		return this.javaClass.getName() + "." + this.name;
+	}
 
 	public JavaClass getJavaClass() {
 		return javaClass;

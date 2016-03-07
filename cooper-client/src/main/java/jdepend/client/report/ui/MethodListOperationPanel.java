@@ -21,6 +21,8 @@ public class MethodListOperationPanel extends JPanel {
 	private JTextField classNameFilter;
 
 	private JTextField nameFilter;
+	
+	private JTextField callerFilter;
 
 	public MethodListOperationPanel(MethodListPanel methodListPanel) {
 		this.setLayout(new BorderLayout());
@@ -47,7 +49,7 @@ public class MethodListOperationPanel extends JPanel {
 		classNameFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int methodCount = methodListPanel.filterMehtodList(classNameFilter.getText(), nameFilter.getText());
+				int methodCount = methodListPanel.filterMehtodList(classNameFilter.getText(), nameFilter.getText(), callerFilter.getText());
 				tipLabel.setText("共" + methodCount + "个方法");
 			}
 		});
@@ -64,11 +66,25 @@ public class MethodListOperationPanel extends JPanel {
 		nameFilter.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int methodCount = methodListPanel.filterMehtodList(classNameFilter.getText(), nameFilter.getText());
+				int methodCount = methodListPanel.filterMehtodList(classNameFilter.getText(), nameFilter.getText(), callerFilter.getText());
 				tipLabel.setText("共" + methodCount + "个方法");
 			}
 		});
 		searchPanel.add(nameFilter);
+		
+		JLabel callerNameLabel = new JLabel(BundleUtil.getString(BundleUtil.ClientWin_ClassListDialog_Caller) + ":");
+		searchPanel.add(callerNameLabel);
+		
+		callerFilter = new JTextField();
+		callerFilter.setPreferredSize(new Dimension(250, 20));
+		callerFilter.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				int methodCount = methodListPanel.filterMehtodList(classNameFilter.getText(), nameFilter.getText(), callerFilter.getText());
+				tipLabel.setText("共" + methodCount + "个方法");
+			}
+		});
+		searchPanel.add(callerFilter);
 
 		return searchPanel;
 	}
