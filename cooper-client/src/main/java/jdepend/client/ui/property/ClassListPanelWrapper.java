@@ -20,8 +20,10 @@ import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.JDependUnitMgr;
 import jdepend.model.JavaClassUnit;
+import jdepend.model.result.AnalysisResult;
+import jdepend.model.result.AnalysisResultListener;
 
-public class ClassListPanelWrapper extends ClassListPanel {
+public class ClassListPanelWrapper extends ClassListPanel implements AnalysisResultListener{
 
 	private JDependCooper frame;
 
@@ -29,6 +31,9 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		super(frame);
 
 		this.frame = frame;
+		
+		// 向分析结果管理器注册监听器
+		JDependUnitMgr.getInstance().addAnalysisResultListener(this);
 	}
 
 	@Override
@@ -114,5 +119,10 @@ public class ClassListPanelWrapper extends ClassListPanel {
 		MethodListDialog d = new MethodListDialog(javaClass);
 		d.setModal(true);
 		d.setVisible(true);
+	}
+
+	@Override
+	public void onExecuted(AnalysisResult result) throws JDependException {
+		this.setResult(result);
 	}
 }

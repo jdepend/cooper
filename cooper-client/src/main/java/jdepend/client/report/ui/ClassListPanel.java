@@ -146,6 +146,10 @@ public class ClassListPanel extends JPanel {
 			}
 		});
 	}
+	
+	protected void setResult(AnalysisResult result) {
+		this.result = result;
+	}
 
 	private void fitCol() {
 		List<String> fitColNames = new ArrayList<String>();
