@@ -2,6 +2,8 @@
 
 a）向方法列表增加调用者过滤能力
 
+b）修正属性区域中类列表bug
+
 1.2.5_06 2015-08-12
 
 a）创建ServiceConf，解决cooper-server-interface对cooper-service的依赖（违反稳定依赖原则）

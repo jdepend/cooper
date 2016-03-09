@@ -58,14 +58,11 @@ public class ClassListPanel extends JPanel {
 
 	protected JDependFrame frame;
 
-	private AnalysisResult result;
-
 	public ClassListPanel(JDependFrame frame) {
 		super();
 
 		this.frame = frame;
-		this.result = JDependUnitMgr.getInstance().getResult();
-
+	
 		setLayout(new BorderLayout());
 
 		this.initClassList();
@@ -74,6 +71,10 @@ public class ClassListPanel extends JPanel {
 		pane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		this.add(pane);
+	}
+	
+	private AnalysisResult getAnalysisResult(){
+		return JDependUnitMgr.getInstance().getResult();
 	}
 
 	public int showClassList(Collection<JavaClassUnit> javaClasses) {
@@ -100,7 +101,7 @@ public class ClassListPanel extends JPanel {
 
 	public int showAllClassList() {
 		clearClassList();
-		this.javaClasses = ReportJavaClassUnitUtil.convert(result.getClasses());
+		this.javaClasses = ReportJavaClassUnitUtil.convert(getAnalysisResult().getClasses());
 		this.loadClassList();
 
 		this.fitCol();
@@ -147,10 +148,6 @@ public class ClassListPanel extends JPanel {
 		});
 	}
 	
-	protected void setResult(AnalysisResult result) {
-		this.result = result;
-	}
-
 	private void fitCol() {
 		List<String> fitColNames = new ArrayList<String>();
 		fitColNames.add(ReportConstant.Name);
@@ -256,7 +253,7 @@ public class ClassListPanel extends JPanel {
 							(String) table.getValueAt(rowNumber, 1)));
 				}
 				if (e.getClickCount() == 2) {
-					JavaClassUnit currentClass = result.getTheClass(current);
+					JavaClassUnit currentClass = getAnalysisResult().getTheClass(current);
 					if (currentCol.equals(ReportConstant.Ca) || currentCol.equals(ReportConstant.Ce)) {
 						Rectangle rec = table.getCellRect(row, col, false);
 						Component comp = table.getComponentAt(p);
@@ -378,7 +375,7 @@ public class ClassListPanel extends JPanel {
 	private void moveTo(JavaClassMoveToDialogListener listener) {
 		Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 		for (String javaClassId : selectedJavaClassId) {
-			javaClasses.add(result.getTheClass(javaClassId));
+			javaClasses.add(getAnalysisResult().getTheClass(javaClassId));
 		}
 		JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, javaClasses);
 		if (listener != null) {
@@ -405,7 +402,7 @@ public class ClassListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
-					javaClasses.add(result.getTheClass(javaClassId));
+					javaClasses.add(getAnalysisResult().getTheClass(javaClassId));
 				}
 				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ca);
 				d.setModal(true);
@@ -422,7 +419,7 @@ public class ClassListPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Collection<JavaClassUnit> javaClasses = new HashSet<JavaClassUnit>();
 				for (String javaClassId : selectedJavaClassId) {
-					javaClasses.add(result.getTheClass(javaClassId));
+					javaClasses.add(getAnalysisResult().getTheClass(javaClassId));
 				}
 				JavaClassCaCeDetailDialog d = new JavaClassCaCeDetailDialog(javaClasses, ReportConstant.Ce);
 				d.setModal(true);
