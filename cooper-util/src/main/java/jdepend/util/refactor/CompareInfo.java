@@ -87,7 +87,15 @@ public class CompareInfo {
 	}
 
 	public boolean isDiff() {
-		return !this.value.equals(this.originality);
+		if (this.value == null && this.originality == null) {
+			return true;
+		} else if (this.value == null && this.originality != null) {
+			return false;
+		} else if (this.value != null && this.originality == null) {
+			return false;
+		} else {
+			return !this.value.equals(this.originality);
+		}
 	}
 
 	private Boolean evaluate(int result, String metrics) {
