@@ -17,6 +17,7 @@ import jdepend.client.report.util.ReportConstant;
 import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.component.TableSorter;
 import jdepend.framework.ui.dialog.CooperDialog;
+import jdepend.framework.ui.util.JTableUtil;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
@@ -77,15 +78,34 @@ public class RelationTrackDialog extends CooperDialog {
 		export.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RelationTrackDialog d = new RelationTrackDialog(frame,
-						dependClasses, allClasses);
-				d.setModal(true);
-				d.setVisible(true);
+				export();
 			}
 		});
 		relationPanel.add(export);
 
 		return relationPanel;
+	}
+	
+	private void export(){
+		
+		DefaultTableModel allClassModel = new DefaultTableModel();
+		JTable allClassTable = new JTable(allClassModel); 
+
+		allClassModel.addColumn(ReportConstant.JavaClass_Place);
+		allClassModel.addColumn(ReportConstant.Name);
+		
+		Object[] row;
+
+		for (JavaClass dependClass : allClasses) {
+			row = new Object[allClassModel.getColumnCount()];
+			row[0] = dependClass.getPlace();
+			row[1] = dependClass.getName();
+
+			allClassModel.addRow(row);
+		}
+		
+		JTableUtil.exportTableToExcel(allClassTable);
+		
 	}
 
 	private void initList() {
