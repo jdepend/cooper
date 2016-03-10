@@ -169,6 +169,7 @@ public class BundleUtil {
 	public static final String Command_Ca = "Command_Ca";// 传入
 	public static final String Command_Ce = "Command_Ce";// 传出
 	public static final String Command_Restore = "Command_Restore";// 恢复默认值
+	public static final String Command_Track = "Command_Track";// 跟踪
 	
 	public static final String RunningModel_Local = "RunningModel_Local";// 单机模式
 	public static final String RunningModel_Remote = "RunningModel_Remote";// 联机模式

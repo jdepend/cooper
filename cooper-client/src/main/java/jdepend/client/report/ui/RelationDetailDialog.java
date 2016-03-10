@@ -28,6 +28,7 @@ import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.dialog.CooperDialog;
 import jdepend.framework.util.BundleUtil;
 import jdepend.metadata.CandidateUtil;
+import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.Component;
 import jdepend.model.JDependUnitMgr;
@@ -48,7 +49,8 @@ public class RelationDetailDialog extends CooperDialog {
 
 	private GraphJDepend display;
 
-	public RelationDetailDialog(JDependFrame frame, Component current, Component depend) {
+	public RelationDetailDialog(JDependFrame frame, Component current,
+			Component depend) {
 		super(current.getName() + " 依赖于 " + depend.getName());
 
 		this.frame = frame;
@@ -57,10 +59,12 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation.getDetail()));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame,
+				this.relation.getDetail()));
 	}
 
-	public RelationDetailDialog(GraphJDepend display, String current, String depend) {
+	public RelationDetailDialog(GraphJDepend display, String current,
+			String depend) {
 		super(current + " 依赖于 " + depend);
 
 		this.display = display;
@@ -74,13 +78,15 @@ public class RelationDetailDialog extends CooperDialog {
 
 		this.setLayout(new BorderLayout());
 		this.add(BorderLayout.NORTH, this.createOperationPanel());
-		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame, this.relation.getDetail()));
+		this.add(BorderLayout.CENTER, new RelationDetailPanel(this.frame,
+				this.relation.getDetail()));
 
 	}
 
 	@Override
 	public void dispose() {
-		if (this.display != null && this.display.getGraphPanel().getParentDialog() != null) {
+		if (this.display != null
+				&& this.display.getGraphPanel().getParentDialog() != null) {
 			this.display.getGraphPanel().getParentDialog().dispose();
 		}
 		super.dispose();
@@ -117,7 +123,8 @@ public class RelationDetailDialog extends CooperDialog {
 
 		current.setSelected(true);
 
-		JButton moveTo = new JButton(BundleUtil.getString(BundleUtil.Command_Move));
+		JButton moveTo = new JButton(
+				BundleUtil.getString(BundleUtil.Command_Move));
 		moveTo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -128,17 +135,39 @@ public class RelationDetailDialog extends CooperDialog {
 		});
 		relationPanel.add(moveTo);
 
-		JButton analyse = new JButton(BundleUtil.getString(BundleUtil.Command_Analyse));
+		JButton analyse = new JButton(
+				BundleUtil.getString(BundleUtil.Command_Analyse));
 		analyse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RelationDetailForMoveDialog d = new RelationDetailForMoveDialog(frame, RelationDetailDialog.this,
-						relation);
+				RelationDetailForMoveDialog d = new RelationDetailForMoveDialog(
+						frame, RelationDetailDialog.this, relation);
 				d.setModal(true);
 				d.setVisible(true);
 			}
 		});
 		relationPanel.add(analyse);
+
+		JButton track = new JButton(
+				BundleUtil.getString(BundleUtil.Command_Track));
+		track.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Collection<JavaClass> dependClasses = new ArrayList<JavaClass>();
+				for (JavaClassRelationItem item : relation.getItems()) {
+					if (!dependClasses.contains(item.getTarget())) {
+						dependClasses.add(item.getTarget());
+					}
+				}
+				Collection<JavaClass> allClasses = new ArrayList<JavaClass>(
+						dependClasses);
+				RelationTrackDialog d = new RelationTrackDialog(frame,
+						dependClasses, allClasses);
+				d.setModal(true);
+				d.setVisible(true);
+			}
+		});
+		relationPanel.add(track);
 
 		return relationPanel;
 	}
@@ -147,9 +176,11 @@ public class RelationDetailDialog extends CooperDialog {
 		List<String> selectedJavaClass = new ArrayList<String>();
 		for (JavaClassRelationItem item : this.relation.getItems()) {
 			if (current.isSelected()) {
-				selectedJavaClass.add(CandidateUtil.getId(item.getSource().getPlace(), item.getSource().getName()));
+				selectedJavaClass.add(CandidateUtil.getId(item.getSource()
+						.getPlace(), item.getSource().getName()));
 			} else {
-				selectedJavaClass.add(CandidateUtil.getId(item.getTarget().getPlace(), item.getTarget().getName()));
+				selectedJavaClass.add(CandidateUtil.getId(item.getTarget()
+						.getPlace(), item.getTarget().getName()));
 			}
 		}
 		return selectedJavaClass;
@@ -209,19 +240,23 @@ public class RelationDetailDialog extends CooperDialog {
 			final CheckBoxRenderer check = new CheckBoxRenderer("是否移动");
 			classListTable.getColumn("是否移动").setHeaderRenderer(check);
 
-			classListTable.getTableHeader().addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (classListTable.getColumnModel().getColumnIndexAtX(e.getX()) == 0) {// 如果点击的是第0列，即checkbox这一列
-						boolean b = !check.isSelected();
-						check.setSelected(b);
-						classListTable.getTableHeader().repaint();
-						for (int i = 0; i < classListTable.getRowCount(); i++) {
-							classListTable.getModel().setValueAt(b, i, 0);// 把这一列都设成和表头一样
+			classListTable.getTableHeader().addMouseListener(
+					new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							if (classListTable.getColumnModel()
+									.getColumnIndexAtX(e.getX()) == 0) {// 如果点击的是第0列，即checkbox这一列
+								boolean b = !check.isSelected();
+								check.setSelected(b);
+								classListTable.getTableHeader().repaint();
+								for (int i = 0; i < classListTable
+										.getRowCount(); i++) {
+									classListTable.getModel().setValueAt(b, i,
+											0);// 把这一列都设成和表头一样
+								}
+							}
 						}
-					}
-				}
-			});
+					});
 
 			Object[] row;
 			for (String className : calSelectedJavaClass()) {
@@ -240,7 +275,8 @@ public class RelationDetailDialog extends CooperDialog {
 
 		private JButton createCancelButton() {
 
-			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_Cancel));
+			JButton button = new JButton(
+					BundleUtil.getString(BundleUtil.Command_Cancel));
 			button.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -253,7 +289,8 @@ public class RelationDetailDialog extends CooperDialog {
 
 		private JButton createNextButton() {
 
-			JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_NextStep));
+			JButton button = new JButton(
+					BundleUtil.getString(BundleUtil.Command_NextStep));
 			button.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -269,7 +306,8 @@ public class RelationDetailDialog extends CooperDialog {
 			Collection<String> moveToClassList = new HashSet<String>();
 			for (int i = 0; i < classListModel.getRowCount(); i++) {
 				if ((Boolean) classListModel.getValueAt(i, 0)) {
-					moveToClassList.add(CandidateUtil.getId((String) classListModel.getValueAt(i, 1),
+					moveToClassList.add(CandidateUtil.getId(
+							(String) classListModel.getValueAt(i, 1),
 							(String) classListModel.getValueAt(i, 2)));
 				}
 			}
@@ -279,12 +317,15 @@ public class RelationDetailDialog extends CooperDialog {
 			this.openJavaClassMoveToDialog(moveToClassList);
 		}
 
-		private void openJavaClassMoveToDialog(Collection<String> moveToClassList) {
+		private void openJavaClassMoveToDialog(
+				Collection<String> moveToClassList) {
 			Collection<JavaClassUnit> javaClasses = new ArrayList<JavaClassUnit>();
 			for (String javaClassId : moveToClassList) {
-				javaClasses.add(JDependUnitMgr.getInstance().getResult().getTheClass(javaClassId));
+				javaClasses.add(JDependUnitMgr.getInstance().getResult()
+						.getTheClass(javaClassId));
 			}
-			JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame, javaClasses);
+			JavaClassMoveToDialog d = new JavaClassMoveToDialog(frame,
+					javaClasses);
 			d.setListener(new JavaClassMoveToDialogListener() {
 				@Override
 				public void onFinish() {
@@ -304,7 +345,8 @@ public class RelationDetailDialog extends CooperDialog {
 			}
 
 			@Override
-			public java.awt.Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+			public java.awt.Component getTableCellRendererComponent(
+					JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
 				return this;
 			}
