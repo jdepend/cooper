@@ -252,9 +252,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	}
 
 	private String calAttentionType() {
-		if (this.depend.getComponent().getEfferents().contains(this.current.getComponent())) {// 检测彼此依赖
-			return MutualDependAttentionType;
-		} else if (this.current.getComponent().isDefinedComponentLevel()
+		if (this.current.getComponent().isDefinedComponentLevel()
 				&& this.depend.getComponent().isDefinedComponentLevel()
 				&& this.current.getComponent().getLayer() < this.depend.getComponent().getLayer()) {// 检测组件层依赖(人工指定)
 			return ComponentLayerAttentionType;
@@ -263,6 +261,16 @@ public final class Relation implements Comparable<Relation>, Serializable {
 				&& this.current.getComponent().getAreaComponent().instability() < this.depend.getComponent()
 						.getAreaComponent().instability()) {// 检测组件层依赖（按着AreaComponent）
 			return ComponentLayerAttentionType;
+		} else if (this.depend.getComponent().getEfferents().contains(this.current.getComponent()) &&
+				// 检测反向关系不是ComponentLayerAttentionType
+				(!(this.current.getComponent().isDefinedComponentLevel()
+				&& this.depend.getComponent().isDefinedComponentLevel()
+				&& this.depend.getComponent().getLayer() < this.current.getComponent().getLayer())) && 
+				!(this.current.getComponent().getAreaComponent() != null
+						&& this.depend.getComponent().getAreaComponent() != null
+						&& this.depend.getComponent().getAreaComponent().instability() < this.current.getComponent()
+								.getAreaComponent().instability())) {
+				return MutualDependAttentionType;
 		} else if (this.current.getComponent().stability(this.depend.getComponent())) {// 检测稳定依赖（按着自动计算的稳定性）
 			return SDPAttentionType;
 		} else if (this.current.getComponent().collectCycle().contains(this.depend.getComponent())) {// 检测循环依赖

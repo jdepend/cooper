@@ -26,10 +26,14 @@ public class AreaCreatorChain {
 		this.creators = new ArrayList<AreaCreator>();
 
 		Map<String, AreaCreator> allCreators = this.getAllCreators();
-		List<String> accordings = result.getRunningContext().getProfileFacade().getAreaComponentProfile()
-				.getAccordings();
+		List<String> accordings = result.getRunningContext().getProfileFacade()
+				.getAreaComponentProfile().getAccordings();
+		AreaCreator creator;
 		for (String according : accordings) {
-			this.creators.add(allCreators.get(according));
+			creator = allCreators.get(according);
+			if (creator != null) {
+				this.creators.add(creator);
+			}
 		}
 	}
 
@@ -40,10 +44,10 @@ public class AreaCreatorChain {
 
 		areaCreator = new AreaCreatorWithComponentLayer();
 		allCreators.put(areaCreator.getName(), areaCreator);
-
+		
 		areaCreator = new AreaCreatorWithInstability();
 		allCreators.put(areaCreator.getName(), areaCreator);
-
+		
 		return allCreators;
 
 	}

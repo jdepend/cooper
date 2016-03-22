@@ -23,6 +23,10 @@ public class IdealComponent extends Component {
 		super(component.getName());
 		this.component = component;
 	}
+	
+	public Component getOriginalComponent() {
+		return component;
+	}
 
 	@Override
 	protected List<Component> doList(Collection<JavaPackage> javaPackages) throws ComponentException {

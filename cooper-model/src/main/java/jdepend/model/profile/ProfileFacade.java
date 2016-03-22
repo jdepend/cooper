@@ -7,6 +7,12 @@ import jdepend.model.profile.model.ComponentProfile;
 import jdepend.model.profile.model.JavaClassUnitProfile;
 import jdepend.model.profile.model.RelationProfile;
 
+/**
+ * 获取系统计算分数结果时用到的规则配置信息
+ * 
+ * @author Administrator
+ *
+ */
 public interface ProfileFacade {
 
 	public AnalysisResultProfile getAnalysisResultProfile();

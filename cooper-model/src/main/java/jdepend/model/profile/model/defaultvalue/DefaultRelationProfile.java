@@ -14,8 +14,8 @@ public class DefaultRelationProfile extends RelationProfile {
 
 		problemRelations.put(Relation.CycleDependAttentionType, 1);
 		problemRelations.put(Relation.SDPAttentionType, 2);
-		problemRelations.put(Relation.ComponentLayerAttentionType, 3);
-		problemRelations.put(Relation.MutualDependAttentionType, 4);
+		problemRelations.put(Relation.MutualDependAttentionType, 3);
+		problemRelations.put(Relation.ComponentLayerAttentionType, 4);
 
 		this.setProblemRelations(problemRelations);
 		

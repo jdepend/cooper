@@ -406,9 +406,9 @@ public class GraphJDepend extends Display {
 			}
 			// 处理关注类型
 			String attentionType = item.getTable().getString(item.getRow(), "attentionType");
-			if (attentionType.equals(Relation.MutualDependAttentionType)) {
+			if (attentionType.equals(Relation.ComponentLayerAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 255);
-			} else if (attentionType.equals(Relation.ComponentLayerAttentionType)) {
+			} else if (attentionType.equals(Relation.MutualDependAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 120);
 			} else if (attentionType.equals(Relation.SDPAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 80);
