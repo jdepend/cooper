@@ -196,14 +196,12 @@ public final class RelationDetailPanel extends JPanel {
 				String currentCol = (String) listTable.getColumnModel().getColumn(column).getHeaderValue();
 				if (currentCol.equals(ReportConstant.DependType) && listTable.getValueAt(row, column) != null
 						&& ((String) listTable.getValueAt(row, column)).equals("Table")) {
-					String current = (String) listTable.getValueAt(row, 1);
-					String depend = (String) listTable.getValueAt(row, 3);
-					for (JavaClassRelationItem item : currentRelation.getItems()) {
-						if (item.getSource().getName().equals(current) && item.getTarget().getName().equals(depend)) {
-							if (item.getType() instanceof TableRelation) {
-								listTable.setToolTipText(((TableRelation) item.getType()).getTableName());
-							}
-						}
+					String source = CandidateUtil.getId((String) listTable.getValueAt(row, 1), (String) listTable.getValueAt(row, 2));
+					String target = CandidateUtil.getId((String) listTable.getValueAt(row, 3), (String) listTable.getValueAt(row, 4));
+					JavaClassRelationItem item = currentRelation.getTheJavaClassRelationItem(source, target);
+					if (item != null && item.getType() instanceof TableRelation) {
+						listTable.setToolTipText(((TableRelation) item
+								.getType()).getTableName());
 					}
 				} else {
 					listTable.setToolTipText(null);

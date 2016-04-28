@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jdepend.metadata.JavaClassRelationItem;
+import jdepend.metadata.relationtype.TableRelation;
 
 public class RelationDetail implements Serializable {
 
@@ -32,5 +33,14 @@ public class RelationDetail implements Serializable {
 
 	public void addItems(Collection<JavaClassRelationItem> items) {
 		this.items.addAll(items);
+	}
+	
+	public JavaClassRelationItem getTheJavaClassRelationItem(String source, String target){
+		for (JavaClassRelationItem item : this.items) {
+			if (item.getSource().getId().equals(source) && item.getTarget().getId().equals(target)) {
+				return item;
+			}
+		}
+		return null;
 	}
 }
