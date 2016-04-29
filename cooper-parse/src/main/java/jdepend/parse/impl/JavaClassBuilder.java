@@ -93,6 +93,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 					public void run() {
 						InputStream is = null;
 						try {
+							LogUtil.getInstance(JavaClassBuilder.class).systemLog("开始解析文件[" + classData.getName() + "]");
 							is = new ByteArrayInputStream(classData.getContent());
 							JavaClass javaClass = parser.parse(place, is);
 							if (parser.getConf().getPackageFilter().accept(javaClass.getPackageName())) {
