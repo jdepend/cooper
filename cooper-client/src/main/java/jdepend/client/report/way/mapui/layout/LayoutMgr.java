@@ -63,6 +63,10 @@ public class LayoutMgr {
 		filter.add(currentLayout.getLayout());
 
 		this.currentLayout = currentLayout;
+		
+		String group = this.display.getMapData().getGroup();
+		String command = this.display.getMapData().getCommand();
+		SpecifiedPositionMgr.getInstance().deleteTheCommandSpecifiedPosition(group, command);
 	}
 
 	public List<LayoutInfo> getLayouts() {
