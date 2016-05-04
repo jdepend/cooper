@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse.sql;
 
 import org.w3c.dom.Document;
 

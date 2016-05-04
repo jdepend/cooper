@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse.sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,22 +7,11 @@ import java.util.regex.Pattern;
 
 import jdepend.metadata.TableInfo;
 
-public class SqlParserUtil {
+public class SqlParserSelf extends SqlParser{
 
 	private static final String TABLE_VALUE = "([^()]+)";
 
-	public static boolean isSQL(String arg) {
-		if (arg == null) {
-			return false;
-		} else {
-			arg = arg.toLowerCase();
-			return arg.indexOf("select ") != -1 || arg.indexOf("insert ") != -1 || arg.indexOf("update ") != -1
-					|| arg.indexOf("delete ") != -1;
-
-		}
-	}
-
-	public static List<TableInfo> parserSql(String sql) {
+	public List<TableInfo> parserSql(String sql) {
 		List<TableInfo> tables = new ArrayList<TableInfo>();
 
 		String[] tableInfo = null;
@@ -221,10 +210,13 @@ public class SqlParserUtil {
 		return null;
 	}
 
-//	public static void main(String[] args) {
-//		String sql = "select * from  tableA aa , tableD dd where * from (select * from tableB  where * from (select * from tableC))";
-//		SqlParserUtil engine = new SqlParserUtil();
-//		List tempList = engine.parserSelectSql(sql);
+	public static void main(String[] args) {
+		String sql;
+		SqlParserSelf engine = new SqlParserSelf();
+		List tempList;
+		
+//		sql = "select * from  tableA aa , tableD dd where * from (select * from tableB  where * from (select * from tableC))";
+//		tempList = engine.parserSelectSql(sql);
 //		for (int i = 0; i < tempList.size(); i++) {
 //			String[] result = (String[]) tempList.get(i);
 //			System.out.println("表名 ：" + result[0]);
@@ -276,15 +268,15 @@ public class SqlParserUtil {
 //			System.out.println("别名 ：" + result[1]);
 //			System.out.println("==========================================");
 //		}
-//
-//		sql = "select m.* from share_share as m left join share_heat as mh on m.id=mh.id where m.deleted_flag = 0 order by mh.heat desc,m.last_modified_time desc limit :record_count offset :start_index";
-//		engine = new SqlParserUtil();
-//		tempList = engine.parserSelectSql(sql);
-//		for (int i = 0; i < tempList.size(); i++) {
-//			String[] result = (String[]) tempList.get(i);
-//			System.out.println("表名 ：" + result[0]);
-//			System.out.println("别名 ：" + result[1]);
-//			System.out.println("==========================================");
-//		}
-//	}
+
+		sql = "select m.* from share_share as m left join share_heat as mh on m.id=mh.id where m.deleted_flag = 0 order by mh.heat desc,m.last_modified_time desc limit :record_count offset :start_index";
+		engine = new SqlParserSelf();
+		tempList = engine.parserSelectSql(sql);
+		for (int i = 0; i < tempList.size(); i++) {
+			String[] result = (String[]) tempList.get(i);
+			System.out.println("表名 ：" + result[0]);
+			System.out.println("别名 ：" + result[1]);
+			System.out.println("==========================================");
+		}
+	}
 }

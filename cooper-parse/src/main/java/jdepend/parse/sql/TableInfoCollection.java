@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse.sql;
 
 import java.util.ArrayList;
 import java.util.List;

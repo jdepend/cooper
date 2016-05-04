@@ -9,6 +9,9 @@ import java.util.Map;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
 import jdepend.metadata.util.ParseUtil;
+import jdepend.parse.sql.ConfigParseMgr;
+import jdepend.parse.sql.SqlParseUtil;
+import jdepend.parse.sql.TableInfoItem;
 import jdepend.parse.util.ParseTool;
 
 import org.apache.bcel.classfile.ConstantClass;
@@ -191,8 +194,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 	public void visitConstantUtf8(ConstantUtf8 obj) {
 		String name = obj.getBytes();
 		this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + name);
-		if (SqlParserUtil.isSQL(name)) {
-			List<TableInfo> tables = SqlParserUtil.parserSql(name);
+		if (SqlParseUtil.isSQL(name)) {
+			List<TableInfo> tables = SqlParseUtil.parserSql(name);
 			if (tables != null) {
 				for (TableInfo table : tables) {
 					this.jClass.getDetail().addTable(table);
@@ -207,8 +210,8 @@ public class JDependClassFileVisitor extends EmptyVisitor {
 
 	private List<TableInfo> ParseTable(String constant) {
 		if (constant != null) {
-			if (SqlParserUtil.isSQL(constant)) {
-				return SqlParserUtil.parserSql(constant);
+			if (SqlParseUtil.isSQL(constant)) {
+				return SqlParseUtil.parserSql(constant);
 			} else {
 				Map<String, List<TableInfo>> tables = ConfigParseMgr.getInstance().getTheTables(TableInfoItem.KeyType);
 				if (tables != null && tables.containsKey(constant)) {

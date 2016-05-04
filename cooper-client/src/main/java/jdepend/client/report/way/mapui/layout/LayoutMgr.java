@@ -42,10 +42,7 @@ public class LayoutMgr {
 	}
 
 	public void reset() {
-		String group = this.display.getMapData().getGroup();
-		String command = this.display.getMapData().getCommand();
-		SpecifiedPositionMgr.getInstance().deleteTheCommandSpecifiedPosition(group, command);
-		
+		this.deleteSpecifiedPosition();
 		this.setCurrentLayout(layouts.get(0));
 	}
 
@@ -64,13 +61,17 @@ public class LayoutMgr {
 
 		this.currentLayout = currentLayout;
 		
-		String group = this.display.getMapData().getGroup();
-		String command = this.display.getMapData().getCommand();
-		SpecifiedPositionMgr.getInstance().deleteTheCommandSpecifiedPosition(group, command);
+		this.deleteSpecifiedPosition();
 	}
 
 	public List<LayoutInfo> getLayouts() {
 		return layouts;
+	}
+	
+	private void deleteSpecifiedPosition(){
+		String group = this.display.getMapData().getGroup();
+		String command = this.display.getMapData().getCommand();
+		SpecifiedPositionMgr.getInstance().deleteTheCommandSpecifiedPosition(group, command);
 	}
 
 }

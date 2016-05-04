@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse.sql;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class IBATIS30MapperConfigParse implements ConfigParse {
+public class IBATIS20SQLConfigParse implements ConfigParse {
 
 	@Override
 	public void parse(Document doc) {
@@ -21,7 +21,7 @@ public class IBATIS30MapperConfigParse implements ConfigParse {
 
 		Element root = doc.getDocumentElement();
 		String namespace = root.getAttribute("namespace");
-		LogUtil.getInstance(IBATIS30MapperConfigParse.class).systemLog("namespace(JavaClassName):" + namespace);
+		LogUtil.getInstance(IBATIS20SQLConfigParse.class).systemLog("namespace:" + namespace);
 		List<String> tagNames = new ArrayList<String>();
 		tagNames.add("insert");
 		tagNames.add("update");
@@ -32,12 +32,10 @@ public class IBATIS30MapperConfigParse implements ConfigParse {
 			for (int i = 0; i < tags.getLength(); i++) {
 				Element tag = (Element) tags.item(i);
 				String sql = tag.getTextContent();
-				tables.put(namespace, SqlParserUtil.parserSql(sql));
+				tables.put(namespace + "." + tag.getAttribute("id"), SqlParseUtil.parserSql(sql));
 			}
 		}
-		LogUtil.getInstance(IBATIS30MapperConfigParse.class).systemLog("tables:" + tables);
-		ConfigParseMgr.getInstance().addTables(TableInfoItem.ClassNameType, tables);
-
+		LogUtil.getInstance(IBATIS20SQLConfigParse.class).systemLog("tables:" + tables);
+		ConfigParseMgr.getInstance().addTables(TableInfoItem.KeyType, tables);
 	}
-
 }

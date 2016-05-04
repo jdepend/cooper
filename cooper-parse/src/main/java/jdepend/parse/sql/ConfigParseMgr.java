@@ -1,4 +1,4 @@
-package jdepend.parse.impl;
+package jdepend.parse.sql;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

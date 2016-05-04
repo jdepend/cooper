@@ -20,6 +20,7 @@ import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseListener;
+import jdepend.parse.sql.ConfigParseMgr;
 
 /**
  * The <code>JavaClassBuilder</code> builds <code>JavaClass</code> instances
