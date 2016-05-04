@@ -73,7 +73,7 @@ public class Parse {
 		for (JavaClass javaClass : javaClasses) {
 			createPackage(javaClass);
 		}
-
+		
 		return packages.values();
 	}
 

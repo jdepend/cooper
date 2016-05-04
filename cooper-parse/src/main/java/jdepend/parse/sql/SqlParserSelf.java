@@ -67,8 +67,8 @@ public class SqlParserSelf extends SqlParser{
 
 	private static List parserSelectSql(String sql) {
 		List result = new ArrayList();
-//		String metaRxp = "(?i)select ([^&]+) (?i)from " + TABLE_VALUE;
-		String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
+		String metaRxp = "(?i)select ([^&]+) (?i)from " + TABLE_VALUE;
+//		String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
 		Pattern pattern = null;
 		Matcher matcher = null;
 		pattern = Pattern.compile(metaRxp);
@@ -224,14 +224,14 @@ public class SqlParserSelf extends SqlParser{
 //			System.out.println("==========================================");
 //		}
 //
-//		sql = "select tip, m, dd from analyzer";
-//		tempList = engine.parserSelectSql(sql);
-//		for (int i = 0; i < tempList.size(); i++) {
-//			String[] result = (String[]) tempList.get(i);
-//			System.out.println("表名 ：" + result[0]);
-//			System.out.println("别名 ：" + result[1]);
-//			System.out.println("==========================================");
-//		}
+		sql = "select tip, m, dd from analyzer";
+		tempList = engine.parserSelectSql(sql);
+		for (int i = 0; i < tempList.size(); i++) {
+			String[] result = (String[]) tempList.get(i);
+			System.out.println("表名 ：" + result[0]);
+			System.out.println("别名 ：" + result[1]);
+			System.out.println("==========================================");
+		}
 //
 //		sql = "select classname, name, tip, bigtip, type, username, createdate from analyzer";
 //		tempList = engine.parserSelectSql(sql);
@@ -269,7 +269,17 @@ public class SqlParserSelf extends SqlParser{
 //			System.out.println("==========================================");
 //		}
 
-		sql = "select m.* from share_share as m left join share_heat as mh on m.id=mh.id where m.deleted_flag = 0 order by mh.heat desc,m.last_modified_time desc limit :record_count offset :start_index";
+//		sql = "select m.* from share_share as m left join share_heat as mh on m.id=mh.id where m.deleted_flag = 0 order by mh.heat desc,m.last_modified_time desc limit :record_count offset :start_index";
+//		engine = new SqlParserSelf();
+//		tempList = engine.parserSelectSql(sql);
+//		for (int i = 0; i < tempList.size(); i++) {
+//			String[] result = (String[]) tempList.get(i);
+//			System.out.println("表名 ：" + result[0]);
+//			System.out.println("别名 ：" + result[1]);
+//			System.out.println("==========================================");
+//		}
+		
+		sql = "select c_oid,c_name,c_unitname,zwms from CthrEmployeePO";
 		engine = new SqlParserSelf();
 		tempList = engine.parserSelectSql(sql);
 		for (int i = 0; i < tempList.size(); i++) {
