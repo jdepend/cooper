@@ -61,6 +61,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 				JavaClassUtil.supplyJavaClassDetail(new JavaClassCollection(this.parser.getConf()
 						.getJavaClassRelationTypes(), this.javaClasses));
 			}
+			
 			// 添加外部classes
 			this.appendExtClasses();
 			// 建立Class的关系

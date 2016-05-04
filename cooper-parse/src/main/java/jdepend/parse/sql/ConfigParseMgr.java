@@ -40,11 +40,12 @@ public final class ConfigParseMgr {
 
 	private String Hibernate = "Hibernate";
 
-	private ThreadLocal<TableInfoCollection> tables = new ThreadLocal<TableInfoCollection>();
+	private TableInfoCollection tables = new TableInfoCollection();
 
 	private ConfigParseMgr() {
 		this.parses.put(IBATIS_SQL_2_0, new IBATIS20SQLConfigParse());
 		this.parses.put(IBATIS_Mapper_3_0, new IBATIS30MapperConfigParse());
+		this.parses.put(Hibernate, new HibernateConfigParse());
 	}
 
 	public static ConfigParseMgr getInstance() {
@@ -90,18 +91,11 @@ public final class ConfigParseMgr {
 		}
 	}
 
-	public TableInfoCollection getTables() {
-		if (tables.get() == null) {
-			this.tables.set(new TableInfoCollection());
-		}
-		return tables.get();
-	}
-
 	public Map<String, List<TableInfo>> getTheTables(String type) {
 
 		Map<String, List<TableInfo>> theTableInfos = new HashMap<String, List<TableInfo>>();
 
-		for (TableInfoItem item : this.getTables().getTableInfos()) {
+		for (TableInfoItem item : this.tables.getTableInfos()) {
 			if (item.getType().equals(type)) {
 				theTableInfos.put(item.getName(), item.getTableInfos());
 			}
@@ -120,12 +114,17 @@ public final class ConfigParseMgr {
 	 *            表信息
 	 */
 	public void addTables(String type, Map<String, List<TableInfo>> tbs) {
-		if (this.tables.get() == null) {
-			this.tables.set(new TableInfoCollection());
-		}
 		for (String name : tbs.keySet()) {
-			this.tables.get().addItem(name, type, tbs.get(name));
+			this.tables.addItem(name, type, tbs.get(name));
 		}
+	}
+	
+	public void clear(){
+		this.tables = new TableInfoCollection();
+	}
+	
+	public void init(){
+		this.tables = new TableInfoCollection();
 	}
 
 	private DocumentBuilder getDocumentBuilder() throws ParserConfigurationException {

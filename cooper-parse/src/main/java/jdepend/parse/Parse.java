@@ -18,6 +18,7 @@ import jdepend.metadata.annotation.AnnotationMgr;
 import jdepend.parse.impl.AbstractClassBuilder;
 import jdepend.parse.impl.CSharpClassBuilder;
 import jdepend.parse.impl.JavaClassBuilder;
+import jdepend.parse.sql.ConfigParseMgr;
 
 /**
  * 解析器
@@ -66,6 +67,7 @@ public class Parse {
 	public Collection<JavaPackage> execute() throws ParseException {
 
 		AnnotationMgr.getInstance().reset();
+		ConfigParseMgr.getInstance().init();
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
 
@@ -73,6 +75,8 @@ public class Parse {
 		for (JavaClass javaClass : javaClasses) {
 			createPackage(javaClass);
 		}
+		
+		ConfigParseMgr.getInstance().clear();
 		
 		return packages.values();
 	}
