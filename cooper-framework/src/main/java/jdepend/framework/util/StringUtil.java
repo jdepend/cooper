@@ -125,6 +125,10 @@ public final class StringUtil {
 		return result;
 	}
 	
+	public static boolean isEmpty(String obj){
+		return obj == null || obj.length() == 0;
+	}
+	
 	public static void main(String[] args) {
 		String test = "126";
 

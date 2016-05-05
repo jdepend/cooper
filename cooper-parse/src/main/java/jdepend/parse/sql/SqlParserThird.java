@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.framework.log.LogUtil;
+import jdepend.framework.util.StringUtil;
 import jdepend.metadata.TableInfo;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
@@ -41,8 +42,10 @@ public class SqlParserThird extends SqlParser {
 			}
 			if (tableNames != null) {
 				for (String tableName : tableNames) {
-					tableInfo = new TableInfo(tableName, operation);
-					tables.add(tableInfo);
+					if (!StringUtil.isEmpty(tableName)) {
+						tableInfo = new TableInfo(tableName, operation);
+						tables.add(tableInfo);
+					}
 				}
 			}
 			return tables;

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import jdepend.framework.util.StringUtil;
 import jdepend.metadata.annotation.AnnotationDefs;
 import jdepend.metadata.annotation.AnnotationParse;
 import jdepend.metadata.annotation.Controller;
@@ -67,7 +68,10 @@ public class JavaClassDetail implements Serializable {
 			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
 				L: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
 					if (elementValuePair.getNameString().equals("name")) {
-						this.addTable(new TableInfo(elementValuePair.getValue().toShortString(), TableInfo.Define));
+						String tableName = elementValuePair.getValue().toShortString();
+						if (!StringUtil.isEmpty(tableName)) {
+							this.addTable(new TableInfo(tableName, TableInfo.Define));
+						}
 						break L;
 					}
 				}

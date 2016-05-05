@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import jdepend.framework.log.LogUtil;
+import jdepend.framework.util.StringUtil;
 import jdepend.metadata.TableInfo;
 
 import org.w3c.dom.Document;
@@ -28,12 +29,13 @@ public class HibernateConfigParse implements ConfigParse {
 			Element tag = (Element) tags.item(i);
 			name = root.getAttribute("package") + "." + tag.getAttribute("name");
 			table = tag.getAttribute("table");
+			if (!StringUtil.isEmpty(table)) {
+				tableInfo = new TableInfo(table, TableInfo.Define);
+				tableInfos = new ArrayList<TableInfo>();
+				tableInfos.add(tableInfo);
 
-			tableInfo = new TableInfo(table, TableInfo.Define);
-			tableInfos = new ArrayList<TableInfo>();
-			tableInfos.add(tableInfo);
-
-			tables.put(name, tableInfos);
+				tables.put(name, tableInfos);
+			}
 
 		}
 		if (tables.size() > 0) {

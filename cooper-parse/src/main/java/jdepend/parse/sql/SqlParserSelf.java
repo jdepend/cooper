@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jdepend.framework.util.StringUtil;
 import jdepend.metadata.TableInfo;
 
 public class SqlParserSelf extends SqlParser{
@@ -20,7 +21,7 @@ public class SqlParserSelf extends SqlParser{
 			if (TableInfos.size() != 0) {
 				for (int i = 0; i < TableInfos.size(); i++) {
 					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
 						tables.add(new TableInfo(tableInfo[0], TableInfo.Read));
 					}
 				}
@@ -31,7 +32,7 @@ public class SqlParserSelf extends SqlParser{
 			if (TableInfos.size() != 0) {
 				for (int i = 0; i < TableInfos.size(); i++) {
 					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
 						tables.add(new TableInfo(tableInfo[0], TableInfo.Create));
 					}
 				}
@@ -42,7 +43,7 @@ public class SqlParserSelf extends SqlParser{
 			if (TableInfos.size() != 0) {
 				for (int i = 0; i < TableInfos.size(); i++) {
 					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
 						tables.add(new TableInfo(tableInfo[0], TableInfo.Update));
 					}
 				}
@@ -53,7 +54,7 @@ public class SqlParserSelf extends SqlParser{
 			if (TableInfos.size() != 0) {
 				for (int i = 0; i < TableInfos.size(); i++) {
 					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && tableInfo[0] != null) {
+					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
 						tables.add(new TableInfo(tableInfo[0], TableInfo.Delete));
 					}
 				}
