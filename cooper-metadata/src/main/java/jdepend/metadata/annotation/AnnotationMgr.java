@@ -6,6 +6,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * Flyweight模式 用于减少Annotation被创建的量
+ * 
+ * @author Administrator
+ *
+ * @param <T>
+ */
 public class AnnotationMgr<T extends Annotation> {
 
 	private static final AnnotationMgr<Annotation> mgr = new AnnotationMgr<Annotation>();
@@ -42,7 +49,11 @@ public class AnnotationMgr<T extends Annotation> {
 		return null;
 	}
 
-	public synchronized void reset() {
+	public synchronized void clear() {
+		elements = null;
+	}
+	
+	public synchronized void init() {
 		elements = null;
 	}
 

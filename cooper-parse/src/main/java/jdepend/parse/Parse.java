@@ -66,7 +66,7 @@ public class Parse {
 	 */
 	public Collection<JavaPackage> execute() throws ParseException {
 
-		AnnotationMgr.getInstance().reset();
+		AnnotationMgr.getInstance().init();
 		ConfigParseMgr.getInstance().init();
 
 		Collection<JavaClass> javaClasses = getClassBuilder().build(getAnalyseData());
@@ -76,6 +76,7 @@ public class Parse {
 			createPackage(javaClass);
 		}
 		
+		AnnotationMgr.getInstance().clear();
 		ConfigParseMgr.getInstance().clear();
 		
 		return packages.values();
