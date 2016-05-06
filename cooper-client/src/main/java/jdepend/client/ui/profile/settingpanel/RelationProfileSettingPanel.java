@@ -63,16 +63,16 @@ public class RelationProfileSettingPanel extends ModelProfileSettingPanel {
 		problemRelationPanel.add(SDPField);
 		problemRelationPanel.add(new JLabel("取值范围：1~4"));
 
-		problemRelationPanel.add(new JLabel("下层组件依赖了上层组件"));
-
-		componentLayerField = new JTextField();
-		problemRelationPanel.add(componentLayerField);
-		problemRelationPanel.add(new JLabel("取值范围：1~4"));
-
 		problemRelationPanel.add(new JLabel("彼此依赖"));
 
 		mutualDependField = new JTextField();
 		problemRelationPanel.add(mutualDependField);
+		problemRelationPanel.add(new JLabel("取值范围：1~4"));
+		
+		problemRelationPanel.add(new JLabel("下层组件依赖了上层组件"));
+
+		componentLayerField = new JTextField();
+		problemRelationPanel.add(componentLayerField);
 		problemRelationPanel.add(new JLabel("取值范围：1~4"));
 
 		left.add(BorderLayout.NORTH, problemRelationPanel);
