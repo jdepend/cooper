@@ -17,13 +17,13 @@ public class ResultOperationPanel extends JPanel {
 
 	private int currentTabIndex = -1;
 
-	private List<Integer> mementoTabs = new LinkedList<Integer>();
+	private List<TabInfo> mementoTabs = new LinkedList<TabInfo>();
 	
-	private JTabbedPane tab;
+	private ResultPanel resultPanel;
 
-	public ResultOperationPanel(JTabbedPane tab1) {
+	public ResultOperationPanel(ResultPanel resultPanel1) {
 		
-		this.tab = tab1;
+		this.resultPanel = resultPanel1;
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		JPanel contentPanel = new JPanel();
@@ -44,7 +44,7 @@ public class ResultOperationPanel extends JPanel {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				prior();
-				tab.setSelectedIndex(getCurrentTab());
+				resultPanel.setTab(getCurrentTab().tabOne, getCurrentTab().tabTwo);
 			}
 		});
 
@@ -62,7 +62,7 @@ public class ResultOperationPanel extends JPanel {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				next();
-				tab.setSelectedIndex(getCurrentTab());
+				resultPanel.setTab(getCurrentTab().tabOne, getCurrentTab().tabTwo);
 			}
 		});
 
@@ -81,17 +81,19 @@ public class ResultOperationPanel extends JPanel {
 		return splitPanel;
 	}
 
-	public void addMemetoTab(int tabNumber) {
+	public void addMemetoTab(int tabOne, int tabTwo) {
+		
+		TabInfo tabInfo = new TabInfo(tabOne, tabTwo);
 		if (mementoTabs.size() > 0
-				&& mementoTabs.get(currentTabIndex).equals(tabNumber)) {
+				&& mementoTabs.get(currentTabIndex).equals(tabInfo)) {
 			return;
 		} else {
 			if (currentTabIndex != mementoTabs.size() - 1) {
 				for (int index = mementoTabs.size() - 1; index > currentTabIndex; index--) {
-					mementoTabs.remove(index);
+					mementoTabs.remove(tabInfo);
 				}
 			}
-			mementoTabs.add(tabNumber);
+			mementoTabs.add(tabInfo);
 			currentTabIndex = mementoTabs.size() - 1;
 		}
 	}
@@ -108,8 +110,52 @@ public class ResultOperationPanel extends JPanel {
 		}
 	}
 
-	public Integer getCurrentTab() {
+	public TabInfo getCurrentTab() {
 		return mementoTabs.get(currentTabIndex);
+	}
+	
+	public class TabInfo{
+		
+		public int tabOne;
+		public int tabTwo;
+		
+		public TabInfo(int tabOne, int tabTwo) {
+			super();
+			this.tabOne = tabOne;
+			this.tabTwo = tabTwo;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + tabTwo;
+			result = prime * result + tabOne;
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			TabInfo other = (TabInfo) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (tabTwo != other.tabTwo)
+				return false;
+			if (tabOne != other.tabOne)
+				return false;
+			return true;
+		}
+
+		private ResultOperationPanel getOuterType() {
+			return ResultOperationPanel.this;
+		}
 	}
 
 }

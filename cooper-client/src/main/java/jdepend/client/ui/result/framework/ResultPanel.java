@@ -57,7 +57,7 @@ public class ResultPanel extends TabsPanel {
 			this.addTab(label, results.get(label));
 		}
 
-		resultOperationPanel = new ResultOperationPanel(this.tabPane);
+		resultOperationPanel = new ResultOperationPanel(this);
 		this.add(BorderLayout.EAST, resultOperationPanel);
 
 		setDefaultTab();
@@ -66,7 +66,7 @@ public class ResultPanel extends TabsPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				resultOperationPanel.addMemetoTab(getOneIndex());
+				resultOperationPanel.addMemetoTab(getOneIndex(), getTwoIndex());
 			}
 		});
 
@@ -103,7 +103,7 @@ public class ResultPanel extends TabsPanel {
 				subTab.setSelectedIndex(defaultTwoIndex);
 			}
 		}
-		resultOperationPanel.addMemetoTab(getOneIndex());
+		resultOperationPanel.addMemetoTab(getOneIndex(), getTwoIndex());
 		this.setVisible(true);
 	}
 
@@ -140,6 +140,14 @@ public class ResultPanel extends TabsPanel {
 		if (component instanceof SubResultTab) {
 			SubResultTab subTab = (SubResultTab) component;
 			subTab.setParentTab((ResultTab) this.tabPane);
+			
+			subTab.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					resultOperationPanel.addMemetoTab(getOneIndex(), getTwoIndex());
+				}
+			});
 		}
 	}
 
