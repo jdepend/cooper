@@ -17,7 +17,7 @@ public class ResultOperationPanel extends JPanel {
 
 	private int currentTabIndex = -1;
 
-	private List<TabInfo> mementoTabs = new LinkedList<TabInfo>();
+	private List<TabIndexInfo> mementoTabs = new LinkedList<TabIndexInfo>();
 	
 	private ResultPanel resultPanel;
 
@@ -83,7 +83,7 @@ public class ResultOperationPanel extends JPanel {
 
 	public void addMemetoTab(int tabOne, int tabTwo) {
 		
-		TabInfo tabInfo = new TabInfo(tabOne, tabTwo);
+		TabIndexInfo tabInfo = new TabIndexInfo(tabOne, tabTwo);
 		if (mementoTabs.size() > 0
 				&& mementoTabs.get(currentTabIndex).equals(tabInfo)) {
 			return;
@@ -110,16 +110,16 @@ public class ResultOperationPanel extends JPanel {
 		}
 	}
 
-	public TabInfo getCurrentTab() {
+	public TabIndexInfo getCurrentTab() {
 		return mementoTabs.get(currentTabIndex);
 	}
 	
-	public class TabInfo{
+	public class TabIndexInfo{
 		
 		public int tabOne;
 		public int tabTwo;
 		
-		public TabInfo(int tabOne, int tabTwo) {
+		public TabIndexInfo(int tabOne, int tabTwo) {
 			super();
 			this.tabOne = tabOne;
 			this.tabTwo = tabTwo;
@@ -143,7 +143,7 @@ public class ResultOperationPanel extends JPanel {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			TabInfo other = (TabInfo) obj;
+			TabIndexInfo other = (TabIndexInfo) obj;
 			if (!getOuterType().equals(other.getOuterType()))
 				return false;
 			if (tabTwo != other.tabTwo)
