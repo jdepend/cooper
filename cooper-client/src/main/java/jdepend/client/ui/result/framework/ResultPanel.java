@@ -56,7 +56,6 @@ public class ResultPanel extends TabsPanel {
 			label = iterator.next();
 			this.addTab(label, results.get(label));
 		}
-		setDefaultTab();
 		
 		resultOperationPanel = new ResultOperationPanel(this.tabPane);
 		this.add(BorderLayout.EAST, resultOperationPanel);
@@ -71,7 +70,9 @@ public class ResultPanel extends TabsPanel {
 				
 			}
 		});
-		resultOperationPanel.addMemetoTab(getOneIndex());
+		
+		setDefaultTab();
+		
 		
 		this.setVisible(true);
 	}
@@ -95,6 +96,7 @@ public class ResultPanel extends TabsPanel {
 				subTab.setSelectedIndex(defaultTwoIndex);
 			}
 		}
+		resultOperationPanel.addMemetoTab(getOneIndex());
 		this.setVisible(true);
 	}
 
