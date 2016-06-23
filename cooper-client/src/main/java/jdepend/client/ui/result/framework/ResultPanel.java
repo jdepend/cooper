@@ -30,6 +30,8 @@ public class ResultPanel extends TabsPanel {
 
 	private JDependCooper frame;
 	
+	private ResultOperationPanel resultOperationPanel;
+	
 	public ResultPanel(JDependCooper frame) {
 		super(new ResultTab(frame));
 		this.frame = frame;
@@ -56,7 +58,7 @@ public class ResultPanel extends TabsPanel {
 		}
 		setDefaultTab();
 		
-		final ResultOperationPanel resultOperationPanel = new ResultOperationPanel(this.tabPane);
+		resultOperationPanel = new ResultOperationPanel(this.tabPane);
 		this.add(BorderLayout.EAST, resultOperationPanel);
 		
 		this.tabPane.addMouseListener(new MouseAdapter() {
@@ -69,6 +71,7 @@ public class ResultPanel extends TabsPanel {
 				
 			}
 		});
+		resultOperationPanel.addMemetoTab(getOneIndex());
 		
 		this.setVisible(true);
 	}
