@@ -5,22 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.framework.UIPropertyConfigurator;
-import jdepend.client.ui.result.panel.ScoreSummaryDialog;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.ui.component.TextViewer;
 import jdepend.framework.ui.panel.TabWrapper;
@@ -31,7 +29,7 @@ import jdepend.framework.util.FileUtil;
 public class ResultPanel extends TabsPanel {
 
 	private JDependCooper frame;
-
+	
 	public ResultPanel(JDependCooper frame) {
 		super(new ResultTab(frame));
 		this.frame = frame;
@@ -58,7 +56,19 @@ public class ResultPanel extends TabsPanel {
 		}
 		setDefaultTab();
 		
-		this.add(BorderLayout.EAST, new ResultOperationPanel());
+		final ResultOperationPanel resultOperationPanel = new ResultOperationPanel(this.tabPane);
+		this.add(BorderLayout.EAST, resultOperationPanel);
+		
+		this.tabPane.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				
+				resultOperationPanel.addMemetoTab(getOneIndex());
+				
+			}
+		});
 		
 		this.setVisible(true);
 	}
