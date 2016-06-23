@@ -29,9 +29,9 @@ import jdepend.framework.util.FileUtil;
 public class ResultPanel extends TabsPanel {
 
 	private JDependCooper frame;
-	
+
 	private ResultOperationPanel resultOperationPanel;
-	
+
 	public ResultPanel(JDependCooper frame) {
 		super(new ResultTab(frame));
 		this.frame = frame;
@@ -56,25 +56,30 @@ public class ResultPanel extends TabsPanel {
 			label = iterator.next();
 			this.addTab(label, results.get(label));
 		}
-		
+
 		resultOperationPanel = new ResultOperationPanel(this.tabPane);
 		this.add(BorderLayout.EAST, resultOperationPanel);
-		
+
+		setDefaultTab();
+
 		this.tabPane.addMouseListener(new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				
 				resultOperationPanel.addMemetoTab(getOneIndex());
-				
 			}
 		});
-		
-		setDefaultTab();
-		
-		
+
 		this.setVisible(true);
+	}
+
+	@Override
+	public void removeAll() {
+		super.removeAll();
+
+		if (resultOperationPanel != null) {
+			this.remove(resultOperationPanel);
+		}
 	}
 
 	public void setDefaultTab() {
@@ -90,8 +95,10 @@ public class ResultPanel extends TabsPanel {
 			this.tabPane.setSelectedIndex(defaultOneIndex);
 		}
 		if (this.tabPane.getSelectedComponent() != null
-				&& ((TabWrapper) this.tabPane.getSelectedComponent()).getComponent() instanceof SubResultTab) {
-			SubResultTab subTab = (SubResultTab) ((TabWrapper) this.tabPane.getSelectedComponent()).getComponent();
+				&& ((TabWrapper) this.tabPane.getSelectedComponent())
+						.getComponent() instanceof SubResultTab) {
+			SubResultTab subTab = (SubResultTab) ((TabWrapper) this.tabPane
+					.getSelectedComponent()).getComponent();
 			if (defaultOneIndex < subTab.getTabCount()) {
 				subTab.setSelectedIndex(defaultTwoIndex);
 			}
@@ -114,8 +121,10 @@ public class ResultPanel extends TabsPanel {
 
 	public int getTwoIndex() {
 		if (this.tabPane.getTabCount() > 0) {
-			if (((TabWrapper) this.tabPane.getSelectedComponent()).getComponent() instanceof SubResultTab) {
-				SubResultTab subTab = (SubResultTab) ((TabWrapper) this.tabPane.getSelectedComponent()).getComponent();
+			if (((TabWrapper) this.tabPane.getSelectedComponent())
+					.getComponent() instanceof SubResultTab) {
+				SubResultTab subTab = (SubResultTab) ((TabWrapper) this.tabPane
+						.getSelectedComponent()).getComponent();
 				return subTab.getSelectedIndex();
 			} else {
 				return -1;
@@ -164,14 +173,16 @@ public class ResultPanel extends TabsPanel {
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 
-		JMenuItem saveasItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_SaveAs));
+		JMenuItem saveasItem = new JMenuItem(
+				BundleUtil.getString(BundleUtil.Command_SaveAs));
 		saveasItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					saveAs(new StringBuilder(resultViewer.getText()));
 				} catch (JDependException e1) {
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "保存失败！", "alert", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "保存失败！", "alert",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -190,12 +201,14 @@ public class ResultPanel extends TabsPanel {
 	}
 
 	private static void saveAs(StringBuilder content) throws JDependException {
-		JFileChooser jFileChooser = new JFileChooser(System.getProperty("user.home"));
+		JFileChooser jFileChooser = new JFileChooser(
+				System.getProperty("user.home"));
 		int result = jFileChooser.showSaveDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File f = jFileChooser.getSelectedFile();
 			FileUtil.saveFileContent(f.getAbsolutePath(), content);
-			JOptionPane.showMessageDialog(null, "保存成功。", "alert", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "保存成功。", "alert",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 

@@ -61,6 +61,7 @@ public class TabsPanel extends JPanel {
 		this.tabPane.setSelectedIndex(this.tabPane.getTabCount() - 1);
 	}
 
+	@Override
 	public void removeAll() {
 		this.tabPane.removeAll();
 	}
