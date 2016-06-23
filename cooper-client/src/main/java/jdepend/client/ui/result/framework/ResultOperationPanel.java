@@ -2,6 +2,7 @@ package jdepend.client.ui.result.framework;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -11,6 +12,10 @@ import javax.swing.JPanel;
 import jdepend.framework.ui.util.JDependUIUtil;
 
 public class ResultOperationPanel extends JPanel {
+	
+	private String currentTab;
+	
+	private LinkedList<String> mementoTabs = new LinkedList<String>();
 	
 	public ResultOperationPanel(){
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -63,6 +68,14 @@ public class ResultOperationPanel extends JPanel {
 		splitPanel.setBounds(0, 0, 16, 16);
 		
 		return splitPanel;
+	}
+	
+	public void addMemetoTab(String tabNumber){
+		if(mementoTabs.size() > 0 && mementoTabs.getLast().equals(tabNumber)){
+			return;
+		}else{
+			mementoTabs.add(tabNumber);
+		}
 	}
 
 }
