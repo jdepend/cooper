@@ -26,6 +26,16 @@
 			<groupId>cooper</groupId>
 			<artifactId>cooper-framework-ui</artifactId>
 			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.prefuse</groupId>
@@ -54,4 +64,49 @@
 			<systemPath>${basedir}/lib/JMeld-2.1_all.jar</systemPath>
 		</dependency>
 	</dependencies>
+	<!-- 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>jdepend.client.ui.JDependCooper</mainClass>
+								</transformer>
+							</transformers>
+							<descriptorRefs>
+			                	<descriptorRef>**/*.jar</descriptorRef>
+			              	</descriptorRefs>
+			              	<finalName>cooper</finalName>
+			       		</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>
+							src/main/resources/META-INF/MANIFEST.MF
+						</manifestFile>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	 -->
 </project>
