@@ -172,14 +172,32 @@
 			<version>1.2.1</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
-	    <plugins>
-	      <plugin>
-	        <groupId>org.apache.tomcat.maven</groupId>
-	        <artifactId>tomcat7-maven-plugin</artifactId>
-	        <version>2.2</version>
-	      </plugin>
-	    </plugins>
-    </build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeScope>system</includeScope>
+					<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
