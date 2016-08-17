@@ -1,10 +1,13 @@
 package jdepend.framework.ui.dialog;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import jdepend.framework.ui.util.JDependUIUtil;
 
@@ -27,5 +30,15 @@ public class WelcomeDialog extends JDialog {
 	@Override
 	public void paint(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+	}
+
+	public void showError(String message) {
+		JPanel errorPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JLabel msg = new JLabel(message);
+		errorPanel.add(msg);
+		
+		this.add(BorderLayout.SOUTH, errorPanel);
+		this.setVisible(true);
+		
 	}
 }

@@ -8,6 +8,7 @@ import jdepend.client.core.remote.userproxy.UserActionGather;
 import jdepend.client.core.remote.userproxy.UserCredits;
 import jdepend.client.ui.JDependCooper;
 import jdepend.client.ui.action.ServiceSettingAction;
+import jdepend.client.ui.framework.ExceptionUtil;
 import jdepend.client.ui.framework.PanelMgr;
 import jdepend.client.ui.remote.action.ClientExitAction;
 import jdepend.client.ui.remote.action.LoginAction;
@@ -103,8 +104,12 @@ public class ClientCooper extends JDependCooper {
 			d.setModal(true);
 			d.setVisible(true);
 		} else {
-			frame.start(args, setting);
-			welcomeDialog.dispose();
+			try {
+				frame.start(args, setting);
+				welcomeDialog.dispose();
+			} catch (Exception e) {
+				welcomeDialog.showError(ExceptionUtil.getMessage(e));
+			}
 		}
 	}
 }

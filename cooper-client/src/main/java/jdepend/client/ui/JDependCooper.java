@@ -35,6 +35,7 @@ import jdepend.client.ui.circle.CirclePanel;
 import jdepend.client.ui.command.GroupIngoreListSettingDialog;
 import jdepend.client.ui.command.GroupPanel;
 import jdepend.client.ui.culture.CulturePanel;
+import jdepend.client.ui.framework.ExceptionUtil;
 import jdepend.client.ui.framework.PanelMgr;
 import jdepend.client.ui.framework.UIPropertyConfigurator;
 import jdepend.client.ui.property.PropertyPanel;
@@ -73,7 +74,8 @@ import jdepend.util.refactor.AdjustHistory;
  * @author wangdg
  * 
  */
-public class JDependCooper extends JDependFrame implements ParseListener, ReportListener, AnalyzerExecutorListener {
+public class JDependCooper extends JDependFrame implements ParseListener,
+		ReportListener, AnalyzerExecutorListener {
 
 	private LeftPanel leftPanel;
 
@@ -107,7 +109,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		super(name);
 
 		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
 			javax.swing.SwingUtilities.updateComponentTreeUI(this); // 更新界面
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,77 +125,140 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		resourceStrings = new HashMap<String, String>();
 		resourceStrings.put(
 				"menubar",
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_File) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Data) + "/"
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_File)
+						+ "/"
+						+ BundleUtil
+								.getString(BundleUtil.ClientWin_Menu_Setting)
+						+ "/"
+						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Data)
+						+ "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Help));
 		resourceStrings.put(
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_File),
 				BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup) + "/"
 						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit));
-		resourceStrings.put(
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting),
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace) + "/-/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting));
+		resourceStrings
+				.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting),
+						BundleUtil
+								.getString(BundleUtil.ClientWin_Menu_ParamSetting)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace)
+								+ "/-/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_ProfileSetting));
 
-		resourceStrings.put(
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult));
-		resourceStrings.put(
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_Help),
-				BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics) + "/"
-						+ BundleUtil.getString(BundleUtil.ClientWin_Menu_About));
+		resourceStrings
+				.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
+						BundleUtil
+								.getString(BundleUtil.ClientWin_Menu_ScoreList)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_ImportResult));
+		resourceStrings
+				.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Help),
+						BundleUtil
+								.getString(BundleUtil.ClientWin_Menu_Introduce)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_MetricsExplain)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_ScoreExplain)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics)
+								+ "/"
+								+ BundleUtil
+										.getString(BundleUtil.ClientWin_Menu_About));
 
 		accelerators = new HashMap<String, String>();
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_File), "F");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting), "S");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), "K");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Help), "H");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup), "G");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit), "E");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting), "P");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data), "D");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), "U");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), "J");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce), "I");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain), "M");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain), "C");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics), "B");
-		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_About), "A");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_File),
+				"F");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Setting), "S");
+		accelerators
+				.put(BundleUtil
+						.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace),
+						"K");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Help),
+				"H");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup), "G");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit),
+				"E");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting),
+				"P");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Data),
+				"D");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), "U");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult),
+				"J");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce), "I");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain),
+				"M");
+		accelerators.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain),
+				"C");
+		accelerators
+				.put(BundleUtil
+						.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics),
+						"B");
+		accelerators.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_About),
+				"A");
 		//
 		// Install the action table.
 		//
 		actions = new HashMap<String, AbstractAction>();
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_About), new AboutAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup), new AddGroupWizardAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit), new ExitAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce), new IntroduceAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain), new MetricsAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain), new ScoreIntroduceAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics), new ScoreAndMetricsAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting), new SettingAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace), new SettingWorkspaceAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting), new WorkspaceProfileSettingAction(
-				this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList), new ScoreAction(this));
-		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult), new ImportResultAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_About),
+				new AboutAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_AddGroup),
+				new AddGroupWizardAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Exit),
+				new ExitAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_Introduce),
+				new IntroduceAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_MetricsExplain),
+				new MetricsAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreExplain),
+				new ScoreIntroduceAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreAndMetrics),
+				new ScoreAndMetricsAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ParamSetting),
+				new SettingAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ChangeWorkspace),
+				new SettingWorkspaceAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ProfileSetting),
+				new WorkspaceProfileSettingAction(this));
+		actions.put(BundleUtil.getString(BundleUtil.ClientWin_Menu_ScoreList),
+				new ScoreAction(this));
+		actions.put(
+				BundleUtil.getString(BundleUtil.ClientWin_Menu_ImportResult),
+				new ImportResultAction(this));
 
 		getContentPane().setLayout(new BorderLayout());
 		setBackground(SystemColor.control);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				new ExitAction((JDependCooper) e.getSource()).actionPerformed(null);
+				new ExitAction((JDependCooper) e.getSource())
+						.actionPerformed(null);
 			}
 		});
 	}
 
-	protected void doDisplay() {
+	protected void doDisplay() throws JDependException {
 		createUI();
 		this.defaultLayout();
 	}
@@ -222,7 +288,7 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		circlePanel.setHidden(true);
 	}
 
-	private void createUI() {
+	private void createUI() throws JDependException {
 
 		JMenuBar menuBar = createMenubar();
 		this.setJMenuBar(menuBar);
@@ -234,26 +300,23 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		this.getContentPane().add(BorderLayout.CENTER, workspacePanel);
 	}
 
-	private JPanel createWorkspacePanel() {
+	private JPanel createWorkspacePanel() throws JDependException {
 
 		JPanel panel = new JPanel(new BorderLayout());
 
-		topHorizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, this.getResultPanel(),
-				this.getCirclePanel());
+		topHorizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				false, this.getResultPanel(), this.getCirclePanel());
 
 		PropertyPanel propertyPanel = this.getPropertyPanel();
 
-		verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false, topHorizontalSplitPane, propertyPanel);
+		verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, false,
+				topHorizontalSplitPane, propertyPanel);
 
-		JPanel leftPanel = new JPanel();
-		try {
-			leftPanel = this.createLeftPanel();
-		} catch (JDependException e) {
-			e.printStackTrace();
-			showStatusError(e.getMessage());
-		}
+		JPanel leftPanel = this.createLeftPanel();
+		
 
-		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false, leftPanel, verticalSplitPane);
+		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				false, leftPanel, verticalSplitPane);
 
 		panel.add(horizontalSplitPane);
 
@@ -348,23 +411,30 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 
 		System.setProperty("sun.zip.encoding", "default");
 
-		JDependCooper frame = new JDependCooper(BundleUtil.getString(BundleUtil.ClientWin_Title));
+		JDependCooper frame = new JDependCooper(
+				BundleUtil.getString(BundleUtil.ClientWin_Title));
 
 		WelcomeDialog welcomeDialog = new WelcomeDialog();
 		welcomeDialog.setVisible(true);
 
 		WorkspaceSetting setting = new WorkspaceSetting();
 		if (!setting.Inited()) {
-			WorkspaceSettingDialog d = new WorkspaceSettingDialog(frame, welcomeDialog, setting, args);
+			WorkspaceSettingDialog d = new WorkspaceSettingDialog(frame,
+					welcomeDialog, setting, args);
 			d.setModal(true);
 			d.setVisible(true);
 		} else {
-			frame.start(args, setting);
-			welcomeDialog.dispose();
+			try {
+				frame.start(args, setting);
+				welcomeDialog.dispose();
+			} catch (Exception e) {
+				welcomeDialog.showError(ExceptionUtil.getMessage(e));
+			}
+
 		}
 	}
 
-	public void start(String[] args, WorkspaceSetting setting) {
+	public void start(String[] args, WorkspaceSetting setting) throws JDependException {
 		// 初始化环境信息
 		this.initEnv(args, setting);
 		// 初始化ClassList
@@ -391,17 +461,20 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 		LogUtil.SYSTEMWARNING = conf.isPrintSystemWarning();
 
 		// 设置字体大小
-		UIProperty.setSize(UIPropertyConfigurator.getInstance().getTextFontSize());
+		UIProperty.setSize(UIPropertyConfigurator.getInstance()
+				.getTextFontSize());
 	}
 
 	protected void init(String[] args) {
 		// 设置业务日志Writer
 		BusiLogUtil.getInstance().setBusiWriter(new DBBusinessLogWriter());
 		// 设置ServiceProxyFactory
-		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceLocalProxyFactory());
+		JDependServiceProxyFactoryMgr.getInstance().setFactory(
+				new JDependServiceLocalProxyFactory());
 		// 向命令组配置组件增加监听器
 		try {
-			CommandConfMgr.getInstance().addGroupListener(CommandAdapterMgr.getInstance());
+			CommandConfMgr.getInstance().addGroupListener(
+					CommandAdapterMgr.getInstance());
 		} catch (JDependException e) {
 			e.printStackTrace();
 			this.showStatusError(e.getMessage());
@@ -432,7 +505,8 @@ public class JDependCooper extends JDependFrame implements ParseListener, Report
 	}
 
 	public void onViewIgnoreList(String group) {
-		GroupIngoreListSettingDialog d = new GroupIngoreListSettingDialog(this, group);
+		GroupIngoreListSettingDialog d = new GroupIngoreListSettingDialog(this,
+				group);
 		d.setModal(true);
 		d.setVisible(true);
 	}

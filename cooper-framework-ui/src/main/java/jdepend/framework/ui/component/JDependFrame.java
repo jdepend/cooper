@@ -42,14 +42,14 @@ public abstract class JDependFrame extends JFrame {
 		super(name);
 	}
 
-	public void display() {
+	public void display() throws JDependException {
 		this.doDisplay();
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		scrSize = this.getSize();
 	}
 
-	protected void doDisplay() {
+	protected void doDisplay() throws JDependException {
 	}
 
 	protected StatusPanel getStatusPanel() {
