@@ -1,4 +1,11 @@
-﻿1.2.5_09 2016-07-13
+﻿1.2.5_10
+
+a）升级bcel为6.0
+
+b）创建model-ext，将ObjectOrientedMetrics移入到model-ext
+
+
+1.2.5_09 2016-07-13
 
 a）增加结果页前进和后退导航
 

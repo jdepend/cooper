@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.model.metrics.ObjectOrientedMetrics;
 
 /**
  * 动态指标管理器
@@ -34,8 +33,6 @@ public final class MetricsMgr {
 	public static final String Encapsulation = "Encapsulation";
 	public static final String Cycle = "Cycle";
 
-	public static final String OO = "OO";
-
 	public static final String Cyclic = "存在";
 
 	public static final String HaveState = "有";
@@ -51,8 +48,6 @@ public final class MetricsMgr {
 
 	private MetricsMgr() {
 		metricses = new HashMap<String, Metrics>();
-
-		metricses.put(OO, new ObjectOrientedMetrics());
 	}
 
 	public static MetricsMgr getInstance() {
