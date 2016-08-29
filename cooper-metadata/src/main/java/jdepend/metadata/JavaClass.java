@@ -2,7 +2,6 @@ package jdepend.metadata;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,8 +17,6 @@ import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.JavaClassUtil;
 import jdepend.metadata.util.ParseUtil;
 
-import org.apache.bcel.Constants;
-
 /**
  * The <code>JavaClass</code> class represents a Java class or interface.
  * 
@@ -27,12 +24,11 @@ import org.apache.bcel.Constants;
  * 
  */
 
-public final class JavaClass implements Candidate, Comparable<JavaClass>, Serializable {
+public final class JavaClass extends AccessFlags implements Candidate, Comparable<JavaClass> {
 
 	private static final long serialVersionUID = 5220907141997737077L;
 
 	private String name;
-	private int access_flags;
 	private String packageName;
 	private Collection<String> imports;
 	private int lineCount;
@@ -811,42 +807,6 @@ public final class JavaClass implements Candidate, Comparable<JavaClass>, Serial
 		relationItems = null;
 
 		classType = null;
-	}
-
-	public final boolean isPublic() {
-		return (access_flags & Constants.ACC_PUBLIC) != 0;
-	}
-
-	public final boolean isPrivate() {
-		return (access_flags & Constants.ACC_PRIVATE) != 0;
-	}
-
-	public final boolean isProtected() {
-		return (access_flags & Constants.ACC_PROTECTED) != 0;
-	}
-
-	public final boolean isStatic() {
-		return (access_flags & Constants.ACC_STATIC) != 0;
-	}
-
-	public final boolean isFinal() {
-		return (access_flags & Constants.ACC_FINAL) != 0;
-	}
-
-	public final boolean isInterface() {
-		return (access_flags & Constants.ACC_INTERFACE) != 0;
-	}
-
-	public final boolean isAbstract() {
-		return (access_flags & Constants.ACC_ABSTRACT) != 0;
-	}
-
-	public final boolean isAnnotation() {
-		return (access_flags & Constants.ACC_ANNOTATION) != 0;
-	}
-
-	public final boolean isEnum() {
-		return (access_flags & Constants.ACC_ENUM) != 0;
 	}
 
 	/**
