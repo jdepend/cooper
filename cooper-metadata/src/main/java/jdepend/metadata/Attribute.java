@@ -1,6 +1,5 @@
 package jdepend.metadata;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,17 +13,14 @@ import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
 
-import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.Field;
 
-public class Attribute implements Serializable {
+public class Attribute extends AccessFlags {
 
 	private static final long serialVersionUID = 5330876838708287382L;
 
 	private String javaClassId;
-
-	private int access_flags;
 
 	private String info;
 
@@ -138,27 +134,7 @@ public class Attribute implements Serializable {
 		return this.annotationRefs.getQualifier();
 	}
 
-	public final boolean isPublic() {
-		return (access_flags & Constants.ACC_PUBLIC) != 0;
-	}
-
-	public final boolean isPrivate() {
-		return (access_flags & Constants.ACC_PRIVATE) != 0;
-	}
-
-	public final boolean isProtected() {
-		return (access_flags & Constants.ACC_PROTECTED) != 0;
-	}
-
-	public final boolean isStatic() {
-		return (access_flags & Constants.ACC_STATIC) != 0;
-	}
-
-	public final boolean isFinal() {
-		return (access_flags & Constants.ACC_FINAL) != 0;
-	}
-
-	public final boolean isInterface() {
+	public boolean isInterface() {
 		for (JavaClass javaClass : this.typeClasses) {
 			if (javaClass.isInterface()) {
 				return true;
@@ -167,7 +143,7 @@ public class Attribute implements Serializable {
 		return false;
 	}
 
-	public final boolean isAbstract() {
+	public boolean isAbstract() {
 		for (JavaClass javaClass : this.typeClasses) {
 			if (javaClass.isAbstract()) {
 				return true;
@@ -176,11 +152,7 @@ public class Attribute implements Serializable {
 		return false;
 	}
 
-	public final boolean isAnnotation() {
-		return (access_flags & Constants.ACC_ANNOTATION) != 0;
-	}
-
-	public final boolean isEnum() {
+	public boolean isEnum() {
 		for (JavaClass javaClass : this.typeClasses) {
 			if (javaClass.isEnum()) {
 				return true;

@@ -22,12 +22,19 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.apache.bcel</groupId>
 			<artifactId>bcel</artifactId>
 			<version>6.0-RC3</version>
 			<systemPath>${basedir}/lib/bcel.jar</systemPath>
 			<scope>system</scope>
+		</dependency>
+		 -->
+		<dependency>
+		  <groupId>org.apache.bcel</groupId>
+		  <artifactId>bcel</artifactId>
+		  <version>6.0</version>
 		</dependency>
 	</dependencies>
 

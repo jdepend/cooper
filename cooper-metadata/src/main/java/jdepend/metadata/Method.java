@@ -16,7 +16,6 @@ import jdepend.metadata.util.JavaClassCollection;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
 
-import org.apache.bcel.classfile.AccessFlags;
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.Utility;
 
