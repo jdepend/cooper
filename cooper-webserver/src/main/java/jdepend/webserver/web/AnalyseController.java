@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jdepend.core.util.TableViewInfo;
+import jdepend.core.util.TableViewUtil;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.file.AnalyzeData;
 import jdepend.metadata.JavaPackage;
@@ -17,8 +19,6 @@ import jdepend.model.component.CustomComponent;
 import jdepend.model.component.JarComponent;
 import jdepend.model.component.modelconf.JavaPackageComponentModelConf;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.TableViewInfo;
-import jdepend.model.util.TableViewUtil;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentifyerFacade;
 import jdepend.webserver.model.WebAnalysisResult;

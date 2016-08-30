@@ -1,9 +1,7 @@
-package jdepend.model.tree;
+package jdepend.metadata.tree;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jdepend.metadata.tree.Node;
 
 public class JavaPackageNode implements Node {
 

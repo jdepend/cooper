@@ -13,12 +13,12 @@ import java.util.zip.ZipOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdepend.core.util.TableViewInfo;
+import jdepend.core.util.TableViewUtil;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.database.AnalysisResultRepository;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.TableViewInfo;
-import jdepend.model.util.TableViewUtil;
 import jdepend.util.todolist.TODOItem;
 import jdepend.util.todolist.TODOListIdentifyerFacade;
 import jdepend.webserver.model.WebAnalysisResult;

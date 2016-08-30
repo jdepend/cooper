@@ -9,9 +9,9 @@ import jdepend.framework.ui.graph.CooperTable;
 import jdepend.framework.ui.graph.model.TableData;
 import jdepend.framework.util.BundleUtil;
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.TableViewInfo;
-import jdepend.model.util.TableViewUtil;
 import jdepend.client.ui.result.framework.SubResultTabPanel;
+import jdepend.core.util.TableViewInfo;
+import jdepend.core.util.TableViewUtil;
 
 public final class TablePanel extends SubResultTabPanel {
 

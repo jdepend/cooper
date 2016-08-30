@@ -1,4 +1,4 @@
-package jdepend.model.util;
+package jdepend.core.util;
 
 public class TableViewInfo implements Comparable<TableViewInfo> {
 
