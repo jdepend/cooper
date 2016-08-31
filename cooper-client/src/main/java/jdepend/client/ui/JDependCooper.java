@@ -562,5 +562,9 @@ public class JDependCooper extends JDependFrame implements ParseListener,
 		this.getPropertyPanel().getExecuteHistroyPanel().clearHistory();
 		// 清空TODOList
 		this.getPropertyPanel().getToDoListPanel().clear();
+		//清空系统日志
+		this.getPropertyPanel().getLogPanel().getSystemLogPanel().clear();
+		//切换到系统日志页面
+		this.getPropertyPanel().showSystemLog();
 	}
 }

@@ -38,14 +38,13 @@ public class PropertyPanel extends JPanel {
 
 	private JDependCooper frame;
 
+	public static final String TODOListPanel = "TODOListPanel";
 	public static final String ClassListPanel = "ClassListPanelWrapper";
 	public static final String MementoPanel = "MementoPanel";
 	public static final String ReportHistoryPanel = "ReportHistoryPanel";
 	public static final String ExecuteHistoryPanel = "ExecuteHistoryPanel";
-	public static final String KnowledgePanel = "KnowledgePanel";
 	public static final String LogPanel = "LogPanel";
-	public static final String TODOListPanel = "TODOListPanel";
-
+	
 	private static Map<String, Integer> indexs = new HashMap<String, Integer>();
 
 	static {
@@ -54,8 +53,7 @@ public class PropertyPanel extends JPanel {
 		indexs.put(MementoPanel, 2);
 		indexs.put(ReportHistoryPanel, 3);
 		indexs.put(ExecuteHistoryPanel, 4);
-		indexs.put(KnowledgePanel, 5);
-		indexs.put(LogPanel, 6);
+		indexs.put(LogPanel, 5);
 	}
 
 	public PropertyPanel(JDependCooper frame) {
@@ -105,6 +103,11 @@ public class PropertyPanel extends JPanel {
 			e.printStackTrace();
 			frame.getResultPanel().showError(e);
 		}
+	}
+	
+	public void showSystemLog(){
+		this.setTab(LogPanel);
+		logPanel.showSystemLog();
 	}
 
 	public void showClassProperty(String unitID) {

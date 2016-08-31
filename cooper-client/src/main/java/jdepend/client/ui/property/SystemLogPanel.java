@@ -14,42 +14,45 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import jdepend.framework.exception.JDependException;
-import jdepend.framework.log.FileLogWriter;
-import jdepend.framework.log.LogListener;
 import jdepend.framework.log.LogUtil;
 import jdepend.framework.ui.component.JDependFrame;
 import jdepend.framework.ui.component.TextViewer;
+import jdepend.framework.ui.config.UIProperty;
 import jdepend.framework.util.BundleUtil;
 
-public class SystemLogPanel extends JPanel implements LogListener {
+public class SystemLogPanel extends JPanel {
 
-	private TextViewer log;
-
-	public static final int interval = 10;// 显示间隔
-
-	private int count = 0;// 显示计数
+	private JTextArea log;
 
 	private JDependFrame frame;
 
+	private BufferLogWriter bufferLogWriter;
+
 	public SystemLogPanel(JDependFrame frame1) {
 		super();
+
+		bufferLogWriter = new BufferLogWriter();
+		LogUtil.getInstance().setSystemLogWriter(bufferLogWriter);
 
 		this.frame = frame1;
 
 		setLayout(new BorderLayout());
 
-		log = new TextViewer();
+		log = new JTextArea();
+		log.setFont(UIProperty.TEXTFONT);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
-		JMenuItem clearItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Delete));
+		JMenuItem clearItem = new JMenuItem(
+				BundleUtil.getString(BundleUtil.Command_Delete));
 		clearItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示", JOptionPane.YES_NO_OPTION) == 0) {
+					if (JOptionPane.showConfirmDialog(frame, "您是否确认删除？", "提示",
+							JOptionPane.YES_NO_OPTION) == 0) {
 						clear();
-						refresh();
 					}
 				} catch (JDependException e1) {
 					e1.printStackTrace();
@@ -59,19 +62,12 @@ public class SystemLogPanel extends JPanel implements LogListener {
 		});
 		popupMenu.add(clearItem);
 
-		JMenuItem refreshItem = new JMenuItem(BundleUtil.getString(BundleUtil.Command_Refresh));
-		refreshItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				onLog();
-			}
-		});
-		popupMenu.add(refreshItem);
-
 		log.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				if (e.getButton() == 3) {
-					popupMenu.show((Component) e.getSource(), e.getX(), e.getY());
+					popupMenu.show((Component) e.getSource(), e.getX(),
+							e.getY());
 				}
 			}
 		});
@@ -83,49 +79,28 @@ public class SystemLogPanel extends JPanel implements LogListener {
 
 		this.add(pane);
 
-		// 设置Listener
-		LogUtil.getInstance().addLogListener(this);
-
 		// 定时触发refresh
-		(new Timer()).schedule(new LogTask(this), 2000, 5000);
+		(new Timer()).schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				refresh();
+			}
+
+		}, 2000, 300);
 	}
 
-	private void clear() throws JDependException {
-		FileLogWriter flog = new FileLogWriter();
-		flog.clear();
-
-		this.refresh();
-
+	public void clear() throws JDependException {
+		this.bufferLogWriter.clear();
+		log.setText(null);
 	}
 
 	private void refresh() {
-		FileLogWriter flog = new FileLogWriter();
-
-		try {
-			log.setText(flog.read().toString());
-			count = 0;
-		} catch (JDependException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public synchronized void onLog() {
-		if (++count >= interval) {
-			this.refresh();
-		}
-	}
-
-	class LogTask extends TimerTask {
-
-		private LogListener logListener;
-
-		public LogTask(LogListener logListener) {
-			this.logListener = logListener;
-		}
-
-		@Override
-		public void run() {
-			logListener.onLog();
+		int logCount = this.bufferLogWriter.getCount();
+		if (logCount > 0) {
+			log.append(this.bufferLogWriter.getBuffer().toString());
+			log.setCaretPosition(log.getText().length());
+			this.bufferLogWriter.clear();
 		}
 	}
 }

@@ -10,17 +10,41 @@ import jdepend.framework.util.BundleUtil;
 
 public final class LogPanel extends JPanel {
 
+	private JTabbedPane tabPane;
+
+	private BusiLogPanel busiLogPanel;
+
+	private SystemLogPanel systemLogPanel;
+
 	public LogPanel(JDependFrame frame) {
 
 		this.setLayout(new BorderLayout());
 
-		JTabbedPane tabPane = new JTabbedPane();
+		tabPane = new JTabbedPane();
 		tabPane.setTabPlacement(JTabbedPane.BOTTOM);
 
-		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Property_Log_Business), new BusiLogPanel(frame));
-		tabPane.addTab(BundleUtil.getString(BundleUtil.ClientWin_Property_Log_System), new SystemLogPanel(frame));
+		busiLogPanel = new BusiLogPanel(frame);
+		tabPane.addTab(BundleUtil
+				.getString(BundleUtil.ClientWin_Property_Log_Business),
+				busiLogPanel);
+		systemLogPanel = new SystemLogPanel(frame);
+		tabPane.addTab(
+				BundleUtil.getString(BundleUtil.ClientWin_Property_Log_System),
+				systemLogPanel);
 
 		this.add(tabPane);
+	}
+
+	public void showSystemLog() {
+		this.tabPane.setSelectedIndex(1);
+	}
+
+	public BusiLogPanel getBusiLogPanel() {
+		return busiLogPanel;
+	}
+
+	public SystemLogPanel getSystemLogPanel() {
+		return systemLogPanel;
 	}
 
 }

@@ -41,8 +41,12 @@ public class LogUtil {
 		return inst;
 	}
 
-	static Class getPrinter() {
+	public static Class getPrinter() {
 		return printerSelf.get();
+	}
+	
+	public void setSystemLogWriter(SystemLogWriter writer){
+		this.writer = writer;
 	}
 
 	public void systemLog(String log) {

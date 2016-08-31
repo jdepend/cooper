@@ -4,6 +4,10 @@ a）升级bcel为6.0
 
 b）创建model-ext，将ObjectOrientedMetrics移入到model-ext
 
+c）改善在组件关系图中按关键字搜索能力
+
+d）将系统日志输出到窗口中
+
 
 1.2.5_09 2016-07-13
 
