@@ -22,21 +22,23 @@ public final class LogPanel extends JPanel {
 
 		tabPane = new JTabbedPane();
 		tabPane.setTabPlacement(JTabbedPane.BOTTOM);
-
-		busiLogPanel = new BusiLogPanel(frame);
-		tabPane.addTab(BundleUtil
-				.getString(BundleUtil.ClientWin_Property_Log_Business),
-				busiLogPanel);
+		
 		systemLogPanel = new SystemLogPanel(frame);
 		tabPane.addTab(
 				BundleUtil.getString(BundleUtil.ClientWin_Property_Log_System),
 				systemLogPanel);
 
+		busiLogPanel = new BusiLogPanel(frame);
+		tabPane.addTab(BundleUtil
+				.getString(BundleUtil.ClientWin_Property_Log_Business),
+				busiLogPanel);
+		
+
 		this.add(tabPane);
 	}
 
 	public void showSystemLog() {
-		this.tabPane.setSelectedIndex(1);
+		this.tabPane.setSelectedIndex(0);
 	}
 
 	public BusiLogPanel getBusiLogPanel() {
