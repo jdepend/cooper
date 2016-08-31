@@ -1,4 +1,4 @@
-package jdepend.model.util;
+package jdpend.model.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,6 +10,7 @@ import jdepend.framework.util.MetricsFormat;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.model.JavaClassUnit;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassUnitUtil;
 
 public class JavaClassRelationUtil {
 

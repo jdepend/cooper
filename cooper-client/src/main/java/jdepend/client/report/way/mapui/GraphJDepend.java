@@ -2,9 +2,11 @@ package jdepend.client.report.way.mapui;
 
 import java.awt.Rectangle;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
@@ -38,6 +40,7 @@ import prefuse.data.Node;
 import prefuse.data.Tuple;
 import prefuse.data.event.TupleSetListener;
 import prefuse.data.search.PrefixSearchTupleSet;
+import prefuse.data.search.SearchTupleSet;
 import prefuse.data.tuple.DefaultTupleSet;
 import prefuse.data.tuple.TupleSet;
 import prefuse.render.AbstractShapeRenderer;
@@ -84,7 +87,8 @@ public class GraphJDepend extends Display {
 
 		this.graphPanel = graphPanel;
 
-		mapData = new MapData(this.graphPanel.getGroup(), this.graphPanel.getCommand(), relations);
+		mapData = new MapData(this.graphPanel.getGroup(),
+				this.graphPanel.getCommand(), relations);
 
 		hideVisualItemMgr = new HideVisualItemMgr(this);
 
@@ -209,39 +213,21 @@ public class GraphJDepend extends Display {
 		// this isn't absolutely necessary, but makes the animations nicer
 		// the PolarLocationAnimator should read this set and act accordingly
 		m_vis.addFocusGroup(linear, new DefaultTupleSet());
-		m_vis.getGroup(Visualization.FOCUS_ITEMS).addTupleSetListener(new TupleSetListener() {
-			public void tupleSetChanged(TupleSet t, Tuple[] add, Tuple[] rem) {
-				TupleSet linearInterp = m_vis.getGroup(linear);
-				if (add.length < 1)
-					return;
-				linearInterp.clear();
-				for (Node n = (Node) add[0]; n != null; n = n.getParent())
-					linearInterp.addTuple(n);
-			}
-		});
-
-		PrefixSearchTupleSet search = new PrefixSearchTupleSet() {
-			@Override
-			public void index(Tuple t, String field) {
-				try {
-					String s;
-					if (field == null || t == null || (s = t.getString(field)) == null)
-						return;
-					StringTokenizer st = new StringTokenizer(s, "\\.");
-					while (st.hasMoreTokens()) {
-						String tok = st.nextToken();
-
-						Method m = Class.forName("prefuse.data.search.PrefixSearchTupleSet").getDeclaredMethod(
-								"addString", String.class, Tuple.class);
-						m.setAccessible(true);
-						m.invoke(this, tok + s.substring(s.indexOf(tok) + tok.length()), t);
-
+		m_vis.getGroup(Visualization.FOCUS_ITEMS).addTupleSetListener(
+				new TupleSetListener() {
+					public void tupleSetChanged(TupleSet t, Tuple[] add,
+							Tuple[] rem) {
+						TupleSet linearInterp = m_vis.getGroup(linear);
+						if (add.length < 1)
+							return;
+						linearInterp.clear();
+						for (Node n = (Node) add[0]; n != null; n = n
+								.getParent())
+							linearInterp.addTuple(n);
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
+				});
+
+		SearchTupleSet search = createSearchTupleSet();
 		m_vis.addFocusGroup(Visualization.SEARCH_ITEMS, search);
 		search.addTupleSetListener(new TupleSetListener() {
 			public void tupleSetChanged(TupleSet t, Tuple[] add, Tuple[] rem) {
@@ -250,6 +236,40 @@ public class GraphJDepend extends Display {
 				m_vis.run("animatePaint");
 			}
 		});
+	}
+
+	private SearchTupleSet createSearchTupleSet() {
+		PrefixSearchTupleSet search = new PrefixSearchTupleSet() {
+			@Override
+			public void index(Tuple t, String field) {
+				try {
+					String s;
+					if (field == null || t == null
+							|| (s = t.getString(field)) == null)
+						return;
+					Method m = Class.forName(
+							"prefuse.data.search.PrefixSearchTupleSet")
+							.getDeclaredMethod("addString", String.class,
+									Tuple.class);
+					m.setAccessible(true);
+
+					List<String> splits = new ArrayList<String>();
+					splits.add("\\.");
+					splits.add("-");
+					for (String split : splits) {
+						StringTokenizer st = new StringTokenizer(s, split);
+						while (st.hasMoreTokens()) {
+							String tok = st.nextToken();
+							m.invoke(this, tok, t);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		return search;
 	}
 
 	private void setSize(Graph g) {
@@ -322,7 +342,8 @@ public class GraphJDepend extends Display {
 			Graph g = (Graph) m_vis.getGroup(m_group);
 			Node f = null;
 			Iterator tuples = focus.tuples();
-			while (tuples.hasNext() && !g.containsTuple(f = (Node) tuples.next())) {
+			while (tuples.hasNext()
+					&& !g.containsTuple(f = (Node) tuples.next())) {
 				f = null;
 			}
 			if (f == null)
@@ -366,7 +387,8 @@ public class GraphJDepend extends Display {
 				} else if (o instanceof Integer) {
 					return ((Integer) o).intValue();
 				} else {
-					Logger.getLogger(this.getClass().getName()).warning("Unrecognized Object from predicate chain.");
+					Logger.getLogger(this.getClass().getName()).warning(
+							"Unrecognized Object from predicate chain.");
 				}
 			}
 			// 处理外部分析单元颜色
@@ -401,11 +423,13 @@ public class GraphJDepend extends Display {
 				} else if (o instanceof Integer) {
 					return ((Integer) o).intValue();
 				} else {
-					Logger.getLogger(this.getClass().getName()).warning("Unrecognized Object from predicate chain.");
+					Logger.getLogger(this.getClass().getName()).warning(
+							"Unrecognized Object from predicate chain.");
 				}
 			}
 			// 处理关注类型
-			String attentionType = item.getTable().getString(item.getRow(), "attentionType");
+			String attentionType = item.getTable().getString(item.getRow(),
+					"attentionType");
 			if (attentionType.equals(Relation.ComponentLayerAttentionType)) {
 				return ColorLib.rgba(255, 0, 0, 255);
 			} else if (attentionType.equals(Relation.MutualDependAttentionType)) {

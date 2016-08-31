@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jdepend.model.result.AnalysisResult;
-import jdepend.model.util.JavaClassRelationInfo;
-import jdepend.model.util.JavaClassRelationUtil;
 import jdepend.util.analyzer.framework.AbstractAnalyzer;
 import jdepend.util.analyzer.framework.Analyzer;
 import jdepend.util.analyzer.framework.AnalyzerException;
 import jdepend.util.analyzer.framework.GraphItemData;
+import jdpend.model.util.JavaClassRelationInfo;
+import jdpend.model.util.JavaClassRelationUtil;
 
 public final class JavaClassRelationView extends AbstractAnalyzer {
 	/**

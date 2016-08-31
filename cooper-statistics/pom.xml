@@ -43,6 +43,13 @@
     	<scope>compile</scope>
     </dependency>
     <dependency>
+    	<groupId>cooper</groupId>
+    	<artifactId>cooper-model-ext</artifactId>
+    	<version>${project.version}</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
 		<groupId>org.prefuse</groupId>
 		<artifactId>prefuse</artifactId>
 		<version>beta-20071021</version>
