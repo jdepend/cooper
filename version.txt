@@ -19,6 +19,7 @@ c）优化构建exe的脚本
 
 1.2.5_08 2016-05-05
 
+
 a）增加对Hibernate hbm配置文件的识别
 
 b）改进识别sql中TableName的逻辑
