@@ -16,7 +16,7 @@
   <dependencies>
      <dependency>
     	<groupId>cooper</groupId>
-    	<artifactId>cooper-model</artifactId>
+    	<artifactId>cooper-model-core</artifactId>
     	<version>${project.version}</version>
     	<type>jar</type>
     	<scope>compile</scope>

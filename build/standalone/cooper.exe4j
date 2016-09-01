@@ -27,21 +27,21 @@
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-client/target/cooper-client-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+       <archive location="../../cooper-standalone/target/cooper-standalone-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/cooper-framework-ui-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-client/lib/forms-1.0.7.jar" failOnError="false" />
-      <archive location="../../cooper-client/lib/JMeld-2.1_all.jar" failOnError="false" />
+      <archive location="../../cooper-standalone/lib/forms-1.0.7.jar" failOnError="false" />
+      <archive location="../../cooper-standalone/lib/JMeld-2.1_all.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jxl-2.6.10.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
-      <archive location="../../cooper-client/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
+      <archive location="../../cooper-standalone/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-core/target/cooper-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/target/cooper-util-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-service/target/cooper-service-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-knowledge/target/cooper-knowledge-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-parse/target/cooper-parse-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model/target/cooper-model-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model-ext/target/cooper-model-ext-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-model/cooper-model-core/target/cooper-model-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-model/cooper-model-ext/target/cooper-model-ext-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-metadata/target/cooper-metadata-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-metadata/target/dependency/bcel-6.0.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-core/target/cooper-framework-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />

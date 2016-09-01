@@ -24,8 +24,7 @@
 	</dependencies>
 	<modules>
 		<module>cooper-test</module>
-		<module>cooper-client-remote</module>
-		<module>cooper-server-interface</module>
+		<module>cooper-standalone</module>
 		<module>cooper-client</module>
 		<module>cooper-server</module>
 		<module>cooper-statistics</module>
@@ -34,7 +33,6 @@
 		<module>cooper-util</module>
 		<module>cooper-service</module>
 		<module>cooper-knowledge</module>
-		<module>cooper-model-ext</module>
 		<module>cooper-model</module>
 		<module>cooper-parse</module>
 		<module>cooper-metadata</module>

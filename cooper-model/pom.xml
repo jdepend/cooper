@@ -10,17 +10,13 @@
 	</parent>
 	<artifactId>cooper-model</artifactId>
 	<name>cooper-model</name>
+	<packaging>pom</packaging>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-metadata</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>cooper-model-core</module>
+		<module>cooper-model-ext</module>
+  	</modules>
 </project>
