@@ -28,12 +28,12 @@
     </searchSequence>
     <classPath>
       <archive location="../../cooper-client/target/cooper-client-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-framework-ui/target/cooper-framework-ui-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-ui/target/cooper-framework-ui-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-client/lib/forms-1.0.7.jar" failOnError="false" />
       <archive location="../../cooper-client/lib/JMeld-2.1_all.jar" failOnError="false" />
-      <archive location="../../cooper-framework-ui/target/dependency/jxl-2.6.10.jar" failOnError="false" />
-      <archive location="../../cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
-      <archive location="../../cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jxl-2.6.10.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
       <archive location="../../cooper-client/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-core/target/cooper-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/target/cooper-util-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
@@ -44,11 +44,11 @@
       <archive location="../../cooper-model-ext/target/cooper-model-ext-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-metadata/target/cooper-metadata-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-metadata/target/dependency/bcel-6.0.jar" failOnError="false" />
-      <archive location="../../cooper-framework/target/cooper-framework-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-core/target/cooper-framework-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_11-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_11-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_11-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
-    </classPath>
+   </classPath>
     <nativeLibraryDirectories />
   </java>
   <includedFiles />
