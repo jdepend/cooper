@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>cooper</artifactId>
 		<groupId>cooper</groupId>
-		<version>1.2.5_10-SNAPSHOT</version>
+		<version>1.2.5_11-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-util</artifactId>
 	<name>cooper-util</name>
