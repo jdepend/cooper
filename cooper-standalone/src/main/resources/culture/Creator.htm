@@ -1,0 +1,7 @@
+<html>
+    
+    <title>GRASP原则简介 - 仰望者 - ITeye技术网站</title>
+<body>
+<span style="color: #ff6600; line-height: normal;">创建者（Creator）</span><span class="Apple-converted-space">&nbsp;</span><br style="line-height: normal;">
+<br style="line-height: normal;">如何分配创建对象的职责呢？原则就是当下列条件满足时（越多越好），由B创建A：<span class="Apple-converted-space">&nbsp;</span><br style="line-height: normal;">1.B频繁的使用A<span class="Apple-converted-space">&nbsp;</span><br style="line-height: normal;">2.B包含或聚合了A<span class="Apple-converted-space">&nbsp;</span><br style="line-height: normal;"><br style="line-height: normal;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 举个简单的例子，如果类A实现了B接口，类C、D是类A的一个属性，那么C、D应该由A来创建，A应该由B来创建。如果C、D由B来创建，那么当C或者D改变的时候，B 和A也要跟着改变，大大增强了B和C、D的之间的耦合度，违背了低内聚的原则。通俗点说就是如果B使用的了A，那么就应该由B来创建A，而不是由其他的类来创建。<span class="Apple-converted-space">&nbsp;</span><br style="line-height: normal;"><br style="line-height: normal;">
+</body></html>
