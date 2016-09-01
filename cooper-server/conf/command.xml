@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties>
-<entry key="以包为单位输出分析报告">10,以包为单位输出分析报告</entry>
-<entry key="将JavaClass作为分析对象进行分析">20,将JavaClass作为分析对象进行分析,-componentClassName jdepend.model.component.JavaClassComponent</entry>
-<entry key="按规则识别组件进行分析">30,按规则识别组件进行分析,-componentClassName jdepend.model.component.AptitudeComponent</entry>
-<entry key="按引入的路径识别组件进行分析">40,按引入的路径识别组件进行分析,-componentClassName jdepend.model.component.JarComponent</entry>
-</properties>
