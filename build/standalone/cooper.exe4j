@@ -46,7 +46,7 @@
       <archive location="../../cooper-knowledge/target/cooper-knowledge-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-source/cooper-parse/target/cooper-parse-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-model/cooper-model-core/target/cooper-model-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model/cooper-model-ext/target/cooper-model-ext-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-model/cooper-model-ext/cooper-model-ext-util/target/cooper-model-ext-util-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-source/cooper-metadata/target/cooper-metadata-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-source/cooper-metadata/target/dependency/bcel-6.0.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-core/target/cooper-framework-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
