@@ -22,11 +22,6 @@
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-util</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
 			<artifactId>cooper-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
