@@ -36,7 +36,9 @@
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
       <archive location="../../cooper-standalone/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
       <archive location="../../cooper-core/target/cooper-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-util/target/cooper-util-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-analyzer/target/cooper-util-analyzer-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-refactor/target/cooper-util-refactor-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-todolist/target/cooper-util-todolist-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-service/target/cooper-service-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-knowledge/target/cooper-knowledge-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-source/cooper-parse/target/cooper-parse-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
