@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-model-ext</artifactId>
+			<artifactId>cooper-model-ext-util</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
