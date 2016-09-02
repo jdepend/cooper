@@ -1,4 +1,4 @@
-package jdpend.model.util;
+package jdepend.model.util;
 
 public class JavaClassRelationInfo implements Comparable<JavaClassRelationInfo> {
 
