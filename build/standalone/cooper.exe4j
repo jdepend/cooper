@@ -35,7 +35,10 @@
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
       <archive location="../../cooper-standalone/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
-      <archive location="../../cooper-core/target/cooper-core-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-domain/target/cooper-core-domain-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-score/target/cooper-core-score-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-serviceproxy/target/cooper-core-serviceproxy-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-util/target/cooper-core-util-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/cooper-util-analyzer/target/cooper-util-analyzer-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/cooper-util-refactor/target/cooper-util-refactor-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-util/cooper-util-todolist/target/cooper-util-todolist-1.2.5_11-SNAPSHOT.jar" failOnError="false" />
