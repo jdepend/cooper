@@ -34,8 +34,7 @@
 		<module>cooper-service</module>
 		<module>cooper-knowledge</module>
 		<module>cooper-model</module>
-		<module>cooper-parse</module>
-		<module>cooper-metadata</module>
+		<module>cooper-source</module>
 		<module>cooper-framework</module>
   	</modules>
 
