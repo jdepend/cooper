@@ -5,8 +5,6 @@ import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import jdepend.core.serviceproxy.JDependServiceLocalProxyFactory;
-import jdepend.core.serviceproxy.framework.JDependServiceProxyFactoryMgr;
 import jdepend.framework.config.PropertyConfigurator;
 import jdepend.framework.context.JDependContext;
 import jdepend.framework.log.BusiLogUtil;
@@ -35,8 +33,6 @@ public class CooperServletContextListener implements ServletContextListener {
 
 		logger.info("WorkspacePath:" + workspacePath);
 
-		// 设置ServiceProxyFactory
-		JDependServiceProxyFactoryMgr.getInstance().setFactory(new JDependServiceLocalProxyFactory());
 		// 设置ConnectionProvider
 		ConnectionFactory.setProvider(new WebServerConnectionProvider());
 

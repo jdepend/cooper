@@ -15,18 +15,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-model-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-model-ext</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
 	
 	<modules>
 		<module>cooper-util-analyzer</module>

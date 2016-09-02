@@ -1,7 +1,7 @@
 package test.jdepend.knowledge;
 
 import test.common.TestConfigUtil;
-import jdepend.core.serviceproxy.JDependServiceLocalProxy;
+import jdepend.client.core.serviceproxy.JDependServiceLocalProxy;
 import jdepend.core.serviceproxy.framework.JDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.knowledge.domainanalysis.AdviseInfo;

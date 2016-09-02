@@ -14,7 +14,28 @@
 	<dependencies>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-core</artifactId>
+			<artifactId>cooper-core-domain</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-core-util</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-service</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-knowledge</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
@@ -23,6 +44,8 @@
 			<groupId>cooper</groupId>
 			<artifactId>cooper-util-todolist</artifactId>
 			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

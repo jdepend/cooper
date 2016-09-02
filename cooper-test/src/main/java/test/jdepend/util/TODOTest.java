@@ -3,8 +3,7 @@ package test.jdepend.util;
 import java.util.List;
 
 import test.common.TestConfigUtil;
-
-import jdepend.core.serviceproxy.JDependServiceLocalProxy;
+import jdepend.client.core.serviceproxy.JDependServiceLocalProxy;
 import jdepend.core.serviceproxy.framework.JDependServiceProxy;
 import jdepend.framework.exception.JDependException;
 import jdepend.framework.util.MetricsFormat;

@@ -17,7 +17,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-core</artifactId>
+			<artifactId>cooper-core-domain</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-core-score</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
