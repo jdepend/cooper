@@ -4,21 +4,21 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>cooper</artifactId>
 		<groupId>cooper</groupId>
+		<artifactId>cooper-knowledge</artifactId>
 		<version>1.2.5_11-SNAPSHOT</version>
 	</parent>
-	<artifactId>cooper-knowledge</artifactId>
-	<name>cooper-knowledge</name>
-	<packaging>pom</packaging>
+	<artifactId>cooper-knowledge-architectpattern</artifactId>
+	<name>cooper-knowledge-architectpattern</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<modules>
-		<module>cooper-knowledge-architectpattern</module>
-		<module>cooper-knowledge-database</module>
-		<module>cooper-knowledge-domainanalysis</module>
-		<module>cooper-knowledge-pattern</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-model-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 </project>
