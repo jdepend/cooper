@@ -57,13 +57,13 @@ public final class BarCreater extends AbstractChartCreater {
 		stackedbarrenderer.setBaseItemLabelsVisible(true);
 		stackedbarrenderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
 
-		int index = 0;
-		for (Object name : item.getDatas().keySet()) {
-			stackedbarrenderer
-					.setSeriesPaint(categorydataset.getRowIndex((String) name), COLORS[index % COLORS.length]);
-			index++;
-
-		}
+//		int index = 0;
+//		for (Object name : item.getDatas().keySet()) {
+//			stackedbarrenderer
+//					.setSeriesPaint(categorydataset.getRowIndex((String) name), COLORS[index % COLORS.length]);
+//			index++;
+//
+//		}
 
 		return jfreechart;
 	}
