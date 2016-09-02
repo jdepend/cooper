@@ -9,8 +9,8 @@ import jdepend.framework.ui.graph.GraphUtil;
 import jdepend.framework.ui.graph.model.GraphData;
 import jdepend.framework.ui.graph.model.GraphDataItem;
 import jdepend.model.result.AnalysisResult;
+import jdepend.model.util.JavaClassRelationUtil;
 import jdepend.statistics.StaticsFrame;
-import jdpend.model.util.JavaClassRelationUtil;
 
 public class ClassRelationTypeAction extends ScoreListAction {
 
