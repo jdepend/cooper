@@ -1,4 +1,4 @@
-package jdpend.model.metrics;
+package jdepend.model.metrics;
 
 import jdepend.metadata.Attribute;
 import jdepend.metadata.Method;
