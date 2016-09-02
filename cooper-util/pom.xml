@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>cooper-util</artifactId>
 	<name>cooper-util</name>
+	<packaging>pom</packaging>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,4 +27,10 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
+	
+	<modules>
+		<module>cooper-util-analyzer</module>
+		<module>cooper-util-refactor</module>
+		<module>cooper-util-todolist</module>
+	</modules>
 </project>
