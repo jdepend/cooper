@@ -466,7 +466,7 @@ public final class ComponentListPanel extends SubResultTabPanel {
 			if (column != 1) {
 				return super.getValue(value, row, column);
 			} else {
-				if (value != null) {
+				if (value != null && value instanceof AreaComponent) {
 					return ((AreaComponent) value).getName();
 				} else {
 					return null;
