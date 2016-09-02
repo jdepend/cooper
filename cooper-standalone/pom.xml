@@ -19,29 +19,31 @@
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-domain</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-score</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-serviceproxy</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-knowledge-pattern</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-knowledge-database</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-util</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>

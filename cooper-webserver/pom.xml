@@ -16,49 +16,43 @@
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-domain</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-core-util</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-knowledge-database</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-service</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cooper</groupId>
 			<artifactId>cooper-util-todolist</artifactId>
 			<version>${project.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
-			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
-			<type>jar</type>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
-			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

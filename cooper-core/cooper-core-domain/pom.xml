@@ -17,12 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cooper</groupId>
-			<artifactId>cooper-model-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-knowledge</artifactId>
+			<artifactId>cooper-knowledge-domainanalysis</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
