@@ -10,20 +10,16 @@
 	</parent>
 	<artifactId>cooper-core</artifactId>
 	<name>cooper-core</name>
+	<packaging>pom</packaging>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-knowledge</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cooper</groupId>
-			<artifactId>cooper-service</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>cooper-core-domain</module>
+		<module>cooper-core-score</module>
+		<module>cooper-core-serviceproxy</module>
+		<module>cooper-core-util</module>
+	</modules>
+
 </project>
