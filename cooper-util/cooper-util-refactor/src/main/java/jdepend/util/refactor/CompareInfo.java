@@ -119,9 +119,9 @@ public class CompareInfo {
 				}
 			} else if (metrics.equals(MetricsMgr.D)) {
 				if (result < 0) {
-					return true;
-				} else {
 					return false;
+				} else {
+					return true;
 				}
 			} else if (metrics.equals(MetricsMgr.A)) {
 				if (result < 0) {
