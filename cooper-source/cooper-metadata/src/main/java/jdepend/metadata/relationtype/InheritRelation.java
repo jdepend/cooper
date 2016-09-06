@@ -1,6 +1,8 @@
 package jdepend.metadata.relationtype;
 
 import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassDetail;
+import jdepend.metadata.util.JavaClassCollection;
 
 public class InheritRelation extends BaseJavaClassRelationType {
 
@@ -13,22 +15,32 @@ public class InheritRelation extends BaseJavaClassRelationType {
 		super(JavaClassRelationTypes.Inherit, intensity);
 	}
 
-	public float getRationality(JavaClass target, JavaClass source, String direction) {
-		if (target.isAbstract()) {
-			return 0.4F;
-		} else {
-			return super.getRationality(target, source, direction);
-		}
-	}
-
 	@Override
 	public boolean canAbstraction() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean invokeRelated() {
 		return false;
 	}
 
+	@Override
+	public boolean create(JavaClass javaClass, JavaClassCollection javaClasses) {
+		boolean isCreate = false;
+		JavaClassDetail info = javaClass.getDetail();
+		if (info.getSuperClass() != null) {
+			if (setDependInfo(javaClass, info.getSuperClass(), this)) {
+				isCreate = true;
+			}
+		}
+		if (info.getInterfaceNames().size() != 0) {
+			for (JavaClass interfaceClass : info.getInterfaces()) {
+				if (setDependInfo(javaClass, interfaceClass, this)) {
+					isCreate = true;
+				}
+			}
+		}
+		return isCreate;
+	}
 }

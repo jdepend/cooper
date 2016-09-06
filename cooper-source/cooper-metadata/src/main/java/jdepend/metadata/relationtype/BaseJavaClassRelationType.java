@@ -1,6 +1,7 @@
 package jdepend.metadata.relationtype;
 
 import jdepend.metadata.JavaClass;
+import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaClassRelationType;
 
 public abstract class BaseJavaClassRelationType implements JavaClassRelationType {
@@ -8,6 +9,8 @@ public abstract class BaseJavaClassRelationType implements JavaClassRelationType
 	private String name;
 
 	private float intensity = 0F;
+
+	private transient JavaClassRelationTypes types;
 
 	public BaseJavaClassRelationType() {
 
@@ -26,12 +29,45 @@ public abstract class BaseJavaClassRelationType implements JavaClassRelationType
 		this.intensity = intensity;
 	}
 
-	public float getRationality(JavaClass depend, JavaClass current, String direction) {
-		return 1F;
-	}
-
 	public String getName() {
 		return this.name;
+	}
+
+	protected boolean setDependInfo(JavaClass source, JavaClass target, JavaClassRelationType type) {
+
+		if (target == null) {
+			return false;
+		}
+
+		if (source.equals(target)) {
+			return false;
+		}
+
+		if (source.containsInnerClass(target)) {
+			return false;
+		}
+
+		if (source.containedInnerClass(target)) {
+			return false;
+		}
+
+		JavaClassRelationItem item = new JavaClassRelationItem();
+		item.setType(type);
+		item.setTarget(target);
+		item.setSource(source);
+
+		source.addCeItems(item);
+		target.addCaItems(item);
+
+		return true;
+	}
+
+	public JavaClassRelationTypes getTypes() {
+		return types;
+	}
+
+	public void setTypes(JavaClassRelationTypes types) {
+		this.types = types;
 	}
 
 	@Override
@@ -51,14 +87,14 @@ public abstract class BaseJavaClassRelationType implements JavaClassRelationType
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-	
+
 		if (getClass() != obj.getClass())
 			return false;
 		BaseJavaClassRelationType other = (BaseJavaClassRelationType) obj;
-		
+
 		if (!name.equals(other.name))
 			return false;
-		
+
 		return true;
 	}
 

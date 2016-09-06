@@ -57,6 +57,8 @@ public class JavaClassDetail implements Serializable {
 
 	private transient Map<String, Attribute> attributeForNames = new HashMap<String, Attribute>();
 
+	private transient Collection<String> returnTypes;
+
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
 		this.annotationDefs = new AnnotationDefs();
@@ -188,6 +190,20 @@ public class JavaClassDetail implements Serializable {
 
 	public Collection<Method> getMethods() {
 		return methods;
+	}
+
+	public Collection<String> getReturnTypes() {
+		if (this.returnTypes == null) {
+			this.returnTypes = new HashSet<String>();
+			for (Method method : this.methods) {
+				for (String returnType : method.getReturnTypes()) {
+					if (!returnTypes.contains(returnType)) {
+						returnTypes.add(returnType);
+					}
+				}
+			}
+		}
+		return returnTypes;
 	}
 
 	public void addMethod(Method method) {

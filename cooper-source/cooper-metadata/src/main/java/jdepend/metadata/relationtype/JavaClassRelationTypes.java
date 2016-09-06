@@ -34,6 +34,10 @@ public class JavaClassRelationTypes implements Serializable {
 
 	public void setTypes(Map<String, JavaClassRelationType> types) {
 		this.types = types;
+
+		for (JavaClassRelationType type : types.values()) {
+			type.setTypes(this);
+		}
 	}
 
 	public boolean isCreateType(String type) {
