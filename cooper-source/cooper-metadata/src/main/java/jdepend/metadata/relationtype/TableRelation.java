@@ -1,7 +1,9 @@
 package jdepend.metadata.relationtype;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassDetail;
@@ -49,6 +51,38 @@ public class TableRelation extends BaseJavaClassRelationType {
 	public String toString() {
 		return "JavaClassRelationType[intensity=" + getIntensity() + ", name=" + getName() + ",tableName=" + tableName
 				+ "]";
+	}
+
+	@Override
+	public void init(JavaClassCollection javaClasses) {
+
+		Map<String, String> entryMapTableName = new HashMap<String, String>();
+		String littleClassName;
+
+		for (JavaClass javaClass : javaClasses.getJavaClasses()) {
+			// 收集Entry和TableName对应关系信息
+			L: for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
+				if (tableInfo.isDefine()) {
+					littleClassName = javaClass.getName().substring(javaClass.getName().lastIndexOf('.') + 1)
+							.toUpperCase();
+					entryMapTableName.put(littleClassName, tableInfo.getTableName());
+
+					break L;
+				}
+			}
+		}
+		// 更新TableName
+		if (entryMapTableName.size() > 0) {
+			for (JavaClass javaClass : javaClasses.getJavaClasses()) {
+				for (TableInfo tableInfo : javaClass.getDetail().getTables()) {
+					if (!tableInfo.isDefine()) {
+						if (entryMapTableName.containsKey(tableInfo.getTableName())) {
+							tableInfo.setTableName(entryMapTableName.get(tableInfo.getTableName()));
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@Override

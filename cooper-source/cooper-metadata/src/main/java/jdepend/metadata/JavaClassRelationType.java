@@ -26,6 +26,13 @@ public interface JavaClassRelationType extends Serializable {
 	 * @return
 	 */
 	public float getIntensity();
+	
+	/**
+	 * create前的初始化方法
+	 * 
+	 * @param javaClasses
+	 */
+	public void init(JavaClassCollection javaClasses);
 
 	/**
 	 * 创建关系对象

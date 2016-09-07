@@ -3,6 +3,7 @@ package jdepend.metadata.relationtype;
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.JavaClassRelationItem;
 import jdepend.metadata.JavaClassRelationType;
+import jdepend.metadata.util.JavaClassCollection;
 
 public abstract class BaseJavaClassRelationType implements JavaClassRelationType {
 
@@ -31,6 +32,10 @@ public abstract class BaseJavaClassRelationType implements JavaClassRelationType
 
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public void init(JavaClassCollection javaClasses) {
 	}
 
 	protected boolean setDependInfo(JavaClass source, JavaClass target, JavaClassRelationType type) {
