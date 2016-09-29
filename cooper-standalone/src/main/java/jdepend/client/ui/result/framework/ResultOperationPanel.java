@@ -17,11 +17,23 @@ public class ResultOperationPanel extends JPanel {
 	private int currentTabIndex = -1;
 
 	private List<TabIndexInfo> mementoTabs = new LinkedList<TabIndexInfo>();
-	
+
 	private ResultPanel resultPanel;
 
+	private JLabel navPriorButton;
+
+	private JLabel navNextButton;
+
+	private final ImageIcon nav_left_dis = new ImageIcon(JDependUIUtil.getImage("nav-left-dis.png"));
+
+	private final ImageIcon nav_left = new ImageIcon(JDependUIUtil.getImage("nav-left.png"));
+
+	private final ImageIcon nav_right_dis = new ImageIcon(JDependUIUtil.getImage("nav-right-dis.png"));
+
+	private final ImageIcon nav_right = new ImageIcon(JDependUIUtil.getImage("nav-right.png"));
+
 	public ResultOperationPanel(ResultPanel resultPanel1) {
-		
+
 		this.resultPanel = resultPanel1;
 		this.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
@@ -33,11 +45,9 @@ public class ResultOperationPanel extends JPanel {
 
 		operationPanel.add(this.splitPanel());
 
-		JLabel navPriorButton = new JLabel();
-		navPriorButton.setIcon(new ImageIcon(JDependUIUtil
-				.getImage("nav-left.png")));
-		navPriorButton.setCursor(new java.awt.Cursor(
-				java.awt.Cursor.HAND_CURSOR));
+		navPriorButton = new JLabel();
+		navPriorButton.setIcon(nav_left_dis);
+		navPriorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		navPriorButton.setToolTipText("导航-后退");
 		navPriorButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
@@ -51,11 +61,9 @@ public class ResultOperationPanel extends JPanel {
 
 		operationPanel.add(this.splitPanel());
 
-		JLabel navNextButton = new JLabel();
-		navNextButton.setIcon(new ImageIcon(JDependUIUtil
-				.getImage("nav-right.png")));
-		navNextButton
-				.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		navNextButton = new JLabel();
+		navNextButton.setIcon(nav_right_dis);
+		navNextButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		navNextButton.setToolTipText("导航-前进");
 		navNextButton.addMouseListener(new java.awt.event.MouseAdapter() {
 			@Override
@@ -81,10 +89,9 @@ public class ResultOperationPanel extends JPanel {
 	}
 
 	public void addMemetoTab(int tabOne, int tabTwo) {
-		
+
 		TabIndexInfo tabInfo = new TabIndexInfo(tabOne, tabTwo);
-		if (mementoTabs.size() > 0
-				&& mementoTabs.get(currentTabIndex).equals(tabInfo)) {
+		if (mementoTabs.size() > 0 && mementoTabs.get(currentTabIndex).equals(tabInfo)) {
 			return;
 		} else {
 			if (currentTabIndex != mementoTabs.size() - 1) {
@@ -95,29 +102,47 @@ public class ResultOperationPanel extends JPanel {
 			mementoTabs.add(tabInfo);
 			currentTabIndex = mementoTabs.size() - 1;
 		}
+
+		this.switchNavButton();
+	}
+
+	private void switchNavButton() {
+		if (currentTabIndex > 0) {
+			navPriorButton.setIcon(nav_left);
+		} else {
+			navPriorButton.setIcon(nav_left_dis);
+		}
+
+		if (currentTabIndex < mementoTabs.size() - 1) {
+			navNextButton.setIcon(nav_right);
+		} else {
+			navNextButton.setIcon(nav_right_dis);
+		}
 	}
 
 	private void next() {
 		if (currentTabIndex < mementoTabs.size() - 1) {
 			currentTabIndex++;
+			this.switchNavButton();
 		}
 	}
 
 	private void prior() {
 		if (currentTabIndex > 0) {
 			currentTabIndex--;
+			this.switchNavButton();
 		}
 	}
 
 	public TabIndexInfo getCurrentTab() {
 		return mementoTabs.get(currentTabIndex);
 	}
-	
-	public class TabIndexInfo{
-		
+
+	public class TabIndexInfo {
+
 		public int tabOne;
 		public int tabTwo;
-		
+
 		public TabIndexInfo(int tabOne, int tabTwo) {
 			super();
 			this.tabOne = tabOne;
