@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>cooper</artifactId>
+		<artifactId>cooper-framework</artifactId>
 		<groupId>cooper</groupId>
-		<version>1.2.5_11-SNAPSHOT</version>
+		<version>1.2.5_12-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-framework-core</artifactId>
 	<name>cooper-framework-core</name>

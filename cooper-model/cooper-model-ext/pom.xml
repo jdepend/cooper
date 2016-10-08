@@ -5,8 +5,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>cooper</groupId>
-		<artifactId>cooper</artifactId>
-		<version>1.2.5_11-SNAPSHOT</version>
+		<artifactId>cooper-model</artifactId>
+		<version>1.2.5_12-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-model-ext</artifactId>
 	<name>cooper-model-ext</name>

@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>cooper</artifactId>
-    <groupId>cooper</groupId>
-    <version>1.2.5_11-SNAPSHOT</version>
-  </parent>
-  <artifactId>cooper-server-interface</artifactId>
-  <name>cooper-server-interface</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-    	<groupId>cooper</groupId>
-    	<artifactId>cooper-service</artifactId>
-    	<version>${project.version}</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-  </dependencies>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cooper</groupId>
+		<artifactId>cooper-server</artifactId>
+		<version>1.2.5_12-SNAPSHOT</version>
+	</parent>
+	<artifactId>cooper-server-interface</artifactId>
+	<name>cooper-server-interface</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>cooper</groupId>
+			<artifactId>cooper-service</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 </project>
