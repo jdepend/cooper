@@ -1,4 +1,12 @@
-﻿1.2.5_10 2016-09-01
+﻿1.2.5_11 2016-10-08
+
+a）深度调整结构，将17个moudle分组管理，并进行合并和拆分
+
+b）向JavaClassRelationType接口增加create方法，将JavaClassRelationCreator中的逻辑分布到JavaClassRelationType的子类上
+
+c）同步导航图标
+
+1.2.5_10 2016-09-01
 
 a）升级bcel为6.0
 

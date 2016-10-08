@@ -21,10 +21,9 @@ public class JavaClassRelationCreator {
 
 	private void init(JavaClassCollection javaClasses) {
 
-		for (JavaClassRelationType javaClassRelationType : javaClassRelationTypes.getTypes().values()) {
-			javaClassRelationType.init(javaClasses);
-		}
-
+		javaClassRelationTypes.getTypes().forEach((name, type) -> {
+			type.init(javaClasses);
+		});
 	}
 
 	public void create(final JavaClassCollection javaClasses) {
