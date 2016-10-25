@@ -28,7 +28,7 @@ public final class DDomainAnalysis extends AbstractDomainAnalysis {
 	@Override
 	protected AdviseInfo doAdvise(String name, AnalysisResult result) {
 		List<JDependUnit> units = new ArrayList<JDependUnit>(result.getComponents());
-		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.D, false));
+		Collections.sort(units, new JDependUnitByMetricsComparator(MetricsMgr.D, true));
 
 		Iterator<JDependUnit> it = units.iterator();
 		JDependUnit unit = null;
