@@ -3,7 +3,7 @@ package jdepend.model;
 import jdepend.model.result.AnalysisResult;
 
 public class MetricsEvaluate {
-
+	
 	public static Boolean evaluate(int result, String metrics) {
 		
 		if (metrics.equals(AnalysisResult.Metrics_TotalScore)) {
