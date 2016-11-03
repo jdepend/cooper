@@ -1,1 +1,1 @@
-java -classpath "lib\*"  -Xms256m -Xmx2048m jdepend.client.ui.JDependCooper
+java -classpath "lib\*" -Xms256m -Xmx2048m jdepend.client.ui.JDependCooper

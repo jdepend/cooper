@@ -48,26 +48,6 @@ public class JavaClassCompareTableCellRenderer extends CompareTableCellRenderer 
 					return null;
 				}
 			}
-
-			@Override
-			public Boolean evaluate(int result, String metrics) {
-				if (metrics.equals(JavaClassUnit.Stable)) {
-					if (result < 0) {
-						return true;
-					} else {
-						return false;
-					}
-				} else if (metrics.equals(JavaClassUnit.isPrivateElement)) {
-					if (result < 0) {
-						return false;
-					} else {
-						return true;
-					}
-				} else {
-					return null;
-				}
-			}
-
 		};
 	}
 

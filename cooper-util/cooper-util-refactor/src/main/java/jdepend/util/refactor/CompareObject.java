@@ -1,5 +1,6 @@
 package jdepend.util.refactor;
 
+import jdepend.model.MetricsEvaluate;
 import jdepend.model.result.AnalysisResult;
 
 public abstract class CompareObject {
@@ -41,7 +42,7 @@ public abstract class CompareObject {
 
 	public abstract Object getOriginalityValue(AnalysisResult result);
 
-	public Boolean evaluate(int result, String metrics) {
-		return null;
+	public final Boolean evaluate(int result, String metrics) {
+		return MetricsEvaluate.evaluate(result, metrics);
 	}
 }

@@ -328,62 +328,6 @@ public final class ScorePanel extends SubResultTabPanel {
 					}
 					return null;
 				}
-
-				@Override
-				public Boolean evaluate(int result, String metrics) {
-					if (metrics.equals(AnalysisResult.Metrics_TotalScore)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_D)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_Balance)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_RelationRationality)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_Encapsulation)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_RelationComponentScale)) {
-						if (result < 0) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_Coupling)) {
-						if (result < 0) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (metrics.equals(AnalysisResult.Metrics_Cohesion)) {
-						if (result < 0) {
-							return false;
-						} else {
-							return true;
-						}
-					} else {
-						return null;
-					}
-				}
-
 			});
 
 			if (info != null && info.isDiff()) {
