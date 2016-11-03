@@ -102,72 +102,7 @@ public class CompareInfo {
 		if (result == NEW) {
 			return null;
 		} else {
-			Boolean evaluate = this.object.evaluate(result, metrics);
-			if (evaluate != null) {
-				return evaluate;
-			} else if (metrics.equals(MetricsMgr.A)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.I)) {
-				if (result < 0) {
-					return true;
-				} else {
-					return false;
-				}
-			} else if (metrics.equals(MetricsMgr.D)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.A)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.V)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.Coupling)) {
-				if (result < 0) {
-					return true;
-				} else {
-					return false;
-				}
-			} else if (metrics.equals(MetricsMgr.Cohesion)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.Balance)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.Encapsulation)) {
-				if (result < 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else if (metrics.equals(MetricsMgr.Cycle)) {
-				if (result < 0) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return null;
-			}
+			return this.object.evaluate(result, metrics);
 		}
 	}
 }

@@ -42,7 +42,7 @@ public abstract class CompareObject {
 
 	public abstract Object getOriginalityValue(AnalysisResult result);
 
-	public final Boolean evaluate(int result, String metrics) {
+	public Boolean evaluate(int result, String metrics) {
 		return MetricsEvaluate.evaluate(result, metrics);
 	}
 }
