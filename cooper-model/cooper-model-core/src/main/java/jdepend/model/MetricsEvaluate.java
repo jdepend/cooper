@@ -38,8 +38,6 @@ public class MetricsEvaluate {
 		evaluateBigs.put(MetricsMgr.Balance, true);
 		evaluateBigs.put(MetricsMgr.Encapsulation, true);
 		evaluateBigs.put(MetricsMgr.Cycle, false);
-		evaluateBigs.put(MetricsMgr.A, true);
-
 	}
 
 	public static Boolean evaluate(int result, String metrics) {
