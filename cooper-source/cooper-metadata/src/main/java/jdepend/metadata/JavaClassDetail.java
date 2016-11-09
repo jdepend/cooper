@@ -59,6 +59,8 @@ public class JavaClassDetail implements Serializable {
 
 	private transient Collection<String> returnTypes;
 
+	private transient Collection<String> superTypes;
+
 	public JavaClassDetail(JavaClass javaClass) {
 		this.javaClass = javaClass;
 		this.annotationDefs = new AnnotationDefs();
@@ -213,14 +215,16 @@ public class JavaClassDetail implements Serializable {
 	}
 
 	public Collection<String> getSupers() {
-		Collection<String> supers = new ArrayList<String>();
-		for (String interfaceName : this.getInterfaceNames()) {
-			supers.add(interfaceName);
+		if (this.superTypes == null) {
+			this.superTypes = new HashSet<String>();
+			for (String interfaceName : this.getInterfaceNames()) {
+				superTypes.add(interfaceName);
+			}
+			if (this.superClassName != null) {
+				superTypes.add(this.superClassName);
+			}
 		}
-		if (this.superClassName != null) {
-			supers.add(this.superClassName);
-		}
-		return supers;
+		return superTypes;
 	}
 
 	public void setSuperClass(JavaClass superClass) {
