@@ -69,25 +69,18 @@ public class JavaClassDetail implements Serializable {
 	public void parseAnnotation(org.apache.bcel.classfile.JavaClass obj) {
 		// 处理Annotation
 		for (AnnotationEntry annotationEntry : obj.getAnnotationEntries()) {
-			if (annotationEntry.getAnnotationType().equals("Ljavax/persistence/Table;")) {
-				L: for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
-					if (elementValuePair.getNameString().equals("name")) {
-						String tableName = elementValuePair.getValue().toShortString();
-						if (!StringUtil.isEmpty(tableName)) {
-							this.addTable(new TableInfo(tableName, TableInfo.Define));
-						}
-						break L;
-					}
+			if (annotationEntry.getAnnotationType().equals(AnnotationParse.Table)) {
+				TableInfo tableInfo = AnnotationParse.parseTable(annotationEntry);
+				if (tableInfo != null) {
+					this.addTable(tableInfo);
 				}
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/transaction/annotation/Transactional;")) {
+			} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.Transactional)) {
 				this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+			} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.RequestMapping)) {
 				this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Controller;")) {
+			} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.Controller)) {
 				this.annotationDefs.setController(AnnotationParse.parseController(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals("Lorg/springframework/stereotype/Service;")) {
+			} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.Service)) {
 				this.annotationDefs.setService(AnnotationParse.parseService(annotationEntry));
 			}
 		}

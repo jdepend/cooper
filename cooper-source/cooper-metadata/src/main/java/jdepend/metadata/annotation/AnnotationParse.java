@@ -1,5 +1,8 @@
 package jdepend.metadata.annotation;
 
+import jdepend.framework.util.StringUtil;
+import jdepend.metadata.TableInfo;
+
 import org.apache.bcel.classfile.AnnotationEntry;
 import org.apache.bcel.classfile.ArrayElementValue;
 import org.apache.bcel.classfile.ElementValue;
@@ -8,6 +11,20 @@ import org.apache.bcel.classfile.EnumElementValue;
 import org.apache.bcel.classfile.SimpleElementValue;
 
 public class AnnotationParse {
+
+	public final static String Transactional = "Lorg/springframework/transaction/annotation/Transactional;";
+
+	public final static String RequestMapping = "Lorg/springframework/web/bind/annotation/RequestMapping;";
+
+	public final static String Autowired = "Lorg/springframework/beans/factory/annotation/Autowired;";
+
+	public final static String Qualifier = "Lorg/springframework/beans/factory/annotation/Qualifier;";
+
+	public final static String Controller = "Lorg/springframework/stereotype/Controller;";
+
+	public final static String Service = "Lorg/springframework/stereotype/Service;";
+
+	public final static String Table = "Ljavax/persistence/Table;";
 
 	public static Controller parseController(AnnotationEntry annotationEntry) {
 		Controller controller = new Controller();
@@ -95,6 +112,20 @@ public class AnnotationParse {
 		}
 
 		return transactional;
+	}
+
+	public static TableInfo parseTable(AnnotationEntry annotationEntry) {
+
+		for (ElementValuePair elementValuePair : annotationEntry.getElementValuePairs()) {
+			if (elementValuePair.getNameString().equals("name")) {
+				String tableName = elementValuePair.getValue().toShortString();
+				if (!StringUtil.isEmpty(tableName)) {
+					return new TableInfo(tableName, TableInfo.Define);
+				}
+			}
+		}
+		return null;
+
 	}
 
 }
