@@ -8,50 +8,35 @@ public class ParseTool {
 		if (s.startsWith("[")) {
 			if (s.startsWith("[[[D")) {
 				s = s.substring(4);
-			}
-			if (s.startsWith("[[D")) {
+			} else if (s.startsWith("[[D")) {
 				s = s.substring(3);
-			}
-			if (s.startsWith("[D")) {
+			} else if (s.startsWith("[D")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[[[L")) {
+			} else if (s.startsWith("[[[L")) {
 				s = s.substring(4);
-			}
-			if (s.startsWith("[[L")) {
+			} else if (s.startsWith("[[L")) {
 				s = s.substring(3);
-			}
-			if (s.startsWith("[L")) {
+			} else if (s.startsWith("[L")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[[I")) {
+			} else if (s.startsWith("[[I")) {
 				s = s.substring(3);
-			}
-			if (s.startsWith("[[J")) {
+			} else if (s.startsWith("[[J")) {
 				s = s.substring(3);
-			}
-			if (s.startsWith("[J")) {
+			} else if (s.startsWith("[J")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[[F")) {
+			} else if (s.startsWith("[[F")) {
 				s = s.substring(3);
-			}
-			if (s.startsWith("[F")) {
+			} else if (s.startsWith("[F")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[I")) {
+			} else if (s.startsWith("[I")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[B")) {
+			} else if (s.startsWith("[B")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[Z")) {
+			} else if (s.startsWith("[Z")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[C")) {
+			} else if (s.startsWith("[C")) {
 				s = s.substring(2);
-			}
-			if (s.startsWith("[S")) {
+			} else if (s.startsWith("[S")) {
 				s = s.substring(2);
 			}
 		}
@@ -59,6 +44,18 @@ public class ParseTool {
 			s = s.substring(0, s.length() - 1);
 		}
 		return s;
+	}
+
+	public static String getType2(String s) {
+		if (s.startsWith("[")) {
+			if (s.startsWith("[L")) {
+				return s.substring(2, s.length() - 1);
+			} else {
+				return null;
+			}
+		} else {
+			return s;
+		}
 	}
 
 	public static String slashesToDots(String s) {

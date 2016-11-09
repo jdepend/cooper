@@ -53,17 +53,8 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 	@Override
 	public void visitConstantMethodref(ConstantMethodref obj) {
 		String name = obj.getClass(this.cp);
-		String variableType = null;
-		if (name.startsWith("[")) {
-			if (name.startsWith("[L")) {
-				variableType = name.substring(2, name.length() - 1);
-			} else {
-				return;
-			}
-		} else {
-			variableType = name;
-		}
-		if (!jClass.getDetail().getSupers().contains(variableType)) {
+		String variableType = ParseTool.getType2(name);
+		if (variableType != null && !jClass.getDetail().getSupers().contains(variableType)) {
 			jClass.getDetail().addVariableType(variableType);
 			this.parser.debug("visitConstantMethodref: variable type = " + variableType);
 		}
@@ -112,7 +103,7 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 			this.jClass.setLineCount(obj.getLineNumber());
 		}
 	}
-	
+
 	@Override
 	public void visitField(Field obj) {
 		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj);
