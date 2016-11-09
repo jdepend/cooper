@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.parse.sql.ConfigParseMgr;
