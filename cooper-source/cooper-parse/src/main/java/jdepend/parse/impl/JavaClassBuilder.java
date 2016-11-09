@@ -89,6 +89,8 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 
 		count = 0;
+		parser.setModel(getParseModel());
+		
 		ExecutorService pool = ThreadPool.getPool();
 
 		for (final String place : classes.keySet()) {
