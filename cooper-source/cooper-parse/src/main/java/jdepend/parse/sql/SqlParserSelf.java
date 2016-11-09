@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import jdepend.framework.util.StringUtil;
 import jdepend.metadata.TableInfo;
 
-public class SqlParserSelf extends SqlParser{
+public class SqlParserSelf extends SqlParser {
 
 	private static final String TABLE_VALUE = "([^()]+)";
 
@@ -69,7 +69,7 @@ public class SqlParserSelf extends SqlParser{
 	public static List parserSelectSql(String sql) {
 		List result = new ArrayList();
 		String metaRxp = "(?i)select ([^&]+) (?i)from " + TABLE_VALUE;
-//		String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
+		// String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
 		Pattern pattern = null;
 		Matcher matcher = null;
 		pattern = Pattern.compile(metaRxp);
@@ -93,9 +93,11 @@ public class SqlParserSelf extends SqlParser{
 				if (matcher2.find()) {
 					String result3 = matcher2.group();
 					String table1 = parserTable(result3, regx2);
-					String table2 = result3.substring(result3.toLowerCase().indexOf("join") + "join".length(), result3
-							.toLowerCase().indexOf("on"));
 					result.addAll(getTableResult(table1));
+
+					String result3x = result3.toLowerCase();
+					int start = result3x.indexOf("join") + 4;
+					String table2 = result3.substring(start, result3x.indexOf("on", start));
 					result.addAll(getTableResult(table2));
 				} else {
 					result.addAll(getTableResult(result1));
