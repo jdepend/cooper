@@ -38,7 +38,7 @@ public class Attribute extends AccessFlags {
 
 	private transient Collection<JavaClass> typeClasses;
 
-	public Attribute(JavaClass javaClass, Field field) {
+	public Attribute(JavaClass javaClass, Field field, boolean isParseAnnotation) {
 		this.javaClass = javaClass;
 		this.javaClassId = javaClass.getId();
 
@@ -57,12 +57,15 @@ public class Attribute extends AccessFlags {
 
 		this.annotationRefs = new AnnotationRefs();
 		// 处理Annotation
-		for (AnnotationEntry annotationEntry : field.getAnnotationEntries()) {
-			if (annotationEntry.getAnnotationType().equals("Lorg/springframework/beans/factory/annotation/Autowired;")) {
-				this.annotationRefs.setAutowired(AnnotationParse.parseAutowired(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
-				this.annotationRefs.setQualifier(AnnotationParse.parseQualifier(annotationEntry));
+		if (isParseAnnotation) {
+			for (AnnotationEntry annotationEntry : field.getAnnotationEntries()) {
+				if (annotationEntry.getAnnotationType().equals(
+						"Lorg/springframework/beans/factory/annotation/Autowired;")) {
+					this.annotationRefs.setAutowired(AnnotationParse.parseAutowired(annotationEntry));
+				} else if (annotationEntry.getAnnotationType().equals(
+						"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
+					this.annotationRefs.setQualifier(AnnotationParse.parseQualifier(annotationEntry));
+				}
 			}
 		}
 	}

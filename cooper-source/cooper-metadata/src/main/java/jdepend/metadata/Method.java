@@ -69,7 +69,7 @@ public class Method extends AccessFlags {
 	public Method() {
 	}
 
-	public Method(JavaClass javaClass, org.apache.bcel.classfile.Method method) {
+	public Method(JavaClass javaClass, org.apache.bcel.classfile.Method method, boolean isParseAnnotation) {
 		this.javaClass = javaClass;
 		this.javaClassId = javaClass.getId();
 		this.access_flags = method.getAccessFlags();
@@ -85,13 +85,14 @@ public class Method extends AccessFlags {
 
 		this.annotationDefs = new AnnotationDefs();
 		// 处理Annotation
-		for (AnnotationEntry annotationEntry : method.getAnnotationEntries()) {
-			if (annotationEntry.getAnnotationType()
-					.equals(AnnotationParse.Transactional)) {
-				this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
-			} else if (annotationEntry.getAnnotationType().equals(
-					"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
-				this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
+		if (isParseAnnotation) {
+			for (AnnotationEntry annotationEntry : method.getAnnotationEntries()) {
+				if (annotationEntry.getAnnotationType().equals(AnnotationParse.Transactional)) {
+					this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
+				} else if (annotationEntry.getAnnotationType().equals(
+						"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+					this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
+				}
 			}
 		}
 	}
@@ -125,8 +126,8 @@ public class Method extends AccessFlags {
 	public String getName() {
 		return name;
 	}
-	
-	public String getPath(){
+
+	public String getPath() {
 		return this.javaClass.getName() + "." + this.name;
 	}
 
