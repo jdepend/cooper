@@ -21,6 +21,7 @@ import jdepend.parse.Parse;
 import jdepend.parse.ParseConfigurator;
 import jdepend.parse.ParseException;
 import jdepend.parse.ParseListener;
+import jdepend.parse.impl.AbstractParser;
 import jdepend.service.AnalyseListener;
 import jdepend.service.JDependLocalService;
 import jdepend.service.ServiceException;
@@ -250,6 +251,7 @@ public final class JDependLocalServiceImpl implements JDependLocalService {
 		this.parse.setParseConfigs(false);
 		this.parse.setSupplyJavaClassDetail(false);
 		this.parse.setBuildClassRelation(false);
+		this.parse.setParseModel(AbstractParser.Model_Small);
 
 		try {
 			return new ArrayList<JavaPackage>(this.parse.execute());

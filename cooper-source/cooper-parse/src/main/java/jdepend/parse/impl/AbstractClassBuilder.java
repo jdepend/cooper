@@ -24,10 +24,12 @@ public abstract class AbstractClassBuilder {
 	private ArrayList<BuildListener> buildListeners = new ArrayList<BuildListener>();
 
 	private boolean isBuildClassRelation = true;
-	
+
 	private boolean isSupplyJavaClassDetail = true;
-	
+
 	private boolean isParseConfigs = true;
+
+	private String parseModel;
 
 	protected void onClassBuild(Collection<JavaClass> classes) {
 		for (Iterator<BuildListener> i = buildListeners.iterator(); i.hasNext();) {
@@ -65,13 +67,21 @@ public abstract class AbstractClassBuilder {
 	public void setSupplyJavaClassDetail(boolean isSupplyJavaClassDetail) {
 		this.isSupplyJavaClassDetail = isSupplyJavaClassDetail;
 	}
-	
+
 	public boolean isParseConfigs() {
 		return isParseConfigs;
 	}
 
 	public void setParseConfigs(boolean isParseConfigs) {
 		this.isParseConfigs = isParseConfigs;
+	}
+
+	public String getParseModel() {
+		return parseModel;
+	}
+
+	public void setParseModel(String parseModel) {
+		this.parseModel = parseModel;
 	}
 
 	public abstract Collection<JavaClass> build(AnalyzeData data);

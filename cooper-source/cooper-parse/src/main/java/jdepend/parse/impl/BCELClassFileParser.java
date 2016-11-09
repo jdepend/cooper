@@ -15,7 +15,7 @@ public class BCELClassFileParser extends AbstractParser {
 	}
 
 	@Override
-	protected JavaClass doParse(String place, InputStream is) throws ParseClassException {
+	protected JavaClass doParse(String place, InputStream is, String model) throws ParseClassException {
 
 		JavaClass jClass = null;
 		try {
@@ -27,7 +27,8 @@ public class BCELClassFileParser extends AbstractParser {
 			jClass = new JavaClass("Unknown", true, javaClass.getAccessFlags());
 			jClass.setPlace(place);
 
-			JDependClassFileVisitor visitor = new BigClassFileVisitor(jClass);
+			JDependClassFileVisitor visitor = this.createVisitor(model);
+			visitor.setJavaClass(jClass);
 			visitor.setParser(this);
 
 			DescendingVisitor dvisitor = new DescendingVisitor(javaClass, visitor);
@@ -47,6 +48,14 @@ public class BCELClassFileParser extends AbstractParser {
 			} else {
 				throw new ParseClassException(e);
 			}
+		}
+	}
+
+	private JDependClassFileVisitor createVisitor(String model) {
+		if (model.equals(Model_Big)) {
+			return new BigClassFileVisitor();
+		} else {
+			return new SmallClassFileVisitor();
 		}
 	}
 

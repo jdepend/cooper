@@ -112,4 +112,8 @@ public final class SearchUtil {
 		this.parse.addParseListener(listener);
 	}
 
+	public void setParseModel(String parseModel) {
+		this.parse.setParseModel(parseModel);
+	}
+
 }

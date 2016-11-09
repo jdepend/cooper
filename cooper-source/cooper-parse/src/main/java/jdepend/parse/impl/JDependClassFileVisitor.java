@@ -13,10 +13,6 @@ public abstract class JDependClassFileVisitor extends EmptyVisitor {
 
 	protected ConstantPool cp;
 
-	public JDependClassFileVisitor(JavaClass jClass) {
-		this.jClass = jClass;
-	}
-
 	@Override
 	public void visitConstantPool(ConstantPool obj) {
 		this.cp = obj;
@@ -28,6 +24,10 @@ public abstract class JDependClassFileVisitor extends EmptyVisitor {
 
 	public void setParser(AbstractParser parser) {
 		this.parser = parser;
+	}
+
+	public void setJavaClass(JavaClass jClass) {
+		this.jClass = jClass;
 	}
 
 	public void calImportedPackages() {

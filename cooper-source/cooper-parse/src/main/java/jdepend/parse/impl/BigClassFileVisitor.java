@@ -15,10 +15,6 @@ import org.apache.bcel.classfile.ConstantUtf8;
 
 public class BigClassFileVisitor extends SmallClassFileVisitor {
 
-	public BigClassFileVisitor(JavaClass jClass) {
-		super(jClass);
-	}
-
 	@Override
 	public void visitConstantString(ConstantString obj) {
 		String name = obj.getBytes(this.cp);

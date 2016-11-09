@@ -57,6 +57,11 @@ public class Parse {
 	public void setParseConfigs(boolean isParseConfigs) {
 		this.getClassBuilder().setParseConfigs(isParseConfigs);
 	}
+	
+
+	public void setParseModel(String parseModel) {
+		this.getClassBuilder().setParseModel(parseModel);
+	}
 
 	/**
 	 * 解析目标对象

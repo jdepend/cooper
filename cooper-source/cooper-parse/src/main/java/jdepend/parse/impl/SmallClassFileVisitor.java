@@ -25,10 +25,6 @@ import org.apache.bcel.classfile.Method;
 
 public class SmallClassFileVisitor extends JDependClassFileVisitor {
 
-	public SmallClassFileVisitor(JavaClass jClass) {
-		super(jClass);
-	}
-
 	@Override
 	public void visitConstantClass(ConstantClass obj) {
 		String name1 = obj.getBytes(this.cp);

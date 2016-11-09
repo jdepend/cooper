@@ -38,6 +38,11 @@ public abstract class AbstractParser {
 
 	private ParseConfigurator conf;
 
+	private String model = Model_Big;
+
+	public final static String Model_Small = "small";
+	public final static String Model_Big = "big";
+
 	/**
 	 * 设置日志输出的对象
 	 * 
@@ -68,13 +73,13 @@ public abstract class AbstractParser {
 	public final JavaClass parse(String place, InputStream is) throws ParseClassException {
 		JavaClass jClass = null;
 		try {
-			return this.doParse(place, is);
+			return this.doParse(place, is, model);
 		} finally {
 			this.onParsedJavaClass(jClass);
 		}
 	}
 
-	protected abstract JavaClass doParse(String place, InputStream is) throws ParseClassException;
+	protected abstract JavaClass doParse(String place, InputStream is, String model) throws ParseClassException;
 
 	/**
 	 * Informs registered parser listeners that the specified
@@ -95,6 +100,10 @@ public abstract class AbstractParser {
 
 	public void setConf(ParseConfigurator conf) {
 		this.conf = conf;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	protected void debug(String message) {
