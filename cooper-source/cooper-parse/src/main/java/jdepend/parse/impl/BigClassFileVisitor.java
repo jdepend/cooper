@@ -1,32 +1,17 @@
 package jdepend.parse.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.TableInfo;
-import jdepend.metadata.util.ParseUtil;
 import jdepend.parse.sql.ConfigParseMgr;
 import jdepend.parse.sql.SqlParseUtil;
 import jdepend.parse.sql.TableInfoItem;
 import jdepend.parse.util.ParseTool;
 
-import org.apache.bcel.classfile.ConstantClass;
-import org.apache.bcel.classfile.ConstantFieldref;
-import org.apache.bcel.classfile.ConstantInterfaceMethodref;
-import org.apache.bcel.classfile.ConstantMethodref;
-import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.ConstantString;
 import org.apache.bcel.classfile.ConstantUtf8;
-import org.apache.bcel.classfile.EmptyVisitor;
-import org.apache.bcel.classfile.Field;
-import org.apache.bcel.classfile.LineNumber;
-import org.apache.bcel.classfile.LineNumberTable;
-import org.apache.bcel.classfile.LocalVariable;
-import org.apache.bcel.classfile.Method;
 
 public class BigClassFileVisitor extends SmallClassFileVisitor {
 
@@ -58,6 +43,37 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 					this.jClass.getDetail().addTable(table);
 				}
 			}
+		}
+	}
+	
+	@Override
+	public void calImportedPackages() {
+
+		String packageName;
+
+		if (this.jClass.getDetail().getSuperClassName() != null) {
+			packageName = ParseTool.getPackageName(this.jClass.getDetail().getSuperClassName());
+			this.jClass.addImportedPackage(packageName);
+		}
+
+		for (String name : this.jClass.getDetail().getInterfaceNames()) {
+			packageName = ParseTool.getPackageName(name);
+			this.jClass.addImportedPackage(packageName);
+		}
+
+		for (String name : this.jClass.getDetail().getAttributeTypes()) {
+			packageName = ParseTool.getPackageName(name);
+			this.jClass.addImportedPackage(packageName);
+		}
+
+		for (String name : this.jClass.getDetail().getParamTypes()) {
+			packageName = ParseTool.getPackageName(name);
+			this.jClass.addImportedPackage(packageName);
+		}
+
+		for (String name : this.jClass.getDetail().getVariableTypes()) {
+			packageName = ParseTool.getPackageName(name);
+			this.jClass.addImportedPackage(packageName);
 		}
 	}
 
