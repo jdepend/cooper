@@ -35,6 +35,8 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 	private AbstractParser parser;
 
 	private Collection<JavaClass> javaClasses;
+	
+	private int count = 0;
 
 	public JavaClassBuilder(ParseConfigurator conf) {
 		this.setConf(conf);
@@ -86,6 +88,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 
 	private void parseClasses(Map<String, List<TargetFileInfo>> classes) {
 
+		count = 0;
 		ExecutorService pool = ThreadPool.getPool();
 
 		for (final String place : classes.keySet()) {
@@ -95,7 +98,7 @@ public class JavaClassBuilder extends AbstractClassBuilder {
 					public void run() {
 						InputStream is = null;
 						try {
-							LogUtil.getInstance(JavaClassBuilder.class).systemLog("开始解析文件[" + classData.getName() + "]");
+							LogUtil.getInstance(JavaClassBuilder.class).systemLog("开始解析文件[" + classData.getName() + "]" + (count++));
 							is = new ByteArrayInputStream(classData.getContent());
 							JavaClass javaClass = parser.parse(place, is);
 							if (parser.getConf().getPackageFilter().accept(javaClass.getPackageName())) {

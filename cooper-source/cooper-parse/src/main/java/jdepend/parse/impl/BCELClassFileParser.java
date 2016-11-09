@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 import jdepend.metadata.JavaClass;
 import jdepend.parse.ParseConfigurator;
-import jdepend.parse.util.ParseTool;
 
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.DescendingVisitor;
@@ -28,14 +27,14 @@ public class BCELClassFileParser extends AbstractParser {
 			jClass = new JavaClass("Unknown", true, javaClass.getAccessFlags());
 			jClass.setPlace(place);
 
-			JDependClassFileVisitor visitor = new JDependClassFileVisitor(jClass);
+			JDependClassFileVisitor visitor = new BigClassFileVisitor(jClass);
 			visitor.setParser(this);
 
 			DescendingVisitor dvisitor = new DescendingVisitor(javaClass, visitor);
 
 			dvisitor.visit();
 
-			this.calImportedPackages(jClass);
+			visitor.calImportedPackages();
 
 			this.debug("");
 
@@ -51,33 +50,4 @@ public class BCELClassFileParser extends AbstractParser {
 		}
 	}
 
-	public void calImportedPackages(JavaClass javaClass) {
-
-		String packageName;
-
-		if (javaClass.getDetail().getSuperClassName() != null) {
-			packageName = ParseTool.getPackageName(javaClass.getDetail().getSuperClassName());
-			javaClass.addImportedPackage(packageName);
-		}
-
-		for (String name : javaClass.getDetail().getInterfaceNames()) {
-			packageName = ParseTool.getPackageName(name);
-			javaClass.addImportedPackage(packageName);
-		}
-
-		for (String name : javaClass.getDetail().getAttributeTypes()) {
-			packageName = ParseTool.getPackageName(name);
-			javaClass.addImportedPackage(packageName);
-		}
-
-		for (String name : javaClass.getDetail().getParamTypes()) {
-			packageName = ParseTool.getPackageName(name);
-			javaClass.addImportedPackage(packageName);
-		}
-
-		for (String name : javaClass.getDetail().getVariableTypes()) {
-			packageName = ParseTool.getPackageName(name);
-			javaClass.addImportedPackage(packageName);
-		}
-	}
 }
