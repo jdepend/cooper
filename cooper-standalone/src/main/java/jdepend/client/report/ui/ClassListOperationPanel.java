@@ -24,16 +24,21 @@ public class ClassListOperationPanel extends JPanel {
 
 	private JTextField calleeFilter;
 
-	public ClassListOperationPanel(ClassListPanel classListPanel) {
+	public ClassListOperationPanel(ClassListPanel classListPanel1) {
 		this.setLayout(new BorderLayout());
 
 		this.add(BorderLayout.NORTH, this.createSearchPanel());
 
-		this.classListPanel = classListPanel;
+		this.classListPanel = classListPanel1;
 		this.add(this.classListPanel);
-		int classCount = this.classListPanel.showAllClassList();
-		tipLabel.setText("共" + classCount + "个类");
+		new Thread() {
+			@Override
+			public void run() {
+				int classCount = classListPanel.showAllClassList();
+				tipLabel.setText("共" + classCount + "个类");
+			}
 
+		}.start();
 	}
 
 	private JPanel createSearchPanel() {
