@@ -67,16 +67,7 @@ public class JavaClassUtil {
 
 			if (type.equals(JavaClass.VO_TYPE) && !ensure_VO_TYPE) {
 
-				boolean haveBusinessMethod = false;
-				O: for (Method method : javaClass.getMethods()) {
-					if (!method.isConstruction() && !method.getName().startsWith("get")
-							&& !method.getName().startsWith("set") && !method.getName().equals("toString")
-							&& !method.getName().equals("equals") && !method.getName().equals("hashCode")) {
-						haveBusinessMethod = true;
-						break O;
-					}
-				}
-				if (!haveBusinessMethod) {
+				if (!javaClass.haveBusinessMethod()) {
 					type = JavaClass.VO_TYPE;
 					path += "6";
 					ensure_VO_TYPE = true;

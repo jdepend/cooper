@@ -13,6 +13,7 @@ import jdepend.metadata.annotation.AnnotationParse;
 import jdepend.metadata.annotation.RequestMapping;
 import jdepend.metadata.annotation.Transactional;
 import jdepend.metadata.util.JavaClassCollection;
+import jdepend.metadata.util.MethodUtil;
 import jdepend.metadata.util.ParseUtil;
 import jdepend.metadata.util.SignatureUtil;
 
@@ -262,23 +263,6 @@ public class Method extends AccessFlags {
 		return this.info.substring(this.info.indexOf('(') + 1, this.info.indexOf(')'));
 	}
 
-	private int calArgumentCount() {
-		int pos = this.info.indexOf('(');
-		int pos1 = this.info.indexOf(')');
-		if (pos + 1 == pos1) {
-			return 0;
-		} else {
-			int count = 1;
-			pos1 = this.info.indexOf(',', pos + 1);
-			while (pos1 != -1) {
-				pos = pos1;
-				pos1 = this.info.indexOf(',', pos + 1);
-				count++;
-			}
-			return count;
-		}
-	}
-
 	public synchronized Collection<String> getReturnTypes() {
 		if (this.returnTypes == null) {
 			this.returnTypes = new HashSet<String>();
@@ -513,34 +497,6 @@ public class Method extends AccessFlags {
 
 	}
 
-	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-		ois.defaultReadObject();
-
-		this.invokedItems = new HashSet<InvokeItem>();
-	}
-
-	private boolean isInvoked(Method method) {
-
-		if (method.getInvokeMethods().contains(this)) {
-			return true;
-		}
-
-		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
-			if (method.getInvokeMethods().contains(overridedMethod)) {
-				return true;
-			}
-		}
-
-		for (Method subOverrideMethod : this.javaClass.getSubOverrideMethods(this)) {
-			if (method.getInvokeMethods().contains(subOverrideMethod)) {
-				return true;
-			}
-		}
-
-		return false;
-
-	}
-
 	public String getMethodInfo() {
 		StringBuilder info = new StringBuilder();
 
@@ -555,6 +511,10 @@ public class Method extends AccessFlags {
 		}
 
 		return info.toString();
+	}
+
+	public boolean isBusinessMethod() {
+		return MethodUtil.isBusinessMethod(this);
 	}
 
 	@Override
@@ -648,6 +608,51 @@ public class Method extends AccessFlags {
 			return false;
 
 		return true;
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		ois.defaultReadObject();
+
+		this.invokedItems = new HashSet<InvokeItem>();
+	}
+
+	private boolean isInvoked(Method method) {
+
+		if (method.getInvokeMethods().contains(this)) {
+			return true;
+		}
+
+		for (Method overridedMethod : this.javaClass.getOverridedMethods(this)) {
+			if (method.getInvokeMethods().contains(overridedMethod)) {
+				return true;
+			}
+		}
+
+		for (Method subOverrideMethod : this.javaClass.getSubOverrideMethods(this)) {
+			if (method.getInvokeMethods().contains(subOverrideMethod)) {
+				return true;
+			}
+		}
+
+		return false;
+
+	}
+
+	private int calArgumentCount() {
+		int pos = this.info.indexOf('(');
+		int pos1 = this.info.indexOf(')');
+		if (pos + 1 == pos1) {
+			return 0;
+		} else {
+			int count = 1;
+			pos1 = this.info.indexOf(',', pos + 1);
+			while (pos1 != -1) {
+				pos = pos1;
+				pos1 = this.info.indexOf(',', pos + 1);
+				count++;
+			}
+			return count;
+		}
 	}
 
 }

@@ -11,16 +11,6 @@ import jdepend.service.avertcheat.framework.JavaClassAvertCheat;
 
 public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 
-	private Collection<String> commFuns;
-
-	public StabilityClassIdentifyer() {
-		commFuns = new HashSet<String>();
-
-		commFuns.add("toString");
-		commFuns.add("equals");
-		commFuns.add("hashCode");
-	}
-
 	@Override
 	public String getName() {
 		return "判断指定的类是否稳定";
@@ -54,15 +44,7 @@ public final class StabilityClassIdentifyer extends JavaClassAvertCheat {
 		// 不依赖其他类的VO
 		if (javaClassUnit.getJavaClass().getCeList().size() == 0
 				&& javaClassUnit.getJavaClass().getClassType().equals(JavaClass.VO_TYPE)) {
-			boolean haveBusinessMethod = false;
-			O: for (Method method : javaClassUnit.getJavaClass().getMethods()) {
-				if (!method.isConstruction() && !method.getName().startsWith("get")
-						&& !method.getName().startsWith("set") && !commFuns.contains(method.getName())) {
-					haveBusinessMethod = true;
-					break O;
-				}
-			}
-			if (!haveBusinessMethod) {
+			if (!javaClassUnit.getJavaClass().haveBusinessMethod()) {
 				javaClassUnit.setStable(true);
 				return;
 			}

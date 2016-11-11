@@ -86,6 +86,8 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 	private transient Collection<JavaClass> ceList = null;
 	private transient Collection<JavaClass> relationList = null;
 
+	private transient Boolean haveBusinessMethod;
+
 	private final static int UnCalculate = -2;
 	private final static int HaveState = 1;
 	private final static int NoHaveState = 0;
@@ -652,6 +654,19 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 		return this.detail.getAnnotations().getTransactional();
 	}
 
+	public boolean haveBusinessMethod() {
+		if (this.haveBusinessMethod == null) {
+			this.haveBusinessMethod = false;
+			L: for (Method method : this.getMethods()) {
+				if (method.isBusinessMethod()) {
+					this.haveBusinessMethod = true;
+					break L;
+				}
+			}
+		}
+		return this.haveBusinessMethod;
+	}
+
 	public JavaClass clone() {
 
 		JavaClass obj = new JavaClass(this.getName(), this.isInner);
@@ -807,6 +822,7 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 		relationItems = null;
 
 		classType = null;
+		haveBusinessMethod = null;
 	}
 
 	/**
