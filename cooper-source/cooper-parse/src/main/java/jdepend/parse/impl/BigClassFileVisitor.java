@@ -48,8 +48,10 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 			jdepend.metadata.Method method = new jdepend.metadata.Method(this.jClass, obj, true);
 			if (!obj.getName().equals("<clinit>")) {
 
-				new GeneralMethodReader(method, parser.getConf().getPackageFilter()).read(obj);
-				new HttpInvokeMethodReader(method, parser.getConf()).read(obj);
+				MethodReaderChain methodReaderChain = new MethodReaderChain();
+				methodReaderChain.addReader(new GeneralMethodReader(method, parser.getConf().getPackageFilter()));
+				methodReaderChain.addReader(new HttpInvokeMethodReader(method, parser.getConf()));
+				methodReaderChain.read(obj);
 
 				method.setSelfLineCount(this.calLineCount(obj));
 
@@ -57,7 +59,9 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 
 				this.parser.debug("visitMethod: method type = " + obj);
 			} else {
-				new ClInitMethodReader(method).read(obj);
+				MethodReaderChain methodReaderChain = new MethodReaderChain();
+				methodReaderChain.addReader(new ClInitMethodReader(method));
+				methodReaderChain.read(obj);
 			}
 		}
 	}
