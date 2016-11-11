@@ -25,16 +25,18 @@ public class GeneralMethodReader extends MethodReader {
 
 		String[] infos;
 		int pos;
+		int pos2;
+		
 		String calledPlace;
 		String calledName;
 		String calledPackageName;
 		String calledMethod;
+		String calledMethodSignature;
+		
 		String callType;
 		int index;
 		String fieldName;
-		String methodSignature;
-		int pos2;
-
+	
 		if (info.startsWith("invoke")) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
@@ -44,7 +46,7 @@ public class GeneralMethodReader extends MethodReader {
 					calledName = infos[1].substring(0, pos);
 					pos2 = infos[1].indexOf(':');
 					calledMethod = infos[1].substring(pos + 1, pos2);
-					methodSignature = infos[1].substring(pos2 + 1);
+					calledMethodSignature = infos[1].substring(pos2 + 1);
 					calledPlace = method.getJavaClass().getPlace();
 					// 得到包名
 					index = calledName.lastIndexOf('.');
@@ -54,7 +56,7 @@ public class GeneralMethodReader extends MethodReader {
 						calledPackageName = JavaPackage.Default;
 					}
 					if (filter.accept(calledPackageName) && filter.acceptClass(calledName)) {
-						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, methodSignature);
+						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, calledMethodSignature);
 						method.addInvokeItem(item);
 					}
 				}
