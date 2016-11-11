@@ -32,6 +32,8 @@ public class GeneralMethodReader extends MethodReader {
 		String callType;
 		int index;
 		String fieldName;
+		String methodSignature;
+		int pos2;
 
 		if (info.startsWith("invoke")) {
 			infos = info.split("\\s+");
@@ -40,17 +42,19 @@ public class GeneralMethodReader extends MethodReader {
 				if (pos != -1) {
 					callType = infos[0].substring(6);
 					calledName = infos[1].substring(0, pos);
-					calledMethod = infos[1].substring(pos + 1);
+					pos2 = infos[1].indexOf(':');
+					calledMethod = infos[1].substring(pos + 1, pos2);
+					methodSignature = infos[1].substring(pos2 + 1);
 					calledPlace = method.getJavaClass().getPlace();
 					// 得到包名
-					index = calledName.lastIndexOf(".");
+					index = calledName.lastIndexOf('.');
 					if (index > 0) {
 						calledPackageName = calledName.substring(0, index);
 					} else {
 						calledPackageName = JavaPackage.Default;
 					}
 					if (filter.accept(calledPackageName) && filter.acceptClass(calledName)) {
-						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, infos[2]);
+						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, methodSignature);
 						method.addInvokeItem(item);
 					}
 				}
@@ -74,7 +78,7 @@ public class GeneralMethodReader extends MethodReader {
 		if (infos.length > 1) {
 			int pos = infos[1].lastIndexOf('.');
 			if (pos != -1) {
-				return infos[1].substring(pos + 1);
+				return infos[1].substring(pos + 1, infos[1].indexOf(':'));
 			} else {
 				return null;
 			}
