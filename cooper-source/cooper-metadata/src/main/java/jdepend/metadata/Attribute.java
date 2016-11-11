@@ -59,11 +59,9 @@ public class Attribute extends AccessFlags {
 		// 处理Annotation
 		if (isParseAnnotation) {
 			for (AnnotationEntry annotationEntry : field.getAnnotationEntries()) {
-				if (annotationEntry.getAnnotationType().equals(
-						"Lorg/springframework/beans/factory/annotation/Autowired;")) {
+				if (annotationEntry.getAnnotationType().equals(AnnotationParse.Autowired)) {
 					this.annotationRefs.setAutowired(AnnotationParse.parseAutowired(annotationEntry));
-				} else if (annotationEntry.getAnnotationType().equals(
-						"Lorg/springframework/beans/factory/annotation/Qualifier;")) {
+				} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.Qualifier)) {
 					this.annotationRefs.setQualifier(AnnotationParse.parseQualifier(annotationEntry));
 				}
 			}

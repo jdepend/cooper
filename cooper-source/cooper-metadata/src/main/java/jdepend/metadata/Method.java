@@ -90,8 +90,7 @@ public class Method extends AccessFlags {
 			for (AnnotationEntry annotationEntry : method.getAnnotationEntries()) {
 				if (annotationEntry.getAnnotationType().equals(AnnotationParse.Transactional)) {
 					this.annotationDefs.setTransactional(AnnotationParse.parseTransactional(annotationEntry));
-				} else if (annotationEntry.getAnnotationType().equals(
-						"Lorg/springframework/web/bind/annotation/RequestMapping;")) {
+				} else if (annotationEntry.getAnnotationType().equals(AnnotationParse.RequestMapping)) {
 					this.annotationDefs.setRequestMapping(AnnotationParse.parseRequestMapping(annotationEntry));
 				}
 			}
