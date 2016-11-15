@@ -66,6 +66,8 @@ public class Method extends AccessFlags {
 	private transient Collection<Method> cascadeInvokedMethods;
 
 	private transient JavaClass javaClass;
+	
+	public final static String CLINIT = "<clinit>";
 
 	public Method() {
 	}

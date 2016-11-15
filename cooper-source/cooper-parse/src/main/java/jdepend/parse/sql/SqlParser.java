@@ -1,22 +1,38 @@
 package jdepend.parse.sql;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import jdepend.metadata.TableInfo;
 
 public abstract class SqlParser {
-	
-	public boolean isSQL(String arg){
+
+	private static Collection<String> sqlKeys;
+
+	static {
+		sqlKeys = new ArrayList<String>();
+
+		sqlKeys.add("select ");
+		sqlKeys.add("insert ");
+		sqlKeys.add("update ");
+		sqlKeys.add("delete ");
+	}
+
+	public boolean isSQL(String arg) {
 		if (arg == null) {
 			return false;
 		} else {
 			arg = arg.toLowerCase();
-			return arg.indexOf("select ") != -1 || arg.indexOf("insert ") != -1 || arg.indexOf("update ") != -1
-					|| arg.indexOf("delete ") != -1;
-
+			for (String sqlKey : sqlKeys) {
+				if (arg.indexOf(sqlKey) != -1) {
+					return true;
+				}
+			}
+			return false;
 		}
 	};
-	
+
 	public abstract List<TableInfo> parserSql(String sql);
 
 }

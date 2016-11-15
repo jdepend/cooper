@@ -39,14 +39,16 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 	public void visitField(Field obj) {
 		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj, true);
 		this.jClass.getDetail().addAttribute(attribute);
-		this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
+		}
 	}
 
 	@Override
 	public void visitMethod(Method obj) {
 		if (!obj.isSynthetic()) {// 不采集编译器生成的Method
 			jdepend.metadata.Method method = new jdepend.metadata.Method(this.jClass, obj, true);
-			if (!obj.getName().equals("<clinit>")) {
+			if (!obj.getName().equals(jdepend.metadata.Method.CLINIT)) {
 
 				MethodReaderChain methodReaderChain = new MethodReaderChain();
 				methodReaderChain.addReader(new GeneralMethodReader(method, parser.getConf().getPackageFilter()));
@@ -56,8 +58,9 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 				method.setSelfLineCount(this.calLineCount(obj));
 
 				this.jClass.getDetail().addMethod(method);
-
-				this.parser.debug("visitMethod: method type = " + obj);
+				if (this.parser.isDebug()) {
+					this.parser.debug("visitMethod: method type = " + obj);
+				}
 			} else {
 				MethodReaderChain methodReaderChain = new MethodReaderChain();
 				methodReaderChain.addReader(new ClInitMethodReader(method));
@@ -69,12 +72,16 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 	@Override
 	public void visitConstantString(ConstantString obj) {
 		String name = obj.getBytes(this.cp);
-		this.parser.debug("visitConstantString: obj.getBytes(this.cp) = " + name);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitConstantString: obj.getBytes(this.cp) = " + name);
+		}
 		List<TableInfo> tables = this.ParseTable(name);
 		if (tables != null) {
 			for (TableInfo table : tables) {
 				this.jClass.getDetail().addTable(table);
-				this.parser.debug("visitConstantString: variable type = " + table);
+				if (this.parser.isDebug()) {
+					this.parser.debug("visitConstantString: variable type = " + table);
+				}
 			}
 		}
 	}
@@ -82,7 +89,9 @@ public class BigClassFileVisitor extends SmallClassFileVisitor {
 	@Override
 	public void visitConstantUtf8(ConstantUtf8 obj) {
 		String name = obj.getBytes();
-		this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + name);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitConstantUtf8: obj.getBytes(this.cp) = " + name);
+		}
 		if (SqlParseUtil.isSQL(name)) {
 			List<TableInfo> tables = SqlParseUtil.parserSql(name);
 			if (tables != null) {

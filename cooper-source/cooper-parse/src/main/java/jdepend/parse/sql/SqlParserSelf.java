@@ -13,61 +13,34 @@ public class SqlParserSelf extends SqlParser {
 	private static final String TABLE_VALUE = "([^()]+)";
 
 	public List<TableInfo> parserSql(String sql) {
-		List<TableInfo> tables = new ArrayList<TableInfo>();
-
-		String[] tableInfo = null;
 		try {
-			List TableInfos = parserSelectSql(sql);
+			List<TableInfo> TableInfos = parserSelectSql(sql);
 			if (TableInfos.size() != 0) {
-				for (int i = 0; i < TableInfos.size(); i++) {
-					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
-						tables.add(new TableInfo(tableInfo[0], TableInfo.Read));
-					}
-				}
-				return tables;
+				return TableInfos;
 			}
 
 			TableInfos = parserInsertSql(sql);
 			if (TableInfos.size() != 0) {
-				for (int i = 0; i < TableInfos.size(); i++) {
-					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
-						tables.add(new TableInfo(tableInfo[0], TableInfo.Create));
-					}
-				}
-				return tables;
+				return TableInfos;
 			}
 
 			TableInfos = parserUpdateSql(sql);
 			if (TableInfos.size() != 0) {
-				for (int i = 0; i < TableInfos.size(); i++) {
-					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
-						tables.add(new TableInfo(tableInfo[0], TableInfo.Update));
-					}
-				}
-				return tables;
+				return TableInfos;
 			}
 
 			TableInfos = parserDeleteSql(sql);
 			if (TableInfos.size() != 0) {
-				for (int i = 0; i < TableInfos.size(); i++) {
-					tableInfo = (String[]) TableInfos.get(i);
-					if (tableInfo != null && tableInfo.length > 0 && !StringUtil.isEmpty(tableInfo[0])) {
-						tables.add(new TableInfo(tableInfo[0], TableInfo.Delete));
-					}
-				}
-				return tables;
+				return TableInfos;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return tables;
+		return new ArrayList<TableInfo>();
 	}
 
-	public static List parserSelectSql(String sql) {
-		List result = new ArrayList();
+	public static List<TableInfo> parserSelectSql(String sql) {
+		List<TableInfo> result = new ArrayList<TableInfo>();
 		String metaRxp = "(?i)select ([^&]+) (?i)from " + TABLE_VALUE;
 		// String metaRxp = "(?i)select ([^from]+) (?i)from " + TABLE_VALUE;
 		Pattern pattern = null;
@@ -84,7 +57,7 @@ public class SqlParserSelf extends SqlParser {
 			if (matcher1.find()) {
 				String result2 = matcher1.group();
 				String tableName = parserTable(result2, regx);
-				result.addAll(getTableResult(tableName));
+				result.addAll(getTableResult(tableName, TableInfo.Read));
 			} else {
 				// 这里有两种情况。一种是标准的另一种是join的
 				String regx2 = TABLE_VALUE + " (?i)join " + "([^;]+)";
@@ -93,22 +66,22 @@ public class SqlParserSelf extends SqlParser {
 				if (matcher2.find()) {
 					String result3 = matcher2.group();
 					String table1 = parserTable(result3, regx2);
-					result.addAll(getTableResult(table1));
+					result.addAll(getTableResult(table1, TableInfo.Read));
 
 					String result3x = result3.toLowerCase();
 					int start = result3x.indexOf("join") + 4;
 					String table2 = result3.substring(start, result3x.indexOf("on", start));
-					result.addAll(getTableResult(table2));
+					result.addAll(getTableResult(table2, TableInfo.Read));
 				} else {
-					result.addAll(getTableResult(result1));
+					result.addAll(getTableResult(result1, TableInfo.Read));
 				}
 			}
 		}
 		return result;
 	}
 
-	private static List parserInsertSql(String sql) {
-		List result = new ArrayList();
+	private static List<TableInfo> parserInsertSql(String sql) {
+		List<TableInfo> result = new ArrayList<TableInfo>();
 		String metaRxp = "(?i)insert([\\s]+)into([\\s]+)" + TABLE_VALUE + "(([\\s]+)values|\\(+)";
 		Pattern pattern = null;
 		Matcher matcher = null;
@@ -117,13 +90,13 @@ public class SqlParserSelf extends SqlParser {
 		while (matcher.find()) {
 			String result1 = matcher.group();
 			result1 = parserTable(result1, metaRxp);
-			result.addAll(getTableResult(result1));
+			result.addAll(getTableResult(result1, TableInfo.Create));
 		}
 		return result;
 	}
 
-	private static List parserDeleteSql(String sql) {
-		List result = new ArrayList();
+	private static List<TableInfo> parserDeleteSql(String sql) {
+		List<TableInfo> result = new ArrayList<TableInfo>();
 		String metaRxp = "(?i)delete([\\s]+)from([\\s]+)" + TABLE_VALUE;
 		Pattern pattern = null;
 		Matcher matcher = null;
@@ -132,13 +105,13 @@ public class SqlParserSelf extends SqlParser {
 		while (matcher.find()) {
 			String result1 = matcher.group();
 			result1 = parserTable(result1, metaRxp);
-			result.addAll(getTableResult(result1));
+			result.addAll(getTableResult(result1, TableInfo.Delete));
 		}
 		return result;
 	}
 
-	private static List parserUpdateSql(String sql) {
-		List result = new ArrayList();
+	private static List<TableInfo> parserUpdateSql(String sql) {
+		List<TableInfo> result = new ArrayList<TableInfo>();
 		String metaRxp = "(?i)update([\\s]+)" + TABLE_VALUE + "([\\s]+)set";
 		Pattern pattern = null;
 		Matcher matcher = null;
@@ -147,7 +120,7 @@ public class SqlParserSelf extends SqlParser {
 		while (matcher.find()) {
 			String result1 = matcher.group();
 			result1 = parserTable(result1, metaRxp);
-			result.addAll(getTableResult(result1));
+			result.addAll(getTableResult(result1, TableInfo.Update));
 		}
 		return result;
 	}
@@ -158,25 +131,27 @@ public class SqlParserSelf extends SqlParser {
 	 * @param table
 	 * @return
 	 */
-	private static List getTableResult(String table) {
-		List result = new ArrayList();
+	private static List<TableInfo> getTableResult(String table, String operarion) {
+		List<TableInfo> result = new ArrayList<TableInfo>();
+		String tableResult;
 		String[] tempTable = table.split(",");
 		for (int i = 0; i < tempTable.length; i++) {
+			tableResult = null;
 			table = tempTable[i].trim();
-			String tableResult[] = new String[2];
 			String regx = "([a-zA-Z0-9_]+)([\\s]+)([a-zA-Z0-9_]+)";
 			Pattern pattern1 = Pattern.compile(regx);
 			Matcher matcher1 = pattern1.matcher(table);
 			if (matcher1.find()) {
 				String[] temp = table.split("([\\s]+)");
 				if (temp.length >= 2) {
-					tableResult[0] = temp[0];
-					tableResult[1] = temp[1];
+					tableResult = temp[0];
 				}
 			} else {
-				tableResult[0] = table;
+				tableResult = table;
 			}
-			result.add(tableResult);
+			if (tableResult != null) {
+				result.add(new TableInfo(tableResult, operarion));
+			}
 		}
 		return result;
 	}

@@ -117,6 +117,16 @@ public class ParseConfigurator {
 		return null;
 	}
 
+	public String getAnalyzeModel() {
+
+		String key = "analyzeModel";
+		if (properties.containsKey(key)) {
+			return properties.getProperty(key);
+		}
+
+		return null;
+	}
+
 	public JavaClassRelationTypes getJavaClassRelationTypes() {
 		return javaClassRelationTypes;
 	}

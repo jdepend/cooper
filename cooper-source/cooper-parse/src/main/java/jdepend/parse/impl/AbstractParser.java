@@ -60,6 +60,10 @@ public abstract class AbstractParser {
 		this.conf = conf;
 		parseListeners = new ArrayList<ParseListener>();
 		DEBUG = conf.getParseDebug();
+		String analyzeModel = conf.getAnalyzeModel();
+		if (analyzeModel != null) {
+			model = analyzeModel;
+		}
 	}
 
 	public void addParseListener(ParseListener listener) {
@@ -110,5 +114,9 @@ public abstract class AbstractParser {
 		if (DEBUG) {
 			this.writer.println(message);
 		}
+	}
+
+	public boolean isDebug() {
+		return DEBUG;
 	}
 }

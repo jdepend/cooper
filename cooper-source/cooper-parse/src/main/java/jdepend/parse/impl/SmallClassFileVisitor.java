@@ -19,12 +19,16 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 	@Override
 	public void visitConstantClass(ConstantClass obj) {
 		String name1 = obj.getBytes(this.cp);
-		this.parser.debug("visitConstantClass: obj.getBytes(this.cp) = " + name1);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitConstantClass: obj.getBytes(this.cp) = " + name1);
+		}
 		String name = ParseTool.slashesToDots(name1);
 		name = ParseTool.getType(name);
 		if (name != null && name.length() > 0 && !jClass.getDetail().getSupers().contains(name)) {
 			jClass.getDetail().addVariableType(name);
-			this.parser.debug("visitConstantClass: type = " + name);
+			if (this.parser.isDebug()) {
+				this.parser.debug("visitConstantClass: type = " + name);
+			}
 		}
 	}
 
@@ -32,14 +36,18 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 	public void visitConstantFieldref(ConstantFieldref obj) {
 		String name = obj.getClass(this.cp);
 		jClass.getDetail().addVariableType(name);
-		this.parser.debug("visitConstantFieldref: variable type = " + name);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitConstantFieldref: variable type = " + name);
+		}
 	}
 
 	@Override
 	public void visitConstantInterfaceMethodref(ConstantInterfaceMethodref obj) {
 		String name = obj.getClass(this.cp);
 		jClass.getDetail().addVariableType(name);
-		this.parser.debug("visitConstantInterfaceMethodref: variable type = " + name);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitConstantInterfaceMethodref: variable type = " + name);
+		}
 	}
 
 	@Override
@@ -48,7 +56,9 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 		String variableType = ParseTool.getType2(name);
 		if (variableType != null && !jClass.getDetail().getSupers().contains(variableType)) {
 			jClass.getDetail().addVariableType(variableType);
-			this.parser.debug("visitConstantMethodref: variable type = " + variableType);
+			if (this.parser.isDebug()) {
+				this.parser.debug("visitConstantMethodref: variable type = " + variableType);
+			}
 		}
 	}
 
@@ -61,21 +71,26 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 		if (packageName != null) {
 			jClass.setPackageName(packageName);
 		}
-
-		this.parser.debug("Parser: class name = " + jClass.getName());
-		this.parser.debug("Parser: abstract = " + jClass.isAbstract());
-		this.parser.debug("Parser: package name = " + jClass.getPackageName());
+		if (this.parser.isDebug()) {
+			this.parser.debug("Parser: class name = " + jClass.getName());
+			this.parser.debug("Parser: abstract = " + jClass.isAbstract());
+			this.parser.debug("Parser: package name = " + jClass.getPackageName());
+		}
 
 		// 处理父类
 		if (!obj.getSuperclassName().equals("java.lang.Object")) {
 			this.jClass.getDetail().setSuperClassName(obj.getSuperclassName());
-			this.parser
-					.debug("ParserSuperClassName: super class type = " + this.jClass.getDetail().getSuperClassName());
+			if (this.parser.isDebug()) {
+				this.parser.debug("ParserSuperClassName: super class type = "
+						+ this.jClass.getDetail().getSuperClassName());
+			}
 		}
 		// 处理接口
 		for (String interfaceName : obj.getInterfaceNames()) {
 			this.jClass.getDetail().addInterfaceName(interfaceName);
-			this.parser.debug("ParserInterfaceNames: interface type = " + interfaceName);
+			if (this.parser.isDebug()) {
+				this.parser.debug("ParserInterfaceNames: interface type = " + interfaceName);
+			}
 		}
 	}
 
@@ -90,19 +105,24 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 	public void visitField(Field obj) {
 		jdepend.metadata.Attribute attribute = new jdepend.metadata.Attribute(this.jClass, obj, false);
 		this.jClass.getDetail().addAttribute(attribute);
-		this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitField: obj.getSignature() = " + attribute.getSignature());
+		}
 	}
 
 	@Override
 	public void visitLocalVariable(LocalVariable obj) {
 		String name1 = obj.getSignature();
-		this.parser.debug("visitLocalVariable: obj.getSignature() = " + name1);
-		Collection<String> types = ParseUtil.signatureToTypes(name1);
-		for (String name : types) {
-			this.jClass.getDetail().addVariableType(name);
-			this.parser.debug("visitLocalVariable: variable type = " + name);
+		if (this.parser.isDebug()) {
+			this.parser.debug("visitLocalVariable: obj.getSignature() = " + name1);
+			Collection<String> types = ParseUtil.signatureToTypes(name1);
+			for (String name : types) {
+				this.jClass.getDetail().addVariableType(name);
+				if (this.parser.isDebug()) {
+					this.parser.debug("visitLocalVariable: variable type = " + name);
+				}
+			}
 		}
-
 	}
 
 	@Override
@@ -111,7 +131,9 @@ public class SmallClassFileVisitor extends JDependClassFileVisitor {
 			jdepend.metadata.Method method = new jdepend.metadata.Method(this.jClass, obj, false);
 			if (!obj.getName().equals("<clinit>")) {
 				this.jClass.getDetail().addMethod(method);
-				this.parser.debug("visitMethod: method type = " + obj);
+				if (this.parser.isDebug()) {
+					this.parser.debug("visitMethod: method type = " + obj);
+				}
 			}
 		}
 	}
