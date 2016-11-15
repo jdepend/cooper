@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jdepend.framework.util.StringUtil;
 import jdepend.metadata.TableInfo;
 
 public class SqlParserSelf extends SqlParser {
@@ -149,7 +148,7 @@ public class SqlParserSelf extends SqlParser {
 			} else {
 				tableResult = table;
 			}
-			if (tableResult != null) {
+			if (tableResult != null && tableResult.length() > 0) {
 				result.add(new TableInfo(tableResult, operarion));
 			}
 		}
