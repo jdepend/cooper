@@ -144,7 +144,7 @@ public final class Relation implements Comparable<Relation>, Serializable {
 	 */
 	public Float getAttentionLevel() {
 		if (!this.isAttention) {
-			return new Float(DefaultAttentionType);
+			return 0F;
 		}
 		if (this.attentionLevel == null) {
 			this.attentionLevel = this.calAttentionLevel();
