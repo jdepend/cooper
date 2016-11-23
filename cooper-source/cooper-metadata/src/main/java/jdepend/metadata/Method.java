@@ -66,8 +66,10 @@ public class Method extends AccessFlags {
 	private transient Collection<Method> cascadeInvokedMethods;
 
 	private transient JavaClass javaClass;
-	
+
 	public final static String CLINIT = "<clinit>";
+
+	public final static String INIT = "<init>";
 
 	public Method() {
 	}
@@ -301,7 +303,7 @@ public class Method extends AccessFlags {
 	}
 
 	public boolean isConstruction() {
-		return this.name.equals("<init>");
+		return this.name.equals(INIT);
 	}
 
 	public int getSelfLineCount() {
@@ -507,7 +509,7 @@ public class Method extends AccessFlags {
 		String argumentInfo = this.getArgumentInfo();
 		if (argumentInfo != null && argumentInfo.length() > 0) {
 			info.append("(");
-			info.append(this.getArgumentInfo());
+			info.append(argumentInfo);
 			info.append(")");
 		}
 

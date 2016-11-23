@@ -2,7 +2,6 @@ package jdepend.service.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 import jdepend.metadata.JavaClass;
 import jdepend.model.JavaClassUnit;
@@ -35,16 +34,16 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	private boolean confirmAbstractQualification(JavaClassUnit javaClassUnit) {
 
 		AnalysisResult result = javaClassUnit.getResult();
-		
+
 		Collection<JavaClass> subClasses = javaClassUnit.getJavaClass().getSubClasses();
 		// 子类数量大于指定数量
-		if (subClasses.size() > ChildJavaClassCount
-				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildCount)) {
+		if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_ChildCount)
+				&& subClasses.size() > ChildJavaClassCount) {
 			return true;
 		}
 		// 存在一个子类，又存在父类也具备抽象类计数资格
-		if (subClasses.size() > 0 && javaClassUnit.getJavaClass().getSupers().size() > 0
-				&& abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild)) {
+		if (abstractClassRules.contains(JavaClassUnitProfile.AbstractClassRule_SuperAndChild) && subClasses.size() > 0
+				&& javaClassUnit.getJavaClass().getSupers().size() > 0) {
 			return true;
 		}
 		// 子类不在一个组件中也具备抽象类计数资格
