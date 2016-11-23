@@ -1,8 +1,5 @@
 package jdepend.service.avertcheat.stabilityClassIdentifyer;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import jdepend.metadata.JavaClass;
 import jdepend.metadata.Method;
 import jdepend.model.JavaClassUnit;

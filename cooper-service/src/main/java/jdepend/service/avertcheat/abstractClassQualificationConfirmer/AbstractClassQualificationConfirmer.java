@@ -1,6 +1,7 @@
 package jdepend.service.avertcheat.abstractClassQualificationConfirmer;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import jdepend.metadata.JavaClass;
@@ -14,6 +15,14 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 
 	private static int ChildJavaClassCount = 1;
 
+	private Collection<String> abstractClassRules;
+
+	@Override
+	protected void init(AnalysisResult result) {
+		abstractClassRules = new HashSet<String>(result.getRunningContext().getProfileFacade()
+				.getJavaClassUnitProfile().getAbstractClassRules());
+	}
+
 	@Override
 	protected void handle(JavaClassUnit javaClass) {
 		if (this.confirmAbstractQualification(javaClass)) {
@@ -24,11 +33,9 @@ public final class AbstractClassQualificationConfirmer extends JavaClassAvertChe
 	}
 
 	private boolean confirmAbstractQualification(JavaClassUnit javaClassUnit) {
-		
-		AnalysisResult result = javaClassUnit.getResult();
-		List<String> abstractClassRules = result.getRunningContext().getProfileFacade().getJavaClassUnitProfile()
-				.getAbstractClassRules();
 
+		AnalysisResult result = javaClassUnit.getResult();
+		
 		Collection<JavaClass> subClasses = javaClassUnit.getJavaClass().getSubClasses();
 		// 子类数量大于指定数量
 		if (subClasses.size() > ChildJavaClassCount

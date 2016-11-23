@@ -21,8 +21,10 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 
 	@Override
 	public void onAnalyse(AnalysisResult result) {
-		
+
 		LogUtil.getInstance(this.getClass()).systemLog("开始执行JavaClassAvertCheat：" + this.getName());
+
+		this.init(result);
 
 		ExecutorService pool = ThreadPool.getPool();
 
@@ -41,10 +43,13 @@ public abstract class JavaClassAvertCheat extends AbstractAnalyseListener implem
 		}
 
 		ThreadPool.awaitTermination(pool);
-		
+
 		LogUtil.getInstance(this.getClass()).systemLog("结束执行JavaClassAvertCheat：" + this.getName());
 	}
 
 	protected abstract void handle(JavaClassUnit javaClassUnit);
+
+	protected void init(AnalysisResult result) {
+	}
 
 }
