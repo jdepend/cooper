@@ -2,8 +2,6 @@ package jdepend.parse.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import org.apache.bcel.Const;
@@ -30,11 +28,10 @@ public class MethodReaderChain {
 
 				try {
 					while (stream.available() > 0) {
-
+						int opcode = code[stream.getIndex()] & 0xff;
 						info = Utility.codeToString(stream, obj.getConstantPool(), true);
-
 						for (MethodReader reader : readers) {
-							reader.readInfo(info);
+							reader.readInfo(opcode, info);
 						}
 
 					}

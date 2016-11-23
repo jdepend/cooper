@@ -3,6 +3,8 @@ package jdepend.parse.impl;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.apache.bcel.Const;
+
 import jdepend.metadata.HttpInvokeItem;
 import jdepend.metadata.Method;
 import jdepend.parse.ParseConfigurator;
@@ -38,7 +40,7 @@ public class HttpInvokeMethodReader extends MethodReader {
 	}
 
 	@Override
-	protected void readInfo(String info) {
+	protected void readInfo(int opcode, String info) {
 
 		if (invokeClassNames.size() == 0) {
 			return;
@@ -48,7 +50,7 @@ public class HttpInvokeMethodReader extends MethodReader {
 		int pos;
 		String calledName;
 
-		if (info.startsWith("invokevirtual") || info.startsWith("invokespecial") || info.startsWith("invokestatic")) {
+		if (opcode == Const.INVOKEVIRTUAL || opcode == Const.INVOKESPECIAL || opcode == Const.INVOKESTATIC) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
 				pos = infos[1].lastIndexOf('.');
@@ -65,12 +67,12 @@ public class HttpInvokeMethodReader extends MethodReader {
 					}
 				}
 			}
-		} else if (info.startsWith("ldc")) {
+		} else if (opcode == Const.LDC) {
 			infos = info.split("\\s+");
 			if (infos.length > 0 && infos[1].startsWith("\"/")) {
 				url = infos[1];
 			}
-		} else if (info.startsWith("getstatic")) {
+		} else if (opcode == Const.GETSTATIC) {
 			infos = info.split("\\s+");
 			if (infos.length > 0) {
 				pos = infos[1].lastIndexOf('.');

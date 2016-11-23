@@ -1,5 +1,7 @@
 package jdepend.parse.impl;
 
+import org.apache.bcel.Const;
+
 import jdepend.metadata.InvokeItem;
 import jdepend.metadata.JavaPackage;
 import jdepend.metadata.LocalInvokeItem;
@@ -21,23 +23,24 @@ public class GeneralMethodReader extends MethodReader {
 	}
 
 	@Override
-	protected void readInfo(String info) {
+	protected void readInfo(int opcode, String info) {
 
 		String[] infos;
 		int pos;
 		int pos2;
-		
+
 		String calledPlace;
 		String calledName;
 		String calledPackageName;
 		String calledMethod;
 		String calledMethodSignature;
-		
+
 		String callType;
 		int index;
 		String fieldName;
-	
-		if (info.startsWith("invoke")) {
+
+		if (opcode == Const.INVOKEVIRTUAL || opcode == Const.INVOKESPECIAL || opcode == Const.INVOKENONVIRTUAL
+				|| opcode == Const.INVOKESTATIC || opcode == Const.INVOKEINTERFACE || opcode == Const.INVOKEDYNAMIC) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
 				pos = infos[1].lastIndexOf('.');
@@ -56,17 +59,18 @@ public class GeneralMethodReader extends MethodReader {
 						calledPackageName = JavaPackage.Default;
 					}
 					if (filter.accept(calledPackageName) && filter.acceptClass(calledName)) {
-						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod, calledMethodSignature);
+						InvokeItem item = new LocalInvokeItem(callType, calledPlace, calledName, calledMethod,
+								calledMethodSignature);
 						method.addInvokeItem(item);
 					}
 				}
 			}
-		} else if (info.startsWith("getfield")) {
+		} else if (opcode == Const.GETFIELD) {
 			fieldName = this.getFieldName(info);
 			if (fieldName != null) {
 				method.addReadField(fieldName);
 			}
-		} else if (info.startsWith("putfield")) {
+		} else if (opcode == Const.PUTFIELD) {
 			fieldName = this.getFieldName(info);
 			if (fieldName != null) {
 				method.addWriteField(fieldName);

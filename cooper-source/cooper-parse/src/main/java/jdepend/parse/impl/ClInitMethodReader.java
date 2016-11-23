@@ -1,5 +1,7 @@
 package jdepend.parse.impl;
 
+import org.apache.bcel.Const;
+
 import jdepend.metadata.Attribute;
 import jdepend.metadata.Method;
 
@@ -18,13 +20,13 @@ public class ClInitMethodReader extends MethodReader {
 	}
 
 	@Override
-	protected void readInfo(String info) {
+	protected void readInfo(int opcode, String info) {
 
 		String[] infos;
 		int pos;
 		String staticAtributeName;
 
-		if (info.startsWith("putstatic")) {
+		if (opcode == Const.PUTSTATIC) {
 			infos = info.split("\\s+");
 			if (infos.length > 1) {
 				pos = infos[1].lastIndexOf('.');
@@ -42,7 +44,7 @@ public class ClInitMethodReader extends MethodReader {
 
 				}
 			}
-		} else if (info.startsWith("ldc")) {
+		} else if (opcode == Const.LDC) {
 			infos = info.split("\\s+");
 			if (infos.length > 1 && infos[1].length() > 2) {
 				staticValue += infos[1].substring(1, infos[1].length() - 1);

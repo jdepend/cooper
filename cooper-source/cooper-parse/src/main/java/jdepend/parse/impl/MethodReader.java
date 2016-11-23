@@ -17,6 +17,6 @@ public abstract class MethodReader {
 		this.method = method;
 	}
 
-	protected abstract void readInfo(String info);
+	protected abstract void readInfo(int opcode, String info);
 
 }
