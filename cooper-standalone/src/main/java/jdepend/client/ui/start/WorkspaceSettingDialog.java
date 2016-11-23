@@ -5,6 +5,9 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -76,6 +79,14 @@ public class WorkspaceSettingDialog extends JDialog {
 		if (setting.getWorkspacePath() != null) {
 			workspacePath.setText(setting.getWorkspacePath());
 		}
+		workspacePath.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					interWorkspace(e.getComponent());
+				}
+			}
+		});
 
 		JPanel pathPanel = new JPanel(new BorderLayout());
 		pathPanel.add(BorderLayout.CENTER, workspacePath);
@@ -133,35 +144,7 @@ public class WorkspaceSettingDialog extends JDialog {
 		JButton button = new JButton(BundleUtil.getString(BundleUtil.Command_OK));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (workspacePath.getText() == null || workspacePath.getText().length() == 0) {
-					JOptionPane.showMessageDialog((Component) e.getSource(), "请录入工作区路径", "alert",
-							JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				try {
-					if (setting.getWorkspacePath() == null
-							|| !setting.getWorkspacePath().equals(workspacePath.getText())) {
-						setting.initWorkspace(workspacePath.getText());
-						setting.save();
-					}
-					if (welcomeDialog != null) {// 客户端启动时
-						frame.start(args, setting);
-						welcomeDialog.dispose();
-					} else {// 切换工作区时
-						// 保存原UI信息
-						UIPropertyConfigurator.getInstance().save();
-						// 设置workspacePath
-						JDependContext.setWorkspacePath(setting.getWorkspacePath());
-						// 刷新frame
-						frame.refresh();
-					}
-					WorkspaceSettingDialog.this.dispose();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "设置工作区失败", "alert", JOptionPane.ERROR_MESSAGE);
-				}
-
+				interWorkspace((Component) e.getSource());
 			}
 		});
 
@@ -183,5 +166,34 @@ public class WorkspaceSettingDialog extends JDialog {
 		});
 
 		return button;
+	}
+
+	private void interWorkspace(Component component) {
+		if (workspacePath.getText() == null || workspacePath.getText().length() == 0) {
+			JOptionPane.showMessageDialog(component, "请录入工作区路径", "alert", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		try {
+			if (setting.getWorkspacePath() == null || !setting.getWorkspacePath().equals(workspacePath.getText())) {
+				setting.initWorkspace(workspacePath.getText());
+				setting.save();
+			}
+			if (welcomeDialog != null) {// 客户端启动时
+				frame.start(args, setting);
+				welcomeDialog.dispose();
+			} else {// 切换工作区时
+				// 保存原UI信息
+				UIPropertyConfigurator.getInstance().save();
+				// 设置workspacePath
+				JDependContext.setWorkspacePath(setting.getWorkspacePath());
+				// 刷新frame
+				frame.refresh();
+			}
+			WorkspaceSettingDialog.this.dispose();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, "设置工作区失败", "alert", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
