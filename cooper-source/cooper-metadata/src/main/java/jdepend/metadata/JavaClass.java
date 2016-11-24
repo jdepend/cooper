@@ -95,6 +95,8 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 
 	private final static String haveStateJavaClasses = "haveStateJavaClasses";
 
+	private static final String InnerClassSymbol = "$";
+
 	public JavaClass(String name, boolean isInner, int access_flags) {
 		this(name, isInner);
 		this.access_flags = access_flags;
@@ -144,7 +146,7 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 	 * @return
 	 */
 	public boolean isInnerClass() {
-		if (this.getName().indexOf("$") > 0) {
+		if (this.getName().indexOf(InnerClassSymbol) > 0) {
 			return true;
 		} else {
 			return false;
@@ -152,7 +154,7 @@ public final class JavaClass extends AccessFlags implements Candidate, Comparabl
 	}
 
 	public String getHostClassId() {
-		int pos = this.getName().indexOf("$");
+		int pos = this.getName().indexOf(InnerClassSymbol);
 		if (pos != -1) {
 			return CandidateUtil.getId(this.getPlace(), this.getName().substring(0, pos));
 		} else {
