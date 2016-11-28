@@ -4,14 +4,26 @@ import java.text.NumberFormat;
 
 public class MetricsFormat {
 
+	private static NumberFormat nf;
+
+	private static NumberFormat nf1;
+
+	static {
+		nf = NumberFormat.getInstance();
+		nf.setGroupingUsed(false);
+		nf.setMaximumFractionDigits(3);
+		nf.setMinimumFractionDigits(1);
+
+		nf1 = NumberFormat.getInstance();
+		nf1.setGroupingUsed(false);
+		nf1.setMaximumFractionDigits(1);
+		nf1.setMinimumFractionDigits(1);
+	}
+
 	public static Float toFormattedScore(Float f) {
 		if (f == null) {
 			return toFormattedScore(0F);
 		} else {
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumFractionDigits(3);
-			nf.setMinimumFractionDigits(1);
 			return new Float(nf.format(f));
 		}
 	}
@@ -20,11 +32,7 @@ public class MetricsFormat {
 		if (f == null) {
 			return toFormattedPercent(0F);
 		} else {
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumFractionDigits(1);
-			nf.setMinimumFractionDigits(1);
-			return nf.format(toFormattedScore(f) * 100) + "%";
+			return nf1.format(toFormattedScore(f) * 100) + "%";
 		}
 	}
 
@@ -32,10 +40,6 @@ public class MetricsFormat {
 		if (f == null) {
 			return null;
 		} else {
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumFractionDigits(3);
-			nf.setMinimumFractionDigits(1);
 			return new Float(nf.format(f));
 		}
 	}
@@ -44,10 +48,6 @@ public class MetricsFormat {
 		if (f == null) {
 			return null;
 		} else {
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumFractionDigits(3);
-			nf.setMinimumFractionDigits(1);
 			return new Float(nf.format(f));
 		}
 	}
