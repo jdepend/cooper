@@ -20,7 +20,7 @@
       <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
     </text>
   </splashScreen>
-  <java mainClass="jdepend.client.ui.JDependCooper" vmParameters="-Xms128m -Xmx1024m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="jdepend.client.ui.JDependCooper" vmParameters="-Xms512m -Xmx2048m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
@@ -56,7 +56,7 @@
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
       <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
-  </classPath>
+    </classPath>
     <nativeLibraryDirectories />
   </java>
   <includedFiles />

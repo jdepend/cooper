@@ -20,7 +20,7 @@
       <versionLine x="20" y="40" text="version %VERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
     </text>
   </splashScreen>
-  <java mainClass="jdepend.client.ui.JDependCooper" vmParameters="-Xms256m -Xmx2048m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
+  <java mainClass="jdepend.client.ui.JDependCooper" vmParameters="-Xms512m -Xmx6144m" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.7" maxVersion="1.8" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
       <registry />
       <envVar name="JAVA_HOME" />
