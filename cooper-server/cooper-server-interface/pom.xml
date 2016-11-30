@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cooper</groupId>
 		<artifactId>cooper-server</artifactId>
-		<version>1.2.5_12-SNAPSHOT</version>
+		<version>1.2.5_13-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-server-interface</artifactId>
 	<name>cooper-server-interface</name>

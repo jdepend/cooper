@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="4.5.2" transformSequenceNumber="1">
-  <directoryPresets config="./../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib" />
+  <directoryPresets config="./../../cooper-webserver/target/cooper-webserver-1.2.5_13-SNAPSHOT/WEB-INF/lib" />
   <application name="Cooper" distributionSourceDir=".">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
@@ -27,35 +27,35 @@
       <envVar name="JDK_HOME" />
     </searchSequence>
     <classPath>
-      <archive location="../../cooper-standalone/target/cooper-standalone-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-framework/cooper-framework-ui/target/cooper-framework-ui-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-standalone/target/cooper-standalone-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-ui/target/cooper-framework-ui-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-standalone/lib/forms-1.0.7.jar" failOnError="false" />
       <archive location="../../cooper-standalone/lib/JMeld-2.1_all.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jxl-2.6.10.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jfreechart-1.0.14.jar" failOnError="false" />
       <archive location="../../cooper-framework/cooper-framework-ui/target/dependency/jcommon-1.0.17.jar" failOnError="false" />
       <archive location="../../cooper-standalone/target/dependency/prefuse-beta-20071021.jar" failOnError="false" />
-      <archive location="../../cooper-core/cooper-core-domain/target/cooper-core-domain-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-core/cooper-core-score/target/cooper-core-score-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-core/cooper-core-serviceproxy/target/cooper-core-serviceproxy-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-core/cooper-core-util/target/cooper-core-util-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-util/cooper-util-analyzer/target/cooper-util-analyzer-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-util/cooper-util-refactor/target/cooper-util-refactor-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-util/cooper-util-todolist/target/cooper-util-todolist-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-service/target/cooper-service-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-knowledge/cooper-knowledge-architectpattern/target/cooper-knowledge-architectpattern-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-knowledge/cooper-knowledge-database/target/cooper-knowledge-database-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-knowledge/cooper-knowledge-domainanalysis/target/cooper-knowledge-domainanalysis-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-knowledge/cooper-knowledge-pattern/target/cooper-knowledge-pattern-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model/cooper-model-core/target/cooper-model-core-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-model/cooper-model-ext/cooper-model-ext-util/target/cooper-model-ext-util-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-source/cooper-parse/target/cooper-parse-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-source/cooper-metadata/target/cooper-metadata-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-domain/target/cooper-core-domain-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-score/target/cooper-core-score-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-serviceproxy/target/cooper-core-serviceproxy-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-core/cooper-core-util/target/cooper-core-util-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-analyzer/target/cooper-util-analyzer-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-refactor/target/cooper-util-refactor-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-util/cooper-util-todolist/target/cooper-util-todolist-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-service/target/cooper-service-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-knowledge/cooper-knowledge-architectpattern/target/cooper-knowledge-architectpattern-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-knowledge/cooper-knowledge-database/target/cooper-knowledge-database-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-knowledge/cooper-knowledge-domainanalysis/target/cooper-knowledge-domainanalysis-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-knowledge/cooper-knowledge-pattern/target/cooper-knowledge-pattern-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-model/cooper-model-core/target/cooper-model-core-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-model/cooper-model-ext/cooper-model-ext-util/target/cooper-model-ext-util-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-source/cooper-parse/target/cooper-parse-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-source/cooper-metadata/target/cooper-metadata-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
       <archive location="../../cooper-source/cooper-metadata/target/dependency/bcel-6.0.jar" failOnError="false" />
-      <archive location="../../cooper-framework/cooper-framework-core/target/cooper-framework-core-1.2.5_12-SNAPSHOT.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
-      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_12-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
+      <archive location="../../cooper-framework/cooper-framework-core/target/cooper-framework-core-1.2.5_13-SNAPSHOT.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_13-SNAPSHOT/WEB-INF/lib/commons-beanutils-core-1.8.3.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_13-SNAPSHOT/WEB-INF/lib/commons-logging-1.1.3.jar" failOnError="false" />
+      <archive location="../../cooper-webserver/target/cooper-webserver-1.2.5_13-SNAPSHOT/WEB-INF/lib/hsqldb-2.2.6.jar" failOnError="false" />
     </classPath>
     <nativeLibraryDirectories />
   </java>

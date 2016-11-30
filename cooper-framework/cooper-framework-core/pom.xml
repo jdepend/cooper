@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>cooper-framework</artifactId>
 		<groupId>cooper</groupId>
-		<version>1.2.5_12-SNAPSHOT</version>
+		<version>1.2.5_13-SNAPSHOT</version>
 	</parent>
 	<artifactId>cooper-framework-core</artifactId>
 	<name>cooper-framework-core</name>
