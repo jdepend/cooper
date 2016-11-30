@@ -23,7 +23,7 @@ public final class MathUtil {
 	public static int compare(Float arg1, Float arg2) {
 		if (arg1 == null || arg2 == null) {
 			return 0;
-		} else if (Math.abs(arg1 - arg2) < 0.0000001) {
+		} else if (Math.abs(arg1 - arg2) < zero) {
 			return 0;
 		} else if (arg1 < arg2) {
 			return -1;
@@ -35,7 +35,7 @@ public final class MathUtil {
 	public static int compare(Integer arg1, Integer arg2) {
 		if (arg1 == null || arg2 == null) {
 			return 0;
-		} else if (Math.abs(arg1 - arg2) < 0.0000001) {
+		} else if (Math.abs(arg1 - arg2) < zero) {
 			return 0;
 		} else if (arg1 < arg2) {
 			return -1;
