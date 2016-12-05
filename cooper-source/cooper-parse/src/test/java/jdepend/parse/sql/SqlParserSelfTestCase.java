@@ -10,7 +10,7 @@ public class SqlParserSelfTestCase extends TestCase{
 	public void test(){
 		String sql;
 		SqlParserSelf engine = new SqlParserSelf();
-		List tempList;
+		List<TableInfo> tempList;
 		
 //		sql = "select * from  tableA aa , tableD dd where * from (select * from tableB  where * from (select * from tableC))";
 //		tempList = engine.parserSelectSql(sql);
@@ -24,9 +24,8 @@ public class SqlParserSelfTestCase extends TestCase{
 		sql = "select tip, m, dd from analyzer";
 		tempList = engine.parserSelectSql(sql);
 		for (int i = 0; i < tempList.size(); i++) {
-			String[] result = (String[]) tempList.get(i);
-			System.out.println("表名 ：" + result[0]);
-			System.out.println("别名 ：" + result[1]);
+			TableInfo result = (TableInfo) tempList.get(i);
+			System.out.println("表名 ：" + result.getTableName());
 			System.out.println("==========================================");
 		}
 //
@@ -80,9 +79,8 @@ public class SqlParserSelfTestCase extends TestCase{
 		engine = new SqlParserSelf();
 		tempList = engine.parserSelectSql(sql);
 		for (int i = 0; i < tempList.size(); i++) {
-			String[] result = (String[]) tempList.get(i);
-			System.out.println("表名 ：" + result[0]);
-			System.out.println("别名 ：" + result[1]);
+			TableInfo result = (TableInfo) tempList.get(i);
+			System.out.println("表名 ：" + result.getTableName());
 			System.out.println("==========================================");
 		}
 	}	

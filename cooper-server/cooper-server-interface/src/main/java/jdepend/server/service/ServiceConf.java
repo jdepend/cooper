@@ -2,6 +2,7 @@ package jdepend.server.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import jdepend.model.result.ProfileFacadeImpl;
@@ -18,7 +19,7 @@ public class ServiceConf implements Serializable {
 
 	private Properties serviceProperties;
 
-	private Properties parseProperties;
+	private Map<String, String> parseProperties;
 
 	private List<String> filteredPackages;
 
@@ -36,11 +37,11 @@ public class ServiceConf implements Serializable {
 		this.serviceProperties = serviceProperties;
 	}
 
-	public Properties getParseProperties() {
+	public Map<String, String> getParseProperties() {
 		return parseProperties;
 	}
 
-	public void setParseProperties(Properties parseProperties) {
+	public void setParseProperties(Map<String, String> parseProperties) {
 		this.parseProperties = parseProperties;
 	}
 

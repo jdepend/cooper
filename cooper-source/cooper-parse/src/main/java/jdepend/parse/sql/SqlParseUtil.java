@@ -10,7 +10,7 @@ public class SqlParseUtil {
 //	private static SqlParser parser = new SqlParserThird();
 	
 	public static boolean isSQL(String arg){
-		return parser.isSQL(arg);
+		return SqlParser.isSQL(arg);
 	}
 	
 	public static List<TableInfo> parserSql(String sql){

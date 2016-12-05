@@ -19,10 +19,13 @@ public abstract class SqlParser {
 		sqlKeys.add("delete ");
 	}
 
-	public boolean isSQL(String arg) {
+	public static boolean isSQL(String arg) {
 		if (arg == null) {
 			return false;
 		} else {
+			if (arg.length() < 7) {
+				return false;
+			}
 			arg = arg.toLowerCase();
 			for (String sqlKey : sqlKeys) {
 				if (arg.indexOf(sqlKey) != -1) {

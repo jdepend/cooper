@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import jdepend.framework.context.JDependContext;
@@ -22,7 +24,7 @@ import jdepend.parse.impl.PackageFilter;
  */
 public class ParseConfigurator {
 
-	private Properties properties;
+	private Map<String, String> properties;
 
 	public transient static final String DEFAULT_PROPERTY_DIR = "conf";
 
@@ -31,6 +33,18 @@ public class ParseConfigurator {
 	private PackageFilter packageFilter;
 
 	private JavaClassRelationTypes javaClassRelationTypes;
+
+	private static final String analyzeInnerClasses = "analyzeInnerClasses";
+
+	private static final String parseDebug = "parseDebug";
+
+	private static final String everyClassBuild = "everyClassBuild";
+
+	private static final String ClassFileParser = "ClassFileParser";
+
+	private static final String httpInvokeClassNames = "httpInvokeClassNames";
+
+	private static final String analyzeModel = "analyzeModel";
 
 	public ParseConfigurator() {
 		this(new DefaultJavaClassRelationItemProfile().getJavaClassRelationTypes());
@@ -43,7 +57,7 @@ public class ParseConfigurator {
 		this.javaClassRelationTypes = javaClassRelationTypes;
 	}
 
-	public ParseConfigurator(Properties p) {
+	public ParseConfigurator(Map<String, String> p) {
 		this.properties = p;
 	}
 
@@ -59,15 +73,14 @@ public class ParseConfigurator {
 		this.packageFilter = packageFilter;
 	}
 
-	public Properties getProperties() {
+	public Map<String, String> getProperties() {
 		return properties;
 	}
 
 	public boolean getAnalyzeInnerClasses() {
 
-		String key = "analyzeInnerClasses";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
+		if (properties.containsKey(analyzeInnerClasses)) {
+			String value = properties.get(analyzeInnerClasses);
 			return new Boolean(value).booleanValue();
 		}
 
@@ -76,9 +89,8 @@ public class ParseConfigurator {
 
 	public boolean getParseDebug() {
 
-		String key = "parseDebug";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
+		if (properties.containsKey(parseDebug)) {
+			String value = properties.get(parseDebug);
 			return new Boolean(value).booleanValue();
 		}
 
@@ -87,9 +99,8 @@ public class ParseConfigurator {
 
 	public boolean getEveryClassBuild() {
 
-		String key = "everyClassBuild";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
+		if (properties.containsKey(everyClassBuild)) {
+			String value = properties.get(everyClassBuild);
 			return new Boolean(value).booleanValue();
 		}
 
@@ -98,9 +109,8 @@ public class ParseConfigurator {
 
 	public String getClassFileParser() {
 
-		String key = "ClassFileParser";
-		if (properties.containsKey(key)) {
-			return properties.getProperty(key);
+		if (properties.containsKey(ClassFileParser)) {
+			return properties.get(ClassFileParser);
 		}
 
 		return null;
@@ -108,9 +118,8 @@ public class ParseConfigurator {
 
 	public String[] getHttpInvokeClassNames() {
 
-		String key = "httpInvokeClassNames";
-		if (properties.containsKey(key)) {
-			String value = properties.getProperty(key);
+		if (properties.containsKey(httpInvokeClassNames)) {
+			String value = properties.get(httpInvokeClassNames);
 			return value.split(",");
 		}
 
@@ -119,9 +128,8 @@ public class ParseConfigurator {
 
 	public String getAnalyzeModel() {
 
-		String key = "analyzeModel";
-		if (properties.containsKey(key)) {
-			return properties.getProperty(key);
+		if (properties.containsKey(analyzeModel)) {
+			return properties.get(analyzeModel);
 		}
 
 		return null;
@@ -140,7 +148,7 @@ public class ParseConfigurator {
 		return new File(home, DEFAULT_PROPERTY_FILE);
 	}
 
-	private static Properties loadProperties(File file) {
+	private static Map<String, String> loadProperties(File file) {
 
 		Properties p = new Properties();
 
@@ -174,6 +182,6 @@ public class ParseConfigurator {
 			}
 		}
 
-		return p;
+		return new HashMap<String, String>((Map) p);
 	}
 }
